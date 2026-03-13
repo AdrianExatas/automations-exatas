@@ -1,0 +1,994 @@
+{
+  "info": {
+    "_postman_id": "e432e96b-6968-4897-a2a1-a48f546fab2f",
+    "name": "GESTTA",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "48982116"
+  },
+  "item": [
+    {
+      "name": "Listar Clientes",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "accept",
+            "value": "application/json, text/plain, */*"
+          },
+          {
+            "key": "accept-language",
+            "value": "pt-BR,pt;q=0.9"
+          },
+          {
+            "key": "authorization",
+            "value": "JWT {{JWT-Gestta}}"
+          },
+          {
+            "key": "if-none-match",
+            "value": "W/\"3373-W0kcs2Zo46v7buugfvkjvQC2vQQ\""
+          },
+          {
+            "key": "origin",
+            "value": "https://app.gestta.com.br"
+          },
+          {
+            "key": "priority",
+            "value": "u=1, i"
+          },
+          {
+            "key": "referer",
+            "value": "https://app.gestta.com.br/"
+          },
+          {
+            "key": "sec-ch-ua",
+            "value": "\"Not:A-Brand\";v=\"99\", \"Google Chrome\";v=\"145\", \"Chromium\";v=\"145\""
+          },
+          {
+            "key": "sec-ch-ua-mobile",
+            "value": "?0"
+          },
+          {
+            "key": "sec-ch-ua-platform",
+            "value": "\"Windows\""
+          },
+          {
+            "key": "sec-fetch-dest",
+            "value": "empty"
+          },
+          {
+            "key": "sec-fetch-mode",
+            "value": "cors"
+          },
+          {
+            "key": "sec-fetch-site",
+            "value": "same-site"
+          },
+          {
+            "key": "user-agent",
+            "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+          }
+        ],
+        "url": {
+          "raw": "https://api.gestta.com.br/admin/customer?active=true&limit=500&page=1&search=",
+          "protocol": "https",
+          "host": [
+            "api",
+            "gestta",
+            "com",
+            "br"
+          ],
+          "path": [
+            "admin",
+            "customer"
+          ],
+          "query": [
+            {
+              "key": "active",
+              "value": "true"
+            },
+            {
+              "key": "limit",
+              "value": "500"
+            },
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "search",
+              "value": ""
+            }
+          ]
+        },
+        "description": "Generated from cURL: curl '[https://api.gestta.com.br/admin/customer?active=true&amp;limit=500&amp;page=1&amp;search='](https://api.gestta.com.br/admin/customer?active=true&limit=15&page=1&search=')  \n\\-H 'accept: application/json, text/plain, _/_'  \n\\-H 'accept-language: pt-BR,pt;q=0.9'  \n\\-H 'authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODkxMTAzMGRlNTg1MzY5NzU4ZjQ5YjIiLCJuYW1lIjoiQWRyaWFuIEhhZWxpc3NvbiIsImNvbXBhbnlfZGVwYXJ0bWVudHMiOlsiNjE2MDc1Y2ZkZDhjODIwMDA2ODMyNWJkIl0sInJvbGUiOiJST0xFX0FETUlOIiwiYWN0aXZlIjp0cnVlLCJlbWFpbCI6ImFkcmlhbkBleGF0YXNjb250YWJpbGlkYWRlLmNvbS5iciIsInZpZXdlciI6ZmFsc2UsImxhc3RfbG9naW4iOiIyMDI2LTAyLTIwVDE0OjA3OjQzLjk4M1oiLCJub3RpZnlfbmV3X2N1c3RvbWVycyI6eyJsYXN0X2xvZ2luIjpudWxsLCJub3RpZmllZCI6ZmFsc2V9LCJub3RpZnlfY3VzdG9tZXJfY2hhbmdlcyI6eyJub3RpZmllZCI6dHJ1ZX0sImNvbXBhbnkiOnsiX2lkIjoiNjBiNjFlYmMxZGE2ODMwMDA2MzIyZTFlIiwibmFtZSI6Ik1BUkNJTElPIEFMVkVTIEFORFJBREUiLCJzdGF0dXMiOiJQUk9EVUNUSU9OIiwibGFuZ3VhZ2UiOiJwdC1CUiIsImNucGoiOiIyNzkzOTE1NDAwMDEwOCJ9LCJpYXQiOjE3NzE1OTcwNjQsImV4cCI6MTc3MTY4MTY2NH0.P9Gn2ZH1aghvYUmbjDbGFeoKz_mIQsLKM5NKeaoVGxU'  \n\\-H 'if-none-match: W/\"3373-W0kcs2Zo46v7buugfvkjvQC2vQQ\"'  \n\\-H 'origin: [https://app.gestta.com.br'](https://app.gestta.com.br')  \n\\-H 'priority: u=1, i'  \n\\-H 'referer: [https://app.gestta.com.br/'](https://app.gestta.com.br/')  \n\\-H 'sec-ch-ua: \"Not:A-Brand\";v=\"99\", \"Google Chrome\";v=\"145\", \"Chromium\";v=\"145\"'  \n\\-H 'sec-ch-ua-mobile: ?0'  \n\\-H 'sec-ch-ua-platform: \"Windows\"'  \n\\-H 'sec-fetch-dest: empty'  \n\\-H 'sec-fetch-mode: cors'  \n\\-H 'sec-fetch-site: same-site'  \n\\-H 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36'"
+      },
+      "response": []
+    },
+    {
+      "name": "Listar Todas Tarefas",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "accept",
+            "value": "application/json, text/plain, */*"
+          },
+          {
+            "key": "accept-language",
+            "value": "en-US,en;q=0.9,pt;q=0.8"
+          },
+          {
+            "key": "authorization",
+            "value": "JWT {{JWT-Gestta}}"
+          },
+          {
+            "key": "if-none-match",
+            "value": "W/\"58a16-PZ2LERyJzz95aMNVr9nM27lFCm0\""
+          },
+          {
+            "key": "origin",
+            "value": "https://app.gestta.com.br"
+          },
+          {
+            "key": "priority",
+            "value": "u=1, i"
+          },
+          {
+            "key": "referer",
+            "value": "https://app.gestta.com.br/"
+          },
+          {
+            "key": "sec-ch-ua",
+            "value": "\"Not(A:Brand\";v=\"8\", \"Chromium\";v=\"144\", \"Google Chrome\";v=\"144\""
+          },
+          {
+            "key": "sec-ch-ua-mobile",
+            "value": "?0"
+          },
+          {
+            "key": "sec-ch-ua-platform",
+            "value": "\"Windows\""
+          },
+          {
+            "key": "sec-fetch-dest",
+            "value": "empty"
+          },
+          {
+            "key": "sec-fetch-mode",
+            "value": "cors"
+          },
+          {
+            "key": "sec-fetch-site",
+            "value": "same-site"
+          },
+          {
+            "key": "user-agent",
+            "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"
+          }
+        ],
+        "url": {
+          "raw": "https://api.gestta.com.br/admin/company/task?type=RECURRENT",
+          "protocol": "https",
+          "host": [
+            "api",
+            "gestta",
+            "com",
+            "br"
+          ],
+          "path": [
+            "admin",
+            "company",
+            "task"
+          ],
+          "query": [
+            {
+              "key": "type",
+              "value": "RECURRENT"
+            }
+          ]
+        },
+        "description": "Generated from cURL: curl 'https://api.gestta.com.br/admin/company/task?type=RECURRENT' \\\r\n  -H 'accept: application/json, text/plain, */*' \\\r\n  -H 'accept-language: en-US,en;q=0.9,pt;q=0.8' \\\r\n  -H 'authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODkxMTAzMGRlNTg1MzY5NzU4ZjQ5YjIiLCJuYW1lIjoiQWRyaWFuIEhhZWxpc3NvbiIsImNvbXBhbnlfZGVwYXJ0bWVudHMiOlsiNjE2MDc1Y2ZkZDhjODIwMDA2ODMyNWJkIl0sInJvbGUiOiJST0xFX0FETUlOIiwiYWN0aXZlIjp0cnVlLCJlbWFpbCI6ImFkcmlhbkBleGF0YXNjb250YWJpbGlkYWRlLmNvbS5iciIsInZpZXdlciI6ZmFsc2UsImxhc3RfbG9naW4iOiIyMDI2LTAyLTEzVDE0OjQwOjAyLjg0MVoiLCJub3RpZnlfbmV3X2N1c3RvbWVycyI6eyJsYXN0X2xvZ2luIjpudWxsLCJub3RpZmllZCI6ZmFsc2V9LCJub3RpZnlfY3VzdG9tZXJfY2hhbmdlcyI6eyJub3RpZmllZCI6dHJ1ZX0sImNvbXBhbnkiOnsiX2lkIjoiNjBiNjFlYmMxZGE2ODMwMDA2MzIyZTFlIiwibmFtZSI6Ik1BUkNJTElPIEFMVkVTIEFORFJBREUiLCJzdGF0dXMiOiJQUk9EVUNUSU9OIiwibGFuZ3VhZ2UiOiJwdC1CUiIsImNucGoiOiIyNzkzOTE1NDAwMDEwOCJ9LCJpYXQiOjE3NzE0NDYzMzMsImV4cCI6MTc3MTUzMDkzM30.hHy-0O0-B6AMD_bNTuUNTaaRYCmIQ0y_JYzgNibdqP0' \\\r\n  -H 'if-none-match: W/\"58a16-PZ2LERyJzz95aMNVr9nM27lFCm0\"' \\\r\n  -H 'origin: https://app.gestta.com.br' \\\r\n  -H 'priority: u=1, i' \\\r\n  -H 'referer: https://app.gestta.com.br/' \\\r\n  -H 'sec-ch-ua: \"Not(A:Brand\";v=\"8\", \"Chromium\";v=\"144\", \"Google Chrome\";v=\"144\"' \\\r\n  -H 'sec-ch-ua-mobile: ?0' \\\r\n  -H 'sec-ch-ua-platform: \"Windows\"' \\\r\n  -H 'sec-fetch-dest: empty' \\\r\n  -H 'sec-fetch-mode: cors' \\\r\n  -H 'sec-fetch-site: same-site' \\\r\n  -H 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36'"
+      },
+      "response": []
+    },
+    {
+      "name": "Listar Tarefas Empresa",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "accept",
+            "value": "application/json, text/plain, */*"
+          },
+          {
+            "key": "accept-language",
+            "value": "en-US,en;q=0.9,pt;q=0.8"
+          },
+          {
+            "key": "authorization",
+            "value": "JWT {{JWT-Gestta}}"
+          },
+          {
+            "key": "if-none-match",
+            "value": "W/\"12d96-gtM4QRL1f4AwwM/mForsTaV5OLY\""
+          },
+          {
+            "key": "origin",
+            "value": "https://app.gestta.com.br"
+          },
+          {
+            "key": "priority",
+            "value": "u=1, i"
+          },
+          {
+            "key": "referer",
+            "value": "https://app.gestta.com.br/"
+          },
+          {
+            "key": "sec-ch-ua",
+            "value": "\"Not:A-Brand\";v=\"99\", \"Google Chrome\";v=\"145\", \"Chromium\";v=\"145\""
+          },
+          {
+            "key": "sec-ch-ua-mobile",
+            "value": "?0"
+          },
+          {
+            "key": "sec-ch-ua-platform",
+            "value": "\"Windows\""
+          },
+          {
+            "key": "sec-fetch-dest",
+            "value": "empty"
+          },
+          {
+            "key": "sec-fetch-mode",
+            "value": "cors"
+          },
+          {
+            "key": "sec-fetch-site",
+            "value": "same-site"
+          },
+          {
+            "key": "user-agent",
+            "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+          }
+        ],
+        "url": {
+          "raw": "https://api.gestta.com.br/admin/customer/654bb8c4b0aad30006860832/company/task",
+          "protocol": "https",
+          "host": [
+            "api",
+            "gestta",
+            "com",
+            "br"
+          ],
+          "path": [
+            "admin",
+            "customer",
+            "654bb8c4b0aad30006860832",
+            "company",
+            "task"
+          ]
+        },
+        "description": "Generated from cURL: curl 'https://api.gestta.com.br/admin/customer/66d5a7f7a247790007320256/company/task' \\\r\n  -H 'accept: application/json, text/plain, */*' \\\r\n  -H 'accept-language: en-US,en;q=0.9,pt;q=0.8' \\\r\n  -H 'authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODkxMTAzMGRlNTg1MzY5NzU4ZjQ5YjIiLCJuYW1lIjoiQWRyaWFuIEhhZWxpc3NvbiIsImNvbXBhbnlfZGVwYXJ0bWVudHMiOlsiNjE2MDc1Y2ZkZDhjODIwMDA2ODMyNWJkIl0sInJvbGUiOiJST0xFX0FETUlOIiwiYWN0aXZlIjp0cnVlLCJlbWFpbCI6ImFkcmlhbkBleGF0YXNjb250YWJpbGlkYWRlLmNvbS5iciIsInZpZXdlciI6ZmFsc2UsImxhc3RfbG9naW4iOiIyMDI2LTAyLTIwVDE5OjAxOjU3LjQ4OVoiLCJub3RpZnlfbmV3X2N1c3RvbWVycyI6eyJsYXN0X2xvZ2luIjpudWxsLCJub3RpZmllZCI6ZmFsc2V9LCJub3RpZnlfY3VzdG9tZXJfY2hhbmdlcyI6eyJub3RpZmllZCI6dHJ1ZX0sImNvbXBhbnkiOnsiX2lkIjoiNjBiNjFlYmMxZGE2ODMwMDA2MzIyZTFlIiwibmFtZSI6Ik1BUkNJTElPIEFMVkVTIEFORFJBREUiLCJzdGF0dXMiOiJQUk9EVUNUSU9OIiwibGFuZ3VhZ2UiOiJwdC1CUiIsImNucGoiOiIyNzkzOTE1NDAwMDEwOCJ9LCJpYXQiOjE3NzE2MTQ5ODIsImV4cCI6MTc3MTY5OTU4Mn0.RPzHA09OgVCWURJUoeb3P1GF_JI2XfoXYUVAM3YCNJM' \\\r\n  -H 'if-none-match: W/\"12d96-gtM4QRL1f4AwwM/mForsTaV5OLY\"' \\\r\n  -H 'origin: https://app.gestta.com.br' \\\r\n  -H 'priority: u=1, i' \\\r\n  -H 'referer: https://app.gestta.com.br/' \\\r\n  -H 'sec-ch-ua: \"Not:A-Brand\";v=\"99\", \"Google Chrome\";v=\"145\", \"Chromium\";v=\"145\"' \\\r\n  -H 'sec-ch-ua-mobile: ?0' \\\r\n  -H 'sec-ch-ua-platform: \"Windows\"' \\\r\n  -H 'sec-fetch-dest: empty' \\\r\n  -H 'sec-fetch-mode: cors' \\\r\n  -H 'sec-fetch-site: same-site' \\\r\n  -H 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36'"
+      },
+      "response": []
+    },
+    {
+      "name": "Excluir tarefa",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "accept",
+            "value": "application/json, text/plain, */*"
+          },
+          {
+            "key": "accept-language",
+            "value": "en-US,en;q=0.9,pt;q=0.8"
+          },
+          {
+            "key": "authorization",
+            "value": "JWT {{JWT-Gestta}}"
+          },
+          {
+            "key": "content-type",
+            "value": "application/json;charset=UTF-8"
+          },
+          {
+            "key": "origin",
+            "value": "https://app.gestta.com.br"
+          },
+          {
+            "key": "priority",
+            "value": "u=1, i"
+          },
+          {
+            "key": "referer",
+            "value": "https://app.gestta.com.br/"
+          },
+          {
+            "key": "sec-ch-ua",
+            "value": "\"Not:A-Brand\";v=\"99\", \"Google Chrome\";v=\"145\", \"Chromium\";v=\"145\""
+          },
+          {
+            "key": "sec-ch-ua-mobile",
+            "value": "?0"
+          },
+          {
+            "key": "sec-ch-ua-platform",
+            "value": "\"Windows\""
+          },
+          {
+            "key": "sec-fetch-dest",
+            "value": "empty"
+          },
+          {
+            "key": "sec-fetch-mode",
+            "value": "cors"
+          },
+          {
+            "key": "sec-fetch-site",
+            "value": "same-site"
+          },
+          {
+            "key": "user-agent",
+            "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"ids\":[\"657224e65eee350007b5aff1\"]}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://api.gestta.com.br/admin/group/customer",
+          "protocol": "https",
+          "host": [
+            "api",
+            "gestta",
+            "com",
+            "br"
+          ],
+          "path": [
+            "admin",
+            "group",
+            "customer"
+          ]
+        },
+        "description": "Generated from cURL: curl 'https://api.gestta.com.br/admin/group/customer' \\\r\n  -X 'DELETE' \\\r\n  -H 'accept: application/json, text/plain, */*' \\\r\n  -H 'accept-language: en-US,en;q=0.9,pt;q=0.8' \\\r\n  -H 'authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODkxMTAzMGRlNTg1MzY5NzU4ZjQ5YjIiLCJuYW1lIjoiQWRyaWFuIEhhZWxpc3NvbiIsImNvbXBhbnlfZGVwYXJ0bWVudHMiOlsiNjE2MDc1Y2ZkZDhjODIwMDA2ODMyNWJkIl0sInJvbGUiOiJST0xFX0FETUlOIiwiYWN0aXZlIjp0cnVlLCJlbWFpbCI6ImFkcmlhbkBleGF0YXNjb250YWJpbGlkYWRlLmNvbS5iciIsInZpZXdlciI6ZmFsc2UsImxhc3RfbG9naW4iOiIyMDI2LTAyLTIwVDE5OjAxOjU3LjQ4OVoiLCJub3RpZnlfbmV3X2N1c3RvbWVycyI6eyJsYXN0X2xvZ2luIjpudWxsLCJub3RpZmllZCI6ZmFsc2V9LCJub3RpZnlfY3VzdG9tZXJfY2hhbmdlcyI6eyJub3RpZmllZCI6dHJ1ZX0sImNvbXBhbnkiOnsiX2lkIjoiNjBiNjFlYmMxZGE2ODMwMDA2MzIyZTFlIiwibmFtZSI6Ik1BUkNJTElPIEFMVkVTIEFORFJBREUiLCJzdGF0dXMiOiJQUk9EVUNUSU9OIiwibGFuZ3VhZ2UiOiJwdC1CUiIsImNucGoiOiIyNzkzOTE1NDAwMDEwOCJ9LCJpYXQiOjE3NzE2MTQ5ODIsImV4cCI6MTc3MTY5OTU4Mn0.RPzHA09OgVCWURJUoeb3P1GF_JI2XfoXYUVAM3YCNJM' \\\r\n  -H 'content-type: application/json;charset=UTF-8' \\\r\n  -H 'origin: https://app.gestta.com.br' \\\r\n  -H 'priority: u=1, i' \\\r\n  -H 'referer: https://app.gestta.com.br/' \\\r\n  -H 'sec-ch-ua: \"Not:A-Brand\";v=\"99\", \"Google Chrome\";v=\"145\", \"Chromium\";v=\"145\"' \\\r\n  -H 'sec-ch-ua-mobile: ?0' \\\r\n  -H 'sec-ch-ua-platform: \"Windows\"' \\\r\n  -H 'sec-fetch-dest: empty' \\\r\n  -H 'sec-fetch-mode: cors' \\\r\n  -H 'sec-fetch-site: same-site' \\\r\n  -H 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36' \\\r\n  --data-raw '{\"ids\":[\"657224e65eee350007b5aff1\"]}'"
+      },
+      "response": []
+    },
+    {
+      "name": "Criar tarefas",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "accept",
+            "value": "application/json, text/plain, */*"
+          },
+          {
+            "key": "accept-language",
+            "value": "en-US,en;q=0.9,pt;q=0.8"
+          },
+          {
+            "key": "authorization",
+            "value": "JWT {{JWT-Gestta}}"
+          },
+          {
+            "key": "content-type",
+            "value": "application/json;charset=UTF-8"
+          },
+          {
+            "key": "origin",
+            "value": "https://app.gestta.com.br"
+          },
+          {
+            "key": "priority",
+            "value": "u=1, i"
+          },
+          {
+            "key": "referer",
+            "value": "https://app.gestta.com.br/"
+          },
+          {
+            "key": "sec-ch-ua",
+            "value": "\"Not:A-Brand\";v=\"99\", \"Google Chrome\";v=\"145\", \"Chromium\";v=\"145\""
+          },
+          {
+            "key": "sec-ch-ua-mobile",
+            "value": "?0"
+          },
+          {
+            "key": "sec-ch-ua-platform",
+            "value": "\"Windows\""
+          },
+          {
+            "key": "sec-fetch-dest",
+            "value": "empty"
+          },
+          {
+            "key": "sec-fetch-mode",
+            "value": "cors"
+          },
+          {
+            "key": "sec-fetch-site",
+            "value": "same-site"
+          },
+          {
+            "key": "user-agent",
+            "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"company_task\":[\"637f6291ad2a94000794d998\",\"67aa01e71cafe4e0baf84b41\"]}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://api.gestta.com.br/admin/customer/654bb8c4b0aad30006860832/company/task",
+          "protocol": "https",
+          "host": [
+            "api",
+            "gestta",
+            "com",
+            "br"
+          ],
+          "path": [
+            "admin",
+            "customer",
+            "654bb8c4b0aad30006860832",
+            "company",
+            "task"
+          ]
+        },
+        "description": "Generated from cURL: curl 'https://api.gestta.com.br/admin/customer/654bb8c4b0aad30006860832/company/task' \\\r\n  -H 'accept: application/json, text/plain, */*' \\\r\n  -H 'accept-language: en-US,en;q=0.9,pt;q=0.8' \\\r\n  -H 'authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODkxMTAzMGRlNTg1MzY5NzU4ZjQ5YjIiLCJuYW1lIjoiQWRyaWFuIEhhZWxpc3NvbiIsImNvbXBhbnlfZGVwYXJ0bWVudHMiOlsiNjE2MDc1Y2ZkZDhjODIwMDA2ODMyNWJkIl0sInJvbGUiOiJST0xFX0FETUlOIiwiYWN0aXZlIjp0cnVlLCJlbWFpbCI6ImFkcmlhbkBleGF0YXNjb250YWJpbGlkYWRlLmNvbS5iciIsInZpZXdlciI6ZmFsc2UsImxhc3RfbG9naW4iOiIyMDI2LTAyLTIwVDE5OjAxOjU3LjQ4OVoiLCJub3RpZnlfbmV3X2N1c3RvbWVycyI6eyJsYXN0X2xvZ2luIjpudWxsLCJub3RpZmllZCI6ZmFsc2V9LCJub3RpZnlfY3VzdG9tZXJfY2hhbmdlcyI6eyJub3RpZmllZCI6dHJ1ZX0sImNvbXBhbnkiOnsiX2lkIjoiNjBiNjFlYmMxZGE2ODMwMDA2MzIyZTFlIiwibmFtZSI6Ik1BUkNJTElPIEFMVkVTIEFORFJBREUiLCJzdGF0dXMiOiJQUk9EVUNUSU9OIiwibGFuZ3VhZ2UiOiJwdC1CUiIsImNucGoiOiIyNzkzOTE1NDAwMDEwOCJ9LCJpYXQiOjE3NzE2MTQ5ODIsImV4cCI6MTc3MTY5OTU4Mn0.RPzHA09OgVCWURJUoeb3P1GF_JI2XfoXYUVAM3YCNJM' \\\r\n  -H 'content-type: application/json;charset=UTF-8' \\\r\n  -H 'origin: https://app.gestta.com.br' \\\r\n  -H 'priority: u=1, i' \\\r\n  -H 'referer: https://app.gestta.com.br/' \\\r\n  -H 'sec-ch-ua: \"Not:A-Brand\";v=\"99\", \"Google Chrome\";v=\"145\", \"Chromium\";v=\"145\"' \\\r\n  -H 'sec-ch-ua-mobile: ?0' \\\r\n  -H 'sec-ch-ua-platform: \"Windows\"' \\\r\n  -H 'sec-fetch-dest: empty' \\\r\n  -H 'sec-fetch-mode: cors' \\\r\n  -H 'sec-fetch-site: same-site' \\\r\n  -H 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36' \\\r\n  --data-raw '{\"company_task\":[\"637f6291ad2a94000794d998\",\"67aa01e71cafe4e0baf84b41\"]}'"
+      },
+      "response": []
+    },
+    {
+      "name": "Listar funcionários",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "accept",
+            "value": "application/json, text/plain, */*"
+          },
+          {
+            "key": "accept-language",
+            "value": "en-US,en;q=0.9,pt;q=0.8"
+          },
+          {
+            "key": "authorization",
+            "value": "JWT {{JWT-Gestta}}"
+          },
+          {
+            "key": "if-none-match",
+            "value": "W/\"e24f-EhfjnVA6fXy4XLO4aEyr+N3uoZo\""
+          },
+          {
+            "key": "origin",
+            "value": "https://app.gestta.com.br"
+          },
+          {
+            "key": "priority",
+            "value": "u=1, i"
+          },
+          {
+            "key": "referer",
+            "value": "https://app.gestta.com.br/"
+          },
+          {
+            "key": "sec-ch-ua",
+            "value": "\"Not:A-Brand\";v=\"99\", \"Google Chrome\";v=\"145\", \"Chromium\";v=\"145\""
+          },
+          {
+            "key": "sec-ch-ua-mobile",
+            "value": "?0"
+          },
+          {
+            "key": "sec-ch-ua-platform",
+            "value": "\"Windows\""
+          },
+          {
+            "key": "sec-fetch-dest",
+            "value": "empty"
+          },
+          {
+            "key": "sec-fetch-mode",
+            "value": "cors"
+          },
+          {
+            "key": "sec-fetch-site",
+            "value": "same-site"
+          },
+          {
+            "key": "user-agent",
+            "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+          }
+        ],
+        "url": {
+          "raw": "https://api.gestta.com.br/admin/company/user?active=true",
+          "protocol": "https",
+          "host": [
+            "api",
+            "gestta",
+            "com",
+            "br"
+          ],
+          "path": [
+            "admin",
+            "company",
+            "user"
+          ],
+          "query": [
+            {
+              "key": "active",
+              "value": "true"
+            }
+          ]
+        },
+        "description": "Generated from cURL: curl 'https://api.gestta.com.br/admin/company/user?active=true' \\\r\n  -H 'accept: application/json, text/plain, */*' \\\r\n  -H 'accept-language: en-US,en;q=0.9,pt;q=0.8' \\\r\n  -H 'authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODkxMTAzMGRlNTg1MzY5NzU4ZjQ5YjIiLCJuYW1lIjoiQWRyaWFuIEhhZWxpc3NvbiIsImNvbXBhbnlfZGVwYXJ0bWVudHMiOlsiNjE2MDc1Y2ZkZDhjODIwMDA2ODMyNWJkIl0sInJvbGUiOiJST0xFX0FETUlOIiwiYWN0aXZlIjp0cnVlLCJlbWFpbCI6ImFkcmlhbkBleGF0YXNjb250YWJpbGlkYWRlLmNvbS5iciIsInZpZXdlciI6ZmFsc2UsImxhc3RfbG9naW4iOiIyMDI2LTAyLTIwVDE5OjAxOjU3LjQ4OVoiLCJub3RpZnlfbmV3X2N1c3RvbWVycyI6eyJsYXN0X2xvZ2luIjpudWxsLCJub3RpZmllZCI6ZmFsc2V9LCJub3RpZnlfY3VzdG9tZXJfY2hhbmdlcyI6eyJub3RpZmllZCI6dHJ1ZX0sImNvbXBhbnkiOnsiX2lkIjoiNjBiNjFlYmMxZGE2ODMwMDA2MzIyZTFlIiwibmFtZSI6Ik1BUkNJTElPIEFMVkVTIEFORFJBREUiLCJzdGF0dXMiOiJQUk9EVUNUSU9OIiwibGFuZ3VhZ2UiOiJwdC1CUiIsImNucGoiOiIyNzkzOTE1NDAwMDEwOCJ9LCJpYXQiOjE3NzE2MTQ5ODIsImV4cCI6MTc3MTY5OTU4Mn0.RPzHA09OgVCWURJUoeb3P1GF_JI2XfoXYUVAM3YCNJM' \\\r\n  -H 'if-none-match: W/\"e24f-EhfjnVA6fXy4XLO4aEyr+N3uoZo\"' \\\r\n  -H 'origin: https://app.gestta.com.br' \\\r\n  -H 'priority: u=1, i' \\\r\n  -H 'referer: https://app.gestta.com.br/' \\\r\n  -H 'sec-ch-ua: \"Not:A-Brand\";v=\"99\", \"Google Chrome\";v=\"145\", \"Chromium\";v=\"145\"' \\\r\n  -H 'sec-ch-ua-mobile: ?0' \\\r\n  -H 'sec-ch-ua-platform: \"Windows\"' \\\r\n  -H 'sec-fetch-dest: empty' \\\r\n  -H 'sec-fetch-mode: cors' \\\r\n  -H 'sec-fetch-site: same-site' \\\r\n  -H 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36'"
+      },
+      "response": []
+    },
+    {
+      "name": "Alterar responsável",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "accept",
+            "value": "application/json, text/plain, */*"
+          },
+          {
+            "key": "accept-language",
+            "value": "en-US,en;q=0.9,pt;q=0.8"
+          },
+          {
+            "key": "authorization",
+            "value": "JWT {{JWT-Gestta}}"
+          },
+          {
+            "key": "content-type",
+            "value": "application/json;charset=UTF-8"
+          },
+          {
+            "key": "origin",
+            "value": "https://app.gestta.com.br"
+          },
+          {
+            "key": "priority",
+            "value": "u=1, i"
+          },
+          {
+            "key": "referer",
+            "value": "https://app.gestta.com.br/"
+          },
+          {
+            "key": "sec-ch-ua",
+            "value": "\"Not:A-Brand\";v=\"99\", \"Google Chrome\";v=\"145\", \"Chromium\";v=\"145\""
+          },
+          {
+            "key": "sec-ch-ua-mobile",
+            "value": "?0"
+          },
+          {
+            "key": "sec-ch-ua-platform",
+            "value": "\"Windows\""
+          },
+          {
+            "key": "sec-fetch-dest",
+            "value": "empty"
+          },
+          {
+            "key": "sec-fetch-mode",
+            "value": "cors"
+          },
+          {
+            "key": "sec-fetch-site",
+            "value": "same-site"
+          },
+          {
+            "key": "user-agent",
+            "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"ids\":[\"6998b5c27f317c2857d0ebf0\"],\"company_user\":\"68911030de585369758f49b2\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://api.gestta.com.br/admin/group/customer/config",
+          "protocol": "https",
+          "host": [
+            "api",
+            "gestta",
+            "com",
+            "br"
+          ],
+          "path": [
+            "admin",
+            "group",
+            "customer",
+            "config"
+          ]
+        },
+        "description": "Generated from cURL: curl 'https://api.gestta.com.br/admin/group/customer/config' \\\r\n  -X 'PATCH' \\\r\n  -H 'accept: application/json, text/plain, */*' \\\r\n  -H 'accept-language: en-US,en;q=0.9,pt;q=0.8' \\\r\n  -H 'authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODkxMTAzMGRlNTg1MzY5NzU4ZjQ5YjIiLCJuYW1lIjoiQWRyaWFuIEhhZWxpc3NvbiIsImNvbXBhbnlfZGVwYXJ0bWVudHMiOlsiNjE2MDc1Y2ZkZDhjODIwMDA2ODMyNWJkIl0sInJvbGUiOiJST0xFX0FETUlOIiwiYWN0aXZlIjp0cnVlLCJlbWFpbCI6ImFkcmlhbkBleGF0YXNjb250YWJpbGlkYWRlLmNvbS5iciIsInZpZXdlciI6ZmFsc2UsImxhc3RfbG9naW4iOiIyMDI2LTAyLTIwVDE5OjE2OjIyLjUxNloiLCJub3RpZnlfbmV3X2N1c3RvbWVycyI6eyJsYXN0X2xvZ2luIjpudWxsLCJub3RpZmllZCI6ZmFsc2V9LCJub3RpZnlfY3VzdG9tZXJfY2hhbmdlcyI6eyJub3RpZmllZCI6dHJ1ZX0sImNvbXBhbnkiOnsiX2lkIjoiNjBiNjFlYmMxZGE2ODMwMDA2MzIyZTFlIiwibmFtZSI6Ik1BUkNJTElPIEFMVkVTIEFORFJBREUiLCJzdGF0dXMiOiJQUk9EVUNUSU9OIiwibGFuZ3VhZ2UiOiJwdC1CUiIsImNucGoiOiIyNzkzOTE1NDAwMDEwOCJ9LCJpYXQiOjE3NzE2MjgyOTMsImV4cCI6MTc3MTcxMjg5M30.1iVzoH68gJRTE82DR78i2hcg44kdXHnbLkGMKX92oTs' \\\r\n  -H 'content-type: application/json;charset=UTF-8' \\\r\n  -H 'origin: https://app.gestta.com.br' \\\r\n  -H 'priority: u=1, i' \\\r\n  -H 'referer: https://app.gestta.com.br/' \\\r\n  -H 'sec-ch-ua: \"Not:A-Brand\";v=\"99\", \"Google Chrome\";v=\"145\", \"Chromium\";v=\"145\"' \\\r\n  -H 'sec-ch-ua-mobile: ?0' \\\r\n  -H 'sec-ch-ua-platform: \"Windows\"' \\\r\n  -H 'sec-fetch-dest: empty' \\\r\n  -H 'sec-fetch-mode: cors' \\\r\n  -H 'sec-fetch-site: same-site' \\\r\n  -H 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36' \\\r\n  --data-raw '{\"ids\":[\"6998b5c27f317c2857d0ebf0\"],\"company_user\":\"68911030de585369758f49b2\"}'"
+      },
+      "response": []
+    },
+    {
+      "name": "Remover Tarefas",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "accept",
+            "value": "application/json, text/plain, */*"
+          },
+          {
+            "key": "accept-language",
+            "value": "pt-BR,pt;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6"
+          },
+          {
+            "key": "authorization",
+            "value": "JWT {{JWT-Gestta}}"
+          },
+          {
+            "key": "content-type",
+            "value": "application/json;charset=UTF-8"
+          },
+          {
+            "key": "origin",
+            "value": "https://app.gestta.com.br"
+          },
+          {
+            "key": "priority",
+            "value": "u=1, i"
+          },
+          {
+            "key": "referer",
+            "value": "https://app.gestta.com.br/"
+          },
+          {
+            "key": "sec-ch-ua",
+            "value": "\"Not:A-Brand\";v=\"99\", \"Microsoft Edge\";v=\"145\", \"Chromium\";v=\"145\""
+          },
+          {
+            "key": "sec-ch-ua-mobile",
+            "value": "?0"
+          },
+          {
+            "key": "sec-ch-ua-platform",
+            "value": "\"Windows\""
+          },
+          {
+            "key": "sec-fetch-dest",
+            "value": "empty"
+          },
+          {
+            "key": "sec-fetch-mode",
+            "value": "cors"
+          },
+          {
+            "key": "sec-fetch-site",
+            "value": "same-site"
+          },
+          {
+            "key": "user-agent",
+            "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.0.0.0"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"month\":3,\"year\":2026}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://api.gestta.com.br/task-gen/admin/customer/60b678f9d7f461000622b98b",
+          "protocol": "https",
+          "host": [
+            "api",
+            "gestta",
+            "com",
+            "br"
+          ],
+          "path": [
+            "task-gen",
+            "admin",
+            "customer",
+            "60b678f9d7f461000622b98b"
+          ]
+        },
+        "description": "Generated from cURL: curl 'https://api.gestta.com.br/task-gen/admin/customer/60b678f9d7f461000622b98b' \\\r\n  -X 'DELETE' \\\r\n  -H 'accept: application/json, text/plain, */*' \\\r\n  -H 'accept-language: pt-BR,pt;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6' \\\r\n  -H 'authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODkxMTAzMGRlNTg1MzY5NzU4ZjQ5YjIiLCJuYW1lIjoiQWRyaWFuIEhhZWxpc3NvbiIsImNvbXBhbnlfZGVwYXJ0bWVudHMiOlsiNjE2MDc1Y2ZkZDhjODIwMDA2ODMyNWJkIl0sInJvbGUiOiJST0xFX0FETUlOIiwiYWN0aXZlIjp0cnVlLCJlbWFpbCI6ImFkcmlhbkBleGF0YXNjb250YWJpbGlkYWRlLmNvbS5iciIsInZpZXdlciI6ZmFsc2UsImxhc3RfbG9naW4iOiIyMDI2LTAzLTExVDExOjE0OjU2Ljg2MVoiLCJub3RpZnlfbmV3X2N1c3RvbWVycyI6eyJsYXN0X2xvZ2luIjpudWxsLCJub3RpZmllZCI6ZmFsc2V9LCJub3RpZnlfY3VzdG9tZXJfY2hhbmdlcyI6eyJub3RpZmllZCI6dHJ1ZX0sImNvbXBhbnkiOnsiX2lkIjoiNjBiNjFlYmMxZGE2ODMwMDA2MzIyZTFlIiwibmFtZSI6Ik1BUkNJTElPIEFMVkVTIEFORFJBREUiLCJzdGF0dXMiOiJQUk9EVUNUSU9OIiwibGFuZ3VhZ2UiOiJwdC1CUiIsImNucGoiOiIyNzkzOTE1NDAwMDEwOCJ9LCJpYXQiOjE3NzMyMzgxODQsImV4cCI6MTc3MzMyMjc4NH0.EPLlVOnplIyK3oHrrA7ARBPhNWQo5tkxAdT9TMl4KhI' \\\r\n  -H 'content-type: application/json;charset=UTF-8' \\\r\n  -H 'origin: https://app.gestta.com.br' \\\r\n  -H 'priority: u=1, i' \\\r\n  -H 'referer: https://app.gestta.com.br/' \\\r\n  -H 'sec-ch-ua: \"Not:A-Brand\";v=\"99\", \"Microsoft Edge\";v=\"145\", \"Chromium\";v=\"145\"' \\\r\n  -H 'sec-ch-ua-mobile: ?0' \\\r\n  -H 'sec-ch-ua-platform: \"Windows\"' \\\r\n  -H 'sec-fetch-dest: empty' \\\r\n  -H 'sec-fetch-mode: cors' \\\r\n  -H 'sec-fetch-site: same-site' \\\r\n  -H 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.0.0.0' \\\r\n  --data-raw '{\"month\":3,\"year\":2026}'"
+      },
+      "response": []
+    },
+    {
+      "name": "Gerar Tarefas",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "accept",
+            "value": "application/json, text/plain, */*"
+          },
+          {
+            "key": "accept-language",
+            "value": "pt-BR,pt;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6"
+          },
+          {
+            "key": "authorization",
+            "value": "JWT {{JWT-Gestta}}"
+          },
+          {
+            "key": "content-type",
+            "value": "application/json;charset=UTF-8"
+          },
+          {
+            "key": "origin",
+            "value": "https://app.gestta.com.br"
+          },
+          {
+            "key": "priority",
+            "value": "u=1, i"
+          },
+          {
+            "key": "referer",
+            "value": "https://app.gestta.com.br/"
+          },
+          {
+            "key": "sec-ch-ua",
+            "value": "\"Not:A-Brand\";v=\"99\", \"Microsoft Edge\";v=\"145\", \"Chromium\";v=\"145\""
+          },
+          {
+            "key": "sec-ch-ua-mobile",
+            "value": "?0"
+          },
+          {
+            "key": "sec-ch-ua-platform",
+            "value": "\"Windows\""
+          },
+          {
+            "key": "sec-fetch-dest",
+            "value": "empty"
+          },
+          {
+            "key": "sec-fetch-mode",
+            "value": "cors"
+          },
+          {
+            "key": "sec-fetch-site",
+            "value": "same-site"
+          },
+          {
+            "key": "user-agent",
+            "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.0.0.0"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"month\":3,\"year\":2026}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://api.gestta.com.br/task-gen/admin/customer/60b678f9d7f461000622b98b",
+          "protocol": "https",
+          "host": [
+            "api",
+            "gestta",
+            "com",
+            "br"
+          ],
+          "path": [
+            "task-gen",
+            "admin",
+            "customer",
+            "60b678f9d7f461000622b98b"
+          ]
+        },
+        "description": "Generated from cURL: curl 'https://api.gestta.com.br/task-gen/admin/customer/60b678f9d7f461000622b98b' \\\r\n  -H 'accept: application/json, text/plain, */*' \\\r\n  -H 'accept-language: pt-BR,pt;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6' \\\r\n  -H 'authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODkxMTAzMGRlNTg1MzY5NzU4ZjQ5YjIiLCJuYW1lIjoiQWRyaWFuIEhhZWxpc3NvbiIsImNvbXBhbnlfZGVwYXJ0bWVudHMiOlsiNjE2MDc1Y2ZkZDhjODIwMDA2ODMyNWJkIl0sInJvbGUiOiJST0xFX0FETUlOIiwiYWN0aXZlIjp0cnVlLCJlbWFpbCI6ImFkcmlhbkBleGF0YXNjb250YWJpbGlkYWRlLmNvbS5iciIsInZpZXdlciI6ZmFsc2UsImxhc3RfbG9naW4iOiIyMDI2LTAzLTExVDExOjE0OjU2Ljg2MVoiLCJub3RpZnlfbmV3X2N1c3RvbWVycyI6eyJsYXN0X2xvZ2luIjpudWxsLCJub3RpZmllZCI6ZmFsc2V9LCJub3RpZnlfY3VzdG9tZXJfY2hhbmdlcyI6eyJub3RpZmllZCI6dHJ1ZX0sImNvbXBhbnkiOnsiX2lkIjoiNjBiNjFlYmMxZGE2ODMwMDA2MzIyZTFlIiwibmFtZSI6Ik1BUkNJTElPIEFMVkVTIEFORFJBREUiLCJzdGF0dXMiOiJQUk9EVUNUSU9OIiwibGFuZ3VhZ2UiOiJwdC1CUiIsImNucGoiOiIyNzkzOTE1NDAwMDEwOCJ9LCJpYXQiOjE3NzMyMzgxODQsImV4cCI6MTc3MzMyMjc4NH0.EPLlVOnplIyK3oHrrA7ARBPhNWQo5tkxAdT9TMl4KhI' \\\r\n  -H 'content-type: application/json;charset=UTF-8' \\\r\n  -H 'origin: https://app.gestta.com.br' \\\r\n  -H 'priority: u=1, i' \\\r\n  -H 'referer: https://app.gestta.com.br/' \\\r\n  -H 'sec-ch-ua: \"Not:A-Brand\";v=\"99\", \"Microsoft Edge\";v=\"145\", \"Chromium\";v=\"145\"' \\\r\n  -H 'sec-ch-ua-mobile: ?0' \\\r\n  -H 'sec-ch-ua-platform: \"Windows\"' \\\r\n  -H 'sec-fetch-dest: empty' \\\r\n  -H 'sec-fetch-mode: cors' \\\r\n  -H 'sec-fetch-site: same-site' \\\r\n  -H 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.0.0.0' \\\r\n  --data-raw '{\"month\":3,\"year\":2026}'"
+      },
+      "response": []
+    },
+    {
+      "name": "Alterar responsavel",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "accept",
+            "value": "application/json, text/plain, */*"
+          },
+          {
+            "key": "accept-language",
+            "value": "pt-BR,pt;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6"
+          },
+          {
+            "key": "authorization",
+            "value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODkxMTAzMGRlNTg1MzY5NzU4ZjQ5YjIiLCJuYW1lIjoiQWRyaWFuIEhhZWxpc3NvbiIsImNvbXBhbnlfZGVwYXJ0bWVudHMiOlsiNjE2MDc1Y2ZkZDhjODIwMDA2ODMyNWJkIl0sInJvbGUiOiJST0xFX0FETUlOIiwiYWN0aXZlIjp0cnVlLCJlbWFpbCI6ImFkcmlhbkBleGF0YXNjb250YWJpbGlkYWRlLmNvbS5iciIsInZpZXdlciI6ZmFsc2UsImxhc3RfbG9naW4iOiIyMDI2LTAzLTExVDExOjE0OjU2Ljg2MVoiLCJub3RpZnlfbmV3X2N1c3RvbWVycyI6eyJsYXN0X2xvZ2luIjpudWxsLCJub3RpZmllZCI6ZmFsc2V9LCJub3RpZnlfY3VzdG9tZXJfY2hhbmdlcyI6eyJub3RpZmllZCI6dHJ1ZX0sImNvbXBhbnkiOnsiX2lkIjoiNjBiNjFlYmMxZGE2ODMwMDA2MzIyZTFlIiwibmFtZSI6Ik1BUkNJTElPIEFMVkVTIEFORFJBREUiLCJzdGF0dXMiOiJQUk9EVUNUSU9OIiwibGFuZ3VhZ2UiOiJwdC1CUiIsImNucGoiOiIyNzkzOTE1NDAwMDEwOCJ9LCJpYXQiOjE3NzMyMzgxODQsImV4cCI6MTc3MzMyMjc4NH0.EPLlVOnplIyK3oHrrA7ARBPhNWQo5tkxAdT9TMl4KhI"
+          },
+          {
+            "key": "if-none-match",
+            "value": "W/\"e11e-vMqT6eYb3LHYiQvTVRMrP9ZtZu8\""
+          },
+          {
+            "key": "origin",
+            "value": "https://app.gestta.com.br"
+          },
+          {
+            "key": "priority",
+            "value": "u=1, i"
+          },
+          {
+            "key": "referer",
+            "value": "https://app.gestta.com.br/"
+          },
+          {
+            "key": "sec-ch-ua",
+            "value": "\"Not:A-Brand\";v=\"99\", \"Microsoft Edge\";v=\"145\", \"Chromium\";v=\"145\""
+          },
+          {
+            "key": "sec-ch-ua-mobile",
+            "value": "?0"
+          },
+          {
+            "key": "sec-ch-ua-platform",
+            "value": "\"Windows\""
+          },
+          {
+            "key": "sec-fetch-dest",
+            "value": "empty"
+          },
+          {
+            "key": "sec-fetch-mode",
+            "value": "cors"
+          },
+          {
+            "key": "sec-fetch-site",
+            "value": "same-site"
+          },
+          {
+            "key": "user-agent",
+            "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.0.0.0"
+          }
+        ],
+        "url": {
+          "raw": "https://api.gestta.com.br/admin/customer/60b678f9d7f461000622b98b/company/task",
+          "protocol": "https",
+          "host": [
+            "api",
+            "gestta",
+            "com",
+            "br"
+          ],
+          "path": [
+            "admin",
+            "customer",
+            "60b678f9d7f461000622b98b",
+            "company",
+            "task"
+          ]
+        },
+        "description": "Generated from cURL: curl 'https://api.gestta.com.br/admin/customer/60b678f9d7f461000622b98b/company/task' \\\r\n  -H 'accept: application/json, text/plain, */*' \\\r\n  -H 'accept-language: pt-BR,pt;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6' \\\r\n  -H 'authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODkxMTAzMGRlNTg1MzY5NzU4ZjQ5YjIiLCJuYW1lIjoiQWRyaWFuIEhhZWxpc3NvbiIsImNvbXBhbnlfZGVwYXJ0bWVudHMiOlsiNjE2MDc1Y2ZkZDhjODIwMDA2ODMyNWJkIl0sInJvbGUiOiJST0xFX0FETUlOIiwiYWN0aXZlIjp0cnVlLCJlbWFpbCI6ImFkcmlhbkBleGF0YXNjb250YWJpbGlkYWRlLmNvbS5iciIsInZpZXdlciI6ZmFsc2UsImxhc3RfbG9naW4iOiIyMDI2LTAzLTExVDExOjE0OjU2Ljg2MVoiLCJub3RpZnlfbmV3X2N1c3RvbWVycyI6eyJsYXN0X2xvZ2luIjpudWxsLCJub3RpZmllZCI6ZmFsc2V9LCJub3RpZnlfY3VzdG9tZXJfY2hhbmdlcyI6eyJub3RpZmllZCI6dHJ1ZX0sImNvbXBhbnkiOnsiX2lkIjoiNjBiNjFlYmMxZGE2ODMwMDA2MzIyZTFlIiwibmFtZSI6Ik1BUkNJTElPIEFMVkVTIEFORFJBREUiLCJzdGF0dXMiOiJQUk9EVUNUSU9OIiwibGFuZ3VhZ2UiOiJwdC1CUiIsImNucGoiOiIyNzkzOTE1NDAwMDEwOCJ9LCJpYXQiOjE3NzMyMzgxODQsImV4cCI6MTc3MzMyMjc4NH0.EPLlVOnplIyK3oHrrA7ARBPhNWQo5tkxAdT9TMl4KhI' \\\r\n  -H 'if-none-match: W/\"e11e-vMqT6eYb3LHYiQvTVRMrP9ZtZu8\"' \\\r\n  -H 'origin: https://app.gestta.com.br' \\\r\n  -H 'priority: u=1, i' \\\r\n  -H 'referer: https://app.gestta.com.br/' \\\r\n  -H 'sec-ch-ua: \"Not:A-Brand\";v=\"99\", \"Microsoft Edge\";v=\"145\", \"Chromium\";v=\"145\"' \\\r\n  -H 'sec-ch-ua-mobile: ?0' \\\r\n  -H 'sec-ch-ua-platform: \"Windows\"' \\\r\n  -H 'sec-fetch-dest: empty' \\\r\n  -H 'sec-fetch-mode: cors' \\\r\n  -H 'sec-fetch-site: same-site' \\\r\n  -H 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.0.0.0'"
+      },
+      "response": []
+    },
+    {
+      "name": "Alterar resp",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "accept",
+            "value": "application/json, text/plain, */*"
+          },
+          {
+            "key": "accept-language",
+            "value": "pt-BR,pt;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6"
+          },
+          {
+            "key": "authorization",
+            "value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODkxMTAzMGRlNTg1MzY5NzU4ZjQ5YjIiLCJuYW1lIjoiQWRyaWFuIEhhZWxpc3NvbiIsImNvbXBhbnlfZGVwYXJ0bWVudHMiOlsiNjE2MDc1Y2ZkZDhjODIwMDA2ODMyNWJkIl0sInJvbGUiOiJST0xFX0FETUlOIiwiYWN0aXZlIjp0cnVlLCJlbWFpbCI6ImFkcmlhbkBleGF0YXNjb250YWJpbGlkYWRlLmNvbS5iciIsInZpZXdlciI6ZmFsc2UsImxhc3RfbG9naW4iOiIyMDI2LTAzLTExVDExOjE0OjU2Ljg2MVoiLCJub3RpZnlfbmV3X2N1c3RvbWVycyI6eyJsYXN0X2xvZ2luIjpudWxsLCJub3RpZmllZCI6ZmFsc2V9LCJub3RpZnlfY3VzdG9tZXJfY2hhbmdlcyI6eyJub3RpZmllZCI6dHJ1ZX0sImNvbXBhbnkiOnsiX2lkIjoiNjBiNjFlYmMxZGE2ODMwMDA2MzIyZTFlIiwibmFtZSI6Ik1BUkNJTElPIEFMVkVTIEFORFJBREUiLCJzdGF0dXMiOiJQUk9EVUNUSU9OIiwibGFuZ3VhZ2UiOiJwdC1CUiIsImNucGoiOiIyNzkzOTE1NDAwMDEwOCJ9LCJpYXQiOjE3NzMyMzgxODQsImV4cCI6MTc3MzMyMjc4NH0.EPLlVOnplIyK3oHrrA7ARBPhNWQo5tkxAdT9TMl4KhI"
+          },
+          {
+            "key": "content-type",
+            "value": "application/json;charset=UTF-8"
+          },
+          {
+            "key": "origin",
+            "value": "https://app.gestta.com.br"
+          },
+          {
+            "key": "priority",
+            "value": "u=1, i"
+          },
+          {
+            "key": "referer",
+            "value": "https://app.gestta.com.br/"
+          },
+          {
+            "key": "sec-ch-ua",
+            "value": "\"Not:A-Brand\";v=\"99\", \"Microsoft Edge\";v=\"145\", \"Chromium\";v=\"145\""
+          },
+          {
+            "key": "sec-ch-ua-mobile",
+            "value": "?0"
+          },
+          {
+            "key": "sec-ch-ua-platform",
+            "value": "\"Windows\""
+          },
+          {
+            "key": "sec-fetch-dest",
+            "value": "empty"
+          },
+          {
+            "key": "sec-fetch-mode",
+            "value": "cors"
+          },
+          {
+            "key": "sec-fetch-site",
+            "value": "same-site"
+          },
+          {
+            "key": "user-agent",
+            "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.0.0.0"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"ids\":[\"637f6291ad2a94000794d9c0\",\"618d49c689af380006dfed2a\",\"61a11a7ac478dc0006c7eb21\",\"63bac45b2b882f0007f15d9c\",\"614dd101c4e3c2000684a981\",\"63ba9c5ef469f8000658ccf3\",\"684c31a9489057621cdfe583\",\"684c329d4065beba90e9d14f\",\"60b678f9d7f461000622b99d\",\"63ef6a2b81a50f0007f7c46c\",\"63cfd4ec0195f70006b99f46\",\"67fe7ce87a6c0c26bcf5e1ae\",\"684c32ea489057621ce0421f\",\"68680a2cab89a64ece7e82e8\",\"684c3408f2e1615dcccf38ca\",\"684c323fdbef83e74088f6c5\",\"684c3143dbef83e74088cbf6\",\"67e2a9be7c4e63e33d07a90a\",\"61a3a1104fa81200065a597c\",\"67360749bf801d841d344bf4\",\"67e54d0a733c35d0da846728\",\"67aa38bcf00c60070913e5f3\",\"678a8bbb03990ea2cd633e81\",\"63ec4aa10d2cfd0007212dc7\",\"676475ebbb5a8efa76f1fead\",\"61702b02b0903e00067b222b\",\"682e300cc95e8885fc3728d5\",\"685067b868ea4bc6381ef272\"],\"company_user\":\"698dee53bc20742b0be40912\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://api.gestta.com.br/admin/group/customer/config",
+          "protocol": "https",
+          "host": [
+            "api",
+            "gestta",
+            "com",
+            "br"
+          ],
+          "path": [
+            "admin",
+            "group",
+            "customer",
+            "config"
+          ]
+        },
+        "description": "Generated from cURL: curl 'https://api.gestta.com.br/admin/group/customer/config' \\\r\n  -X 'PATCH' \\\r\n  -H 'accept: application/json, text/plain, */*' \\\r\n  -H 'accept-language: pt-BR,pt;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6' \\\r\n  -H 'authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODkxMTAzMGRlNTg1MzY5NzU4ZjQ5YjIiLCJuYW1lIjoiQWRyaWFuIEhhZWxpc3NvbiIsImNvbXBhbnlfZGVwYXJ0bWVudHMiOlsiNjE2MDc1Y2ZkZDhjODIwMDA2ODMyNWJkIl0sInJvbGUiOiJST0xFX0FETUlOIiwiYWN0aXZlIjp0cnVlLCJlbWFpbCI6ImFkcmlhbkBleGF0YXNjb250YWJpbGlkYWRlLmNvbS5iciIsInZpZXdlciI6ZmFsc2UsImxhc3RfbG9naW4iOiIyMDI2LTAzLTExVDExOjE0OjU2Ljg2MVoiLCJub3RpZnlfbmV3X2N1c3RvbWVycyI6eyJsYXN0X2xvZ2luIjpudWxsLCJub3RpZmllZCI6ZmFsc2V9LCJub3RpZnlfY3VzdG9tZXJfY2hhbmdlcyI6eyJub3RpZmllZCI6dHJ1ZX0sImNvbXBhbnkiOnsiX2lkIjoiNjBiNjFlYmMxZGE2ODMwMDA2MzIyZTFlIiwibmFtZSI6Ik1BUkNJTElPIEFMVkVTIEFORFJBREUiLCJzdGF0dXMiOiJQUk9EVUNUSU9OIiwibGFuZ3VhZ2UiOiJwdC1CUiIsImNucGoiOiIyNzkzOTE1NDAwMDEwOCJ9LCJpYXQiOjE3NzMyMzgxODQsImV4cCI6MTc3MzMyMjc4NH0.EPLlVOnplIyK3oHrrA7ARBPhNWQo5tkxAdT9TMl4KhI' \\\r\n  -H 'content-type: application/json;charset=UTF-8' \\\r\n  -H 'origin: https://app.gestta.com.br' \\\r\n  -H 'priority: u=1, i' \\\r\n  -H 'referer: https://app.gestta.com.br/' \\\r\n  -H 'sec-ch-ua: \"Not:A-Brand\";v=\"99\", \"Microsoft Edge\";v=\"145\", \"Chromium\";v=\"145\"' \\\r\n  -H 'sec-ch-ua-mobile: ?0' \\\r\n  -H 'sec-ch-ua-platform: \"Windows\"' \\\r\n  -H 'sec-fetch-dest: empty' \\\r\n  -H 'sec-fetch-mode: cors' \\\r\n  -H 'sec-fetch-site: same-site' \\\r\n  -H 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.0.0.0' \\\r\n  --data-raw '{\"ids\":[\"637f6291ad2a94000794d9c0\",\"618d49c689af380006dfed2a\",\"61a11a7ac478dc0006c7eb21\",\"63bac45b2b882f0007f15d9c\",\"614dd101c4e3c2000684a981\",\"63ba9c5ef469f8000658ccf3\",\"684c31a9489057621cdfe583\",\"684c329d4065beba90e9d14f\",\"60b678f9d7f461000622b99d\",\"63ef6a2b81a50f0007f7c46c\",\"63cfd4ec0195f70006b99f46\",\"67fe7ce87a6c0c26bcf5e1ae\",\"684c32ea489057621ce0421f\",\"68680a2cab89a64ece7e82e8\",\"684c3408f2e1615dcccf38ca\",\"684c323fdbef83e74088f6c5\",\"684c3143dbef83e74088cbf6\",\"67e2a9be7c4e63e33d07a90a\",\"61a3a1104fa81200065a597c\",\"67360749bf801d841d344bf4\",\"67e54d0a733c35d0da846728\",\"67aa38bcf00c60070913e5f3\",\"678a8bbb03990ea2cd633e81\",\"63ec4aa10d2cfd0007212dc7\",\"676475ebbb5a8efa76f1fead\",\"61702b02b0903e00067b222b\",\"682e300cc95e8885fc3728d5\",\"685067b868ea4bc6381ef272\"],\"company_user\":\"698dee53bc20742b0be40912\"}'"
+      },
+      "response": []
+    }
+  ]
+}

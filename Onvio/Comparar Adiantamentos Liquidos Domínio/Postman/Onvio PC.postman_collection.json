@@ -1,0 +1,769 @@
+{
+  "info": {
+    "_postman_id": "5a678494-8991-469f-afe8-1ab0cd044e50",
+    "name": "Onvio PC",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "48982116"
+  },
+  "item": [
+    {
+      "name": "status",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "accept",
+            "value": "application/json, text/plain, */*"
+          },
+          {
+            "key": "accept-language",
+            "value": "en-US,en;q=0.9,pt;q=0.8"
+          },
+          {
+            "key": "authorization",
+            "value": "UDSLongToken {{UDSLongToken}}"
+          },
+          {
+            "key": "priority",
+            "value": "u=1, i"
+          },
+          {
+            "key": "referer",
+            "value": "https://onvio.com.br/br-portal-do-cliente/service-requesting/general"
+          },
+          {
+            "key": "sec-ch-ua",
+            "value": "\"Not:A-Brand\";v=\"99\", \"Google Chrome\";v=\"145\", \"Chromium\";v=\"145\""
+          },
+          {
+            "key": "sec-ch-ua-mobile",
+            "value": "?0"
+          },
+          {
+            "key": "sec-ch-ua-platform",
+            "value": "\"Windows\""
+          },
+          {
+            "key": "sec-fetch-dest",
+            "value": "empty"
+          },
+          {
+            "key": "sec-fetch-mode",
+            "value": "cors"
+          },
+          {
+            "key": "sec-fetch-site",
+            "value": "same-origin"
+          },
+          {
+            "key": "user-agent",
+            "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+          },
+          {
+            "key": "Cookie",
+            "value": "{{Cookie}}"
+          }
+        ],
+        "url": {
+          "raw": "https://onvio.com.br/api/br-default-department/v1/department-migration/77A5AD063DC1448A9E1BF53D1BDED580/status",
+          "protocol": "https",
+          "host": [
+            "onvio",
+            "com",
+            "br"
+          ],
+          "path": [
+            "api",
+            "br-default-department",
+            "v1",
+            "department-migration",
+            "77A5AD063DC1448A9E1BF53D1BDED580",
+            "status"
+          ]
+        },
+        "description": "Generated from cURL: curl 'https://onvio.com.br/api/br-default-department/v1/department-migration/77A5AD063DC1448A9E1BF53D1BDED580/status' \\\r\n  -H 'accept: application/json, text/plain, */*' \\\r\n  -H 'accept-language: en-US,en;q=0.9,pt;q=0.8' \\\r\n  -H 'authorization: UDSLongToken 6E5B08F65BAC47158C4AADDC3D202CF1' \\\r\n  -b 'traac={%22server%22:%22https://onvio.com.br%22%2C%22environment%22:%22prod%22%2C%22app%22:%22Onvio%20Center%22}; BMLanguageCode=pt-BR; uid=adrian@exatascontabilidade.com.br; bmTheme=DA26DD8B76C04A7B9A5EE3D029347E4D; mfa_enrolled=true; UDSLongToken=6E5B08F65BAC47158C4AADDC3D202CF1; traacRef={%22initial-referring-domain%22:%22onvio.com.br%22%2C%22initial-referrer%22:%22https://onvio.com.br/login/%22}; AMCVS_A7D63BC75245AE300A490D4D%40AdobeOrg=1; AMCV_A7D63BC75245AE300A490D4D%40AdobeOrg=-1124106680%7CMCIDTS%7C20508%7CMCMID%7C08423215971705126220152942872555261944%7CMCAAMLH-1772556265%7C4%7CMCAAMB-1772556265%7CRKhpRz8krg2tLO6pguXWp5olkAcUniQYPHaMWWgdJ3xzPWQmdj0y%7CMCOPTOUT-1771958665s%7CNONE%7CMCCIDH%7C281089240%7CvVersion%7C5.2.0; _dd_s=rum=1&id=b7a682f6-ab38-4aa7-a390-b706b97af52d&created=1771951461620&expire=1771954818485' \\\r\n  -H 'priority: u=1, i' \\\r\n  -H 'referer: https://onvio.com.br/br-portal-do-cliente/service-requesting/general' \\\r\n  -H 'sec-ch-ua: \"Not:A-Brand\";v=\"99\", \"Google Chrome\";v=\"145\", \"Chromium\";v=\"145\"' \\\r\n  -H 'sec-ch-ua-mobile: ?0' \\\r\n  -H 'sec-ch-ua-platform: \"Windows\"' \\\r\n  -H 'sec-fetch-dest: empty' \\\r\n  -H 'sec-fetch-mode: cors' \\\r\n  -H 'sec-fetch-site: same-origin' \\\r\n  -H 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36'"
+      },
+      "response": []
+    },
+    {
+      "name": "generic",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "accept",
+            "value": "application/json, text/plain, */*"
+          },
+          {
+            "key": "accept-language",
+            "value": "en-US,en;q=0.9,pt;q=0.8"
+          },
+          {
+            "key": "authorization",
+            "value": "UDSLongToken 6E5B08F65BAC47158C4AADDC3D202CF1"
+          },
+          {
+            "key": "content-type",
+            "value": "application/json"
+          },
+          {
+            "key": "origin",
+            "value": "https://onvio.com.br"
+          },
+          {
+            "key": "priority",
+            "value": "u=1, i"
+          },
+          {
+            "key": "referer",
+            "value": "https://onvio.com.br/br-portal-do-cliente/service-requesting/general"
+          },
+          {
+            "key": "sec-ch-ua",
+            "value": "\"Not:A-Brand\";v=\"99\", \"Google Chrome\";v=\"145\", \"Chromium\";v=\"145\""
+          },
+          {
+            "key": "sec-ch-ua-mobile",
+            "value": "?0"
+          },
+          {
+            "key": "sec-ch-ua-platform",
+            "value": "\"Windows\""
+          },
+          {
+            "key": "sec-fetch-dest",
+            "value": "empty"
+          },
+          {
+            "key": "sec-fetch-mode",
+            "value": "cors"
+          },
+          {
+            "key": "sec-fetch-site",
+            "value": "same-origin"
+          },
+          {
+            "key": "user-agent",
+            "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+          },
+          {
+            "key": "Cookie",
+            "value": "traac={%22server%22:%22https://onvio.com.br%22%2C%22environment%22:%22prod%22%2C%22app%22:%22Onvio%20Center%22}; BMLanguageCode=pt-BR; uid=adrian@exatascontabilidade.com.br; bmTheme=DA26DD8B76C04A7B9A5EE3D029347E4D; mfa_enrolled=true; UDSLongToken=6E5B08F65BAC47158C4AADDC3D202CF1; traacRef={%22initial-referring-domain%22:%22onvio.com.br%22%2C%22initial-referrer%22:%22https://onvio.com.br/login/%22}; AMCVS_A7D63BC75245AE300A490D4D%40AdobeOrg=1; AMCV_A7D63BC75245AE300A490D4D%40AdobeOrg=-1124106680%7CMCIDTS%7C20508%7CMCMID%7C08423215971705126220152942872555261944%7CMCAAMLH-1772556265%7C4%7CMCAAMB-1772556265%7CRKhpRz8krg2tLO6pguXWp5olkAcUniQYPHaMWWgdJ3xzPWQmdj0y%7CMCOPTOUT-1771958665s%7CNONE%7CMCCIDH%7C281089240%7CvVersion%7C5.2.0; _dd_s=rum=1&id=b7a682f6-ab38-4aa7-a390-b706b97af52d&created=1771951461620&expire=1771954818485"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"serviceRequestType\":\"GENERIC\",\"clientExpanded\":{\"id\":\"53D63A2011374292A75422B077D3ADC0\"},\"departmentId\":\"77A5AD063DC1448A9E1BF53D1BDED580\",\"description\":\"descrição teste\",\"subject\":\"assunto teste\",\"requestWay\":\"OTHER\",\"requesterExpanded\":{\"id\":\"F63E4E5E49F64065B8BED0AE7F4E4F68\"}}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://onvio.com.br/api/service-requesting/v1/tickets/generic",
+          "protocol": "https",
+          "host": [
+            "onvio",
+            "com",
+            "br"
+          ],
+          "path": [
+            "api",
+            "service-requesting",
+            "v1",
+            "tickets",
+            "generic"
+          ]
+        },
+        "description": "Generated from cURL: curl 'https://onvio.com.br/api/service-requesting/v1/tickets/generic' \\\r\n  -H 'accept: application/json, text/plain, */*' \\\r\n  -H 'accept-language: en-US,en;q=0.9,pt;q=0.8' \\\r\n  -H 'authorization: UDSLongToken 6E5B08F65BAC47158C4AADDC3D202CF1' \\\r\n  -H 'content-type: application/json' \\\r\n  -b 'traac={%22server%22:%22https://onvio.com.br%22%2C%22environment%22:%22prod%22%2C%22app%22:%22Onvio%20Center%22}; BMLanguageCode=pt-BR; uid=adrian@exatascontabilidade.com.br; bmTheme=DA26DD8B76C04A7B9A5EE3D029347E4D; mfa_enrolled=true; UDSLongToken=6E5B08F65BAC47158C4AADDC3D202CF1; traacRef={%22initial-referring-domain%22:%22onvio.com.br%22%2C%22initial-referrer%22:%22https://onvio.com.br/login/%22}; AMCVS_A7D63BC75245AE300A490D4D%40AdobeOrg=1; AMCV_A7D63BC75245AE300A490D4D%40AdobeOrg=-1124106680%7CMCIDTS%7C20508%7CMCMID%7C08423215971705126220152942872555261944%7CMCAAMLH-1772556265%7C4%7CMCAAMB-1772556265%7CRKhpRz8krg2tLO6pguXWp5olkAcUniQYPHaMWWgdJ3xzPWQmdj0y%7CMCOPTOUT-1771958665s%7CNONE%7CMCCIDH%7C281089240%7CvVersion%7C5.2.0; _dd_s=rum=1&id=b7a682f6-ab38-4aa7-a390-b706b97af52d&created=1771951461620&expire=1771954818485' \\\r\n  -H 'origin: https://onvio.com.br' \\\r\n  -H 'priority: u=1, i' \\\r\n  -H 'referer: https://onvio.com.br/br-portal-do-cliente/service-requesting/general' \\\r\n  -H 'sec-ch-ua: \"Not:A-Brand\";v=\"99\", \"Google Chrome\";v=\"145\", \"Chromium\";v=\"145\"' \\\r\n  -H 'sec-ch-ua-mobile: ?0' \\\r\n  -H 'sec-ch-ua-platform: \"Windows\"' \\\r\n  -H 'sec-fetch-dest: empty' \\\r\n  -H 'sec-fetch-mode: cors' \\\r\n  -H 'sec-fetch-site: same-origin' \\\r\n  -H 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36' \\\r\n  --data-raw '{\"serviceRequestType\":\"GENERIC\",\"clientExpanded\":{\"id\":\"53D63A2011374292A75422B077D3ADC0\"},\"departmentId\":\"77A5AD063DC1448A9E1BF53D1BDED580\",\"description\":\"descrição teste\",\"subject\":\"assunto teste\",\"requestWay\":\"OTHER\",\"requesterExpanded\":{\"id\":\"F63E4E5E49F64065B8BED0AE7F4E4F68\"}}'"
+      },
+      "response": []
+    },
+    {
+      "name": "topics",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "accept",
+            "value": "application/json, text/plain, */*"
+          },
+          {
+            "key": "accept-language",
+            "value": "en-US,en;q=0.9,pt;q=0.8"
+          },
+          {
+            "key": "authorization",
+            "value": "UDSLongToken 6E5B08F65BAC47158C4AADDC3D202CF1"
+          },
+          {
+            "key": "content-type",
+            "value": "application/json"
+          },
+          {
+            "key": "origin",
+            "value": "https://onvio.com.br"
+          },
+          {
+            "key": "priority",
+            "value": "u=1, i"
+          },
+          {
+            "key": "referer",
+            "value": "https://onvio.com.br/br-portal-do-cliente/service-requesting/general"
+          },
+          {
+            "key": "sec-ch-ua",
+            "value": "\"Not:A-Brand\";v=\"99\", \"Google Chrome\";v=\"145\", \"Chromium\";v=\"145\""
+          },
+          {
+            "key": "sec-ch-ua-mobile",
+            "value": "?0"
+          },
+          {
+            "key": "sec-ch-ua-platform",
+            "value": "\"Windows\""
+          },
+          {
+            "key": "sec-fetch-dest",
+            "value": "empty"
+          },
+          {
+            "key": "sec-fetch-mode",
+            "value": "cors"
+          },
+          {
+            "key": "sec-fetch-site",
+            "value": "same-origin"
+          },
+          {
+            "key": "user-agent",
+            "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+          },
+          {
+            "key": "Cookie",
+            "value": "traac={%22server%22:%22https://onvio.com.br%22%2C%22environment%22:%22prod%22%2C%22app%22:%22Onvio%20Center%22}; BMLanguageCode=pt-BR; uid=adrian@exatascontabilidade.com.br; bmTheme=DA26DD8B76C04A7B9A5EE3D029347E4D; mfa_enrolled=true; UDSLongToken=6E5B08F65BAC47158C4AADDC3D202CF1; traacRef={%22initial-referring-domain%22:%22onvio.com.br%22%2C%22initial-referrer%22:%22https://onvio.com.br/login/%22}; AMCVS_A7D63BC75245AE300A490D4D%40AdobeOrg=1; AMCV_A7D63BC75245AE300A490D4D%40AdobeOrg=-1124106680%7CMCIDTS%7C20508%7CMCMID%7C08423215971705126220152942872555261944%7CMCAAMLH-1772556265%7C4%7CMCAAMB-1772556265%7CRKhpRz8krg2tLO6pguXWp5olkAcUniQYPHaMWWgdJ3xzPWQmdj0y%7CMCOPTOUT-1771958665s%7CNONE%7CMCCIDH%7C281089240%7CvVersion%7C5.2.0; _dd_s=rum=1&id=b7a682f6-ab38-4aa7-a390-b706b97af52d&created=1771951461620&expire=1771954818485"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"description\":\"descrição teste\",\"status\":4}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://onvio.com.br/api/service-requesting/v1/tickets/4D8103280EA84B01A4A0429B7F027011/topics",
+          "protocol": "https",
+          "host": [
+            "onvio",
+            "com",
+            "br"
+          ],
+          "path": [
+            "api",
+            "service-requesting",
+            "v1",
+            "tickets",
+            "4D8103280EA84B01A4A0429B7F027011",
+            "topics"
+          ]
+        },
+        "description": "Generated from cURL: curl 'https://onvio.com.br/api/service-requesting/v1/tickets/4D8103280EA84B01A4A0429B7F027011/topics' \\\r\n  -H 'accept: application/json, text/plain, */*' \\\r\n  -H 'accept-language: en-US,en;q=0.9,pt;q=0.8' \\\r\n  -H 'authorization: UDSLongToken 6E5B08F65BAC47158C4AADDC3D202CF1' \\\r\n  -H 'content-type: application/json' \\\r\n  -b 'traac={%22server%22:%22https://onvio.com.br%22%2C%22environment%22:%22prod%22%2C%22app%22:%22Onvio%20Center%22}; BMLanguageCode=pt-BR; uid=adrian@exatascontabilidade.com.br; bmTheme=DA26DD8B76C04A7B9A5EE3D029347E4D; mfa_enrolled=true; UDSLongToken=6E5B08F65BAC47158C4AADDC3D202CF1; traacRef={%22initial-referring-domain%22:%22onvio.com.br%22%2C%22initial-referrer%22:%22https://onvio.com.br/login/%22}; AMCVS_A7D63BC75245AE300A490D4D%40AdobeOrg=1; AMCV_A7D63BC75245AE300A490D4D%40AdobeOrg=-1124106680%7CMCIDTS%7C20508%7CMCMID%7C08423215971705126220152942872555261944%7CMCAAMLH-1772556265%7C4%7CMCAAMB-1772556265%7CRKhpRz8krg2tLO6pguXWp5olkAcUniQYPHaMWWgdJ3xzPWQmdj0y%7CMCOPTOUT-1771958665s%7CNONE%7CMCCIDH%7C281089240%7CvVersion%7C5.2.0; _dd_s=rum=1&id=b7a682f6-ab38-4aa7-a390-b706b97af52d&created=1771951461620&expire=1771954818485' \\\r\n  -H 'origin: https://onvio.com.br' \\\r\n  -H 'priority: u=1, i' \\\r\n  -H 'referer: https://onvio.com.br/br-portal-do-cliente/service-requesting/general' \\\r\n  -H 'sec-ch-ua: \"Not:A-Brand\";v=\"99\", \"Google Chrome\";v=\"145\", \"Chromium\";v=\"145\"' \\\r\n  -H 'sec-ch-ua-mobile: ?0' \\\r\n  -H 'sec-ch-ua-platform: \"Windows\"' \\\r\n  -H 'sec-fetch-dest: empty' \\\r\n  -H 'sec-fetch-mode: cors' \\\r\n  -H 'sec-fetch-site: same-origin' \\\r\n  -H 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36' \\\r\n  --data-raw '{\"description\":\"descrição teste\",\"status\":4}'"
+      },
+      "response": []
+    },
+    {
+      "name": "attachments",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "accept",
+            "value": "application/json, text/plain, */*"
+          },
+          {
+            "key": "accept-language",
+            "value": "en-US,en;q=0.9,pt;q=0.8"
+          },
+          {
+            "key": "authorization",
+            "value": "UDSLongToken 6E5B08F65BAC47158C4AADDC3D202CF1"
+          },
+          {
+            "key": "content-type",
+            "value": "multipart/form-data; boundary=----WebKitFormBoundaryAZmTqf9rEsFjrFlA"
+          },
+          {
+            "key": "origin",
+            "value": "https://onvio.com.br"
+          },
+          {
+            "key": "priority",
+            "value": "u=1, i"
+          },
+          {
+            "key": "referer",
+            "value": "https://onvio.com.br/br-portal-do-cliente/service-requesting/general"
+          },
+          {
+            "key": "sec-ch-ua",
+            "value": "\"Not:A-Brand\";v=\"99\", \"Google Chrome\";v=\"145\", \"Chromium\";v=\"145\""
+          },
+          {
+            "key": "sec-ch-ua-mobile",
+            "value": "?0"
+          },
+          {
+            "key": "sec-ch-ua-platform",
+            "value": "\"Windows\""
+          },
+          {
+            "key": "sec-fetch-dest",
+            "value": "empty"
+          },
+          {
+            "key": "sec-fetch-mode",
+            "value": "cors"
+          },
+          {
+            "key": "sec-fetch-site",
+            "value": "same-origin"
+          },
+          {
+            "key": "user-agent",
+            "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+          },
+          {
+            "key": "Cookie",
+            "value": "traac={%22server%22:%22https://onvio.com.br%22%2C%22environment%22:%22prod%22%2C%22app%22:%22Onvio%20Center%22}; BMLanguageCode=pt-BR; uid=adrian@exatascontabilidade.com.br; bmTheme=DA26DD8B76C04A7B9A5EE3D029347E4D; mfa_enrolled=true; UDSLongToken=6E5B08F65BAC47158C4AADDC3D202CF1; traacRef={%22initial-referring-domain%22:%22onvio.com.br%22%2C%22initial-referrer%22:%22https://onvio.com.br/login/%22}; AMCVS_A7D63BC75245AE300A490D4D%40AdobeOrg=1; AMCV_A7D63BC75245AE300A490D4D%40AdobeOrg=-1124106680%7CMCIDTS%7C20508%7CMCMID%7C08423215971705126220152942872555261944%7CMCAAMLH-1772556265%7C4%7CMCAAMB-1772556265%7CRKhpRz8krg2tLO6pguXWp5olkAcUniQYPHaMWWgdJ3xzPWQmdj0y%7CMCOPTOUT-1771958665s%7CNONE%7CMCCIDH%7C281089240%7CvVersion%7C5.2.0; _dd_s=rum=1&id=b7a682f6-ab38-4aa7-a390-b706b97af52d&created=1771951461620&expire=1771954818485"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "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YXRhL2NvcmUtcHJvcGVydGllcy80OWIxYjQ1NTA5MTI0MTFiYmU2MTIxZmYxZTU0MGQxOC5wc21kY3AgohgAKKAUAAAAAAAAAAAAAAAAAAAAAAAAAAAA77u/PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48Y29yZVByb3BlcnRpZXMgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIiB4bWxuczpkY3Rlcm1zPSJodHRwOi8vcHVybC5vcmcvZGMvdGVybXMvIiB4bWxuczp4c2k9Imh0dHA6Ly93d3cudzMub3JnLzIwMDEvWE1MU2NoZW1hLWluc3RhbmNlIiB4bWxucz0iaHR0cDovL3NjaGVtYXMub3BlbnhtbGZvcm1hdHMub3JnL3BhY2thZ2UvMjAwNi9tZXRhZGF0YS9jb3JlLXByb3BlcnRpZXMiPjxkY3Rlcm1zOmNyZWF0ZWQgeHNpOnR5cGU9ImRjdGVybXM6VzNDRFRGIj4yMDI2LTAyLTI0VDE2OjQyOjE0LjEyOTM5ODhaPC9kY3Rlcm1zOmNyZWF0ZWQ+PGRjdGVybXM6bW9kaWZpZWQgeHNpOnR5cGU9ImRjdGVybXM6VzNDRFRGIj4yMDI2LTAyLTI0VDE2OjQyOjE0LjEyOTM5ODhaPC9kY3Rlcm1zOm1vZGlmaWVkPjwvY29yZVByb3BlcnRpZXM+UEsDBAoAAAAAAEdtWFwfadNYuAQAALgEAAATABwAW0NvbnRlbnRfVHlwZXNdLnhtbCCiGAAooBQAAAAAAAAAAAAAAAAAAAAAAAAAAADvu788P3htbCB2ZXJzaW9uPSIxLjAiIGVuY29kaW5nPSJ1dGYtOCI/PjxUeXBlcyB4bWxucz0iaHR0cDovL3NjaGVtYXMub3BlbnhtbGZvcm1hdHMub3JnL3BhY2thZ2UvMjAwNi9jb250ZW50LXR5cGVzIj48RGVmYXVsdCBFeHRlbnNpb249InhtbCIgQ29udGVudFR5cGU9ImFwcGxpY2F0aW9uL3ZuZC5vcGVueG1sZm9ybWF0cy1vZmZpY2Vkb2N1bWVudC5zcHJlYWRzaGVldG1sLnNoZWV0Lm1haW4reG1sIiAvPjxEZWZhdWx0IEV4dGVuc2lvbj0icmVscyIgQ29udGVudFR5cGU9ImFwcGxpY2F0aW9uL3ZuZC5vcGVueG1sZm9ybWF0cy1wYWNrYWdlLnJlbGF0aW9uc2hpcHMreG1sIiAvPjxEZWZhdWx0IEV4dGVuc2lvbj0icHNtZGNwIiBDb250ZW50VHlwZT0iYXBwbGljYXRpb24vdm5kLm9wZW54bWxmb3JtYXRzLXBhY2thZ2UuY29yZS1wcm9wZXJ0aWVzK3htbCIgLz48T3ZlcnJpZGUgUGFydE5hbWU9Ii9kb2NQcm9wcy9hcHAueG1sIiBDb250ZW50VHlwZT0iYXBwbGljYXRpb24vdm5kLm9wZW54bWxmb3JtYXRzLW9mZmljZWRvY3VtZW50LmV4dGVuZGVkLXByb3BlcnRpZXMreG1sIiAvPjxPdmVycmlkZSBQYXJ0TmFtZT0iL3hsL3NoYXJlZFN0cmluZ3MueG1sIiBDb250ZW50VHlwZT0iYXBwbGljYXRpb24vdm5kLm9wZW54bWxmb3JtYXRzLW9mZmljZWRvY3VtZW50LnNwcmVhZHNoZWV0bWwuc2hhcmVkU3RyaW5ncyt4bWwiIC8+PE92ZXJyaWRlIFBhcnROYW1lPSIveGwvc3R5bGVzLnhtbCIgQ29udGVudFR5cGU9ImFwcGxpY2F0aW9uL3ZuZC5vcGVueG1sZm9ybWF0cy1vZmZpY2Vkb2N1bWVudC5zcHJlYWRzaGVldG1sLnN0eWxlcyt4bWwiIC8+PE92ZXJyaWRlIFBhcnROYW1lPSIveGwvd29ya3NoZWV0cy9zaGVldDEueG1sIiBDb250ZW50VHlwZT0iYXBwbGljYXRpb24vdm5kLm9wZW54bWxmb3JtYXRzLW9mZmljZWRvY3VtZW50LnNwcmVhZHNoZWV0bWwud29ya3NoZWV0K3htbCIgLz48T3ZlcnJpZGUgUGFydE5hbWU9Ii94bC90YWJsZXMvdGFibGUxLnhtbCIgQ29udGVudFR5cGU9ImFwcGxpY2F0aW9uL3ZuZC5vcGVueG1sZm9ybWF0cy1vZmZpY2Vkb2N1bWVudC5zcHJlYWRzaGVldG1sLnRhYmxlK3htbCIgLz48T3ZlcnJpZGUgUGFydE5hbWU9Ii94bC90aGVtZS90aGVtZTEueG1sIiBDb250ZW50VHlwZT0iYXBwbGljYXRpb24vdm5kLm9wZW54bWxmb3JtYXRzLW9mZmljZWRvY3VtZW50LnRoZW1lK3htbCIgLz48L1R5cGVzPlBLAQItABQAAAAIAEdtWFwS2jcPBgEAAMIBAAAPAAAAAAAAAAAAAAAAAAAAAAB4bC93b3JrYm9vay54bWxQSwECLQAKAAAAAABHbVhc47w/0JwCAACcAgAACwAAAAAAAAAAAAAAAABPAQAAX3JlbHMvLnJlbHNQSwECLQAUAAAACABHbVhcalkHJWUBAABYAwAAEAAAAAAAAAAAAAAAAAAwBAAAZG9jUHJvcHMvYXBwLnhtbFBLAQItABQAAAAIAEdtWFwX60s2ogoAAOYnAAAUAAAAAAAAAAAAAAAAAN8FAAB4bC9zaGFyZWRTdHJpbmdzLnhtbFBLAQItABQAAAAIAEdtWFxl5XYK5AAAAL8CAAAaAAAAAAAAAAAAAAAAAM8QAAB4bC9fcmVscy93b3JrYm9vay54bWwucmVsc1BLAQItABQAAAAIAEdtWFyoKWqqgAMAAM4YAAANAAAAAAAAAAAAAAAAAAcSAAB4bC9zdHlsZXMueG1sUEsBAi0AFAAAAAgAR21YXP+ps5W5FQAArb0AABgAAAAAAAAAAAAAAAAAzhUAAHhsL3dvcmtzaGVldHMvc2hlZXQxLnhtbFBLAQItABQAAAAIAEdtWFxDQ2gXBAQAAOcXAAAjAAAAAAAAAAAAAAAAANkrAAB4bC93b3Jrc2hlZXRzL19yZWxzL3NoZWV0MS54bWwucmVsc1BLAQItABQAAAAIAEdtWFwM/YadDgQAAOcSAAAUAAAAAAAAAAAAAAAAADowAAB4bC90YWJsZXMvdGFibGUxLnhtbFBLAQItABQAAAAIAEdtWFxgTIezpgUAALgbAAATAAAAAAAAAAAAAAAAAJY0AAB4bC90aGVtZS90aGVtZTEueG1sUEsBAi0ACgAAAAAAR21YXIP+sR/aAQAA2gEAAFEAAAAAAAAAAAAAAAAAiToAAHBhY2thZ2Uvc2VydmljZXMvbWV0YWRhdGEvY29yZS1wcm9wZXJ0aWVzLzQ5YjFiNDU1MDkxMjQxMWJiZTYxMjFmZjFlNTQwZDE4LnBzbWRjcFBLAQItAAoAAAAAAEdtWFwfadNYuAQAALgEAAATAAAAAAAAAAAAAAAAAO48AABbQ29udGVudF9UeXBlc10ueG1sUEsFBgAAAAAMAAwAUwMAAPNBAAAAAA0KLS0tLS0tV2ViS2l0Rm9ybUJvdW5kYXJ5QVptVHFmOXJFc0ZqckZsQS0tDQo=",
+          "options": {
+            "raw": {
+              "language": "text"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://onvio.com.br/api/service-requesting/v1/tickets/4D8103280EA84B01A4A0429B7F027011/attachments",
+          "protocol": "https",
+          "host": [
+            "onvio",
+            "com",
+            "br"
+          ],
+          "path": [
+            "api",
+            "service-requesting",
+            "v1",
+            "tickets",
+            "4D8103280EA84B01A4A0429B7F027011",
+            "attachments"
+          ]
+        },
+        "description": "Generated from cURL: curl 'https://onvio.com.br/api/service-requesting/v1/tickets/4D8103280EA84B01A4A0429B7F027011/attachments' \\\r\n  -H 'accept: application/json, text/plain, */*' \\\r\n  -H 'accept-language: en-US,en;q=0.9,pt;q=0.8' \\\r\n  -H 'authorization: UDSLongToken 6E5B08F65BAC47158C4AADDC3D202CF1' \\\r\n  -H 'content-type: multipart/form-data; boundary=----WebKitFormBoundaryAZmTqf9rEsFjrFlA' \\\r\n  -b 'traac={%22server%22:%22https://onvio.com.br%22%2C%22environment%22:%22prod%22%2C%22app%22:%22Onvio%20Center%22}; BMLanguageCode=pt-BR; uid=adrian@exatascontabilidade.com.br; bmTheme=DA26DD8B76C04A7B9A5EE3D029347E4D; mfa_enrolled=true; UDSLongToken=6E5B08F65BAC47158C4AADDC3D202CF1; traacRef={%22initial-referring-domain%22:%22onvio.com.br%22%2C%22initial-referrer%22:%22https://onvio.com.br/login/%22}; AMCVS_A7D63BC75245AE300A490D4D%40AdobeOrg=1; AMCV_A7D63BC75245AE300A490D4D%40AdobeOrg=-1124106680%7CMCIDTS%7C20508%7CMCMID%7C08423215971705126220152942872555261944%7CMCAAMLH-1772556265%7C4%7CMCAAMB-1772556265%7CRKhpRz8krg2tLO6pguXWp5olkAcUniQYPHaMWWgdJ3xzPWQmdj0y%7CMCOPTOUT-1771958665s%7CNONE%7CMCCIDH%7C281089240%7CvVersion%7C5.2.0; _dd_s=rum=1&id=b7a682f6-ab38-4aa7-a390-b706b97af52d&created=1771951461620&expire=1771954818485' \\\r\n  -H 'origin: https://onvio.com.br' \\\r\n  -H 'priority: u=1, i' \\\r\n  -H 'referer: https://onvio.com.br/br-portal-do-cliente/service-requesting/general' \\\r\n  -H 'sec-ch-ua: \"Not:A-Brand\";v=\"99\", \"Google Chrome\";v=\"145\", \"Chromium\";v=\"145\"' \\\r\n  -H 'sec-ch-ua-mobile: ?0' \\\r\n  -H 'sec-ch-ua-platform: \"Windows\"' \\\r\n  -H 'sec-fetch-dest: empty' \\\r\n  -H 'sec-fetch-mode: cors' \\\r\n  -H 'sec-fetch-site: same-origin' \\\r\n  -H 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36' \\\r\n  --data-raw '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YXRhL2NvcmUtcHJvcGVydGllcy80OWIxYjQ1NTA5MTI0MTFiYmU2MTIxZmYxZTU0MGQxOC5wc21kY3AgohgAKKAUAAAAAAAAAAAAAAAAAAAAAAAAAAAA77u/PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48Y29yZVByb3BlcnRpZXMgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIiB4bWxuczpkY3Rlcm1zPSJodHRwOi8vcHVybC5vcmcvZGMvdGVybXMvIiB4bWxuczp4c2k9Imh0dHA6Ly93d3cudzMub3JnLzIwMDEvWE1MU2NoZW1hLWluc3RhbmNlIiB4bWxucz0iaHR0cDovL3NjaGVtYXMub3BlbnhtbGZvcm1hdHMub3JnL3BhY2thZ2UvMjAwNi9tZXRhZGF0YS9jb3JlLXByb3BlcnRpZXMiPjxkY3Rlcm1zOmNyZWF0ZWQgeHNpOnR5cGU9ImRjdGVybXM6VzNDRFRGIj4yMDI2LTAyLTI0VDE2OjQyOjE0LjEyOTM5ODhaPC9kY3Rlcm1zOmNyZWF0ZWQ+PGRjdGVybXM6bW9kaWZpZWQgeHNpOnR5cGU9ImRjdGVybXM6VzNDRFRGIj4yMDI2LTAyLTI0VDE2OjQyOjE0LjEyOTM5ODhaPC9kY3Rlcm1zOm1vZGlmaWVkPjwvY29yZVByb3BlcnRpZXM+UEsDBAoAAAAAAEdtWFwfadNYuAQAALgEAAATABwAW0NvbnRlbnRfVHlwZXNdLnhtbCCiGAAooBQAAAAAAAAAAAAAAAAAAAAAAAAAAADvu788P3htbCB2ZXJzaW9uPSIxLjAiIGVuY29kaW5nPSJ1dGYtOCI/PjxUeXBlcyB4bWxucz0iaHR0cDovL3NjaGVtYXMub3BlbnhtbGZvcm1hdHMub3JnL3BhY2thZ2UvMjAwNi9jb250ZW50LXR5cGVzIj48RGVmYXVsdCBFeHRlbnNpb249InhtbCIgQ29udGVudFR5cGU9ImFwcGxpY2F0aW9uL3ZuZC5vcGVueG1sZm9ybWF0cy1vZmZpY2Vkb2N1bWVudC5zcHJlYWRzaGVldG1sLnNoZWV0Lm1haW4reG1sIiAvPjxEZWZhdWx0IEV4dGVuc2lvbj0icmVscyIgQ29udGVudFR5cGU9ImFwcGxpY2F0aW9uL3ZuZC5vcGVueG1sZm9ybWF0cy1wYWNrYWdlLnJlbGF0aW9uc2hpcHMreG1sIiAvPjxEZWZhdWx0IEV4dGVuc2lvbj0icHNtZGNwIiBDb250ZW50VHlwZT0iYXBwbGljYXRpb24vdm5kLm9wZW54bWxmb3JtYXRzLXBhY2thZ2UuY29yZS1wcm9wZXJ0aWVzK3htbCIgLz48T3ZlcnJpZGUgUGFydE5hbWU9Ii9kb2NQcm9wcy9hcHAueG1sIiBDb250ZW50VHlwZT0iYXBwbGljYXRpb24vdm5kLm9wZW54bWxmb3JtYXRzLW9mZmljZWRvY3VtZW50LmV4dGVuZGVkLXByb3BlcnRpZXMreG1sIiAvPjxPdmVycmlkZSBQYXJ0TmFtZT0iL3hsL3NoYXJlZFN0cmluZ3MueG1sIiBDb250ZW50VHlwZT0iYXBwbGljYXRpb24vdm5kLm9wZW54bWxmb3JtYXRzLW9mZmljZWRvY3VtZW50LnNwcmVhZHNoZWV0bWwuc2hhcmVkU3RyaW5ncyt4bWwiIC8+PE92ZXJyaWRlIFBhcnROYW1lPSIveGwvc3R5bGVzLnhtbCIgQ29udGVudFR5cGU9ImFwcGxpY2F0aW9uL3ZuZC5vcGVueG1sZm9ybWF0cy1vZmZpY2Vkb2N1bWVudC5zcHJlYWRzaGVldG1sLnN0eWxlcyt4bWwiIC8+PE92ZXJyaWRlIFBhcnROYW1lPSIveGwvd29ya3NoZWV0cy9zaGVldDEueG1sIiBDb250ZW50VHlwZT0iYXBwbGljYXRpb24vdm5kLm9wZW54bWxmb3JtYXRzLW9mZmljZWRvY3VtZW50LnNwcmVhZHNoZWV0bWwud29ya3NoZWV0K3htbCIgLz48T3ZlcnJpZGUgUGFydE5hbWU9Ii94bC90YWJsZXMvdGFibGUxLnhtbCIgQ29udGVudFR5cGU9ImFwcGxpY2F0aW9uL3ZuZC5vcGVueG1sZm9ybWF0cy1vZmZpY2Vkb2N1bWVudC5zcHJlYWRzaGVldG1sLnRhYmxlK3htbCIgLz48T3ZlcnJpZGUgUGFydE5hbWU9Ii94bC90aGVtZS90aGVtZTEueG1sIiBDb250ZW50VHlwZT0iYXBwbGljYXRpb24vdm5kLm9wZW54bWxmb3JtYXRzLW9mZmljZWRvY3VtZW50LnRoZW1lK3htbCIgLz48L1R5cGVzPlBLAQItABQAAAAIAEdtWFwS2jcPBgEAAMIBAAAPAAAAAAAAAAAAAAAAAAAAAAB4bC93b3JrYm9vay54bWxQSwECLQAKAAAAAABHbVhc47w/0JwCAACcAgAACwAAAAAAAAAAAAAAAABPAQAAX3JlbHMvLnJlbHNQSwECLQAUAAAACABHbVhcalkHJWUBAABYAwAAEAAAAAAAAAAAAAAAAAAwBAAAZG9jUHJvcHMvYXBwLnhtbFBLAQItABQAAAAIAEdtWFwX60s2ogoAAOYnAAAUAAAAAAAAAAAAAAAAAN8FAAB4bC9zaGFyZWRTdHJpbmdzLnhtbFBLAQItABQAAAAIAEdtWFxl5XYK5AAAAL8CAAAaAAAAAAAAAAAAAAAAAM8QAAB4bC9fcmVscy93b3JrYm9vay54bWwucmVsc1BLAQItABQAAAAIAEdtWFyoKWqqgAMAAM4YAAANAAAAAAAAAAAAAAAAAAcSAAB4bC9zdHlsZXMueG1sUEsBAi0AFAAAAAgAR21YXP+ps5W5FQAArb0AABgAAAAAAAAAAAAAAAAAzhUAAHhsL3dvcmtzaGVldHMvc2hlZXQxLnhtbFBLAQItABQAAAAIAEdtWFxDQ2gXBAQAAOcXAAAjAAAAAAAAAAAAAAAAANkrAAB4bC93b3Jrc2hlZXRzL19yZWxzL3NoZWV0MS54bWwucmVsc1BLAQItABQAAAAIAEdtWFwM/YadDgQAAOcSAAAUAAAAAAAAAAAAAAAAADowAAB4bC90YWJsZXMvdGFibGUxLnhtbFBLAQItABQAAAAIAEdtWFxgTIezpgUAALgbAAATAAAAAAAAAAAAAAAAAJY0AAB4bC90aGVtZS90aGVtZTEueG1sUEsBAi0ACgAAAAAAR21YXIP+sR/aAQAA2gEAAFEAAAAAAAAAAAAAAAAAiToAAHBhY2thZ2Uvc2VydmljZXMvbWV0YWRhdGEvY29yZS1wcm9wZXJ0aWVzLzQ5YjFiNDU1MDkxMjQxMWJiZTYxMjFmZjFlNTQwZDE4LnBzbWRjcFBLAQItAAoAAAAAAEdtWFwfadNYuAQAALgEAAATAAAAAAAAAAAAAAAAAO48AABbQ29udGVudF9UeXBlc10ueG1sUEsFBgAAAAAMAAwAUwMAAPNBAAAAAA0KLS0tLS0tV2ViS2l0Rm9ybUJvdW5kYXJ5QVptVHFmOXJFc0ZqckZsQS0tDQo='"
+      },
+      "response": []
+    },
+    {
+      "name": "Listar contatos cliente",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "accept",
+            "value": "application/json, text/plain, */*"
+          },
+          {
+            "key": "accept-language",
+            "value": "en-US,en;q=0.9,pt;q=0.8"
+          },
+          {
+            "key": "authorization",
+            "value": "UDSLongToken {{UDSLongToken}}"
+          },
+          {
+            "key": "content-type",
+            "value": "application/json"
+          },
+          {
+            "key": "origin",
+            "value": "https://onvio.com.br"
+          },
+          {
+            "key": "priority",
+            "value": "u=1, i"
+          },
+          {
+            "key": "referer",
+            "value": "https://onvio.com.br/br-portal-do-cliente/service-requesting/general"
+          },
+          {
+            "key": "sec-ch-ua",
+            "value": "\"Not:A-Brand\";v=\"99\", \"Google Chrome\";v=\"145\", \"Chromium\";v=\"145\""
+          },
+          {
+            "key": "sec-ch-ua-mobile",
+            "value": "?0"
+          },
+          {
+            "key": "sec-ch-ua-platform",
+            "value": "\"Windows\""
+          },
+          {
+            "key": "sec-fetch-dest",
+            "value": "empty"
+          },
+          {
+            "key": "sec-fetch-mode",
+            "value": "cors"
+          },
+          {
+            "key": "sec-fetch-site",
+            "value": "same-origin"
+          },
+          {
+            "key": "user-agent",
+            "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+          },
+          {
+            "key": "Cookie",
+            "value": "{{Cookie}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"expand\":\"contact.displayAs,contact.id\",\"excludeCount\":false,\"filterSearchSort\":{\"search\":\"true\",\"searchBy\":\"contactIsClientCenterEnabled\"},\"pagingDataRequest\":{\"itemsPerPage\":1000}}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://onvio.com.br/api/core/v1/companies/DA26DD8B76C04A7B9A5EE3D029347E4D/contacts/EE43D256BB254F2484ED4A204DBC2A7F/relationship-views/search",
+          "protocol": "https",
+          "host": [
+            "onvio",
+            "com",
+            "br"
+          ],
+          "path": [
+            "api",
+            "core",
+            "v1",
+            "companies",
+            "DA26DD8B76C04A7B9A5EE3D029347E4D",
+            "contacts",
+            "EE43D256BB254F2484ED4A204DBC2A7F",
+            "relationship-views",
+            "search"
+          ]
+        },
+        "description": "Generated from cURL: curl 'https://onvio.com.br/api/core/v1/companies/DA26DD8B76C04A7B9A5EE3D029347E4D/contacts/EE43D256BB254F2484ED4A204DBC2A7F/relationship-views/search' \\\r\n  -H 'accept: application/json, text/plain, */*' \\\r\n  -H 'accept-language: en-US,en;q=0.9,pt;q=0.8' \\\r\n  -H 'authorization: UDSLongToken 22648D3175684549B55AA73CD6D1862A' \\\r\n  -H 'content-type: application/json' \\\r\n  -b 'traac={%22server%22:%22https://onvio.com.br%22%2C%22environment%22:%22prod%22%2C%22app%22:%22Onvio%20Center%22}; BMLanguageCode=pt-BR; bmTheme=DA26DD8B76C04A7B9A5EE3D029347E4D; mfa_enrolled=true; AMCVS_A7D63BC75245AE300A490D4D%40AdobeOrg=1; uid=automacao.gestta@exatascontabilidade.com.br; traacRef={%22initial-referring-domain%22:%22onvio.com.br%22%2C%22initial-referrer%22:%22https://onvio.com.br/login/%22}; UDSLongToken=22648D3175684549B55AA73CD6D1862A; AMCV_A7D63BC75245AE300A490D4D%40AdobeOrg=-1124106680%7CMCIDTS%7C20508%7CMCMID%7C08423215971705126220152942872555261944%7CMCAAMLH-1772573674%7C4%7CMCAAMB-1772573674%7CRKhpRz8krg2tLO6pguXWp5olkAcUniQYPHaMWWgdJ3xzPWQmdj0y%7CMCOPTOUT-1771976074s%7CNONE%7CMCCIDH%7C-354961108%7CvVersion%7C5.2.0; _dd_s=rum=1&id=9542dccc-1c13-4055-88cf-e98a407f2817&created=1771965495083&expire=1771971710264' \\\r\n  -H 'origin: https://onvio.com.br' \\\r\n  -H 'priority: u=1, i' \\\r\n  -H 'referer: https://onvio.com.br/br-portal-do-cliente/service-requesting/general' \\\r\n  -H 'sec-ch-ua: \"Not:A-Brand\";v=\"99\", \"Google Chrome\";v=\"145\", \"Chromium\";v=\"145\"' \\\r\n  -H 'sec-ch-ua-mobile: ?0' \\\r\n  -H 'sec-ch-ua-platform: \"Windows\"' \\\r\n  -H 'sec-fetch-dest: empty' \\\r\n  -H 'sec-fetch-mode: cors' \\\r\n  -H 'sec-fetch-site: same-origin' \\\r\n  -H 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36' \\\r\n  --data-raw '{\"expand\":\"contact.displayAs,contact.id\",\"excludeCount\":false,\"filterSearchSort\":{\"search\":\"true\",\"searchBy\":\"contactIsClientCenterEnabled\"},\"pagingDataRequest\":{\"itemsPerPage\":1000}}'"
+      },
+      "response": []
+    },
+    {
+      "name": "Listar contatos",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "accept",
+            "value": "application/json, text/plain, */*"
+          },
+          {
+            "key": "accept-language",
+            "value": "en-US,en;q=0.9,pt;q=0.8"
+          },
+          {
+            "key": "authorization",
+            "value": "UDSLongToken {{UDSLongToken}}"
+          },
+          {
+            "key": "content-type",
+            "value": "application/json"
+          },
+          {
+            "key": "origin",
+            "value": "https://onvio.com.br"
+          },
+          {
+            "key": "priority",
+            "value": "u=1, i"
+          },
+          {
+            "key": "referer",
+            "value": "https://onvio.com.br/br-portal-do-cliente/settings/clients-users"
+          },
+          {
+            "key": "sec-ch-ua",
+            "value": "\"Not:A-Brand\";v=\"99\", \"Google Chrome\";v=\"145\", \"Chromium\";v=\"145\""
+          },
+          {
+            "key": "sec-ch-ua-mobile",
+            "value": "?0"
+          },
+          {
+            "key": "sec-ch-ua-platform",
+            "value": "\"Windows\""
+          },
+          {
+            "key": "sec-fetch-dest",
+            "value": "empty"
+          },
+          {
+            "key": "sec-fetch-mode",
+            "value": "cors"
+          },
+          {
+            "key": "sec-fetch-site",
+            "value": "same-origin"
+          },
+          {
+            "key": "user-agent",
+            "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+          },
+          {
+            "key": "Cookie",
+            "value": "{{Cookie}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"expand\":\"displayAs,primaryEmail.emailAddress,isClientCenterEnabled\",\"excludeCount\":false,\"filterSearchSort\":{\"orderBy\":\"\",\"search\":\"\",\"searchBy\":\"\",\"filter\":\"{\\\"groups\\\":[{\\\"useOr\\\":false,\\\"items\\\":[{\\\"by\\\":\\\"entityType.id\\\",\\\"op\\\":\\\"EQ\\\",\\\"value\\\":\\\"BRINDIVIDUAL\\\"},{\\\"by\\\":\\\"clientCode\\\",\\\"op\\\":\\\"BLANK\\\",\\\"value\\\":\\\"\\\"},{\\\"by\\\":\\\"employeeCode\\\",\\\"op\\\":\\\"BLANK\\\",\\\"value\\\":\\\"\\\"},{\\\"by\\\":\\\"officeCode\\\",\\\"op\\\":\\\"BLANK\\\",\\\"value\\\":\\\"\\\"}]}]}\"},\"pagingDataRequest\":{\"startIndex\":1,\"pageIndex\":1,\"itemsPerPage\":10}}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://onvio.com.br/api/core/v1/companies/DA26DD8B76C04A7B9A5EE3D029347E4D/contact-views/search",
+          "protocol": "https",
+          "host": [
+            "onvio",
+            "com",
+            "br"
+          ],
+          "path": [
+            "api",
+            "core",
+            "v1",
+            "companies",
+            "DA26DD8B76C04A7B9A5EE3D029347E4D",
+            "contact-views",
+            "search"
+          ]
+        },
+        "description": "Generated from cURL: curl 'https://onvio.com.br/api/core/v1/companies/DA26DD8B76C04A7B9A5EE3D029347E4D/contact-views/search' \\\r\n  -H 'accept: application/json, text/plain, */*' \\\r\n  -H 'accept-language: en-US,en;q=0.9,pt;q=0.8' \\\r\n  -H 'authorization: UDSLongToken 22648D3175684549B55AA73CD6D1862A' \\\r\n  -H 'content-type: application/json' \\\r\n  -b 'traac={%22server%22:%22https://onvio.com.br%22%2C%22environment%22:%22prod%22%2C%22app%22:%22Onvio%20Center%22}; BMLanguageCode=pt-BR; bmTheme=DA26DD8B76C04A7B9A5EE3D029347E4D; mfa_enrolled=true; AMCVS_A7D63BC75245AE300A490D4D%40AdobeOrg=1; uid=automacao.gestta@exatascontabilidade.com.br; traacRef={%22initial-referring-domain%22:%22onvio.com.br%22%2C%22initial-referrer%22:%22https://onvio.com.br/login/%22}; UDSLongToken=22648D3175684549B55AA73CD6D1862A; AMCV_A7D63BC75245AE300A490D4D%40AdobeOrg=-1124106680%7CMCIDTS%7C20508%7CMCMID%7C08423215971705126220152942872555261944%7CMCAAMLH-1772573674%7C4%7CMCAAMB-1772573674%7CRKhpRz8krg2tLO6pguXWp5olkAcUniQYPHaMWWgdJ3xzPWQmdj0y%7CMCOPTOUT-1771976074s%7CNONE%7CMCCIDH%7C-354961108%7CvVersion%7C5.2.0; _dd_s=rum=1&id=9542dccc-1c13-4055-88cf-e98a407f2817&created=1771965495083&expire=1771972806056' \\\r\n  -H 'origin: https://onvio.com.br' \\\r\n  -H 'priority: u=1, i' \\\r\n  -H 'referer: https://onvio.com.br/br-portal-do-cliente/settings/clients-users' \\\r\n  -H 'sec-ch-ua: \"Not:A-Brand\";v=\"99\", \"Google Chrome\";v=\"145\", \"Chromium\";v=\"145\"' \\\r\n  -H 'sec-ch-ua-mobile: ?0' \\\r\n  -H 'sec-ch-ua-platform: \"Windows\"' \\\r\n  -H 'sec-fetch-dest: empty' \\\r\n  -H 'sec-fetch-mode: cors' \\\r\n  -H 'sec-fetch-site: same-origin' \\\r\n  -H 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36' \\\r\n  --data-raw '{\"expand\":\"displayAs,primaryEmail.emailAddress,isClientCenterEnabled\",\"excludeCount\":false,\"filterSearchSort\":{\"orderBy\":\"\",\"search\":\"\",\"searchBy\":\"\",\"filter\":\"{\\\"groups\\\":[{\\\"useOr\\\":false,\\\"items\\\":[{\\\"by\\\":\\\"entityType.id\\\",\\\"op\\\":\\\"EQ\\\",\\\"value\\\":\\\"BRINDIVIDUAL\\\"},{\\\"by\\\":\\\"clientCode\\\",\\\"op\\\":\\\"BLANK\\\",\\\"value\\\":\\\"\\\"},{\\\"by\\\":\\\"employeeCode\\\",\\\"op\\\":\\\"BLANK\\\",\\\"value\\\":\\\"\\\"},{\\\"by\\\":\\\"officeCode\\\",\\\"op\\\":\\\"BLANK\\\",\\\"value\\\":\\\"\\\"}]}]}\"},\"pagingDataRequest\":{\"startIndex\":1,\"pageIndex\":1,\"itemsPerPage\":10}}'"
+      },
+      "response": []
+    },
+    {
+      "name": "Download PDF",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "accept",
+            "value": "*/*"
+          },
+          {
+            "key": "accept-language",
+            "value": "pt-BR"
+          },
+          {
+            "key": "authorization",
+            "value": "UDSLongToken C4AEC227E0844AFBADDC366BB03D7D70"
+          },
+          {
+            "key": "content-type",
+            "value": "*/*"
+          },
+          {
+            "key": "priority",
+            "value": "u=1, i"
+          },
+          {
+            "key": "referer",
+            "value": "https://onvio.com.br/staff/"
+          },
+          {
+            "key": "sec-ch-ua",
+            "value": "\"Not:A-Brand\";v=\"99\", \"Microsoft Edge\";v=\"145\", \"Chromium\";v=\"145\""
+          },
+          {
+            "key": "sec-ch-ua-mobile",
+            "value": "?0"
+          },
+          {
+            "key": "sec-ch-ua-platform",
+            "value": "\"Windows\""
+          },
+          {
+            "key": "sec-fetch-dest",
+            "value": "empty"
+          },
+          {
+            "key": "sec-fetch-mode",
+            "value": "cors"
+          },
+          {
+            "key": "sec-fetch-site",
+            "value": "same-origin"
+          },
+          {
+            "key": "user-agent",
+            "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.0.0.0"
+          },
+          {
+            "key": "Cookie",
+            "value": "BMLanguageCode=pt-BR; bmTheme=DA26DD8B76C04A7B9A5EE3D029347E4D; uid=adrian@exatascontabilidade.com.br; mfa_enrolled=true; AMCVS_A7D63BC75245AE300A490D4D%40AdobeOrg=1; traac={%22server%22:%22https://onvio.com.br%22%2C%22environment%22:%22prod%22%2C%22app%22:%22Onvio%20Center%22%2C%22uid%22:%2238D051BB233949338593C1F585DF3D31%22}; AMCV_A7D63BC75245AE300A490D4D%40AdobeOrg=-1124106680%7CMCIDTS%7C20519%7CMCMID%7C70403236224824093740257352483635538224%7CMCAAMLH-1773432191%7C4%7CMCAAMB-1773432191%7C6G1ynYcLPuiQxYZrsz_pkqfLG9yMXBpb2zX5dvJdYQJzPXImdj0y%7CMCOPTOUT-1772834591s%7CNONE%7CMCCIDH%7C281089240%7CMCSYNCSOP%7C411-20524%7CvVersion%7C5.2.0; UDSLongToken=C4AEC227E0844AFBADDC366BB03D7D70; traacRef={%22initial-referring-domain%22:%22onvio.com.br%22%2C%22initial-referrer%22:%22https://onvio.com.br/login/%22}; _dd_s=rum=1&id=0130078b-a324-4c19-9560-5fda6ff5bbc8&created=1772831076130&expire=1772832260944"
+          }
+        ],
+        "url": {
+          "raw": "https://onvio.com.br/api/storage/v1/Folders/d8149dee41064ac0bc5be97a43cd691c/documents/bff30e50a9b94a98b69ff53b3c441166",
+          "protocol": "https",
+          "host": [
+            "onvio",
+            "com",
+            "br"
+          ],
+          "path": [
+            "api",
+            "storage",
+            "v1",
+            "Folders",
+            "d8149dee41064ac0bc5be97a43cd691c",
+            "documents",
+            "bff30e50a9b94a98b69ff53b3c441166"
+          ]
+        },
+        "description": "Generated from cURL: curl 'https://onvio.com.br/api/storage/v1/Folders/d8149dee41064ac0bc5be97a43cd691c/documents/bff30e50a9b94a98b69ff53b3c441166' \\\r\n  -H 'accept: */*' \\\r\n  -H 'accept-language: pt-BR' \\\r\n  -H 'authorization: UDSLongToken C4AEC227E0844AFBADDC366BB03D7D70' \\\r\n  -H 'content-type: */*' \\\r\n  -b 'BMLanguageCode=pt-BR; bmTheme=DA26DD8B76C04A7B9A5EE3D029347E4D; uid=adrian@exatascontabilidade.com.br; mfa_enrolled=true; AMCVS_A7D63BC75245AE300A490D4D%40AdobeOrg=1; traac={%22server%22:%22https://onvio.com.br%22%2C%22environment%22:%22prod%22%2C%22app%22:%22Onvio%20Center%22%2C%22uid%22:%2238D051BB233949338593C1F585DF3D31%22}; AMCV_A7D63BC75245AE300A490D4D%40AdobeOrg=-1124106680%7CMCIDTS%7C20519%7CMCMID%7C70403236224824093740257352483635538224%7CMCAAMLH-1773432191%7C4%7CMCAAMB-1773432191%7C6G1ynYcLPuiQxYZrsz_pkqfLG9yMXBpb2zX5dvJdYQJzPXImdj0y%7CMCOPTOUT-1772834591s%7CNONE%7CMCCIDH%7C281089240%7CMCSYNCSOP%7C411-20524%7CvVersion%7C5.2.0; UDSLongToken=C4AEC227E0844AFBADDC366BB03D7D70; traacRef={%22initial-referring-domain%22:%22onvio.com.br%22%2C%22initial-referrer%22:%22https://onvio.com.br/login/%22}; _dd_s=rum=1&id=0130078b-a324-4c19-9560-5fda6ff5bbc8&created=1772831076130&expire=1772832260944' \\\r\n  -H 'priority: u=1, i' \\\r\n  -H 'referer: https://onvio.com.br/staff/' \\\r\n  -H 'sec-ch-ua: \"Not:A-Brand\";v=\"99\", \"Microsoft Edge\";v=\"145\", \"Chromium\";v=\"145\"' \\\r\n  -H 'sec-ch-ua-mobile: ?0' \\\r\n  -H 'sec-ch-ua-platform: \"Windows\"' \\\r\n  -H 'sec-fetch-dest: empty' \\\r\n  -H 'sec-fetch-mode: cors' \\\r\n  -H 'sec-fetch-site: same-origin' \\\r\n  -H 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.0.0.0'"
+      },
+      "response": []
+    },
+    {
+      "name": "Listar boletos",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "accept",
+            "value": "application/json, text/plain, */*"
+          },
+          {
+            "key": "accept-language",
+            "value": "pt-BR"
+          },
+          {
+            "key": "authorization",
+            "value": "UDSLongToken {{UDSLongToken}}"
+          },
+          {
+            "key": "content-type",
+            "value": "application/json"
+          },
+          {
+            "key": "priority",
+            "value": "u=1, i"
+          },
+          {
+            "key": "referer",
+            "value": "https://onvio.com.br/staff/"
+          },
+          {
+            "key": "sec-ch-ua",
+            "value": "\"Not:A-Brand\";v=\"99\", \"Microsoft Edge\";v=\"145\", \"Chromium\";v=\"145\""
+          },
+          {
+            "key": "sec-ch-ua-mobile",
+            "value": "?0"
+          },
+          {
+            "key": "sec-ch-ua-platform",
+            "value": "\"Windows\""
+          },
+          {
+            "key": "sec-fetch-dest",
+            "value": "empty"
+          },
+          {
+            "key": "sec-fetch-mode",
+            "value": "cors"
+          },
+          {
+            "key": "sec-fetch-site",
+            "value": "same-origin"
+          },
+          {
+            "key": "user-agent",
+            "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.0.0.0"
+          },
+          {
+            "key": "Cookie",
+            "value": "BMLanguageCode=pt-BR; mfa_enrolled=true; uid=automacao.gestta@exatascontabilidade.com.br; bmTheme=DA26DD8B76C04A7B9A5EE3D029347E4D; AMCVS_A7D63BC75245AE300A490D4D%40AdobeOrg=1; AMCV_A7D63BC75245AE300A490D4D%40AdobeOrg=-1124106680%7CMCIDTS%7C20524%7CMCMID%7C73276781763067243424489458558761388784%7CMCAAMLH-1773858014%7C4%7CMCAAMB-1773858014%7C6G1ynYcLPuiQxYZrsz_pkqfLG9yMXBpb2zX5dvJdYQJzPXImdj0y%7CMCOPTOUT-1773260414s%7CNONE%7CMCCIDH%7C-354961108%7CMCSYNCSOP%7C411-20531%7CvVersion%7C5.2.0; UDSLongToken=57755DB3E30F4797B20D56BE2601D3B0; traacRef={%22initial-referring-domain%22:%22onvio.com.br%22%2C%22initial-referrer%22:%22https://onvio.com.br/login/%22}; _dd_s=rum=1&id=58f7c566-2c90-4f73-af8a-513c7f528a52&created=1773261913644&expire=1773262816772"
+          }
+        ],
+        "url": {
+          "raw": "https://onvio.com.br/api/storage/v2/Folders/d8149dee41064ac0bc5be97a43cd691c/children?from=1&pageSize=100&sort=name:asc&containersOnly=false&trashed=false&countDocuments=false&calculateLocks=true",
+          "protocol": "https",
+          "host": [
+            "onvio",
+            "com",
+            "br"
+          ],
+          "path": [
+            "api",
+            "storage",
+            "v2",
+            "Folders",
+            "d8149dee41064ac0bc5be97a43cd691c",
+            "children"
+          ],
+          "query": [
+            {
+              "key": "from",
+              "value": "1"
+            },
+            {
+              "key": "pageSize",
+              "value": "100"
+            },
+            {
+              "key": "sort",
+              "value": "name:asc"
+            },
+            {
+              "key": "containersOnly",
+              "value": "false"
+            },
+            {
+              "key": "trashed",
+              "value": "false"
+            },
+            {
+              "key": "countDocuments",
+              "value": "false"
+            },
+            {
+              "key": "calculateLocks",
+              "value": "true"
+            }
+          ]
+        },
+        "description": "Generated from cURL: curl '[https://onvio.com.br/api/storage/v2/Folders/d8149dee41064ac0bc5be97a43cd691c/children?from=1&amp;pageSize=100&amp;sort=name:asc&amp;containersOnly=false&amp;trashed=false&amp;countDocuments=false&amp;calculateLocks=true'](https://onvio.com.br/api/storage/v2/Folders/d8149dee41064ac0bc5be97a43cd691c/children?from=1&pageSize=100&sort=name:asc&containersOnly=false&trashed=false&countDocuments=false&calculateLocks=true')  \n\\-H 'accept: application/json, text/plain, _/_'  \n\\-H 'accept-language: pt-BR'  \n\\-H 'authorization: UDSLongToken F42DC169FBA04DFBBFF0A2224FB5D577'  \n\\-H 'content-type: application/json'  \n\\-b '\n\nBMLanguageCode=pt-BR; mfa_enrolled=true; uid=automacao.gestta@exatascontabilidade.com.br; bmTheme=DA26DD8B76C04A7B9A5EE3D029347E4D; AMCVS_A7D63BC75245AE300A490D4D@AdobeOrg=1; AMCV_A7D63BC75245AE300A490D4D@AdobeOrg=-1124106680|MCIDTS|20524|MCMID|73276781763067243424489458558761388784|MCAAMLH-1773858014|4|MCAAMB-1773858014|6G1ynYcLPuiQxYZrsz_pkqfLG9yMXBpb2zX5dvJdYQJzPXImdj0y|MC\n\n'  \n\\-H 'priority: u=1, i'  \n\\-H 'referer: [https://onvio.com.br/staff/'](https://onvio.com.br/staff/')  \n\\-H 'sec-ch-ua: \"Not:A-Brand\";v=\"99\", \"Microsoft Edge\";v=\"145\", \"Chromium\";v=\"145\"'  \n\\-H 'sec-ch-ua-mobile: ?0'  \n\\-H 'sec-ch-ua-platform: \"Windows\"'  \n\\-H 'sec-fetch-dest: empty'  \n\\-H 'sec-fetch-mode: cors'  \n\\-H 'sec-fetch-site: same-origin'  \n\\-H 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.0.0.0'"
+      },
+      "response": []
+    }
+  ]
+}

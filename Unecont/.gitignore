@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.env
+runtime/
+evidences/
+logs/
+*.log
+planilha_validacao.xlsx

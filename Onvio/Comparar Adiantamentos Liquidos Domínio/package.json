@@ -1,0 +1,16 @@
+{
+  "name": "comparar-adiantamentos-liquidos-dominio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Lista documentos Adiantamento em RELATÓRIO DE LÍQUIDOS (2025/2026) via API BD e Onvio storage.",
+  "scripts": {
+    "listar-adiantamento": "node scripts/listar-documentos-adiantamento.js",
+    "baixar-adiantamento": "node scripts/baixar-documentos-adiantamento.js",
+    "comparar-adiantamento": "node scripts/comparar-relatorio-adiantamento.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "pdf-parse": "^1.1.1"
+  }
+}

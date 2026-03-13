@@ -1,0 +1,29 @@
+{
+  "name": "@automation-hub/certificados",
+  "version": "1.0.0",
+  "description": "Atualização de certificados digitais em Unecont, Onvio e Sieg",
+  "main": "dist/index.js",
+  "scripts": {
+    "atualizar-unecont": "tsx src/scripts/atualizar-certificado-unecont.ts",
+    "atualizar-onvio": "tsx src/scripts/atualizar-certificado-onvio.ts",
+    "atualizar-sieg": "tsx src/scripts/atualizar-certificado-sieg.ts",
+    "dev": "tsx src/scripts/atualizar-certificado-unecont.ts",
+    "build": "tsc",
+    "test": "vitest run",
+    "lint": "eslint src/"
+  },
+  "dependencies": {
+    "@automation-hub/automation-config": "file:../../packages/automation-config",
+    "@automation-hub/credentials": "file:../../packages/credentials",
+    "axios": "^1.7.9",
+    "dotenv": "^16.4.5",
+    "form-data": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0",
+    "vitest": "^4.0.18"
+  },
+  "type": "commonjs"
+}

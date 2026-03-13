@@ -1,0 +1,39 @@
+{
+  "_comment": "Este é um arquivo de exemplo. Copie para selectors.json e customize conforme necessário.",
+  "fields": {
+    "nome": [
+      {
+        "type": "selector",
+        "value": "input[formcontrolname=\"name\"]",
+        "description": "formcontrolname",
+        "priority": 1
+      },
+      {
+        "type": "testid",
+        "value": "name",
+        "description": "data-testid (primeiro input)",
+        "priority": 2
+      },
+      {
+        "type": "selector",
+        "value": "#name[type=\"text\"]",
+        "description": "id",
+        "priority": 3
+      }
+    ],
+    "cpf": [
+      {
+        "type": "testid",
+        "value": "cpf",
+        "description": "data-testid",
+        "priority": 1
+      },
+      {
+        "type": "selector",
+        "value": "input[formcontrolname*=\"cpf\" i], input[id*=\"cpf\" i]",
+        "description": "formcontrolname/id",
+        "priority": 2
+      }
+    ]
+  }
+}

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Certificado Manager – SIEG, UNECONT e ONVIO</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>Certificado Manager</h1>
+      <p class="subtitle">Gerenciador unificado de certificados digitais</p>
+    </header>
+
+    <nav class="tabs" role="tablist">
+      <button type="button" class="tab active" data-tab="sieg" role="tab" aria-selected="true">SIEG</button>
+      <button type="button" class="tab" data-tab="unecont" role="tab" aria-selected="false">UNECONT</button>
+      <button type="button" class="tab" data-tab="onvio" role="tab" aria-selected="false">ONVIO</button>
+    </nav>
+
+    <main class="main">
+      <!-- SIEG: escolha Registrar ou Atualizar -->
+      <section id="panel-sieg" class="panel active card" role="tabpanel">
+        <h2>SIEG – Certificado</h2>
+        <p class="hint">Cadastre ou atualize certificado na API SIEG. Os dados podem ser reaproveitados nas abas UNECONT e ONVIO.</p>
+        <div class="sieg-choice" role="radiogroup" aria-label="Ação no SIEG">
+          <label class="radio-label">
+            <input type="radio" name="sieg-acao" value="registrar" checked>
+            <span>Registrar certificado</span>
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="sieg-acao" value="atualizar">
+            <span>Atualizar certificado</span>
+          </label>
+        </div>
+
+        <!-- Sub-panel: Registrar -->
+        <div id="sieg-sub-registrar" class="sieg-subpanel">
+          <p class="hint hint-inline">Cadastrar certificado na SIEG pela primeira vez.</p>
+          <form id="form-registrar">
+            <div class="form-group">
+              <label for="reg-certificado">Arquivo do certificado (.pfx)</label>
+              <input type="file" id="reg-certificado" accept=".pfx,.p12" required>
+            </div>
+            <div class="form-group">
+              <label for="reg-senha">Senha do certificado</label>
+              <input type="password" id="reg-senha" required placeholder="Senha do arquivo PFX" autocomplete="off">
+            </div>
+            <div class="form-group">
+              <label for="reg-nome">Nome do certificado (razão social)</label>
+              <input type="text" id="reg-nome" required placeholder="Ex.: EMPRESA LTDA" autocomplete="off">
+            </div>
+            <div class="form-group form-group-inline">
+              <label for="reg-cnpj">CNPJ (opcional)</label>
+              <div class="input-with-btn">
+                <input type="text" id="reg-cnpj" placeholder="Clique em Extrair CNPJ ou digite" autocomplete="off">
+                <button type="button" id="btn-registrar-extrair-cnpj" class="btn btn-secondary">Extrair CNPJ do certificado</button>
+              </div>
+            </div>
+            <div id="registrar-cnpj-msg" class="id-erro" hidden></div>
+            <div class="form-group">
+              <label for="reg-uf">UF do certificado</label>
+              <select id="reg-uf" name="uf" aria-label="Selecione o estado (UF) do certificado">
+                <option value="">Selecione a UF (opcional)</option>
+              </select>
+              <p class="hint hint-inline">Se aparecer erro de UF/município, tente deixar em branco.</p>
+            </div>
+            <button type="submit" id="btn-registrar" class="btn btn-primary">
+              <span class="btn-text">Registrar certificado</span>
+              <span class="btn-loading" aria-hidden="true">Enviando…</span>
+            </button>
+          </form>
+          <div id="registrar-resultado" class="resultado-msg" hidden></div>
+        </div>
+
+        <!-- Sub-panel: Atualizar -->
+        <div id="sieg-sub-atualizar" class="sieg-subpanel" hidden>
+          <p class="hint hint-inline">Substituir certificado já cadastrado na SIEG.</p>
+          <form id="form-editar">
+            <div class="form-group">
+              <label for="editar-certificado">Arquivo do certificado (.pfx)</label>
+              <input type="file" id="editar-certificado" accept=".pfx,.p12" required>
+            </div>
+            <div class="form-group">
+              <label for="editar-senha">Senha do certificado</label>
+              <input type="password" id="editar-senha" required placeholder="Senha do arquivo PFX" autocomplete="off">
+            </div>
+            <div class="form-group">
+              <label for="editar-uf">UF do certificado</label>
+              <select id="editar-uf" name="uf" aria-label="Selecione o estado (UF) do certificado">
+                <option value="">Selecione a UF (opcional)</option>
+              </select>
+              <p class="hint hint-inline">Se aparecer erro de UF/município, tente deixar em branco.</p>
+            </div>
+            <div class="form-group form-group-inline">
+              <label for="editar-cnpj">CNPJ (extraído do certificado ou digite)</label>
+              <div class="input-with-btn">
+                <input type="text" id="editar-cnpj" placeholder="Clique em Extrair CNPJ ou digite 14 dígitos" autocomplete="off">
+                <button type="button" id="btn-extrair-cnpj" class="btn btn-secondary">Extrair CNPJ do certificado</button>
+                <button type="button" id="btn-buscar-id" class="btn btn-secondary">Buscar ID</button>
+              </div>
+            </div>
+            <div id="editar-id-box" class="id-encontrado" hidden>
+              <span class="id-encontrado-label">Certificado encontrado:</span>
+              <span id="editar-id-nome" class="id-encontrado-nome"></span>
+              <span id="editar-id-valor" class="id-encontrado-id"></span>
+            </div>
+            <div id="editar-id-erro" class="id-erro" hidden></div>
+            <input type="hidden" id="editar-id" name="editar-id">
+            <button type="submit" id="btn-editar" class="btn btn-primary" disabled>
+              <span class="btn-text">Atualizar certificado</span>
+              <span class="btn-loading" aria-hidden="true">Enviando…</span>
+            </button>
+          </form>
+          <div id="editar-resultado" class="resultado-msg" hidden></div>
+        </div>
+      </section>
+
+      <!-- UNECONT -->
+      <section id="panel-unecont" class="panel card" role="tabpanel">
+        <h2>Acessar ou atualizar certificado UNECONT</h2>
+        <p class="hint">Preencha e-mail e senha. Para atualizar o certificado na UNECONT, preencha também CNPJ, arquivo .pfx e senha do certificado.</p>
+        <p class="hint"><button type="button" id="btn-unecont-usar-sieg" class="btn-link">Usar dados do SIEG</button> para preencher certificado/CNPJ/senha.</p>
+        <form id="form-unecont">
+          <div class="form-group">
+            <label for="unecont-email">E-mail UNECONT</label>
+            <input type="email" id="unecont-email" required placeholder="seu-email@exemplo.com" autocomplete="email">
+          </div>
+          <div class="form-group">
+            <label for="unecont-senha">Senha UNECONT</label>
+            <input type="password" id="unecont-senha" required placeholder="Sua senha" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label for="unecont-cnpj">CNPJ (para atualizar certificado)</label>
+            <input type="text" id="unecont-cnpj" placeholder="00.000.000/0001-00 ou 14 dígitos" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label for="unecont-certificado">Arquivo do certificado (.pfx)</label>
+            <input type="file" id="unecont-certificado" accept=".pfx,.p12">
+          </div>
+          <div class="form-group">
+            <label for="unecont-senha-certificado">Senha do certificado (.pfx)</label>
+            <input type="password" id="unecont-senha-certificado" placeholder="Senha do arquivo PFX" autocomplete="off">
+          </div>
+          <button type="submit" id="btn-unecont" class="btn btn-primary">
+            <span class="btn-text">Executar automação</span>
+            <span class="btn-loading" aria-hidden="true">Executando…</span>
+          </button>
+        </form>
+        <div id="unecont-resultado" class="resultado-msg" hidden></div>
+      </section>
+
+      <!-- ONVIO -->
+      <section id="panel-onvio" class="panel card" role="tabpanel">
+        <h2>ONVIO – Manifestação NF-e</h2>
+        <p class="hint">Automação: login no ONVIO, abertura do fluxo de certificado. O navegador será aberto durante a execução.</p>
+        <p class="hint"><button type="button" id="btn-onvio-usar-sieg" class="btn-link">Usar dados do SIEG</button> para preencher certificado/CNPJ/senha.</p>
+        <form id="form-onvio">
+          <div class="form-group">
+            <label for="onvio-email">E-mail ONVIO</label>
+            <input type="email" id="onvio-email" required placeholder="seu-email@exemplo.com" autocomplete="email">
+          </div>
+          <div class="form-group">
+            <label for="onvio-senha">Senha ONVIO</label>
+            <input type="password" id="onvio-senha" required placeholder="Sua senha" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label for="onvio-cnpj">CNPJ (14 dígitos)</label>
+            <input type="text" id="onvio-cnpj" required placeholder="00.000.000/0001-00 ou 14 dígitos" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label for="onvio-certificado">Arquivo do certificado (.pfx)</label>
+            <input type="file" id="onvio-certificado" accept=".pfx,.p12" required>
+          </div>
+          <div class="form-group">
+            <label for="onvio-senha-certificado">Senha do certificado (.pfx)</label>
+            <input type="password" id="onvio-senha-certificado" required placeholder="Senha do arquivo PFX" autocomplete="off">
+          </div>
+          <button type="submit" id="btn-onvio" class="btn btn-primary">
+            <span class="btn-text">Executar automação</span>
+            <span class="btn-loading" aria-hidden="true">Executando…</span>
+          </button>
+        </form>
+        <div id="onvio-resultado" class="resultado-msg" hidden></div>
+      </section>
+    </main>
+
+    <!-- Executar todas as automações (UNECONT + ONVIO) -->
+    <section class="card executar-todas" aria-label="Executar todas as automações">
+      <h2>Executar UNECONT e ONVIO</h2>
+      <p class="hint">Dispara as duas automações em paralelo com os dados já preenchidos nas abas UNECONT e ONVIO.</p>
+      <button type="button" id="btn-executar-todas" class="btn btn-primary btn-block">
+        <span class="btn-text">Executar UNECONT e ONVIO</span>
+        <span class="btn-loading" aria-hidden="true">Executando…</span>
+      </button>
+      <div id="executar-todas-resultado" class="executar-todas-feedback" hidden></div>
+    </section>
+
+    <footer class="footer">
+      <p>API SIEG: <a href="https://api.sieg.com/swagger/ui/index" target="_blank" rel="noopener">Swagger</a></p>
+    </footer>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

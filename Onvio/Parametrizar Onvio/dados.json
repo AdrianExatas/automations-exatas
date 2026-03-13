@@ -1,0 +1,69 @@
+{
+  "cnpj": "32358092000172",
+  "departamentos": [
+    {
+      "departamento": "Administrativo",
+      "usuario": "Cintia Marielle"
+    },
+    {
+      "departamento": "Auditoria",
+      "usuario": "Pedro Henrique"
+    },
+    {
+      "departamento": "Certificado Digital",
+      "usuario": "Cintia Marielle"
+    },
+    {
+      "departamento": "Comercial",
+      "usuario": "Comercial Exatas"
+    },
+    {
+      "departamento": "Contábil",
+      "usuario": "Thais Dantas Santos"
+    },
+    {
+      "departamento": "Financeiro",
+      "usuario": "Financeiro exatas"
+    },
+    {
+      "departamento": "Fiscal",
+      "usuario": "Cibelle Cristina"
+    },
+    {
+      "departamento": "Fiscal - Simples Nacional",
+      "usuario": "Vinni Fontes"
+    },
+    {
+      "departamento": "Legal",
+      "usuario": "Departamento Paralegal"
+    },
+    {
+      "departamento": "Paralegal",
+      "usuario": "Departamento Paralegal"
+    },
+    {
+      "departamento": "Pessoal",
+      "usuario": "Carlos Rodrigo"
+    },
+    {
+      "departamento": "Processos",
+      "usuario": "Thauane Vidal dos Santos"
+    },
+    {
+      "departamento": "RH",
+      "usuario": "Juliana Barreto"
+    },
+    {
+      "departamento": "Sucesso do Cliente",
+      "usuario": "Cintia Marielle"
+    },
+    {
+      "departamento": "TI",
+      "usuario": "Adrian Haelisson"
+    },
+    {
+      "departamento": "Treinamento",
+      "usuario": "Cintia Marielle"
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+Resumo da execucao
+Data/hora: 2026-03-05 10:04:41
+Pasta de entrada: Planilhas
+Pasta de saida: Planilhas\negativas
+Modo: move
+Group-mode: company
+Dry-run: nao
+
+Total de PDFs: 152
+Total de grupos: 145
+Negativos (grupos): 34
+Nao negativos (grupos): 111
+Nao processados (grupos): 0
+
+Lista de grupos negativos:
+- 05.295.716 [05.295.716] (1 arquivo(s)): -28.00% (move) -> Empresa 294 - SUPERMERCADO UNIBOOM.pdf
+- 07.090.128 [07.090.128] (1 arquivo(s)): -74.00% (move) -> Empresa 116 - REAL TEXTIL INDUST.pdf
+- 08.791.138 [08.791.138] (1 arquivo(s)): -27.00% (move) -> Empresa 595 - TALISMA IND. E COM. .pdf
+- 13.683.751 [13.683.751] (1 arquivo(s)): -58.00% (move) -> Empresa 347 - CRISTIANE BATISTA DO.pdf
+- 16.219.099 [16.219.099] (1 arquivo(s)): -32.00% (move) -> Empresa 387 - BRUMAR FARMACIA.pdf
+- 17.258.603 [17.258.603] (1 arquivo(s)): -9.00% (move) -> Empresa 107 - A&J LUBRIFICANTES, P.pdf
+- 22.161.614 [22.161.614] (1 arquivo(s)): -92.00% (move) -> Empresa 58 - WALLISON OLIVEIRA GA.pdf
+- 23.300.238 [23.300.238] (1 arquivo(s)): -25.00% (move) -> Empresa 500 - PETROLUB BAHIA.pdf
+- 28.318.900 [28.318.900] (1 arquivo(s)): -6.00% (move) -> Empresa 660 - JETFIBER.pdf
+- 28.579.353 [28.579.353] (1 arquivo(s)): -83.00% (move) -> Empresa 499 - NORTE SUL COMERCIO.pdf
+- 29.301.862 [29.301.862] (1 arquivo(s)): -43.00% (move) -> Empresa 664 - CONTROLTI INTEGRANDO.pdf
+- 30.698.360 [30.698.360] (1 arquivo(s)): -52.00% (move) -> Empresa 53 - SUPERMERCADO SAO JOS.pdf
+- 32.018.944 [32.018.944] (1 arquivo(s)): -56.00% (move) -> Empresa 398 - DON BAGGIO.pdf
+- 32.864.979 [32.864.979] (1 arquivo(s)): -22.00% (move) -> Empresa 267 - COMER E IND GABRIEL .pdf
+- 33.037.737 [33.037.737] (1 arquivo(s)): -78.00% (move) -> Empresa 137 - LICO COMERCIO DE PNE.pdf
+- 33.242.698 [33.242.698] (2 arquivo(s)): -27.22% (move) -> Empresa 144 - PONTO CERTO COMERCIO.pdf; Empresa 420 - PONTO CERTO FILIAL.pdf
+- 33.254.896 [33.254.896] (1 arquivo(s)): -8.00% (move) -> Empresa 65 - BARBOSA REPRESENTACO.pdf
+- 36.214.509 [36.214.509] (1 arquivo(s)): -49.00% (move) -> Empresa 119 - CORPOREVIDA.pdf
+- 40.388.684 [40.388.684] (1 arquivo(s)): -52.00% (move) -> Empresa 169 - CRISTAL BORDADOS.pdf
+- 41.210.457 [41.210.457] (1 arquivo(s)): -71.00% (move) -> Empresa 537 - VIA ROMA SALVADOR.pdf
+- 42.778.255 [42.778.255] (2 arquivo(s)): -78.57% (move) -> Empresa 668 - A CASA DO LAR LTDA.pdf; Empresa 669 - A CASA DO LAR FILIAL.pdf
+- 43.583.925 [43.583.925] (1 arquivo(s)): -100.00% (move) -> Empresa 587 - NORDESTINO RESTAURAN.pdf
+- 43.770.112 [43.770.112] (1 arquivo(s)): -45.00% (move) -> Empresa 210 - LICO PNEUS E ACESSOR.pdf
+- 43.945.623 [43.945.623] (1 arquivo(s)): -1.00% (move) -> Empresa 433 - DUDEE777.pdf
+- 45.453.832 [45.453.832] (1 arquivo(s)): -45.00% (move) -> Empresa 257 - DOCE SONHO IND.pdf
+- 45.810.786 [45.810.786] (1 arquivo(s)): -44.00% (move) -> Empresa 658 - STARK INTERNET.pdf
+- 46.535.912 [46.535.912] (1 arquivo(s)): -76.00% (move) -> Empresa 525 - VIA ROMA BAHIA.pdf
+- 46.586.698 [46.586.698] (1 arquivo(s)): -95.00% (move) -> Empresa 286 - CONSTRU RIBEIRO LTDA.pdf
+- 48.507.647 [48.507.647] (1 arquivo(s)): -30.00% (move) -> Empresa 667 - ADILENE CONFECCOES.pdf
+- 52.673.319 [52.673.319] (1 arquivo(s)): -10.00% (move) -> Empresa 438 - VETMASTER ECOMERCE .pdf
+- 59.715.869 [59.715.869] (1 arquivo(s)): -65.00% (move) -> Empresa 575 - DORIA COMERCIO.pdf
+- 59.870.497 [59.870.497] (1 arquivo(s)): -11.00% (move) -> Empresa 582 - JS COMERCIO.pdf
+- 60.093.425 [60.093.425] (2 arquivo(s)): -98.20% (move) -> Empresa 586 - VS SERVIÇOS.pdf; Empresa 603 - VS SERVIÇOS FILIAL.pdf
+- 60.113.209 [60.113.209] (1 arquivo(s)): -42.00% (move) -> Empresa 614 - CLAUDIO RYAN .pdf

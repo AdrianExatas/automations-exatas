@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste - SIEG Extrair Chaves</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #333;
+            margin-top: 0;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            border: 2px dashed #ddd;
+            border-radius: 4px;
+            background: #fafafa;
+        }
+        small {
+            display: block;
+            margin-top: 5px;
+            color: #666;
+            font-size: 0.9em;
+        }
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .btn-primary {
+            background: #007bff;
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #0056b3;
+        }
+        .btn-primary:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .result-container {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 4px;
+        }
+        .result-success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        .result-error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        .result-info {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>SIEG - Extrair Chaves de Acesso</h2>
+        <p style="margin-bottom: 20px; color: #666;">Extrai chaves de acesso de XMLs e gera planilha Excel</p>
+        
+        <div class="form-group">
+            <label for="extractPlanilha">Selecione planilha Excel ou arquivo SPED (.txt):</label>
+            <input type="file" id="extractPlanilha" accept=".xlsx,.xls,.txt">
+            <small>Excel: chaves serão extraídas da coluna identificada automaticamente<br>
+            SPED (.txt): chaves de 44 dígitos serão extraídas de todo o conteúdo</small>
+        </div>
+        
+        <div style="display: flex; gap: 10px; margin-top: 20px;">
+            <button class="btn btn-primary" onclick="handleExtractAndDownload()" id="btnExtract">
+                Extrair e Baixar
+            </button>
+        </div>
+        
+        <div id="extractResult" class="result-container" style="margin-top: 20px; display: none;"></div>
+    </div>
+
+    <script>
+        // Simulação simples para teste
+        function handleExtractAndDownload() {
+            const fileInput = document.getElementById('extractPlanilha');
+            const files = fileInput.files;
+            const btnExtract = document.getElementById('btnExtract');
+            const resultContainer = document.getElementById('extractResult');
+            
+            if (files.length === 0) {
+                resultContainer.style.display = 'block';
+                resultContainer.className = 'result-container result-error';
+                resultContainer.innerHTML = '<h3>⚠️ Erro</h3><p>Por favor, selecione uma planilha Excel ou arquivo SPED (.txt)</p>';
+                return;
+            }
+            
+            btnExtract.disabled = true;
+            btnExtract.textContent = 'Processando...';
+            resultContainer.style.display = 'block';
+            resultContainer.className = 'result-container result-info';
+            resultContainer.innerHTML = '<p>Processando arquivo...</p>';
+            
+            // Simulação de processamento
+            setTimeout(() => {
+                const fileName = files[0].name;
+                const fileExt = fileName.split('.').pop().toLowerCase();
+                
+                if (fileExt === 'txt') {
+                    resultContainer.className = 'result-container result-success';
+                    resultContainer.innerHTML = `
+                        <h3>✅ Processamento Concluído!</h3>
+                        <p>Arquivo SPED processado: <strong>${fileName}</strong></p>
+                        <p>Total de chaves encontradas: <strong>14</strong> (simulado)</p>
+                        <p>O arquivo <strong>chaves_xml_consolidadas.xlsx</strong> seria baixado automaticamente.</p>
+                    `;
+                } else if (fileExt === 'xlsx' || fileExt === 'xls') {
+                    resultContainer.className = 'result-container result-success';
+                    resultContainer.innerHTML = `
+                        <h3>✅ Processamento Concluído!</h3>
+                        <p>Planilha Excel processada: <strong>${fileName}</strong></p>
+                        <p>Total de chaves encontradas: <strong>25</strong> (simulado)</p>
+                        <p>O arquivo <strong>chaves_xml_consolidadas.xlsx</strong> seria baixado automaticamente.</p>
+                    `;
+                } else {
+                    resultContainer.className = 'result-container result-error';
+                    resultContainer.innerHTML = `
+                        <h3>❌ Erro</h3>
+                        <p>Tipo de arquivo não suportado. Use Excel (.xlsx, .xls) ou SPED (.txt)</p>
+                    `;
+                }
+                
+                btnExtract.disabled = false;
+                btnExtract.textContent = 'Extrair e Baixar';
+            }, 1500);
+        }
+    </script>
+</body>
+</html>

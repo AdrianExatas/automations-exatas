@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ONVIO - Automação de Usuários</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🚀 ONVIO - Automação de Usuários</h1>
+      <p>Extraia dados de usuários de cliente automaticamente</p>
+    </div>
+
+    <div class="content">
+      <div class="sidebar">
+        <form id="configForm">
+          <div class="form-group">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" required placeholder="seu-email@exemplo.com">
+          </div>
+
+          <div class="form-group">
+            <label for="password">Senha</label>
+            <input type="password" id="password" name="password" required placeholder="••••••••">
+          </div>
+
+          <div class="form-group">
+            <label for="clientId">ID do Cliente</label>
+            <input type="text" id="clientId" name="clientId" required placeholder="467">
+          </div>
+
+          <div class="form-group">
+            <label for="mfaMethod">Método MFA</label>
+            <select id="mfaMethod" name="mfaMethod">
+              <option value="E-mail">E-mail</option>
+              <option value="SMS/Telefonema">SMS/Telefonema</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="mfaCode">Código MFA (opcional)</label>
+            <input type="text" id="mfaCode" name="mfaCode" placeholder="Deixe vazio para inserção manual">
+          </div>
+
+          <button type="button" class="btn btn-secondary" id="loadEnvBtn" style="margin-bottom: 10px;">
+            📥 Carregar do .env
+          </button>
+
+          <button type="button" class="btn btn-info" id="healthCheckBtn" style="margin-bottom: 10px;">
+            🏥 Verificar Saúde do Sistema
+          </button>
+
+          <button type="submit" class="btn btn-primary" id="startBtn">
+            ▶ Iniciar Automação
+          </button>
+
+          <button type="button" class="btn btn-danger" id="stopBtn" disabled>
+            ⏹ Parar Automação
+          </button>
+        </form>
+
+        <div class="progress-bar" id="progressBar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="metrics-section">
+          <h3>📊 Métricas em Tempo Real</h3>
+          <div class="metrics-grid" id="metricsGrid">
+            <div class="metric-card">
+              <div class="metric-label">Usuários Processados</div>
+              <div class="metric-value" id="metricUsersProcessed">0</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-label">Taxa de Sucesso</div>
+              <div class="metric-value" id="metricSuccessRate">0%</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-label">Tempo Médio</div>
+              <div class="metric-value" id="metricAvgTime">0ms</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-label">Cache Hit Rate</div>
+              <div class="metric-value" id="metricCacheHitRate">0%</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="files-section">
+          <h3>📁 Arquivos Gerados</h3>
+          <ul class="file-list" id="fileList">
+            <li class="empty-state">
+              <div class="empty-state-icon">📄</div>
+              <div>Nenhum arquivo ainda</div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="main-content">
+        <div class="logs-container">
+          <div class="logs-header">
+            <h2>📋 Logs de Execução</h2>
+            <button class="btn btn-secondary" id="clearLogsBtn" style="width: auto; margin: 0;">
+              🗑 Limpar
+            </button>
+          </div>
+          <div class="logs-content" id="logsContent">
+            <div class="log-line info">Aguardando início da automação...</div>
+          </div>
+        </div>
+
+        <div class="status-bar">
+          <div class="status-indicator">
+            <div class="status-dot" id="statusDot"></div>
+            <span id="statusText">Pronto</span>
+          </div>
+          <div id="statusTime"></div>
+        </div>
+
+        <div class="history-section" id="historySection" style="display: none;">
+          <h3>📈 Histórico de Execuções</h3>
+          <div class="history-list" id="historyList">
+            <div class="empty-state">Nenhuma execução anterior</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>

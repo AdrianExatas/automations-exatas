@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.eggs/
+*.egg-info/
+*.egg
+
+# Config local (não versionar senhas/dados)
+config.ini
+.env
+.env.*
+
+# Logs
+*.log
+
+# IDE / Cursor
+.idea/
+.vscode/
+.cursor/
+*.swp
+*.swo

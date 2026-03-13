@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIEG XML - Sistema de Gerenciamento de XMLs Fiscais</title>
+    
+    <!-- Bibliotecas JavaScript -->
+    <script src="https://cdn.socket.io/4.5.0/socket.io.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>SIEG XML - Sistema de Gerenciamento de XMLs Fiscais</h1>
+            <div class="status" id="connectionStatus">Conectando...</div>
+        </header>
+        
+        <nav class="tabs">
+            <button class="tab-button active" onclick="showTab('upload', event)">📤 Upload</button>
+            <button class="tab-button" onclick="showTab('download', event)">📥 Download</button>
+            <button class="tab-button" onclick="showTab('extract', event)">🔑 Extrair Chaves</button>
+        </nav>
+        
+        <!-- Aba Upload -->
+        <div id="upload" class="tab-content active">
+            <div class="card">
+                <h2>Upload de XMLs</h2>
+                
+                <div class="form-group">
+                    <label>Opções de seleção:</label>
+                    <div style="display: flex; gap: 10px; margin-top: 10px;">
+                        <button type="button" class="btn btn-secondary" onclick="document.getElementById('uploadFiles').click()">
+                            📄 Selecionar Arquivos
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="document.getElementById('uploadFolder').click()">
+                            📁 Selecionar Pasta
+                        </button>
+                    </div>
+                    <input type="file" id="uploadFiles" multiple accept=".xml" style="display: none;" onchange="handleFileSelection('files')">
+                    <input type="file" id="uploadFolder" webkitdirectory directory multiple accept=".xml" style="display: none;" onchange="handleFileSelection('folder')">
+                    <div id="uploadFileInfo" style="margin-top: 10px; padding: 10px; background: #f0f0f0; border-radius: 5px; display: none;">
+                        <strong id="uploadFileCount">0</strong> arquivo(s) selecionado(s)
+                    </div>
+                    <small>Você pode selecionar múltiplos arquivos ou uma pasta completa</small>
+                </div>
+                
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="verificarExistentes">
+                        Verificar XMLs existentes antes de enviar
+                    </label>
+                </div>
+                
+                <div class="form-group">
+                    <label for="threads">Threads (paralelismo):</label>
+                    <input type="number" id="threads" value="5" min="1" max="20" step="1">
+                    <small>Número de uploads simultâneos (1-20)</small>
+                </div>
+                
+                <div style="display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap;">
+                    <button class="btn btn-primary" onclick="handleUpload()" id="btnUpload">
+                        Enviar XMLs
+                    </button>
+                    <button class="btn btn-secondary" onclick="cancelUpload()" id="btnCancelUpload" style="display: none;">
+                        Cancelar
+                    </button>
+                    <button class="btn btn-primary" onclick="continueUpload()" id="btnContinueUpload" style="display: none;">
+                        Continuar
+                    </button>
+                    <button class="btn btn-secondary" onclick="clearCheckpoint('upload'); location.reload();" id="btnClearCheckpointUpload" style="display: none;">
+                        Limpar Checkpoint
+                    </button>
+                </div>
+                
+                <div class="progress-container" id="uploadProgressContainer" style="display: none;">
+                    <div class="progress-bar">
+                        <div id="uploadProgressFill" class="progress-fill" style="width: 0%"></div>
+                    </div>
+                    <div class="progress-text" id="uploadProgressText">0/0</div>
+                    <div class="progress-detail" id="uploadProgressDetail"></div>
+                </div>
+                
+                <div id="uploadLogContainer" class="log-container" style="display: none;">
+                    <h3>Log em Tempo Real</h3>
+                    <div id="uploadLog" class="log-content"></div>
+                </div>
+                
+                <div id="uploadResult" class="result-container"></div>
+            </div>
+        </div>
+        
+        <!-- Aba Download -->
+        <div id="download" class="tab-content">
+            <div class="card">
+                <h2>Download de XMLs</h2>
+                
+                <div class="form-group">
+                    <label for="downloadPlanilha">Selecione planilha Excel ou arquivo SPED (.txt):</label>
+                    <input type="file" id="downloadPlanilha" accept=".xlsx,.xls,.txt">
+                    <small>Excel: deve conter uma coluna com chaves de acesso (44 dígitos)<br>
+                    SPED (.txt): chaves de 44 dígitos serão extraídas automaticamente do arquivo</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="downloadThreads">Threads (paralelismo):</label>
+                    <input type="number" id="downloadThreads" value="5" min="1" max="20" step="1">
+                    <small>Número de downloads simultâneos (1-20). Valores maiores aceleram o download.</small>
+                </div>
+                
+                <div style="display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap;">
+                    <button class="btn btn-primary" onclick="handleDownload()" id="btnDownload">Baixar XMLs</button>
+                    <button class="btn btn-secondary" onclick="cancelDownload()" id="btnCancelDownload" style="display: none;">Cancelar</button>
+                    <button class="btn btn-primary" onclick="continueDownload()" id="btnContinueDownload" style="display: none;">Continuar</button>
+                    <button class="btn btn-secondary" onclick="clearCheckpoint('download'); location.reload();" id="btnClearCheckpointDownload" style="display: none;">Limpar Checkpoint</button>
+                </div>
+                
+                <div class="progress-container" id="downloadProgressContainer" style="display: none;">
+                    <div class="progress-bar">
+                        <div id="downloadProgressFill" class="progress-fill" style="width: 0%"></div>
+                    </div>
+                    <div class="progress-text" id="downloadProgressText">0/0</div>
+                    <div class="progress-detail" id="downloadProgressDetail"></div>
+                </div>
+                
+                <div id="downloadLogContainer" class="log-container" style="display: none;">
+                    <h3>Log em Tempo Real</h3>
+                    <div id="downloadLog" class="log-content"></div>
+                </div>
+                
+                <div id="downloadResult" class="result-container"></div>
+            </div>
+        </div>
+        
+        <!-- Aba Extração -->
+        <div id="extract" class="tab-content">
+            <div class="card">
+                <h2>SIEG - Extrair Chaves de Acesso</h2>
+                <p style="margin-bottom: 20px; color: #666;">Extrai chaves de acesso de XMLs e gera planilha Excel</p>
+                
+                <div class="form-group">
+                    <label for="extractPlanilha">Selecione planilha Excel ou arquivo SPED (.txt):</label>
+                    <input type="file" id="extractPlanilha" accept=".xlsx,.xls,.txt">
+                    <small>Excel: chaves serão extraídas da coluna identificada automaticamente<br>
+                    SPED (.txt): chaves de 44 dígitos serão extraídas de todo o conteúdo</small>
+                </div>
+                
+                <div style="display: flex; gap: 10px; margin-top: 20px;">
+                    <button class="btn btn-primary" onclick="handleExtractAndDownload()" id="btnExtract">
+                        Extrair e Baixar
+                    </button>
+                </div>
+                
+                <div id="extractResult" class="result-container" style="margin-top: 20px;"></div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>SIEG XML - Processamento em Borda | Sistema de Gerenciamento de XMLs Fiscais</p>
+        </footer>
+    </div>
+    
+    <!-- Scripts JavaScript -->
+    <script src="/static/js/xml_parser.js"></script>
+    <script src="/static/js/excel_processor.js"></script>
+    <script src="/static/js/sieg_client.js"></script>
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+{
+  "name": "alterar-responsavel-gestta",
+  "version": "1.0.0",
+  "description": "Automação para alterar responsável de tarefas no Gestta a partir da planilha DP RESPONSÁVEL.xlsx",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "start:selecionar": "node dist/index.js --selecionar",
+    "start:reprocessar": "node dist/index.js --reprocessar",
+    "dev": "ts-node src/index.ts",
+    "dev:selecionar": "ts-node src/index.ts --selecionar",
+    "relatorio:xlsx": "node dist/scripts/converter-relatorio-xlsx.js"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "dotenv": "^16.3.0",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.0"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "cnpj": "00000000000000",
+  "departamentos": [
+    {
+      "departamento": "Administrativo",
+      "usuario": "Nome do Responsável"
+    },
+    {
+      "departamento": "Contábil",
+      "usuario": "Nome do Responsável"
+    }
+  ]
+}

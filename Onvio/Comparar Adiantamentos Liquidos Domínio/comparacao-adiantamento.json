@@ -1,0 +1,132 @@
+{
+  "resumo": [
+    {
+      "competencia": "01/2025",
+      "calculo": "Adiantamento",
+      "status": "OK",
+      "totalConsolidado": 7533.82,
+      "totalMensal": 7533.82,
+      "semArquivoMensal": false,
+      "divergencias": []
+    },
+    {
+      "competencia": "02/2025",
+      "calculo": "Adiantamento",
+      "status": "OK",
+      "totalConsolidado": 5255.04,
+      "totalMensal": 5255.04,
+      "semArquivoMensal": false,
+      "divergencias": []
+    },
+    {
+      "competencia": "03/2025",
+      "calculo": "Adiantamento",
+      "status": "OK",
+      "totalConsolidado": 7980.04,
+      "totalMensal": 7980.04,
+      "semArquivoMensal": false,
+      "divergencias": []
+    },
+    {
+      "competencia": "04/2025",
+      "calculo": "Adiantamento",
+      "status": "OK",
+      "totalConsolidado": 8255.18,
+      "totalMensal": 8255.18,
+      "semArquivoMensal": false,
+      "divergencias": []
+    },
+    {
+      "competencia": "05/2025",
+      "calculo": "Adiantamento",
+      "status": "OK",
+      "totalConsolidado": 8307.44,
+      "totalMensal": 8307.44,
+      "semArquivoMensal": false,
+      "divergencias": []
+    },
+    {
+      "competencia": "06/2025",
+      "calculo": "Adiantamento",
+      "status": "OK",
+      "totalConsolidado": 7964.15,
+      "totalMensal": 7964.15,
+      "semArquivoMensal": false,
+      "divergencias": []
+    },
+    {
+      "competencia": "07/2025",
+      "calculo": "Adiantamento",
+      "status": "OK",
+      "totalConsolidado": 7697.46,
+      "totalMensal": 7697.46,
+      "semArquivoMensal": false,
+      "divergencias": []
+    },
+    {
+      "competencia": "08/2025",
+      "calculo": "Adiantamento",
+      "status": "OK",
+      "totalConsolidado": 7874.06,
+      "totalMensal": 7874.06,
+      "semArquivoMensal": false,
+      "divergencias": []
+    },
+    {
+      "competencia": "09/2025",
+      "calculo": "Adiantamento",
+      "status": "OK",
+      "totalConsolidado": 6745.78,
+      "totalMensal": 6745.78,
+      "semArquivoMensal": false,
+      "divergencias": []
+    },
+    {
+      "competencia": "10/2025",
+      "calculo": "Adiantamento",
+      "status": "OK",
+      "totalConsolidado": 5855.91,
+      "totalMensal": 5855.91,
+      "semArquivoMensal": false,
+      "divergencias": []
+    },
+    {
+      "competencia": "11/2025",
+      "calculo": "Adiantamento",
+      "status": "OK",
+      "totalConsolidado": 5451.41,
+      "totalMensal": 5451.41,
+      "semArquivoMensal": false,
+      "divergencias": []
+    },
+    {
+      "competencia": "12/2025",
+      "calculo": "Adiantamento",
+      "status": "OK",
+      "totalConsolidado": 3683.9,
+      "totalMensal": 3683.9,
+      "semArquivoMensal": false,
+      "divergencias": []
+    },
+    {
+      "competencia": "01/2026",
+      "calculo": "Adiantamento",
+      "status": "OK",
+      "totalConsolidado": 5879.9,
+      "totalMensal": 5879.9,
+      "semArquivoMensal": false,
+      "divergencias": []
+    },
+    {
+      "competencia": "02/2026",
+      "calculo": "Adiantamento",
+      "status": "DIVERGENTE",
+      "totalConsolidado": 8512.07,
+      "totalMensal": 8624.93,
+      "semArquivoMensal": false,
+      "divergencias": [
+        "Total diferente: consolidado 8512.07 x mensal 8624.93"
+      ]
+    }
+  ]
+}

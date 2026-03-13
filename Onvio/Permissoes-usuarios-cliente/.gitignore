@@ -1,0 +1,27 @@
+node_modules/
+playwright-report/
+test-results/
+logs/
+cache/
+state/
+backups/
+metrics/
+reports/
+*.log
+config/selectors.json
+.DS_Store
+.env
+config.txt
+dist/
+build/
+*.tsbuildinfo
+*.exe
+*.dmg
+*.deb
+*.rpm
+*.AppImage
+
+# Arquivos Excel de exemplo/resultado
+*.xlsx
+*.xls
+!Modelo_Importacao_Usuarios.xlsx

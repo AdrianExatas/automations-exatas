@@ -1,0 +1,2473 @@
+{
+    "apiVersion": "v2",
+    "id": "754f13a8-1e39-4263-b66a-7e3f783c5d7b",
+    "data": {
+        "itemsPerPage": 100,
+        "endIndex": 0,
+        "startIndex": 1,
+        "pageIndex": 1,
+        "items": [
+            {
+                "id": "c47cb06e907045038ab7924af581e4d1",
+                "name": "07/2025.pdf",
+                "createdDate": "2025-07-13T15:09:18.497Z",
+                "containerId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "mimeType": "application/pdf",
+                "documentType": "application/pdf",
+                "originalItemSize": 38742,
+                "status": "ACTIVE",
+                "isViewable": true,
+                "isPasswordProtected": false,
+                "versionId": "lCZMkh5L7WsnfJVfz4_ImPlK9tZQaXc1",
+                "userTags": [],
+                "isReadByClientUser": true,
+                "clientUserReadDate": "2025-07-30T14:19:12Z",
+                "clientUserReadBy": {
+                    "userGuid": "7CDF2390E3D34203812AF2101ACD0C25",
+                    "isCurrentUser": false
+                },
+                "primaryAssociationClientId": "078B0C3C1B1D41ACBE15F52AEBC02E37",
+                "staffCenterViewPath": "/staff/#/documents/client/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/c47cb06e907045038ab7924af581e4d1",
+                "clientCenterViewPath": "/clientcenter/documents/clients/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/c47cb06e907045038ab7924af581e4d1",
+                "parentId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "parentItem": {
+                    "documentCount": 0,
+                    "type": "folders",
+                    "staffCenterViewPath": "/staff/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "clientCenterViewPath": "/client/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "hasFiles": false,
+                    "hasFolders": false,
+                    "hasChildren": false,
+                    "containerType": "Folders",
+                    "readUserCount": 0,
+                    "isShared": false,
+                    "id": "e6b8a93c845c4a4499f21090eb3078ca",
+                    "createdDate": "0001-01-01T00:00:00",
+                    "modifiedDate": "0001-01-01T00:00:00",
+                    "itemType": "Folder"
+                },
+                "createdBy": {
+                    "userGuid": "02A26942905D4AC2B8D802CD6950CD44",
+                    "isCurrentUser": false
+                },
+                "modifiedDate": "2025-07-13T15:09:18.558Z",
+                "modifiedBy": {
+                    "userGuid": "02A26942905D4AC2B8D802CD6950CD44",
+                    "isCurrentUser": false
+                },
+                "itemType": "Document",
+                "permissions": {
+                    "read": true,
+                    "update": false,
+                    "delete": false,
+                    "addContents": false,
+                    "move": false
+                },
+                "lock": {
+                    "type": "Edit",
+                    "level": "Master",
+                    "createdBy": "Gerencial multipel",
+                    "createdDate": "2025-07-30T14:19:12.747Z",
+                    "isContainer": false,
+                    "contextInfo": {
+                        "edit": [
+                            "Type"
+                        ]
+                    },
+                    "resourceRestrictions": [
+                        "DELETE",
+                        "UPDATE",
+                        "MOVE",
+                        "CREATE_MASTER_LOCK"
+                    ]
+                },
+                "customFields": {
+                    "clientId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                },
+                "root": {
+                    "id": "91df35c88a274f61a9d5e104328ac008",
+                    "containerType": "Projects",
+                    "rootType": "TaxAccounting",
+                    "primaryAssociationType": "Client",
+                    "primaryAssociationId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                }
+            },
+            {
+                "id": "c26941e4abdd474a86d301f2a198ec00",
+                "name": "259-Relatório de Líquidos(Retificação) 12-2025.pdf",
+                "createdDate": "2026-01-19T13:39:03.99Z",
+                "containerId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "mimeType": "application/pdf",
+                "documentType": "application/pdf",
+                "originalItemSize": 39021,
+                "status": "ACTIVE",
+                "isViewable": true,
+                "isPasswordProtected": false,
+                "versionId": "oz0s4rZu2zDEX3sITwRywnE3lHcByuxZ",
+                "userTags": [],
+                "isReadByClientUser": true,
+                "clientUserReadDate": "2026-01-23T16:09:04Z",
+                "clientUserReadBy": {
+                    "userGuid": "7CDF2390E3D34203812AF2101ACD0C25",
+                    "isCurrentUser": false
+                },
+                "primaryAssociationClientId": "078B0C3C1B1D41ACBE15F52AEBC02E37",
+                "staffCenterViewPath": "/staff/#/documents/client/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/c26941e4abdd474a86d301f2a198ec00",
+                "clientCenterViewPath": "/clientcenter/documents/clients/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/c26941e4abdd474a86d301f2a198ec00",
+                "parentId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "parentItem": {
+                    "documentCount": 0,
+                    "type": "folders",
+                    "staffCenterViewPath": "/staff/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "clientCenterViewPath": "/client/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "hasFiles": false,
+                    "hasFolders": false,
+                    "hasChildren": false,
+                    "containerType": "Folders",
+                    "readUserCount": 0,
+                    "isShared": false,
+                    "id": "e6b8a93c845c4a4499f21090eb3078ca",
+                    "createdDate": "0001-01-01T00:00:00",
+                    "modifiedDate": "0001-01-01T00:00:00",
+                    "itemType": "Folder"
+                },
+                "createdBy": {
+                    "userGuid": "EBE02509FD6F45B68F7A9434C41F141C",
+                    "isCurrentUser": false
+                },
+                "modifiedDate": "2026-01-19T13:39:04.157Z",
+                "modifiedBy": {
+                    "userGuid": "EBE02509FD6F45B68F7A9434C41F141C",
+                    "isCurrentUser": false
+                },
+                "itemType": "Document",
+                "permissions": {
+                    "read": true,
+                    "update": false,
+                    "delete": false,
+                    "addContents": false,
+                    "move": false
+                },
+                "lock": {
+                    "type": "Edit",
+                    "level": "Master",
+                    "createdBy": "Gerencial multipel",
+                    "createdDate": "2026-01-23T16:09:04.869Z",
+                    "isContainer": false,
+                    "contextInfo": {
+                        "edit": [
+                            "Type"
+                        ]
+                    },
+                    "resourceRestrictions": [
+                        "DELETE",
+                        "UPDATE",
+                        "MOVE",
+                        "CREATE_MASTER_LOCK"
+                    ]
+                },
+                "customFields": {
+                    "clientId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                },
+                "root": {
+                    "id": "91df35c88a274f61a9d5e104328ac008",
+                    "containerType": "Projects",
+                    "rootType": "TaxAccounting",
+                    "primaryAssociationType": "Client",
+                    "primaryAssociationId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                }
+            },
+            {
+                "id": "f8461e309ed5402b86e4bd5d08a31521",
+                "name": "Líquido 13° Adiantamento - 10/2025.pdf",
+                "createdDate": "2025-10-16T13:30:18.802Z",
+                "containerId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "mimeType": "application/pdf",
+                "documentType": "application/pdf",
+                "originalItemSize": 37883,
+                "status": "ACTIVE",
+                "isViewable": true,
+                "isPasswordProtected": false,
+                "versionId": "WnH7hcgr8tt6e1zD1YLT0XYdpOLRvHx2",
+                "userTags": [],
+                "isReadByClientUser": true,
+                "clientUserReadDate": "2025-10-20T16:09:07Z",
+                "clientUserReadBy": {
+                    "userGuid": "7CDF2390E3D34203812AF2101ACD0C25",
+                    "isCurrentUser": false
+                },
+                "primaryAssociationClientId": "078B0C3C1B1D41ACBE15F52AEBC02E37",
+                "staffCenterViewPath": "/staff/#/documents/client/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/f8461e309ed5402b86e4bd5d08a31521",
+                "clientCenterViewPath": "/clientcenter/documents/clients/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/f8461e309ed5402b86e4bd5d08a31521",
+                "parentId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "parentItem": {
+                    "documentCount": 0,
+                    "type": "folders",
+                    "staffCenterViewPath": "/staff/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "clientCenterViewPath": "/client/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "hasFiles": false,
+                    "hasFolders": false,
+                    "hasChildren": false,
+                    "containerType": "Folders",
+                    "readUserCount": 0,
+                    "isShared": false,
+                    "id": "e6b8a93c845c4a4499f21090eb3078ca",
+                    "createdDate": "0001-01-01T00:00:00",
+                    "modifiedDate": "0001-01-01T00:00:00",
+                    "itemType": "Folder"
+                },
+                "createdBy": {
+                    "userGuid": "B4B7D4BB57374A82B028BC36C290C2B6",
+                    "isCurrentUser": false
+                },
+                "modifiedDate": "2025-10-16T13:36:01.581Z",
+                "modifiedBy": {
+                    "userGuid": "B4B7D4BB57374A82B028BC36C290C2B6",
+                    "isCurrentUser": false
+                },
+                "itemType": "Document",
+                "permissions": {
+                    "read": true,
+                    "update": false,
+                    "delete": false,
+                    "addContents": false,
+                    "move": false
+                },
+                "lock": {
+                    "type": "Edit",
+                    "level": "Master",
+                    "createdBy": "Gerencial multipel",
+                    "createdDate": "2025-10-20T17:24:38.627Z",
+                    "isContainer": false,
+                    "contextInfo": {
+                        "edit": [
+                            "Type"
+                        ]
+                    },
+                    "resourceRestrictions": [
+                        "DELETE",
+                        "UPDATE",
+                        "MOVE",
+                        "CREATE_MASTER_LOCK"
+                    ]
+                },
+                "customFields": {
+                    "clientId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                },
+                "root": {
+                    "id": "91df35c88a274f61a9d5e104328ac008",
+                    "containerType": "Projects",
+                    "rootType": "TaxAccounting",
+                    "primaryAssociationType": "Client",
+                    "primaryAssociationId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                }
+            },
+            {
+                "id": "c940bf4d93284c0aad9da94635554803",
+                "name": "Líquido Adiantamento - 07/2025.pdf",
+                "createdDate": "2025-07-11T18:25:03.334Z",
+                "containerId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "mimeType": "application/pdf",
+                "documentType": "application/pdf",
+                "originalItemSize": 38839,
+                "status": "ACTIVE",
+                "isViewable": true,
+                "isPasswordProtected": false,
+                "versionId": "9FY2AeUphORgT8v2cw1i.CY4loDaPXB3",
+                "userTags": [],
+                "isReadByClientUser": true,
+                "clientUserReadDate": "2025-07-31T18:38:12Z",
+                "clientUserReadBy": {
+                    "userGuid": "7CDF2390E3D34203812AF2101ACD0C25",
+                    "isCurrentUser": false
+                },
+                "primaryAssociationClientId": "078B0C3C1B1D41ACBE15F52AEBC02E37",
+                "staffCenterViewPath": "/staff/#/documents/client/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/c940bf4d93284c0aad9da94635554803",
+                "clientCenterViewPath": "/clientcenter/documents/clients/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/c940bf4d93284c0aad9da94635554803",
+                "parentId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "parentItem": {
+                    "documentCount": 0,
+                    "type": "folders",
+                    "staffCenterViewPath": "/staff/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "clientCenterViewPath": "/client/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "hasFiles": false,
+                    "hasFolders": false,
+                    "hasChildren": false,
+                    "containerType": "Folders",
+                    "readUserCount": 0,
+                    "isShared": false,
+                    "id": "e6b8a93c845c4a4499f21090eb3078ca",
+                    "createdDate": "0001-01-01T00:00:00",
+                    "modifiedDate": "0001-01-01T00:00:00",
+                    "itemType": "Folder"
+                },
+                "createdBy": {
+                    "userGuid": "9BED349470A7452BB1E948B33D1F6F24",
+                    "isCurrentUser": false
+                },
+                "modifiedDate": "2025-07-11T18:25:03.384Z",
+                "modifiedBy": {
+                    "userGuid": "9BED349470A7452BB1E948B33D1F6F24",
+                    "isCurrentUser": false
+                },
+                "itemType": "Document",
+                "permissions": {
+                    "read": true,
+                    "update": false,
+                    "delete": false,
+                    "addContents": false,
+                    "move": false
+                },
+                "lock": {
+                    "type": "Edit",
+                    "level": "Master",
+                    "createdBy": "Gerencial multipel",
+                    "createdDate": "2025-07-31T18:38:13.247Z",
+                    "isContainer": false,
+                    "contextInfo": {
+                        "edit": [
+                            "Type"
+                        ]
+                    },
+                    "resourceRestrictions": [
+                        "DELETE",
+                        "UPDATE",
+                        "MOVE",
+                        "CREATE_MASTER_LOCK"
+                    ]
+                },
+                "customFields": {
+                    "clientId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                },
+                "root": {
+                    "id": "91df35c88a274f61a9d5e104328ac008",
+                    "containerType": "Projects",
+                    "rootType": "TaxAccounting",
+                    "primaryAssociationType": "Client",
+                    "primaryAssociationId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                }
+            },
+            {
+                "id": "7d7a3b79d45240c5afd4c403840553c8",
+                "name": "Líquido Adiantamento - 09/2025.pdf",
+                "createdDate": "2025-09-12T21:08:52.325Z",
+                "containerId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "mimeType": "application/pdf",
+                "documentType": "application/pdf",
+                "originalItemSize": 38181,
+                "status": "ACTIVE",
+                "isViewable": true,
+                "isPasswordProtected": false,
+                "versionId": "v4dVWQfseBgCvP4.X6XVRHQ_PrVqatxx",
+                "userTags": [],
+                "isReadByClientUser": true,
+                "clientUserReadDate": "2025-09-22T12:11:36Z",
+                "clientUserReadBy": {
+                    "userGuid": "7CDF2390E3D34203812AF2101ACD0C25",
+                    "isCurrentUser": false
+                },
+                "primaryAssociationClientId": "078B0C3C1B1D41ACBE15F52AEBC02E37",
+                "staffCenterViewPath": "/staff/#/documents/client/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/7d7a3b79d45240c5afd4c403840553c8",
+                "clientCenterViewPath": "/clientcenter/documents/clients/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/7d7a3b79d45240c5afd4c403840553c8",
+                "parentId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "parentItem": {
+                    "documentCount": 0,
+                    "type": "folders",
+                    "staffCenterViewPath": "/staff/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "clientCenterViewPath": "/client/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "hasFiles": false,
+                    "hasFolders": false,
+                    "hasChildren": false,
+                    "containerType": "Folders",
+                    "readUserCount": 0,
+                    "isShared": false,
+                    "id": "e6b8a93c845c4a4499f21090eb3078ca",
+                    "createdDate": "0001-01-01T00:00:00",
+                    "modifiedDate": "0001-01-01T00:00:00",
+                    "itemType": "Folder"
+                },
+                "createdBy": {
+                    "userGuid": "B66A5E6C272D415C962A58120E3195E6",
+                    "isCurrentUser": false
+                },
+                "modifiedDate": "2025-09-15T11:22:00.822Z",
+                "modifiedBy": {
+                    "userGuid": "B4B7D4BB57374A82B028BC36C290C2B6",
+                    "isCurrentUser": false
+                },
+                "itemType": "Document",
+                "permissions": {
+                    "read": true,
+                    "update": false,
+                    "delete": false,
+                    "addContents": false,
+                    "move": false
+                },
+                "lock": {
+                    "type": "Edit",
+                    "level": "Master",
+                    "createdBy": "Gerencial multipel",
+                    "createdDate": "2025-09-22T12:11:37.064Z",
+                    "isContainer": false,
+                    "contextInfo": {
+                        "edit": [
+                            "Type"
+                        ]
+                    },
+                    "resourceRestrictions": [
+                        "DELETE",
+                        "UPDATE",
+                        "MOVE",
+                        "CREATE_MASTER_LOCK"
+                    ]
+                },
+                "customFields": {
+                    "clientId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                },
+                "root": {
+                    "id": "91df35c88a274f61a9d5e104328ac008",
+                    "containerType": "Projects",
+                    "rootType": "TaxAccounting",
+                    "primaryAssociationType": "Client",
+                    "primaryAssociationId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                }
+            },
+            {
+                "id": "4ea921a306ef486982df36496d4415cf",
+                "name": "Líquido Adiantamento - 10/2025.pdf",
+                "createdDate": "2025-10-13T14:30:30.236Z",
+                "containerId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "mimeType": "application/pdf",
+                "documentType": "application/pdf",
+                "originalItemSize": 37761,
+                "status": "ACTIVE",
+                "isViewable": true,
+                "isPasswordProtected": false,
+                "versionId": "IUuHXbh_4458fbggAwdrGtigBZDgr36C",
+                "userTags": [],
+                "isReadByClientUser": true,
+                "clientUserReadDate": "2025-10-20T16:08:41Z",
+                "clientUserReadBy": {
+                    "userGuid": "7CDF2390E3D34203812AF2101ACD0C25",
+                    "isCurrentUser": false
+                },
+                "primaryAssociationClientId": "078B0C3C1B1D41ACBE15F52AEBC02E37",
+                "staffCenterViewPath": "/staff/#/documents/client/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/4ea921a306ef486982df36496d4415cf",
+                "clientCenterViewPath": "/clientcenter/documents/clients/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/4ea921a306ef486982df36496d4415cf",
+                "parentId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "parentItem": {
+                    "documentCount": 0,
+                    "type": "folders",
+                    "staffCenterViewPath": "/staff/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "clientCenterViewPath": "/client/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "hasFiles": false,
+                    "hasFolders": false,
+                    "hasChildren": false,
+                    "containerType": "Folders",
+                    "readUserCount": 0,
+                    "isShared": false,
+                    "id": "e6b8a93c845c4a4499f21090eb3078ca",
+                    "createdDate": "0001-01-01T00:00:00",
+                    "modifiedDate": "0001-01-01T00:00:00",
+                    "itemType": "Folder"
+                },
+                "createdBy": {
+                    "userGuid": "B4B7D4BB57374A82B028BC36C290C2B6",
+                    "isCurrentUser": false
+                },
+                "modifiedDate": "2025-10-13T14:36:14.055Z",
+                "modifiedBy": {
+                    "userGuid": "B4B7D4BB57374A82B028BC36C290C2B6",
+                    "isCurrentUser": false
+                },
+                "itemType": "Document",
+                "permissions": {
+                    "read": true,
+                    "update": true,
+                    "delete": true,
+                    "addContents": true,
+                    "move": true
+                },
+                "customFields": {
+                    "clientId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                },
+                "root": {
+                    "id": "91df35c88a274f61a9d5e104328ac008",
+                    "containerType": "Projects",
+                    "rootType": "TaxAccounting",
+                    "primaryAssociationType": "Client",
+                    "primaryAssociationId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                }
+            },
+            {
+                "id": "695a9aea3678410eb99c958f7c4a501d",
+                "name": "Líquido Adiantamento - 11/2025.pdf",
+                "createdDate": "2025-11-12T15:53:49.51Z",
+                "containerId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "mimeType": "application/pdf",
+                "documentType": "application/pdf",
+                "originalItemSize": 37699,
+                "status": "ACTIVE",
+                "isViewable": true,
+                "isPasswordProtected": false,
+                "versionId": "pNoCDGrnIetu845t_Uxrrn_UORKRdJTN",
+                "userTags": [],
+                "isReadByClientUser": true,
+                "clientUserReadDate": "2025-11-15T00:21:13Z",
+                "clientUserReadBy": {
+                    "userGuid": "7CDF2390E3D34203812AF2101ACD0C25",
+                    "isCurrentUser": false
+                },
+                "primaryAssociationClientId": "078B0C3C1B1D41ACBE15F52AEBC02E37",
+                "staffCenterViewPath": "/staff/#/documents/client/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/695a9aea3678410eb99c958f7c4a501d",
+                "clientCenterViewPath": "/clientcenter/documents/clients/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/695a9aea3678410eb99c958f7c4a501d",
+                "parentId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "parentItem": {
+                    "documentCount": 0,
+                    "type": "folders",
+                    "staffCenterViewPath": "/staff/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "clientCenterViewPath": "/client/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "hasFiles": false,
+                    "hasFolders": false,
+                    "hasChildren": false,
+                    "containerType": "Folders",
+                    "readUserCount": 0,
+                    "isShared": false,
+                    "id": "e6b8a93c845c4a4499f21090eb3078ca",
+                    "createdDate": "0001-01-01T00:00:00",
+                    "modifiedDate": "0001-01-01T00:00:00",
+                    "itemType": "Folder"
+                },
+                "createdBy": {
+                    "userGuid": "B4B7D4BB57374A82B028BC36C290C2B6",
+                    "isCurrentUser": false
+                },
+                "modifiedDate": "2025-11-12T15:54:46.551Z",
+                "modifiedBy": {
+                    "userGuid": "B4B7D4BB57374A82B028BC36C290C2B6",
+                    "isCurrentUser": false
+                },
+                "itemType": "Document",
+                "permissions": {
+                    "read": true,
+                    "update": false,
+                    "delete": false,
+                    "addContents": false,
+                    "move": false
+                },
+                "lock": {
+                    "type": "Edit",
+                    "level": "Master",
+                    "createdBy": "Gerencial multipel",
+                    "createdDate": "2025-11-15T00:21:13.713Z",
+                    "isContainer": false,
+                    "contextInfo": {
+                        "edit": [
+                            "Type"
+                        ]
+                    },
+                    "resourceRestrictions": [
+                        "DELETE",
+                        "UPDATE",
+                        "MOVE",
+                        "CREATE_MASTER_LOCK"
+                    ]
+                },
+                "customFields": {
+                    "clientId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                },
+                "root": {
+                    "id": "91df35c88a274f61a9d5e104328ac008",
+                    "containerType": "Projects",
+                    "rootType": "TaxAccounting",
+                    "primaryAssociationType": "Client",
+                    "primaryAssociationId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                }
+            },
+            {
+                "id": "98976b77120a4dd592b1b3db15d1fc1e",
+                "name": "Relatório de Adiantamento 12-2025.pdf",
+                "createdDate": "2025-12-11T21:48:14.62Z",
+                "containerId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "mimeType": "application/pdf",
+                "documentType": "application/pdf",
+                "originalItemSize": 37568,
+                "status": "ACTIVE",
+                "isViewable": true,
+                "isPasswordProtected": false,
+                "versionId": "PnP.wHNFppm4hHgbvH9s5H5KVcai7QIt",
+                "userTags": [],
+                "isReadByClientUser": true,
+                "clientUserReadDate": "2025-12-16T16:46:59Z",
+                "clientUserReadBy": {
+                    "userGuid": "7CDF2390E3D34203812AF2101ACD0C25",
+                    "isCurrentUser": false
+                },
+                "primaryAssociationClientId": "078B0C3C1B1D41ACBE15F52AEBC02E37",
+                "staffCenterViewPath": "/staff/#/documents/client/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/98976b77120a4dd592b1b3db15d1fc1e",
+                "clientCenterViewPath": "/clientcenter/documents/clients/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/98976b77120a4dd592b1b3db15d1fc1e",
+                "parentId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "parentItem": {
+                    "documentCount": 0,
+                    "type": "folders",
+                    "staffCenterViewPath": "/staff/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "clientCenterViewPath": "/client/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "hasFiles": false,
+                    "hasFolders": false,
+                    "hasChildren": false,
+                    "containerType": "Folders",
+                    "readUserCount": 0,
+                    "isShared": false,
+                    "id": "e6b8a93c845c4a4499f21090eb3078ca",
+                    "createdDate": "0001-01-01T00:00:00",
+                    "modifiedDate": "0001-01-01T00:00:00",
+                    "itemType": "Folder"
+                },
+                "createdBy": {
+                    "userGuid": "EBE02509FD6F45B68F7A9434C41F141C",
+                    "isCurrentUser": false
+                },
+                "modifiedDate": "2025-12-11T21:51:50.807Z",
+                "modifiedBy": {
+                    "userGuid": "EBE02509FD6F45B68F7A9434C41F141C",
+                    "isCurrentUser": false
+                },
+                "itemType": "Document",
+                "permissions": {
+                    "read": true,
+                    "update": false,
+                    "delete": false,
+                    "addContents": false,
+                    "move": false
+                },
+                "lock": {
+                    "type": "Edit",
+                    "level": "Master",
+                    "createdBy": "Gerencial multipel",
+                    "createdDate": "2025-12-16T16:47:00.241Z",
+                    "isContainer": false,
+                    "contextInfo": {
+                        "edit": [
+                            "Type"
+                        ]
+                    },
+                    "resourceRestrictions": [
+                        "DELETE",
+                        "UPDATE",
+                        "MOVE",
+                        "CREATE_MASTER_LOCK"
+                    ]
+                },
+                "customFields": {
+                    "clientId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                },
+                "root": {
+                    "id": "91df35c88a274f61a9d5e104328ac008",
+                    "containerType": "Projects",
+                    "rootType": "TaxAccounting",
+                    "primaryAssociationType": "Client",
+                    "primaryAssociationId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                }
+            },
+            {
+                "id": "78ba4fb844e249f8917cffd6983063e6",
+                "name": "Relatório de Liquido 13-2025.pdf",
+                "createdDate": "2025-12-09T16:51:20.001Z",
+                "containerId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "mimeType": "application/pdf",
+                "documentType": "application/pdf",
+                "originalItemSize": 37358,
+                "status": "ACTIVE",
+                "isViewable": true,
+                "isPasswordProtected": false,
+                "versionId": "CPBOdlxER.xfW64jex0WnjsAZqVjvm4_",
+                "userTags": [],
+                "isReadByClientUser": true,
+                "clientUserReadDate": "2025-12-10T12:39:15Z",
+                "clientUserReadBy": {
+                    "userGuid": "7CDF2390E3D34203812AF2101ACD0C25",
+                    "isCurrentUser": false
+                },
+                "primaryAssociationClientId": "078B0C3C1B1D41ACBE15F52AEBC02E37",
+                "staffCenterViewPath": "/staff/#/documents/client/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/78ba4fb844e249f8917cffd6983063e6",
+                "clientCenterViewPath": "/clientcenter/documents/clients/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/78ba4fb844e249f8917cffd6983063e6",
+                "parentId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "parentItem": {
+                    "documentCount": 0,
+                    "type": "folders",
+                    "staffCenterViewPath": "/staff/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "clientCenterViewPath": "/client/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "hasFiles": false,
+                    "hasFolders": false,
+                    "hasChildren": false,
+                    "containerType": "Folders",
+                    "readUserCount": 0,
+                    "isShared": false,
+                    "id": "e6b8a93c845c4a4499f21090eb3078ca",
+                    "createdDate": "0001-01-01T00:00:00",
+                    "modifiedDate": "0001-01-01T00:00:00",
+                    "itemType": "Folder"
+                },
+                "createdBy": {
+                    "userGuid": "EBE02509FD6F45B68F7A9434C41F141C",
+                    "isCurrentUser": false
+                },
+                "modifiedDate": "2025-12-09T17:11:29.755Z",
+                "modifiedBy": {
+                    "userGuid": "EBE02509FD6F45B68F7A9434C41F141C",
+                    "isCurrentUser": false
+                },
+                "itemType": "Document",
+                "permissions": {
+                    "read": true,
+                    "update": false,
+                    "delete": false,
+                    "addContents": false,
+                    "move": false
+                },
+                "lock": {
+                    "type": "Edit",
+                    "level": "Master",
+                    "createdBy": "Gerencial multipel",
+                    "createdDate": "2025-12-10T12:39:21.239Z",
+                    "isContainer": false,
+                    "contextInfo": {
+                        "edit": [
+                            "Type"
+                        ]
+                    },
+                    "resourceRestrictions": [
+                        "DELETE",
+                        "UPDATE",
+                        "MOVE",
+                        "CREATE_MASTER_LOCK"
+                    ]
+                },
+                "customFields": {
+                    "clientId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                },
+                "root": {
+                    "id": "91df35c88a274f61a9d5e104328ac008",
+                    "containerType": "Projects",
+                    "rootType": "TaxAccounting",
+                    "primaryAssociationType": "Client",
+                    "primaryAssociationId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                }
+            },
+            {
+                "id": "9a37bab6d90f439e9a79a4f9d7b89f3d",
+                "name": "Relatório de Liquido Adiantamento 12/2025.pdf",
+                "createdDate": "2025-12-13T15:29:45.054Z",
+                "containerId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "mimeType": "application/pdf",
+                "documentType": "application/pdf",
+                "originalItemSize": 37235,
+                "status": "ACTIVE",
+                "isViewable": true,
+                "isPasswordProtected": false,
+                "versionId": "ayZA4CGfL11ufBqUqpNJl3f68I9.7Fib",
+                "userTags": [],
+                "isReadByClientUser": true,
+                "clientUserReadDate": "2025-12-16T16:46:25Z",
+                "clientUserReadBy": {
+                    "userGuid": "7CDF2390E3D34203812AF2101ACD0C25",
+                    "isCurrentUser": false
+                },
+                "primaryAssociationClientId": "078B0C3C1B1D41ACBE15F52AEBC02E37",
+                "staffCenterViewPath": "/staff/#/documents/client/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/9a37bab6d90f439e9a79a4f9d7b89f3d",
+                "clientCenterViewPath": "/clientcenter/documents/clients/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/9a37bab6d90f439e9a79a4f9d7b89f3d",
+                "parentId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "parentItem": {
+                    "documentCount": 0,
+                    "type": "folders",
+                    "staffCenterViewPath": "/staff/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "clientCenterViewPath": "/client/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "hasFiles": false,
+                    "hasFolders": false,
+                    "hasChildren": false,
+                    "containerType": "Folders",
+                    "readUserCount": 0,
+                    "isShared": false,
+                    "id": "e6b8a93c845c4a4499f21090eb3078ca",
+                    "createdDate": "0001-01-01T00:00:00",
+                    "modifiedDate": "0001-01-01T00:00:00",
+                    "itemType": "Folder"
+                },
+                "createdBy": {
+                    "userGuid": "6551A515E9F244D5894CEADD567D64B5",
+                    "isCurrentUser": false
+                },
+                "modifiedDate": "2025-12-19T17:45:19.007Z",
+                "modifiedBy": {
+                    "userGuid": "EBE02509FD6F45B68F7A9434C41F141C",
+                    "isCurrentUser": false
+                },
+                "itemType": "Document",
+                "permissions": {
+                    "read": true,
+                    "update": true,
+                    "delete": true,
+                    "addContents": true,
+                    "move": true
+                },
+                "customFields": {
+                    "clientId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                },
+                "root": {
+                    "id": "91df35c88a274f61a9d5e104328ac008",
+                    "containerType": "Projects",
+                    "rootType": "TaxAccounting",
+                    "primaryAssociationType": "Client",
+                    "primaryAssociationId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                }
+            },
+            {
+                "id": "4ef4378bcaf8456c8a0e65968db8ea86",
+                "name": "Relatório de Líquidos - 07/2025.pdf",
+                "createdDate": "2025-08-04T14:13:31.698Z",
+                "containerId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "mimeType": "application/pdf",
+                "documentType": "application/pdf",
+                "originalItemSize": 38635,
+                "status": "ACTIVE",
+                "isViewable": true,
+                "isPasswordProtected": false,
+                "versionId": "D6KizvE5idQ39GSyazK0GRBKOalenZDT",
+                "userTags": [],
+                "isReadByClientUser": true,
+                "clientUserReadDate": "2025-08-20T13:30:58Z",
+                "clientUserReadBy": {
+                    "userGuid": "7CDF2390E3D34203812AF2101ACD0C25",
+                    "isCurrentUser": false
+                },
+                "primaryAssociationClientId": "078B0C3C1B1D41ACBE15F52AEBC02E37",
+                "staffCenterViewPath": "/staff/#/documents/client/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/4ef4378bcaf8456c8a0e65968db8ea86",
+                "clientCenterViewPath": "/clientcenter/documents/clients/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/4ef4378bcaf8456c8a0e65968db8ea86",
+                "parentId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "parentItem": {
+                    "documentCount": 0,
+                    "type": "folders",
+                    "staffCenterViewPath": "/staff/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "clientCenterViewPath": "/client/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "hasFiles": false,
+                    "hasFolders": false,
+                    "hasChildren": false,
+                    "containerType": "Folders",
+                    "readUserCount": 0,
+                    "isShared": false,
+                    "id": "e6b8a93c845c4a4499f21090eb3078ca",
+                    "createdDate": "0001-01-01T00:00:00",
+                    "modifiedDate": "0001-01-01T00:00:00",
+                    "itemType": "Folder"
+                },
+                "createdBy": {
+                    "userGuid": "B66A5E6C272D415C962A58120E3195E6",
+                    "isCurrentUser": false
+                },
+                "modifiedDate": "2025-08-04T14:13:32.207Z",
+                "modifiedBy": {
+                    "userGuid": "B66A5E6C272D415C962A58120E3195E6",
+                    "isCurrentUser": false
+                },
+                "itemType": "Document",
+                "permissions": {
+                    "read": true,
+                    "update": false,
+                    "delete": false,
+                    "addContents": false,
+                    "move": false
+                },
+                "lock": {
+                    "type": "Edit",
+                    "level": "Master",
+                    "createdBy": "Gerencial multipel",
+                    "createdDate": "2025-08-20T13:30:59.096Z",
+                    "isContainer": false,
+                    "contextInfo": {
+                        "edit": [
+                            "Type"
+                        ]
+                    },
+                    "resourceRestrictions": [
+                        "DELETE",
+                        "UPDATE",
+                        "MOVE",
+                        "CREATE_MASTER_LOCK"
+                    ]
+                },
+                "customFields": {
+                    "clientId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                },
+                "root": {
+                    "id": "91df35c88a274f61a9d5e104328ac008",
+                    "containerType": "Projects",
+                    "rootType": "TaxAccounting",
+                    "primaryAssociationType": "Client",
+                    "primaryAssociationId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                }
+            },
+            {
+                "id": "e50b51a1e9a04573b6e53e53f4c0ef93",
+                "name": "Relatório de Líquidos - 08/2025.pdf",
+                "createdDate": "2025-08-13T21:21:23.33Z",
+                "containerId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "mimeType": "application/pdf",
+                "documentType": "application/pdf",
+                "originalItemSize": 38759,
+                "status": "ACTIVE",
+                "isViewable": true,
+                "isPasswordProtected": false,
+                "versionId": "R_no02V4vaSiHeWz52xQMLxPyFVwyNHC",
+                "userTags": [],
+                "isReadByClientUser": true,
+                "clientUserReadDate": "2025-08-14T14:54:02Z",
+                "clientUserReadBy": {
+                    "userGuid": "7CDF2390E3D34203812AF2101ACD0C25",
+                    "isCurrentUser": false
+                },
+                "primaryAssociationClientId": "078B0C3C1B1D41ACBE15F52AEBC02E37",
+                "staffCenterViewPath": "/staff/#/documents/client/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/e50b51a1e9a04573b6e53e53f4c0ef93",
+                "clientCenterViewPath": "/clientcenter/documents/clients/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/e50b51a1e9a04573b6e53e53f4c0ef93",
+                "parentId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "parentItem": {
+                    "documentCount": 0,
+                    "type": "folders",
+                    "staffCenterViewPath": "/staff/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "clientCenterViewPath": "/client/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "hasFiles": false,
+                    "hasFolders": false,
+                    "hasChildren": false,
+                    "containerType": "Folders",
+                    "readUserCount": 0,
+                    "isShared": false,
+                    "id": "e6b8a93c845c4a4499f21090eb3078ca",
+                    "createdDate": "0001-01-01T00:00:00",
+                    "modifiedDate": "0001-01-01T00:00:00",
+                    "itemType": "Folder"
+                },
+                "createdBy": {
+                    "userGuid": "CDD74EDAC223490D8578CA306F95C330",
+                    "isCurrentUser": false
+                },
+                "modifiedDate": "2025-09-01T21:11:18.443Z",
+                "modifiedBy": {
+                    "userGuid": "B4B7D4BB57374A82B028BC36C290C2B6",
+                    "isCurrentUser": false
+                },
+                "itemType": "Document",
+                "permissions": {
+                    "read": true,
+                    "update": true,
+                    "delete": true,
+                    "addContents": true,
+                    "move": true
+                },
+                "customFields": {
+                    "clientId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                },
+                "root": {
+                    "id": "91df35c88a274f61a9d5e104328ac008",
+                    "containerType": "Projects",
+                    "rootType": "TaxAccounting",
+                    "primaryAssociationType": "Client",
+                    "primaryAssociationId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                }
+            },
+            {
+                "id": "c6dd20b0becb4c4db3799a3bf6fa497d",
+                "name": "Relatório de Líquidos - 09/2025.pdf",
+                "createdDate": "2025-10-02T15:17:59.196Z",
+                "containerId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "mimeType": "application/pdf",
+                "documentType": "application/pdf",
+                "originalItemSize": 38089,
+                "status": "ACTIVE",
+                "isViewable": true,
+                "isPasswordProtected": false,
+                "versionId": "tUmkNkQe34LqibNrvYzU3vjZaV1jDJRU",
+                "userTags": [],
+                "isReadByClientUser": true,
+                "clientUserReadDate": "2025-10-06T12:44:46Z",
+                "clientUserReadBy": {
+                    "userGuid": "7CDF2390E3D34203812AF2101ACD0C25",
+                    "isCurrentUser": false
+                },
+                "primaryAssociationClientId": "078B0C3C1B1D41ACBE15F52AEBC02E37",
+                "staffCenterViewPath": "/staff/#/documents/client/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/c6dd20b0becb4c4db3799a3bf6fa497d",
+                "clientCenterViewPath": "/clientcenter/documents/clients/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/c6dd20b0becb4c4db3799a3bf6fa497d",
+                "parentId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "parentItem": {
+                    "documentCount": 0,
+                    "type": "folders",
+                    "staffCenterViewPath": "/staff/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "clientCenterViewPath": "/client/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "hasFiles": false,
+                    "hasFolders": false,
+                    "hasChildren": false,
+                    "containerType": "Folders",
+                    "readUserCount": 0,
+                    "isShared": false,
+                    "id": "e6b8a93c845c4a4499f21090eb3078ca",
+                    "createdDate": "0001-01-01T00:00:00",
+                    "modifiedDate": "0001-01-01T00:00:00",
+                    "itemType": "Folder"
+                },
+                "createdBy": {
+                    "userGuid": "B4B7D4BB57374A82B028BC36C290C2B6",
+                    "isCurrentUser": false
+                },
+                "modifiedDate": "2025-10-02T15:19:05.975Z",
+                "modifiedBy": {
+                    "userGuid": "B4B7D4BB57374A82B028BC36C290C2B6",
+                    "isCurrentUser": false
+                },
+                "itemType": "Document",
+                "permissions": {
+                    "read": true,
+                    "update": false,
+                    "delete": false,
+                    "addContents": false,
+                    "move": false
+                },
+                "lock": {
+                    "type": "Edit",
+                    "level": "Master",
+                    "createdBy": "Gerencial multipel",
+                    "createdDate": "2025-10-06T12:44:48.487Z",
+                    "isContainer": false,
+                    "contextInfo": {
+                        "edit": [
+                            "Type"
+                        ]
+                    },
+                    "resourceRestrictions": [
+                        "DELETE",
+                        "UPDATE",
+                        "MOVE",
+                        "CREATE_MASTER_LOCK"
+                    ]
+                },
+                "customFields": {
+                    "clientId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                },
+                "root": {
+                    "id": "91df35c88a274f61a9d5e104328ac008",
+                    "containerType": "Projects",
+                    "rootType": "TaxAccounting",
+                    "primaryAssociationType": "Client",
+                    "primaryAssociationId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                }
+            },
+            {
+                "id": "0b6974efbd4c49c1a4503d0d2176e9b6",
+                "name": "Relatório de Líquidos - 10/2025.pdf",
+                "createdDate": "2025-11-04T12:04:54.169Z",
+                "containerId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "mimeType": "application/pdf",
+                "documentType": "application/pdf",
+                "originalItemSize": 38029,
+                "status": "ACTIVE",
+                "isViewable": true,
+                "isPasswordProtected": false,
+                "versionId": "H1b7YU9vDjhOyn3tjtP265FOZsh69Z2R",
+                "userTags": [],
+                "isReadByClientUser": true,
+                "clientUserReadDate": "2025-11-04T13:38:51Z",
+                "clientUserReadBy": {
+                    "userGuid": "7CDF2390E3D34203812AF2101ACD0C25",
+                    "isCurrentUser": false
+                },
+                "primaryAssociationClientId": "078B0C3C1B1D41ACBE15F52AEBC02E37",
+                "staffCenterViewPath": "/staff/#/documents/client/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/0b6974efbd4c49c1a4503d0d2176e9b6",
+                "clientCenterViewPath": "/clientcenter/documents/clients/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/0b6974efbd4c49c1a4503d0d2176e9b6",
+                "parentId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "parentItem": {
+                    "documentCount": 0,
+                    "type": "folders",
+                    "staffCenterViewPath": "/staff/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "clientCenterViewPath": "/client/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "hasFiles": false,
+                    "hasFolders": false,
+                    "hasChildren": false,
+                    "containerType": "Folders",
+                    "readUserCount": 0,
+                    "isShared": false,
+                    "id": "e6b8a93c845c4a4499f21090eb3078ca",
+                    "createdDate": "0001-01-01T00:00:00",
+                    "modifiedDate": "0001-01-01T00:00:00",
+                    "itemType": "Folder"
+                },
+                "createdBy": {
+                    "userGuid": "B4B7D4BB57374A82B028BC36C290C2B6",
+                    "isCurrentUser": false
+                },
+                "modifiedDate": "2025-11-04T13:24:50.727Z",
+                "modifiedBy": {
+                    "userGuid": "B4B7D4BB57374A82B028BC36C290C2B6",
+                    "isCurrentUser": false
+                },
+                "itemType": "Document",
+                "permissions": {
+                    "read": true,
+                    "update": false,
+                    "delete": false,
+                    "addContents": false,
+                    "move": false
+                },
+                "lock": {
+                    "type": "Edit",
+                    "level": "Master",
+                    "createdBy": "Gerencial multipel",
+                    "createdDate": "2025-11-04T13:38:53.668Z",
+                    "isContainer": false,
+                    "contextInfo": {
+                        "edit": [
+                            "Type"
+                        ]
+                    },
+                    "resourceRestrictions": [
+                        "DELETE",
+                        "UPDATE",
+                        "MOVE",
+                        "CREATE_MASTER_LOCK"
+                    ]
+                },
+                "customFields": {
+                    "clientId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                },
+                "root": {
+                    "id": "91df35c88a274f61a9d5e104328ac008",
+                    "containerType": "Projects",
+                    "rootType": "TaxAccounting",
+                    "primaryAssociationType": "Client",
+                    "primaryAssociationId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                }
+            },
+            {
+                "id": "1db54042645c4062ba7e0b9be5602a6a",
+                "name": "Relatório de Liquidos 11-2025.pdf",
+                "createdDate": "2025-12-02T12:10:22.811Z",
+                "containerId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "mimeType": "application/pdf",
+                "documentType": "application/pdf",
+                "originalItemSize": 34826,
+                "status": "ACTIVE",
+                "isViewable": true,
+                "isPasswordProtected": false,
+                "versionId": "d_c9YynsiPmEpykYy4cg6Qq6IKTiGjnI",
+                "userTags": [],
+                "isReadByClientUser": true,
+                "clientUserReadDate": "2025-12-04T15:00:42Z",
+                "clientUserReadBy": {
+                    "userGuid": "7CDF2390E3D34203812AF2101ACD0C25",
+                    "isCurrentUser": false
+                },
+                "primaryAssociationClientId": "078B0C3C1B1D41ACBE15F52AEBC02E37",
+                "staffCenterViewPath": "/staff/#/documents/client/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/1db54042645c4062ba7e0b9be5602a6a",
+                "clientCenterViewPath": "/clientcenter/documents/clients/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/1db54042645c4062ba7e0b9be5602a6a",
+                "parentId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "parentItem": {
+                    "documentCount": 0,
+                    "type": "folders",
+                    "staffCenterViewPath": "/staff/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "clientCenterViewPath": "/client/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "hasFiles": false,
+                    "hasFolders": false,
+                    "hasChildren": false,
+                    "containerType": "Folders",
+                    "readUserCount": 0,
+                    "isShared": false,
+                    "id": "e6b8a93c845c4a4499f21090eb3078ca",
+                    "createdDate": "0001-01-01T00:00:00",
+                    "modifiedDate": "0001-01-01T00:00:00",
+                    "itemType": "Folder"
+                },
+                "createdBy": {
+                    "userGuid": "EBE02509FD6F45B68F7A9434C41F141C",
+                    "isCurrentUser": false
+                },
+                "modifiedDate": "2025-12-02T12:12:55.143Z",
+                "modifiedBy": {
+                    "userGuid": "EBE02509FD6F45B68F7A9434C41F141C",
+                    "isCurrentUser": false
+                },
+                "itemType": "Document",
+                "permissions": {
+                    "read": true,
+                    "update": false,
+                    "delete": false,
+                    "addContents": false,
+                    "move": false
+                },
+                "lock": {
+                    "type": "Edit",
+                    "level": "Master",
+                    "createdBy": "Gerencial multipel",
+                    "createdDate": "2025-12-04T15:00:46.590Z",
+                    "isContainer": false,
+                    "contextInfo": {
+                        "edit": [
+                            "Type"
+                        ]
+                    },
+                    "resourceRestrictions": [
+                        "DELETE",
+                        "UPDATE",
+                        "MOVE",
+                        "CREATE_MASTER_LOCK"
+                    ]
+                },
+                "customFields": {
+                    "clientId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                },
+                "root": {
+                    "id": "91df35c88a274f61a9d5e104328ac008",
+                    "containerType": "Projects",
+                    "rootType": "TaxAccounting",
+                    "primaryAssociationType": "Client",
+                    "primaryAssociationId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                }
+            },
+            {
+                "id": "107fa5e20f964c53a3e552ac94cf7abb",
+                "name": "Relatório de Líquidos 12-2025.pdf",
+                "createdDate": "2026-01-06T12:05:28.976Z",
+                "containerId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "mimeType": "application/pdf",
+                "documentType": "application/pdf",
+                "originalItemSize": 34617,
+                "status": "ACTIVE",
+                "isViewable": true,
+                "isPasswordProtected": false,
+                "versionId": "4qBsswIi7tSxdvPEf0gVIEI5bp5MUrmL",
+                "userTags": [],
+                "isReadByClientUser": true,
+                "clientUserReadDate": "2026-01-19T13:12:11Z",
+                "clientUserReadBy": {
+                    "userGuid": "7CDF2390E3D34203812AF2101ACD0C25",
+                    "isCurrentUser": false
+                },
+                "primaryAssociationClientId": "078B0C3C1B1D41ACBE15F52AEBC02E37",
+                "staffCenterViewPath": "/staff/#/documents/client/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/107fa5e20f964c53a3e552ac94cf7abb",
+                "clientCenterViewPath": "/clientcenter/documents/clients/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/107fa5e20f964c53a3e552ac94cf7abb",
+                "parentId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "parentItem": {
+                    "documentCount": 0,
+                    "type": "folders",
+                    "staffCenterViewPath": "/staff/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "clientCenterViewPath": "/client/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "hasFiles": false,
+                    "hasFolders": false,
+                    "hasChildren": false,
+                    "containerType": "Folders",
+                    "readUserCount": 0,
+                    "isShared": false,
+                    "id": "e6b8a93c845c4a4499f21090eb3078ca",
+                    "createdDate": "0001-01-01T00:00:00",
+                    "modifiedDate": "0001-01-01T00:00:00",
+                    "itemType": "Folder"
+                },
+                "createdBy": {
+                    "userGuid": "EBE02509FD6F45B68F7A9434C41F141C",
+                    "isCurrentUser": false
+                },
+                "modifiedDate": "2026-01-06T12:05:29.147Z",
+                "modifiedBy": {
+                    "userGuid": "EBE02509FD6F45B68F7A9434C41F141C",
+                    "isCurrentUser": false
+                },
+                "itemType": "Document",
+                "permissions": {
+                    "read": true,
+                    "update": false,
+                    "delete": false,
+                    "addContents": false,
+                    "move": false
+                },
+                "lock": {
+                    "type": "Edit",
+                    "level": "Master",
+                    "createdBy": "Gerencial multipel",
+                    "createdDate": "2026-01-19T13:12:12.669Z",
+                    "isContainer": false,
+                    "contextInfo": {
+                        "edit": [
+                            "Type"
+                        ]
+                    },
+                    "resourceRestrictions": [
+                        "DELETE",
+                        "UPDATE",
+                        "MOVE",
+                        "CREATE_MASTER_LOCK"
+                    ]
+                },
+                "customFields": {
+                    "clientId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                },
+                "root": {
+                    "id": "91df35c88a274f61a9d5e104328ac008",
+                    "containerType": "Projects",
+                    "rootType": "TaxAccounting",
+                    "primaryAssociationType": "Client",
+                    "primaryAssociationId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                }
+            },
+            {
+                "id": "cdde6d1d2d974975b243245e33282b9b",
+                "name": "Relatório Líquido 13 adiantamento - 11/2025.pdf",
+                "createdDate": "2025-11-19T15:43:34.42Z",
+                "containerId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "mimeType": "application/pdf",
+                "documentType": "application/pdf",
+                "originalItemSize": 33174,
+                "status": "ACTIVE",
+                "isViewable": true,
+                "isPasswordProtected": false,
+                "versionId": "zg.twF.AW8F_pqZuGMRa95OyVMg0s4x6",
+                "userTags": [],
+                "isReadByClientUser": true,
+                "clientUserReadDate": "2025-11-19T23:57:10Z",
+                "clientUserReadBy": {
+                    "userGuid": "7CDF2390E3D34203812AF2101ACD0C25",
+                    "isCurrentUser": false
+                },
+                "primaryAssociationClientId": "078B0C3C1B1D41ACBE15F52AEBC02E37",
+                "staffCenterViewPath": "/staff/#/documents/client/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/cdde6d1d2d974975b243245e33282b9b",
+                "clientCenterViewPath": "/clientcenter/documents/clients/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/cdde6d1d2d974975b243245e33282b9b",
+                "parentId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "parentItem": {
+                    "documentCount": 0,
+                    "type": "folders",
+                    "staffCenterViewPath": "/staff/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "clientCenterViewPath": "/client/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "hasFiles": false,
+                    "hasFolders": false,
+                    "hasChildren": false,
+                    "containerType": "Folders",
+                    "readUserCount": 0,
+                    "isShared": false,
+                    "id": "e6b8a93c845c4a4499f21090eb3078ca",
+                    "createdDate": "0001-01-01T00:00:00",
+                    "modifiedDate": "0001-01-01T00:00:00",
+                    "itemType": "Folder"
+                },
+                "createdBy": {
+                    "userGuid": "B4B7D4BB57374A82B028BC36C290C2B6",
+                    "isCurrentUser": false
+                },
+                "modifiedDate": "2025-11-19T15:43:46.519Z",
+                "modifiedBy": {
+                    "userGuid": "B4B7D4BB57374A82B028BC36C290C2B6",
+                    "isCurrentUser": false
+                },
+                "itemType": "Document",
+                "permissions": {
+                    "read": true,
+                    "update": false,
+                    "delete": false,
+                    "addContents": false,
+                    "move": false
+                },
+                "lock": {
+                    "type": "Edit",
+                    "level": "Master",
+                    "createdBy": "Gerencial multipel",
+                    "createdDate": "2025-11-19T23:57:11.030Z",
+                    "isContainer": false,
+                    "contextInfo": {
+                        "edit": [
+                            "Type"
+                        ]
+                    },
+                    "resourceRestrictions": [
+                        "DELETE",
+                        "UPDATE",
+                        "MOVE",
+                        "CREATE_MASTER_LOCK"
+                    ]
+                },
+                "customFields": {
+                    "clientId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                },
+                "root": {
+                    "id": "91df35c88a274f61a9d5e104328ac008",
+                    "containerType": "Projects",
+                    "rootType": "TaxAccounting",
+                    "primaryAssociationType": "Client",
+                    "primaryAssociationId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                }
+            },
+            {
+                "id": "efed968b13734766b08ea3616fdd4295",
+                "name": "Relatorio Liquido Adiantamento -  01/2025.pdf",
+                "createdDate": "2025-01-14T12:02:03.984Z",
+                "containerId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "mimeType": "application/pdf",
+                "documentType": "application/pdf",
+                "originalItemSize": 38732,
+                "status": "ACTIVE",
+                "isViewable": true,
+                "isPasswordProtected": false,
+                "versionId": "udK5zEZlDpjbze1Pq3HDn2wHHwsQLQbp",
+                "userTags": [],
+                "isReadByClientUser": true,
+                "clientUserReadDate": "2025-02-03T11:26:32Z",
+                "clientUserReadBy": {
+                    "userGuid": "7CDF2390E3D34203812AF2101ACD0C25",
+                    "isCurrentUser": false
+                },
+                "primaryAssociationClientId": "078B0C3C1B1D41ACBE15F52AEBC02E37",
+                "staffCenterViewPath": "/staff/#/documents/client/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/efed968b13734766b08ea3616fdd4295",
+                "clientCenterViewPath": "/clientcenter/documents/clients/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/efed968b13734766b08ea3616fdd4295",
+                "parentId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "parentItem": {
+                    "documentCount": 0,
+                    "type": "folders",
+                    "staffCenterViewPath": "/staff/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "clientCenterViewPath": "/client/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "hasFiles": false,
+                    "hasFolders": false,
+                    "hasChildren": false,
+                    "containerType": "Folders",
+                    "readUserCount": 0,
+                    "isShared": false,
+                    "id": "e6b8a93c845c4a4499f21090eb3078ca",
+                    "createdDate": "0001-01-01T00:00:00",
+                    "modifiedDate": "0001-01-01T00:00:00",
+                    "itemType": "Folder"
+                },
+                "createdBy": {
+                    "userGuid": "B66A5E6C272D415C962A58120E3195E6",
+                    "isCurrentUser": false
+                },
+                "modifiedDate": "2025-02-04T14:57:17.373Z",
+                "modifiedBy": {
+                    "userGuid": "A234F64D11164460801FCB57C512445C",
+                    "isCurrentUser": false
+                },
+                "itemType": "Document",
+                "permissions": {
+                    "read": true,
+                    "update": true,
+                    "delete": true,
+                    "addContents": true,
+                    "move": true
+                },
+                "customFields": {
+                    "clientId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                },
+                "root": {
+                    "id": "91df35c88a274f61a9d5e104328ac008",
+                    "containerType": "Projects",
+                    "rootType": "TaxAccounting",
+                    "primaryAssociationType": "Client",
+                    "primaryAssociationId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                }
+            },
+            {
+                "id": "c8cf5f1fd483436eb524a43cd03fcd99",
+                "name": "Relatorio liquido adiantamento 02/2025.pdf",
+                "createdDate": "2025-02-10T11:34:15.129Z",
+                "containerId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "mimeType": "application/pdf",
+                "documentType": "application/pdf",
+                "originalItemSize": 37696,
+                "status": "ACTIVE",
+                "isViewable": true,
+                "isPasswordProtected": false,
+                "versionId": "fQCZRgzpqhW0ZVkBUZKgQ8Q4ozAgBmJE",
+                "userTags": [],
+                "isReadByClientUser": true,
+                "clientUserReadDate": "2025-02-24T14:41:45Z",
+                "clientUserReadBy": {
+                    "userGuid": "7CDF2390E3D34203812AF2101ACD0C25",
+                    "isCurrentUser": false
+                },
+                "primaryAssociationClientId": "078B0C3C1B1D41ACBE15F52AEBC02E37",
+                "staffCenterViewPath": "/staff/#/documents/client/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/c8cf5f1fd483436eb524a43cd03fcd99",
+                "clientCenterViewPath": "/clientcenter/documents/clients/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/c8cf5f1fd483436eb524a43cd03fcd99",
+                "parentId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "parentItem": {
+                    "documentCount": 0,
+                    "type": "folders",
+                    "staffCenterViewPath": "/staff/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "clientCenterViewPath": "/client/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "hasFiles": false,
+                    "hasFolders": false,
+                    "hasChildren": false,
+                    "containerType": "Folders",
+                    "readUserCount": 0,
+                    "isShared": false,
+                    "id": "e6b8a93c845c4a4499f21090eb3078ca",
+                    "createdDate": "0001-01-01T00:00:00",
+                    "modifiedDate": "0001-01-01T00:00:00",
+                    "itemType": "Folder"
+                },
+                "createdBy": {
+                    "userGuid": "A234F64D11164460801FCB57C512445C",
+                    "isCurrentUser": false
+                },
+                "modifiedDate": "2025-02-10T14:43:41.362Z",
+                "modifiedBy": {
+                    "userGuid": "A234F64D11164460801FCB57C512445C",
+                    "isCurrentUser": false
+                },
+                "itemType": "Document",
+                "permissions": {
+                    "read": true,
+                    "update": false,
+                    "delete": false,
+                    "addContents": false,
+                    "move": false
+                },
+                "lock": {
+                    "type": "Edit",
+                    "level": "Master",
+                    "createdBy": "Gerencial multipel",
+                    "createdDate": "2025-02-24T14:41:45.990Z",
+                    "isContainer": false,
+                    "contextInfo": {
+                        "edit": [
+                            "Type"
+                        ]
+                    },
+                    "resourceRestrictions": [
+                        "DELETE",
+                        "UPDATE",
+                        "MOVE",
+                        "CREATE_MASTER_LOCK"
+                    ]
+                },
+                "customFields": {
+                    "clientId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                },
+                "root": {
+                    "id": "91df35c88a274f61a9d5e104328ac008",
+                    "containerType": "Projects",
+                    "rootType": "TaxAccounting",
+                    "primaryAssociationType": "Client",
+                    "primaryAssociationId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                }
+            },
+            {
+                "id": "15d2d69fd3b2458fb9cae387c30636fc",
+                "name": "Relatorio liquido adiantamento 03/2025.pdf",
+                "createdDate": "2025-03-11T17:38:33.948Z",
+                "containerId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "mimeType": "application/pdf",
+                "documentType": "application/pdf",
+                "originalItemSize": 39208,
+                "status": "ACTIVE",
+                "isViewable": true,
+                "isPasswordProtected": false,
+                "versionId": "ySDMFDQDa5zHfsKwVIQCd7SuU6aA_1OF",
+                "userTags": [],
+                "isReadByClientUser": true,
+                "clientUserReadDate": "2025-03-25T13:15:39Z",
+                "clientUserReadBy": {
+                    "userGuid": "7CDF2390E3D34203812AF2101ACD0C25",
+                    "isCurrentUser": false
+                },
+                "primaryAssociationClientId": "078B0C3C1B1D41ACBE15F52AEBC02E37",
+                "staffCenterViewPath": "/staff/#/documents/client/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/15d2d69fd3b2458fb9cae387c30636fc",
+                "clientCenterViewPath": "/clientcenter/documents/clients/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/15d2d69fd3b2458fb9cae387c30636fc",
+                "parentId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "parentItem": {
+                    "documentCount": 0,
+                    "type": "folders",
+                    "staffCenterViewPath": "/staff/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "clientCenterViewPath": "/client/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "hasFiles": false,
+                    "hasFolders": false,
+                    "hasChildren": false,
+                    "containerType": "Folders",
+                    "readUserCount": 0,
+                    "isShared": false,
+                    "id": "e6b8a93c845c4a4499f21090eb3078ca",
+                    "createdDate": "0001-01-01T00:00:00",
+                    "modifiedDate": "0001-01-01T00:00:00",
+                    "itemType": "Folder"
+                },
+                "createdBy": {
+                    "userGuid": "A234F64D11164460801FCB57C512445C",
+                    "isCurrentUser": false
+                },
+                "modifiedDate": "2025-03-11T17:40:22.836Z",
+                "modifiedBy": {
+                    "userGuid": "A234F64D11164460801FCB57C512445C",
+                    "isCurrentUser": false
+                },
+                "itemType": "Document",
+                "permissions": {
+                    "read": true,
+                    "update": false,
+                    "delete": false,
+                    "addContents": false,
+                    "move": false
+                },
+                "lock": {
+                    "type": "Edit",
+                    "level": "Master",
+                    "createdBy": "Gerencial multipel",
+                    "createdDate": "2025-03-25T13:15:39.998Z",
+                    "isContainer": false,
+                    "contextInfo": {
+                        "edit": [
+                            "Type"
+                        ]
+                    },
+                    "resourceRestrictions": [
+                        "DELETE",
+                        "UPDATE",
+                        "MOVE",
+                        "CREATE_MASTER_LOCK"
+                    ]
+                },
+                "customFields": {
+                    "clientId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                },
+                "root": {
+                    "id": "91df35c88a274f61a9d5e104328ac008",
+                    "containerType": "Projects",
+                    "rootType": "TaxAccounting",
+                    "primaryAssociationType": "Client",
+                    "primaryAssociationId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                }
+            },
+            {
+                "id": "416267381ab942cf808aea8d2ce74e96",
+                "name": "Relatorio liquido adiantamento 04/2025.pdf",
+                "createdDate": "2025-04-11T17:27:19.596Z",
+                "containerId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "mimeType": "application/pdf",
+                "documentType": "application/pdf",
+                "originalItemSize": 39381,
+                "status": "ACTIVE",
+                "isViewable": true,
+                "isPasswordProtected": false,
+                "versionId": "uvAUf1CORFdvn9CEhwpS.qTKeaKc899K",
+                "userTags": [],
+                "isReadByClientUser": true,
+                "clientUserReadDate": "2025-04-25T17:17:19Z",
+                "clientUserReadBy": {
+                    "userGuid": "7CDF2390E3D34203812AF2101ACD0C25",
+                    "isCurrentUser": false
+                },
+                "primaryAssociationClientId": "078B0C3C1B1D41ACBE15F52AEBC02E37",
+                "staffCenterViewPath": "/staff/#/documents/client/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/416267381ab942cf808aea8d2ce74e96",
+                "clientCenterViewPath": "/clientcenter/documents/clients/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/416267381ab942cf808aea8d2ce74e96",
+                "parentId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "parentItem": {
+                    "documentCount": 0,
+                    "type": "folders",
+                    "staffCenterViewPath": "/staff/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "clientCenterViewPath": "/client/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "hasFiles": false,
+                    "hasFolders": false,
+                    "hasChildren": false,
+                    "containerType": "Folders",
+                    "readUserCount": 0,
+                    "isShared": false,
+                    "id": "e6b8a93c845c4a4499f21090eb3078ca",
+                    "createdDate": "0001-01-01T00:00:00",
+                    "modifiedDate": "0001-01-01T00:00:00",
+                    "itemType": "Folder"
+                },
+                "createdBy": {
+                    "userGuid": "A234F64D11164460801FCB57C512445C",
+                    "isCurrentUser": false
+                },
+                "modifiedDate": "2025-04-11T17:27:19.653Z",
+                "modifiedBy": {
+                    "userGuid": "A234F64D11164460801FCB57C512445C",
+                    "isCurrentUser": false
+                },
+                "itemType": "Document",
+                "permissions": {
+                    "read": true,
+                    "update": false,
+                    "delete": false,
+                    "addContents": false,
+                    "move": false
+                },
+                "lock": {
+                    "type": "Edit",
+                    "level": "Master",
+                    "createdBy": "Gerencial multipel",
+                    "createdDate": "2025-04-25T17:17:19.494Z",
+                    "isContainer": false,
+                    "contextInfo": {
+                        "edit": [
+                            "Type"
+                        ]
+                    },
+                    "resourceRestrictions": [
+                        "DELETE",
+                        "UPDATE",
+                        "MOVE",
+                        "CREATE_MASTER_LOCK"
+                    ]
+                },
+                "customFields": {
+                    "clientId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                },
+                "root": {
+                    "id": "91df35c88a274f61a9d5e104328ac008",
+                    "containerType": "Projects",
+                    "rootType": "TaxAccounting",
+                    "primaryAssociationType": "Client",
+                    "primaryAssociationId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                }
+            },
+            {
+                "id": "f9788819b4ca4cc793dc896c80e1de71",
+                "name": "Relatorio liquido adiantamento 05/2025.pdf",
+                "createdDate": "2025-05-12T19:56:40.847Z",
+                "containerId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "mimeType": "application/pdf",
+                "documentType": "application/pdf",
+                "originalItemSize": 39357,
+                "status": "ACTIVE",
+                "isViewable": true,
+                "isPasswordProtected": false,
+                "versionId": "KC.9zmxEXDAIbgNjAryf3dk7bUKQOmq.",
+                "userTags": [],
+                "isReadByClientUser": true,
+                "clientUserReadDate": "2025-05-22T12:59:52Z",
+                "clientUserReadBy": {
+                    "userGuid": "7CDF2390E3D34203812AF2101ACD0C25",
+                    "isCurrentUser": false
+                },
+                "primaryAssociationClientId": "078B0C3C1B1D41ACBE15F52AEBC02E37",
+                "staffCenterViewPath": "/staff/#/documents/client/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/f9788819b4ca4cc793dc896c80e1de71",
+                "clientCenterViewPath": "/clientcenter/documents/clients/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/f9788819b4ca4cc793dc896c80e1de71",
+                "parentId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "parentItem": {
+                    "documentCount": 0,
+                    "type": "folders",
+                    "staffCenterViewPath": "/staff/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "clientCenterViewPath": "/client/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "hasFiles": false,
+                    "hasFolders": false,
+                    "hasChildren": false,
+                    "containerType": "Folders",
+                    "readUserCount": 0,
+                    "isShared": false,
+                    "id": "e6b8a93c845c4a4499f21090eb3078ca",
+                    "createdDate": "0001-01-01T00:00:00",
+                    "modifiedDate": "0001-01-01T00:00:00",
+                    "itemType": "Folder"
+                },
+                "createdBy": {
+                    "userGuid": "A234F64D11164460801FCB57C512445C",
+                    "isCurrentUser": false
+                },
+                "modifiedDate": "2025-05-12T19:56:45.157Z",
+                "modifiedBy": {
+                    "userGuid": "A234F64D11164460801FCB57C512445C",
+                    "isCurrentUser": false
+                },
+                "itemType": "Document",
+                "permissions": {
+                    "read": true,
+                    "update": false,
+                    "delete": false,
+                    "addContents": false,
+                    "move": false
+                },
+                "lock": {
+                    "type": "Edit",
+                    "level": "Master",
+                    "createdBy": "Gerencial multipel",
+                    "createdDate": "2025-05-22T12:59:53.233Z",
+                    "isContainer": false,
+                    "contextInfo": {
+                        "edit": [
+                            "Type"
+                        ]
+                    },
+                    "resourceRestrictions": [
+                        "DELETE",
+                        "UPDATE",
+                        "MOVE",
+                        "CREATE_MASTER_LOCK"
+                    ]
+                },
+                "customFields": {
+                    "clientId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                },
+                "root": {
+                    "id": "91df35c88a274f61a9d5e104328ac008",
+                    "containerType": "Projects",
+                    "rootType": "TaxAccounting",
+                    "primaryAssociationType": "Client",
+                    "primaryAssociationId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                }
+            },
+            {
+                "id": "02381801d8c14fc9986c67c3147dd45e",
+                "name": "Relatorio liquido adiantamento 06/2025.pdf",
+                "createdDate": "2025-06-11T20:44:31.437Z",
+                "containerId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "mimeType": "application/pdf",
+                "documentType": "application/pdf",
+                "originalItemSize": 39267,
+                "status": "ACTIVE",
+                "isViewable": true,
+                "isPasswordProtected": false,
+                "versionId": "QDxqPjOFZV7ASd05DRcy70r6nUWuERC3",
+                "userTags": [],
+                "isReadByClientUser": true,
+                "clientUserReadDate": "2025-07-01T12:31:25Z",
+                "clientUserReadBy": {
+                    "userGuid": "7CDF2390E3D34203812AF2101ACD0C25",
+                    "isCurrentUser": false
+                },
+                "primaryAssociationClientId": "078B0C3C1B1D41ACBE15F52AEBC02E37",
+                "staffCenterViewPath": "/staff/#/documents/client/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/02381801d8c14fc9986c67c3147dd45e",
+                "clientCenterViewPath": "/clientcenter/documents/clients/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/02381801d8c14fc9986c67c3147dd45e",
+                "parentId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "parentItem": {
+                    "documentCount": 0,
+                    "type": "folders",
+                    "staffCenterViewPath": "/staff/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "clientCenterViewPath": "/client/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "hasFiles": false,
+                    "hasFolders": false,
+                    "hasChildren": false,
+                    "containerType": "Folders",
+                    "readUserCount": 0,
+                    "isShared": false,
+                    "id": "e6b8a93c845c4a4499f21090eb3078ca",
+                    "createdDate": "0001-01-01T00:00:00",
+                    "modifiedDate": "0001-01-01T00:00:00",
+                    "itemType": "Folder"
+                },
+                "createdBy": {
+                    "userGuid": "A234F64D11164460801FCB57C512445C",
+                    "isCurrentUser": false
+                },
+                "modifiedDate": "2025-06-11T20:44:31.484Z",
+                "modifiedBy": {
+                    "userGuid": "A234F64D11164460801FCB57C512445C",
+                    "isCurrentUser": false
+                },
+                "itemType": "Document",
+                "permissions": {
+                    "read": true,
+                    "update": false,
+                    "delete": false,
+                    "addContents": false,
+                    "move": false
+                },
+                "lock": {
+                    "type": "Edit",
+                    "level": "Master",
+                    "createdBy": "Gerencial multipel",
+                    "createdDate": "2025-07-01T12:31:25.722Z",
+                    "isContainer": false,
+                    "contextInfo": {
+                        "edit": [
+                            "Type"
+                        ]
+                    },
+                    "resourceRestrictions": [
+                        "DELETE",
+                        "UPDATE",
+                        "MOVE",
+                        "CREATE_MASTER_LOCK"
+                    ]
+                },
+                "customFields": {
+                    "clientId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                },
+                "root": {
+                    "id": "91df35c88a274f61a9d5e104328ac008",
+                    "containerType": "Projects",
+                    "rootType": "TaxAccounting",
+                    "primaryAssociationType": "Client",
+                    "primaryAssociationId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                }
+            },
+            {
+                "id": "df99b36131d2460e8d41db8a614c0bda",
+                "name": "Relatorio liquido mensal  01/2025.pdf",
+                "createdDate": "2025-02-04T11:32:47.162Z",
+                "containerId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "mimeType": "application/pdf",
+                "documentType": "application/pdf",
+                "originalItemSize": 40551,
+                "status": "ACTIVE",
+                "isViewable": true,
+                "isPasswordProtected": false,
+                "versionId": "LoByChy8uGinCViv1AktMwqOFJjiuDSV",
+                "userTags": [],
+                "isReadByClientUser": true,
+                "clientUserReadDate": "2025-02-06T16:30:24Z",
+                "clientUserReadBy": {
+                    "userGuid": "7CDF2390E3D34203812AF2101ACD0C25",
+                    "isCurrentUser": false
+                },
+                "primaryAssociationClientId": "078B0C3C1B1D41ACBE15F52AEBC02E37",
+                "staffCenterViewPath": "/staff/#/documents/client/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/df99b36131d2460e8d41db8a614c0bda",
+                "clientCenterViewPath": "/clientcenter/documents/clients/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/df99b36131d2460e8d41db8a614c0bda",
+                "parentId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "parentItem": {
+                    "documentCount": 0,
+                    "type": "folders",
+                    "staffCenterViewPath": "/staff/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "clientCenterViewPath": "/client/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "hasFiles": false,
+                    "hasFolders": false,
+                    "hasChildren": false,
+                    "containerType": "Folders",
+                    "readUserCount": 0,
+                    "isShared": false,
+                    "id": "e6b8a93c845c4a4499f21090eb3078ca",
+                    "createdDate": "0001-01-01T00:00:00",
+                    "modifiedDate": "0001-01-01T00:00:00",
+                    "itemType": "Folder"
+                },
+                "createdBy": {
+                    "userGuid": "A234F64D11164460801FCB57C512445C",
+                    "isCurrentUser": false
+                },
+                "modifiedDate": "2025-02-04T14:57:30.646Z",
+                "modifiedBy": {
+                    "userGuid": "A234F64D11164460801FCB57C512445C",
+                    "isCurrentUser": false
+                },
+                "itemType": "Document",
+                "permissions": {
+                    "read": true,
+                    "update": false,
+                    "delete": false,
+                    "addContents": false,
+                    "move": false
+                },
+                "lock": {
+                    "type": "Edit",
+                    "level": "Master",
+                    "createdBy": "Gerencial multipel",
+                    "createdDate": "2025-02-06T16:30:24.796Z",
+                    "isContainer": false,
+                    "contextInfo": {
+                        "edit": [
+                            "Type"
+                        ]
+                    },
+                    "resourceRestrictions": [
+                        "DELETE",
+                        "UPDATE",
+                        "MOVE",
+                        "CREATE_MASTER_LOCK"
+                    ]
+                },
+                "customFields": {
+                    "clientId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                },
+                "root": {
+                    "id": "91df35c88a274f61a9d5e104328ac008",
+                    "containerType": "Projects",
+                    "rootType": "TaxAccounting",
+                    "primaryAssociationType": "Client",
+                    "primaryAssociationId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                }
+            },
+            {
+                "id": "b802959ca9754ba78fe82f90283e54c0",
+                "name": "Relatorio liquido mensal 02/2025.pdf",
+                "createdDate": "2025-03-06T16:32:29.883Z",
+                "containerId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "mimeType": "application/pdf",
+                "documentType": "application/pdf",
+                "originalItemSize": 38728,
+                "status": "ACTIVE",
+                "isViewable": true,
+                "isPasswordProtected": false,
+                "versionId": "8i0UaHwm1gtpSS0S2OJfMBUg_DE1lnve",
+                "userTags": [],
+                "isReadByClientUser": true,
+                "clientUserReadDate": "2025-03-11T19:59:26Z",
+                "clientUserReadBy": {
+                    "userGuid": "7CDF2390E3D34203812AF2101ACD0C25",
+                    "isCurrentUser": false
+                },
+                "primaryAssociationClientId": "078B0C3C1B1D41ACBE15F52AEBC02E37",
+                "staffCenterViewPath": "/staff/#/documents/client/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/b802959ca9754ba78fe82f90283e54c0",
+                "clientCenterViewPath": "/clientcenter/documents/clients/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/b802959ca9754ba78fe82f90283e54c0",
+                "parentId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "parentItem": {
+                    "documentCount": 0,
+                    "type": "folders",
+                    "staffCenterViewPath": "/staff/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "clientCenterViewPath": "/client/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "hasFiles": false,
+                    "hasFolders": false,
+                    "hasChildren": false,
+                    "containerType": "Folders",
+                    "readUserCount": 0,
+                    "isShared": false,
+                    "id": "e6b8a93c845c4a4499f21090eb3078ca",
+                    "createdDate": "0001-01-01T00:00:00",
+                    "modifiedDate": "0001-01-01T00:00:00",
+                    "itemType": "Folder"
+                },
+                "createdBy": {
+                    "userGuid": "A234F64D11164460801FCB57C512445C",
+                    "isCurrentUser": false
+                },
+                "modifiedDate": "2025-03-06T16:32:29.938Z",
+                "modifiedBy": {
+                    "userGuid": "A234F64D11164460801FCB57C512445C",
+                    "isCurrentUser": false
+                },
+                "itemType": "Document",
+                "permissions": {
+                    "read": true,
+                    "update": false,
+                    "delete": false,
+                    "addContents": false,
+                    "move": false
+                },
+                "lock": {
+                    "type": "Edit",
+                    "level": "Master",
+                    "createdBy": "Gerencial multipel",
+                    "createdDate": "2025-03-11T19:59:26.870Z",
+                    "isContainer": false,
+                    "contextInfo": {
+                        "edit": [
+                            "Type"
+                        ]
+                    },
+                    "resourceRestrictions": [
+                        "DELETE",
+                        "UPDATE",
+                        "MOVE",
+                        "CREATE_MASTER_LOCK"
+                    ]
+                },
+                "customFields": {
+                    "clientId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                },
+                "root": {
+                    "id": "91df35c88a274f61a9d5e104328ac008",
+                    "containerType": "Projects",
+                    "rootType": "TaxAccounting",
+                    "primaryAssociationType": "Client",
+                    "primaryAssociationId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                }
+            },
+            {
+                "id": "3b7e0a9be01843fa8f95c5ffc9d13109",
+                "name": "Relatorio liquido mensal 03/2025.pdf",
+                "createdDate": "2025-04-01T18:46:41.365Z",
+                "containerId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "mimeType": "application/pdf",
+                "documentType": "application/pdf",
+                "originalItemSize": 40091,
+                "status": "ACTIVE",
+                "isViewable": true,
+                "isPasswordProtected": false,
+                "versionId": "cFOiOnWPjPB8y16iIwm8nusiSUnv7iOF",
+                "userTags": [],
+                "isReadByClientUser": true,
+                "clientUserReadDate": "2025-04-08T19:08:43Z",
+                "clientUserReadBy": {
+                    "userGuid": "7CDF2390E3D34203812AF2101ACD0C25",
+                    "isCurrentUser": false
+                },
+                "primaryAssociationClientId": "078B0C3C1B1D41ACBE15F52AEBC02E37",
+                "staffCenterViewPath": "/staff/#/documents/client/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/3b7e0a9be01843fa8f95c5ffc9d13109",
+                "clientCenterViewPath": "/clientcenter/documents/clients/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/3b7e0a9be01843fa8f95c5ffc9d13109",
+                "parentId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "parentItem": {
+                    "documentCount": 0,
+                    "type": "folders",
+                    "staffCenterViewPath": "/staff/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "clientCenterViewPath": "/client/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "hasFiles": false,
+                    "hasFolders": false,
+                    "hasChildren": false,
+                    "containerType": "Folders",
+                    "readUserCount": 0,
+                    "isShared": false,
+                    "id": "e6b8a93c845c4a4499f21090eb3078ca",
+                    "createdDate": "0001-01-01T00:00:00",
+                    "modifiedDate": "0001-01-01T00:00:00",
+                    "itemType": "Folder"
+                },
+                "createdBy": {
+                    "userGuid": "A234F64D11164460801FCB57C512445C",
+                    "isCurrentUser": false
+                },
+                "modifiedDate": "2025-04-01T18:46:41.424Z",
+                "modifiedBy": {
+                    "userGuid": "A234F64D11164460801FCB57C512445C",
+                    "isCurrentUser": false
+                },
+                "itemType": "Document",
+                "permissions": {
+                    "read": true,
+                    "update": false,
+                    "delete": false,
+                    "addContents": false,
+                    "move": false
+                },
+                "lock": {
+                    "type": "Edit",
+                    "level": "Master",
+                    "createdBy": "Gerencial multipel",
+                    "createdDate": "2025-04-08T19:08:43.463Z",
+                    "isContainer": false,
+                    "contextInfo": {
+                        "edit": [
+                            "Type"
+                        ]
+                    },
+                    "resourceRestrictions": [
+                        "DELETE",
+                        "UPDATE",
+                        "MOVE",
+                        "CREATE_MASTER_LOCK"
+                    ]
+                },
+                "customFields": {
+                    "clientId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                },
+                "root": {
+                    "id": "91df35c88a274f61a9d5e104328ac008",
+                    "containerType": "Projects",
+                    "rootType": "TaxAccounting",
+                    "primaryAssociationType": "Client",
+                    "primaryAssociationId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                }
+            },
+            {
+                "id": "ce4ecd708c8f42a0b30fa3f7e930ea51",
+                "name": "Relatorio liquido mensal 04/2025.pdf",
+                "createdDate": "2025-05-02T18:38:46.301Z",
+                "containerId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "mimeType": "application/pdf",
+                "documentType": "application/pdf",
+                "originalItemSize": 39896,
+                "status": "ACTIVE",
+                "isViewable": true,
+                "isPasswordProtected": false,
+                "versionId": "L34u5e66clUUBq8h3Jvb_SBngsQAXJ3X",
+                "userTags": [],
+                "isReadByClientUser": true,
+                "clientUserReadDate": "2025-05-22T12:45:52Z",
+                "clientUserReadBy": {
+                    "userGuid": "7CDF2390E3D34203812AF2101ACD0C25",
+                    "isCurrentUser": false
+                },
+                "primaryAssociationClientId": "078B0C3C1B1D41ACBE15F52AEBC02E37",
+                "staffCenterViewPath": "/staff/#/documents/client/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/ce4ecd708c8f42a0b30fa3f7e930ea51",
+                "clientCenterViewPath": "/clientcenter/documents/clients/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/ce4ecd708c8f42a0b30fa3f7e930ea51",
+                "parentId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "parentItem": {
+                    "documentCount": 0,
+                    "type": "folders",
+                    "staffCenterViewPath": "/staff/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "clientCenterViewPath": "/client/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "hasFiles": false,
+                    "hasFolders": false,
+                    "hasChildren": false,
+                    "containerType": "Folders",
+                    "readUserCount": 0,
+                    "isShared": false,
+                    "id": "e6b8a93c845c4a4499f21090eb3078ca",
+                    "createdDate": "0001-01-01T00:00:00",
+                    "modifiedDate": "0001-01-01T00:00:00",
+                    "itemType": "Folder"
+                },
+                "createdBy": {
+                    "userGuid": "A234F64D11164460801FCB57C512445C",
+                    "isCurrentUser": false
+                },
+                "modifiedDate": "2025-05-02T18:38:46.348Z",
+                "modifiedBy": {
+                    "userGuid": "A234F64D11164460801FCB57C512445C",
+                    "isCurrentUser": false
+                },
+                "itemType": "Document",
+                "permissions": {
+                    "read": true,
+                    "update": false,
+                    "delete": false,
+                    "addContents": false,
+                    "move": false
+                },
+                "lock": {
+                    "type": "Edit",
+                    "level": "Master",
+                    "createdBy": "Gerencial multipel",
+                    "createdDate": "2025-05-22T12:45:52.959Z",
+                    "isContainer": false,
+                    "contextInfo": {
+                        "edit": [
+                            "Type"
+                        ]
+                    },
+                    "resourceRestrictions": [
+                        "DELETE",
+                        "UPDATE",
+                        "MOVE",
+                        "CREATE_MASTER_LOCK"
+                    ]
+                },
+                "customFields": {
+                    "clientId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                },
+                "root": {
+                    "id": "91df35c88a274f61a9d5e104328ac008",
+                    "containerType": "Projects",
+                    "rootType": "TaxAccounting",
+                    "primaryAssociationType": "Client",
+                    "primaryAssociationId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                }
+            },
+            {
+                "id": "38160e0a8bea45e88582b0d71038bf27",
+                "name": "Relatorio liquido mensal 05/2025.pdf",
+                "createdDate": "2025-06-03T19:36:02.828Z",
+                "containerId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "mimeType": "application/pdf",
+                "documentType": "application/pdf",
+                "originalItemSize": 39235,
+                "status": "ACTIVE",
+                "isViewable": true,
+                "isPasswordProtected": false,
+                "versionId": "BESZjRiUPGOhf9mQltOweTMOmMGnRpHK",
+                "userTags": [],
+                "isReadByClientUser": true,
+                "clientUserReadDate": "2025-06-12T12:03:09Z",
+                "clientUserReadBy": {
+                    "userGuid": "7CDF2390E3D34203812AF2101ACD0C25",
+                    "isCurrentUser": false
+                },
+                "primaryAssociationClientId": "078B0C3C1B1D41ACBE15F52AEBC02E37",
+                "staffCenterViewPath": "/staff/#/documents/client/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/38160e0a8bea45e88582b0d71038bf27",
+                "clientCenterViewPath": "/clientcenter/documents/clients/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/38160e0a8bea45e88582b0d71038bf27",
+                "parentId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "parentItem": {
+                    "documentCount": 0,
+                    "type": "folders",
+                    "staffCenterViewPath": "/staff/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "clientCenterViewPath": "/client/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "hasFiles": false,
+                    "hasFolders": false,
+                    "hasChildren": false,
+                    "containerType": "Folders",
+                    "readUserCount": 0,
+                    "isShared": false,
+                    "id": "e6b8a93c845c4a4499f21090eb3078ca",
+                    "createdDate": "0001-01-01T00:00:00",
+                    "modifiedDate": "0001-01-01T00:00:00",
+                    "itemType": "Folder"
+                },
+                "createdBy": {
+                    "userGuid": "A234F64D11164460801FCB57C512445C",
+                    "isCurrentUser": false
+                },
+                "modifiedDate": "2025-06-03T19:36:03.34Z",
+                "modifiedBy": {
+                    "userGuid": "A234F64D11164460801FCB57C512445C",
+                    "isCurrentUser": false
+                },
+                "itemType": "Document",
+                "permissions": {
+                    "read": true,
+                    "update": true,
+                    "delete": true,
+                    "addContents": true,
+                    "move": true
+                },
+                "customFields": {
+                    "clientId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                },
+                "root": {
+                    "id": "91df35c88a274f61a9d5e104328ac008",
+                    "containerType": "Projects",
+                    "rootType": "TaxAccounting",
+                    "primaryAssociationType": "Client",
+                    "primaryAssociationId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                }
+            },
+            {
+                "id": "cc2f25d2912f4bfc8115e249db8a3056",
+                "name": "Relatorio liquido mensal 06/2025.pdf",
+                "createdDate": "2025-07-01T19:15:24.707Z",
+                "containerId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "mimeType": "application/pdf",
+                "documentType": "application/pdf",
+                "originalItemSize": 39277,
+                "status": "ACTIVE",
+                "isViewable": true,
+                "isPasswordProtected": false,
+                "versionId": "LKCd.k0OurtBtx9LeUcV45Jl6Wxn0BUU",
+                "userTags": [],
+                "isReadByClientUser": true,
+                "clientUserReadDate": "2025-07-10T18:31:06Z",
+                "clientUserReadBy": {
+                    "userGuid": "7CDF2390E3D34203812AF2101ACD0C25",
+                    "isCurrentUser": false
+                },
+                "primaryAssociationClientId": "078B0C3C1B1D41ACBE15F52AEBC02E37",
+                "staffCenterViewPath": "/staff/#/documents/client/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/cc2f25d2912f4bfc8115e249db8a3056",
+                "clientCenterViewPath": "/clientcenter/documents/clients/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/cc2f25d2912f4bfc8115e249db8a3056",
+                "parentId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "parentItem": {
+                    "documentCount": 0,
+                    "type": "folders",
+                    "staffCenterViewPath": "/staff/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "clientCenterViewPath": "/client/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "hasFiles": false,
+                    "hasFolders": false,
+                    "hasChildren": false,
+                    "containerType": "Folders",
+                    "readUserCount": 0,
+                    "isShared": false,
+                    "id": "e6b8a93c845c4a4499f21090eb3078ca",
+                    "createdDate": "0001-01-01T00:00:00",
+                    "modifiedDate": "0001-01-01T00:00:00",
+                    "itemType": "Folder"
+                },
+                "createdBy": {
+                    "userGuid": "B66A5E6C272D415C962A58120E3195E6",
+                    "isCurrentUser": false
+                },
+                "modifiedDate": "2025-07-01T19:18:42.956Z",
+                "modifiedBy": {
+                    "userGuid": "B66A5E6C272D415C962A58120E3195E6",
+                    "isCurrentUser": false
+                },
+                "itemType": "Document",
+                "permissions": {
+                    "read": true,
+                    "update": false,
+                    "delete": false,
+                    "addContents": false,
+                    "move": false
+                },
+                "lock": {
+                    "type": "Edit",
+                    "level": "Master",
+                    "createdBy": "Gerencial multipel",
+                    "createdDate": "2025-07-10T18:31:06.522Z",
+                    "isContainer": false,
+                    "contextInfo": {
+                        "edit": [
+                            "Type"
+                        ]
+                    },
+                    "resourceRestrictions": [
+                        "DELETE",
+                        "UPDATE",
+                        "MOVE",
+                        "CREATE_MASTER_LOCK"
+                    ]
+                },
+                "customFields": {
+                    "clientId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                },
+                "root": {
+                    "id": "91df35c88a274f61a9d5e104328ac008",
+                    "containerType": "Projects",
+                    "rootType": "TaxAccounting",
+                    "primaryAssociationType": "Client",
+                    "primaryAssociationId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                }
+            },
+            {
+                "id": "a52d054a36c04096aba67c046de05618",
+                "name": "Retificado Relatório de Líquidos - 10/2025.pdf",
+                "createdDate": "2025-11-05T12:54:21.987Z",
+                "containerId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "mimeType": "application/pdf",
+                "documentType": "application/pdf",
+                "originalItemSize": 38029,
+                "status": "ACTIVE",
+                "isViewable": true,
+                "isPasswordProtected": false,
+                "versionId": "Iw52bk7zyqz1xEstSHfdqYcf7I4rxb4s",
+                "userTags": [],
+                "isReadByClientUser": true,
+                "clientUserReadDate": "2025-11-05T17:23:10Z",
+                "clientUserReadBy": {
+                    "userGuid": "7CDF2390E3D34203812AF2101ACD0C25",
+                    "isCurrentUser": false
+                },
+                "primaryAssociationClientId": "078B0C3C1B1D41ACBE15F52AEBC02E37",
+                "staffCenterViewPath": "/staff/#/documents/client/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/a52d054a36c04096aba67c046de05618",
+                "clientCenterViewPath": "/clientcenter/documents/clients/078B0C3C1B1D41ACBE15F52AEBC02E37/folder/e6b8a93c845c4a4499f21090eb3078ca/document/a52d054a36c04096aba67c046de05618",
+                "parentId": "e6b8a93c845c4a4499f21090eb3078ca",
+                "parentItem": {
+                    "documentCount": 0,
+                    "type": "folders",
+                    "staffCenterViewPath": "/staff/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "clientCenterViewPath": "/client/#/documents/folders/e6b8a93c845c4a4499f21090eb3078ca",
+                    "hasFiles": false,
+                    "hasFolders": false,
+                    "hasChildren": false,
+                    "containerType": "Folders",
+                    "readUserCount": 0,
+                    "isShared": false,
+                    "id": "e6b8a93c845c4a4499f21090eb3078ca",
+                    "createdDate": "0001-01-01T00:00:00",
+                    "modifiedDate": "0001-01-01T00:00:00",
+                    "itemType": "Folder"
+                },
+                "createdBy": {
+                    "userGuid": "B4B7D4BB57374A82B028BC36C290C2B6",
+                    "isCurrentUser": false
+                },
+                "modifiedDate": "2025-11-05T12:54:23.75Z",
+                "modifiedBy": {
+                    "userGuid": "B4B7D4BB57374A82B028BC36C290C2B6",
+                    "isCurrentUser": false
+                },
+                "itemType": "Document",
+                "permissions": {
+                    "read": true,
+                    "update": false,
+                    "delete": false,
+                    "addContents": false,
+                    "move": false
+                },
+                "lock": {
+                    "type": "Edit",
+                    "level": "Master",
+                    "createdBy": "Gerencial multipel",
+                    "createdDate": "2025-11-05T17:23:10.709Z",
+                    "isContainer": false,
+                    "contextInfo": {
+                        "edit": [
+                            "Type"
+                        ]
+                    },
+                    "resourceRestrictions": [
+                        "DELETE",
+                        "UPDATE",
+                        "MOVE",
+                        "CREATE_MASTER_LOCK"
+                    ]
+                },
+                "customFields": {
+                    "clientId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                },
+                "root": {
+                    "id": "91df35c88a274f61a9d5e104328ac008",
+                    "containerType": "Projects",
+                    "rootType": "TaxAccounting",
+                    "primaryAssociationType": "Client",
+                    "primaryAssociationId": "078B0C3C1B1D41ACBE15F52AEBC02E37"
+                }
+            }
+        ],
+        "hasMore": false
+    }
+}

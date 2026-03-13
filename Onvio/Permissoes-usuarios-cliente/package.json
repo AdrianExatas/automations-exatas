@@ -1,0 +1,35 @@
+{
+  "name": "unecont-certificado",
+  "version": "1.0.0",
+  "description": "Automação com Playwright para certificado UNECONT",
+  "main": "dist/electron/main.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:unit": "node scripts/test-unitario.js",
+    "test:functions": "node tests/unit/run-tests.js",
+    "test:project": "scripts/testar-projeto.bat",
+    "codegen": "playwright codegen",
+    "build": "tsc && node scripts/copy-renderer.js",
+    "build:watch": "tsc --watch",
+    "start": "npm run build && electron dist/electron/main.js",
+    "dev": "npm run build && electron dist/electron/main.js --dev",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "playwright",
+    "automation",
+    "testing",
+    "electron"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@playwright/test": "^1.40.0",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.30",
+    "electron": "^28.0.0",
+    "typescript": "^5.9.3"
+  }
+}
