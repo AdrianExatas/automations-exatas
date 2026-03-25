@@ -28,6 +28,7 @@ describe("reformatDownloadedReports", () => {
     expectedOutputDir = resolveRuntimePath("normalized", path.basename(tempDir));
     fs.writeFileSync(path.join(tempDir, "001 - relatorio.xlsx"), "stub");
     fs.writeFileSync(path.join(tempDir, "002 - relatorio.xlsx"), "stub");
+    fs.writeFileSync(path.join(tempDir, "~$002 - relatorio.xlsx"), "ignorar");
     fs.writeFileSync(path.join(tempDir, "README.txt"), "ignorar");
   });
 
@@ -123,6 +124,7 @@ describe("reformatDownloadedReports", () => {
     ]);
     expect(fs.existsSync(path.join(expectedOutputDir, "001 - relatorio.xlsx"))).toBe(true);
     expect(fs.existsSync(path.join(expectedOutputDir, "002 - relatorio.xlsx"))).toBe(true);
+    expect(fs.existsSync(path.join(expectedOutputDir, "~$002 - relatorio.xlsx"))).toBe(false);
     expect(fs.existsSync(path.join(expectedOutputDir, "README.txt"))).toBe(false);
     expect(fs.readFileSync(path.join(tempDir, "001 - relatorio.xlsx"), "utf8")).toBe("stub");
     expect(logger.info.mock.calls).toEqual([

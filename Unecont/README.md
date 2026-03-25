@@ -55,7 +55,7 @@ Salva os arquivos brutos em `runtime/downloads/Unecont_*` e usa o checkpoint em 
 npm run reformat-downloads -- runtime/downloads/Unecont_2026-03-12_17-34-38
 ```
 
-Copia os `.xlsx` do lote bruto para `runtime/normalized/<nome-do-lote>`, reaplica o layout de `assets/templates/report-model.xlsx`, preenche `DESCRICAO DO SERVICO` com `assets/mappings/service-item-map.xlsx` e falha quando restarem linhas mapeaveis sem descricao.
+Copia os `.xlsx` do lote bruto para `runtime/normalized/<nome-do-lote>`, reaplica o layout de `assets/templates/report-layout-example.xlsx`, preenche `DESCRICAO DO SERVICO` com `assets/mappings/service-item-map.xlsx` e falha quando restarem linhas mapeaveis sem descricao.
 
 ### Upload
 
@@ -91,7 +91,7 @@ await downloadUnecontBatch({
   logger: console,
   reportFormatting: {
     enabled: true,
-    modelPath: "assets/templates/report-model.xlsx",
+    modelPath: "assets/templates/report-layout-example.xlsx",
     serviceMapPath: "assets/mappings/service-item-map.xlsx",
     overwrite: true,
   },
@@ -100,7 +100,7 @@ await downloadUnecontBatch({
 await reformatDownloadedReports({
   downloadsDir: "runtime/downloads/Unecont_2026-03-12_10-00-00",
   outputDir: "runtime/normalized/Unecont_2026-03-12_10-00-00",
-  modelPath: "assets/templates/report-model.xlsx",
+  modelPath: "assets/templates/report-layout-example.xlsx",
   serviceMapPath: "assets/mappings/service-item-map.xlsx",
   overwrite: true,
 });

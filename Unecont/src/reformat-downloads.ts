@@ -65,7 +65,12 @@ export async function reformatDownloadedReports(
 
   const files = fs
     .readdirSync(downloadsDir, { withFileTypes: true })
-    .filter((entry) => entry.isFile() && entry.name.toLowerCase().endsWith(".xlsx"))
+    .filter(
+      (entry) =>
+        entry.isFile() &&
+        entry.name.toLowerCase().endsWith(".xlsx") &&
+        !entry.name.startsWith("~$"),
+    )
     .map((entry) => entry.name)
     .sort((a, b) => a.localeCompare(b));
 

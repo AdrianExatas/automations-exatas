@@ -1,3 +1,4 @@
+import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const reformatDownloadedReports = vi.fn();
@@ -44,7 +45,9 @@ describe("reformat downloads CLI", () => {
       expect.objectContaining({
         downloadsDir: "C:\\tmp\\downloads",
         logger: console,
+        modelPath: expect.stringContaining(path.join("templates", "report-layout-example.xlsx")),
         overwrite: true,
+        serviceMapPath: expect.stringContaining(path.join("mappings", "service-item-map.xlsx")),
       }),
     );
   });
