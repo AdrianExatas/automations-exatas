@@ -1,2 +1,11 @@
-# Generated task reports
+# Local configuration
+.env
+
+# Build and dependencies
+node_modules/
+dist/
+
+# Generated outputs
 relatorios/
+data/*.xlsx
+!data/PROVISAO DP.xlsx

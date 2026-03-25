@@ -1,0 +1,79 @@
+{
+  "info": {
+    "_postman_id": "11111111-2222-3333-4444-555555555555",
+    "name": "Inserir-tarefas",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "JWT_GESTTA", "value": "SEU_TOKEN_AQUI" },
+    { "key": "TASK_ID", "value": "TASK_ID_EXEMPLO" },
+    { "key": "CUSTOMER_ID", "value": "CUSTOMER_ID_EXEMPLO" },
+    { "key": "GROUP_CUSTOMER_ID", "value": "GROUP_CUSTOMER_ID_EXEMPLO" },
+    { "key": "COMPANY_USER_ID", "value": "COMPANY_USER_ID_EXEMPLO" }
+  ],
+  "item": [
+    {
+      "name": "Listar clientes da tarefa",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "accept", "value": "application/json, text/plain, */*" },
+          { "key": "authorization", "value": "JWT {{JWT_GESTTA}}" }
+        ],
+        "url": {
+          "raw": "https://api.gestta.com.br/admin/company/task/{{TASK_ID}}/customer",
+          "protocol": "https",
+          "host": ["api", "gestta", "com", "br"],
+          "path": ["admin", "company", "task", "{{TASK_ID}}", "customer"]
+        },
+        "description": "Consulta os clientes vinculados a uma tarefa recorrente."
+      }
+    },
+    {
+      "name": "Adicionar empresa a tarefa",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "accept", "value": "application/json, text/plain, */*" },
+          { "key": "authorization", "value": "JWT {{JWT_GESTTA}}" },
+          { "key": "content-type", "value": "application/json;charset=UTF-8" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"customerId\":[\"{{CUSTOMER_ID}}\"]}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "https://api.gestta.com.br/admin/company/task/{{TASK_ID}}/customer",
+          "protocol": "https",
+          "host": ["api", "gestta", "com", "br"],
+          "path": ["admin", "company", "task", "{{TASK_ID}}", "customer"]
+        },
+        "description": "Exemplo de inclusao de empresa na tarefa."
+      }
+    },
+    {
+      "name": "Alterar responsavel da empresa/tarefa",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          { "key": "accept", "value": "application/json, text/plain, */*" },
+          { "key": "authorization", "value": "JWT {{JWT_GESTTA}}" },
+          { "key": "content-type", "value": "application/json;charset=UTF-8" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"company_user\":\"{{COMPANY_USER_ID}}\",\"ids\":[\"{{GROUP_CUSTOMER_ID}}\"],\"approve_type\":[]}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "https://api.gestta.com.br/admin/group/customer/config",
+          "protocol": "https",
+          "host": ["api", "gestta", "com", "br"],
+          "path": ["admin", "group", "customer", "config"]
+        },
+        "description": "Exemplo de patch do responsavel para um vinculo empresa/tarefa."
+      }
+    }
+  ]
+}
