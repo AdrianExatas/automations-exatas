@@ -50,5 +50,13 @@ env/
 # Editors and OS files
 .vscode/
 .idea/
+.cursor/
+.claude/
 .DS_Store
 Thumbs.db
+
+# Repository conventions
+_local/
+
+# Standalone nested repositories kept outside this monorepo index
+Onvio/BD/

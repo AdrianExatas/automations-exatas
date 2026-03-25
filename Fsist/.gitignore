@@ -1,3 +1,11 @@
 # Browser profiles and downloaded XML files
 chrome-debug-profile/
 downloads-xml/
+
+# Local inputs and generated outputs
+CT-E NAO APROPRIADOS - Copia.xlsx
+planilha-chaves.xlsx
+FSIST/checkpoint.txt
+FSIST/log_interface_*.txt
+FSIST/resultado_*.xlsx
+_local/
