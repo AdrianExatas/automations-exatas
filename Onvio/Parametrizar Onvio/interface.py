@@ -6,10 +6,35 @@ Permite alterar CNPJ e visualizar dados antes de executar
 import tkinter as tk
 from tkinter import ttk, messagebox, scrolledtext
 import json
-import subprocess
 import threading
 import sys
 import os
+
+import automacao
+
+
+def get_resource_path(filename: str) -> str:
+    """Retorna o caminho de um recurso (dados.json, etc) compatível com PyInstaller.
+
+    - Durante o desenvolvimento, retorna caminho relativo ao arquivo.
+    - Em um bundle gerado pelo PyInstaller, procura em sys._MEIPASS e no diretório do executável.
+    """
+    if getattr(sys, "frozen", False):
+        base_dir = getattr(sys, "_MEIPASS", os.path.dirname(sys.executable))
+    else:
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+
+    candidates = [
+        os.path.join(base_dir, filename),
+        os.path.join(base_dir, "_internal", filename),
+    ]
+
+    for path in candidates:
+        if os.path.exists(path):
+            return path
+
+    return filename
+
 
 class AutomacaoOnvioGUI:
     def __init__(self, root):
@@ -19,7 +44,7 @@ class AutomacaoOnvioGUI:
         self.root.resizable(True, True)
         
         # Arquivo de dados
-        self.arquivo_dados = "dados.json"
+        self.arquivo_dados = get_resource_path("dados.json")
         self.dados = self.carregar_dados()
         
         # Criar interface
@@ -255,46 +280,25 @@ class AutomacaoOnvioGUI:
     def _executar_automacao_thread(self):
         """Thread para executar a automação"""
         try:
-            # Executar o script Python
-            processo = subprocess.Popen(
-                [sys.executable, "automacao.py"],
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                text=True,
-                encoding='utf-8',
-                errors='replace'
-            )
-            
-            # Aguardar conclusão
-            stdout, stderr = processo.communicate()
-            
-            # Atualizar status na thread principal
-            if processo.returncode == 0:
-                self.root.after(0, lambda: self.label_status.config(
-                    text="Automação concluída com sucesso!", 
-                    foreground="green"
-                ))
-                self.root.after(0, lambda: messagebox.showinfo(
-                    "Sucesso", 
-                    "Automação executada com sucesso!"
-                ))
-            else:
-                self.root.after(0, lambda: self.label_status.config(
-                    text="Erro na automação!", 
-                    foreground="red"
-                ))
-                self.root.after(0, lambda: messagebox.showerror(
-                    "Erro", 
-                    f"Erro ao executar automação:\n{stderr}"
-                ))
-        
+            # Executar o script de automação diretamente (sem subprocesso)
+            # Isso evita problemas com paths em builds gerados pelo PyInstaller.
+            automacao.main()
+
+            self.root.after(0, lambda: self.label_status.config(
+                text="Automação concluída com sucesso!",
+                foreground="green"
+            ))
+            self.root.after(0, lambda: messagebox.showinfo(
+                "Sucesso",
+                "Automação executada com sucesso!"
+            ))
         except Exception as e:
             self.root.after(0, lambda: self.label_status.config(
-                text=f"Erro: {str(e)}", 
+                text=f"Erro: {str(e)}",
                 foreground="red"
             ))
             self.root.after(0, lambda: messagebox.showerror(
-                "Erro", 
+                "Erro",
                 f"Erro ao executar automação:\n{str(e)}"
             ))
 

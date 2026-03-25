@@ -8,6 +8,7 @@ import json
 import time
 import sys
 import io
+import os
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -17,13 +18,37 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 
+
+def get_resource_path(filename: str) -> str:
+    """Retorna o caminho de um recurso (dados.json) compatível com PyInstaller."""
+    if getattr(sys, "frozen", False):
+        base_dir = getattr(sys, "_MEIPASS", os.path.dirname(sys.executable))
+    else:
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+
+    candidates = [
+        os.path.join(base_dir, filename),
+        os.path.join(base_dir, "_internal", filename),
+    ]
+
+    for path in candidates:
+        if os.path.exists(path):
+            return path
+
+    return filename
+
+
 # Configurar encoding do console para UTF-8 (Windows)
+# Em builds "windowed" do PyInstaller, sys.stdout/sys.stderr podem ser None ou ter buffer=None.
 if sys.platform == 'win32':
-    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
-    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
+    stdout_buf = getattr(sys.stdout, "buffer", None)
+    stderr_buf = getattr(sys.stderr, "buffer", None)
+    if stdout_buf is not None and stderr_buf is not None:
+        sys.stdout = io.TextIOWrapper(stdout_buf, encoding='utf-8', errors='replace')
+        sys.stderr = io.TextIOWrapper(stderr_buf, encoding='utf-8', errors='replace')
 
 # Configuracoes
-DADOS_JSON = "dados.json"
+DADOS_JSON = get_resource_path("dados.json")
 TEMPO_ESPERA = 0.5  # segundos entre acoes (super otimizado)
 
 # Credenciais de Login

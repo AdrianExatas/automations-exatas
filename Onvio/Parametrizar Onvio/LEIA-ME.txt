@@ -1,134 +1,73 @@
-╔══════════════════════════════════════════════════════════════╗
-║          AUTOMACAO ONVIO - GUIA DE USO                       ║
-╚══════════════════════════════════════════════════════════════╝
+AUTOMACAO ONVIO - GUIA DE USO
+==============================
 
-📋 INSTALACAO (APENAS 1 VEZ)
-═══════════════════════════════════════════════════════════════
+INSTALACAO
+----------
 
-1. Instalar Python (se ainda nao tiver):
+1. Instale o Python:
    https://www.python.org/downloads/
-   
-   ⚠️ IMPORTANTE: Marque "Add Python to PATH" durante instalacao!
 
-2. Abrir o PowerShell nesta pasta e executar:
-   
+2. Abra o PowerShell nesta pasta e execute:
    pip install -r requirements.txt
 
+CONFIGURAR OS DADOS
+-------------------
 
-📊 CONFIGURAR OS DADOS
-═══════════════════════════════════════════════════════════════
+1. Edite o arquivo `dados.json`.
 
-1. Editar o arquivo: dados.json
+2. Estrutura esperada:
 
-2. Estrutura:
-   {
-     "cnpj": "11188276000242",  ← CNPJ da empresa
-     "departamentos": [
-       {
-         "departamento": "Auditoria",
-         "usuario": "Pedro Henrique"
-       },
-       ...
-     ]
-   }
+{
+  "cnpj": "12345678000195",
+  "departamentos": [
+    {
+      "departamento": "Auditoria",
+      "usuario": "Bruno Costa"
+    }
+  ]
+}
 
-3. Para adicionar mais empresas (no futuro), criar estrutura com array
+3. Ajuste os departamentos e usuarios conforme a empresa a ser parametrizada.
 
+CREDENCIAIS DE LOGIN
+--------------------
 
-🔐 CREDENCIAIS DE LOGIN
-═══════════════════════════════════════════════════════════════
+As credenciais de acesso ficam configuradas em `automacao.py`.
+Se precisar altera-las localmente, edite os valores de `EMAIL_LOGIN` e `SENHA_LOGIN`.
 
-As credenciais estao no arquivo automacao.py (linhas 18-19):
+EXECUTAR A AUTOMACAO
+--------------------
 
-EMAIL_LOGIN = 'adrian@exatascontabilidade.com.br'
-SENHA_LOGIN = 'Exatas1010+'
+Opcao 1 - Interface grafica:
+  execute `interface.bat`
 
-Para alterar, edite essas linhas.
+Opcao 2 - Linha de comando:
+  execute `executar.bat`
 
+Opcao 3 - PowerShell:
+  python automacao.py
 
-🚀 EXECUTAR A AUTOMACAO
-═══════════════════════════════════════════════════════════════
+O QUE A AUTOMACAO FAZ
+---------------------
 
-OPCAO 1 - INTERFACE GRAFICA (RECOMENDADO):
-   Duplo clique em: interface.bat
-   
-   ✅ Permite alterar o CNPJ
-   ✅ Visualiza todos os departamentos e usuarios
-   ✅ Edita o JSON diretamente
-   ✅ Executa a automacao com um clique
+1. Abre o Chrome e faz login no Onvio.
+2. Navega ate a lista de clientes.
+3. Pesquisa o CNPJ informado.
+4. Abre a aba de departamentos da empresa.
+5. Preenche os departamentos e usuarios definidos no `dados.json`.
 
-OPCAO 2 - Linha de comando (Simples):
-   Duplo clique em: executar.bat
+CONFIGURACOES
+-------------
 
-OPCAO 3 - PowerShell:
-   python automacao.py
+Edite `automacao.py` para ajustar:
 
+- `TEMPO_ESPERA`: intervalo entre acoes do navegador.
 
-📝 O QUE A AUTOMACAO FAZ
-═══════════════════════════════════════════════════════════════
+SOLUCAO DE PROBLEMAS
+--------------------
 
-ETAPA 1: LOGIN
-  1. Abre o navegador Chrome
-  2. Acessa https://onvio.com.br/login/#/
-  3. Clica em "Continuar para login"
-  4. Insere email
-  5. Insere senha
-  6. Aguarda login completar
-
-ETAPA 2: NAVEGACAO ATE A EMPRESA
-  1. Navega para dashboard Onvio
-  2. Vai para lista de clientes (Gestta)
-  3. Pesquisa pelo CNPJ
-  4. Clica no link do CNPJ
-  5. Acessa a aba de departamentos
-
-ETAPA 3: PREENCHIMENTO
-  Para cada departamento:
-  1. Seleciona o departamento
-  2. Seleciona o usuario
-  3. Clica em "Adicionar"
-  4. Repete para todos os registros
-
-
-⚙️ CONFIGURACOES
-═══════════════════════════════════════════════════════════════
-
-Edite o arquivo automacao.py:
-
-TEMPO_ESPERA = 1.5  ← Tempo entre acoes (em segundos)
-                      Se a internet for lenta, aumente para 2 ou 3
-
-
-🔧 SOLUCAO DE PROBLEMAS
-═══════════════════════════════════════════════════════════════
-
-Erro: "Python nao encontrado"
-  └─ Instale Python e marque "Add to PATH"
-
-Erro: "selenium not found"
-  └─ Execute: pip install -r requirements.txt
-
-Erro: "TimeoutError"
-  └─ Aumente TEMPO_ESPERA no arquivo automacao.py
-  └─ Verifique sua conexao de internet
-
-Erro: "CNPJ nao encontrado"
-  └─ Verifique se o CNPJ esta correto no dados.json
-  └─ Verifique se voce tem acesso a esse cliente
-
-Erro de Login
-  └─ Verifique as credenciais no arquivo automacao.py
-  └─ Teste fazer login manual primeiro
-
-
-📞 DICAS
-═══════════════════════════════════════════════════════════════
-
-✔️ O navegador abre visivel para voce acompanhar
-✔️ Se houver erro, pressione Enter para continuar ou Ctrl+C para parar
-✔️ No final, o navegador fica aberto para voce verificar
-✔️ Sempre revise os dados antes de executar
-✔️ A automacao usa as mesmas credenciais da pasta "AUTOMACAO ONVIO"
-
-
-═══════════════════════════════════════════════════════════════
+- `Python nao encontrado`: instale o Python e marque `Add Python to PATH`.
+- `selenium not found`: execute `pip install -r requirements.txt`.
+- `TimeoutError`: aumente `TEMPO_ESPERA` no `automacao.py`.
+- `CNPJ nao encontrado`: revise o valor configurado no `dados.json`.
+- `Erro de login`: confirme as credenciais definidas localmente.
