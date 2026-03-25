@@ -1,42 +1,6 @@
-# Dependencies
-node_modules/
-
-# Build output
-dist/
-
-# Environment
-.env
-.env.local
-.env.*.local
-
-# Playwright
-test-results/
-playwright-report/
-playwright/.cache/
-.auth/
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-
-# OS
-.DS_Store
-Thumbs.db
-
-# Logs
-*.log
-npm-debug.log*
-
-# Certificates (sensitive)
+# Certificates and local secrets
 *.pfx
 *.p12
 
-# Temporary files
-*.tmp
-*.temp
-
-# Backup of copied project folders (moved here during cleanup)
+# Local backup folders
 _backup/

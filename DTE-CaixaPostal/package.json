@@ -1,0 +1,75 @@
+{
+  "name": "dte-caixapostal",
+  "version": "1.0.0",
+  "description": "Projeto de automacao web em TypeScript com Playwright",
+  "main": "dist/electron/main.js",
+  "scripts": {
+    "clean": "rimraf dist release",
+    "build:ts": "tsc -p tsconfig.build.json",
+    "build:assets": "node scripts/copy-static.mjs",
+    "build": "npm run clean && npm run build:ts && npm run build:assets",
+    "test": "playwright test",
+    "test:unit": "playwright test tests/config.spec.ts tests/caixaPostalReport.spec.ts",
+    "test:automation": "playwright test tests/verificarCaixaPostal.spec.ts",
+    "test:headed": "playwright test --headed",
+    "electron:start": "npm run build && electron .",
+    "pack": "npm run build && electron-builder --dir",
+    "dist": "npm run build && electron-builder",
+    "codegen": "playwright codegen --channel chrome",
+    "show-report": "playwright show-report"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "exceljs": "^4.4.0",
+    "playwright-core": "^1.58.2"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "@types/node": "^25.5.0",
+    "electron": "^37.2.0",
+    "electron-builder": "^26.0.12",
+    "rimraf": "^6.0.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^6.0.2"
+  },
+  "build": {
+    "appId": "com.exatas.dtecaixapostal",
+    "productName": "DTE Caixa Postal",
+    "directories": {
+      "output": "release",
+      "buildResources": "build-resources"
+    },
+    "files": [
+      "dist/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "certificado",
+        "to": "certificado",
+        "filter": [
+          "*.pfx",
+          "Senha.txt"
+        ]
+      }
+    ],
+    "asar": true,
+    "asarUnpack": [
+      "node_modules/playwright-core/**/*"
+    ],
+    "win": {
+      "signAndEditExecutable": false,
+      "target": [
+        "nsis"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  }
+}

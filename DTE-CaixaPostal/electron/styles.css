@@ -1,0 +1,279 @@
+:root {
+  --bg: #f4efe7;
+  --bg-accent: #ead7bf;
+  --panel: rgba(255, 251, 245, 0.82);
+  --panel-strong: rgba(255, 247, 238, 0.94);
+  --line: rgba(83, 55, 25, 0.14);
+  --ink: #2d1f12;
+  --muted: #6e5a47;
+  --primary: #a3481a;
+  --primary-strong: #7c2f08;
+  --success: #20573d;
+  --danger: #8c271e;
+  --shadow: 0 24px 70px rgba(81, 44, 16, 0.14);
+  font-family: Bahnschrift, "Trebuchet MS", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at top left, rgba(163, 72, 26, 0.18), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(32, 87, 61, 0.12), transparent 26%),
+    linear-gradient(135deg, var(--bg), #f7f3ee 48%, var(--bg-accent));
+}
+
+.shell {
+  padding: 32px;
+}
+
+.hero {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 28px 30px;
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  background: linear-gradient(135deg, rgba(255, 249, 241, 0.96), rgba(249, 237, 223, 0.86));
+  box-shadow: var(--shadow);
+}
+
+.hero__content {
+  max-width: 760px;
+}
+
+.eyebrow,
+.panel__eyebrow {
+  margin: 0 0 8px;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.hero h1,
+.panel h2 {
+  margin: 0;
+  font-weight: 700;
+}
+
+.hero h1 {
+  font-size: clamp(2rem, 3vw, 3.25rem);
+}
+
+.hero__text {
+  margin: 14px 0 0;
+  max-width: 56rem;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.hero__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 240px;
+  justify-content: center;
+}
+
+button {
+  appearance: none;
+  border: 0;
+  border-radius: 18px;
+  padding: 16px 18px;
+  font: inherit;
+  cursor: pointer;
+  transition: transform 120ms ease, opacity 120ms ease, background-color 120ms ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.primary-button {
+  color: #fffaf4;
+  background: linear-gradient(135deg, var(--primary), var(--primary-strong));
+  box-shadow: 0 16px 30px rgba(124, 47, 8, 0.24);
+}
+
+.ghost-button {
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.56);
+  border: 1px solid var(--line);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 22px;
+  margin-top: 22px;
+}
+
+.panel {
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  padding: 24px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+}
+
+.panel--logs {
+  grid-column: 1 / -1;
+}
+
+.panel__header {
+  margin-bottom: 18px;
+}
+
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(45, 31, 18, 0.08);
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.status-chip[data-state="running"] {
+  background: rgba(163, 72, 26, 0.15);
+  color: var(--primary-strong);
+}
+
+.status-chip[data-state="error"] {
+  background: rgba(140, 39, 30, 0.14);
+  color: var(--danger);
+}
+
+.status-chip[data-state="done"] {
+  background: rgba(32, 87, 61, 0.14);
+  color: var(--success);
+}
+
+.progress-card,
+.result-card {
+  margin-top: 22px;
+  padding: 18px;
+  border-radius: 18px;
+  background: var(--panel-strong);
+  border: 1px solid rgba(83, 55, 25, 0.12);
+}
+
+.progress-card__topline {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+  color: var(--muted);
+}
+
+progress {
+  width: 100%;
+  height: 14px;
+  accent-color: var(--primary);
+}
+
+.result-card__label {
+  margin: 0 0 6px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.result-card__value {
+  margin: 0;
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+.meta-list {
+  display: grid;
+  gap: 16px;
+  margin: 0;
+}
+
+.meta-list div {
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(83, 55, 25, 0.09);
+}
+
+.meta-list div:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.meta-list dt {
+  margin-bottom: 6px;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.meta-list dd {
+  margin: 0;
+  line-height: 1.45;
+  word-break: break-word;
+}
+
+.log-stream {
+  max-height: 360px;
+  overflow: auto;
+  display: grid;
+  gap: 10px;
+}
+
+.log-entry {
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: rgba(255, 250, 244, 0.88);
+  border: 1px solid rgba(83, 55, 25, 0.11);
+}
+
+.log-entry[data-level="error"] {
+  border-color: rgba(140, 39, 30, 0.24);
+  background: rgba(255, 243, 241, 0.96);
+}
+
+.log-entry__meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 6px;
+  color: var(--muted);
+  font-size: 0.84rem;
+}
+
+.log-entry__message {
+  margin: 0;
+  line-height: 1.45;
+  word-break: break-word;
+}
+
+@media (max-width: 980px) {
+  .shell {
+    padding: 18px;
+  }
+
+  .hero,
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    flex-direction: column;
+  }
+
+  .hero__actions {
+    min-width: 0;
+  }
+}

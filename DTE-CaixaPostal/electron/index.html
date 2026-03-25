@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DTE Caixa Postal</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <header class="hero">
+        <div class="hero__content">
+          <p class="eyebrow">Windows Automation</p>
+          <h1>DTE Caixa Postal</h1>
+          <p class="hero__text">
+            Aplicativo desktop para varrer a Caixa Postal da SEFAZ, acompanhar o progresso
+            operacional e gerar o relatorio em Excel sem abrir terminal.
+          </p>
+        </div>
+        <div class="hero__actions">
+          <button id="runButton" class="primary-button" type="button">Executar varredura</button>
+          <button id="openOutputButton" class="ghost-button" type="button">Abrir pasta de saida</button>
+        </div>
+      </header>
+
+      <main class="grid">
+        <section class="panel panel--status">
+          <div class="panel__header">
+            <p class="panel__eyebrow">Status</p>
+            <h2>Execucao atual</h2>
+          </div>
+
+          <div class="status-chip" id="statusChip">Pronto para executar</div>
+
+          <div class="progress-card">
+            <div class="progress-card__topline">
+              <span id="progressLabel">Nenhuma empresa processada</span>
+              <span id="progressCounter">0/0</span>
+            </div>
+            <progress id="progressBar" max="100" value="0"></progress>
+          </div>
+
+          <div class="result-card">
+            <p class="result-card__label">Ultimo relatorio</p>
+            <p class="result-card__value" id="resultPath">Ainda nao gerado</p>
+          </div>
+        </section>
+
+        <section class="panel panel--meta">
+          <div class="panel__header">
+            <p class="panel__eyebrow">Configuracao</p>
+            <h2>Runtime local</h2>
+          </div>
+
+          <dl class="meta-list">
+            <div>
+              <dt>Config JSON</dt>
+              <dd id="configPath">Carregando...</dd>
+            </div>
+            <div>
+              <dt>Saida</dt>
+              <dd id="outputPath">Carregando...</dd>
+            </div>
+            <div>
+              <dt>Certificado</dt>
+              <dd id="certificatePath">Carregando...</dd>
+            </div>
+            <div>
+              <dt>Usuario do certificado</dt>
+              <dd id="certificateUser">Carregando...</dd>
+            </div>
+            <div>
+              <dt>Navegador</dt>
+              <dd id="browserChannel">Carregando...</dd>
+            </div>
+          </dl>
+        </section>
+
+        <section class="panel panel--logs">
+          <div class="panel__header">
+            <p class="panel__eyebrow">Operacao</p>
+            <h2>Logs resumidos</h2>
+          </div>
+          <div class="log-stream" id="logStream"></div>
+        </section>
+      </main>
+    </div>
+
+    <script src="./renderer.js"></script>
+  </body>
+</html>

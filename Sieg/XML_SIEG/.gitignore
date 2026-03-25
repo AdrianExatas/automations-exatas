@@ -1,32 +1,5 @@
-# Arquivos de ambiente
-.env
-
-# Arquivos XML (podem ser grandes)
+# Downloaded XML files and generated spreadsheets
 *.xml
-
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-*.egg-info/
-dist/
-build/
-
-# IDEs
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-
-# Arquivos temporários
-*.tmp
-*.log
-*.bak
-
-# Pastas de dados
 xmls_baixados/
 *.xlsx
 !planilhas/MODELO.xlsx

@@ -1,6 +1,3 @@
-node_modules/
-dist/
-.env
-*.log
+# Generated task reports
 relatorios/*.json
 relatorios/*.xlsx

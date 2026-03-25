@@ -1,0 +1,28 @@
+{
+  "name": "sefaz-ba",
+  "version": "1.0.0",
+  "description": "Projeto de automacao web em TypeScript com Playwright usando Chrome.",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "playwright test src/index.spec.ts --headed",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js",
+    "test": "playwright test src/index.spec.ts",
+    "test:headed": "playwright test src/index.spec.ts --headed",
+    "codegen": "playwright codegen --channel=chrome",
+    "chrome:install": "playwright install chrome"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "@types/node": "^25.5.0",
+    "playwright": "^1.58.2",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.2"
+  },
+  "dependencies": {
+    "exceljs": "^4.4.0"
+  }
+}

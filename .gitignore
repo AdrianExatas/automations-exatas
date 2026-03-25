@@ -1,55 +1,54 @@
-# Node
+# Global Node / frontend
 node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-package-lock.json
-pnpm-lock.yaml
-
-# Build output
 dist/
 build/
 coverage/
-
-# TypeScript
 *.tsbuildinfo
 
-# Logs
-*.log
+# Global automation outputs
+output/
+runtime/
+cache/
+state/
+reports/
+metrics/
 logs/
+playwright-report/
+test-results/
+.blob-report/
+.auth/
+.playwright-mcp/
+playwright/.cache/
 
-# Environment
-.env
-.env.*
-
-# OS
-.DS_Store
-Thumbs.db
-
-# Python
+# Global Python
 __pycache__/
 *.py[cod]
 *$py.class
+.pytest_cache/
+.eggs/
+*.egg
+*.egg-info/
 .venv/
 venv/
 ENV/
 env/
 
-# VS Code
-.vscode/
+# Global environment files
+.env
+.env.*
+!.env.example
+!.env.*.example
 
-# Playwright
-playwright-report/
-
-# Temporary files
+# Logs and temporary files
+*.log
 *.tmp
 *.temp
 *.bak
 *~
-
-# JetBrains
-.idea/
-
-# Other
 *.swp
+
+# Editors and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

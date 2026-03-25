@@ -1,0 +1,6 @@
+# Electron packaging artifacts
+release/
+.tmp-tests/
+
+# Local certificates and secrets
+certificado/

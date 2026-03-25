@@ -1,35 +1,9 @@
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-venv/
-env/
-ENV/
-
-# Selenium e WebDriver
-*.exe
+# WebDriver binaries kept local
 chromedriver*
 geckodriver*
 msedgedriver.exe
 
-# Arquivos de dados e backups
+# Generated spreadsheets and backups
 *.xlsx
 *.xls
 bkp/
-*.bak
-
-# Logs
-*.log
-
-# IDEs
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# Sistema operacional
-.DS_Store
-Thumbs.db
-
