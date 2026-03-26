@@ -25,16 +25,16 @@ src/
 ## Requisitos
 
 - Node.js 18+
-- `npm install`
-- `npx playwright install chromium`
+- `bun install` na raiz do repositorio
+- `bunx playwright install chromium`
 - API `ONVIO/BD` acessivel em `http://localhost:3000/api` ou `http://localhost:3001/api`
 
 ## Instalacao
 
 ```bash
-npm install
-npx playwright install chromium
-npx tsx scripts/generate-template.ts
+bun install
+bunx playwright install chromium
+bunx tsx Unecont/scripts/generate-template.ts
 ```
 
 Configure `.env` a partir de `.env.example`.
@@ -44,7 +44,7 @@ Configure `.env` a partir de `.env.example`.
 ### Download
 
 ```bash
-npm run download
+bun run --cwd Unecont download
 ```
 
 Salva os arquivos brutos em `runtime/downloads/Unecont_*` e usa o checkpoint em `runtime/checkpoints/download-batch.json`.
@@ -52,7 +52,7 @@ Salva os arquivos brutos em `runtime/downloads/Unecont_*` e usa o checkpoint em 
 ### Reformatacao
 
 ```bash
-npm run reformat-downloads -- runtime/downloads/Unecont_2026-03-12_17-34-38
+bun run --cwd Unecont reformat-downloads -- runtime/downloads/Unecont_2026-03-12_17-34-38
 ```
 
 Copia os `.xlsx` do lote bruto para `runtime/normalized/<nome-do-lote>`, reaplica o layout de `assets/templates/report-layout-example.xlsx`, preenche `DESCRICAO DO SERVICO` com `assets/mappings/service-item-map.xlsx` e falha quando restarem linhas mapeaveis sem descricao.
@@ -60,7 +60,7 @@ Copia os `.xlsx` do lote bruto para `runtime/normalized/<nome-do-lote>`, reaplic
 ### Upload
 
 ```bash
-npm run upload
+bun run --cwd Unecont upload
 ```
 
 Usa:

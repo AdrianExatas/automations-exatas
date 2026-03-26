@@ -1,6 +1,6 @@
 /**
  * Converte um relatório JSON já gerado em planilha Excel (.xlsx).
- * Uso: npm run relatorio:xlsx -- relatorios/execucao_2026-03-11_15-57-32.json
+ * Uso: bun run relatorio:xlsx -- relatorios/execucao_2026-03-11_15-57-32.json
  *      ou: node dist/scripts/converter-relatorio-xlsx.js relatorios/execucao_2026-03-11_15-57-32.json
  */
 
@@ -16,7 +16,7 @@ const caminhoJson = argArquivo
 
 if (!fs.existsSync(caminhoJson)) {
   console.error("Arquivo não encontrado:", caminhoJson);
-  console.error("Uso: npm run relatorio:xlsx -- <caminho-do-relatorio.json>");
+  console.error("Uso: bun run relatorio:xlsx -- <caminho-do-relatorio.json>");
   process.exit(1);
 }
 

@@ -14,36 +14,37 @@ O fluxo nao chama `task-gen`. Tarefas operacionais ja geradas no Gestta nao sao 
 ## Configuracao
 
 1. Copie `.env.example` para `.env`.
-2. Defina `JWT_GESTTA` ou `GESTTA_JWT_TOKEN`.
+2. Defina `JWT_GESTTA` ou `GESTTA_JWT_TOKEN`, ou gere o artefato compartilhado com `shared/onvio-auth`.
 3. Opcionalmente ajuste `PLANILHA_PATH`, `LOCAL_API_URL` ou `API_3001_URL`.
 4. Opcionalmente ajuste os timeouts e a concorrencia do cliente Gestta.
+5. Opcionalmente defina `ONVIO_AUTH_ARTIFACT_PATH` se o JSON de auth estiver fora do caminho padrao.
 
 ## Uso
 
 ```bash
-npm install
-npm run build
-npm start
+bun install
+bun run --cwd Onvio/gestta-tarefas/inserir-tarefas build
+bun run --cwd Onvio/gestta-tarefas/inserir-tarefas start
 ```
 
 Execucao em `dry-run`:
 
 ```bash
-npm run dev
+bun run --cwd Onvio/gestta-tarefas/inserir-tarefas dev
 ```
 
 Aplicar alteracoes:
 
 ```bash
-npm run dev -- --apply
-npm start -- --apply
+bun run --cwd Onvio/gestta-tarefas/inserir-tarefas dev -- --apply
+bun run --cwd Onvio/gestta-tarefas/inserir-tarefas start -- --apply
 ```
 
 Continuar uma execucao interrompida:
 
 ```bash
-npm run dev -- --continuar
-npm run dev -- --apply --continuar
+bun run --cwd Onvio/gestta-tarefas/inserir-tarefas dev -- --continuar
+bun run --cwd Onvio/gestta-tarefas/inserir-tarefas dev -- --apply --continuar
 ```
 
 ## Arquivos de exemplo
@@ -58,5 +59,5 @@ Cada execucao gera JSON, XLSX e `relatorios/indice.json`.
 ## Testes
 
 ```bash
-npm test
+bun run --cwd Onvio/gestta-tarefas/inserir-tarefas test
 ```

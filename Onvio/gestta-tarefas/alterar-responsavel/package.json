@@ -13,6 +13,7 @@
     "relatorio:xlsx": "node dist/scripts/converter-relatorio-xlsx.js"
   },
   "dependencies": {
+    "@exatas/onvio-auth": "workspace:*",
     "axios": "^1.6.0",
     "dotenv": "^16.3.0",
     "xlsx": "^0.18.5"

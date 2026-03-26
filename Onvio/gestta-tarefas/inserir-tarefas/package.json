@@ -10,6 +10,7 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@exatas/onvio-auth": "workspace:*",
     "axios": "^1.6.0",
     "dotenv": "^16.3.0",
     "xlsx": "^0.18.5"

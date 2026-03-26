@@ -1,10 +1,15 @@
 {
-  "name": "unecont",
+  "name": "@exatas/onvio-auth",
   "version": "1.0.0",
-  "description": "Biblioteca standalone para download de relatorios Unecont e upload no Onvio",
   "private": true,
+  "description": "Biblioteca compartilhada para login Onvio e captura de tokens Onvio/Gestta",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    ".env.example"
+  ],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -12,26 +17,20 @@
     }
   },
   "scripts": {
-    "download": "tsx src/scripts/run.ts",
-    "run": "tsx src/scripts/run.ts",
-    "reformat-downloads": "tsx src/scripts/reformat-downloads.ts",
-    "upload": "tsx src/scripts/upload-onvio.ts",
     "build": "tsc -p tsconfig.json",
+    "prepare": "bun run build",
+    "capture-tokens": "tsx src/scripts/capture-tokens.ts",
     "test": "vitest run --config vitest.config.ts"
   },
-  "license": "ISC",
   "type": "commonjs",
   "dependencies": {
-    "@exatas/onvio-upload": "workspace:*",
-    "dotenv": "^16.4.0",
-    "exceljs": "^4.4.0",
+    "dotenv": "^16.4.5",
     "playwright": "^1.51.1",
-    "xlsx": "^0.18.5"
+    "typescript": "^5.0.0"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
     "tsx": "^4.0.0",
-    "typescript": "^5.0.0",
     "vitest": "^4.0.18"
   }
 }

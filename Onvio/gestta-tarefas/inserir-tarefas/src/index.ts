@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 import fs from "fs";
 import path from "path";
+import { loadWorkspaceAuthArtifacts } from "@exatas/onvio-auth";
 import { createGesttaClient } from "./api/client";
 import {
   adicionarClientesNaTarefa,
@@ -62,10 +63,18 @@ function parseArgs(): CliArgs {
 
 function getJwt(): string {
   const jwt = process.env.JWT_GESTTA || process.env.GESTTA_JWT_TOKEN || "";
-  if (!jwt) {
-    throw new Error("Defina JWT_GESTTA ou GESTTA_JWT_TOKEN no .env.");
+  if (jwt) return jwt;
+
+  const authArtifactPath = process.env.ONVIO_AUTH_ARTIFACT_PATH?.trim() || undefined;
+  const artifacts = loadWorkspaceAuthArtifacts(process.cwd(), authArtifactPath);
+  const artifactJwt = artifacts?.gestta.jwt?.trim() || "";
+  if (artifactJwt) {
+    return artifactJwt;
   }
-  return jwt;
+
+  throw new Error(
+    "Defina JWT_GESTTA ou GESTTA_JWT_TOKEN no .env, ou gere shared/onvio-auth/runtime/latest-auth.json."
+  );
 }
 
 function getPositiveIntegerEnv(name: string, defaultValue: number): number {

@@ -1,0 +1,32 @@
+{
+  "name": "@exatas/onvio-upload",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Biblioteca compartilhada para upload de tickets e anexos no Onvio",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "prepare": "bun run build",
+    "test": "vitest run --config vitest.config.ts"
+  },
+  "type": "commonjs",
+  "dependencies": {
+    "typescript": "^5.0.0",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "vitest": "^4.0.18"
+  }
+}
