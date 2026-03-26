@@ -1,4 +1,4 @@
-# parametrizar-onvio
+# parametrizar
 
 Automacao em Python com interface Tkinter para parametrizar departamentos e usuarios no Onvio.
 

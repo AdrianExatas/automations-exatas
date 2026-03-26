@@ -24,7 +24,7 @@ O projeto está organizado em módulos:
 ## Instalação
 
 ```bash
-cd SIEG_Certificado
+cd certificado
 npm install
 npm run build
 ```

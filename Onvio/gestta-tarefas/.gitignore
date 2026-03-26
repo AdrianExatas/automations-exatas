@@ -1,5 +1,5 @@
 # Group-level local workspace for Gestta automations
 /_local/
 /data/
-/PostmanRequests/
+/inserir-tarefas/postman-requests/
 /.env

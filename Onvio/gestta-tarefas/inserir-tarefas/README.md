@@ -49,7 +49,7 @@ npm run dev -- --apply --continuar
 ## Arquivos de exemplo
 
 - `data/PROVISAO DP.xlsx` e um sample seguro para desenvolvimento
-- `PostmanRequests/Inserir-tarefas.postman_collection.json` contem apenas placeholders
+- `postman-requests/Inserir-tarefas.postman_collection.json` contem apenas placeholders
 
 ## Relatorios
 

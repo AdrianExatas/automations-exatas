@@ -5,7 +5,7 @@ Sistema modular para gerenciamento de XMLs fiscais (NFe, NFCe, NFSe, CTe, CFe) i
 ## 📁 Estrutura do Projeto
 
 ```
-XML_SIEG/
+xml/
 ├── src/
 │   └── sieg_xml/              # Módulo principal
 │       ├── __init__.py
@@ -185,20 +185,20 @@ python scripts/gerar_danfes.py
 ### Opcoes
 
 ```bash
-python scripts/gerar_danfes.py --entrada xmls_baixados --saida danfes_gerados
+python scripts/gerar_danfes.py --entrada xmls_baixados --saida danfes-gerados
 python scripts/gerar_danfes.py --anos 2024,2025
 python scripts/gerar_danfes.py --sobrescrever
 ```
 
 - `--entrada`: pasta raiz com XMLs (padrao: `xmls_baixados`)
-- `--saida`: pasta de saida (padrao: `danfes_gerados`)
+- `--saida`: pasta de saida (padrao: `danfes-gerados`)
 - `--sobrescrever`: regenera PDFs individuais existentes
 - `--anos`: filtra por ano de emissao (`dhEmi`/`dEmi`)
 
 ### Estrutura de saida
 
 ```text
-danfes_gerados/
+danfes-gerados/
   individuais/{ANO}/{CHAVE}.pdf
   consolidados/DANFE_{ANO}_JUNTO.pdf
   consolidados/DANFE_TODOS_JUNTO.pdf

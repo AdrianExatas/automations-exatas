@@ -50,8 +50,8 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--saida",
-        default="danfes_gerados",
-        help="Pasta de saida (padrao: danfes_gerados).",
+        default="danfes-gerados",
+        help="Pasta de saida (padrao: danfes-gerados).",
     )
     parser.add_argument(
         "--sobrescrever",

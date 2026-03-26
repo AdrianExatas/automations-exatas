@@ -15,9 +15,12 @@ Manter as automacoes como apps independentes, com convencao minima suficiente pa
 ## Convencoes de diretorio
 
 - Automacoes ativas permanecem agrupadas por sistema de negocio.
+- Pastas que representam a marca inteira podem preservar a capitalizacao oficial, como `Onvio/`, `Sieg/` e `Omie/`.
+- Pastas funcionais e de automacao devem usar `kebab-case` em minusculas, ASCII, sem espacos e sem acentos.
+- Quando a pasta filha repetir o nome da marca do pai, prefira remover a redundancia no nome final.
 - Conteudo legado deve ficar em `_legacy/`.
 - Conteudo exclusivamente local deve ficar em `_local/` ou em diretorios ja ignorados pelo projeto.
-- Novos diretorios devem evitar espacos e acentos nos nomes.
+- Diretorios tecnicos convencionais, como `src/`, `tests/`, `docs/`, `scripts/`, `public/` e `client/`, permanecem com seus nomes padrao.
 
 ## O que nao deve ser versionado
 

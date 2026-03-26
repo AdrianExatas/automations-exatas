@@ -1,5 +1,5 @@
 {
-  "name": "sefaz-ba",
+  "name": "sefaz-al",
   "version": "1.0.0",
   "description": "Projeto de automacao web em TypeScript com Playwright usando Chrome.",
   "main": "dist/index.js",

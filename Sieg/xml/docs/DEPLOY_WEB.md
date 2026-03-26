@@ -18,7 +18,7 @@ Este guia descreve como implantar a aplicação web SIEG XML que utiliza process
 ```bash
 # Clone ou copie os arquivos do projeto para o servidor
 # Navegue até o diretório do projeto
-cd XML_SIEG
+cd xml
 ```
 
 ### 2. Instalar Dependências
@@ -117,9 +117,9 @@ After=network.target
 [Service]
 Type=simple
 User=seu-usuario
-WorkingDirectory=/caminho/para/XML_SIEG
+WorkingDirectory=/caminho/para/xml
 Environment="PATH=/usr/bin:/usr/local/bin"
-ExecStart=/usr/bin/python3 /caminho/para/XML_SIEG/scripts/start_server.py
+ExecStart=/usr/bin/python3 /caminho/para/xml/scripts/start_server.py
 Restart=always
 RestartSec=10
 
@@ -139,8 +139,8 @@ sudo systemctl start sieg-xml-web
 
 ```ini
 [program:sieg-xml-web]
-command=/usr/bin/python3 /caminho/para/XML_SIEG/scripts/start_server.py
-directory=/caminho/para/XML_SIEG
+command=/usr/bin/python3 /caminho/para/xml/scripts/start_server.py
+directory=/caminho/para/xml
 user=seu-usuario
 autostart=true
 autorestart=true
@@ -180,7 +180,7 @@ http://localhost:5000
 ## Estrutura de Pastas
 
 ```
-XML_SIEG/
+xml/
 ├── web/                    # Aplicação web
 │   ├── app.py             # Servidor Flask
 │   ├── config.py          # Configurações

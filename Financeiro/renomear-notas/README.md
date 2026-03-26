@@ -74,7 +74,7 @@ Valores passados na linha de comando têm prioridade sobre o `config.ini`.
 ## Estrutura do projeto
 
 ```
-Renomear Notas/
+renomear-notas/
 ├── renomear_notas.py      # Módulo principal (CLI e lógica)
 ├── requirements.txt
 ├── README.md
