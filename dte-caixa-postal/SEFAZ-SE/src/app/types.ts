@@ -1,3 +1,5 @@
+export type ExecutionStrategy = 'http';
+
 export interface EmpresaReportRow {
   identificacao: string;
   razao_social: string;
@@ -35,6 +37,7 @@ export interface RunOptions {
   certificateUser: string;
   outputDir: string;
   chromeChannel: 'chrome';
+  executionStrategy: ExecutionStrategy;
 }
 
 export interface RunProgress {
@@ -74,6 +77,9 @@ export interface AppConfig {
   };
   browser: {
     channel: 'chrome';
+  };
+  execution: {
+    strategy: ExecutionStrategy;
   };
 }
 

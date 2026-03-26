@@ -132,7 +132,7 @@ async function buildAppState(): Promise<AppState> {
     outputDir: config.output.dir,
     certificatePath: config.certificate.path,
     certificateUser: config.certificate.user,
-    browserChannel: config.browser.channel,
+    executionStrategy: config.execution.strategy,
   };
 }
 

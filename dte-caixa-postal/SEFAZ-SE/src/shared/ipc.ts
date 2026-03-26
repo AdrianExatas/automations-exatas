@@ -1,4 +1,4 @@
-import type { RunLogEntry, RunProgress, RunResult } from '../app/types';
+import type { ExecutionStrategy, RunLogEntry, RunProgress, RunResult } from '../app/types';
 
 export const IPC_CHANNELS = {
   getState: 'app:get-state',
@@ -15,7 +15,7 @@ export interface AppState {
   outputDir: string;
   certificatePath: string;
   certificateUser: string;
-  browserChannel: 'chrome';
+  executionStrategy: ExecutionStrategy;
 }
 
 export interface StartRunResponse {

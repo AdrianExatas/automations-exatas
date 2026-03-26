@@ -10,7 +10,7 @@
     "build": "npm run clean && npm run build:ts && npm run build:assets",
     "compare:domain-sefaz": "ts-node src/scripts/compareDomainSefaz.ts",
     "test": "playwright test",
-    "test:unit": "playwright test tests/config.spec.ts tests/caixaPostalReport.spec.ts tests/domainSefazComparison.spec.ts",
+    "test:unit": "playwright test tests/config.spec.ts tests/caixaPostalReport.spec.ts tests/domainSefazComparison.spec.ts tests/sefazHttpClient.spec.ts",
     "test:automation": "playwright test tests/verificarCaixaPostal.spec.ts",
     "test:headed": "playwright test --headed",
     "electron:start": "npm run build && electron .",
@@ -23,6 +23,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cheerio": "^1.2.0",
     "exceljs": "^4.4.0",
     "playwright-core": "^1.58.2"
   },

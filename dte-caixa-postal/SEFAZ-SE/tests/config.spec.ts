@@ -22,6 +22,7 @@ test('ensureAppConfig cria config.json com defaults da aplicacao', async () => {
       certificate: { path: string; password: string; user: string };
       output: { dir: string };
       browser: { channel: string };
+      execution: { strategy: string };
     };
     const runOptions = resolveRunOptions(config);
 
@@ -32,7 +33,9 @@ test('ensureAppConfig cria config.json com defaults da aplicacao', async () => {
     expect(config.certificate.password.length).toBeGreaterThan(0);
     expect(config.output.dir).toBe(path.resolve(environment.documentsDir, 'DTE Caixa Postal', 'output'));
     expect(persistedConfig.browser.channel).toBe('chrome');
+    expect(persistedConfig.execution.strategy).toBe('http');
     expect(runOptions.chromeChannel).toBe('chrome');
+    expect(runOptions.executionStrategy).toBe('http');
   } finally {
     await rm(tempRoot, { recursive: true, force: true });
   }

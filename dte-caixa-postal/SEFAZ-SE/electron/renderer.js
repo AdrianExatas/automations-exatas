@@ -10,7 +10,7 @@ const elements = {
   outputPath: document.getElementById('outputPath'),
   certificatePath: document.getElementById('certificatePath'),
   certificateUser: document.getElementById('certificateUser'),
-  browserChannel: document.getElementById('browserChannel'),
+  executionStrategy: document.getElementById('executionStrategy'),
   logStream: document.getElementById('logStream'),
 };
 
@@ -23,7 +23,7 @@ function renderState(state) {
   elements.outputPath.textContent = state.outputDir;
   elements.certificatePath.textContent = state.certificatePath;
   elements.certificateUser.textContent = state.certificateUser;
-  elements.browserChannel.textContent = state.browserChannel;
+  elements.executionStrategy.textContent = state.executionStrategy;
 
   if (state.isRunning) {
     setStatus('Execucao em andamento', 'running');
