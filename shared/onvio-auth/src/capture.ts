@@ -1,4 +1,4 @@
-import type { BrowserContext, Request } from "playwright";
+import type { BrowserContext, Page, Request } from "playwright";
 import { DEFAULT_GESTTA_API_BASE_URL, DEFAULT_GESTTA_URL } from "./constants";
 import { writeAuthArtifacts } from "./artifacts";
 import { withAuthenticatedOnvioContext, createAuthSession, resolveLoginOptions } from "./onvio-login";
@@ -67,8 +67,66 @@ export async function waitForGesttaJwtRequest(
   });
 }
 
+async function waitForNewPage(
+  context: Pick<BrowserContext, "on" | "off">,
+  timeoutMs: number,
+): Promise<Page> {
+  return new Promise((resolve, reject) => {
+    const timeout = setTimeout(() => {
+      cleanup();
+      reject(new Error(`Nenhuma nova aba do Gestta foi aberta dentro de ${timeoutMs}ms.`));
+    }, timeoutMs);
+
+    const listener = (page: Page) => {
+      cleanup();
+      resolve(page);
+    };
+
+    const cleanup = () => {
+      clearTimeout(timeout);
+      context.off("page", listener);
+    };
+
+    context.on("page", listener);
+  });
+}
+
+async function closeUnexpectedPopup(
+  context: Pick<BrowserContext, "on" | "off">,
+  timeoutMs: number,
+): Promise<void> {
+  const popup = await waitForNewPage(context, timeoutMs).catch(() => null);
+  if (!popup) return;
+  await popup.close().catch(() => {});
+}
+
+async function openGesttaViaOnvioSso(
+  context: Pick<BrowserContext, "on" | "off">,
+  onvioPage: Pick<Page, "goto" | "locator" | "waitForURL">,
+  baseUrl: string,
+  timeoutMs: number,
+): Promise<void> {
+  await onvioPage.goto(`${baseUrl}/staff/#/dashboard-core-center`, {
+    waitUntil: "domcontentloaded",
+  });
+
+  const processLink = onvioPage.locator('a[href*="api.gestta.com.br/dominio/auth/redirect"]').first();
+  await processLink.waitFor({ state: "attached", timeout: timeoutMs });
+
+  const popupMonitor = closeUnexpectedPopup(context, Math.min(timeoutMs, 1_000));
+  await processLink.evaluate((element: HTMLAnchorElement) => {
+    element.target = "_self";
+    element.click();
+  });
+  await onvioPage.waitForURL((url) => url.toString().includes("gestta.com.br"), {
+    timeout: timeoutMs,
+  });
+  await popupMonitor;
+}
+
 export async function collectAuthArtifactsFromContext(
   context: Pick<BrowserContext, "newPage" | "storageState" | "cookies" | "on" | "off">,
+  onvioPage: Pick<Page, "goto" | "locator" | "waitForURL">,
   rawOptions: CaptureOnvioAndGesttaTokensOptions,
 ): Promise<AuthArtifacts> {
   const loginOptions = resolveLoginOptions(rawOptions);
@@ -78,12 +136,23 @@ export async function collectAuthArtifactsFromContext(
     context,
     captureOptions.gesttaApiBaseUrl,
     loginOptions.mfa.timeoutMs,
+  ).then(
+    (value) => ({ status: "fulfilled" as const, value }),
+    (reason) => ({ status: "rejected" as const, reason }),
   );
 
-  const gesttaPage = await context.newPage();
-  await gesttaPage.goto(captureOptions.gesttaUrl, { waitUntil: "domcontentloaded" });
+  if (rawOptions.gesttaUrl?.trim()) {
+    const gesttaPage = await context.newPage();
+    await gesttaPage.goto(captureOptions.gesttaUrl, { waitUntil: "domcontentloaded" });
+  } else {
+    await openGesttaViaOnvioSso(context, onvioPage, loginOptions.baseUrl, loginOptions.timeouts.longMs);
+  }
 
-  const gestta = await gesttaRequestPromise;
+  const gesttaResult = await gesttaRequestPromise;
+  if (gesttaResult.status === "rejected") {
+    throw gesttaResult.reason;
+  }
+  const gestta = gesttaResult.value;
   const session = await createAuthSession(
     context,
     loginOptions.baseUrl,
@@ -123,6 +192,6 @@ export async function captureOnvioAndGesttaTokens(
       ...options,
       storageStatePath: captureOptions.storageStatePath,
     },
-    async ({ context }) => collectAuthArtifactsFromContext(context, options),
+    async ({ context, page }) => collectAuthArtifactsFromContext(context, page, options),
   );
 }
