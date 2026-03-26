@@ -46,6 +46,38 @@ test('writeCaixaPostalReport gera workbook com abas de empresas e falhas', async
           erro: 'Falha de teste',
         },
       ],
+      messages: [
+        {
+          identificacao: '12345678000199',
+          razao_social: 'Empresa Exemplo LTDA',
+          origem: 'nao_lidos',
+          periodo: 'mes_atual',
+          chave_deduplicacao: 'msg-1',
+          numero: '001',
+          orgao: 'SEFAZ',
+          unidade: 'Unidade A',
+          assunto: 'Pendencia',
+          data_publicacao: '24/03/2026 10:00:00',
+          data_ciencia: '24/03/2026 10:05:00',
+          responsavel_ciencia: 'Analista',
+          link: 'https://exemplo.local/nao-lido',
+        },
+        {
+          identificacao: '12345678000199',
+          razao_social: 'Empresa Exemplo LTDA',
+          origem: 'lidos',
+          periodo: 'mes_anterior',
+          chave_deduplicacao: 'msg-2',
+          numero: '002',
+          orgao: 'SEFAZ',
+          unidade: 'Unidade B',
+          assunto: 'Historico',
+          data_publicacao: '20/02/2026 09:00:00',
+          data_ciencia: '20/02/2026 10:00:00',
+          responsavel_ciencia: 'Analista 2',
+          link: 'https://exemplo.local/lido',
+        },
+      ],
     });
 
     const workbook = new ExcelJS.Workbook();
@@ -53,11 +85,17 @@ test('writeCaixaPostalReport gera workbook com abas de empresas e falhas', async
 
     const empresas = workbook.getWorksheet('Empresas');
     const falhas = workbook.getWorksheet('Falhas');
+    const mesAtual = workbook.getWorksheet('Mensagens_Mes_Atual');
+    const mesAnterior = workbook.getWorksheet('Mensagens_Mes_Anterior');
+    const demais = workbook.getWorksheet('Mensagens_Demais');
 
     expect(path.dirname(outputPath)).toBe(tempRoot);
     expect(empresas?.getCell('A1').value).toBe('identificacao');
     expect(empresas?.getCell('B2').value).toBe('Empresa Exemplo LTDA');
     expect(falhas?.getCell('C2').value).toBe('Falha de teste');
+    expect(mesAtual?.getCell('E2').value).toBe('msg-1');
+    expect(mesAnterior?.getCell('E2').value).toBe('msg-2');
+    expect(demais?.rowCount).toBe(1);
   } finally {
     await rm(tempRoot, { recursive: true, force: true });
   }

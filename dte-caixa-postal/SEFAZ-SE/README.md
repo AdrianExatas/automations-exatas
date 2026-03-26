@@ -13,15 +13,15 @@ Automacao Electron + Playwright para consultar a Caixa Postal da SEFAZ e exporta
 ## Setup
 
 ```bash
-npm install
+bun install
 ```
 
 ## Comandos principais
 
 ```bash
-npm run build
-npm run electron:start
-npm run test
+bun run build
+bun run electron:start
+bun run test
 ```
 
 ## Entradas e saidas

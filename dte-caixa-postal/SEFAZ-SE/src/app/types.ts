@@ -1,3 +1,6 @@
+export type ExecutionStrategy = 'http' | 'browser';
+export type MessagePeriodBucket = 'mes_atual' | 'mes_anterior' | 'demais';
+
 export interface EmpresaReportRow {
   identificacao: string;
   razao_social: string;
@@ -29,12 +32,29 @@ export interface FailureRow {
   erro: string;
 }
 
+export interface DetailedMessageRow {
+  identificacao: string;
+  razao_social: string;
+  origem: string;
+  periodo: MessagePeriodBucket;
+  chave_deduplicacao: string;
+  numero: string;
+  orgao: string;
+  unidade: string;
+  assunto: string;
+  data_publicacao: string;
+  data_ciencia: string;
+  responsavel_ciencia: string;
+  link: string;
+}
+
 export interface RunOptions {
   certificatePath: string;
   certificatePassword: string;
   certificateUser: string;
   outputDir: string;
   chromeChannel: 'chrome';
+  executionStrategy: ExecutionStrategy;
 }
 
 export interface RunProgress {
@@ -74,6 +94,9 @@ export interface AppConfig {
   };
   browser: {
     channel: 'chrome';
+  };
+  execution: {
+    strategy: ExecutionStrategy;
   };
 }
 

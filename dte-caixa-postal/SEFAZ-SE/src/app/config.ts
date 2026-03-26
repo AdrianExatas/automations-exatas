@@ -63,6 +63,9 @@ export async function buildDefaultConfig(environment: ConfigEnvironment): Promis
     browser: {
       channel: 'chrome',
     },
+    execution: {
+      strategy: 'http',
+    },
   };
 }
 
@@ -73,6 +76,7 @@ export function resolveRunOptions(config: AppConfig): RunOptions {
     certificateUser: config.certificate.user,
     outputDir: config.output.dir,
     chromeChannel: config.browser.channel,
+    executionStrategy: config.execution.strategy,
   };
 }
 
@@ -108,6 +112,12 @@ function mergeWithDefaults(defaultConfig: AppConfig, input: Partial<AppConfig>):
     },
     browser: {
       channel: input.browser?.channel === 'chrome' ? 'chrome' : defaultConfig.browser.channel,
+    },
+    execution: {
+      strategy:
+        input.execution?.strategy === 'browser' || input.execution?.strategy === 'http'
+          ? input.execution.strategy
+          : defaultConfig.execution.strategy,
     },
   };
 }
