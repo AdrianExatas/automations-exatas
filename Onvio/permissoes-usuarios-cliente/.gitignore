@@ -1,0 +1,22 @@
+# Local configuration files
+config/selectors.json
+config.txt
+
+# Packaged desktop artifacts
+*.exe
+*.dmg
+*.deb
+*.rpm
+*.AppImage
+
+# Generated Excel files
+*.xlsx
+*.xls
+!Modelo_Importacao_Usuarios.xlsx
+
+# Generated JS copies from TypeScript sources
+src/config/*.js
+src/electron/*.js
+src/i18n/*.js
+src/utils/*.js
+!src/renderer/renderer.js

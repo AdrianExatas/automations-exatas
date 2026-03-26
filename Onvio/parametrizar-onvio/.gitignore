@@ -1,0 +1,10 @@
+# WebDriver binaries kept local
+chromedriver*
+geckodriver*
+msedgedriver.exe
+
+# Generated spreadsheets and backups
+*.xlsx
+*.xls
+bkp/
+_local/

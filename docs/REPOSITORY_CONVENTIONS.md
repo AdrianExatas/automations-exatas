@@ -2,32 +2,32 @@
 
 ## Objetivo
 
-Manter as automações como apps independentes, com convenção mínima suficiente para setup, manutenção e limpeza operacional.
+Manter as automacoes como apps independentes, com convencao minima suficiente para setup, manutencao e limpeza operacional.
 
-## Estrutura esperada por automação
+## Estrutura esperada por automacao
 
-- `README.md` com objetivo, entrada, saída, setup e execução
+- `README.md` com objetivo, entrada, saida, setup e execucao
 - `.gitignore` cobrindo outputs, segredos e arquivos locais
-- `.env.example` quando houver configuração sensível
-- código em pasta previsível (`src/`, `electron/`, `scripts/` ou equivalente)
-- uma área explícita para outputs locais não versionados
+- `.env.example` quando houver configuracao sensivel
+- codigo em pasta previsivel (`src/`, `electron/`, `scripts/` ou equivalente)
+- uma area explicita para outputs locais nao versionados
 
-## Convenções de diretório
+## Convencoes de diretorio
 
-- Automações ativas permanecem agrupadas por sistema de negócio.
-- Conteúdo legado deve ficar em `_legacy/`.
-- Conteúdo exclusivamente local deve ficar em `_local/` ou em diretórios já ignorados pelo projeto.
-- Novos diretórios devem evitar espaços e acentos nos nomes.
+- Automacoes ativas permanecem agrupadas por sistema de negocio.
+- Conteudo legado deve ficar em `_legacy/`.
+- Conteudo exclusivamente local deve ficar em `_local/` ou em diretorios ja ignorados pelo projeto.
+- Novos diretorios devem evitar espacos e acentos nos nomes.
 
-## O que não deve ser versionado
+## O que nao deve ser versionado
 
 - certificados, senhas e segredos
 - `.env` e credenciais locais
-- planilhas de cliente e arquivos de operação diária
-- PDFs, exports, checkpoints, logs e relatórios gerados
+- planilhas de cliente e arquivos de operacao diaria
+- PDFs, exports, checkpoints, logs e relatorios gerados
 - backups locais e workspaces de ferramenta
 
 ## Componentes especiais
 
-- `Onvio/BD/` é mantido como repositório local independente; o monorepo principal não deve rastrear seu estado interno.
-- Diretórios de dados operacionais em nível de grupo, como `Onvio/Gestta-Tarefas/data/`, devem permanecer locais.
+- `Onvio/BD/` e mantido como repositorio local independente; o monorepo principal nao deve rastrear seu estado interno.
+- Diretorios de dados operacionais em nivel de grupo, como `Onvio/gestta-tarefas/_local/`, devem permanecer locais.
