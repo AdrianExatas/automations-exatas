@@ -3,12 +3,14 @@ import { uploadOnvioBatch } from "./upload-onvio-batch";
 
 const {
   loadBdLookupData,
+  openTicket,
   uploadTicketWithAttachments,
   readdirSync,
   existsSync,
   readFileSync,
 } = vi.hoisted(() => ({
   loadBdLookupData: vi.fn(),
+  openTicket: vi.fn(),
   uploadTicketWithAttachments: vi.fn(),
   readdirSync: vi.fn(),
   existsSync: vi.fn(),
@@ -23,6 +25,7 @@ vi.mock("./core/onvio-api", async () => {
   const actual = await vi.importActual<typeof import("./core/onvio-api")>("./core/onvio-api");
   return {
     ...actual,
+    openTicket,
     uploadTicketWithAttachments,
   };
 });
@@ -49,6 +52,7 @@ describe("uploadOnvioBatch", () => {
       requesterIdByName: new Map([["FULANO", "req-1"]]),
       departmentIdByName: new Map([["FISCAL", "dep-1"]]),
     });
+    openTicket.mockResolvedValue({ ticketId: "ticket-2" });
     uploadTicketWithAttachments.mockResolvedValue({ ticketId: "ticket-1" });
   });
 
@@ -56,6 +60,7 @@ describe("uploadOnvioBatch", () => {
     const result = await uploadOnvioBatch({
       token: "token",
       attachmentsDir: "C:/tmp",
+      bdApiBaseUrl: "http://localhost:3001/api",
       input: {
         empresas: [
           {
@@ -94,6 +99,7 @@ describe("uploadOnvioBatch", () => {
     const result = await uploadOnvioBatch({
       token: "token",
       attachmentsDir: "C:/tmp",
+      bdApiBaseUrl: "http://localhost:3001/api",
       input: {
         empresas: [
           {
@@ -122,6 +128,94 @@ describe("uploadOnvioBatch", () => {
         "ClientId do Onvio resolvido pelo fallback global.",
       ]),
     );
+  });
+
+  it("abre solicitacao sem anexos quando attachmentsMode=none", async () => {
+    const result = await uploadOnvioBatch({
+      token: "token",
+      input: {
+        empresas: [
+          {
+            cnpj: "12",
+            codigo: "543",
+            nome: "Link Informatica",
+            solicitante: "",
+            departamento: "Fiscal",
+            assunto: "Assunto sob medida",
+            descricao: "Descricao sob medida",
+            arquivos: [],
+          },
+        ],
+      },
+      attachmentsMode: "none",
+      bdApiBaseUrl: "http://localhost:3001/api",
+      defaults: {
+        clientId: "client-default",
+        departmentId: "dep-default",
+      },
+    });
+
+    expect(result.summary).toEqual({
+      total: 1,
+      success: 1,
+      failed: 0,
+      skipped: 0,
+    });
+    expect(openTicket).toHaveBeenCalledWith({
+      token: "token",
+      clientId: "client-1",
+      departmentId: "dep-1",
+      requesterId: undefined,
+      subject: "Assunto sob medida",
+      description: "Descricao sob medida",
+    });
+    expect(uploadTicketWithAttachments).not.toHaveBeenCalled();
+    expect(readdirSync).not.toHaveBeenCalled();
+    expect(result.items[0]).toMatchObject({
+      status: "success",
+      attachmentCount: 0,
+      message: "Solicitacao aberta sem anexos.",
+    });
+  });
+
+  it("faz dry-run sem tocar a API do Onvio", async () => {
+    const result = await uploadOnvioBatch({
+      token: "token",
+      input: {
+        empresas: [
+          {
+            cnpj: "12",
+            codigo: "543",
+            nome: "Link Informatica",
+            solicitante: "",
+            departamento: "Fiscal",
+            assunto: "Assunto sob medida",
+            descricao: "Descricao sob medida",
+            arquivos: [],
+          },
+        ],
+      },
+      attachmentsMode: "none",
+      dryRun: true,
+      defaults: {
+        clientId: "client-default",
+        departmentId: "dep-default",
+      },
+    });
+
+    expect(result.summary).toEqual({
+      total: 1,
+      success: 0,
+      failed: 0,
+      skipped: 1,
+    });
+    expect(openTicket).not.toHaveBeenCalled();
+    expect(uploadTicketWithAttachments).not.toHaveBeenCalled();
+    expect(result.items[0]).toMatchObject({
+      status: "skipped",
+      attachmentCount: 0,
+      message: "Pre-validacao OK: solicitacao sem anexos seria aberta.",
+    });
   });
 
   it("marca item como falha quando nao encontra anexo", async () => {

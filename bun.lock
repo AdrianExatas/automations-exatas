@@ -40,7 +40,7 @@
       "name": "unecont",
       "version": "1.0.0",
       "dependencies": {
-        "@exatas/onvio-upload": "workspace:*",
+        "@exatas/onvio-solicitacoes-servico": "workspace:*",
         "dotenv": "^16.4.0",
         "exceljs": "^4.4.0",
         "playwright": "^1.51.1",
@@ -67,8 +67,8 @@
         "vitest": "^4.0.18",
       },
     },
-    "shared/onvio-upload": {
-      "name": "@exatas/onvio-upload",
+    "shared/onvio-solicitacoes-servico": {
+      "name": "@exatas/onvio-solicitacoes-servico",
       "version": "1.0.0",
       "dependencies": {
         "typescript": "^5.0.0",
@@ -76,6 +76,7 @@
       },
       "devDependencies": {
         "@types/node": "^22.0.0",
+        "tsx": "^4.0.0",
         "vitest": "^4.0.18",
       },
     },
@@ -143,7 +144,7 @@
 
     "@exatas/onvio-auth": ["@exatas/onvio-auth@workspace:shared/onvio-auth"],
 
-    "@exatas/onvio-upload": ["@exatas/onvio-upload@workspace:shared/onvio-upload"],
+    "@exatas/onvio-solicitacoes-servico": ["@exatas/onvio-solicitacoes-servico@workspace:shared/onvio-solicitacoes-servico"],
 
     "@fast-csv/format": ["@fast-csv/format@4.3.5", "", { "dependencies": { "@types/node": "^14.0.1", "lodash.escaperegexp": "^4.1.2", "lodash.isboolean": "^3.0.3", "lodash.isequal": "^4.5.0", "lodash.isfunction": "^3.0.9", "lodash.isnil": "^4.0.0" } }, "sha512-8iRn6QF3I8Ak78lNAa+Gdl5MJJBM5vRHivFtMRUWINdevNo00K7OXxS2PshawLKTejVwieIlPmK5YlLu6w4u8A=="],
 

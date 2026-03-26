@@ -21,6 +21,8 @@ export interface EnvConfig extends Config {
   onvioDepartmentId: string;
   onvioRequesterId: string;
   onvioClientId: string;
+  onvioSkipAttachments: boolean;
+  onvioDryRun: boolean;
   bdApiBaseUrl: string;
   unecontUploadDir: string;
 }
@@ -51,6 +53,8 @@ export function loadEnvConfig(env: NodeJS.ProcessEnv = process.env): EnvConfig {
     onvioDepartmentId: env.ONVIO_DEPARTMENT_ID ?? "",
     onvioRequesterId: env.ONVIO_REQUESTER_ID ?? "",
     onvioClientId: env.ONVIO_CLIENT_ID ?? "",
+    onvioSkipAttachments: parseBoolean(env.ONVIO_SKIP_ATTACHMENTS, false),
+    onvioDryRun: parseBoolean(env.ONVIO_DRY_RUN, false),
     bdApiBaseUrl: env.BD_API_BASE_URL ?? DEFAULT_BD_API_BASE_URL,
     unecontUploadDir: env.UNECONT_UPLOAD_DIR ?? "",
   };

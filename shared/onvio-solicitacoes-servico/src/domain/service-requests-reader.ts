@@ -1,11 +1,9 @@
 import fs from "node:fs";
 import path from "node:path";
-import type { EmpresaBatchItem } from "../types";
+import type { ServiceRequestRow } from "../types";
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const XLSX = require("xlsx");
-
-export type Empresa = EmpresaBatchItem;
 
 function normalizeHeader(value: string): string {
   return value
@@ -70,7 +68,7 @@ function readOptionalString(row: Record<string, unknown>, column?: string): stri
   return value == null || value === "" ? "" : String(value).trim();
 }
 
-export function readEmpresas(excelPath: string): Empresa[] {
+export function readServiceRequests(excelPath: string): ServiceRequestRow[] {
   const resolved = path.resolve(excelPath);
   if (!fs.existsSync(resolved)) {
     throw new Error(`Planilha nao encontrada: ${resolved}`);
@@ -113,7 +111,7 @@ export function readEmpresas(excelPath: string): Empresa[] {
     "departmentid",
   ]);
 
-  const empresas: Empresa[] = [];
+  const serviceRequests: ServiceRequestRow[] = [];
   const seenCodes = new Set<string>();
 
   for (const row of data) {
@@ -128,7 +126,7 @@ export function readEmpresas(excelPath: string): Empresa[] {
       seenCodes.add(codigo);
     }
 
-    empresas.push({
+    serviceRequests.push({
       cnpj,
       codigo,
       nome: readOptionalString(row, nomeColumn),
@@ -144,5 +142,5 @@ export function readEmpresas(excelPath: string): Empresa[] {
     });
   }
 
-  return empresas;
+  return serviceRequests;
 }

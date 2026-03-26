@@ -1,8 +1,8 @@
 {
-  "name": "@exatas/onvio-upload",
+  "name": "@exatas/onvio-solicitacoes-servico",
   "version": "1.0.0",
   "private": true,
-  "description": "Biblioteca compartilhada para upload de tickets e anexos no Onvio",
+  "description": "Biblioteca compartilhada para solicitacoes de servico no Onvio",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -16,8 +16,8 @@
     }
   },
   "scripts": {
+    "send": "tsx src/scripts/send.ts",
     "build": "tsc -p tsconfig.json",
-    "prepare": "bun run build",
     "test": "vitest run --config vitest.config.ts"
   },
   "type": "commonjs",
@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
+    "tsx": "^4.0.0",
     "vitest": "^4.0.18"
   }
 }

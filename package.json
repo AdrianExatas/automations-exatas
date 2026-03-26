@@ -3,7 +3,7 @@
   "private": true,
   "packageManager": "bun@1.3.11",
   "workspaces": [
-    "shared/onvio-upload",
+    "shared/onvio-solicitacoes-servico",
     "shared/onvio-auth",
     "Unecont",
     "Onvio/gestta-tarefas/alterar-responsavel",

@@ -1,7 +1,11 @@
 import {
   normalizeCode,
   normalizeForMatch,
-} from "../adapters/unecont/upload-onvio-helpers";
+} from "../attachments/resolver";
+import type {
+  ServiceRequestIdentifierLookupData,
+  ServiceRequestIdentifierProvider,
+} from "../types";
 
 interface PaginatedResponse<T> {
   data?: T[];
@@ -23,12 +27,6 @@ export interface BdEmployeeRecord {
 export interface BdDepartmentRecord {
   department_id?: string;
   name?: string;
-}
-
-export interface BdLookupData {
-  clientIdByCode: Map<string, string>;
-  requesterIdByName: Map<string, string>;
-  departmentIdByName: Map<string, string>;
 }
 
 function normalizeBaseUrl(baseUrl: string): string {
@@ -69,7 +67,7 @@ async function fetchPaginatedResource<T>(
   return items;
 }
 
-export async function loadBdLookupData(baseUrl: string): Promise<BdLookupData> {
+export async function loadBdLookupData(baseUrl: string): Promise<ServiceRequestIdentifierLookupData> {
   const [companies, employees, departments] = await Promise.all([
     fetchPaginatedResource<BdCompanyRecord>(baseUrl, "/companies"),
     fetchPaginatedResource<BdEmployeeRecord>(baseUrl, "/employees"),
@@ -108,4 +106,12 @@ export async function loadBdLookupData(baseUrl: string): Promise<BdLookupData> {
     requesterIdByName,
     departmentIdByName,
   };
+}
+
+export class BdApiIdentifierProvider implements ServiceRequestIdentifierProvider {
+  constructor(private readonly baseUrl: string) {}
+
+  async loadLookupData(): Promise<ServiceRequestIdentifierLookupData> {
+    return loadBdLookupData(this.baseUrl);
+  }
 }

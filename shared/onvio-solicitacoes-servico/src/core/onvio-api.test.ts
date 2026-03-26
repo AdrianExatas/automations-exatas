@@ -2,6 +2,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   addAttachment,
   createTicket,
+  openTicket,
   OnvioApiError,
   uploadTicketWithAttachments,
 } from "./onvio-api";
@@ -101,6 +102,25 @@ describe("onvio core api", () => {
 
     expect(result).toEqual({ ticketId: "ticket-1" });
     expect(fetchMock).toHaveBeenCalledTimes(4);
+  });
+
+  it("abre ticket sem anexos pela API generica", async () => {
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValueOnce(makeJsonResponse({ id: "ticket-1" }))
+      .mockResolvedValueOnce(makeJsonResponse({ ok: true }));
+    vi.stubGlobal("fetch", fetchMock);
+
+    const result = await openTicket({
+      token: "token",
+      clientId: "client-1",
+      departmentId: "dep-1",
+      subject: "assunto",
+      description: "descricao",
+    });
+
+    expect(result).toEqual({ ticketId: "ticket-1" });
+    expect(fetchMock).toHaveBeenCalledTimes(2);
   });
 
   it("falha quando nao ha anexos", async () => {

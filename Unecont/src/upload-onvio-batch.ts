@@ -1,1 +1,1 @@
-export { uploadOnvioBatch } from "@exatas/onvio-upload";
+export { uploadOnvioBatch } from "@exatas/onvio-solicitacoes-servico";

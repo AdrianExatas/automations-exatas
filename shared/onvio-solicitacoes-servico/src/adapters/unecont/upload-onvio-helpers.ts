@@ -1,12 +1,20 @@
-import fs from "node:fs";
-import path from "node:path";
 import type { EmpresaBatchItem, UploadOnvioOptions } from "../../types";
+import {
+  AttachmentResolutionError,
+  buildAvailableAttachmentFiles,
+  filenameHasExactCodeToken,
+  normalizeCode,
+  normalizeForMatch,
+  resolveAttachmentsForServiceRequest,
+  type ResolvedAttachmentFile,
+} from "../../attachments/resolver";
+import {
+  buildLegacyUnecontDescription,
+  buildLegacyUnecontSubject,
+  legacyUnecontDefaultContent,
+} from "./service-request-helpers";
 
-export interface UploadAttachmentFile {
-  filePath: string;
-  fileName: string;
-  extension: string;
-}
+export interface UploadAttachmentFile extends ResolvedAttachmentFile {}
 
 export interface UploadResolutionResult {
   clientId: string;
@@ -28,105 +36,41 @@ export class UploadResolutionError extends Error {
   }
 }
 
-const ALLOWED_ATTACHMENT_EXTENSIONS = new Set([".pdf", ".xlsx"]);
+function mapAttachmentError(error: unknown): never {
+  if (error instanceof AttachmentResolutionError) {
+    throw new UploadResolutionError(error.message);
+  }
 
-export function normalizeForMatch(value: string): string {
-  return value
-    .trim()
-    .toUpperCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "");
-}
-
-export function normalizeCode(code: string): string {
-  const trimmed = String(code ?? "").trim();
-  if (!trimmed) return "";
-  return /^\d+$/.test(trimmed) ? String(parseInt(trimmed, 10)) : trimmed;
+  throw error;
 }
 
 export function buildAvailableUploadFiles(
   dir: string,
   excludedFilePaths: string[] = [],
 ): UploadAttachmentFile[] {
-  if (!dir || !fs.existsSync(dir)) return [];
-
-  const excluded = new Set(
-    excludedFilePaths.filter(Boolean).map((filePath) => path.resolve(filePath).toLowerCase()),
-  );
-
-  return fs
-    .readdirSync(dir, { withFileTypes: true })
-    .filter((entry) => entry.isFile() && !entry.name.startsWith("."))
-    .map((entry) => {
-      const filePath = path.join(dir, entry.name);
-      return {
-        filePath,
-        fileName: entry.name,
-        extension: path.extname(entry.name).toLowerCase(),
-      };
-    })
-    .filter((file) => ALLOWED_ATTACHMENT_EXTENSIONS.has(file.extension))
-    .filter((file) => !excluded.has(path.resolve(file.filePath).toLowerCase()));
-}
-
-export function filenameHasExactCodeToken(filename: string, code: string): boolean {
-  const normalizedCode = normalizeCode(code);
-  if (!normalizedCode) return false;
-
-  const baseName = path.basename(filename, path.extname(filename));
-  const tokens = normalizeForMatch(baseName)
-    .split(/[^A-Z0-9]+/)
-    .filter(Boolean);
-
-  return tokens.includes(normalizeForMatch(normalizedCode));
-}
-
-function buildFileNameMap(files: UploadAttachmentFile[]): Map<string, UploadAttachmentFile> {
-  return new Map(files.map((file) => [normalizeForMatch(file.fileName), file]));
+  return buildAvailableAttachmentFiles(dir, excludedFilePaths);
 }
 
 export function resolveAttachmentsForEmpresa(
   empresa: EmpresaBatchItem,
   files: UploadAttachmentFile[],
 ): UploadAttachmentFile[] {
-  if (empresa.arquivos.length > 0) {
-    const filesByName = buildFileNameMap(files);
-    const resolved = empresa.arquivos.map((arquivo) => {
-      const extension = path.extname(arquivo).toLowerCase();
-      if (extension && !ALLOWED_ATTACHMENT_EXTENSIONS.has(extension)) {
-        throw new UploadResolutionError(`Extensao nao suportada para upload: ${arquivo}`);
-      }
-
-      const match = filesByName.get(normalizeForMatch(path.basename(arquivo)));
-      if (!match) {
-        throw new UploadResolutionError(`Arquivo listado na planilha nao encontrado: ${arquivo}`);
-      }
-      return match;
-    });
-
-    return Array.from(new Map(resolved.map((file) => [file.filePath, file])).values());
+  try {
+    return resolveAttachmentsForServiceRequest(empresa, files, "code-fallback");
+  } catch (error) {
+    mapAttachmentError(error);
   }
-
-  const matches = files.filter((file) => filenameHasExactCodeToken(file.fileName, empresa.codigo));
-  if (matches.length === 0) {
-    throw new UploadResolutionError(
-      `Nenhum anexo encontrado para o codigo ${empresa.codigo || "<sem codigo>"}.`,
-    );
-  }
-  return matches;
 }
 
 export function buildUploadSubject(empresa: EmpresaBatchItem): string {
-  const label = empresa.nome || empresa.codigo || empresa.cnpj;
-  return `Relatorio Servicos Tomados - ${label}`;
+  return buildLegacyUnecontSubject(empresa);
 }
 
 export function buildUploadDescription(
   empresa: EmpresaBatchItem,
   attachmentCount: number,
 ): string {
-  const label = empresa.nome || empresa.codigo || empresa.cnpj;
-  return `Upload automatico do relatorio Unecont para ${label} com ${attachmentCount} arquivo(s).`;
+  return buildLegacyUnecontDescription(empresa, attachmentCount);
 }
 
 export function resolveUploadIdentifiers(
@@ -193,3 +137,10 @@ export function resolveUploadIdentifiers(
     warnings,
   };
 }
+
+export {
+  filenameHasExactCodeToken,
+  legacyUnecontDefaultContent,
+  normalizeCode,
+  normalizeForMatch,
+};

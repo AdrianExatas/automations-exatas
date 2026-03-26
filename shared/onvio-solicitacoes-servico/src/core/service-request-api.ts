@@ -1,4 +1,4 @@
-import type { UploadTicketOptions } from "../types";
+import type { OpenServiceRequestOptions, UploadTicketOptions } from "../types";
 
 const ONVIO_BASE = "https://onvio.com.br/api";
 
@@ -170,13 +170,9 @@ function extractTicketId(ticket: CreateTicketResponse): string | null {
   return nestedData?.id ?? null;
 }
 
-export async function uploadTicketWithAttachments(
-  options: UploadTicketOptions,
+export async function openServiceRequest(
+  options: OpenServiceRequestOptions,
 ): Promise<{ ticketId: string }> {
-  if (options.attachments.length === 0) {
-    throw new OnvioApiError("Nenhum anexo informado para upload.");
-  }
-
   const config = {
     token: options.token,
     departmentId: options.departmentId,
@@ -199,9 +195,23 @@ export async function uploadTicketWithAttachments(
     status: 4,
   });
 
-  for (const attachment of options.attachments) {
+  for (const attachment of options.attachments ?? []) {
     await addAttachment(config, ticketId, attachment);
   }
 
   return { ticketId };
+}
+
+export async function openTicket(options: OpenServiceRequestOptions): Promise<{ ticketId: string }> {
+  return openServiceRequest(options);
+}
+
+export async function uploadTicketWithAttachments(
+  options: UploadTicketOptions,
+): Promise<{ ticketId: string }> {
+  if (options.attachments.length === 0) {
+    throw new OnvioApiError("Nenhum anexo informado para upload.");
+  }
+
+  return openServiceRequest(options);
 }

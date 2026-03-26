@@ -63,13 +63,25 @@ Copia os `.xlsx` do lote bruto para `runtime/normalized/<nome-do-lote>`, reaplic
 bun run --cwd Unecont upload
 ```
 
+```bash
+bun run --cwd Unecont upload -- --sem-anexos
+```
+
+```bash
+bun run --cwd Unecont upload -- --sem-anexos --dry-run
+```
+
 Usa:
 
 - `ONVIO_UDS_TOKEN` para autenticacao;
 - `BD_API_BASE_URL` para resolver `clientId`, solicitante e departamento;
 - `UNECONT_UPLOAD_DIR` para sobrescrever a pasta de anexos.
+- `ONVIO_SKIP_ATTACHMENTS=true` para abrir solicitacoes usando apenas `ASSUNTO` e `DESCRICAO`;
+- `ONVIO_DRY_RUN=true` para validar e mostrar o que seria enviado sem chamar a API do Onvio.
 
 Sem `UNECONT_UPLOAD_DIR`, a CLI usa o ultimo lote em `runtime/normalized/Unecont_*`.
+No modo sem anexos, `UNECONT_UPLOAD_DIR` nao e obrigatorio.
+O wrapper do `Unecont` usa `@exatas/onvio-solicitacoes-servico` por baixo e preserva o fallback legado de anexos por `CODIGO`.
 
 ## Uso como biblioteca
 
@@ -109,6 +121,8 @@ await uploadOnvioBatch({
   token: process.env.ONVIO_UDS_TOKEN!,
   input: { empresas },
   attachmentsDir: "runtime/normalized/Unecont_2026-03-12_10-00-00",
+  attachmentsMode: "required",
+  dryRun: false,
   bdApiBaseUrl: "http://localhost:3000/api",
   defaults: {
     departmentName: "SETOR FISCAL",

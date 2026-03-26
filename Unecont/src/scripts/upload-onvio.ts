@@ -6,10 +6,33 @@ import {
   resolveExcelPath,
 } from "./cli-helpers";
 
-export async function main(): Promise<number> {
+interface UploadCliFlags {
+  skipAttachments: boolean;
+  dryRun: boolean;
+}
+
+function parseUploadCliArgs(argv: string[]): UploadCliFlags {
+  return {
+    skipAttachments: argv.includes("--sem-anexos"),
+    dryRun: argv.includes("--dry-run"),
+  };
+}
+
+function formatEmpresaLabel(empresa: {
+  codigo: string;
+  nome: string;
+  cnpj: string;
+}): string {
+  return [empresa.codigo, empresa.nome || empresa.cnpj].filter(Boolean).join(" - ");
+}
+
+export async function main(argv: string[] = process.argv.slice(2)): Promise<number> {
   loadDotenvFromProjectRoot();
   const env = loadEnvConfig();
+  const cliFlags = parseUploadCliArgs(argv);
   const excelPath = resolveExcelPath(env.empresasExcelPath);
+  const skipAttachments = cliFlags.skipAttachments || env.onvioSkipAttachments;
+  const dryRun = cliFlags.dryRun || env.onvioDryRun;
 
   if (!excelPath) {
     console.error(
@@ -18,8 +41,10 @@ export async function main(): Promise<number> {
     return 1;
   }
 
-  const attachmentsDir = env.unecontUploadDir || findLatestNormalizedDir();
-  if (!attachmentsDir) {
+  const attachmentsDir: string | undefined = skipAttachments
+    ? undefined
+    : env.unecontUploadDir || findLatestNormalizedDir() || undefined;
+  if (!skipAttachments && !attachmentsDir) {
     console.error(
       "Nenhum diretorio normalizado encontrado. Configure UNECONT_UPLOAD_DIR ou execute a normalizacao antes do upload.",
     );
@@ -31,6 +56,8 @@ export async function main(): Promise<number> {
       token: env.onvioUdsToken,
       input: { excelPath },
       attachmentsDir,
+      attachmentsMode: skipAttachments ? "none" : "required",
+      dryRun,
       bdApiBaseUrl: env.bdApiBaseUrl,
       defaults: {
         clientId: env.onvioClientId || undefined,
@@ -42,6 +69,19 @@ export async function main(): Promise<number> {
 
     for (const warning of result.warnings) {
       console.warn(`[AVISO] ${warning}`);
+    }
+
+    if (dryRun) {
+      for (const item of result.items) {
+        const empresaLabel = formatEmpresaLabel(item.empresa);
+        const prefix = item.status === "failed" ? "[ERRO]" : "[PREVIEW]";
+        const detail = item.message ?? "Pre-validacao concluida.";
+        console.log(`${prefix} ${empresaLabel}: ${detail}`);
+
+        for (const warning of item.warnings ?? []) {
+          console.warn(`[AVISO] ${empresaLabel}: ${warning}`);
+        }
+      }
     }
 
     console.log(
