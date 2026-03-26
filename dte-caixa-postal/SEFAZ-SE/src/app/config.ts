@@ -114,7 +114,10 @@ function mergeWithDefaults(defaultConfig: AppConfig, input: Partial<AppConfig>):
       channel: input.browser?.channel === 'chrome' ? 'chrome' : defaultConfig.browser.channel,
     },
     execution: {
-      strategy: input.execution?.strategy === 'http' ? 'http' : defaultConfig.execution.strategy,
+      strategy:
+        input.execution?.strategy === 'browser' || input.execution?.strategy === 'http'
+          ? input.execution.strategy
+          : defaultConfig.execution.strategy,
     },
   };
 }

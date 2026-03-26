@@ -8,11 +8,12 @@ import {
   extractCompanies,
   extractLidosTabUrl,
   extractOccurrence,
-  pickLatestOccurrence,
+  extractOccurrencesPage,
+  getNextPageUrl,
 } from '../src/app/sefazPortalParsers';
 import { SefazHttpClient } from '../src/app/sefazHttpClient';
 
-test('extractCompanies, extractOccurrence e pickLatestOccurrence interpretam o HTML da SEFAZ', () => {
+test('extractCompanies, extractOccurrence e paginação interpretam o HTML da SEFAZ', () => {
   const listHtml = `
     <table>
       <tr class="trTableTitle">
@@ -76,6 +77,10 @@ test('extractCompanies, extractOccurrence e pickLatestOccurrence interpretam o H
       </tr>
     </table>
   `;
+  const pagedHtml = `
+    <font class="fontValue">de <font class="fontNavDestaque">21</font> a <font class="fontNavDestaque">40</font> em <font class="fontNavDestaque">373</font>&nbsp;ocorrência(s)</font>
+    ${readHtml}
+  `;
   const portalHtml = `<a href="process.jsp?AppName=DEH&TransId=T923&token=xyz">Caixa Postal</a>`;
 
   const companies = extractCompanies(listHtml, 'https://security.sefaz.se.gov.br/internet/process.jsp');
@@ -86,6 +91,11 @@ test('extractCompanies, extractOccurrence e pickLatestOccurrence interpretam o H
   );
   const readOccurrence = extractOccurrence(
     readHtml,
+    'https://security.sefaz.se.gov.br/internet/process.jsp?AppName=DEH&TransId=T983&CodAbaAtiva=2',
+    'lidos',
+  );
+  const pagedResult = extractOccurrencesPage(
+    pagedHtml,
     'https://security.sefaz.se.gov.br/internet/process.jsp?AppName=DEH&TransId=T983&CodAbaAtiva=2',
     'lidos',
   );
@@ -107,10 +117,21 @@ test('extractCompanies, extractOccurrence e pickLatestOccurrence interpretam o H
   expect(unreadOccurrence?.assunto).toBe('Assunto recente');
   expect(unreadOccurrence?.link).toContain('TransId=T111');
   expect(readOccurrence?.assunto).toBe('Assunto antigo');
-  expect(pickLatestOccurrence(unreadOccurrence, readOccurrence)?.source).toBe('nao_lidos');
+  expect(pagedResult.pagination).toEqual({
+    currentStart: 21,
+    currentEnd: 40,
+    total: 373,
+    pageSize: 20,
+  });
+  expect(
+    getNextPageUrl(
+      'https://security.sefaz.se.gov.br/internet/process.jsp?AppName=DEH&TransId=T983&CodAbaAtiva=2',
+      pagedResult.pagination,
+    ),
+  ).toContain('navInicio=41');
 });
 
-test('SefazHttpClient autentica e lista empresas via HTTP real', async () => {
+test('SefazHttpClient autentica, lista empresas e coleta mensagens via HTTP real', async () => {
   test.skip(
     !process.env.RUN_SEFAZ_INTEGRATION,
     'Defina RUN_SEFAZ_INTEGRATION=1 para executar a integracao real contra a SEFAZ.',
@@ -131,8 +152,10 @@ test('SefazHttpClient autentica e lista empresas via HTTP real', async () => {
 
   await client.login();
   const companies = await client.getCompanies();
+  const messages = await client.getCompanyMessages(companies[0]!);
 
   expect(companies.length).toBeGreaterThan(0);
   expect(companies[0]?.identificacao).toBeTruthy();
   expect(companies[0]?.url).toContain('TransId=T983');
+  expect(messages.unreadMessages.length + messages.readMessages.length).toBeGreaterThan(0);
 });

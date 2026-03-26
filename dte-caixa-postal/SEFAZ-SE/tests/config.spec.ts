@@ -1,4 +1,4 @@
-import { mkdtemp, readFile, rm } from 'node:fs/promises';
+import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 
@@ -36,6 +36,53 @@ test('ensureAppConfig cria config.json com defaults da aplicacao', async () => {
     expect(persistedConfig.execution.strategy).toBe('http');
     expect(runOptions.chromeChannel).toBe('chrome');
     expect(runOptions.executionStrategy).toBe('http');
+  } finally {
+    await rm(tempRoot, { recursive: true, force: true });
+  }
+});
+
+test('ensureAppConfig preserva strategy browser quando configurada manualmente', async () => {
+  const tempRoot = await mkdtemp(path.join(os.tmpdir(), 'dte-caixa-postal-config-browser-'));
+
+  try {
+    const environment = {
+      userDataDir: path.resolve(tempRoot, 'userData'),
+      documentsDir: path.resolve(tempRoot, 'documents'),
+      resourcesDir: process.cwd(),
+      cwd: process.cwd(),
+    };
+
+    const configPath = path.resolve(environment.userDataDir, 'config.json');
+    await ensureAppConfig(environment);
+    await writeFile(
+      configPath,
+      JSON.stringify(
+        {
+          certificate: {
+            path: path.resolve(process.cwd(), 'certificado', 'EXATAS CONTABILIDADE LTDA_27939154000108.pfx'),
+            password: 'teste',
+            user: '27939154000108 - CNPJ',
+          },
+          output: {
+            dir: path.resolve(tempRoot, 'output'),
+          },
+          browser: {
+            channel: 'chrome',
+          },
+          execution: {
+            strategy: 'browser',
+          },
+        },
+        null,
+        2,
+      ),
+      'utf8',
+    );
+
+    const { config } = await ensureAppConfig(environment);
+
+    expect(config.execution.strategy).toBe('browser');
+    expect(resolveRunOptions(config).executionStrategy).toBe('browser');
   } finally {
     await rm(tempRoot, { recursive: true, force: true });
   }

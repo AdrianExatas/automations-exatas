@@ -23,6 +23,18 @@ export type Occurrence = {
   timestamp: number;
 };
 
+export interface PaginationInfo {
+  currentStart: number;
+  currentEnd: number;
+  total: number;
+  pageSize: number;
+}
+
+export interface OccurrencePage {
+  messages: Occurrence[];
+  pagination: PaginationInfo | null;
+}
+
 export function extractCompanies(html: string, currentUrl: string): CompanyLink[] {
   const $ = load(html);
   const table = findTableByHeaders($, ['identificacao', 'razao social', 'msg nao lidas']);
@@ -47,49 +59,66 @@ export function extractCompanies(html: string, currentUrl: string): CompanyLink[
     .filter((company: CompanyLink) => company.identificacao && company.razaoSocial && company.url);
 }
 
+export function extractOccurrencesPage(
+  html: string,
+  currentUrl: string,
+  source: OccurrenceSource,
+): OccurrencePage {
+  const $ = load(html);
+  const table = findTableByHeaders($, ['orgao', 'assunto', 'data publicacao']);
+  if (!table) {
+    return {
+      messages: [],
+      pagination: null,
+    };
+  }
+
+  const messages = table
+    .find('tr.trTableImpar, tr.trTablePar')
+    .toArray()
+    .map((row: Element) => {
+      const cells = $(row).find('td').toArray();
+      const firstLink = $(row).find('td a').first();
+      if (cells.length < 8) {
+        return null;
+      }
+
+      const occurrence = {
+        numero: normalizeComparableText($(cells[0]).text()),
+        orgao: normalizeComparableText($(cells[1]).text()),
+        unidade: normalizeComparableText($(cells[2]).text()),
+        assunto: normalizeComparableText($(cells[4]).text()),
+        dataPublicacao: normalizeComparableText($(cells[5]).text()),
+        dataCiencia: normalizeComparableText($(cells[6]).text()),
+        responsavelCiencia: normalizeComparableText($(cells[7]).text()),
+        link: toAbsoluteUrl(firstLink.attr('href'), currentUrl) || currentUrl,
+        source,
+        timestamp: 0,
+      };
+
+      if (!occurrence.numero) {
+        return null;
+      }
+
+      return {
+        ...occurrence,
+        timestamp: parseBrazilDateTime(occurrence.dataPublicacao),
+      };
+    })
+    .filter((message: Occurrence | null): message is Occurrence => message !== null);
+
+  return {
+    messages,
+    pagination: extractPaginationInfo(html, currentUrl, messages.length),
+  };
+}
+
 export function extractOccurrence(
   html: string,
   currentUrl: string,
   source: OccurrenceSource,
 ): Occurrence | null {
-  const $ = load(html);
-  const table = findTableByHeaders($, ['orgao', 'assunto', 'data publicacao']);
-  if (!table) {
-    return null;
-  }
-
-  const firstRow = table.find('tr.trTableImpar, tr.trTablePar').first();
-  if (!firstRow.length) {
-    return null;
-  }
-
-  const cells = firstRow.find('td').toArray();
-  if (cells.length < 8) {
-    return null;
-  }
-
-  const firstLink = firstRow.find('td a').first();
-  const occurrence = {
-    numero: normalizeComparableText($(cells[0]).text()),
-    orgao: normalizeComparableText($(cells[1]).text()),
-    unidade: normalizeComparableText($(cells[2]).text()),
-    assunto: normalizeComparableText($(cells[4]).text()),
-    dataPublicacao: normalizeComparableText($(cells[5]).text()),
-    dataCiencia: normalizeComparableText($(cells[6]).text()),
-    responsavelCiencia: normalizeComparableText($(cells[7]).text()),
-    link: toAbsoluteUrl(firstLink.attr('href'), currentUrl) || currentUrl,
-    source,
-    timestamp: 0,
-  };
-
-  if (!occurrence.numero) {
-    return null;
-  }
-
-  return {
-    ...occurrence,
-    timestamp: parseBrazilDateTime(occurrence.dataPublicacao),
-  };
+  return extractOccurrencesPage(html, currentUrl, source).messages[0] ?? null;
 }
 
 export function extractLidosTabUrl(html: string, currentUrl: string): string | null {
@@ -138,6 +167,28 @@ export function hasPortalMarker(html: string): boolean {
   );
 }
 
+export function buildPaginatedUrl(
+  currentUrl: string,
+  navInicio: number,
+  navMaximo: number,
+): string {
+  const nextUrl = new URL(currentUrl);
+  nextUrl.searchParams.set('navInicio', String(navInicio));
+  nextUrl.searchParams.set('navMaximo', String(navMaximo));
+  return nextUrl.toString();
+}
+
+export function getNextPageUrl(
+  currentUrl: string,
+  pagination: PaginationInfo | null,
+): string | null {
+  if (!pagination || pagination.currentEnd >= pagination.total) {
+    return null;
+  }
+
+  return buildPaginatedUrl(currentUrl, pagination.currentEnd + 1, pagination.pageSize);
+}
+
 export function pickLatestOccurrence(
   unreadOccurrence: Occurrence | null,
   readOccurrence: Occurrence | null,
@@ -179,6 +230,44 @@ export function parseBrazilDateTime(value: string): number {
   const second = Number.parseInt(match.groups.second ?? '0', 10);
 
   return Date.UTC(year, month - 1, day, hour, minute, second);
+}
+
+function extractPaginationInfo(
+  html: string,
+  currentUrl: string,
+  rowCount: number,
+): PaginationInfo | null {
+  const normalizedText = normalizeComparableText(load(html).root().text()).toLowerCase();
+  const rangeMatch = normalizedText.match(/de (\d+) a (\d+) em (\d+) ocorrencia\(s\)/);
+
+  if (rangeMatch) {
+    const currentStart = Number.parseInt(rangeMatch[1], 10);
+    const currentEnd = Number.parseInt(rangeMatch[2], 10);
+    const total = Number.parseInt(rangeMatch[3], 10);
+
+    return {
+      currentStart,
+      currentEnd,
+      total,
+      pageSize: Math.max(currentEnd - currentStart + 1, 1),
+    };
+  }
+
+  if (rowCount === 0) {
+    return null;
+  }
+
+  const url = new URL(currentUrl);
+  const currentStart = Number.parseInt(url.searchParams.get('navInicio') ?? '1', 10) || 1;
+  const pageSize = Number.parseInt(url.searchParams.get('navMaximo') ?? String(rowCount), 10) || rowCount;
+  const currentEnd = currentStart + rowCount - 1;
+
+  return {
+    currentStart,
+    currentEnd,
+    total: currentEnd,
+    pageSize: Math.max(pageSize, rowCount, 1),
+  };
 }
 
 function findTableByHeaders(

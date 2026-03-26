@@ -3,12 +3,13 @@ import path from 'node:path';
 
 import ExcelJS from 'exceljs';
 
-import type { EmpresaReportRow, FailureRow } from './types';
+import type { DetailedMessageRow, EmpresaReportRow, FailureRow, MessagePeriodBucket } from './types';
 
 interface WriteReportInput {
   outputDir: string;
   rows: EmpresaReportRow[];
   failures: FailureRow[];
+  messages: DetailedMessageRow[];
 }
 
 const EMPRESAS_COLUMNS: Partial<ExcelJS.Column>[] = [
@@ -54,10 +55,27 @@ const FALHAS_COLUMNS: Partial<ExcelJS.Column>[] = [
   { header: 'erro', key: 'erro', width: 60 },
 ];
 
+const MENSAGENS_COLUMNS: Partial<ExcelJS.Column>[] = [
+  { header: 'identificacao', key: 'identificacao', width: 22 },
+  { header: 'razao_social', key: 'razao_social', width: 42 },
+  { header: 'origem', key: 'origem', width: 14 },
+  { header: 'periodo', key: 'periodo', width: 16 },
+  { header: 'chave_deduplicacao', key: 'chave_deduplicacao', width: 64 },
+  { header: 'numero', key: 'numero', width: 22 },
+  { header: 'orgao', key: 'orgao', width: 18 },
+  { header: 'unidade', key: 'unidade', width: 18 },
+  { header: 'assunto', key: 'assunto', width: 36 },
+  { header: 'data_publicacao', key: 'data_publicacao', width: 22 },
+  { header: 'data_ciencia', key: 'data_ciencia', width: 22 },
+  { header: 'responsavel_ciencia', key: 'responsavel_ciencia', width: 28 },
+  { header: 'link', key: 'link', width: 60 },
+];
+
 export async function writeCaixaPostalReport({
   outputDir,
   rows,
   failures,
+  messages,
 }: WriteReportInput): Promise<string> {
   await mkdir(outputDir, { recursive: true });
 
@@ -76,11 +94,27 @@ export async function writeCaixaPostalReport({
   failures.forEach((row) => falhasSheet.addRow(row));
   formatSheet(falhasSheet);
 
+  addMessagesSheet(workbook, 'Mensagens_Mes_Atual', messages, 'mes_atual');
+  addMessagesSheet(workbook, 'Mensagens_Mes_Anterior', messages, 'mes_anterior');
+  addMessagesSheet(workbook, 'Mensagens_Demais', messages, 'demais');
+
   const fileName = `caixa-postal-${formatTimestamp(new Date())}.xlsx`;
   const outputPath = path.resolve(outputDir, fileName);
 
   await workbook.xlsx.writeFile(outputPath);
   return outputPath;
+}
+
+function addMessagesSheet(
+  workbook: ExcelJS.Workbook,
+  sheetName: string,
+  messages: DetailedMessageRow[],
+  bucket: MessagePeriodBucket,
+): void {
+  const worksheet = workbook.addWorksheet(sheetName);
+  worksheet.columns = MENSAGENS_COLUMNS;
+  messages.filter((message) => message.periodo === bucket).forEach((message) => worksheet.addRow(message));
+  formatSheet(worksheet);
 }
 
 function formatSheet(sheet: ExcelJS.Worksheet): void {

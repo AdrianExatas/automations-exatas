@@ -7,7 +7,7 @@ import {
   extractCaixaPostalUrl,
   extractCompanies,
   extractLidosTabUrl,
-  extractOccurrence,
+  extractOccurrencesPage,
   hasPortalMarker,
   normalizeComparableText,
   type CompanyLink,
@@ -137,9 +137,9 @@ export class SefazHttpClient {
     return companies;
   }
 
-  async getCompanyOccurrences(
+  async getCompanyMessages(
     company: CompanyLink,
-  ): Promise<{ unreadOccurrence: Occurrence | null; readOccurrence: Occurrence | null }> {
+  ): Promise<{ unreadMessages: Occurrence[]; readMessages: Occurrence[] }> {
     const detailResponse = await this.request(company.url);
     if (!normalizeComparableText(detailResponse.text).includes(company.identificacao)) {
       throw this.buildError(
@@ -149,19 +149,32 @@ export class SefazHttpClient {
       );
     }
 
-    const unreadOccurrence = extractOccurrence(detailResponse.text, detailResponse.url, 'nao_lidos');
+    const unreadMessages = await this.collectMessagesFromResponse(detailResponse, 'nao_lidos');
     const readTabUrl = extractLidosTabUrl(detailResponse.text, detailResponse.url);
 
-    let readOccurrence: Occurrence | null = null;
+    let readMessages: Occurrence[] = [];
     if (readTabUrl) {
-      const readResponse = await this.request(readTabUrl);
-      readOccurrence = extractOccurrence(readResponse.text, readResponse.url, 'lidos');
+      readMessages = await this.collectMessagesAtUrl(readTabUrl, 'lidos');
     }
 
     return {
-      unreadOccurrence,
-      readOccurrence,
+      unreadMessages,
+      readMessages,
     };
+  }
+
+  private async collectMessagesAtUrl(
+    url: string,
+    source: 'nao_lidos' | 'lidos',
+  ): Promise<Occurrence[]> {
+    return this.collectMessagesFromResponse(await this.request(url), source);
+  }
+
+  private async collectMessagesFromResponse(
+    response: HttpResponse,
+    source: 'nao_lidos' | 'lidos',
+  ): Promise<Occurrence[]> {
+    return extractOccurrencesPage(response.text, response.url, source).messages;
   }
 
   private async postForm(

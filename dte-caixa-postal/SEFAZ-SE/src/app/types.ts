@@ -1,4 +1,5 @@
-export type ExecutionStrategy = 'http';
+export type ExecutionStrategy = 'http' | 'browser';
+export type MessagePeriodBucket = 'mes_atual' | 'mes_anterior' | 'demais';
 
 export interface EmpresaReportRow {
   identificacao: string;
@@ -29,6 +30,22 @@ export interface FailureRow {
   identificacao: string;
   razao_social: string;
   erro: string;
+}
+
+export interface DetailedMessageRow {
+  identificacao: string;
+  razao_social: string;
+  origem: string;
+  periodo: MessagePeriodBucket;
+  chave_deduplicacao: string;
+  numero: string;
+  orgao: string;
+  unidade: string;
+  assunto: string;
+  data_publicacao: string;
+  data_ciencia: string;
+  responsavel_ciencia: string;
+  link: string;
 }
 
 export interface RunOptions {
