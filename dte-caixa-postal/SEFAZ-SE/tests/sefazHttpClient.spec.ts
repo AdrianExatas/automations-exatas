@@ -3,6 +3,7 @@ import path from 'node:path';
 import { expect, test } from '@playwright/test';
 
 import { ensureAppConfig, resolveRunOptions } from '../src/app/config';
+import { runCaixaPostalHttp } from '../src/app/runCaixaPostalHttp';
 import {
   extractCaixaPostalUrl,
   extractCompanies,
@@ -131,6 +132,202 @@ test('extractCompanies, extractOccurrence e paginação interpretam o HTML da SE
   ).toContain('navInicio=41');
 });
 
+test('SefazHttpClient recarrega a lista autenticada antes de trocar de empresa na mesma sessao', async () => {
+  const portalUrl = 'https://security.sefaz.se.gov.br/internet/portal.jsp';
+  const listUrl = 'https://security.sefaz.se.gov.br/internet/process.jsp?AppName=DEH&TransId=T923&token=list';
+  const companyAInitialUrl = 'https://security.sefaz.se.gov.br/internet/process.jsp?empresa=A-inicial';
+  const companyBInitialUrl = 'https://security.sefaz.se.gov.br/internet/process.jsp?empresa=B-inicial';
+  const companyARefreshedUrl = 'https://security.sefaz.se.gov.br/internet/process.jsp?empresa=A-refrescada';
+  const companyBRefreshedUrl = 'https://security.sefaz.se.gov.br/internet/process.jsp?empresa=B-refrescada';
+  const refreshLogs: string[] = [];
+
+  const portalHtml = `<a href="${listUrl}">Caixa Postal</a>`;
+  const initialListHtml = buildCompanyListHtml([
+    ['11.111.111/0001-11', 'Empresa A LTDA', 3, companyAInitialUrl],
+    ['22.222.222/0001-22', 'Empresa B LTDA', 2, companyBInitialUrl],
+  ]);
+  const firstRefreshListHtml = buildCompanyListHtml([
+    ['11.111.111/0001-11', 'Empresa A LTDA', 3, companyARefreshedUrl],
+    ['22.222.222/0001-22', 'Empresa B LTDA', 2, companyBInitialUrl],
+  ]);
+  const secondRefreshListHtml = buildCompanyListHtml([
+    ['11.111.111/0001-11', 'Empresa A LTDA', 3, companyARefreshedUrl],
+    ['22.222.222/0001-22', 'Empresa B LTDA', 2, companyBRefreshedUrl],
+  ]);
+
+  const companyADetailHtml = buildOccurrenceDetailHtml(
+    '11.111.111/0001-11',
+    '2026/ 000100001',
+    'ASSUNTO A',
+  );
+  const companyBDetailHtml = buildOccurrenceDetailHtml(
+    '22.222.222/0001-22',
+    '2026/ 000200002',
+    'ASSUNTO B',
+  );
+
+  const client = Object.create(SefazHttpClient.prototype) as SefazHttpClient & {
+    caixaPostalListUrl: string | null;
+    lastResolvedCompanyId: string | null;
+    request: (url: string) => Promise<{
+      url: string;
+      status: number;
+      text: string;
+      headers: Record<string, string | string[] | undefined>;
+    }>;
+  };
+
+  let listRequestCount = 0;
+  client.caixaPostalListUrl = null;
+  client.lastResolvedCompanyId = null;
+  client.request = async (url: string) => {
+    if (url === portalUrl) {
+      return response(portalUrl, portalHtml);
+    }
+
+    if (url === listUrl) {
+      listRequestCount += 1;
+      if (listRequestCount === 1) {
+        return response(listUrl, initialListHtml);
+      }
+
+      if (listRequestCount === 2) {
+        return response(listUrl, firstRefreshListHtml);
+      }
+
+      return response(listUrl, secondRefreshListHtml);
+    }
+
+    if (url === companyARefreshedUrl || url === companyAInitialUrl || url === companyBInitialUrl) {
+      return response(url, companyADetailHtml);
+    }
+
+    if (url === companyBRefreshedUrl) {
+      return response(url, companyBDetailHtml);
+    }
+
+    throw new Error(`URL nao esperada no teste: ${url}`);
+  };
+
+  const companies = await client.getCompanies();
+  const companyAMessages = await client.getCompanyMessages(companies[0]!, {
+    onContextRefresh: (message) => refreshLogs.push(message),
+  });
+  const companyBMessages = await client.getCompanyMessages(companies[1]!, {
+    onContextRefresh: (message) => refreshLogs.push(message),
+  });
+
+  expect(companyAMessages.unreadMessages[0]?.assunto).toBe('ASSUNTO A');
+  expect(companyBMessages.unreadMessages[0]?.assunto).toBe('ASSUNTO B');
+  expect(companyBMessages.unreadMessages[0]?.numero).toBe('2026/ 000200002');
+  expect(listRequestCount).toBe(3);
+  expect(refreshLogs).toEqual([
+    'Recarregando a lista HTTP da Caixa Postal para trocar o contexto de empresa antes de abrir 22.222.222/0001-22.',
+  ]);
+});
+
+test('runCaixaPostalHttp preserva progresso e quantidade de linhas ao processar empresas via cliente HTTP', async () => {
+  const originalCreate = SefazHttpClient.create;
+  const progressUpdates: Array<{ current: number; total: number; companyId: string; companyName: string }> = [];
+  const logMessages: string[] = [];
+
+  const fakeClient = {
+    async login(): Promise<void> {},
+    async getCompanies() {
+      return [
+        {
+          identificacao: '11.111.111/0001-11',
+          razaoSocial: 'Empresa A LTDA',
+          msgNaoLidas: 1,
+          url: 'https://exemplo.local/empresa-a',
+        },
+        {
+          identificacao: '22.222.222/0001-22',
+          razaoSocial: 'Empresa B LTDA',
+          msgNaoLidas: 2,
+          url: 'https://exemplo.local/empresa-b',
+        },
+      ];
+    },
+    async getCompanyMessages(company: { identificacao: string }, options?: { onContextRefresh?: (message: string) => void }) {
+      if (company.identificacao === '22.222.222/0001-22') {
+        options?.onContextRefresh?.(
+          `Recarregando a lista HTTP da Caixa Postal para trocar o contexto de empresa antes de abrir ${company.identificacao}.`,
+        );
+      }
+
+      return {
+        unreadMessages: [
+          {
+            numero: `NUM-${company.identificacao}`,
+            orgao: 'SEFAZ',
+            unidade: 'ASSCAUTO',
+            assunto: `ASSUNTO-${company.identificacao}`,
+            dataPublicacao: '25/03/2026 09:10:11',
+            dataCiencia: '',
+            responsavelCiencia: '',
+            link: `https://exemplo.local/${company.identificacao}`,
+            source: 'nao_lidos' as const,
+            timestamp: Date.UTC(2026, 2, 25, 9, 10, 11),
+          },
+        ],
+        readMessages: [],
+      };
+    },
+  };
+
+  Object.defineProperty(SefazHttpClient, 'create', {
+    configurable: true,
+    writable: true,
+    value: async () => fakeClient,
+  });
+
+  try {
+    const result = await runCaixaPostalHttp(
+      {
+        certificatePath: 'certificado/mock.pfx',
+        certificatePassword: 'senha',
+        certificateUser: 'usuario',
+        outputDir: 'output',
+        chromeChannel: 'chrome',
+        executionStrategy: 'http',
+      },
+      {
+        onProgress: (progress) => progressUpdates.push(progress),
+        onLog: (entry) => logMessages.push(entry.message),
+      },
+      new Date('2026-03-26T12:00:00.000Z'),
+    );
+
+    expect(result.processed).toBe(2);
+    expect(result.rows).toHaveLength(2);
+    expect(result.failures).toHaveLength(0);
+    expect(progressUpdates).toEqual([
+      {
+        current: 1,
+        total: 2,
+        companyId: '11.111.111/0001-11',
+        companyName: 'Empresa A LTDA',
+      },
+      {
+        current: 2,
+        total: 2,
+        companyId: '22.222.222/0001-22',
+        companyName: 'Empresa B LTDA',
+      },
+    ]);
+    expect(logMessages).toContain(
+      'Recarregando a lista HTTP da Caixa Postal para trocar o contexto de empresa antes de abrir 22.222.222/0001-22.',
+    );
+  } finally {
+    Object.defineProperty(SefazHttpClient, 'create', {
+      configurable: true,
+      writable: true,
+      value: originalCreate,
+    });
+  }
+});
+
 test('SefazHttpClient autentica, lista empresas e coleta mensagens via HTTP real', async () => {
   test.skip(
     !process.env.RUN_SEFAZ_INTEGRATION,
@@ -159,3 +356,76 @@ test('SefazHttpClient autentica, lista empresas e coleta mensagens via HTTP real
   expect(companies[0]?.url).toContain('TransId=T983');
   expect(messages.unreadMessages.length + messages.readMessages.length).toBeGreaterThan(0);
 });
+
+function response(url: string, text: string): {
+  url: string;
+  status: number;
+  text: string;
+  headers: Record<string, string | string[] | undefined>;
+} {
+  return {
+    url,
+    status: 200,
+    text,
+    headers: {},
+  };
+}
+
+function buildCompanyListHtml(
+  companies: Array<[identificacao: string, razaoSocial: string, msgNaoLidas: number, url: string]>,
+): string {
+  const rows = companies
+    .map(
+      ([identificacao, razaoSocial, msgNaoLidas, url], index) => `
+        <tr class="${index % 2 === 0 ? 'trTableImpar' : 'trTablePar'}">
+          <td><a class="trLink" href="${url}">${identificacao}</a></td>
+          <td><a class="trLink" href="${url}">${razaoSocial}</a></td>
+          <td><a class="trLink" href="${url}">${msgNaoLidas}</a></td>
+        </tr>
+      `,
+    )
+    .join('');
+
+  return `
+    <table>
+      <tr class="trTableTitle">
+        <td>Identificacao</td>
+        <td>Razao Social</td>
+        <td>Msg nao lidas</td>
+      </tr>
+      ${rows}
+    </table>
+  `;
+}
+
+function buildOccurrenceDetailHtml(
+  identificacao: string,
+  numero: string,
+  assunto: string,
+): string {
+  return `
+    <div>${identificacao}</div>
+    <table>
+      <tr class="trTableTitle">
+        <td>Identificacao</td>
+        <td>Orgao</td>
+        <td>Unidade</td>
+        <td>Nr. Documento</td>
+        <td>Assunto</td>
+        <td>Data Publicacao</td>
+        <td>Data de Ciencia</td>
+        <td>Responsavel Ciencia</td>
+      </tr>
+      <tr class="trTableImpar">
+        <td><a href="https://exemplo.local/detalhe">${numero}</a></td>
+        <td>SEFAZ</td>
+        <td>ASSCAUTO</td>
+        <td></td>
+        <td>${assunto}</td>
+        <td>25/03/2026 09:10:11</td>
+        <td></td>
+        <td></td>
+      </tr>
+    </table>
+  `;
+}

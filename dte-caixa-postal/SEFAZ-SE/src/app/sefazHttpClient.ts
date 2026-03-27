@@ -34,10 +34,16 @@ type ParsedForm = {
   hiddenFields: Record<string, string>;
 };
 
+interface GetCompanyMessagesOptions {
+  onContextRefresh?: (message: string) => void;
+}
+
 export class SefazHttpClient {
   private readonly agent: https.Agent;
   private readonly cookieJar = new Map<string, string>();
   private readonly certificateUser: string;
+  private caixaPostalListUrl: string | null = null;
+  private lastResolvedCompanyId: string | null = null;
 
   private constructor(agent: https.Agent, certificateUser: string) {
     this.agent = agent;
@@ -114,38 +120,20 @@ export class SefazHttpClient {
   }
 
   async getCompanies(): Promise<CompanyLink[]> {
-    const portalResponse = await this.request(PORTAL_URL);
-    const caixaPostalUrl = extractCaixaPostalUrl(portalResponse.text, portalResponse.url);
-    if (!caixaPostalUrl) {
-      throw this.buildError(
-        'caixa_postal_menu',
-        portalResponse,
-        'Nao foi possivel localizar o link da Caixa Postal no portal autenticado.',
-      );
-    }
-
-    const companyListResponse = await this.request(caixaPostalUrl);
-    const companies = extractCompanies(companyListResponse.text, companyListResponse.url);
-    if (companies.length === 0) {
-      throw this.buildError(
-        'caixa_postal_list',
-        companyListResponse,
-        'A lista HTTP da Caixa Postal foi carregada, mas nenhuma empresa foi extraida da tabela principal.',
-      );
-    }
-
-    return companies;
+    return (await this.loadCompanyListFromPortal()).companies;
   }
 
   async getCompanyMessages(
     company: CompanyLink,
+    options: GetCompanyMessagesOptions = {},
   ): Promise<{ unreadMessages: Occurrence[]; readMessages: Occurrence[] }> {
-    const detailResponse = await this.request(company.url);
-    if (!normalizeComparableText(detailResponse.text).includes(company.identificacao)) {
+    const resolvedCompany = await this.resolveCompanyContext(company, options);
+    const detailResponse = await this.request(resolvedCompany.url);
+    if (!normalizeComparableText(detailResponse.text).includes(resolvedCompany.identificacao)) {
       throw this.buildError(
         'company_detail',
         detailResponse,
-        `A pagina HTTP da empresa nao confirmou a identificacao esperada: ${company.identificacao}.`,
+        `A pagina HTTP da empresa nao confirmou a identificacao esperada: ${resolvedCompany.identificacao}.`,
       );
     }
 
@@ -160,6 +148,86 @@ export class SefazHttpClient {
     return {
       unreadMessages,
       readMessages,
+    };
+  }
+
+  private async resolveCompanyContext(
+    company: CompanyLink,
+    options: GetCompanyMessagesOptions,
+  ): Promise<CompanyLink> {
+    if (this.lastResolvedCompanyId && this.lastResolvedCompanyId !== company.identificacao) {
+      options.onContextRefresh?.(
+        `Recarregando a lista HTTP da Caixa Postal para trocar o contexto de empresa antes de abrir ${company.identificacao}.`,
+      );
+    }
+
+    const companyList = await this.loadCompanyListFromCachedUrl();
+    const refreshedCompany = companyList.companies.find(
+      (candidate) => candidate.identificacao === company.identificacao,
+    );
+    if (!refreshedCompany) {
+      throw this.buildError(
+        'company_context_refresh',
+        companyList.response,
+        `A empresa ${company.identificacao} nao foi encontrada ao recarregar a lista autenticada da Caixa Postal.`,
+      );
+    }
+
+    this.lastResolvedCompanyId = refreshedCompany.identificacao;
+    return refreshedCompany;
+  }
+
+  private async loadCompanyListFromPortal(): Promise<{
+    companies: CompanyLink[];
+    response: HttpResponse;
+  }> {
+    const caixaPostalUrl = await this.resolveCaixaPostalListUrl();
+    return this.loadCompanyListFromUrl(caixaPostalUrl);
+  }
+
+  private async loadCompanyListFromCachedUrl(): Promise<{
+    companies: CompanyLink[];
+    response: HttpResponse;
+  }> {
+    if (!this.caixaPostalListUrl) {
+      return this.loadCompanyListFromPortal();
+    }
+
+    return this.loadCompanyListFromUrl(this.caixaPostalListUrl);
+  }
+
+  private async resolveCaixaPostalListUrl(): Promise<string> {
+    const portalResponse = await this.request(PORTAL_URL);
+    const caixaPostalUrl = extractCaixaPostalUrl(portalResponse.text, portalResponse.url);
+    if (!caixaPostalUrl) {
+      throw this.buildError(
+        'caixa_postal_menu',
+        portalResponse,
+        'Nao foi possivel localizar o link da Caixa Postal no portal autenticado.',
+      );
+    }
+
+    this.caixaPostalListUrl = caixaPostalUrl;
+    return caixaPostalUrl;
+  }
+
+  private async loadCompanyListFromUrl(url: string): Promise<{
+    companies: CompanyLink[];
+    response: HttpResponse;
+  }> {
+    const companyListResponse = await this.request(url);
+    const companies = extractCompanies(companyListResponse.text, companyListResponse.url);
+    if (companies.length === 0) {
+      throw this.buildError(
+        'caixa_postal_list',
+        companyListResponse,
+        'A lista HTTP da Caixa Postal foi carregada, mas nenhuma empresa foi extraida da tabela principal.',
+      );
+    }
+
+    return {
+      companies,
+      response: companyListResponse,
     };
   }
 

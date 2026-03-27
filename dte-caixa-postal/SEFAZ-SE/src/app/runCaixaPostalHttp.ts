@@ -38,7 +38,9 @@ export async function runCaixaPostalHttp(
     );
 
     try {
-      const { unreadMessages, readMessages } = await client.getCompanyMessages(company);
+      const { unreadMessages, readMessages } = await client.getCompanyMessages(company, {
+        onContextRefresh: (message) => emitLog(callbacks, 'info', message),
+      });
       const artifacts = buildCompanyArtifacts(company, unreadMessages, readMessages, referenceDate);
       rows.push(artifacts.row);
       messages.push(...artifacts.messages);
