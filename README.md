@@ -75,6 +75,12 @@ Detalhes em [docs/REPOSITORY_CONVENTIONS.md](docs/REPOSITORY_CONVENTIONS.md).
 | `Parcelamentos/SEFAZ-BA/` | Node.js/TypeScript | Ativo | Consulta/extracao de parcelamentos na SEFAZ BA | `npm test` ou `npm run start` |
 | `Parcelamentos/SEFAZ-SE/` | Node.js/TypeScript | Ativo | Consulta/extracao de parcelamentos na SEFAZ SE | conforme `README.md` |
 
+### SEFAZ
+
+| Caminho | Stack | Status | Objetivo | Execucao |
+| --- | --- | --- | --- | --- |
+| `baixar-e-solicitar-xml-sefaz/` | Python | Ativo | Consultar, baixar e tratar XMLs da SEFAZ com utilitarios operacionais | conforme `README.md` |
+
 ### Sieg
 
 | Caminho | Stack | Status | Objetivo | Execucao |

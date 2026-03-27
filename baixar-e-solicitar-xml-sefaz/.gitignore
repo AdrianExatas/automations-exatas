@@ -1,0 +1,40 @@
+# Local runtime data
+_local/
+.env
+
+# Python cache and build
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+build/
+dist/
+*.egg-info/
+
+# Virtual environments
+venv/
+env/
+.venv/
+ENV/
+
+# Local docs and editor data
+.cursor/
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Temporary files
+*.tmp
+temp/
+tmp/
+
+# Local data files
+*.log
+*.pkl
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
