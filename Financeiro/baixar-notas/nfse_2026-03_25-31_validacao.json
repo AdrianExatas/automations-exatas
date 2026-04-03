@@ -1,0 +1,605 @@
+[
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "8LXQ-8ITY",
+    "nNumeroNFSe": "202600000000162",
+    "Emissao": {
+      "cDataEmissao": "26/03/2026",
+      "cHoraEmissao": "09:04:48"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "NUT5-2YBQ",
+    "nNumeroNFSe": "202600000000163",
+    "Emissao": {
+      "cDataEmissao": "26/03/2026",
+      "cHoraEmissao": "09:19:05"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "LY37-KN16",
+    "nNumeroNFSe": "202600000000164",
+    "Emissao": {
+      "cDataEmissao": "26/03/2026",
+      "cHoraEmissao": "09:24:40"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "6Q7S-R8IH",
+    "nNumeroNFSe": "202600000000165",
+    "Emissao": {
+      "cDataEmissao": "26/03/2026",
+      "cHoraEmissao": "09:28:25"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "NUT5-2YBT",
+    "nNumeroNFSe": "202600000000166",
+    "Emissao": {
+      "cDataEmissao": "26/03/2026",
+      "cHoraEmissao": "09:33:53"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "I5LC-M2E3",
+    "nNumeroNFSe": "202600000000167",
+    "Emissao": {
+      "cDataEmissao": "26/03/2026",
+      "cHoraEmissao": "09:35:51"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "4TGV-9X7Z",
+    "nNumeroNFSe": "202600000000168",
+    "Emissao": {
+      "cDataEmissao": "26/03/2026",
+      "cHoraEmissao": "09:45:51"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "CFEK-75GD",
+    "nNumeroNFSe": "202600000000169",
+    "Emissao": {
+      "cDataEmissao": "26/03/2026",
+      "cHoraEmissao": "09:45:52"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "G8VF-5R6N",
+    "nNumeroNFSe": "202600000000170",
+    "Emissao": {
+      "cDataEmissao": "26/03/2026",
+      "cHoraEmissao": "17:12:50"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "K2CA-4E12",
+    "nNumeroNFSe": "202600000000171",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:56:57"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "I5LC-M3PH",
+    "nNumeroNFSe": "202600000000172",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:56:59"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "2WQX-SN7T",
+    "nNumeroNFSe": "202600000000173",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:57:02"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "EC5H-NH3D",
+    "nNumeroNFSe": "202600000000174",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:57:04"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "NUT5-2ZMC",
+    "nNumeroNFSe": "202600000000175",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:57:06"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "G8VF-5SE1",
+    "nNumeroNFSe": "202600000000176",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:57:08"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "8LXQ-8K5P",
+    "nNumeroNFSe": "202600000000177",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:57:10"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "6Q7S-R9U5",
+    "nNumeroNFSe": "202600000000178",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:57:11"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "CFEK-76RX",
+    "nNumeroNFSe": "202600000000179",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:57:13"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "CFEK-76RY",
+    "nNumeroNFSe": "202600000000180",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:57:15"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "K2CA-4E1C",
+    "nNumeroNFSe": "202600000000181",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:57:18"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "QRJ2-JAY5",
+    "nNumeroNFSe": "202600000000182",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:57:22"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "G8VF-5SE8",
+    "nNumeroNFSe": "202600000000183",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:57:24"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "SN9Z-1L9S",
+    "nNumeroNFSe": "202600000000184",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:57:27"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "QRJ2-JAY8",
+    "nNumeroNFSe": "202600000000185",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:57:29"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "CFEK-76S5",
+    "nNumeroNFSe": "202600000000186",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:57:31"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "G8VF-5SEC",
+    "nNumeroNFSe": "202600000000187",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:57:33"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "EC5H-NH3S",
+    "nNumeroNFSe": "202600000000188",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:57:34"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "K2CA-4E1K",
+    "nNumeroNFSe": "202600000000189",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:57:36"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "QRJ2-JAYD",
+    "nNumeroNFSe": "202600000000190",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:57:38"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "QRJ2-JAYE",
+    "nNumeroNFSe": "202600000000191",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:57:40"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "I5LC-M3Q3",
+    "nNumeroNFSe": "202600000000192",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:57:42"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "2WQX-SN8E",
+    "nNumeroNFSe": "202600000000193",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:57:44"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "8LXQ-8K67",
+    "nNumeroNFSe": "202600000000194",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:57:46"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "K2CA-4E1R",
+    "nNumeroNFSe": "202600000000195",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:57:48"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "AINM-PVGU",
+    "nNumeroNFSe": "202600000000196",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:57:50"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "NUT5-2ZMZ",
+    "nNumeroNFSe": "202600000000197",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:57:53"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "CFEK-76SH",
+    "nNumeroNFSe": "202600000000198",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:57:55"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "4TGV-9YJ6",
+    "nNumeroNFSe": "202600000000199",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:57:58"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "EC5H-NH45",
+    "nNumeroNFSe": "202600000000200",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:58:00"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "SN9Z-1LAA",
+    "nNumeroNFSe": "202600000000201",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:58:02"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "CFEK-76SL",
+    "nNumeroNFSe": "202600000000202",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:58:04"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "NUT5-2ZN7",
+    "nNumeroNFSe": "202600000000203",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:58:06"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "NUT5-2ZN8",
+    "nNumeroNFSe": "202600000000204",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:58:08"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "G8VF-5SEW",
+    "nNumeroNFSe": "202600000000205",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:58:10"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "AINM-PVH6",
+    "nNumeroNFSe": "202600000000206",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:58:12"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "LY37-KPCQ",
+    "nNumeroNFSe": "202600000000207",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:58:15"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "4TGV-9YJG",
+    "nNumeroNFSe": "202600000000208",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:58:17"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "K2CA-4E27",
+    "nNumeroNFSe": "202600000000209",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:58:20"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "EC5H-NH4G",
+    "nNumeroNFSe": "202600000000210",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:58:22"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "G8VF-5SF3",
+    "nNumeroNFSe": "202600000000211",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:58:24"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "2WQX-SN8Z",
+    "nNumeroNFSe": "202600000000212",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:58:26"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "EC5H-NH4J",
+    "nNumeroNFSe": "202600000000213",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:58:28"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "NUT5-2ZNI",
+    "nNumeroNFSe": "202600000000214",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:58:30"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "LY37-KPCY",
+    "nNumeroNFSe": "202600000000215",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:58:32"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "G8VF-5SF8",
+    "nNumeroNFSe": "202600000000216",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:58:34"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "LY37-KPD1",
+    "nNumeroNFSe": "202600000000217",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:58:36"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "SN9Z-1LAT",
+    "nNumeroNFSe": "202600000000218",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:58:38"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "EC5H-NH4Q",
+    "nNumeroNFSe": "202600000000219",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:58:40"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "8LXQ-8K6Z",
+    "nNumeroNFSe": "202600000000220",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:58:42"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "8LXQ-8K72",
+    "nNumeroNFSe": "202600000000221",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:58:44"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "4TGV-9YJW",
+    "nNumeroNFSe": "202600000000222",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:58:47"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "QRJ2-JAZE",
+    "nNumeroNFSe": "202600000000223",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:58:49"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "G8VF-5SFH",
+    "nNumeroNFSe": "202600000000224",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:58:51"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "LY37-KPDA",
+    "nNumeroNFSe": "202600000000225",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:58:54"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "LY37-KPDB",
+    "nNumeroNFSe": "202600000000226",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:58:56"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "4TGV-9YK2",
+    "nNumeroNFSe": "202600000000227",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:58:58"
+    }
+  },
+  {
+    "cCNPJEmissor": "27.939.154/0001-08",
+    "cCodigoVerifNFSe": "CFEK-76TF",
+    "nNumeroNFSe": "202600000000228",
+    "Emissao": {
+      "cDataEmissao": "31/03/2026",
+      "cHoraEmissao": "16:59:00"
+    }
+  }
+]
