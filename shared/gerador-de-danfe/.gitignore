@@ -1,0 +1,7 @@
+xml/*.xml
+xlsx/*.xlsx
+danfe/*.pdf
+xml/chaves_falha_*.txt
+__pycache__/
+*.xlsx
+~$*.xlsx
