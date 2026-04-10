@@ -23,6 +23,14 @@ export interface ParcelamentoDetalhe {
   totalParcelas: number;
 }
 
+export type ResultadoCalculo =
+  | "rows_immediate"
+  | "rows_after_retry_1"
+  | "rows_after_retry_2"
+  | "alert"
+  | "timeout"
+  | "modal_closed";
+
 export interface RunResult {
   rowNumber: number;
   empresa: string;
@@ -34,6 +42,12 @@ export interface RunResult {
   numeroParcelaEmitida?: number;
   totalParcelas?: number;
   arquivoSalvo?: string;
+  tempoCalculoMs?: number;
+  tentativasCalculo?: number;
+  resultadoCalculo?: ResultadoCalculo;
+  tempoTentativa1Ms?: number;
+  tempoTentativa2Ms?: number;
+  mensagemDiagnostico?: string;
   status: "sucesso" | "erro";
   mensagem: string;
 }

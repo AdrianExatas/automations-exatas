@@ -8,6 +8,7 @@
     "test": "tsx --test test/**/*.test.ts",
     "smoke": "playwright test src/index.spec.ts",
     "smoke:headed": "playwright test src/index.spec.ts --headed",
+    "start:http": "tsx src/main-http.ts",
     "spike:capture": "tsx src/spike/capture-network.ts",
     "spike:http": "tsx src/spike/http-parcelamento.ts",
     "chrome:install": "playwright install chrome"

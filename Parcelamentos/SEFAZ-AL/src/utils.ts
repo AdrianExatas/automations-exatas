@@ -68,6 +68,26 @@ export function parseParcelasTotais(value: string): { parcelasJaPagas: number; t
   };
 }
 
+/** Converte ISO date string para DD-MM-YYYY. Ex: "2026-04-30T23:59:59-03:00" -> "30-04-2026" */
+export function formatVencimento(isoDate: string): string {
+  const datePart = isoDate.split("T")[0] ?? isoDate;
+  const [year, month, day] = datePart.split("-");
+  return `${day}-${month}-${year}`;
+}
+
+/** Filename com empresa e vencimento, usado pelo start:http */
+export function buildPdfFileNameHttp(
+  consolidacao: string,
+  empresa: string,
+  numeroParcelaEmitida: number,
+  totalParcelas: number,
+  vencimentoDDMMYYYY: string,
+): string {
+  return sanitizePathSegment(
+    `PARCELA N°${numeroParcelaEmitida} DE ${totalParcelas} - ${consolidacao} - ${empresa} - Vencimento ${vencimentoDDMMYYYY}.pdf`,
+  );
+}
+
 export function timestampForFile(date = new Date()): string {
   const year = String(date.getFullYear());
   const month = String(date.getMonth() + 1).padStart(2, "0");

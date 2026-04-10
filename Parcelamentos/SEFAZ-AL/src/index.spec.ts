@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { test, expect } from "@playwright/test";
-import { PORTAL_URL } from "./portal.js";
+import { expect, test } from "@playwright/test";
+import { PORTAL_URL, calculateParcelaWithRetry, waitForConsolidacoesState } from "./portal.js";
 
 const OUTPUT_DIR = path.resolve(process.cwd(), "output", "playwright", "smoke");
 
@@ -12,30 +12,38 @@ test("smoke: baixa o boleto atual de um parcelamento da SEFAZ-AL", async ({ page
 
   await page.goto(PORTAL_URL, { waitUntil: "domcontentloaded" });
   await page.locator("#link-acesso-parcelamento").click();
-  await page.getByRole("textbox", { name: "Usuário" }).fill(process.env.SEFAZ_AL_USUARIO!);
-  await page.getByRole("textbox", { name: "Senha" }).fill(process.env.SEFAZ_AL_SENHA!);
-  await page.getByRole("button", { name: "Acessar" }).click();
 
-  await expect(page.getByRole("link", { name: /Consolidações \/ Parcela/i })).toBeVisible({ timeout: 30_000 });
-  await page.getByRole("link", { name: /Consolidações \/ Parcela/i }).click();
+  const loginModal = page.locator("ngb-modal-window");
+  await loginModal.locator("#username").waitFor({ state: "visible", timeout: 30_000 });
+  await loginModal.locator("#username").fill(process.env.SEFAZ_AL_USUARIO!);
+  await loginModal.locator("#password").fill(process.env.SEFAZ_AL_SENHA!);
+  await loginModal.getByRole("button", { name: /Acessar/i }).click();
 
-  const rows = page.locator("#datatable-0 tbody tr.data-table-row");
-  await expect(rows.first()).toBeVisible({ timeout: 30_000 });
+  const consolidacoesLink = page.locator('a.btn.btn-sq-lg.btn-primary[href="#/consolidacao"]').first();
+  await expect(consolidacoesLink).toBeVisible({ timeout: 30_000 });
+  await consolidacoesLink.click();
+
+  const rows = page.locator("table.data-table tbody tr.data-table-row");
+  const listingState = await waitForConsolidacoesState(page);
+  test.skip(listingState === "empty", "Portal sem consolidacoes para a situacao selecionada.");
 
   const targetConsolidacao = process.env.SEFAZ_AL_CONSOLIDACAO;
-  const targetRow = targetConsolidacao
-    ? rows.filter({ hasText: targetConsolidacao }).first()
-    : rows.first();
+  const targetRow = targetConsolidacao ? rows.filter({ hasText: targetConsolidacao }).first() : rows.first();
 
   await expect(targetRow).toBeVisible({ timeout: 30_000 });
-  await targetRow.locator('button[title^="Emissão de parcelas/Extrato"]').click();
+  await targetRow.locator('td.column-opcoes button[title*="parcelas/Extrato"]').first().click();
 
   const modal = page.locator("ngb-modal-window .modal-content");
-  await expect(modal).toBeVisible({ timeout: 30_000 });
+  await expect(modal.locator("#quantidade")).toBeVisible({ timeout: 30_000 });
 
-  await modal.getByRole("spinbutton", { name: /Quantidade/i }).fill("1");
-  await modal.getByRole("button", { name: "Calcular Parcela" }).click();
-  await expect(modal.locator("table.table-parcelas tbody tr").first()).toBeVisible({ timeout: 30_000 });
+  const calculationState = await calculateParcelaWithRetry(modal);
+  if (calculationState.status === "alert") {
+    throw new Error(calculationState.message);
+  }
+
+  if (calculationState.status === "timeout") {
+    throw new Error("O calculo da parcela nao retornou apos 2 tentativas.");
+  }
 
   const downloadPromise = page.waitForEvent("download");
   await modal.locator("table.table-parcelas tbody tr button.btn.btn-primary").first().click();

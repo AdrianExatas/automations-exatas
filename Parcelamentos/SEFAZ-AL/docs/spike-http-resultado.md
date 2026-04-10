@@ -2,31 +2,62 @@
 
 ## Conclusão (viabilidade)
 
-**Parcialmente viável e promissora.** O front-end (JHipster/Angular) chama APIs REST sob o prefixo `https://contribuinte.sefaz.al.gov.br/parcelamento/`, com autenticação por **JWT** retornado em `POST .../sfz-security-api/api/autenticar` (corpo `{ username, password, rememberMe }`, campo `token` na resposta de sucesso). As etapas de listagem/emissão expostas no bundle incluem:
+**VIÁVEL.** Validado com dados reais (DONA MARIA VARIEDADES LTDA, `numeroPessoa=5114260`): o fluxo completo — login → listar consolidações → calcular parcela → emitir DAR → baixar PDF — funciona **100% via HTTP**, sem browser.
 
-- `GET .../sfz-pessoa-api/api/pessoa?numeroDocumento=...` → `numeroPessoa`
-- `POST .../sfz-parcelamento-api/api/consolidacao/consultar` → lista de consolidações (corpo exato pode depender do perfil; o PoC tenta variantes)
-- `GET .../sfz-parcelamento-api/api/parcelamento/gerar/{sequencial}/1/null` (cálculo)
-- `GET .../sfz-parcelamento-api/api/parcelamento/{sequencial}/1/null` (PDF)
+PDF gerado: `output/spike/boleto-http-spike.pdf` (118 265 bytes, assinatura `%PDF` válida).
 
-Isso indica que **não é obrigatório usar browser** para o happy path, desde que o JWT e os DTOs estejam corretos.
+## Fluxo correto descoberto
+
+### Endpoints (prefixo: `https://contribuinte.sefaz.al.gov.br/parcelamento`)
+
+| # | Método | Endpoint | Observação |
+|---|--------|----------|------------|
+| 1 | POST | `/sfz-security-api/api/autenticar` | Corpo `{username, password, rememberMe:true}`; resposta: `{token}` |
+| 2 | GET  | `/api/account` | Autenticado; retorna `{numeroPessoa, login, ...}` |
+| 3 | POST | `/sfz-parcelamento-api/api/consolidacao/consultar` | Header **`x-pessoadetrabalho: {numeroPessoa}`**, body `{}` |
+| 4 | GET  | `/sfz-parcelamento-api/api/parcelamento/gerar/{id}/1/{data}` | `id` = `consolidacao.id`; `data` = hoje `YYYY-MM-DD`; retorna cálculo |
+| 5 | GET  | `/sfz-parcelamento-api/api/parcelamento/{id}/1/{data}` | Emite o DAR; retorna `{numeroProcessamento, dataVencimentoMaximo, ...}` |
+| 6 | POST | `/sfz-parcelamento-api/api/dar/visualizar` | Corpo `{informacoesDar:[{numeroProcessamento, dataVencimento}]}`; `Accept: application/octet-stream`; resposta: PDF binário |
+
+### Cabeçalhos obrigatórios em todas as chamadas autenticadas
+- `Authorization: Bearer {token}` (JWT do passo 1)
+- `x-pessoadetrabalho: {numeroPessoa}` (obtido no passo 2 via `/api/account`)
+
+### Formato de `dataVencimento` (passo 6)
+Extraído de `dataVencimentoMaximo` (passo 5), convertido para meia-noite no fuso `America/Maceio` (UTC-3):
+```
+"2026-04-30T23:59:59-03:00" → "2026-04-30T00:00:00-03:00"
+```
+
+### Descobertas durante o spike
+
+| Hipótese inicial | Realidade confirmada |
+|---|---|
+| `numPessoa` como header do consultar | Header correto é `x-pessoadetrabalho` |
+| `numeroPessoa` via `/sfz-pessoa-api/api/pessoa` | Vem diretamente de `GET /api/account` |
+| PDF retornado pelo endpoint emitir | PDF vem de `POST /dar/visualizar` com `numeroProcessamento` |
+| `dataPagamento=null` aceito | Obrigatório passar data real (`YYYY-MM-DD`) |
+| Campo `sequencial` nas consolidações | Campo correto é `id` |
+| Corpo com `numPessoa` no POST consultar | Body deve ser `{}` vazio |
 
 ## Riscos e limitações
 
-- APIs **não documentadas** publicamente; mudanças no gateway ou nos serviços podem quebrar o cliente HTTP.
-- O corpo de `consolidacao/consultar` no Angular usa, em um fluxo, `obterParametrosIpva()` (`placa`/`renavam` da sessão); contribuintes com login usuário/senha podem exigir outro shape — o PoC tenta `numPessoa` e `placa`/`renavam` nulos. Ajuste fino deve usar o log de `npm run spike:capture`.
-- Possíveis **regras de negócio** (situação da consolidação, recaptcha em alguns fluxos) não foram validadas em todos os cenários.
+- APIs **não documentadas** publicamente; mudanças no gateway podem quebrar o cliente HTTP.
+- `numeroProcessamento` retorna `null` se o mesmo `consolidacaoId` é chamado repetidamente na mesma sessão (cache Redis). O script trata isso tentando uma consolidação alternativa.
+- Filtro de situações ativas (DAR, CONFIRMADO, PARCELADO, ATRASO, SIMULACAO) precisa estar alinhado com o que o portal exibe.
+- Empresas sem consolidações ativas (ex: CLORUS QUIMICA com situação CDA) retornam 404 ou lista vazia — tratado como saída limpa, sem erro.
 - **Conformidade**: uso direto das APIs deve ser alinhado aos termos do portal.
 
 ## O que foi entregue na branch
 
 | Artefato | Função |
 |----------|--------|
-| `npm run spike:capture -- --input ./EmpresasAlagoas.xlsx [--row N] [--headed]` | Playwright: login com planilha, fluxo até download, grava `output/spike/network-capture.jsonl` (URLs/métodos/status; corpos e headers sensíveis redigidos). |
-| `npm run spike:http -- --input ./EmpresasAlagoas.xlsx [--row N] [--sequencial S]` | PoC só com `fetch`: autentica, consulta pessoa, lista consolidações, gera parcela e grava PDF em `output/spike/boleto-http-spike.pdf` (ou `--out`). |
+| `npm run spike:capture -- --input ./EmpresasAlagoas.xlsx [--row N] [--headed]` | Playwright: login com planilha, fluxo até consolidações, grava `output/spike/network-capture.jsonl` (URLs/métodos/status/headers; corpos e tokens sensíveis redigidos). |
+| `npm run spike:http -- --input ./EmpresasAlagoas.xlsx [--row N] [--consolidacao ID]` | PoC só com `fetch`: autentica, lista consolidações, calcula parcela, emite DAR e grava PDF em `output/spike/boleto-http-spike.pdf`. **Validado com dados reais.** |
 
 ## Próximos passos sugeridos
 
-1. Rodar `spike:capture` com uma empresa real e confirmar no JSONL o corpo exato de `consolidacao/consultar` e eventuais headers extras.
-2. Se `spike:http` falhar só no `consultar`, alinhar o corpo ao registro da captura e remover tentativas redundantes no PoC.
-3. Só então extrair um cliente HTTP estável (módulo dedicado) e decidir se convive com Playwright como fallback.
+1. **Extrair cliente HTTP estável**: mover o fluxo do `spike:http` para um módulo dedicado (`src/http-client.ts`) substituindo ou convivendo com o Playwright.
+2. **Processar múltiplas empresas**: adaptar o loop de `src/main.ts` para usar o cliente HTTP, com fallback para Playwright em caso de erro.
+3. **Cache Redis**: se `numeroProcessamento` vier nulo (segunda chamada mesma consolidação), tentar a próxima consolidação ativa da lista (já implementado no PoC).
+4. **Tratamento de situações**: alinhar o filtro `SITUACOES_ATIVAS` com o que o portal exibe por padrão (hoje: DAR, CONFIRMADO, PARCELADO, ATRASO, SIMULACAO).

@@ -93,6 +93,12 @@ export async function writeResultWorkbook(results: RunResult[], cwd: string): Pr
     PARCELA_EMITIDA: result.numeroParcelaEmitida ?? "",
     TOTAL_PARCELAS: result.totalParcelas ?? "",
     ARQUIVO_SALVO: result.arquivoSalvo ?? "",
+    TEMPO_CALCULO_MS: result.tempoCalculoMs ?? "",
+    TENTATIVAS_CALCULO: result.tentativasCalculo ?? "",
+    RESULTADO_CALCULO: result.resultadoCalculo ?? "",
+    TEMPO_TENTATIVA_1_MS: result.tempoTentativa1Ms ?? "",
+    TEMPO_TENTATIVA_2_MS: result.tempoTentativa2Ms ?? "",
+    MENSAGEM_DIAGNOSTICO: result.mensagemDiagnostico ?? "",
     STATUS: result.status,
     MENSAGEM: result.mensagem,
   }));
