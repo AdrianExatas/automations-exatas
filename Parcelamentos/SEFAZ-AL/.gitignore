@@ -2,3 +2,9 @@ node_modules/
 dist/
 output/
 .playwright/
+
+# Dados locais / spike
+EmpresasAlagoas.xlsx
+*.har
+.tmp-*
+.tmp-*.json
