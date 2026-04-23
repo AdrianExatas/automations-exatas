@@ -1,0 +1,64 @@
+{
+  "name": "sefaz-se-dia-new",
+  "version": "1.0.0",
+  "description": "Aplicacao desktop para baixar demonstrativos DIA da SEFAZ-SE.",
+  "author": "Exatas",
+  "private": true,
+  "type": "module",
+  "main": "dist/electron/main.js",
+  "scripts": {
+    "build": "bun run build:main && bun run build:preload && bun run build:renderer && bun run build:assets",
+    "build:main": "bun build src/electron/main.ts --target=node --outdir=dist/electron --external=electron --sourcemap=external",
+    "build:preload": "bun build src/electron/preload.ts --target=node --format=cjs --outfile=dist/electron/preload.cjs --external=electron",
+    "build:renderer": "bun build src/electron/renderer.ts --target=browser --outdir=dist/electron --sourcemap=external",
+    "build:assets": "bun run scripts/copy-electron-assets.ts",
+    "desktop:dev": "bun run build && electron .",
+    "desktop:dist": "bun run build && electron-builder --win nsis",
+    "start": "bun run src/main.ts",
+    "test": "bun test",
+    "typecheck": "bunx tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.3.4",
+    "@types/node": "^22.15.3",
+    "electron": "^38.5.0",
+    "electron-builder": "^26.0.12",
+    "playwright": "^1.58.2",
+    "typescript": "^5.9.3"
+  },
+  "build": {
+    "appId": "br.com.exatas.sefaz.se.dia",
+    "productName": "SEFAZ-SE DIA",
+    "directories": {
+      "output": "release"
+    },
+    "toolsets": {
+      "winCodeSign": null
+    },
+    "files": [
+      "dist/electron/**/*",
+      "package.json",
+      "!node_modules/playwright{,/**}",
+      "!node_modules/playwright-core{,/**}",
+      "!**/.tmp-playwright{,/**}",
+      "!**/ms-playwright{,/**}"
+    ],
+    "asar": true,
+    "win": {
+      "signAndEditExecutable": false,
+      "verifyUpdateCodeSignature": false,
+      "target": [
+        "nsis"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "packElevateHelper": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+}
