@@ -1,0 +1,19 @@
+[project]
+name = "provisao-decimo-terceiro-splitter"
+version = "0.1.0"
+description = "Separa relatorios PDF de provisao de decimo terceiro por empresa."
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "pypdf>=5.4.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pyinstaller>=6.15.0",
+    "pytest>=8.3.5",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
