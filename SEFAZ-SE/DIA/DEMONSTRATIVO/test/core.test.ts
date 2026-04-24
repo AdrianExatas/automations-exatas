@@ -1,15 +1,24 @@
 import { describe, expect, test } from "bun:test";
+import { mkdir, mkdtemp, rm } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import path from "node:path";
+import * as XLSX from "xlsx";
 import { parseCompetencia, previousMonthCompetencia } from "../src/dates";
 import { buildCompanyLabel, sanitizePathPart } from "../src/downloads";
+import { buildRunConfig, buildXmlDownloadConfig } from "../src/electron/request-builders";
 import { isNonRetriablePortalError } from "../src/errors";
 import { buildDetailRows, buildSummaryRows } from "../src/excel-report";
+import { HttpClient } from "../src/http-client";
 import {
   extractDemonstrativoLink,
   extractExcelDownloaderPath,
   extractPdfPath,
   parseCompanies,
 } from "../src/parser";
+import { isPlaywrightFallbackEnabled, shouldSaveCheckpoint } from "../src/runner";
 import { isPdf, isXls } from "../src/signatures";
+import { inferXmlType, parseSiegXmlResponse, SiegXmlClient } from "../src/sieg-client";
+import { extractAccessKeysFromWorkbook, findDiaXlsReports, saveXmlReports, shouldSaveXmlCheckpoint } from "../src/xml-downloads";
 
 describe("competencia", () => {
   test("calcula mes anterior comum", () => {
@@ -68,6 +77,73 @@ describe("assinaturas", () => {
 
   test("valida XLS OLE", () => {
     expect(isXls(new Uint8Array([0xd0, 0xcf, 0x11, 0xe0, 0xa1, 0xb1, 0x1a, 0xe1]))).toBe(true);
+  });
+});
+
+describe("http client", () => {
+  test("segue redirect e preserva cookies", async () => {
+    const server = Bun.serve({
+      port: 0,
+      fetch(request) {
+        const url = new URL(request.url);
+        if (url.pathname === "/set") {
+          return new Response("set", { headers: { "set-cookie": "sid=abc; Path=/" } });
+        }
+        if (url.pathname === "/redirect") {
+          return new Response("", { status: 302, headers: { location: "/echo" } });
+        }
+        if (url.pathname === "/echo") {
+          return new Response(request.headers.get("cookie") ?? "");
+        }
+        return new Response("not found", { status: 404 });
+      },
+    });
+
+    try {
+      const client = new HttpClient(String(server.url), 500);
+      await client.get("/set");
+      const result = await client.get("/redirect");
+      expect(decodeBytes(result.bytes)).toBe("sid=abc");
+      expect(result.status).toBe(200);
+    } finally {
+      await server.stop(true);
+    }
+  });
+
+  test("falha explicitamente em HTTP nao 2xx", async () => {
+    const server = Bun.serve({
+      port: 0,
+      fetch: () => new Response("falha do portal", { status: 500 }),
+    });
+
+    try {
+      const client = new HttpClient(String(server.url), 500);
+      await expect(client.get("/erro")).rejects.toThrow("HTTP 500");
+      await expect(client.get("/erro")).rejects.toThrow("falha do portal");
+    } finally {
+      await server.stop(true);
+    }
+  });
+
+  test("respeita timeout e abort externo", async () => {
+    const server = Bun.serve({
+      port: 0,
+      async fetch() {
+        await new Promise((resolve) => setTimeout(resolve, 50));
+        return new Response("lento");
+      },
+    });
+
+    try {
+      const client = new HttpClient(String(server.url), 5);
+      await expect(client.get("/lento")).rejects.toThrow("Timeout");
+
+      const controller = new AbortController();
+      controller.abort();
+      await expect(client.get("/lento", undefined, controller.signal)).rejects.toThrow("Execucao cancelada");
+    } finally {
+      await server.stop(true);
+    }
   });
 });
 
@@ -132,3 +208,152 @@ describe("relatorio excel", () => {
     ]);
   });
 });
+
+describe("electron request builders", () => {
+  test("valida e normaliza request de DIA", () => {
+    const config = buildRunConfig({
+      user: " usuario ",
+      password: "senha",
+      rememberCredentials: false,
+      competencia: "2026-03",
+      formats: ["pdf", "xls", "zip" as never],
+      outDir: " saida ",
+    });
+
+    expect(config.user).toBe("usuario");
+    expect(config.formats).toEqual(["pdf", "xls"]);
+    expect(config.outDir).toBe("saida");
+    expect(config.competencia.value).toBe("2026-03");
+  });
+
+  test("valida request de XML e aceita chave SIEG explicita", () => {
+    const config = buildXmlDownloadConfig({
+      competencia: "2026-03",
+      outDir: " saida ",
+      threads: 2,
+      siegApiKey: " token ",
+    });
+
+    expect(config.outDir).toBe("saida");
+    expect(config.threads).toBe(2);
+    expect(config.apiKey).toBe("token");
+  });
+});
+
+describe("politicas de execucao", () => {
+  test("fallback Playwright fica explicito por configuracao headless", () => {
+    const baseConfig = {
+      user: "u",
+      password: "p",
+      competencia: parseCompetencia("2026-03"),
+      formats: ["pdf"],
+      outDir: "out",
+      timeoutMs: 1000,
+    } as const;
+
+    expect(isPlaywrightFallbackEnabled(baseConfig as never)).toBe(false);
+    expect(isPlaywrightFallbackEnabled({ ...baseConfig, headless: true } as never)).toBe(true);
+  });
+
+  test("checkpoints mantem inicio, intervalos e final", () => {
+    expect(shouldSaveCheckpoint(1, 12)).toBe(true);
+    expect(shouldSaveCheckpoint(2, 12)).toBe(false);
+    expect(shouldSaveCheckpoint(5, 12)).toBe(true);
+    expect(shouldSaveCheckpoint(12, 12)).toBe(true);
+    expect(shouldSaveXmlCheckpoint(10, 25)).toBe(true);
+  });
+});
+
+describe("sieg xml", () => {
+  const chaveNfe = "23260307199805000155550010006489721116133757";
+  const chaveCte = "35250112345678000123570010000000011000000010";
+  const chaveNfce = "35250112345678000123650010000000011000000010";
+
+  test("infere xmlType pelo modelo da chave", () => {
+    expect(inferXmlType(chaveNfe)).toBe(1);
+    expect(inferXmlType(chaveCte)).toBe(2);
+    expect(inferXmlType(chaveNfce)).toBe(4);
+    expect(() => inferXmlType("35250112345678000123670010000000011000000010")).toThrow("Documento modelo 67 nao suportado");
+  });
+
+  test("interpreta respostas aceitas pela API SIEG", () => {
+    expect(parseSiegXmlResponse("<nfeProc />")).toBe("<nfeProc />");
+    expect(parseSiegXmlResponse(JSON.stringify("<nfeProc />"))).toBe("<nfeProc />");
+    expect(parseSiegXmlResponse(JSON.stringify({ Codigo: "<nfeProc />" }))).toBe("<nfeProc />");
+    expect(parseSiegXmlResponse(JSON.stringify({ Mensagens: ["<nfeProc />"] }))).toBe("<nfeProc />");
+    expect(parseSiegXmlResponse(JSON.stringify({ Codigo: "sem xml" }))).toBeUndefined();
+  });
+
+  test("faz retry em falha recuperavel", async () => {
+    const chamadas: string[] = [];
+    const fetchImpl = ((url: RequestInfo | URL) => {
+      chamadas.push(String(url));
+      if (chamadas.length === 1) {
+        return Promise.resolve(new Response("temporario", { status: 503 }));
+      }
+      return Promise.resolve(new Response("<nfeProc />", { status: 200 }));
+    }) as typeof fetch;
+
+    const client = new SiegXmlClient({ apiKey: "token", fetchImpl, retryDelayMs: 0 });
+    await expect(client.downloadXml(chaveNfe)).resolves.toBe("<nfeProc />");
+    expect(chamadas).toHaveLength(2);
+    expect(chamadas[0]).toContain("xmlType=1");
+    expect(chamadas[0]).toContain("api_key=token");
+  });
+
+  test("extrai chaves do XLS e localiza relatorios por empresa", async () => {
+    const temp = await mkdtemp(path.join(tmpdir(), "dia-xml-"));
+    try {
+      const competencia = parseCompetencia("2026-03");
+      const companyDir = path.join(temp, competencia.value, "270599290 - PANIFICAO 3 IRMOS KATUTA LTDA");
+      const xlsPath = path.join(companyDir, "270599290 - PANIFICAO 3 IRMOS KATUTA LTDA_2026-03_dia.xls");
+      await writeWorkbook(xlsPath, [["Chave de Acesso"], [chaveNfe], [chaveNfe]]);
+
+      expect(extractAccessKeysFromWorkbook(xlsPath)).toEqual([chaveNfe]);
+      const reports = await findDiaXlsReports({ competencia, outDir: temp });
+      expect(reports).toHaveLength(1);
+      expect(reports[0]?.company).toEqual({ inscricao: "270599290", nome: "PANIFICAO 3 IRMOS KATUTA LTDA" });
+      expect(reports[0]?.chaves).toEqual([chaveNfe]);
+    } finally {
+      await rm(temp, { recursive: true, force: true });
+    }
+  });
+
+  test("gera relatorio XML", async () => {
+    const temp = await mkdtemp(path.join(tmpdir(), "dia-xml-report-"));
+    try {
+      const competencia = parseCompetencia("2026-03");
+      const paths = await saveXmlReports(
+        { competencia, outDir: temp, apiKey: "token" },
+        [
+          {
+            competencia: competencia.value,
+            inscricao: "270599290",
+            empresa: "PANIFICACAO",
+            xlsPath: "relatorio.xls",
+            chave: chaveNfe,
+            status: "sucesso",
+            path: "XML/chave.xml",
+          },
+        ],
+      );
+      expect(paths.jsonPath.endsWith(path.join("2026-03", "relatorio-xml.json"))).toBe(true);
+      expect(paths.excelPath.endsWith(path.join("2026-03", "relatorio-xml.xlsx"))).toBe(true);
+      const workbook = XLSX.readFile(paths.excelPath);
+      expect(workbook.SheetNames).toEqual(["Resumo", "XMLs"]);
+    } finally {
+      await rm(temp, { recursive: true, force: true });
+    }
+  });
+});
+
+async function writeWorkbook(filePath: string, rows: unknown[][]): Promise<void> {
+  await mkdir(path.dirname(filePath), { recursive: true });
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, XLSX.utils.aoa_to_sheet(rows), "DIA");
+  XLSX.writeFile(workbook, filePath);
+}
+
+function decodeBytes(bytes: Uint8Array): string {
+  return new TextDecoder().decode(bytes);
+}

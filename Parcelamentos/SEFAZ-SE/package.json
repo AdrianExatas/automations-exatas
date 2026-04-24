@@ -1,12 +1,17 @@
 {
   "name": "sefaz-se-parcelamentos-ts",
-  "private": true,
-  "type": "module",
+  "version": "1.0.0",
+  "description": "Automacao e geracao de planilha para parcelamentos SEFAZ-SE",
+  "main": "index.js",
   "scripts": {
     "start": "tsx src/main.ts",
-    "check": "tsc --noEmit",
-    "test": "tsx --test test/**/*.test.ts"
+    "generate-input": "tsx src/generate-input.ts",
+    "test": "node --import tsx --test test/**/*.test.ts",
+    "typecheck": "tsc -p tsconfig.json"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
     "playwright": "^1.58.2",
     "xlsx": "^0.18.5"

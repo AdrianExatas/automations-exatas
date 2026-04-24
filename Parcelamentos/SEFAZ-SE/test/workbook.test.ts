@@ -59,6 +59,7 @@ test("writeResultWorkbook creates output xlsx", async () => {
         vencimento: "16/04/2026",
         valorParcela: "R$ 422,35",
         parcelLabel: "05-07",
+        toast: "Ooops... Ocorreu um erro!: Socio/Solicitante nao esta apto a fazer o pagamento",
         status: "erro",
         mensagem: "falha",
       },
@@ -77,5 +78,7 @@ test("writeResultWorkbook creates output xlsx", async () => {
   assert.equal(rows[0]?.PROTOCOLO, "202501021663");
   assert.equal(rows[0]?.VENCIMENTO, "16/03/2026");
   assert.equal(rows[0]?.VALOR_PARCELA, "R$ 421,35");
+  assert.equal(rows[0]?.TOAST, "");
   assert.equal(rows[1]?.STATUS, "erro");
+  assert.equal(rows[1]?.TOAST, "Ooops... Ocorreu um erro!: Socio/Solicitante nao esta apto a fazer o pagamento");
 });

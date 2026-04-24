@@ -39,3 +39,14 @@ export type DownloadResult = {
   suggestedFilename?: string;
   contentType?: string;
 };
+
+export type XmlDownloadEntry = {
+  competencia: string;
+  inscricao: string;
+  empresa: string;
+  xlsPath: string;
+  chave: string;
+  status: "sucesso" | "erro";
+  path?: string;
+  mensagem?: string;
+};

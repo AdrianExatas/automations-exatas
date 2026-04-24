@@ -4,3 +4,4 @@ downloads/
 .verify-output/
 dist/
 release/
+src/generated/sieg-key.ts

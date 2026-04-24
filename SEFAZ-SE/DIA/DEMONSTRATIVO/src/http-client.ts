@@ -39,11 +39,11 @@ export class HttpClient {
 
   constructor(private readonly baseUrl: string, private readonly timeoutMs: number) {}
 
-  async get(pathOrUrl: string, headers?: HeadersInit): Promise<HttpResult> {
-    return this.request(pathOrUrl, { method: "GET", headers });
+  async get(pathOrUrl: string, headers?: HeadersInit, signal?: AbortSignal): Promise<HttpResult> {
+    return this.request(pathOrUrl, { method: "GET", headers }, 0, signal);
   }
 
-  async postForm(pathOrUrl: string, fields: Record<string, string>, headers?: HeadersInit): Promise<HttpResult> {
+  async postForm(pathOrUrl: string, fields: Record<string, string>, headers?: HeadersInit, signal?: AbortSignal): Promise<HttpResult> {
     return this.request(pathOrUrl, {
       method: "POST",
       headers: {
@@ -51,7 +51,7 @@ export class HttpClient {
         ...headers,
       },
       body: new URLSearchParams(fields),
-    });
+    }, 0, signal);
   }
 
   text(result: HttpResult): string {
@@ -64,14 +64,20 @@ export class HttpClient {
     return new URL(pathOrUrl, this.baseUrl).toString();
   }
 
-  private async request(pathOrUrl: string, init: RequestInit, redirects = 0): Promise<HttpResult> {
+  private async request(pathOrUrl: string, init: RequestInit, redirects = 0, externalSignal?: AbortSignal): Promise<HttpResult> {
     if (redirects > 10) {
       throw new Error("Redirecionamentos em excesso ao acessar a SEFAZ.");
     }
+    throwIfAborted(externalSignal);
 
     const url = this.resolve(pathOrUrl);
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), this.timeoutMs);
+    let timedOut = false;
+    const timeout = setTimeout(() => {
+      timedOut = true;
+      controller.abort();
+    }, this.timeoutMs);
+    const signal = combineSignals(externalSignal, controller.signal);
     const requestHeaders = new Headers(init.headers);
     requestHeaders.set("user-agent", requestHeaders.get("user-agent") ?? DEFAULT_USER_AGENT);
     requestHeaders.set("accept", requestHeaders.get("accept") ?? "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
@@ -84,26 +90,68 @@ export class HttpClient {
         ...init,
         headers: requestHeaders,
         redirect: "manual",
-        signal: controller.signal,
+        signal,
       });
       this.jar.storeFrom(response.headers);
 
       if (response.status >= 300 && response.status < 400) {
         const location = response.headers.get("location");
         if (location) {
-          return this.request(new URL(location, url).toString(), { method: "GET" }, redirects + 1);
+          return this.request(new URL(location, url).toString(), { method: "GET" }, redirects + 1, externalSignal);
         }
+      }
+
+      const bytes = new Uint8Array(await response.arrayBuffer());
+      if (response.status < 200 || response.status >= 300) {
+        throw new Error(buildHttpStatusError(response.status, url, response.headers, bytes));
       }
 
       return {
         url: response.url || url,
         status: response.status,
         headers: response.headers,
-        bytes: new Uint8Array(await response.arrayBuffer()),
+        bytes,
       };
+    } catch (error) {
+      if (timedOut) {
+        throw new Error(`Timeout ao acessar ${url}.`);
+      }
+      throwIfAborted(externalSignal);
+      throw error;
     } finally {
       clearTimeout(timeout);
     }
+  }
+}
+
+function buildHttpStatusError(status: number, url: string, headers: Headers, bytes: Uint8Array): string {
+  const contentType = headers.get("content-type") ?? "";
+  const charset = contentType.match(/charset=([^;\s]+)/i)?.[1] ?? "utf-8";
+  const text = new TextDecoder(charset, { fatal: false }).decode(bytes).replace(/\s+/g, " ").trim();
+  const excerpt = text ? `: ${text.slice(0, 200)}` : "";
+  return `HTTP ${status} ao acessar ${url}${excerpt}`;
+}
+
+function combineSignals(primary: AbortSignal | undefined, secondary: AbortSignal): AbortSignal {
+  if (!primary) {
+    return secondary;
+  }
+
+  const controller = new AbortController();
+  const abort = () => controller.abort();
+  if (primary.aborted || secondary.aborted) {
+    controller.abort();
+  } else {
+    primary.addEventListener("abort", abort, { once: true });
+    secondary.addEventListener("abort", abort, { once: true });
+  }
+
+  return controller.signal;
+}
+
+function throwIfAborted(signal: AbortSignal | undefined): void {
+  if (signal?.aborted) {
+    throw new Error("Execucao cancelada pelo usuario.");
   }
 }
 

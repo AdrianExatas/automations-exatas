@@ -47,6 +47,11 @@ class TestImports(unittest.TestCase):
 
         self.assertTrue(callable(carregar_historico))
 
+    def test_import_consulta_extraordinaria(self):
+        from src.consulta.extraordinaria import ConsultaExtraordinariaService
+
+        self.assertIsNotNone(ConsultaExtraordinariaService)
+
     def test_import_download_checkpoint(self):
         from src.download.checkpoint import salvar_checkpoint
 
@@ -77,6 +82,7 @@ class TestImports(unittest.TestCase):
             "apps/consulta_gui.py",
             "apps/download_gui.py",
             "scripts/executar_consulta.py",
+            "scripts/executar_consulta_extraordinaria.py",
             "scripts/executar_download.py",
             "scripts/executar_upload.py",
             "scripts/processar_xmls_presos.py",
@@ -98,6 +104,10 @@ class TestImports(unittest.TestCase):
                 self.assertIsNotNone(spec.loader)
                 module = importlib.util.module_from_spec(spec)
                 spec.loader.exec_module(module)
+
+    def test_scheduler_script_exists(self):
+        scheduler_script = PROJECT_ROOT / "scripts" / "agendar_consulta_extraordinaria.ps1"
+        self.assertTrue(scheduler_script.exists())
 
 
 if __name__ == "__main__":

@@ -29,6 +29,7 @@ export interface RunResult {
   parcelLabel?: string;
   nomeOriginalPdf?: string;
   pdfPath?: string;
+  toast?: string;
   status: "sucesso" | "erro";
   mensagem: string;
 }
@@ -36,4 +37,26 @@ export interface RunResult {
 export interface CliOptions {
   inputPath: string;
   headed: boolean;
+}
+
+export interface GeneratedInputRow {
+  codigo: string;
+  empresa: string;
+  cnpj: string;
+  inscricaoEstadual: string;
+  cpf: string;
+  saveDir: string;
+}
+
+export interface ParsedCurlRequest {
+  label: string;
+  url: string;
+  headers: string[];
+  taskId: string | null;
+}
+
+export interface CurlExecutionResult {
+  statusCode: number;
+  body: string;
+  stderr: string;
 }

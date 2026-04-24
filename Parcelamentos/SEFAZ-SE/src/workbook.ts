@@ -1,11 +1,20 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import XLSX from "xlsx";
-import type { InputRow, RunResult } from "./types.js";
+import type { GeneratedInputRow, InputRow, RunResult } from "./types.js";
 import { isBlank, normalizeCnpj, normalizeCpf, normalizeIe, timestampForFile } from "./utils.js";
 
 const REQUIRED_HEADERS = [
   "CODIGO",
+  "INSCRICAO ESTADUAL",
+  "CPF",
+  "LOCAL PARA SALVAR ARQUIVO",
+] as const;
+
+const TEMPLATE_HEADERS = [
+  "CODIGO",
+  "EMPRESA",
+  "CNPJ",
   "INSCRICAO ESTADUAL",
   "CPF",
   "LOCAL PARA SALVAR ARQUIVO",
@@ -110,6 +119,7 @@ export async function writeResultWorkbook(results: RunResult[], cwd: string): Pr
     ROTULO_PARCELA: result.parcelLabel ?? "",
     NOME_ORIGINAL_PDF: result.nomeOriginalPdf ?? "",
     CAMINHO_PDF: result.pdfPath ?? "",
+    TOAST: result.toast ?? "",
     STATUS: result.status,
     MENSAGEM: result.mensagem,
   }));
@@ -120,4 +130,75 @@ export async function writeResultWorkbook(results: RunResult[], cwd: string): Pr
   XLSX.writeFile(workbook, reportPath);
 
   return reportPath;
+}
+
+export async function writePrefilledInputWorkbook(
+  rows: GeneratedInputRow[],
+  templatePath: string,
+  cwd: string,
+): Promise<string> {
+  const workbook = XLSX.readFile(templatePath, { cellDates: false, raw: false });
+  const firstSheetName = workbook.SheetNames[0];
+
+  if (!firstSheetName) {
+    throw new Error("A planilha modelo nao possui nenhuma aba.");
+  }
+
+  const worksheet = workbook.Sheets[firstSheetName];
+  const headers = getWorksheetHeaders(worksheet);
+
+  validateTemplateHeaders(headers);
+
+  const formattedRows = rows.map((row) => ({
+    CODIGO: row.codigo,
+    EMPRESA: row.empresa,
+    CNPJ: row.cnpj,
+    "INSCRICAO ESTADUAL": row.inscricaoEstadual,
+    CPF: row.cpf,
+    "LOCAL PARA SALVAR ARQUIVO": row.saveDir,
+  }));
+  const worksheetRows = formattedRows.map((row) => {
+    const normalizedRow: Record<string, string> = {};
+
+    for (const header of headers) {
+      normalizedRow[header] = String(row[header as keyof typeof row] ?? "");
+    }
+
+    return normalizedRow;
+  });
+
+  workbook.Sheets[firstSheetName] = XLSX.utils.json_to_sheet(worksheetRows, {
+    header: headers,
+    skipHeader: false,
+  });
+
+  const outputDir = path.resolve(cwd, "output");
+  await fs.mkdir(outputDir, { recursive: true });
+
+  const workbookPath = path.join(outputDir, `model-preenchido-${timestampForFile()}.xlsx`);
+  XLSX.writeFile(workbook, workbookPath);
+
+  return workbookPath;
+}
+
+function getWorksheetHeaders(worksheet: XLSX.WorkSheet): string[] {
+  const rowsAsMatrix = XLSX.utils.sheet_to_json<(string | number | boolean | null)[]>(worksheet, {
+    header: 1,
+    raw: false,
+    blankrows: false,
+  });
+
+  return (rowsAsMatrix[0] ?? [])
+    .map((value) => String(value ?? "").trim())
+    .filter(Boolean);
+}
+
+function validateTemplateHeaders(headers: string[]): void {
+  const headerSet = new Set(headers);
+
+  for (const header of TEMPLATE_HEADERS) {
+    if (!headerSet.has(header)) {
+      throw new Error(`A planilha modelo precisa conter a coluna obrigatoria "${header}".`);
+    }
+  }
 }

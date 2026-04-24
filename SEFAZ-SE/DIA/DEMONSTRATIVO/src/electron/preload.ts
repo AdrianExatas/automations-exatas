@@ -1,24 +1,18 @@
 import { contextBridge, ipcRenderer } from "electron";
-import type { RunProgress, RunResult } from "../runner";
-import type { ReportFormat } from "../types";
+import type { RunProgress } from "../runner";
+import type { XmlDownloadProgress } from "../xml-downloads";
+import type { SefazDiaApi, StartRunRequest, StartXmlDownloadRequest } from "./ipc-types";
 
-type StartRunRequest = {
-  user: string;
-  password: string;
-  rememberCredentials: boolean;
-  competencia: string;
-  formats: ReportFormat[];
-  outDir: string;
-};
-
-contextBridge.exposeInMainWorld("sefazDia", {
+const api: SefazDiaApi = {
   getDefaults: () => ipcRenderer.invoke("app:getDefaults") as Promise<{ competencia: string; outDir: string }>,
   getCredentials: () => ipcRenderer.invoke("credentials:get") as Promise<{ user: string; password: string; remembered: boolean }>,
   saveCredentials: (credentials: { user: string; password: string }) => ipcRenderer.invoke("credentials:save", credentials) as Promise<void>,
   clearCredentials: () => ipcRenderer.invoke("credentials:clear") as Promise<void>,
   selectOutDir: () => ipcRenderer.invoke("dialog:selectOutDir") as Promise<string | undefined>,
-  startRun: (request: StartRunRequest) => ipcRenderer.invoke("run:start", request) as Promise<RunResult>,
+  startRun: (request: StartRunRequest) => ipcRenderer.invoke("run:start", request) as ReturnType<SefazDiaApi["startRun"]>,
   cancelRun: () => ipcRenderer.invoke("run:cancel") as Promise<void>,
+  startXmlDownload: (request: StartXmlDownloadRequest) => ipcRenderer.invoke("xml:start", request) as ReturnType<SefazDiaApi["startXmlDownload"]>,
+  cancelXmlDownload: () => ipcRenderer.invoke("xml:cancel") as Promise<void>,
   openPath: (targetPath: string) => ipcRenderer.invoke("shell:openPath", targetPath) as Promise<void>,
   onLog: (callback: (message: string) => void) => {
     const listener = (_event: Electron.IpcRendererEvent, message: string) => callback(message);
@@ -30,4 +24,16 @@ contextBridge.exposeInMainWorld("sefazDia", {
     ipcRenderer.on("run:progress", listener);
     return () => ipcRenderer.off("run:progress", listener);
   },
-});
+  onXmlLog: (callback: (message: string) => void) => {
+    const listener = (_event: Electron.IpcRendererEvent, message: string) => callback(message);
+    ipcRenderer.on("xml:log", listener);
+    return () => ipcRenderer.off("xml:log", listener);
+  },
+  onXmlProgress: (callback: (progress: XmlDownloadProgress) => void) => {
+    const listener = (_event: Electron.IpcRendererEvent, progress: XmlDownloadProgress) => callback(progress);
+    ipcRenderer.on("xml:progress", listener);
+    return () => ipcRenderer.off("xml:progress", listener);
+  },
+};
+
+contextBridge.exposeInMainWorld("sefazDia", api);

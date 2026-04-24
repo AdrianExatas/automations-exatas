@@ -4,6 +4,7 @@ import {
   buildParcelLabel,
   buildPdfFileName,
   extractPdfNumber,
+  formatToastMessage,
   normalizeCpf,
   normalizeDigits,
 } from "../src/utils.js";
@@ -52,5 +53,26 @@ test("buildPdfFileName keeps a safe fallback for invalid due dates", () => {
   assert.equal(
     buildPdfFileName("8", "04-13", "SUPERMERCADO DORIA BOQUIM", ""),
     "8 - PARCELA 04-13 - SUPERMERCADO DORIA BOQUIM - Vencimento.pdf",
+  );
+});
+
+test("formatToastMessage combines title and message", () => {
+  assert.equal(
+    formatToastMessage("Ooops... Ocorreu um erro!", "Socio/Solicitante nao esta apto a fazer o pagamento"),
+    "Ooops... Ocorreu um erro!: Socio/Solicitante nao esta apto a fazer o pagamento",
+  );
+});
+
+test("formatToastMessage returns only the message when title is missing", () => {
+  assert.equal(
+    formatToastMessage("", "Socio/Solicitante nao esta apto a fazer o pagamento"),
+    "Socio/Solicitante nao esta apto a fazer o pagamento",
+  );
+});
+
+test("formatToastMessage normalizes whitespace", () => {
+  assert.equal(
+    formatToastMessage("  Ooops...\n Ocorreu um erro!  ", "  Socio/Solicitante   nao esta apto   "),
+    "Ooops... Ocorreu um erro!: Socio/Solicitante nao esta apto",
   );
 });

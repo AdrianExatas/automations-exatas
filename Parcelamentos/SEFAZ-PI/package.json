@@ -1,0 +1,24 @@
+{
+  "name": "sefaz-pi-parcelamentos-ts",
+  "version": "1.0.0",
+  "description": "Automacao CLI + planilha para parcelamentos ICMS DARWeb SEFAZ-PI",
+  "type": "module",
+  "scripts": {
+    "create-model": "node scripts/create-model.mjs",
+    "start": "tsx src/main.ts",
+    "test": "node --import tsx --test test/**/*.test.ts",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "playwright": "^1.58.2",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  }
+}

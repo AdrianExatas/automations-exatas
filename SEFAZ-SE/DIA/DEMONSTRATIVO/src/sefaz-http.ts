@@ -21,12 +21,12 @@ export class SefazHttpClient {
   private readonly http: HttpClient;
   private demonstrativoHref?: string;
 
-  constructor(timeoutMs: number) {
+  constructor(timeoutMs: number, private readonly signal?: AbortSignal) {
     this.http = new HttpClient(BASE_URL, timeoutMs);
   }
 
   async login(user: string, password: string): Promise<void> {
-    await this.http.get(LOGIN_FORM_URL);
+    await this.http.get(LOGIN_FORM_URL, undefined, this.signal);
     const response = await this.http.postForm(LOGIN_POST_URL, {
       aba: "contabilista",
       UserName: user,
@@ -34,7 +34,7 @@ export class SefazHttpClient {
       submit: " OK ",
       Op: "1",
       Login: "Contabilista",
-    });
+    }, undefined, this.signal);
     const html = this.http.text(response);
     if (!/portal\.jsp/i.test(response.url) && !/logout\.jsp|DIA/i.test(html)) {
       throw new Error("Login HTTP nao confirmou acesso ao portal.");
@@ -69,7 +69,7 @@ export class SefazHttpClient {
       DetailField: "",
       MasterField: "",
       okButton: " Ok ",
-    });
+    }, undefined, this.signal);
 
     const responseHtml = this.http.text(generated);
     const portalError = extractPortalError(responseHtml);
@@ -81,10 +81,10 @@ export class SefazHttpClient {
   }
 
   private async openDemonstrativoForm(): Promise<string> {
-    const portal = await this.http.get(PORTAL_URL);
+    const portal = await this.http.get(PORTAL_URL, undefined, this.signal);
     const portalHtml = this.http.text(portal);
     this.demonstrativoHref = extractDemonstrativoLink(portalHtml);
-    const form = await this.http.get(`/internet/${this.demonstrativoHref.replace(/^\/?internet\//, "")}`);
+    const form = await this.http.get(`/internet/${this.demonstrativoHref.replace(/^\/?internet\//, "")}`, undefined, this.signal);
     const html = this.http.text(form);
     if (!/cdPessoaLookup/i.test(html)) {
       throw new Error("Formulario do Demonstrativo nao carregou por HTTP.");
@@ -104,7 +104,7 @@ export class SefazHttpClient {
       cdPessoaLookup: inscricao,
       DetailField: "",
       MasterField: "",
-    });
+    }, undefined, this.signal);
     const html = this.http.text(response);
     const portalError = extractPortalError(html);
     if (portalError) {
@@ -119,7 +119,7 @@ export class SefazHttpClient {
 
   private async downloadExcel(html: string): Promise<DownloadResult> {
     const downloaderPath = extractExcelDownloaderPath(html);
-    const response = await this.http.get(downloaderPath);
+    const response = await this.http.get(downloaderPath, undefined, this.signal);
     if (!isXls(response.bytes) || looksLikeHtml(response.bytes)) {
       throw new Error("Resposta do Excel nao contem um XLS valido.");
     }
@@ -133,7 +133,7 @@ export class SefazHttpClient {
 
   private async downloadPdf(html: string): Promise<DownloadResult> {
     const pdfPath = extractPdfPath(html);
-    const response = await this.http.get(pdfPath);
+    const response = await this.http.get(pdfPath, undefined, this.signal);
     if (!isPdf(response.bytes) || looksLikeHtml(response.bytes)) {
       throw new Error("Resposta do Jasper nao contem um PDF valido.");
     }

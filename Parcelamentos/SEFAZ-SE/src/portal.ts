@@ -6,6 +6,8 @@ import type { InputRow, ParcelMetadata, RunResult } from "./types.js";
 import {
   buildParcelLabel,
   buildPdfFileName,
+  formatToastMessage,
+  normalizeWhitespace,
   parseInteger,
 } from "./utils.js";
 
@@ -21,11 +23,22 @@ type TableRowInfo = {
   valorParcela: string;
 };
 
+class PortalToastError extends Error {
+  readonly toast: string;
+
+  constructor(contexto: string, toast: string) {
+    super(`${contexto}: ${toast}`);
+    this.name = "PortalToastError";
+    this.toast = toast;
+  }
+}
+
 export async function processPortalRow(browser: Browser, row: InputRow, cwd: string): Promise<RunResult[]> {
   const context = await browser.newContext({
     acceptDownloads: true,
     locale: "pt-BR",
     timezoneId: "America/Sao_Paulo",
+    viewport: { width: 1280, height: 1080 },
   });
   const page = await context.newPage();
   page.setDefaultTimeout(30_000);
@@ -45,23 +58,38 @@ export async function processPortalRow(browser: Browser, row: InputRow, cwd: str
     await confirmButton.click();
 
     const parcelamentosCard = frame.locator('[data-cy="debitos-parcelamentos-card"]');
-    await parcelamentosCard.waitFor({ state: "visible" });
+    await waitForSuccessOrError(
+      frame,
+      "Falha ao carregar os dados da empresa",
+      () => parcelamentosCard.isVisible().catch(() => false),
+      60_000,
+    );
 
     const cardSpinner = parcelamentosCard.locator('[role="progressbar"]');
     if (await cardSpinner.isVisible().catch(() => false)) {
-      await cardSpinner.waitFor({ state: "hidden", timeout: 60_000 });
+      await waitForSuccessOrError(
+        frame,
+        "Falha ao carregar os dados da empresa",
+        () => cardSpinner.isHidden().catch(() => false),
+        60_000,
+      );
     }
 
     await parcelamentosCard.click();
-    await frame.locator('[data-cy="detalhes-debitos-table"]').waitFor({ state: "visible", timeout: 60_000 });
+    await waitForSuccessOrError(
+      frame,
+      "Falha ao carregar a tabela de debitos",
+      () => frame.locator('[data-cy="detalhes-debitos-table"]').isVisible().catch(() => false),
+      60_000,
+    );
 
     let availableRows: TableRowInfo[];
     try {
       availableRows = await collectAvailableRows(frame, row.codigo);
     } catch (error) {
-      const message = error instanceof Error ? error.message : String(error);
-      if (message.includes("Nenhum registro encontrado")) {
-        return [buildErrorResult(row, undefined, message)];
+      const { message, toast } = getErrorDetails(error);
+      if (message.includes("Nenhum registro encontrado") || toast) {
+        return [buildErrorResult(row, undefined, message, toast)];
       }
 
       throw error;
@@ -78,7 +106,18 @@ export async function processPortalRow(browser: Browser, row: InputRow, cwd: str
         await selectDebtRow(frame, availableRow.id);
         selectedParcels.push(metadata);
       } catch (error) {
-        const message = error instanceof Error ? error.message : String(error);
+        const { message, toast } = getErrorDetails(error);
+        if (toast) {
+          if (selectedParcels.length === 0) {
+            return [buildErrorResult(row, undefined, message, toast)];
+          }
+
+          return [
+            ...preDownloadResults,
+            ...selectedParcels.map((metadata) => buildErrorResult(row, metadata, message, toast)),
+          ];
+        }
+
         preDownloadResults.push(
           buildErrorResult(
             row,
@@ -100,16 +139,16 @@ export async function processPortalRow(browser: Browser, row: InputRow, cwd: str
     }
 
     try {
-      await addToCashCart(frame);
+      await addToCashCart(page, frame);
       await openCashCart(frame);
       await goToSummary(frame);
       await generateBoleto(frame);
     } catch (error) {
-      const message = error instanceof Error ? error.message : String(error);
+      const { message, toast } = getErrorDetails(error);
       return [
         ...preDownloadResults,
         ...selectedParcels.map((metadata) =>
-          buildErrorResult(row, metadata, `Falha ao gerar os boletos para a empresa: ${message}`),
+          buildErrorResult(row, metadata, buildFailureMessage("Falha ao gerar os boletos para a empresa", message, toast), toast),
         ),
       ];
     }
@@ -121,10 +160,63 @@ export async function processPortalRow(browser: Browser, row: InputRow, cwd: str
   }
 }
 
+async function dismissPrivacyBannerCore(page: Page): Promise<void> {
+  const acceptButton = page.locator("#accept-button");
+  await acceptButton.scrollIntoViewIfNeeded().catch(() => undefined);
+  try {
+    await acceptButton.click({ timeout: 3_000 });
+  } catch {
+    try {
+      await acceptButton.click({ force: true, timeout: 3_000 });
+    } catch {
+      await page.evaluate(() => {
+        const globalWindow = window as unknown as { acceptPrivacy?: () => void };
+        if (typeof globalWindow.acceptPrivacy === "function") {
+          globalWindow.acceptPrivacy();
+        } else {
+          document.getElementById("accept-button")?.click();
+        }
+      });
+    }
+  }
+  await acceptButton.waitFor({ state: "hidden", timeout: 5_000 }).catch(() => undefined);
+}
+
+/** Aguarda e aceita o banner na carga inicial (evita sair cedo só porque o iframe já está visível). */
 async function acceptPrivacyBanner(page: Page): Promise<void> {
-  const acceptButton = page.getByRole("button", { name: "Aceitar" });
-  if (await acceptButton.isVisible().catch(() => false)) {
-    await acceptButton.click();
+  const acceptButton = page.locator("#accept-button");
+  const deadline = Date.now() + 20_000;
+  let absentStreak = 0;
+
+  while (Date.now() < deadline) {
+    const count = await acceptButton.count().catch(() => 0);
+    if (count > 0) {
+      absentStreak = 0;
+      if (await acceptButton.isVisible().catch(() => false)) {
+        await dismissPrivacyBannerCore(page);
+        return;
+      }
+    } else {
+      absentStreak++;
+      if (absentStreak >= 40) {
+        return;
+      }
+    }
+    await sleep(250);
+  }
+}
+
+/** Remove o banner no documento pai se estiver visível (ex.: antes de clicar no iframe). */
+async function dismissPrivacyBannerIfPresent(page: Page): Promise<void> {
+  const acceptButton = page.locator("#accept-button");
+  const deadline = Date.now() + 3_000;
+
+  while (Date.now() < deadline) {
+    if (await acceptButton.isVisible().catch(() => false)) {
+      await dismissPrivacyBannerCore(page);
+      return;
+    }
+    await sleep(200);
   }
 }
 
@@ -183,6 +275,8 @@ async function waitForDebtRowsOrEmptyState(frame: FrameLocator, codigo: string):
   const deadline = Date.now() + 60_000;
 
   while (Date.now() < deadline) {
+    await throwIfErrorToast(frame, "Falha ao carregar as parcelas disponiveis");
+
     if (await emptyState.isVisible().catch(() => false)) {
       throw new Error(`Nenhum registro encontrado para o codigo ${codigo}.`);
     }
@@ -204,7 +298,12 @@ async function expandRowDetails(frame: FrameLocator, rowId: string): Promise<voi
   }
 
   await frame.locator(`[data-cy="toggle-${rowId}"] button`).click();
-  await detailLocator.waitFor({ state: "visible" });
+  await waitForSuccessOrError(
+    frame,
+    "Falha ao preparar a parcela para emissao",
+    () => detailLocator.isVisible().catch(() => false),
+    30_000,
+  );
 }
 
 async function readRowDetails(frame: FrameLocator, rowId: string): Promise<DetailDictionary> {
@@ -248,31 +347,115 @@ async function selectDebtRow(frame: FrameLocator, rowId: string): Promise<void> 
     await checkbox.click();
   }
 
-  await frame.locator('[data-cy="btn-avista"] button').waitFor({ state: "visible" });
+  await waitForSuccessOrError(
+    frame,
+    "Falha ao selecionar a parcela",
+    () => frame.locator('[data-cy="btn-avista"] button').isVisible().catch(() => false),
+    30_000,
+  );
 }
 
-async function addToCashCart(frame: FrameLocator): Promise<void> {
+async function confirmAddToCashCartModal(frame: FrameLocator): Promise<void> {
+  const modal = frame.locator('[data-cy="modal-adicionar-carrinho"]');
+  const confirmAddButton = frame.locator("button#confirmar-add").or(frame.locator('[data-cy="confirmar-add"] button'));
+
+  await confirmAddButton.waitFor({ state: "attached", timeout: 15_000 });
+
+  await modal
+    .evaluate((root) => {
+      const setMaxScroll = (el: Element) => {
+        const html = el as HTMLElement;
+        if (html.scrollHeight > html.clientHeight) {
+          html.scrollTop = html.scrollHeight;
+        }
+      };
+      setMaxScroll(root);
+      root.querySelectorAll(".p-dialog-content, .p-dialog").forEach(setMaxScroll);
+    })
+    .catch(() => undefined);
+
+  await frame
+    .locator("body")
+    .evaluate(() => {
+      document.documentElement.scrollTop = document.documentElement.scrollHeight;
+      (document.body as HTMLElement).scrollTop = document.body.scrollHeight;
+    })
+    .catch(() => undefined);
+
+  await confirmAddButton
+    .evaluate((button) => {
+      (button as HTMLButtonElement).scrollIntoView({ block: "center", inline: "nearest" });
+    })
+    .catch(() => undefined);
+
+  await confirmAddButton.scrollIntoViewIfNeeded().catch(() => undefined);
+
+  try {
+    await confirmAddButton.click({ timeout: 5_000 });
+  } catch {
+    try {
+      await confirmAddButton.click({ force: true });
+    } catch {
+      await confirmAddButton.evaluate((button) => {
+        (button as HTMLButtonElement).click();
+      });
+    }
+  }
+}
+
+async function addToCashCart(page: Page, frame: FrameLocator): Promise<void> {
   await frame.locator('[data-cy="btn-avista"] button').click();
-  await frame.locator('[data-cy="modal-adicionar-carrinho"]').waitFor({ state: "visible" });
-  await frame.locator('[data-cy="confirmar-add"] button').click();
-  await frame.getByText(/adicionado\(s\) com sucesso/i).waitFor({ state: "visible" });
+  await waitForSuccessOrError(
+    frame,
+    "Falha ao abrir a confirmacao de carrinho",
+    () => frame.locator('[data-cy="modal-adicionar-carrinho"]').isVisible().catch(() => false),
+    30_000,
+  );
+  await dismissPrivacyBannerIfPresent(page);
+  await confirmAddToCashCartModal(frame);
+  await waitForSuccessOrError(
+    frame,
+    "Falha ao adicionar debitos ao carrinho",
+    () => frame.getByText(/adicionado\(s\) com sucesso/i).isVisible().catch(() => false),
+    30_000,
+  );
 }
 
 async function openCashCart(frame: FrameLocator): Promise<void> {
   await frame.locator('div[role="button"]').filter({ hasText: /Carrinhos:/ }).first().click();
-  await frame.locator('[data-cy="botao-a-vista"]').waitFor({ state: "visible" });
+  await waitForSuccessOrError(
+    frame,
+    "Falha ao abrir o carrinho",
+    () => frame.locator('[data-cy="botao-a-vista"]').isVisible().catch(() => false),
+    30_000,
+  );
   await frame.locator('[data-cy="botao-a-vista"]').click();
+  await waitForSuccessOrError(
+    frame,
+    "Falha ao abrir o carrinho a vista",
+    () => frame.locator('[data-cy="botao-avancar"] button').isVisible().catch(() => false),
+    30_000,
+  );
 }
 
 async function goToSummary(frame: FrameLocator): Promise<void> {
-  await frame.locator('[data-cy="botao-avancar"] button').waitFor({ state: "visible" });
   await frame.locator('[data-cy="botao-avancar"] button').click();
-  await frame.locator('[data-cy="botao-gerar-boleto"] button').waitFor({ state: "visible" });
+  await waitForSuccessOrError(
+    frame,
+    "Falha ao avancar para o resumo",
+    () => frame.locator('[data-cy="botao-gerar-boleto"] button').isVisible().catch(() => false),
+    30_000,
+  );
 }
 
 async function generateBoleto(frame: FrameLocator): Promise<void> {
   await frame.locator('[data-cy="botao-gerar-boleto"] button').click();
-  await frame.locator('[data-cy^="pagar-debito-"] button').first().waitFor({ state: "visible", timeout: 60_000 });
+  await waitForSuccessOrError(
+    frame,
+    "Falha ao gerar os boletos",
+    () => frame.locator('[data-cy^="pagar-debito-"] button').first().isVisible().catch(() => false),
+    60_000,
+  );
 }
 
 async function downloadAllPayments(
@@ -296,8 +479,8 @@ async function downloadAllPayments(
       const pdfPath = await saveDownload(download, row, metadata, cwd);
       results.push(buildSuccessResult(row, metadata, originalFilename, pdfPath));
     } catch (error) {
-      const message = error instanceof Error ? error.message : String(error);
-      results.push(buildErrorResult(row, metadata, `Falha ao baixar o PDF da parcela: ${message}`));
+      const { message, toast } = getErrorDetails(error);
+      results.push(buildErrorResult(row, metadata, buildFailureMessage("Falha ao baixar o PDF da parcela", message, toast), toast));
     }
   }
 
@@ -318,11 +501,21 @@ async function downloadAllPayments(
 
 async function openPaymentAndDownload(page: Page, frame: FrameLocator, paymentIndex: number): Promise<Download> {
   const paymentButton = frame.locator('[data-cy^="pagar-debito-"] button').nth(paymentIndex);
-  await paymentButton.waitFor({ state: "visible", timeout: 60_000 });
+  await waitForSuccessOrError(
+    frame,
+    "Falha ao localizar o pagamento da parcela",
+    () => paymentButton.isVisible().catch(() => false),
+    60_000,
+  );
   await paymentButton.click();
 
   const paymentDialog = frame.locator('[data-cy="dialog-arrecadacao-autoreg"]');
-  await paymentDialog.waitFor({ state: "visible" });
+  await waitForSuccessOrError(
+    frame,
+    "Falha ao abrir a arrecadacao da parcela",
+    () => paymentDialog.isVisible().catch(() => false),
+    30_000,
+  );
 
   let observedDownload: Download | null = null;
   let popupOpened = false;
@@ -351,6 +544,8 @@ async function openPaymentAndDownload(page: Page, frame: FrameLocator, paymentIn
         return observedDownload;
       }
 
+      await throwIfErrorToast(frame, "Falha ao baixar o PDF da parcela");
+
       if (popupOpened) {
         throw new Error("Baixar PDF abriu um popup em vez de download.");
       }
@@ -358,6 +553,7 @@ async function openPaymentAndDownload(page: Page, frame: FrameLocator, paymentIn
       await page.waitForTimeout(500);
     }
 
+    await throwIfErrorToast(frame, "Falha ao baixar o PDF da parcela");
     throw new Error("Baixar PDF nao iniciou download dentro do tempo esperado.");
   } finally {
     page.off("download", onDownload);
@@ -434,6 +630,7 @@ function buildErrorResult(
   row: InputRow,
   metadata: Partial<Pick<ParcelMetadata, "protocolo" | "vencimento" | "valorParcela" | "parcelLabel">> | undefined,
   mensagem: string,
+  toast?: string,
 ): RunResult {
   return {
     rowNumber: row.rowNumber,
@@ -444,7 +641,84 @@ function buildErrorResult(
     vencimento: metadata?.vencimento ?? "",
     valorParcela: metadata?.valorParcela,
     parcelLabel: metadata?.parcelLabel,
+    toast,
     status: "erro",
     mensagem,
   };
+}
+
+function getErrorDetails(error: unknown): { message: string; toast?: string } {
+  if (error instanceof PortalToastError) {
+    return {
+      message: error.message,
+      toast: error.toast,
+    };
+  }
+
+  return {
+    message: error instanceof Error ? error.message : String(error),
+  };
+}
+
+function buildFailureMessage(prefixo: string, message: string, toast?: string): string {
+  return toast ? `${prefixo}: ${toast}` : `${prefixo}: ${message}`;
+}
+
+async function waitForSuccessOrError(
+  frame: FrameLocator,
+  contexto: string,
+  successCheck: () => Promise<boolean>,
+  timeoutMs: number,
+): Promise<void> {
+  const deadline = Date.now() + timeoutMs;
+
+  while (Date.now() < deadline) {
+    if (await successCheck()) {
+      return;
+    }
+
+    await throwIfErrorToast(frame, contexto);
+    await sleep(250);
+  }
+
+  await throwIfErrorToast(frame, contexto);
+  throw new Error(`${contexto}: tempo esgotado aguardando a tela responder.`);
+}
+
+function isIgnorablePortalToast(toast: string): boolean {
+  return /integridade de dados/i.test(toast);
+}
+
+async function throwIfErrorToast(frame: FrameLocator, contexto: string): Promise<void> {
+  const toast = await readVisibleErrorToast(frame);
+
+  if (toast && isIgnorablePortalToast(toast)) {
+    return;
+  }
+
+  if (toast) {
+    throw new PortalToastError(contexto, toast);
+  }
+}
+
+async function readVisibleErrorToast(frame: FrameLocator): Promise<string | null> {
+  const toast = frame.locator("#toast-container .toast-error").first();
+  if (!(await toast.isVisible().catch(() => false))) {
+    return null;
+  }
+
+  const content = await toast
+    .evaluate((element) => {
+      const title = element.querySelector(".toast-title")?.textContent ?? "";
+      const message = element.querySelector(".toast-message")?.textContent ?? "";
+      return { title, message };
+    })
+    .catch(() => null);
+
+  if (!content) {
+    return null;
+  }
+
+  const formatted = formatToastMessage(content.title, content.message);
+  return normalizeWhitespace(formatted) || null;
 }

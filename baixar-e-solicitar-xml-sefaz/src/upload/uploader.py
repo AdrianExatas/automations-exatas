@@ -3,14 +3,12 @@ Função principal para upload automático de XMLs para o SIEG
 """
 import os
 import time
-from pathlib import Path
 from typing import Optional, Dict
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from threading import Lock
 
 from src.core.config import PATHS, SIEG_API_KEY
 from src.upload.utils import validar_xml, extrair_chave_acesso, identificar_tipo_xml, obter_tipo_completo_nota
-from src.upload.sieg_api import enviar_xml, verificar_xml_existe
+from src.upload.sieg_api import enviar_xml
 
 
 # Configurações de warm-up (aquecimento gradual)
@@ -24,12 +22,11 @@ WARM_UP_DELAY = 0.2         # Delay entre envios no warm-up (segundos)
 
 # Configurações padrão
 NUM_THREADS_PADRAO = 20
-NUM_THREADS_VERIFICACAO = 20
 
 
 def processar_xml_individual(xml_info: Dict, api_key: Optional[str] = None) -> tuple:
     """
-    Processa um XML individual: valida, verifica existência e envia se necessário
+    Processa um XML individual: valida e envia diretamente
     
     Args:
         xml_info: Dict com informações do XML (caminho, nome, conteudo, chave, tipo)
@@ -46,18 +43,10 @@ def processar_xml_individual(xml_info: Dict, api_key: Optional[str] = None) -> t
     
     nome = xml_info.get('nome', 'Desconhecido')
     conteudo = xml_info.get('conteudo', '')
-    chave = xml_info.get('chave')
     
     # Valida XML
     if not validar_xml(conteudo):
         return False, False, "XML inválido"
-    
-    # Verifica se já existe (se tem chave)
-    ja_existia = False
-    if chave:
-        ja_existia = verificar_xml_existe(chave, api_key)
-        if ja_existia:
-            return True, True, "XML já existe no SIEG"
     
     # Envia XML
     sucesso, msg, _ = enviar_xml(conteudo, api_key, silencioso=True)
@@ -74,7 +63,7 @@ def enviar_automatico(
     num_threads: int = NUM_THREADS_PADRAO
 ) -> Dict:
     """
-    Modo automático: verifica, envia e exclui XMLs sem interação.
+    Modo automático: valida, envia e exclui XMLs sem interação.
     Usa warm-up gradual para evitar sobrecarga no servidor.
     
     Args:
@@ -159,62 +148,15 @@ def enviar_automatico(
         print("\nℹ️  Nenhum XML válido encontrado.")
         return {"total": 0, "enviados": 0, "existentes": 0, "erros": 0}
     
-    # Verificar existência no SIEG (paralelo)
+    # Enviar todos os XMLs validos diretamente, sem consulta previa de existencia.
     print(f"\n{'='*60}")
-    print("🔎 Verificando XMLs existentes no SIEG...")
+    print("Preparando XMLs para envio direto ao SIEG...")
     print("="*60)
-    print("⏳ Verificando duplicados na API...")
+    print("Consulta previa de existencia desativada; todos os XMLs validos serao enviados.")
     
-    xmls_para_enviar = []
+    xmls_para_enviar = xmls_validos
     xmls_ja_existentes = []
-    verificacao_lock = Lock()
-    verificados = 0
-    
-    def verificar_paralelo(xml_info):
-        nonlocal verificados
-        if xml_info['chave']:
-            existe = verificar_xml_existe(xml_info['chave'], api_key)
-        else:
-            existe = False  # Sem chave, assumir que não existe
-        
-        with verificacao_lock:
-            verificados += 1
-            status = "⚠ Existe" if existe else "○ Novo"
-            print(f"[{verificados}/{len(xmls_validos)}] {status}: {xml_info['nome'][:50]}...")
-        
-        return (xml_info, existe)
-    
-    with ThreadPoolExecutor(max_workers=NUM_THREADS_VERIFICACAO) as executor:
-        futures = [executor.submit(verificar_paralelo, xml) for xml in xmls_validos]
-        for future in as_completed(futures):
-            xml_info, existe = future.result()
-            if existe:
-                xmls_ja_existentes.append(xml_info)
-            else:
-                xmls_para_enviar.append(xml_info)
-    
-    print(f"\n📊 Resultado da verificação:")
-    print(f"   ○ Para enviar: {len(xmls_para_enviar)}")
-    print(f"   ⚠ Já existentes: {len(xmls_ja_existentes)}")
-    
-    # Excluir XMLs já existentes
-    if excluir_enviados and xmls_ja_existentes:
-        print(f"\n🗑️  Excluindo {len(xmls_ja_existentes)} XMLs já existentes no SIEG...")
-        for xml_info in xmls_ja_existentes:
-            try:
-                os.remove(xml_info['caminho'])
-            except:
-                pass
-        print("   ✅ Concluído")
-    
-    if not xmls_para_enviar:
-        print("\n✅ Todos os XMLs já estão no SIEG. Nada para enviar!")
-        return {
-            "total": len(xmls_validos),
-            "enviados": 0,
-            "existentes": len(xmls_ja_existentes),
-            "erros": 0
-        }
+    print(f"   Para enviar: {len(xmls_para_enviar)}")
     
     # ENVIO COM WARM-UP
     print(f"\n{'='*60}")
@@ -361,7 +303,7 @@ def enviar_automatico(
     print("📊 RESUMO FINAL DO UPLOAD")
     print("="*60)
     print(f"   📁 Total de XMLs encontrados: {len(xmls_validos)}")
-    print(f"   ⚠️  Já existentes no SIEG: {len(xmls_ja_existentes)}")
+    print(f"   Ja existentes no SIEG: {len(xmls_ja_existentes)} (verificacao previa desativada)")
     print(f"   ✅ Enviados com sucesso: {len(enviados_sucesso)}")
     print(f"   ❌ Erros: {len(erros_envio)}")
     print(f"   ⏱️  Tempo total: {tempo_total:.2f} segundos")

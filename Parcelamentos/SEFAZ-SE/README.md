@@ -13,6 +13,19 @@ npx playwright install chromium
 npm run start -- --input ./model.xlsx
 ```
 
+## Geracao da planilha de entrada
+
+```bash
+npm run generate-input
+```
+
+O comando:
+
+- Le as requisicoes em `requisicoes.txt`.
+- Reexecuta as `curl` para montar a lista de clientes.
+- Recaptura o `JWT_GESTTA` via `shared/onvio-auth` se alguma requisicao retornar `Unauthorized`.
+- Gera uma nova planilha em `output/model-preenchido-<timestamp>.xlsx`.
+
 Para abrir o navegador durante a execucao:
 
 ```bash

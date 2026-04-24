@@ -1,24 +1,8 @@
-import type { RunProgress, RunResult } from "../runner";
+import type { RunProgress } from "../runner";
 import type { ReportFormat } from "../types";
-
-type SefazDiaApi = {
-  getDefaults(): Promise<{ competencia: string; outDir: string }>;
-  getCredentials(): Promise<{ user: string; password: string; remembered: boolean }>;
-  clearCredentials(): Promise<void>;
-  selectOutDir(): Promise<string | undefined>;
-  startRun(request: {
-    user: string;
-    password: string;
-    rememberCredentials: boolean;
-    competencia: string;
-    formats: ReportFormat[];
-    outDir: string;
-  }): Promise<RunResult>;
-  cancelRun(): Promise<void>;
-  openPath(targetPath: string): Promise<void>;
-  onLog(callback: (message: string) => void): () => void;
-  onProgress(callback: (progress: RunProgress) => void): () => void;
-};
+import type { XmlDownloadProgress } from "../xml-downloads";
+import type { SefazDiaApi } from "./ipc-types";
+import { createRendererState, resetRendererState, type RunningMode } from "./renderer-state";
 
 declare global {
   interface Window {
@@ -37,6 +21,7 @@ const outDirInput = byId<HTMLInputElement>("out-dir");
 const selectOutDirButton = byId<HTMLButtonElement>("select-out-dir");
 const forgetButton = byId<HTMLButtonElement>("forget");
 const startButton = byId<HTMLButtonElement>("start");
+const downloadXmlButton = byId<HTMLButtonElement>("download-xml");
 const cancelButton = byId<HTMLButtonElement>("cancel");
 const progressBar = byId<HTMLProgressElement>("progress");
 const progressText = byId<HTMLDivElement>("progress-text");
@@ -47,11 +32,9 @@ const errorCount = byId<HTMLSpanElement>("error-count");
 const totalCount = byId<HTMLSpanElement>("total-count");
 const openFolderButton = byId<HTMLButtonElement>("open-folder");
 const openReportButton = byId<HTMLButtonElement>("open-report");
+const openXmlReportButton = byId<HTMLButtonElement>("open-xml-report");
 
-let lastResult: RunResult | undefined;
-let activeOutDir = "";
-let activeExcelPath = "";
-let activeProcessedCount = 0;
+const state = createRendererState();
 
 if (!window.sefazDia) {
   disableUnavailableInterface();
@@ -60,6 +43,8 @@ if (!window.sefazDia) {
 
 window.sefazDia.onLog((message) => appendLog(message));
 window.sefazDia.onProgress((progress) => updateProgress(progress));
+window.sefazDia.onXmlLog((message) => appendLog(message));
+window.sefazDia.onXmlProgress((progress) => updateXmlProgress(progress));
 
 void initialize().catch((error) => {
   setStatus(`Falha ao iniciar a interface: ${messageOf(error)}`);
@@ -91,20 +76,28 @@ forgetButton.addEventListener("click", async () => {
 });
 
 cancelButton.addEventListener("click", async () => {
-  await window.sefazDia.cancelRun();
+  if (state.runningMode === "xml") {
+    await window.sefazDia.cancelXmlDownload();
+  } else {
+    await window.sefazDia.cancelRun();
+  }
   setStatus("Cancelamento solicitado. A execucao vai parar ao fim da etapa atual.");
 });
 
+downloadXmlButton.addEventListener("click", () => {
+  void startXmlDownload();
+});
+
 openFolderButton.addEventListener("click", async () => {
-  const targetPath = lastResult?.outDir || activeOutDir;
+  const targetPath = state.lastResult?.outDir || state.activeOutDir;
   if (targetPath) {
     await window.sefazDia.openPath(targetPath);
   }
 });
 
 openReportButton.addEventListener("click", async () => {
-  const targetPath = lastResult?.excelPath || activeExcelPath;
-  if (!targetPath || activeProcessedCount === 0) {
+  const targetPath = state.lastResult?.excelPath || state.activeExcelPath;
+  if (!targetPath || state.activeProcessedCount === 0) {
     setStatus("O relatorio sera criado apos o primeiro item processado.");
     return;
   }
@@ -112,6 +105,15 @@ openReportButton.addEventListener("click", async () => {
   if (targetPath) {
     await window.sefazDia.openPath(targetPath);
   }
+});
+
+openXmlReportButton.addEventListener("click", async () => {
+  const targetPath = state.lastXmlResult?.excelPath || state.activeXmlExcelPath;
+  if (!targetPath) {
+    setStatus("O relatorio XML sera criado apos o primeiro XML processado.");
+    return;
+  }
+  await window.sefazDia.openPath(targetPath);
 });
 
 async function initialize(): Promise<void> {
@@ -127,13 +129,13 @@ async function initialize(): Promise<void> {
 async function startRun(): Promise<void> {
   const formats = selectedFormats();
   resetRunState();
-  activeOutDir = outDirInput.value.trim();
-  setRunning(true);
+  state.activeOutDir = outDirInput.value.trim();
+  setRunning("dia");
   refreshOutputButtons();
   setStatus("Iniciando...");
 
   try {
-    lastResult = await window.sefazDia.startRun({
+    state.lastResult = await window.sefazDia.startRun({
       user: userInput.value,
       password: passwordInput.value,
       rememberCredentials: rememberInput.checked,
@@ -141,16 +143,42 @@ async function startRun(): Promise<void> {
       formats,
       outDir: outDirInput.value,
     });
-    successCount.textContent = String(lastResult.successCount);
-    errorCount.textContent = String(lastResult.errorCount);
-    totalCount.textContent = String(lastResult.entries.length);
+    successCount.textContent = String(state.lastResult.successCount);
+    errorCount.textContent = String(state.lastResult.errorCount);
+    totalCount.textContent = String(state.lastResult.entries.length);
     openFolderButton.disabled = false;
     openReportButton.disabled = false;
     setStatus("Execucao concluida.");
   } catch (error) {
     setStatus(messageOf(error));
   } finally {
-    setRunning(false);
+    setRunning(undefined);
+  }
+}
+
+async function startXmlDownload(): Promise<void> {
+  resetRunState();
+  state.activeOutDir = outDirInput.value.trim();
+  setRunning("xml");
+  refreshOutputButtons();
+  setStatus("Iniciando download dos XMLs...");
+
+  try {
+    state.lastXmlResult = await window.sefazDia.startXmlDownload({
+      competencia: competenciaInput.value,
+      outDir: outDirInput.value,
+    });
+    successCount.textContent = String(state.lastXmlResult.successCount);
+    errorCount.textContent = String(state.lastXmlResult.errorCount);
+    totalCount.textContent = String(state.lastXmlResult.entries.length);
+    state.activeXmlExcelPath = state.lastXmlResult.excelPath;
+    openFolderButton.disabled = false;
+    openXmlReportButton.disabled = false;
+    setStatus("Download dos XMLs concluido.");
+  } catch (error) {
+    setStatus(messageOf(error));
+  } finally {
+    setRunning(undefined);
   }
 }
 
@@ -166,9 +194,23 @@ function selectedFormats(): ReportFormat[] {
 }
 
 function updateProgress(progress: RunProgress): void {
-  activeOutDir = progress.outDir;
-  activeExcelPath = progress.excelPath;
-  activeProcessedCount = progress.processedCount;
+  state.activeOutDir = progress.outDir;
+  state.activeExcelPath = progress.excelPath;
+  state.activeProcessedCount = progress.processedCount;
+  progressBar.max = progress.total || 1;
+  progressBar.value = progress.total ? progress.current : 0;
+  progressText.textContent = progress.total ? `${progress.current} de ${progress.total}` : progress.phase;
+  successCount.textContent = String(progress.successCount);
+  errorCount.textContent = String(progress.errorCount);
+  totalCount.textContent = String(progress.processedCount);
+  refreshOutputButtons();
+  setStatus(progress.message);
+}
+
+function updateXmlProgress(progress: XmlDownloadProgress): void {
+  state.activeOutDir = progress.outDir;
+  state.activeXmlExcelPath = progress.excelPath;
+  state.activeProcessedCount = progress.processedCount;
   progressBar.max = progress.total || 1;
   progressBar.value = progress.total ? progress.current : 0;
   progressText.textContent = progress.total ? `${progress.current} de ${progress.total}` : progress.phase;
@@ -186,10 +228,7 @@ function appendLog(message: string): void {
 }
 
 function resetRunState(): void {
-  lastResult = undefined;
-  activeOutDir = "";
-  activeExcelPath = "";
-  activeProcessedCount = 0;
+  resetRendererState(state);
   logOutput.textContent = "";
   progressBar.value = 0;
   progressText.textContent = "0 de 0";
@@ -198,10 +237,14 @@ function resetRunState(): void {
   totalCount.textContent = "0";
   openFolderButton.disabled = true;
   openReportButton.disabled = true;
+  openXmlReportButton.disabled = true;
 }
 
-function setRunning(running: boolean): void {
+function setRunning(mode: RunningMode | undefined): void {
+  state.runningMode = mode;
+  const running = mode !== undefined;
   startButton.disabled = running;
+  downloadXmlButton.disabled = running;
   cancelButton.disabled = !running;
   form.classList.toggle("is-running", running);
 }
@@ -211,18 +254,21 @@ function setStatus(message: string): void {
 }
 
 function refreshOutputButtons(): void {
-  openFolderButton.disabled = !activeOutDir && !lastResult?.outDir;
-  openReportButton.disabled = activeProcessedCount === 0 && !lastResult?.excelPath;
+  openFolderButton.disabled = !state.activeOutDir && !state.lastResult?.outDir;
+  openReportButton.disabled = !state.activeExcelPath && !state.lastResult?.excelPath;
+  openXmlReportButton.disabled = !state.activeXmlExcelPath && !state.lastXmlResult?.excelPath;
 }
 
 function disableUnavailableInterface(): void {
   setStatus("Falha ao carregar a interface segura. Reinstale usando o instalador mais recente.");
   startButton.disabled = true;
+  downloadXmlButton.disabled = true;
   cancelButton.disabled = true;
   selectOutDirButton.disabled = true;
   forgetButton.disabled = true;
   openFolderButton.disabled = true;
   openReportButton.disabled = true;
+  openXmlReportButton.disabled = true;
   appendLog("window.sefazDia nao esta disponivel; preload nao carregou.");
 }
 

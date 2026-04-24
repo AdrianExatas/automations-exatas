@@ -7,7 +7,8 @@
   "type": "module",
   "main": "dist/electron/main.js",
   "scripts": {
-    "build": "bun run build:main && bun run build:preload && bun run build:renderer && bun run build:assets",
+    "build": "bun run generate:sieg-key && bun run build:main && bun run build:preload && bun run build:renderer && bun run build:assets",
+    "generate:sieg-key": "bun run scripts/generate-sieg-key.ts",
     "build:main": "bun build src/electron/main.ts --target=node --outdir=dist/electron --external=electron --sourcemap=external",
     "build:preload": "bun build src/electron/preload.ts --target=node --format=cjs --outfile=dist/electron/preload.cjs --external=electron",
     "build:renderer": "bun build src/electron/renderer.ts --target=browser --outdir=dist/electron --sourcemap=external",
@@ -15,8 +16,8 @@
     "desktop:dev": "bun run build && electron .",
     "desktop:dist": "bun run build && electron-builder --win nsis",
     "start": "bun run src/main.ts",
-    "test": "bun test",
-    "typecheck": "bunx tsc -p tsconfig.json"
+    "test": "bun run generate:sieg-key && bun test",
+    "typecheck": "bun run generate:sieg-key && bunx tsc -p tsconfig.json"
   },
   "dependencies": {
     "xlsx": "^0.18.5"

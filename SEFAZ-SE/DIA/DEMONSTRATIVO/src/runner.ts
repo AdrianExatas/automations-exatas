@@ -4,6 +4,9 @@ import { buildExcelReportPath, saveExcelReport } from "./excel-report";
 import { SefazHttpClient } from "./sefaz-http";
 import type { Company, ReportEntry, ReportFormat, RunConfig } from "./types";
 
+const REPORT_CHECKPOINT_INTERVAL = 5;
+const PLAYWRIGHT_FALLBACK_MODULE = "./playwright-fallback";
+
 export type RunProgress = {
   phase: "starting" | "login" | "companies" | "download" | "report" | "done";
   current: number;
@@ -35,7 +38,7 @@ export type RunCallbacks = {
 };
 
 export async function runSefazDia(config: RunConfig, callbacks: RunCallbacks = {}): Promise<RunResult> {
-  const http = new SefazHttpClient(config.timeoutMs);
+  const http = new SefazHttpClient(config.timeoutMs, callbacks.signal);
   const entries: ReportEntry[] = [];
   const reportPaths = buildReportPaths(config);
 
@@ -62,7 +65,7 @@ export async function runSefazDia(config: RunConfig, callbacks: RunCallbacks = {
     for (const format of config.formats) {
       throwIfAborted(callbacks.signal);
       emit(callbacks, config, reportPaths, entries, "download", current, total, `Baixando ${format.toUpperCase()} de ${company.nome}`, company, format);
-      const entry = await processItem(http, config, company, format);
+      const entry = await processItem(http, config, company, format, callbacks.signal);
       entries.push(entry);
       current += 1;
 
@@ -73,7 +76,9 @@ export async function runSefazDia(config: RunConfig, callbacks: RunCallbacks = {
       }
 
       emit(callbacks, config, reportPaths, entries, "download", current, total, `${current}/${total} itens processados`, company, format);
-      await saveExecutionReports(config, entries);
+      if (shouldSaveCheckpoint(current, total)) {
+        await saveExecutionReports(config, entries);
+      }
     }
   }
 
@@ -106,6 +111,7 @@ async function processItem(
   config: RunConfig,
   company: Company,
   format: ReportFormat,
+  signal: AbortSignal | undefined,
 ): Promise<ReportEntry> {
   const filePath = buildOutputPath(config, company, format);
   try {
@@ -121,9 +127,24 @@ async function processItem(
       via: "http",
     };
   } catch (error) {
-    const message = isNonRetriablePortalError(error)
-      ? messageOf(error)
-      : `Falha HTTP sem fallback de navegador no app desktop: ${messageOf(error)}`;
+    if (isNonRetriablePortalError(error)) {
+      return {
+        inscricao: company.inscricao,
+        empresa: company.nome,
+        competencia: config.competencia.value,
+        formato: format,
+        status: "erro",
+        mensagem: messageOf(error),
+        via: "http",
+      };
+    }
+
+    throwIfAborted(signal);
+    const httpMessage = messageOf(error);
+    const fallbackEntry = await tryPlaywrightFallback(config, company, format, filePath, signal);
+    if (fallbackEntry) {
+      return fallbackEntry;
+    }
 
     return {
       inscricao: company.inscricao,
@@ -131,8 +152,48 @@ async function processItem(
       competencia: config.competencia.value,
       formato: format,
       status: "erro",
-      mensagem: message,
+      mensagem: `Falha HTTP e fallback de navegador indisponivel: ${httpMessage}`,
       via: "http",
+    };
+  }
+}
+
+async function tryPlaywrightFallback(
+  config: RunConfig,
+  company: Company,
+  format: ReportFormat,
+  filePath: string,
+  signal: AbortSignal | undefined,
+): Promise<ReportEntry | undefined> {
+  if (!isPlaywrightFallbackEnabled(config)) {
+    return undefined;
+  }
+
+  try {
+    throwIfAborted(signal);
+    const { downloadViaPlaywright, saveFallbackResult } = await import(PLAYWRIGHT_FALLBACK_MODULE);
+    const result = await downloadViaPlaywright(config, company, config.competencia, format);
+    throwIfAborted(signal);
+    await saveFallbackResult(filePath, result);
+    return {
+      inscricao: company.inscricao,
+      empresa: company.nome,
+      competencia: config.competencia.value,
+      formato: format,
+      status: "sucesso",
+      path: filePath,
+      via: "playwright",
+    };
+  } catch (fallbackError) {
+    throwIfAborted(signal);
+    return {
+      inscricao: company.inscricao,
+      empresa: company.nome,
+      competencia: config.competencia.value,
+      formato: format,
+      status: "erro",
+      mensagem: `Falha HTTP e fallback Playwright falhou: ${messageOf(fallbackError)}`,
+      via: "playwright",
     };
   }
 }
@@ -176,4 +237,12 @@ function throwIfAborted(signal: AbortSignal | undefined): void {
   if (signal?.aborted) {
     throw new Error("Execucao cancelada pelo usuario.");
   }
+}
+
+export function shouldSaveCheckpoint(processed: number, total: number, interval = REPORT_CHECKPOINT_INTERVAL): boolean {
+  return processed === 1 || processed === total || processed % interval === 0;
+}
+
+export function isPlaywrightFallbackEnabled(config: RunConfig): boolean {
+  return config.headless !== undefined;
 }

@@ -16,6 +16,15 @@ export function normalizeCnpj(value: unknown): string {
   return digits ? digits.padStart(14, "0") : "";
 }
 
+export function formatCnpj(value: unknown): string {
+  const digits = normalizeCnpj(value);
+  if (!digits) {
+    return "";
+  }
+
+  return digits.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/, "$1.$2.$3/$4-$5");
+}
+
 export function normalizeIe(value: unknown): string {
   const digits = normalizeDigits(value);
   return digits ? digits.padStart(9, "0") : "";
@@ -23,6 +32,10 @@ export function normalizeIe(value: unknown): string {
 
 export function isBlank(value: unknown): boolean {
   return String(value ?? "").trim() === "";
+}
+
+export function normalizeWhitespace(value: string | null | undefined): string {
+  return String(value ?? "").replace(/\s+/g, " ").trim();
 }
 
 export function parseInteger(value: string, fieldName: string): number {
@@ -91,6 +104,17 @@ export function extractPdfNumber(filename: string): string {
 
 export function sanitizeFileName(filename: string): string {
   return filename.replace(INVALID_FILE_CHARS, " ").replace(/\s+/g, " ").trim();
+}
+
+export function formatToastMessage(title: string | null | undefined, message: string | null | undefined): string {
+  const normalizedTitle = normalizeWhitespace(title);
+  const normalizedMessage = normalizeWhitespace(message);
+
+  if (normalizedTitle && normalizedMessage) {
+    return `${normalizedTitle}: ${normalizedMessage}`;
+  }
+
+  return normalizedTitle || normalizedMessage;
 }
 
 function formatDueDateForFileName(vencimento: string): string {

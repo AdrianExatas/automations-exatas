@@ -1,0 +1,71 @@
+<html>
+  <body>
+    <form
+      name="caixaEntradaDomicilioForm"
+      method="post"
+      action="/sefaznet/caixaEntradaDomicilio.do;jsessionid=PAGE1"
+    >
+      <input type="hidden" name="method" value="filtrarCaixaEntrada" />
+      <input type="hidden" name="paginaAtual" value="1" />
+      <select name="ordenarMensagens">
+        <option value="1">Data de envio</option>
+        <option value="2" selected="selected">Data de envio (decrescente)</option>
+      </select>
+      <select name="visualizarMensagens">
+        <option value="1" selected="selected">Todas</option>
+      </select>
+      <select name="quantidadeRegistrosPagina">
+        <option value="2" selected="selected">2</option>
+      </select>
+
+      <table>
+        <tr>
+          <th></th>
+          <th>Abrir</th>
+          <th>Emitente</th>
+          <th>Assunto</th>
+          <th>Classificação</th>
+          <th>Data de Envio</th>
+          <th>Data de Leitura</th>
+          <th>Exige ciência?</th>
+          <th>Situação</th>
+          <th>Vencimento</th>
+        </tr>
+        <tr>
+          <td><input type="checkbox" name="mensagem1" /></td>
+          <td>
+            <a href="javascript:abrirMensagem('/sefaznet/abrirMensagemDomicilio.do?idMensagemDestinatario=1');">
+              <img alt="Abrir mensagem" src="open.png" />
+            </a>
+          </td>
+          <td>SEFAZ-MA</td>
+          <td>Comunicado de Abril</td>
+          <td>Fiscalização</td>
+          <td>05/04/2026 09:15:00</td>
+          <td>06/04/2026 08:00:00</td>
+          <td>Não</td>
+          <td>-</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><input type="checkbox" name="mensagem2" /></td>
+          <td>
+            <a href="javascript:abrirMensagem('/sefaznet/abrirMensagemDomicilio.do?idMensagemDestinatario=2');">
+              <img alt="Abrir mensagem" src="open.png" />
+            </a>
+          </td>
+          <td>SEFAZ-MA</td>
+          <td>Aviso de Março</td>
+          <td></td>
+          <td>22/03/2026 13:30:00</td>
+          <td></td>
+          <td>Sim</td>
+          <td><img alt="Cientificada" src="status.png" /></td>
+          <td>31/03/2026</td>
+        </tr>
+      </table>
+
+      <a href="javascript:proximaPagina()">Próxima</a>
+    </form>
+  </body>
+</html>

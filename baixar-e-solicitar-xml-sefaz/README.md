@@ -7,7 +7,7 @@ Automacao em Python para consultar solicitacoes de XML na SEFAZ, baixar os arqui
 - consultar e solicitar XMLs na SEFAZ
 - baixar XMLs prontos via HTTP ou Selenium
 - reorganizar, extrair e tratar arquivos auxiliares
-- enviar XMLs para o SIEG
+- validar e enviar XMLs diretamente para o SIEG
 - permitir operacao manual, agendada e com utilitarios de manutencao
 
 ## Estrutura
@@ -69,6 +69,8 @@ python scripts/executar_download.py --status
 
 python scripts/executar_upload.py --auto
 ```
+
+O upload automatico valida os XMLs locais e envia todos os arquivos validos diretamente para o SIEG. Nao ha consulta previa para verificar se a chave ja existe na API.
 
 ### Utilitarios
 

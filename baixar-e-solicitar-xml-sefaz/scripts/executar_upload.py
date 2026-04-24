@@ -42,9 +42,8 @@ Exemplos de uso:
 Este script:
   1. Busca todos os XMLs na pasta especificada (recursivamente)
   2. Valida e identifica os XMLs
-  3. Verifica se já existem no SIEG (evita duplicados)
-  4. Envia apenas XMLs novos para o SIEG
-  5. Exclui XMLs enviados com sucesso (opcional)
+  3. Envia os XMLs válidos diretamente para o SIEG
+  4. Exclui XMLs enviados com sucesso (opcional)
 
 Ideal para execução após download e descompactação de XMLs do SEFAZ.
         """
@@ -54,7 +53,7 @@ Ideal para execução após download e descompactação de XMLs do SEFAZ.
         '--auto', '-a',
         action='store_true',
         required=True,
-        help='Modo automático: verifica, envia e exclui sem interação'
+        help='Modo automático: valida, envia e exclui sem interação'
     )
     
     parser.add_argument(

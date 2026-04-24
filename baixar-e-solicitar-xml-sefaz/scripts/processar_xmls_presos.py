@@ -38,9 +38,9 @@ Exemplos de uso:
 
 Este script:
   1. Busca todos os XMLs na pasta xmls/ (ou pasta especificada)
-  2. Verifica se já existem no SIEG
-  3. Envia apenas os novos
-  4. Exclui arquivos já existentes e enviados com sucesso (padrão)
+  2. Valida e identifica os XMLs
+  3. Envia os XMLs válidos diretamente para o SIEG
+  4. Exclui arquivos enviados com sucesso (padrão)
         """
     )
     
@@ -149,7 +149,7 @@ Este script:
     print("=" * 60)
     print(f"   📁 Pastas processadas: {len(pastas_para_processar)}")
     print(f"   ✅ Enviados com sucesso: {total_enviados}")
-    print(f"   ⚠️  Já existentes no SIEG: {total_existentes}")
+    print(f"   Ja existentes no SIEG: {total_existentes} (verificacao previa desativada)")
     print(f"   ❌ Erros: {total_erros}")
     print("=" * 60)
     
