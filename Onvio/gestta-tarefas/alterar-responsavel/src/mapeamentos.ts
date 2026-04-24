@@ -11,6 +11,7 @@ import {
 } from "./api/endpoints";
 import { getCompanyByCnpjFromLocalApi, getDepartmentsFromLocalApi } from "./api/local-api-3001";
 import { ClienteGestta, UsuarioGestta, LinhaPlanilha } from "./types";
+import { normalizarCnpj } from "./cnpj";
 
 /** Normaliza nome para comparação: minúsculo, sem acentos, trim. */
 export function normalizarNome(nome: string): string {
@@ -32,7 +33,7 @@ export async function buscarClientePorCnpj(
   client: AxiosInstance,
   cnpj: string
 ): Promise<ClienteGestta | null> {
-  const cnpjNorm = cnpj.replace(/\D/g, "");
+  const cnpjNorm = normalizarCnpj(cnpj);
   if (!cnpjNorm) return null;
 
   const localApiUrl = process.env.API_3001_URL?.trim();

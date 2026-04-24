@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<CompNfse xmlns="http://www.abrasf.org.br/nfse.xsd">
+  <Nfse versao="2.01">
+    <InfNfse Id="nfse-abrasf-1">
+      <Numero>12</Numero>
+      <CodigoVerificacao>089NWBCZR</CodigoVerificacao>
+      <DataEmissao>2026-03-24T10:43:03</DataEmissao>
+      <ValoresNfse>
+        <BaseCalculo>5000.00</BaseCalculo>
+        <ValorLiquidoNfse>5000.00</ValorLiquidoNfse>
+      </ValoresNfse>
+      <PrestadorServico>
+        <IdentificacaoPrestador>
+          <CpfCnpj>
+            <Cnpj>34191423000158</Cnpj>
+          </CpfCnpj>
+          <InscricaoMunicipal>000116075</InscricaoMunicipal>
+        </IdentificacaoPrestador>
+        <RazaoSocial>MAGNIFICAT CONSULTORIA COMERCIO E SERVICOS LTDA</RazaoSocial>
+        <Endereco>
+          <Endereco>RUA FELIX ALGUZ</Endereco>
+          <Numero>1617</Numero>
+          <Bairro>JARDIM BELA VISTA</Bairro>
+          <CodigoMunicipio>5008305</CodigoMunicipio>
+          <Uf>MS</Uf>
+          <Cep>79640175</Cep>
+        </Endereco>
+      </PrestadorServico>
+      <DeclaracaoPrestacaoServico>
+        <InfDeclaracaoPrestacaoServico>
+          <Competencia>2026-03-24</Competencia>
+          <Servico>
+            <Valores>
+              <ValorServicos>5000.00</ValorServicos>
+            </Valores>
+            <ItemListaServico>170601</ItemListaServico>
+            <CodigoTributacaoMunicipio>000017.0600001</CodigoTributacaoMunicipio>
+            <Discriminacao>Prestação de Serviços de Comercialização de Licença de Software (Promoção de Vendas) Período 01/03/2026 a 31/03/2026-5000.00</Discriminacao>
+          </Servico>
+          <Tomador>
+            <IdentificacaoTomador>
+              <CpfCnpj>
+                <Cnpj>00483195000178</Cnpj>
+              </CpfCnpj>
+            </IdentificacaoTomador>
+            <RazaoSocial>FASITEC DESENVOLVIMENTO E TECNOLOGIA LTDA</RazaoSocial>
+            <Endereco>
+              <Endereco>Rua Padre Nestor Sampaio</Endereco>
+              <Numero>50</Numero>
+              <Bairro>Luzia</Bairro>
+              <CodigoMunicipio>2800308</CodigoMunicipio>
+              <Uf>SE</Uf>
+              <Cep>49045015</Cep>
+            </Endereco>
+          </Tomador>
+          <OptanteSimplesNacional>1</OptanteSimplesNacional>
+        </InfDeclaracaoPrestacaoServico>
+      </DeclaracaoPrestacaoServico>
+    </InfNfse>
+  </Nfse>
+</CompNfse>

@@ -54,15 +54,30 @@ interface ResolvedCellValue {
 }
 
 const HEADER_DESCRICAO_DO_SERVICO = "DESCRICAO DO SERVICO";
-const HEADER_QUAL_SERVICO_CONTRATO = "QUAL SERVICO CONTRATO";
+/** Cabeçalho correto no modelo; planilhas antigas do Unecont podem ainda trazer "CONTRATO". */
+const HEADER_QUAL_SERVICO_CONTRATADO = "QUAL SERVICO CONTRATADO";
+const HEADER_QUAL_SERVICO_CONTRATO_LEGACY = "QUAL SERVICO CONTRATO";
+const HEADER_CNAE_DESCRICAO = "CNAE DESCRICAO";
 const HEADER_SERVICO_FEDERAL = "SERVICO FEDERAL";
 const HEADER_CANCELAMENTO = "CANCELAMENTO";
 const HEADER_LINK_NFSE = "LINK PARA NFSE";
 const HEADER_CNAE = "CNAE";
+
+/** Cabeçalhos: demais colunas (laranja #F79646) e CNAE Descrição (vermelho). */
+const HEADER_FILL_ORANGE_ARGB = "FFF79646";
+const HEADER_FILL_RED_ARGB = "FFFF0000";
+const HEADER_FONT_WHITE_ARGB = "FFFFFFFF";
+const HEADER_FONT_BLACK_ARGB = "FF000000";
 const DATE_OUTPUT_FORMAT = "dd/mm/yyyy";
 const CNAE_OUTPUT_FORMAT = "00\\.00-0-00";
-const DESCRIPTION_COLUMN_WIDTH = 30;
+/** Largura da coluna DESCRIÇÃO DO SERVIÇO (unidades Excel). */
+const DESCRIPTION_COLUMN_WIDTH = 52;
 const DESCRIPTION_WRAP_LIMIT = 150;
+/** Largura mínima para caber "QUAL SERVIÇO CONTRATADO" em uma linha. */
+const QUAL_SERVICO_MIN_COLUMN_WIDTH = 30;
+/** Teto para largura mínima derivada do texto do cabeçalho (demais colunas). */
+const HEADER_COLUMN_WIDTH_CAP = 55;
+const DEFAULT_MIN_COLUMN_WIDTH = 10;
 const DEFAULT_LINE_HEIGHT = 12;
 const EXCEL_EPOCH_UTC = Date.UTC(1899, 11, 30);
 
@@ -353,6 +368,24 @@ function normalizeCnaeNumericValue(cell: RawCellData | undefined): number | null
   return null;
 }
 
+function minColumnWidthForHeader(headerText: string): number {
+  const trimmed = headerText.trim();
+  if (!trimmed) return DEFAULT_MIN_COLUMN_WIDTH;
+  return Math.min(HEADER_COLUMN_WIDTH_CAP, Math.ceil(trimmed.length * 1.15) + 2);
+}
+
+/** Estima linhas visíveis com quebra automática (wrap) para ajustar altura da linha. */
+function estimateDisplayLineCount(text: string, columnWidth: number): number {
+  const charsPerLine = Math.max(6, Math.floor(columnWidth * 0.85));
+  if (!text) return 1;
+  let total = 0;
+  for (const segment of text.split("\n")) {
+    const len = segment.length;
+    total += len === 0 ? 1 : Math.ceil(len / charsPerLine);
+  }
+  return Math.max(1, total);
+}
+
 function wrapTextAtWordBoundary(value: string, maxLength: number): string {
   const normalized = normalizeDescriptionText(value);
   if (!normalized || normalized.length <= maxLength) return normalized;
@@ -457,13 +490,24 @@ async function loadTemplateWorkbook(modelPath: string): Promise<TemplateWorkbook
     const canonicalHeader = canonicalizeHeader(headerText);
     if (!canonicalHeader) continue;
 
+    const modelWidth = worksheet.getColumn(columnIndex).width;
+    let resolvedWidth: number | undefined;
+    if (canonicalHeader === HEADER_DESCRICAO_DO_SERVICO) {
+      resolvedWidth = DESCRIPTION_COLUMN_WIDTH;
+    } else if (
+      canonicalHeader === HEADER_QUAL_SERVICO_CONTRATADO ||
+      canonicalHeader === HEADER_QUAL_SERVICO_CONTRATO_LEGACY
+    ) {
+      resolvedWidth = Math.max(modelWidth ?? 0, QUAL_SERVICO_MIN_COLUMN_WIDTH);
+    } else {
+      const fromHeader = minColumnWidthForHeader(headerText);
+      resolvedWidth = Math.max(modelWidth ?? DEFAULT_MIN_COLUMN_WIDTH, fromHeader);
+    }
+
     columns.push({
       headerText,
       canonicalHeader,
-      width:
-        canonicalHeader === HEADER_DESCRICAO_DO_SERVICO
-          ? DESCRIPTION_COLUMN_WIDTH
-          : (worksheet.getColumn(columnIndex).width ?? undefined),
+      width: resolvedWidth,
       hidden: worksheet.getColumn(columnIndex).hidden ?? false,
       outlineLevel: worksheet.getColumn(columnIndex).outlineLevel ?? 0,
       style: deepClone(worksheet.getColumn(columnIndex).style ?? {}),
@@ -549,7 +593,7 @@ function resolveCellValue(
     };
   }
 
-  if (header === HEADER_QUAL_SERVICO_CONTRATO) {
+  if (header === HEADER_QUAL_SERVICO_CONTRATADO || header === HEADER_QUAL_SERVICO_CONTRATO_LEGACY) {
     return { value: null };
   }
 
@@ -652,14 +696,57 @@ function renderWorksheet(
 
   for (let columnIndex = 1; columnIndex <= columns.length; columnIndex++) {
     const cell = headerRow.getCell(columnIndex);
-    cell.value = columns[columnIndex - 1].headerText;
-    cell.style = deepClone(columns[columnIndex - 1].headerStyle);
-    if (columns[columnIndex - 1].canonicalHeader === HEADER_DESCRICAO_DO_SERVICO) {
+    const columnLayout = columns[columnIndex - 1];
+    cell.value = columnLayout.headerText;
+    cell.style = deepClone(columnLayout.headerStyle);
+    const canonical = columnLayout.canonicalHeader;
+
+    if (canonical === HEADER_DESCRICAO_DO_SERVICO) {
       cell.font = {
         ...(cell.font ?? {}),
-        color: { argb: "FF000000" },
+        color: { argb: HEADER_FONT_BLACK_ARGB },
       };
+      continue;
     }
+
+    if (
+      canonical === HEADER_QUAL_SERVICO_CONTRATADO ||
+      canonical === HEADER_QUAL_SERVICO_CONTRATO_LEGACY
+    ) {
+      continue;
+    }
+
+    if (canonical === HEADER_CNAE_DESCRICAO) {
+      cell.fill = {
+        type: "pattern",
+        pattern: "solid",
+        fgColor: { argb: HEADER_FILL_RED_ARGB },
+      };
+      cell.font = {
+        ...(cell.font ?? {}),
+        color: { argb: HEADER_FONT_WHITE_ARGB },
+      };
+      continue;
+    }
+
+    cell.fill = {
+      type: "pattern",
+      pattern: "solid",
+      fgColor: { argb: HEADER_FILL_ORANGE_ARGB },
+    };
+    cell.font = {
+      ...(cell.font ?? {}),
+      color: { argb: HEADER_FONT_WHITE_ARGB },
+    };
+  }
+
+  for (let columnIndex = 1; columnIndex <= columns.length; columnIndex++) {
+    const cell = headerRow.getCell(columnIndex);
+    cell.alignment = {
+      ...(cell.alignment ?? {}),
+      wrapText: false,
+      vertical: "middle",
+    };
   }
 
   rows.forEach((rowValues, rowOffset) => {
@@ -685,10 +772,20 @@ function renderWorksheet(
         cell.alignment = {
           ...(cell.alignment ?? {}),
           wrapText: true,
-          vertical: "top",
+          vertical: "middle",
         };
-        const lineCount = typeof resolved.value === "string" ? resolved.value.split("\n").length : 1;
-        maxLineCount = Math.max(maxLineCount, lineCount);
+        const descColWidth =
+          columns[columnOffset].width ?? DESCRIPTION_COLUMN_WIDTH;
+        const textForLines =
+          typeof resolved.value === "string" ? resolved.value : "";
+        const explicitLines = textForLines.split("\n").length;
+        const estimatedLines = estimateDisplayLineCount(textForLines, descColWidth);
+        maxLineCount = Math.max(maxLineCount, explicitLines, estimatedLines);
+      } else {
+        cell.alignment = {
+          ...(cell.alignment ?? {}),
+          vertical: "middle",
+        };
       }
 
       if (canceled) {

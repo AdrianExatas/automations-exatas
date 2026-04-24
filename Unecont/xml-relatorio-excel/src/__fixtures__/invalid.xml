@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<NFSe versao="1.01" xmlns="http://www.sped.fazenda.gov.br/nfse">
+  <infNFSe Id="invalid">
+    <emit>
+      <xNome>XML Inválido</xNome>
+    </emit>
+    <DPS versao="1.01">
+      <infDPS Id="invalid-dps">
+        <toma>
+          <xNome>Tomador sem documento</xNome>
+        </toma>
+      </infDPS>
+    </DPS>
+  </infNFSe>
+</NFSe>

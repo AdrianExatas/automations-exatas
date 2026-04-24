@@ -1,0 +1,20 @@
+{
+  "name": "xml-relatorio-excel",
+  "version": "1.0.0",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "xml-to-excel": "tsx src/cli/run.ts",
+    "test": "vitest run --config vitest.config.ts"
+  },
+  "dependencies": {
+    "exceljs": "^4.4.0",
+    "saxes": "^5.0.1",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0",
+    "vitest": "^4.0.18"
+  }
+}

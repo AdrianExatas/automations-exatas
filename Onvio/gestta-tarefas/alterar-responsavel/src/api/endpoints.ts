@@ -7,7 +7,6 @@ import {
   RespostaClientes,
   UsuarioGestta,
   PatchResponsavelBody,
-  TaskGenBody,
 } from "../types";
 
 const LIMIT = 500;
@@ -150,6 +149,9 @@ export async function getGroupCustomerIds(
   } catch (err: unknown) {
     const status = (err as { response?: { status?: number } })?.response?.status;
     const data = (err as { response?: { data?: unknown } })?.response?.data;
+    if (status === 401 || status === 403) {
+      throw err;
+    }
     const msg = err instanceof Error ? err.message : String(err);
     console.warn(
       `[${customerId}] GET company/task falhou (status=${status ?? "N/A"}): ${msg}.`,
@@ -167,26 +169,4 @@ export async function patchResponsavel(
   body: PatchResponsavelBody
 ): Promise<void> {
   await client.patch("/admin/group/customer/config", body);
-}
-
-/**
- * Remover tarefas do mês/ano: DELETE task-gen/admin/customer/:customerId.
- */
-export async function removerTarefas(
-  client: AxiosInstance,
-  customerId: string,
-  body: TaskGenBody
-): Promise<void> {
-  await client.delete(`/task-gen/admin/customer/${customerId}`, { data: body });
-}
-
-/**
- * Gerar tarefas do mês/ano: POST task-gen/admin/customer/:customerId.
- */
-export async function gerarTarefas(
-  client: AxiosInstance,
-  customerId: string,
-  body: TaskGenBody
-): Promise<void> {
-  await client.post(`/task-gen/admin/customer/${customerId}`, body);
 }

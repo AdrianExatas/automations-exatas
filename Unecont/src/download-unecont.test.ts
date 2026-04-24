@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
+import * as XLSX from "xlsx";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { DownloadError, EmpresaNotFoundError, NoNotasError } from "./exceptions";
 import type { EmpresaBatchItem } from "./types";
@@ -144,6 +145,66 @@ describe("downloadUnecontBatch", () => {
       "info:[1/1] Concluida: 001 - Empresa A (12345678000190) -> 001 - relatorio.xlsx",
       "info:Resumo: 1 sucesso, 0 sem notas, 0 nao encontradas, 0 falhas, 0 puladas.",
     ]);
+  });
+
+  it("gera a planilha consolidada da execucao em _meta", async () => {
+    const empresa: EmpresaBatchItem = {
+      cnpj: "12345678000190",
+      codigo: "001",
+      nome: "Empresa A",
+      solicitante: "Solicitante",
+      departamento: "Fiscal",
+      assunto: "Assunto",
+      descricao: "Descricao",
+      arquivos: [],
+    };
+    const downloadsDir = fs.mkdtempSync(path.join(os.tmpdir(), "unecont-download-report-"));
+    resolveEmpresasInput.mockReturnValue([empresa]);
+    downloadReport.mockResolvedValue(path.join(downloadsDir, "001 - relatorio.xlsx"));
+
+    try {
+      const { downloadUnecontBatch } = await import("./download-unecont");
+
+      const result = await downloadUnecontBatch({
+        credentials: { email: "teste@example.com", senha: "123" },
+        input: { empresas: [empresa] },
+        browser: { downloadDir: downloadsDir },
+      });
+
+      expect(result.reportPath).toBe(path.join(downloadsDir, "_meta", "relatorio-execucao.xlsx"));
+      expect(fs.existsSync(result.reportPath!)).toBe(true);
+
+      const workbook = XLSX.readFile(result.reportPath!);
+      const resumo = XLSX.utils.sheet_to_json<Record<string, string | number>>(
+        workbook.Sheets.Resumo,
+      );
+      const itens = XLSX.utils.sheet_to_json<Record<string, string>>(workbook.Sheets.Itens);
+
+      expect(resumo).toEqual(
+        expect.arrayContaining([
+          { CAMPO: "DOWNLOADS_DIR", VALOR: downloadsDir },
+          { CAMPO: "TOTAL", VALOR: 1 },
+          { CAMPO: "SUCESSO", VALOR: 1 },
+          { CAMPO: "FALHAS", VALOR: 0 },
+        ]),
+      );
+      expect(itens).toEqual([
+        {
+          CODIGO: "001",
+          EMPRESA: "Empresa A",
+          CNPJ: "12345678000190",
+          STATUS: "success",
+          MENSAGEM: "001 - relatorio.xlsx",
+          ARQUIVO: "001 - relatorio.xlsx",
+          ARQUIVO_PATH: path.join(downloadsDir, "001 - relatorio.xlsx"),
+          SOLICITANTE: "Solicitante",
+          DEPARTAMENTO: "Fiscal",
+          ASSUNTO: "Assunto",
+        },
+      ]);
+    } finally {
+      fs.rmSync(downloadsDir, { recursive: true, force: true });
+    }
   });
 
   it("loga skipped, sem notas, nao encontrada e falha", async () => {

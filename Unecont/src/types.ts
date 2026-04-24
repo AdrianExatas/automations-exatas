@@ -82,6 +82,7 @@ export interface DownloadBatchItemResult {
 export interface DownloadBatchResult {
   runId: string;
   downloadsDir: string;
+  reportPath?: string;
   summary: {
     total: number;
     success: number;

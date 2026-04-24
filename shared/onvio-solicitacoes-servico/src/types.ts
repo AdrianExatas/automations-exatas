@@ -62,6 +62,24 @@ export interface ServiceRequestDefaultContent {
   description?: (row: ServiceRequestRow, context: { attachmentCount: number }) => string;
 }
 
+export type SendServiceRequestsProgressEvent =
+  | { type: "batch_start"; total: number }
+  | {
+      type: "item_start";
+      index: number;
+      total: number;
+      row: ServiceRequestRow;
+    }
+  | {
+      type: "item_done";
+      index: number;
+      total: number;
+      row: ServiceRequestRow;
+      outcome: "success" | "failed" | "skipped";
+      message?: string;
+      ticketId?: string;
+    };
+
 export interface SendServiceRequestsOptions {
   token: string;
   input: ServiceRequestBatchInput | BatchInput;
@@ -79,6 +97,12 @@ export interface SendServiceRequestsOptions {
     departmentName?: string;
   };
   defaultContent?: ServiceRequestDefaultContent;
+  /** Absolute or relative paths merged after resolver output (e.g. product-specific extras). */
+  extraAttachmentPaths?: string[];
+  /** Called once per batch on first HTTP 401; must return a new UDSLongToken. */
+  onUnauthorized?: () => Promise<string>;
+  /** Optional progress hook (e.g. CLI logging). */
+  onProgress?: (event: SendServiceRequestsProgressEvent) => void;
 }
 
 export interface UploadOnvioOptions extends SendServiceRequestsOptions {}

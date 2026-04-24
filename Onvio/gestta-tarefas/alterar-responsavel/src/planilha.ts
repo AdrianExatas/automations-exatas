@@ -6,18 +6,12 @@
 import * as XLSX from "xlsx";
 import path from "path";
 import { LinhaPlanilha } from "./types";
+import { normalizarCnpjDetalhado } from "./cnpj";
 
 const MES_ABREV: Record<string, number> = {
   jan: 1, fev: 2, mar: 3, abr: 4, mai: 5, jun: 6,
   jul: 7, ago: 8, set: 9, out: 10, nov: 11, dez: 12,
 };
-
-/** Normaliza CNPJ (apenas dígitos). */
-export function normalizarCnpj(val: unknown): string {
-  if (val == null) return "";
-  const s = String(val).replace(/\D/g, "");
-  return s.length === 14 ? s : String(val).replace(/\D/g, "");
-}
 
 /**
  * Converte serial de data do Excel (número de dias desde 30/12/1899) para month/year.
@@ -107,14 +101,18 @@ export function lerPlanilha(planilhaPath: string): LinhaPlanilha[] {
     const departamento = String(getCell(row, ["DEPARTAMENTO", "Departamento", "DEPARTAMENTO "]) ?? "").trim() || undefined;
     const setor = String(getCell(row, ["SETOR", "Setor"]) ?? "").trim() || undefined;
 
-    const cnpj = normalizarCnpj(cnpjRaw);
+    const cnpjInfo = normalizarCnpjDetalhado(cnpjRaw);
     const mesGeracao = parseMesGeracao(mesGeracaoRaw);
 
-    if (!cnpj || !responsavel) continue;
+    if (!responsavel) continue;
+    if (!cnpjInfo.original && !cnpjInfo.digitos) continue;
     if (!mesGeracao) {
       linhas.push({
         cod,
-        cnpj,
+        cnpj: cnpjInfo.valor,
+        ...(cnpjInfo.original && cnpjInfo.original !== cnpjInfo.valor ? { cnpjOriginal: cnpjInfo.original } : {}),
+        ...(cnpjInfo.ajustado ? { cnpjFoiAjustado: true } : {}),
+        ...(!cnpjInfo.valido ? { cnpjInvalido: true } : {}),
         responsavel,
         mesGeracao: { month: new Date().getMonth() + 1, year: new Date().getFullYear() },
         departamento,
@@ -125,7 +123,10 @@ export function lerPlanilha(planilhaPath: string): LinhaPlanilha[] {
 
     linhas.push({
       cod,
-      cnpj,
+      cnpj: cnpjInfo.valor,
+      ...(cnpjInfo.original && cnpjInfo.original !== cnpjInfo.valor ? { cnpjOriginal: cnpjInfo.original } : {}),
+      ...(cnpjInfo.ajustado ? { cnpjFoiAjustado: true } : {}),
+      ...(!cnpjInfo.valido ? { cnpjInvalido: true } : {}),
       responsavel,
       mesGeracao,
       departamento,

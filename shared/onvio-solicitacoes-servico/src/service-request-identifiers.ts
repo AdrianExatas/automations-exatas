@@ -46,6 +46,11 @@ export function resolveServiceRequestIdentifiers(
   if (!directRequesterId && row.solicitante.trim() && !mappedRequesterId && fallbackRequesterId) {
     warnings.push(`Solicitante "${row.solicitante}" nao encontrado no provider; usando fallback.`);
   }
+  if (row.solicitante.trim() && !requesterId) {
+    warnings.push(
+      `Solicitante "${row.solicitante}" sem ID do Onvio resolvido; o portal exibira o campo vazio. Defina ONVIO_REQUESTER_ID, coluna ONVIO_REQUESTER_ID na planilha ou nome alinhado ao cadastro em /employees (BD_API_BASE_URL).`,
+    );
+  }
 
   const directDepartmentId = row.onvioDepartmentId?.trim();
   const mappedDepartmentId = lookups.departmentIdByName.get(normalizeForMatch(row.departamento));

@@ -1,8 +1,8 @@
 /**
  * Automação: alterar responsável de tarefas no Gestta a partir da planilha DP RESPONSÁVEL.xlsx.
  *
- * Fluxo por linha: buscar cliente (CNPJ) → usuário (nome) → ids group_customer (se houver) →
- * PATCH responsável → DELETE task-gen → POST task-gen.
+ * Fluxo por linha: buscar cliente (CNPJ) → usuário (nome) → ids group_customer →
+ * PATCH responsável.
  *
  * Suporta: --continuar / -c (retomar checkpoint), --reprocessar-falhas / -r (retry falhas),
  * --reprocessar <arquivo> (reprocessar falhas a partir de um relatório JSON).
@@ -13,28 +13,40 @@ import path from "path";
 import readline from "readline";
 import { execSync } from "child_process";
 import fs from "fs";
-import { loadWorkspaceAuthArtifacts } from "@exatas/onvio-auth";
+
+const LEGACY_LOCAL_ENV_PATH = path.resolve(process.cwd(), "..", "_local", ".env");
+const LEGACY_AUTH_ENV_KEYS = new Set(["JWT_GESTTA", "GESTTA_JWT_TOKEN"]);
+
+function loadLegacyLocalEnvFallback(filePath: string): void {
+  if (!fs.existsSync(filePath)) return;
+
+  const parsed = dotenv.parse(fs.readFileSync(filePath, "utf8"));
+  for (const [key, value] of Object.entries(parsed)) {
+    if (LEGACY_AUTH_ENV_KEYS.has(key)) continue;
+    if (process.env[key] == null || process.env[key]?.trim() === "") {
+      process.env[key] = value;
+    }
+  }
+}
 
 dotenv.config();
-if (!process.env.JWT_GESTTA && !process.env.GESTTA_JWT_TOKEN) {
-  dotenv.config({ path: path.resolve(process.cwd(), "..", "_local", ".env") });
-}
+loadLegacyLocalEnvFallback(LEGACY_LOCAL_ENV_PATH);
+
+import { resolveGesttaRuntimeAuth } from "./auth/runtime-auth";
 import { createGesttaClient } from "./api/client";
 import {
   patchResponsavel,
-  removerTarefas,
-  gerarTarefas,
 } from "./api/endpoints";
 import { buscarClientePorCnpj, buscarUsuarioPorNome, obterGroupCustomerIds, getNomesSetorCanonicos } from "./mapeamentos";
-import { lerPlanilha, parseMesGeracao } from "./planilha";
+import { lerPlanilha } from "./planilha";
 import { LinhaPlanilha, ResultadoLinha } from "./types";
 import {
   gerarRelatorioExecucao,
   salvarRelatorio,
   salvarRelatorioXlsx,
+  reconstruirLinhaDoRelatorio,
   atualizarIndice,
   type RelatorioExecucao,
-  type ResultadoItemRelatorio,
 } from "./relatorio";
 import {
   carregarCheckpoint,
@@ -46,6 +58,20 @@ const DELAY_MS = 500;
 
 function delay(ms: number): Promise<void> {
   return new Promise((r) => setTimeout(r, ms));
+}
+
+function logAuthSource(auth: Awaited<ReturnType<typeof resolveGesttaRuntimeAuth>>): void {
+  if (auth.source === "artifact") {
+    console.log(
+      `[auth] Usando JWT do artefato${auth.artifactPath ? `: ${auth.artifactPath}` : "."}`
+    );
+    return;
+  }
+  if (auth.source === "legacy-local-env") {
+    console.log("[auth] Usando JWT legado de ../_local/.env.");
+    return;
+  }
+  console.log("[auth] Usando JWT do ambiente local (.env/processo).");
 }
 
 /** Pergunta no console e retorna a resposta (trim, lower case). */
@@ -93,37 +119,19 @@ function parseArgs(): {
   };
 }
 
-/** Reconstrói LinhaPlanilha a partir de um item do relatório (para reprocessamento). */
-function linhaFromItemRelatorio(item: ResultadoItemRelatorio): LinhaPlanilha | null {
-  const mesGeracao = parseMesGeracao(item.mesGeracao);
-  if (!mesGeracao) return null;
-  return {
-    cod: "",
-    cnpj: item.cnpj,
-    responsavel: item.responsavel,
-    mesGeracao,
-    departamento: item.departamento,
-    setor: item.setor,
-  };
-}
+function logResumoNormalizacaoCnpj(linhas: LinhaPlanilha[]): void {
+  const ajustados = linhas.filter((linha) => linha.cnpjFoiAjustado).length;
+  const invalidos = linhas.filter((linha) => linha.cnpjInvalido).length;
 
-function getJwt(): string {
-  const jwt =
-    process.env.JWT_GESTTA ||
-    process.env.GESTTA_JWT_TOKEN ||
-    "";
-  if (jwt) return jwt;
-
-  const authArtifactPath = process.env.ONVIO_AUTH_ARTIFACT_PATH?.trim() || undefined;
-  const artifacts = loadWorkspaceAuthArtifacts(process.cwd(), authArtifactPath);
-  const artifactJwt = artifacts?.gestta.jwt?.trim() || "";
-  if (artifactJwt) {
-    return artifactJwt;
+  if (ajustados > 0) {
+    console.log(`CNPJs ajustados com zero à esquerda: ${ajustados}`);
   }
-
-  throw new Error(
-    "Defina JWT_GESTTA ou GESTTA_JWT_TOKEN no .env, ou gere shared/onvio-auth/runtime/latest-auth.json com o JWT do Gestta."
-  );
+  if (invalidos > 0) {
+    console.log(`Linhas com CNPJ inválido após normalização: ${invalidos}`);
+  }
+  if (ajustados > 0 || invalidos > 0) {
+    console.log("");
+  }
 }
 
 /**
@@ -208,6 +216,12 @@ async function processarLinha(
     mensagem: "",
   };
 
+  if (linha.cnpjInvalido || !linha.cnpj) {
+    resultado.mensagem = "CNPJ inválido após normalização";
+    resultado.etapaFalha = "validarCnpj";
+    return resultado;
+  }
+
   let customer: Awaited<ReturnType<typeof buscarClientePorCnpj>>;
   try {
     customer = await buscarClientePorCnpj(client, linha.cnpj);
@@ -265,35 +279,13 @@ async function processarLinha(
     }
   } else {
     const filtro = linha.departamento || linha.setor ? ` (departamento/setor: ${linha.departamento || linha.setor})` : "";
-    console.warn(
-      `[${linha.cnpj}] Nenhum id de group_customer${filtro}; PATCH responsável omitido.`
-    );
-  }
-
-  const { month, year } = linha.mesGeracao;
-  try {
-    await removerTarefas(client, customer._id, { month, year });
-  } catch (err: unknown) {
-    const msg = err instanceof Error ? err.message : String(err);
-    resultado.mensagem = `Erro ao remover tarefas: ${msg}`;
-    resultado.erro = msg;
-    resultado.etapaFalha = "removerTarefas";
-    return resultado;
-  }
-  try {
-    await gerarTarefas(client, customer._id, { month, year });
-  } catch (err: unknown) {
-    const msg = err instanceof Error ? err.message : String(err);
-    resultado.mensagem = `Erro ao gerar tarefas: ${msg}`;
-    resultado.erro = msg;
-    resultado.etapaFalha = "gerarTarefas";
+    resultado.mensagem = `Nenhum vínculo group_customer encontrado${filtro}; responsável não alterado.`;
+    resultado.etapaFalha = "semGroupCustomer";
     return resultado;
   }
 
   resultado.sucesso = true;
-  resultado.mensagem = ids.length > 0
-    ? `Responsável alterado e tarefas ${month}/${year} regeradas.`
-    : `Tarefas ${month}/${year} regeradas (PATCH responsável não aplicado - ids não obtidos).`;
+  resultado.mensagem = "Responsável alterado com sucesso.";
   return resultado;
 }
 
@@ -323,7 +315,7 @@ async function mainReprocessar(caminhoRelatorio: string): Promise<void> {
   }
 
   const linhas = falhas
-    .map(linhaFromItemRelatorio)
+    .map(reconstruirLinhaDoRelatorio)
     .filter((l): l is LinhaPlanilha => l !== null);
   if (linhas.length === 0) {
     console.error("Não foi possível reconstruir linhas a partir dos itens do relatório (mesGeracao inválido?).");
@@ -331,8 +323,10 @@ async function mainReprocessar(caminhoRelatorio: string): Promise<void> {
   }
 
   console.log(`Reprocessando ${linhas.length} linha(s) com falha do relatório.\n`);
-  const jwt = getJwt();
-  const client = createGesttaClient(jwt);
+  logResumoNormalizacaoCnpj(linhas);
+  const auth = await resolveGesttaRuntimeAuth();
+  logAuthSource(auth);
+  const client = createGesttaClient(auth);
   const resultados: ResultadoLinha[] = [];
   const inicioReprocessamento = new Date().toISOString();
 
@@ -376,8 +370,6 @@ async function main(): Promise<void> {
     await mainReprocessar(args.reprocessarArquivo);
     return;
   }
-
-  const jwt = getJwt();
   const planilhaPath = path.resolve(process.cwd(), getPlanilhaPath(null));
   console.log(`Planilha: ${planilhaPath}`);
   console.log("(Dica: use --selecionar para escolher no Explorer)\n");
@@ -389,6 +381,7 @@ async function main(): Promise<void> {
   }
 
   console.log(`Linhas a processar: ${linhas.length}\n`);
+  logResumoNormalizacaoCnpj(linhas);
 
   if (process.env.API_3001_URL?.trim()) {
     const setores = await getNomesSetorCanonicos();
@@ -417,7 +410,9 @@ async function main(): Promise<void> {
     }
   }
 
-  const client = createGesttaClient(jwt);
+  const auth = await resolveGesttaRuntimeAuth();
+  logAuthSource(auth);
+  const client = createGesttaClient(auth);
 
   for (let i = indiceInicial; i < linhas.length; i++) {
     const linha = linhas[i];

@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { getDefaultReportFormattingOptions } from "./report-formatting-defaults";
 
 const downloadUnecontBatch = vi.fn();
 const resolveExcelPath = vi.fn();
@@ -15,7 +16,6 @@ vi.mock("./cli-helpers", () => ({
 
 describe("download CLI", () => {
   beforeEach(() => {
-    vi.resetModules();
     vi.clearAllMocks();
     process.env.UNECONT_EMAIL = "teste@example.com";
     process.env.UNECONT_SENHA = "123";
@@ -23,6 +23,7 @@ describe("download CLI", () => {
     resolveExcelPath.mockReturnValue("C:/tmp/empresas.xlsx");
     downloadUnecontBatch.mockResolvedValue({
       downloadsDir: "C:/tmp/downloads",
+      reportPath: "C:/tmp/downloads/_meta/relatorio-execucao.xlsx",
       summary: {
         total: 1,
         success: 1,
@@ -41,26 +42,31 @@ describe("download CLI", () => {
   });
 
   it("carrega env e chama a API publica de download", async () => {
+    const logSpy = vi.spyOn(console, "log").mockImplementation(() => undefined);
     const { main } = await import("./run");
-    const exitCode = await main();
+    try {
+      const exitCode = await main();
 
-    expect(exitCode).toBe(0);
-    expect(loadDotenvFromProjectRoot).toHaveBeenCalled();
-    expect(resolveExcelPath).toHaveBeenCalledWith("empresas.xlsx");
-    expect(downloadUnecontBatch).toHaveBeenCalledWith(
-      expect.objectContaining({
-        credentials: {
-          email: "teste@example.com",
-          senha: "123",
-        },
-        input: { excelPath: "C:/tmp/empresas.xlsx" },
-        logger: console,
-      }),
-    );
-    expect(downloadUnecontBatch).not.toHaveBeenCalledWith(
-      expect.objectContaining({
-        reportFormatting: expect.anything(),
-      }),
-    );
+      expect(exitCode).toBe(0);
+      expect(loadDotenvFromProjectRoot).toHaveBeenCalled();
+      expect(resolveExcelPath).toHaveBeenCalledWith("empresas.xlsx");
+      expect(downloadUnecontBatch).toHaveBeenCalledWith(
+        expect.objectContaining({
+          credentials: {
+            email: "teste@example.com",
+            senha: "123",
+          },
+          input: { excelPath: "C:/tmp/empresas.xlsx" },
+          logger: console,
+          reportFormatting: getDefaultReportFormattingOptions(),
+        }),
+      );
+      expect(logSpy).toHaveBeenCalledWith("Downloads: C:/tmp/downloads");
+      expect(logSpy).toHaveBeenCalledWith(
+        "Relatorio: C:/tmp/downloads/_meta/relatorio-execucao.xlsx",
+      );
+    } finally {
+      logSpy.mockRestore();
+    }
   });
 });

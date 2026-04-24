@@ -101,6 +101,72 @@ function buildAttachmentBuffers(attachments: ResolvedAttachmentFile[]) {
   }));
 }
 
+function resolveExtraAttachmentPaths(rawPaths: string[]): ResolvedAttachmentFile[] {
+  const out: ResolvedAttachmentFile[] = [];
+  for (const raw of rawPaths) {
+    const trimmed = raw.trim();
+    if (!trimmed) continue;
+    const abs = path.resolve(trimmed);
+    if (!fs.existsSync(abs)) {
+      throw new Error(`Anexo extra nao encontrado: ${abs}`);
+    }
+    const st = fs.statSync(abs);
+    if (!st.isFile()) {
+      throw new Error(`Anexo extra nao e um arquivo: ${abs}`);
+    }
+    const fileName = path.basename(abs);
+    out.push({
+      filePath: abs,
+      fileName,
+      extension: path.extname(fileName).toLowerCase(),
+    });
+  }
+  return out;
+}
+
+function appendExtraAttachments(
+  primary: ResolvedAttachmentFile[],
+  extras: ResolvedAttachmentFile[],
+): ResolvedAttachmentFile[] {
+  const seen = new Set(primary.map((f) => path.resolve(f.filePath).toLowerCase()));
+  const merged = [...primary];
+  for (const f of extras) {
+    const key = path.resolve(f.filePath).toLowerCase();
+    if (!seen.has(key)) {
+      seen.add(key);
+      merged.push(f);
+    }
+  }
+  return merged;
+}
+
+function createOnvio401Retry(options: SendServiceRequestsOptions) {
+  const tokenState = { token: options.token.trim() };
+  const refreshState = { consumed: false };
+
+  return async function callOnvio<T>(operation: (token: string) => Promise<T>): Promise<T> {
+    try {
+      return await operation(tokenState.token);
+    } catch (error) {
+      if (
+        error instanceof OnvioApiError &&
+        error.status === 401 &&
+        options.onUnauthorized &&
+        !refreshState.consumed
+      ) {
+        refreshState.consumed = true;
+        const next = (await options.onUnauthorized()).trim();
+        if (!next) {
+          throw new Error("onUnauthorized retornou token vazio.");
+        }
+        tokenState.token = next;
+        return await operation(tokenState.token);
+      }
+      throw error;
+    }
+  };
+}
+
 export async function sendServiceRequestsBatch(
   options: SendServiceRequestsOptions,
 ): Promise<ServiceRequestBatchResult> {
@@ -133,20 +199,40 @@ export async function sendServiceRequestsBatch(
     }
   }
 
+  let extraAttachmentFiles = [] as ResolvedAttachmentFile[];
+  if (mode === "attachments" && options.extraAttachmentPaths?.length) {
+    extraAttachmentFiles = resolveExtraAttachmentPaths(options.extraAttachmentPaths);
+  }
+
   const defaultContent = resolveDefaultContent(options);
   const items: ServiceRequestBatchItemResult[] = [];
   let success = 0;
   let failed = 0;
   let skipped = 0;
 
-  for (const serviceRequest of serviceRequests) {
+  const callOnvio = dryRun ? null : createOnvio401Retry(options);
+  const onProgress = options.onProgress;
+  const totalCount = serviceRequests.length;
+
+  onProgress?.({ type: "batch_start", total: totalCount });
+
+  for (let i = 0; i < serviceRequests.length; i++) {
+    const serviceRequest = serviceRequests[i]!;
+    const index = i + 1;
+    const total = totalCount;
+
+    onProgress?.({ type: "item_start", index, total, row: serviceRequest });
+
     const itemWarnings = [...warnings];
 
     try {
-      const attachments =
+      let attachments =
         mode === "attachments"
           ? resolveAttachmentsForServiceRequest(serviceRequest, availableFiles, attachmentStrategy)
           : [];
+      if (mode === "attachments" && extraAttachmentFiles.length > 0) {
+        attachments = appendExtraAttachments(attachments, extraAttachmentFiles);
+      }
       const resolvedIdentifiers = resolveServiceRequestIdentifiers(
         serviceRequest,
         lookupData,
@@ -176,28 +262,39 @@ export async function sendServiceRequestsBatch(
 
       if (dryRun) {
         skipped++;
+        const skipMessage =
+          mode === "no-attachments"
+            ? "Pre-validacao OK: solicitacao sem anexos seria aberta."
+            : `Pre-validacao OK: ${attachments.length} anexo(s) seriam enviados.`;
         items.push({
           serviceRequest,
           status: "skipped",
-          message:
-            mode === "no-attachments"
-              ? "Pre-validacao OK: solicitacao sem anexos seria aberta."
-              : `Pre-validacao OK: ${attachments.length} anexo(s) seriam enviados.`,
+          message: skipMessage,
           attachmentCount: attachments.length,
           warnings: itemWarnings.length > 0 ? itemWarnings : undefined,
+        });
+        onProgress?.({
+          type: "item_done",
+          index,
+          total,
+          row: serviceRequest,
+          outcome: "skipped",
+          message: skipMessage,
         });
         continue;
       }
 
       if (mode === "no-attachments") {
-        const response = await openTicket({
-          token: options.token,
-          clientId: resolvedIdentifiers.clientId,
-          departmentId: resolvedIdentifiers.departmentId,
-          requesterId: resolvedIdentifiers.requesterId,
-          subject,
-          description,
-        });
+        const response = await callOnvio!((token) =>
+          openTicket({
+            token,
+            clientId: resolvedIdentifiers.clientId,
+            departmentId: resolvedIdentifiers.departmentId,
+            requesterId: resolvedIdentifiers.requesterId,
+            subject,
+            description,
+          }),
+        );
 
         success++;
         items.push({
@@ -208,27 +305,48 @@ export async function sendServiceRequestsBatch(
           attachmentCount: 0,
           warnings: itemWarnings.length > 0 ? itemWarnings : undefined,
         });
+        onProgress?.({
+          type: "item_done",
+          index,
+          total,
+          row: serviceRequest,
+          outcome: "success",
+          message: "Solicitacao aberta sem anexos.",
+          ticketId: response.ticketId,
+        });
         continue;
       }
 
-      const response = await uploadTicketWithAttachments({
-        token: options.token,
-        clientId: resolvedIdentifiers.clientId,
-        departmentId: resolvedIdentifiers.departmentId,
-        requesterId: resolvedIdentifiers.requesterId,
-        subject,
-        description,
-        attachments: buildAttachmentBuffers(attachments),
-      });
+      const response = await callOnvio!((token) =>
+        uploadTicketWithAttachments({
+          token,
+          clientId: resolvedIdentifiers.clientId,
+          departmentId: resolvedIdentifiers.departmentId,
+          requesterId: resolvedIdentifiers.requesterId,
+          subject,
+          description,
+          attachments: buildAttachmentBuffers(attachments),
+        }),
+      );
 
       success++;
+      const successMessage = `${attachments.length} anexo(s) enviado(s).`;
       items.push({
         serviceRequest,
         status: "success",
-        message: `${attachments.length} anexo(s) enviado(s).`,
+        message: successMessage,
         ticketId: response.ticketId,
         attachmentCount: attachments.length,
         warnings: itemWarnings.length > 0 ? itemWarnings : undefined,
+      });
+      onProgress?.({
+        type: "item_done",
+        index,
+        total,
+        row: serviceRequest,
+        outcome: "success",
+        message: successMessage,
+        ticketId: response.ticketId,
       });
     } catch (error) {
       failed++;
@@ -246,6 +364,14 @@ export async function sendServiceRequestsBatch(
         status: "failed",
         message,
         warnings: itemWarnings.length > 0 ? itemWarnings : undefined,
+      });
+      onProgress?.({
+        type: "item_done",
+        index,
+        total,
+        row: serviceRequest,
+        outcome: "failed",
+        message,
       });
     }
   }

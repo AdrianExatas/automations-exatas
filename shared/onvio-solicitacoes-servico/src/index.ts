@@ -40,6 +40,7 @@ export type {
   ServiceRequestMode,
   ServiceRequestRow,
   SendServiceRequestsOptions,
+  SendServiceRequestsProgressEvent,
   UploadBatchItemResult,
   UploadBatchResult,
   UploadOnvioOptions,

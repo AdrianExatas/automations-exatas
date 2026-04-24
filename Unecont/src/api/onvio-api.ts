@@ -110,7 +110,9 @@ export async function createTicket(
     }),
   });
 
-  const data = await handleResponse<CreateTicketResponse>(response);
+  const raw = await handleResponse<CreateTicketResponse | null>(response);
+  const data =
+    raw && typeof raw === "object" ? raw : ({} as CreateTicketResponse & { id?: string });
   const idFromLocation = extractTicketIdFromLocation(response.headers.get("location"));
 
   return {

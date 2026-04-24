@@ -1,0 +1,24 @@
+{
+  "name": "adicionar-validacao-gestta",
+  "version": "1.0.0",
+  "description": "Automacao para habilitar aprovacao obrigatoria de tarefas no Gestta a partir de planilha local.",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "bun run dist/index.js",
+    "start:selecionar": "bun run dist/index.js --selecionar",
+    "dev": "bun --hot src/index.ts",
+    "dev:apply": "bun src/index.ts --apply",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@exatas/onvio-auth": "workspace:*",
+    "axios": "^1.6.0",
+    "dotenv": "^16.3.0",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "typescript": "^5.3.0"
+  }
+}

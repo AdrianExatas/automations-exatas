@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<NFSe versao="1.01" xmlns="http://www.sped.fazenda.gov.br/nfse">
+  <infNFSe Id="NFS28003082252387506000107000000000003026030088211817">
+    <nNFSe>30</nNFSe>
+    <emit>
+      <CNPJ>52387506000107</CNPJ>
+      <xNome>52.387.506 BARBARA LUISA SOARES DOS REIS SANTOS</xNome>
+      <enderNac>
+        <cMun>2800308</cMun>
+        <UF>SE</UF>
+      </enderNac>
+    </emit>
+    <valores>
+      <vLiq>5500.00</vLiq>
+    </valores>
+    <DPS versao="1.01">
+      <infDPS Id="DPS280030825238750600010770000000000000000002">
+        <dhEmi>2026-03-25T07:06:11-03:00</dhEmi>
+        <dCompet>2026-03-01</dCompet>
+        <prest>
+          <regTrib>
+            <opSimpNac>1</opSimpNac>
+          </regTrib>
+        </prest>
+        <toma>
+          <CNPJ>00483195000178</CNPJ>
+          <xNome>FASITEC DESENVOLVIMENTO E TECNOLOGIA LTDA</xNome>
+          <end>
+            <endNac>
+              <cMun>2800308</cMun>
+            </endNac>
+          </end>
+        </toma>
+        <serv>
+          <locPrest>
+            <cLocPrestacao>2800308</cLocPrestacao>
+          </locPrest>
+          <cServ>
+            <cTribNac>170202</cTribNac>
+            <xDescServ>Serviços administrativos e financeiros prestados na competência de março de 2026.</xDescServ>
+          </cServ>
+        </serv>
+        <valores>
+          <vServPrest>
+            <vServ>5500.00</vServ>
+          </vServPrest>
+        </valores>
+      </infDPS>
+    </DPS>
+  </infNFSe>
+</NFSe>

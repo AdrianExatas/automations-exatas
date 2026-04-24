@@ -157,7 +157,7 @@ describe("report-formatter", () => {
 
     expect(actualHeaders).toEqual(expectedHeaders);
     expect(sheet.rowCount).toBe(3);
-    expect(sheet.getColumn(20).width).toBe(30);
+    expect(sheet.getColumn(20).width).toBe(52);
     expect(sheet.getCell("T1").fill).toMatchObject({
       type: "pattern",
       pattern: "solid",
@@ -166,11 +166,15 @@ describe("report-formatter", () => {
     expect(sheet.getCell("T1").font).toMatchObject({
       color: { argb: "FF000000" },
     });
+    expect(sheet.getCell("T1").alignment).toMatchObject({
+      vertical: "middle",
+    });
+    expect(sheet.getCell("T1").alignment?.wrapText).not.toBe(true);
     expect(sheet.getCell("T2").text).toContain("\n");
     expect(sheet.getCell("T2").text.replace(/\n/g, " ")).toBe(longDescription);
     expect(sheet.getCell("T2").alignment).toMatchObject({
       wrapText: true,
-      vertical: "top",
+      vertical: "middle",
     });
     expect(sheet.getRow(2).height).toBeGreaterThan(12);
     expect(sheet.getCell("T3").text).toBe("Agenciamento.");
@@ -219,6 +223,93 @@ describe("report-formatter", () => {
     expect(tableXml).toContain('ref="A1:Y3"');
     expect(tableXml).toContain('<autoFilter ref="A1:Y3"/>');
     expect(tableXml).toContain('tableColumns count="25"');
+  });
+
+  it("aplica cores de cabeçalho: laranja nas demais, CNAE Descrição vermelho, DESCRIÇÃO e QUAL do modelo", async () => {
+    const modelPath = path.resolve("assets/templates/report-layout-example.xlsx");
+    const reportPath = path.join(tempDir, "cores-cabecalho.xlsx");
+    const serviceMapPath = path.join(tempDir, "mapa-cores.xlsx");
+
+    writeReportWorkbook(reportPath, [
+      {
+        cnpjEmpresa: "11.111.111/0001-11",
+        empresa: "Empresa A",
+        municipioTomador: "Maceió - AL",
+        conferido: "Não",
+        numeroNfe: "38132",
+        codigoVerificador: "410690222025358",
+        dataCompetenciaSerial: 46035,
+        emissaoNfeSerial: 46035,
+        cancelamentoSerial: null,
+        prestador: "SERVICOS CORPORATIVOS ALFA",
+        cnpjPrestador: "12.345.678/0001-90",
+        ccmPrestador: "11698895",
+        municipioPrestador: "Curitiba - PR",
+        regimeTributario: "Lucro Real/Presumido",
+        cnae: 7490104,
+        cnaeDescricao: "Atividades de intermediação",
+        valorNfe: 1036.5,
+        servicoFederal: "09.01",
+        servicoMunicipal: "1724",
+        servicoDentroMunicipio: "Fora",
+        baseCalculoIss: 1036.5,
+        valorLiquido: 1036.5,
+        linkText: "Link NFS",
+        linkUrl: "https://example.com/nfse/1",
+      },
+    ]);
+    writeServiceMapWorkbook(serviceMapPath, [["09.01", "Hospedagem."]]);
+
+    await formatDownloadedReport(reportPath, {
+      enabled: true,
+      modelPath,
+      serviceMapPath,
+      overwrite: true,
+    });
+
+    const templateHeaders = await getTemplateHeaders(modelPath);
+    const labelFor = (predicate: (h: string) => boolean): string => {
+      const found = templateHeaders.find(predicate);
+      expect(found).toBeDefined();
+      return found!;
+    };
+
+    const cnaeDescLabel = labelFor((h) => canonicalizeHeader(h) === "CNAE DESCRICAO");
+    const empresaLabel = labelFor((h) => canonicalizeHeader(h) === "EMPRESA");
+    const descServLabel = labelFor((h) => canonicalizeHeader(h) === "DESCRICAO DO SERVICO");
+    const qualServLabel = labelFor((h) => canonicalizeHeader(h) === "QUAL SERVICO CONTRATADO");
+
+    const formattedWorkbook = new ExcelJS.Workbook();
+    await formattedWorkbook.xlsx.readFile(reportPath);
+    const sheet = formattedWorkbook.getWorksheet("Serviços Tomados");
+    expect(sheet).toBeDefined();
+
+    const headerCell = (headerLabel: string) => {
+      const colIdx = templateHeaders.indexOf(headerLabel) + 1;
+      expect(colIdx).toBeGreaterThan(0);
+      return sheet!.getRow(1).getCell(colIdx);
+    };
+
+    expect(headerCell(cnaeDescLabel).fill).toMatchObject({
+      type: "pattern",
+      pattern: "solid",
+      fgColor: { argb: "FFFF0000" },
+    });
+    expect(headerCell(cnaeDescLabel).font?.color?.argb).toBe("FFFFFFFF");
+
+    expect(headerCell(empresaLabel).fill).toMatchObject({
+      type: "pattern",
+      pattern: "solid",
+      fgColor: { argb: "FFF79646" },
+    });
+    expect(headerCell(empresaLabel).font?.color?.argb).toBe("FFFFFFFF");
+
+    expect(headerCell(descServLabel).fill?.fgColor?.argb).not.toBe("FFF79646");
+    expect(headerCell(descServLabel).fill).toMatchObject({
+      fgColor: { argb: "FFFFFF00" },
+    });
+
+    expect(headerCell(qualServLabel).fill?.fgColor?.argb).not.toBe("FFF79646");
   });
 
   it("mantem item realmente sem correspondencia em branco", async () => {

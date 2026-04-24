@@ -6,7 +6,11 @@
 export interface LinhaPlanilha {
   cod: string;
   cnpj: string;
+  cnpjOriginal?: string;
+  cnpjFoiAjustado?: boolean;
+  cnpjInvalido?: boolean;
   responsavel: string;
+  /** Mantido por compatibilidade com a planilha e reprocessamento de relatórios. */
   mesGeracao: { month: number; year: number };
   /** Nome do departamento (ex.: Pessoal, Fiscal) – define o setor para alterar responsável. */
   departamento?: string;
@@ -49,20 +53,14 @@ export interface PatchResponsavelBody {
   company_user: string;
 }
 
-/** Body do DELETE/POST task-gen/admin/customer/:customerId. */
-export interface TaskGenBody {
-  month: number;
-  year: number;
-}
-
 /** Etapa em que ocorreu falha (para diagnóstico de 404 etc.). */
 export type EtapaFalha =
+  | "validarCnpj"
   | "buscarCliente"
   | "buscarUsuario"
   | "groupCustomerIds"
-  | "patchResponsavel"
-  | "removerTarefas"
-  | "gerarTarefas";
+  | "semGroupCustomer"
+  | "patchResponsavel";
 
 /** Resultado do processamento de uma linha. */
 export interface ResultadoLinha {

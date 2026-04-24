@@ -90,6 +90,9 @@ function resolveAttachmentContentType(fileName: string): string {
   if (lower.endsWith(".xlsx")) {
     return "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
   }
+  if (lower.endsWith(".mp4")) return "video/mp4";
+  if (lower.endsWith(".webm")) return "video/webm";
+  if (lower.endsWith(".mov")) return "video/quicktime";
 
   throw new OnvioApiError(`Extensao de arquivo nao suportada para upload: ${fileName}`);
 }
@@ -112,7 +115,9 @@ export async function createTicket(
     }),
   });
 
-  const data = await handleResponse<CreateTicketResponse>(response);
+  const raw = await handleResponse<CreateTicketResponse | null>(response);
+  const data =
+    raw && typeof raw === "object" ? raw : ({} as CreateTicketResponse & { id?: string });
   const idFromLocation = extractTicketIdFromLocation(response.headers.get("location"));
 
   return {

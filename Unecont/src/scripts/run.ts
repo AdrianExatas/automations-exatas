@@ -2,6 +2,7 @@ import { downloadUnecontBatch } from "../download-unecont";
 import { loadEnvConfig } from "../config";
 import { resolveRuntimePath } from "../project-paths";
 import { resolveExcelPath, loadDotenvFromProjectRoot } from "./cli-helpers";
+import { getDefaultReportFormattingOptions } from "./report-formatting-defaults";
 
 export async function main(): Promise<number> {
   loadDotenvFromProjectRoot();
@@ -34,9 +35,13 @@ export async function main(): Promise<number> {
       },
       loginUrl: env.loginUrl,
       servicosTomadosUrl: env.servicosTomadosUrl,
+      reportFormatting: getDefaultReportFormattingOptions(),
     });
 
     console.log(`Downloads: ${result.downloadsDir}`);
+    if (result.reportPath) {
+      console.log(`Relatorio: ${result.reportPath}`);
+    }
     console.log(
       `Resumo: ${result.summary.success} sucesso, ${result.summary.noNotas} sem notas, ${result.summary.notFound} nao encontradas, ${result.summary.failed} falhas, ${result.summary.skipped} puladas.`,
     );

@@ -10,7 +10,8 @@
     "start:reprocessar": "node dist/index.js --reprocessar",
     "dev": "ts-node src/index.ts",
     "dev:selecionar": "ts-node src/index.ts --selecionar",
-    "relatorio:xlsx": "node dist/scripts/converter-relatorio-xlsx.js"
+    "relatorio:xlsx": "node dist/scripts/converter-relatorio-xlsx.js",
+    "test": "node --test -r ts-node/register test/cnpj.test.ts test/client-auth.test.ts test/runtime-auth.test.ts"
   },
   "dependencies": {
     "@exatas/onvio-auth": "workspace:*",

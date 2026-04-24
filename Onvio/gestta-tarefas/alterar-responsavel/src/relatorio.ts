@@ -6,7 +6,9 @@
 import fs from "fs";
 import path from "path";
 import * as XLSX from "xlsx";
-import { ResultadoLinha } from "./types";
+import { ResultadoLinha, LinhaPlanilha } from "./types";
+import { parseMesGeracao } from "./planilha";
+import { normalizarCnpjDetalhado } from "./cnpj";
 
 /** Metadados da execução (data/hora, planilha, totais). */
 export interface MetadadosExecucao {
@@ -25,6 +27,7 @@ export interface MetadadosExecucao {
 /** Item de resultado serializável para o JSON (permite reconstruir LinhaPlanilha). */
 export interface ResultadoItemRelatorio {
   cnpj: string;
+  cnpjOriginal?: string;
   responsavel: string;
   mesGeracao: string;
   departamento?: string;
@@ -69,6 +72,7 @@ function resultadoParaItem(r: ResultadoLinha): ResultadoItemRelatorio {
   const mesGeracao = formatMesGeracao(linha.mesGeracao.month, linha.mesGeracao.year);
   return {
     cnpj: linha.cnpj,
+    ...(linha.cnpjOriginal && linha.cnpjOriginal !== linha.cnpj ? { cnpjOriginal: linha.cnpjOriginal } : {}),
     responsavel: linha.responsavel,
     mesGeracao,
     departamento: linha.departamento,
@@ -76,6 +80,24 @@ function resultadoParaItem(r: ResultadoLinha): ResultadoItemRelatorio {
     sucesso,
     mensagem,
     etapaFalha,
+  };
+}
+
+export function reconstruirLinhaDoRelatorio(item: ResultadoItemRelatorio): LinhaPlanilha | null {
+  const mesGeracao = parseMesGeracao(item.mesGeracao);
+  if (!mesGeracao) return null;
+
+  const cnpjInfo = normalizarCnpjDetalhado(item.cnpjOriginal ?? item.cnpj);
+  return {
+    cod: "",
+    cnpj: cnpjInfo.valor,
+    ...(cnpjInfo.original && cnpjInfo.original !== cnpjInfo.valor ? { cnpjOriginal: cnpjInfo.original } : {}),
+    ...(cnpjInfo.ajustado ? { cnpjFoiAjustado: true } : {}),
+    ...(!cnpjInfo.valido ? { cnpjInvalido: true } : {}),
+    responsavel: item.responsavel,
+    mesGeracao,
+    departamento: item.departamento,
+    setor: item.setor,
   };
 }
 
@@ -233,6 +255,7 @@ export function salvarRelatorioXlsx(
     // Aba Resultados
     const headers = [
       "CNPJ",
+      "CNPJ Original",
       "Responsável",
       "Mês Geração",
       "Departamento",
@@ -243,6 +266,7 @@ export function salvarRelatorioXlsx(
     ];
     const rows: (string | boolean)[][] = resultados.map((r) => [
       r.cnpj,
+      r.cnpjOriginal ?? "",
       r.responsavel,
       r.mesGeracao,
       r.departamento ?? "",

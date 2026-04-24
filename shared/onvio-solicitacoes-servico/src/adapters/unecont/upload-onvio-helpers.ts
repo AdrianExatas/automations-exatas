@@ -100,6 +100,11 @@ export function resolveUploadIdentifiers(
   if (!directRequesterId && empresa.solicitante.trim() && !mappedRequesterId && fallbackRequesterId) {
     warnings.push(`Solicitante "${empresa.solicitante}" nao encontrado na API do BD; usando fallback.`);
   }
+  if (empresa.solicitante.trim() && !requesterId) {
+    warnings.push(
+      `Solicitante "${empresa.solicitante}" sem ID do Onvio resolvido; o portal exibira o campo vazio. Defina ONVIO_REQUESTER_ID, coluna ONVIO_REQUESTER_ID na planilha ou nome alinhado ao cadastro em /employees (BD_API_BASE_URL).`,
+    );
+  }
 
   const directDepartmentId = empresa.onvioDepartmentId?.trim();
   const mappedDepartmentId = lookups.departmentIdByName.get(

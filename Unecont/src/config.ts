@@ -25,6 +25,12 @@ export interface EnvConfig extends Config {
   onvioDryRun: boolean;
   bdApiBaseUrl: string;
   unecontUploadDir: string;
+  /** Caminho opcional de vídeo anexado a cada solicitação Onvio (relatório NFS). */
+  unecontOnvioNfsVideoPath: string;
+  /** Em 401, executa login via shared/onvio-auth (requer ONVIO_EMAIL e ONVIO_PASSWORD). */
+  onvioAutoRefreshToken: boolean;
+  onvioEmail: string;
+  onvioPassword: string;
 }
 
 function parseBoolean(value: string | undefined, defaultValue: boolean): boolean {
@@ -57,6 +63,10 @@ export function loadEnvConfig(env: NodeJS.ProcessEnv = process.env): EnvConfig {
     onvioDryRun: parseBoolean(env.ONVIO_DRY_RUN, false),
     bdApiBaseUrl: env.BD_API_BASE_URL ?? DEFAULT_BD_API_BASE_URL,
     unecontUploadDir: env.UNECONT_UPLOAD_DIR ?? "",
+    unecontOnvioNfsVideoPath: env.UNECONT_ONVIO_NFS_VIDEO_PATH ?? "",
+    onvioAutoRefreshToken: parseBoolean(env.ONVIO_AUTO_REFRESH_TOKEN, false),
+    onvioEmail: env.ONVIO_EMAIL ?? "",
+    onvioPassword: env.ONVIO_PASSWORD ?? "",
   };
 }
 

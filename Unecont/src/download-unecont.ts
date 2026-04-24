@@ -14,6 +14,7 @@ import { LoginFlow } from "./flows/login-flow";
 import { resolveEmpresasInput } from "./input";
 import { resolveRuntimePath } from "./project-paths";
 import { formatDownloadedReport } from "./report-formatter";
+import { writeDownloadExecutionReport } from "./download-execution-report";
 import { ensureWorkbookReady, type WorkbookReadyResult } from "./workbook-ready";
 import type {
   DownloadBatchItemResult,
@@ -295,17 +296,36 @@ export async function downloadUnecontBatch(
       `Resumo: ${success} sucesso, ${noNotas} sem notas, ${notFound} nao encontradas, ${failed} falhas, ${skipped} puladas.`,
     );
 
+    const summary = {
+      total: empresas.length,
+      success,
+      noNotas,
+      notFound,
+      failed,
+      skipped,
+    };
+    let reportPath: string | undefined;
+
+    try {
+      reportPath = writeDownloadExecutionReport({
+        runId,
+        downloadsDir,
+        summary,
+        items,
+      });
+    } catch (error) {
+      logMessage(
+        logger,
+        "warn",
+        `Falha ao gerar relatorio final: ${error instanceof Error ? error.message : String(error)}`,
+      );
+    }
+
     return {
       runId,
       downloadsDir,
-      summary: {
-        total: empresas.length,
-        success,
-        noNotas,
-        notFound,
-        failed,
-        skipped,
-      },
+      reportPath,
+      summary,
       items,
     };
   } finally {

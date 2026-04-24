@@ -127,6 +127,28 @@ describe("upload-onvio helpers", () => {
     expect(result.warnings).toEqual([]);
   });
 
+  it("avisa quando solicitante na planilha nao resolve para requesterId", () => {
+    const result = resolveUploadIdentifiers(
+      makeEmpresa({ solicitante: "Beltrano", departamento: "Fiscal" }),
+      {
+        clientIdByCode: new Map([["543", "client-map"]]),
+        requesterIdByName: new Map(),
+        departmentIdByName: new Map([["FISCAL", "dep-map"]]),
+      },
+      {
+        clientId: "client-default",
+        departmentId: "dep-fallback",
+      },
+    );
+
+    expect(result.requesterId).toBeUndefined();
+    expect(result.warnings).toEqual(
+      expect.arrayContaining([
+        expect.stringContaining('Solicitante "Beltrano" sem ID do Onvio resolvido'),
+      ]),
+    );
+  });
+
   it("cai no fallback global quando a API do BD nao resolve", () => {
     const result = resolveUploadIdentifiers(
       makeEmpresa({ solicitante: "Beltrano", departamento: "Inexistente" }),

@@ -78,6 +78,21 @@ describe("onvio core api", () => {
     ).rejects.toThrow("Extensao de arquivo nao suportada");
   });
 
+  it("aceita mp4 no addAttachment", async () => {
+    const fetchMock = vi.fn().mockResolvedValueOnce(makeJsonResponse({ ok: true }));
+    vi.stubGlobal("fetch", fetchMock);
+
+    await addAttachment(
+      { token: "token", departmentId: "dep-1" },
+      "ticket-1",
+      { fileBuffer: Buffer.from("abc"), fileName: "clip.mp4" },
+    );
+
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    const req = fetchMock.mock.calls[0]?.[1] as { body: FormData };
+    expect(req.body).toBeInstanceOf(FormData);
+  });
+
   it("orquestra ticket, topico e anexos no uploadTicketWithAttachments", async () => {
     const fetchMock = vi
       .fn()
