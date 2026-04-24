@@ -1,5 +1,23 @@
-# Downloaded XML files and generated spreadsheets
+# Operacao local
+_local/
+.venv/
+build/
+dist/
+installer/
+
+# Dados e saidas antigas
 *.xml
-xmls_baixados/
 *.xlsx
+*.xls
+*.pdf
+xmls_baixados/
+xmls_baixados_relatorio/
+danfes-gerados/
+logs/
+uploads_temp/
+packaging/windows/config/.env
+
+# Excecoes versionadas
 !planilhas/MODELO.xlsx
+!.env.example
+!packaging/windows/config/.env.example

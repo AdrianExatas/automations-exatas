@@ -1,0 +1,9 @@
+[paths]
+output_dir = var/saida_nfse
+log_dir = var/logs
+
+[renomeacao]
+competencia =
+prefixo_servico = NOTA FISCAL SERVICO CONTABIL 1-2 COMP
+prefixo_produtos = NOTA FISCAL SERVICO CONTABIL 2-2 COMP
+pasta_destino = RENOMEADOS

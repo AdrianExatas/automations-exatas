@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sieg-xml"
+version = "1.1.0"
+description = "Automacao para download, organizacao e envio de XMLs no SIEG."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "requests>=2.31.0",
+  "pandas>=2.0.0",
+  "openpyxl>=3.1.0",
+  "python-dotenv>=1.0.0",
+  "tqdm>=4.66.0",
+  "brazilfiscalreport>=0.6.3",
+  "pypdf>=5.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0.0",
+]
+build = [
+  "pyinstaller>=6.0.0",
+]
+
+[project.scripts]
+sieg-xml = "sieg_xml.cli.main:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

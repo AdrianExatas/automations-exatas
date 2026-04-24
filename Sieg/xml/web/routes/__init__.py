@@ -1,3 +1,0 @@
-"""
-Rotas da aplicação web
-"""

@@ -1,171 +1,167 @@
-"""
-Módulo para organização de XMLs por ano
-"""
+"""Utilitarios para reorganizacao de XMLs em diferentes formatos de pasta."""
+
+from __future__ import annotations
+
 import os
-from typing import Optional
+from pathlib import Path
+from typing import Callable
+
 from .xml_parser import extrair_data_xml
 
-
-def organizar_xmls_por_data(pasta_xmls: str) -> dict:
-    """
-    Organiza todos os XMLs da pasta por ano (apenas ano, sem mês).
-
-    Args:
-        pasta_xmls: Caminho da pasta contendo os XMLs
-
-    Returns:
-        Dicionário com estatísticas da organização
-    """
-    if not os.path.exists(pasta_xmls):
-        print(f"ERRO: Pasta '{pasta_xmls}' não encontrada.")
-        return {"erro": "Pasta não encontrada"}
-
-    # Listar todos os arquivos XML na pasta raiz
-    arquivos_xml = []
-    for arquivo in os.listdir(pasta_xmls):
-        caminho_completo = os.path.join(pasta_xmls, arquivo)
-        if os.path.isfile(caminho_completo) and arquivo.lower().endswith('.xml'):
-            arquivos_xml.append(caminho_completo)
-
-    if len(arquivos_xml) == 0:
-        print(f"Nenhum arquivo XML encontrado em '{pasta_xmls}'")
-        return {"total": 0, "organizados": 0, "sem_data": 0, "erros": 0, "ja_organizados": 0}
-
-    # Estatísticas
-    organizados = 0
-    sem_data = 0
-    erros = 0
-    ja_organizados = 0
-
-    # Processar cada arquivo
-    for idx, caminho_arquivo in enumerate(arquivos_xml, 1):
-        nome_arquivo = os.path.basename(caminho_arquivo)
-
-        # Verificar se já está em uma pasta por ano (ano/arquivo.xml)
-        caminho_relativo = os.path.relpath(caminho_arquivo, pasta_xmls)
-        partes_caminho = caminho_relativo.split(os.sep)
-
-        if len(partes_caminho) == 2:  # ano/arquivo.xml
-            try:
-                ano = int(partes_caminho[0])
-                print(f"[{idx}/{len(arquivos_xml)}] {nome_arquivo} - Já organizado ({ano})")
-                ja_organizados += 1
-                continue
-            except ValueError:
-                pass
-
-        print(f"[{idx}/{len(arquivos_xml)}] Processando: {nome_arquivo}")
-
-        # Ler XML e extrair data
-        try:
-            with open(caminho_arquivo, 'r', encoding='utf-8') as f:
-                xml_content = f.read()
-            ano, _ = extrair_data_xml(xml_content)
-        except Exception as e:
-            print(f"  ERRO ao ler XML: {e}")
-            erros += 1
-            continue
-
-        if ano:
-            # Criar pasta destino: apenas por ano
-            pasta_destino = os.path.join(pasta_xmls, str(ano))
-            os.makedirs(pasta_destino, exist_ok=True)
-
-            caminho_destino = os.path.join(pasta_destino, nome_arquivo)
-
-            if os.path.exists(caminho_destino):
-                if os.path.samefile(caminho_arquivo, caminho_destino):
-                    print(f"  Já está no local correto")
-                    ja_organizados += 1
-                else:
-                    base, ext = os.path.splitext(nome_arquivo)
-                    contador = 1
-                    while os.path.exists(caminho_destino):
-                        novo_nome = f"{base}_{contador}{ext}"
-                        caminho_destino = os.path.join(pasta_destino, novo_nome)
-                        contador += 1
-                    os.rename(caminho_arquivo, caminho_destino)
-                    print(f"  OK - Movido para {ano}/ (renomeado para evitar duplicata)")
-                    organizados += 1
-            else:
-                try:
-                    os.rename(caminho_arquivo, caminho_destino)
-                    print(f"  OK - Movido para {ano}/")
-                    organizados += 1
-                except Exception as e:
-                    print(f"  ERRO ao mover: {e}")
-                    erros += 1
-        else:
-            print(f"  AVISO - Data não identificada, mantendo na pasta raiz")
-            sem_data += 1
-
-    return {
-        "total": len(arquivos_xml),
-        "organizados": organizados,
-        "sem_data": sem_data,
-        "erros": erros,
-        "ja_organizados": ja_organizados
-    }
+MODE_FLAT = "flat"
+MODE_YEAR = "year"
+MODE_YEAR_MONTH = "year_month"
+ORGANIZER_MODES = {MODE_FLAT, MODE_YEAR, MODE_YEAR_MONTH}
 
 
-def reorganizar_por_ano(pasta_xmls: str) -> dict:
-    """
-    Reorganiza XMLs que estão em estrutura ano/mês para apenas ano.
-    Move todos os arquivos de pasta_xmls/ANO/MES/ para pasta_xmls/ANO/ e remove pastas de mês vazias.
+def organizar_xmls_por_data(pasta_xmls: str) -> dict[str, object]:
+    """Mantem compatibilidade com a organizacao por ano."""
+    return reorganizar_xmls(pasta_xmls, MODE_YEAR)
 
-    Args:
-        pasta_xmls: Caminho da pasta (ex: xmls_baixados)
 
-    Returns:
-        Dicionário com estatísticas (movidos, conflitos, erros)
-    """
-    if not os.path.exists(pasta_xmls):
-        return {"erro": "Pasta não encontrada", "movidos": 0, "conflitos": 0, "erros": 0}
+def reorganizar_por_ano(pasta_xmls: str) -> dict[str, object]:
+    """Mantem compatibilidade com a reorganizacao para estrutura por ano."""
+    return reorganizar_xmls(pasta_xmls, MODE_YEAR)
+
+
+def organizar_xmls(
+    pasta_xmls: str,
+    mode: str,
+    *,
+    progress_callback: Callable[..., None] | None = None,
+) -> dict[str, object]:
+    """Alias publico para reorganizacao generica."""
+    return reorganizar_xmls(pasta_xmls, mode, progress_callback=progress_callback)
+
+
+def reorganizar_xmls(
+    pasta_xmls: str,
+    mode: str,
+    *,
+    progress_callback: Callable[..., None] | None = None,
+) -> dict[str, object]:
+    """Reorganiza todos os XMLs recursivamente para o formato alvo."""
+    if mode not in ORGANIZER_MODES:
+        raise ValueError(f"Modo de organizacao invalido: {mode}")
+
+    raiz = Path(pasta_xmls)
+    if not raiz.exists():
+        return {"erro": "Pasta nao encontrada", "mode": mode}
+    if not raiz.is_dir():
+        return {"erro": "Caminho informado nao e uma pasta", "mode": mode}
+
+    arquivos_xml = sorted([caminho for caminho in raiz.rglob("*.xml") if caminho.is_file()])
+    if not arquivos_xml:
+        return _resultado_base(mode, total=0)
 
     movidos = 0
     conflitos = 0
     erros = 0
+    ja_organizados = 0
+    sem_data = 0
 
-    for nome_ano in os.listdir(pasta_xmls):
-        pasta_ano = os.path.join(pasta_xmls, nome_ano)
-        if not os.path.isdir(pasta_ano) or not nome_ano.isdigit():
+    total = len(arquivos_xml)
+    for idx, caminho_atual in enumerate(arquivos_xml, 1):
+        nome_arquivo = caminho_atual.name
+
+        try:
+            xml_content = _ler_xml(caminho_atual)
+            ano, mes = extrair_data_xml(xml_content)
+        except Exception as exc:
+            erros += 1
+            _emit_progress(progress_callback, current=idx, total=total, path=str(caminho_atual), message=f"ERRO: {exc}")
             continue
 
-        for nome_mes in os.listdir(pasta_ano):
-            pasta_mes = os.path.join(pasta_ano, nome_mes)
-            if not os.path.isdir(pasta_mes):
+        if ano is None:
+            sem_data += 1
+
+        caminho_destino = _build_target_path(raiz, nome_arquivo, mode, ano, mes)
+        caminho_destino.parent.mkdir(parents=True, exist_ok=True)
+
+        try:
+            if caminho_destino.resolve() == caminho_atual.resolve():
+                ja_organizados += 1
+                _emit_progress(progress_callback, current=idx, total=total, path=str(caminho_atual), message="Ja organizado")
                 continue
+        except FileNotFoundError:
+            pass
 
-            for nome_arquivo in os.listdir(pasta_mes):
-                caminho_origem = os.path.join(pasta_mes, nome_arquivo)
-                if not os.path.isfile(caminho_origem) or not nome_arquivo.lower().endswith('.xml'):
-                    continue
+        if caminho_destino.exists():
+            caminho_destino, houve_conflito = _resolver_conflito(caminho_destino)
+            if houve_conflito:
+                conflitos += 1
 
-                caminho_destino = os.path.join(pasta_ano, nome_arquivo)
-                try:
-                    if os.path.exists(caminho_destino):
-                        if os.path.samefile(caminho_origem, caminho_destino):
-                            pass
-                        else:
-                            base, ext = os.path.splitext(nome_arquivo)
-                            contador = 1
-                            while os.path.exists(caminho_destino):
-                                caminho_destino = os.path.join(pasta_ano, f"{base}_{contador}{ext}")
-                                contador += 1
-                            conflitos += 1
-                    os.rename(caminho_origem, caminho_destino)
-                    movidos += 1
-                except Exception as e:
-                    print(f"  ERRO ao mover {nome_arquivo}: {e}")
-                    erros += 1
+        try:
+            caminho_atual.replace(caminho_destino)
+            movidos += 1
+            _emit_progress(progress_callback, current=idx, total=total, path=str(caminho_destino), message="Movido")
+        except Exception as exc:
+            erros += 1
+            _emit_progress(progress_callback, current=idx, total=total, path=str(caminho_atual), message=f"ERRO: {exc}")
 
-        # Remover pastas de mês vazias
-        for nome_mes in list(os.listdir(pasta_ano)):
-            pasta_mes = os.path.join(pasta_ano, nome_mes)
-            if os.path.isdir(pasta_mes) and not os.listdir(pasta_mes):
-                try:
-                    os.rmdir(pasta_mes)
-                except OSError:
-                    pass
+    _remover_pastas_vazias(raiz)
+    return {
+        "mode": mode,
+        "total": total,
+        "organizados": movidos,
+        "movidos": movidos,
+        "conflitos": conflitos,
+        "sem_data": sem_data,
+        "erros": erros,
+        "ja_organizados": ja_organizados,
+    }
 
-    return {"movidos": movidos, "conflitos": conflitos, "erros": erros}
+
+def _resultado_base(mode: str, *, total: int) -> dict[str, object]:
+    return {
+        "mode": mode,
+        "total": total,
+        "organizados": 0,
+        "movidos": 0,
+        "conflitos": 0,
+        "sem_data": 0,
+        "erros": 0,
+        "ja_organizados": 0,
+    }
+
+
+def _ler_xml(caminho: Path) -> str:
+    try:
+        return caminho.read_text(encoding="utf-8")
+    except UnicodeDecodeError:
+        return caminho.read_text(encoding="latin-1")
+
+
+def _build_target_path(raiz: Path, nome_arquivo: str, mode: str, ano: int | None, mes: int | None) -> Path:
+    if mode == MODE_FLAT or ano is None:
+        return raiz / nome_arquivo
+    if mode == MODE_YEAR_MONTH and mes is not None:
+        return raiz / str(ano) / f"{mes:02d}" / nome_arquivo
+    return raiz / str(ano) / nome_arquivo
+
+
+def _resolver_conflito(caminho_destino: Path) -> tuple[Path, bool]:
+    base = caminho_destino.stem
+    ext = caminho_destino.suffix
+    contador = 1
+    novo_destino = caminho_destino
+
+    while novo_destino.exists():
+        novo_destino = caminho_destino.with_name(f"{base}_{contador}{ext}")
+        contador += 1
+
+    return novo_destino, True
+
+
+def _remover_pastas_vazias(raiz: Path) -> None:
+    for caminho in sorted([path for path in raiz.rglob("*") if path.is_dir()], key=lambda item: len(item.parts), reverse=True):
+        try:
+            if not any(caminho.iterdir()):
+                caminho.rmdir()
+        except OSError:
+            continue
+
+
+def _emit_progress(callback: Callable[..., None] | None, **payload) -> None:
+    if callback is not None:
+        callback(**payload)

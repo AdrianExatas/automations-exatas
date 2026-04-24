@@ -1,126 +1,109 @@
-"""
-Janela principal da aplicação
-"""
+"""Janela principal da aplicacao desktop."""
+
+from __future__ import annotations
+
 import tkinter as tk
-from tkinter import ttk, messagebox
-import os
-import sys
+from tkinter import messagebox, ttk
 
-# Adicionar src ao path se necessário
-current_dir = os.path.dirname(__file__)
-if 'gui' in current_dir:
-    src_path = os.path.join(current_dir, '..', '..', '..')
-    if os.path.exists(src_path):
-        sys.path.insert(0, src_path)
+from sieg_xml.config import ACTIVE_ENV_FILE, MACHINE_ENV_FILE
 
-from .tabs import DownloadTab, UploadTab, ExtractTab, OrganizeTab
-from .components.config_dialog import ConfigDialog
+from .components.log_viewer import LogViewer
+from .components.progress_bar import ProgressBar
+from .controllers import DownloadController, ReorganizeController
+from .views import DownloadPanel, ReorganizePanel
 
 
 class MainWindow:
-    """Janela principal da aplicação"""
-    
-    def __init__(self):
-        """Inicializa a janela principal"""
+    """Orquestra a GUI principal e coordena os controllers."""
+
+    def __init__(self) -> None:
         self.root = tk.Tk()
-        self.root.title("SIEG XML - Sistema de Gerenciamento de XMLs Fiscais")
-        self.root.geometry("900x700")
-        
-        # Centralizar na tela
-        self._centralizar_janela()
-        
-        # Criar menu
-        self._criar_menu()
-        
-        # Criar notebook (abas)
-        self.notebook = ttk.Notebook(self.root)
-        self.notebook.pack(fill='both', expand=True, padx=10, pady=10)
-        
-        # Criar abas
-        self._criar_abas()
-        
-        # Status bar
-        self.status_bar = ttk.Label(self.root, text="Pronto", relief=tk.SUNKEN, anchor='w')
-        self.status_bar.pack(side='bottom', fill='x')
-    
-    def _centralizar_janela(self):
-        """Centraliza a janela na tela"""
-        self.root.update_idletasks()
-        width = self.root.winfo_width()
-        height = self.root.winfo_height()
-        x = (self.root.winfo_screenwidth() // 2) - (width // 2)
-        y = (self.root.winfo_screenheight() // 2) - (height // 2)
-        self.root.geometry(f"{width}x{height}+{x}+{y}")
-    
-    def _criar_menu(self):
-        """Cria o menu da aplicação"""
-        menubar = tk.Menu(self.root)
-        self.root.config(menu=menubar)
-        
-        # Menu Arquivo
-        file_menu = tk.Menu(menubar, tearoff=0)
-        menubar.add_cascade(label="Arquivo", menu=file_menu)
-        file_menu.add_command(label="Sair", command=self._sair)
-        
-        # Menu Configurações
-        config_menu = tk.Menu(menubar, tearoff=0)
-        menubar.add_cascade(label="Configurações", menu=config_menu)
-        config_menu.add_command(label="Configurações...", command=self._abrir_config)
-        
-        # Menu Ajuda
-        help_menu = tk.Menu(menubar, tearoff=0)
-        menubar.add_cascade(label="Ajuda", menu=help_menu)
-        help_menu.add_command(label="Sobre", command=self._mostrar_sobre)
-    
-    def _criar_abas(self):
-        """Cria as abas principais"""
-        # Aba Download
-        self.download_tab = DownloadTab(self.notebook, self.root)
-        self.notebook.add(self.download_tab, text="📥 Download")
-        
-        # Aba Upload
-        self.upload_tab = UploadTab(self.notebook, self.root)
-        self.notebook.add(self.upload_tab, text="📤 Upload")
-        
-        # Aba Extração
-        self.extract_tab = ExtractTab(self.notebook, self.root)
-        self.notebook.add(self.extract_tab, text="🔑 Extrair Chaves")
-        
-        # Aba Organização
-        self.organize_tab = OrganizeTab(self.notebook, self.root)
-        self.notebook.add(self.organize_tab, text="📁 Organizar")
-    
-    def _abrir_config(self):
-        """Abre o diálogo de configurações"""
-        dialog = ConfigDialog(self.root)
-        if dialog.show():
-            messagebox.showinfo("Info", "Configuracoes salvas! Algumas mudancas podem requerer reiniciar a aplicacao.")
-    
-    def _mostrar_sobre(self):
-        """Mostra diálogo sobre"""
-        messagebox.showinfo(
-            "Sobre",
-            "SIEG XML - Sistema de Gerenciamento de XMLs Fiscais\n\n"
-            "Versão: 1.0.0\n\n"
-            "Sistema para gerenciamento de XMLs fiscais (NFe, NFCe, NFSe, CTe, CFe)\n"
-            "integrado com a API SIEG.\n\n"
-            "Funcionalidades:\n"
-            "  • Download de XMLs\n"
-            "  • Upload de XMLs\n"
-            "  • Extração de chaves\n"
-            "  • Organização automática"
+        self.root.title("SIEG XML - Download")
+        self.root.geometry("980x860")
+        self.root.minsize(900, 760)
+        self.env_status_var = tk.StringVar(value=self._build_env_status())
+
+        main = ttk.Frame(self.root, padding=16)
+        main.pack(fill="both", expand=True)
+
+        self._create_header(main)
+
+        notebook = ttk.Notebook(main)
+        notebook.pack(fill="x", pady=(0, 12))
+
+        self.download_panel = DownloadPanel(notebook)
+        notebook.add(self.download_panel, text="Download")
+
+        self.reorganize_panel = ReorganizePanel(notebook)
+        notebook.add(self.reorganize_panel, text="Organizacao")
+
+        self.progress = ProgressBar(main)
+        self.progress.frame.pack(fill="x", pady=(0, 12))
+        self.log_viewer = LogViewer(main, height=16)
+        self.log_viewer.frame.pack(fill="both", expand=True)
+
+        self.download_controller = DownloadController(
+            root=self.root,
+            view=self.download_panel,
+            progress=self.progress,
+            log_viewer=self.log_viewer,
+            show_error=self._show_error,
+            show_warning=self._show_warning,
+            show_info=self._show_info,
+            refresh_actions=self._refresh_action_states,
         )
-    
-    def _sair(self):
-        """Fecha a aplicação"""
-        if messagebox.askokcancel("Sair", "Deseja realmente sair?"):
-            self.root.quit()
-            self.root.destroy()
-    
-    def atualizar_status(self, texto: str):
-        """Atualiza a barra de status"""
-        self.status_bar.config(text=texto)
-    
-    def run(self):
-        """Inicia o loop principal da aplicação"""
+        self.download_controller.set_clear_action(self._clear_form)
+
+        self.reorganize_controller = ReorganizeController(
+            root=self.root,
+            view=self.reorganize_panel,
+            progress=self.progress,
+            log_viewer=self.log_viewer,
+            show_error=self._show_error,
+            refresh_actions=self._refresh_action_states,
+        )
+
+        self._refresh_action_states()
+
+    def _build_env_status(self) -> str:
+        if ACTIVE_ENV_FILE:
+            return f"Configuracao carregada de: {ACTIVE_ENV_FILE}"
+        return f"Configuracao nao encontrada. Esperado em: {MACHINE_ENV_FILE}"
+
+    def _create_header(self, parent) -> None:
+        header = ttk.Frame(parent)
+        header.pack(fill="x", pady=(0, 12))
+        ttk.Label(header, text="SIEG XML", font=("Segoe UI", 18, "bold")).pack(anchor="w")
+        ttk.Label(
+            header,
+            text="Baixe XMLs com validacao automatica das chaves e reorganize pastas existentes em abas separadas.",
+            wraplength=880,
+            justify="left",
+        ).pack(anchor="w", pady=(6, 0))
+        ttk.Label(header, textvariable=self.env_status_var, foreground="#555555").pack(anchor="w", pady=(6, 0))
+
+    def _show_error(self, title: str, message: str) -> None:
+        messagebox.showerror(title, message)
+
+    def _show_warning(self, title: str, message: str) -> None:
+        messagebox.showwarning(title, message)
+
+    def _show_info(self, title: str, message: str) -> None:
+        messagebox.showinfo(title, message)
+
+    def _refresh_action_states(self) -> None:
+        self.download_controller.refresh_view_state(self.reorganize_controller.reorganize_active)
+        self.reorganize_controller.refresh_view_state(self.download_controller.download_active)
+
+    def _clear_form(self) -> None:
+        if self.download_controller.download_active or self.reorganize_controller.reorganize_active:
+            self._show_info("Operacao em andamento", "Aguarde a operacao atual terminar antes de limpar.")
+            return
+        self.download_controller.clear()
+        self.reorganize_controller.clear()
+        self.progress.reset()
+        self.log_viewer.clear()
+        self._refresh_action_states()
+
+    def run(self) -> None:
         self.root.mainloop()

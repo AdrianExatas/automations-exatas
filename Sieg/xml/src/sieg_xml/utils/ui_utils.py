@@ -9,25 +9,26 @@ from typing import Optional, List
 
 def selecionar_planilha() -> Optional[str]:
     """
-    Abre um diálogo para o usuário selecionar uma planilha Excel ou arquivo de texto
+    Abre um diálogo para o usuário selecionar planilha Excel, TXT ou CSV.
     Retorna o caminho completo do arquivo selecionado ou None se cancelado
     """
     print("\nAbrindo diálogo de seleção de arquivo...")
-    print("Por favor, selecione o arquivo (Excel ou TXT) no diálogo que será aberto.\n")
-    
+    print("Por favor, selecione o arquivo (Excel, TXT ou CSV) no diálogo que será aberto.\n")
+
     # Criar janela root (oculta)
     root = tk.Tk()
     root.withdraw()  # Esconder a janela principal
     root.attributes('-topmost', True)  # Trazer para frente
-    
+
     # Abrir diálogo de seleção de arquivo
     arquivo = filedialog.askopenfilename(
-        title="Selecione o arquivo (Excel ou TXT)",
+        title="Selecione o arquivo (Excel, TXT ou CSV)",
         filetypes=[
-            ("Todos os arquivos suportados", "*.xlsx *.xls *.txt"),
+            ("Todos os arquivos suportados", "*.xlsx *.xls *.txt *.csv"),
             ("Arquivos Excel", "*.xlsx *.xls"),
             ("Excel 2007+", "*.xlsx"),
             ("Excel 97-2003", "*.xls"),
+            ("CSV", "*.csv"),
             ("Arquivos de texto", "*.txt"),
             ("Todos os arquivos", "*.*")
         ],
@@ -46,25 +47,26 @@ def selecionar_planilha() -> Optional[str]:
 
 def selecionar_multiplas_planilhas() -> List[str]:
     """
-    Abre um diálogo para o usuário selecionar múltiplos arquivos (Excel ou TXT)
+    Abre um diálogo para o usuário selecionar múltiplos arquivos (Excel, TXT ou CSV)
     Retorna lista de caminhos dos arquivos selecionados
     """
     print("\nAbrindo diálogo de seleção de arquivos...")
-    print("Por favor, selecione os arquivos (Excel ou TXT) no diálogo (Ctrl+Click para múltiplos).\n")
-    
+    print("Por favor, selecione os arquivos (Excel, TXT ou CSV) no diálogo (Ctrl+Click para múltiplos).\n")
+
     # Criar janela root (oculta)
     root = tk.Tk()
     root.withdraw()  # Esconder a janela principal
     root.attributes('-topmost', True)  # Trazer para frente
-    
+
     # Abrir diálogo de seleção múltipla de arquivos
     arquivos = filedialog.askopenfilenames(
-        title="Selecione os arquivos (Excel ou TXT) - Ctrl+Click para múltiplos",
+        title="Selecione os arquivos (Excel, TXT ou CSV) - Ctrl+Click para múltiplos",
         filetypes=[
-            ("Todos os arquivos suportados", "*.xlsx *.xls *.txt"),
+            ("Todos os arquivos suportados", "*.xlsx *.xls *.txt *.csv"),
             ("Arquivos Excel", "*.xlsx *.xls"),
             ("Excel 2007+", "*.xlsx"),
             ("Excel 97-2003", "*.xls"),
+            ("CSV", "*.csv"),
             ("Arquivos de texto", "*.txt"),
             ("Todos os arquivos", "*.*")
         ],
@@ -146,3 +148,20 @@ def selecionar_pasta_xmls() -> List[str]:
     
     print(f"Encontrados {len(xmls_encontrados)} arquivo(s) XML na pasta")
     return xmls_encontrados
+
+
+def selecionar_diretorio(title: str, initialdir: Optional[str] = None) -> Optional[str]:
+    """
+    Permite selecionar um diretorio e retorna seu caminho.
+    """
+    root = tk.Tk()
+    root.withdraw()
+    root.attributes('-topmost', True)
+
+    diretorio = filedialog.askdirectory(
+        title=title,
+        initialdir=initialdir or os.getcwd()
+    )
+
+    root.destroy()
+    return diretorio or None
