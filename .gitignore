@@ -57,6 +57,30 @@ Thumbs.db
 
 # Repository conventions
 _local/
+.mp4
+Financeiro/var/
+Financeiro/samples/*.pdf
+
+# Local operational inputs/outputs kept out of the monorepo
+Dominio/compara-relatorio-dominio/relatorios/
+Dominio/provisao-decimento-terceiro/*.pdf
+Onvio/gestta-tarefas/adicionar-validação/relatorios/
+Onvio/gestta-tarefas/adicionar-validação/requests.txt
+Onvio/gestta-tarefas/adicionar-validação/sheets/
+Parcelamentos/SEFAZ-PI/planilha/
+Parcelamentos/SEFAZ-SE/SE.xlsx
+Parcelamentos/SEFAZ-SE/requisicoes.txt
+Unecont/assets/planilha/
+Unecont/xml-relatorio-excel/saida/
+dte-caixa-postal/SEFAZ-MA/empresas-cert-subset.json
+dte-caixa-postal/SEFAZ-PI/empresas/
+shared/gerador-de-danfe/danfe/boletos_identificados/
+shared/gerador-de-danfe/notasPDF/
+shared/gerador-de-danfe/notas_boleto_identificadas.csv
+shared/gerador-de-danfe/identificar_notas_boleto.py
+Onvio/upload-arquivo/postman/
+SEFAZ-SE/DIA/old_ALTERAR NOTA FISCAL - DIA ATUAL/
+SEFAZ-SE/DIA/old_GERAR DAE/
 
 # Standalone nested repositories kept outside this monorepo index
 Onvio/BD/
