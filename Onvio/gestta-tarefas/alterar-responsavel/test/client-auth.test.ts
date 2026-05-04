@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import type { AxiosResponse, InternalAxiosRequestConfig } from "axios";
-import { createGesttaClient } from "../src/api/client";
+import { createGesttaClient, GesttaAuthFatalError } from "../src/api/client";
 import type { GesttaRuntimeAuth } from "../src/auth/runtime-auth";
 
 function readAuthorization(config: InternalAxiosRequestConfig): string | undefined {
@@ -21,16 +21,18 @@ function readAuthorization(config: InternalAxiosRequestConfig): string | undefin
 test("renova o token e repete a requisicao uma unica vez ao receber 401 com artefato", async () => {
   let refreshCalls = 0;
   let requestCalls = 0;
+  let currentJwt = "jwt-antigo";
   const authorizationHistory: string[] = [];
 
   const auth: GesttaRuntimeAuth = {
     mode: "artifact",
     source: "artifact",
     artifactPath: "shared/onvio-auth/runtime/latest-auth.json",
-    getJwt: () => "jwt-antigo",
+    getJwt: () => currentJwt,
     refreshJwt: async () => {
       refreshCalls += 1;
-      return "jwt-novo";
+      currentJwt = "jwt-novo";
+      return currentJwt;
     },
   };
 
@@ -73,6 +75,126 @@ test("renova o token e repete a requisicao uma unica vez ao receber 401 com arte
   assert.equal(refreshCalls, 1);
   assert.equal(requestCalls, 2);
   assert.deepEqual(authorizationHistory, ["JWT jwt-antigo", "JWT jwt-novo"]);
+});
+
+test("novas requisicoes usam o JWT atualizado apos refresh", async () => {
+  let refreshCalls = 0;
+  let requestCalls = 0;
+  let currentJwt = "jwt-antigo";
+  const authorizationHistory: string[] = [];
+
+  const auth: GesttaRuntimeAuth = {
+    mode: "artifact",
+    source: "artifact",
+    artifactPath: "shared/onvio-auth/runtime/latest-auth.json",
+    getJwt: () => currentJwt,
+    refreshJwt: async () => {
+      refreshCalls += 1;
+      currentJwt = "jwt-novo";
+      return currentJwt;
+    },
+  };
+
+  const client = createGesttaClient(auth);
+  client.defaults.adapter = async (
+    config: InternalAxiosRequestConfig
+  ): Promise<AxiosResponse<{ ok: boolean }>> => {
+    requestCalls += 1;
+    authorizationHistory.push(readAuthorization(config) || "");
+
+    if (requestCalls === 1) {
+      const error = new Error("Request failed with status code 401") as Error & {
+        config: InternalAxiosRequestConfig;
+        response: AxiosResponse<{ ok: boolean }>;
+      };
+      error.config = config;
+      error.response = {
+        config,
+        data: { ok: false },
+        headers: {},
+        status: 401,
+        statusText: "Unauthorized",
+      };
+      throw error;
+    }
+
+    return {
+      config,
+      data: { ok: true },
+      headers: {},
+      status: 200,
+      statusText: "OK",
+    };
+  };
+
+  await client.get("/admin/customer");
+  await client.get("/admin/company/user");
+
+  assert.equal(refreshCalls, 1);
+  assert.equal(requestCalls, 3);
+  assert.deepEqual(authorizationHistory, [
+    "JWT jwt-antigo",
+    "JWT jwt-novo",
+    "JWT jwt-novo",
+  ]);
+});
+
+test("se retry apos refresh tambem recebe 403, marca auth fatal e nao renova novamente", async () => {
+  let refreshCalls = 0;
+  let requestCalls = 0;
+  let currentJwt = "jwt-antigo";
+  const authorizationHistory: string[] = [];
+
+  const auth: GesttaRuntimeAuth = {
+    mode: "artifact",
+    source: "artifact",
+    artifactPath: "shared/onvio-auth/runtime/latest-auth.json",
+    getJwt: () => currentJwt,
+    refreshJwt: async () => {
+      refreshCalls += 1;
+      currentJwt = "jwt-novo";
+      return currentJwt;
+    },
+  };
+
+  const client = createGesttaClient(auth);
+  client.defaults.adapter = async (config: InternalAxiosRequestConfig) => {
+    requestCalls += 1;
+    authorizationHistory.push(readAuthorization(config) || "");
+    const error = new Error("Request failed with status code 403") as Error & {
+      config: InternalAxiosRequestConfig;
+      response: AxiosResponse<{ ok: boolean }>;
+    };
+    error.config = config;
+    error.response = {
+      config,
+      data: { ok: false },
+      headers: {},
+      status: 403,
+      statusText: "Forbidden",
+    };
+    throw error;
+  };
+
+  await assert.rejects(
+    () => client.get("/admin/customer"),
+    (error) =>
+      error instanceof GesttaAuthFatalError &&
+      /continuou retornando 403/.test(error.message)
+  );
+
+  await assert.rejects(
+    () => client.get("/admin/company/user"),
+    GesttaAuthFatalError
+  );
+
+  assert.equal(refreshCalls, 1);
+  assert.equal(requestCalls, 3);
+  assert.deepEqual(authorizationHistory, [
+    "JWT jwt-antigo",
+    "JWT jwt-novo",
+    "JWT jwt-novo",
+  ]);
 });
 
 test("nao tenta refresh automatico quando a origem do token e .env", async () => {

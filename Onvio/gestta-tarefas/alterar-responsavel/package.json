@@ -12,7 +12,7 @@
     "dev:selecionar": "ts-node src/index.ts --selecionar",
     "electron": "bun run build && electron dist/electron/main.js",
     "relatorio:xlsx": "node dist/scripts/converter-relatorio-xlsx.js",
-    "test": "node --test -r ts-node/register test/cnpj.test.ts test/client-auth.test.ts test/runtime-auth.test.ts test/preflight-auth.test.ts test/planilha-padrao.test.ts test/planilha-estrutura.test.ts"
+    "test": "node --test -r ts-node/register test/cnpj.test.ts test/client-auth.test.ts test/runtime-auth.test.ts test/preflight-auth.test.ts test/planilha-padrao.test.ts test/planilha-estrutura.test.ts test/automation-auth-fatal.test.ts"
   },
   "dependencies": {
     "@exatas/onvio-auth": "workspace:*",

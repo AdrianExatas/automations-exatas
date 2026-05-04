@@ -82,6 +82,27 @@ test("usa artefato apos refresh quando nao ha JWT explicito nem legado", async (
   assert.equal(refreshCalls, 1);
 });
 
+test("auth de artefato passa a retornar JWT novo apos refresh", async () => {
+  let refreshCalls = 0;
+
+  const auth = await resolveGesttaRuntimeAuth({
+    getExplicitEnvJwt: () => "",
+    resolveArtifactPath: () => "artifact.json",
+    loadArtifactJwt: () => "jwt-artefato",
+    resolveLegacyEnvPath: () => "legacy.env",
+    loadLegacyEnvJwt: () => null,
+    refreshArtifactJwt: async () => {
+      refreshCalls += 1;
+      return "jwt-refresh";
+    },
+  });
+
+  assert.equal(auth.getJwt(), "jwt-artefato");
+  await auth.refreshJwt();
+  assert.equal(auth.getJwt(), "jwt-refresh");
+  assert.equal(refreshCalls, 1);
+});
+
 test("modo forcado por artefato ignora JWT explicito e fallback legado", async () => {
   let refreshCalls = 0;
 

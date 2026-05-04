@@ -22,16 +22,18 @@ function readAuthorization(config: InternalAxiosRequestConfig): string | undefin
 test("preflight renova token de artefato ao receber 403 e repete uma vez", async () => {
   let refreshCalls = 0;
   let requestCalls = 0;
+  let currentJwt = "jwt-antigo";
   const authorizationHistory: string[] = [];
 
   const auth: GesttaRuntimeAuth = {
     mode: "artifact",
     source: "artifact",
     artifactPath: "shared/onvio-auth/runtime/latest-auth.json",
-    getJwt: () => "jwt-antigo",
+    getJwt: () => currentJwt,
     refreshJwt: async () => {
       refreshCalls += 1;
-      return "jwt-novo";
+      currentJwt = "jwt-novo";
+      return currentJwt;
     },
   };
 
