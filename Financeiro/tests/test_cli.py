@@ -11,9 +11,22 @@ from financeiro_nfse.models import DownloadResult, ProcessResult
 class TestCLI(unittest.TestCase):
     def test_consultar_dispatch(self):
         with patch("financeiro_nfse.cli.workflows.query_nfse_workflow", return_value=Path("out.json")) as mock_query:
-            exit_code = cli.main(["consultar", "--competencia", "03-2026"])
+            exit_code = cli.main(["consultar", "--data-inicial", "25/03/2026", "--data-final", "31/03/2026"])
         self.assertEqual(exit_code, 0)
         mock_query.assert_called_once()
+        self.assertEqual(mock_query.call_args.kwargs["data_inicial"], "25/03/2026")
+        self.assertEqual(mock_query.call_args.kwargs["data_final"], "31/03/2026")
+
+    def test_consultar_mantem_competencia_legada(self):
+        with patch("financeiro_nfse.cli.workflows.query_nfse_workflow", return_value=Path("out.json")) as mock_query:
+            exit_code = cli.main(["consultar", "--competencia", "03-2026"])
+        self.assertEqual(exit_code, 0)
+        self.assertEqual(mock_query.call_args.kwargs["competencia"], "03-2026")
+
+    def test_consultar_sem_datas_ou_competencia_retorna_erro(self):
+        exit_code = cli.main(["consultar"])
+
+        self.assertEqual(exit_code, 1)
 
     def test_baixar_dispatch(self):
         with patch(
@@ -41,9 +54,11 @@ class TestCLI(unittest.TestCase):
                 download=DownloadResult(successes=1, failures=0, output_dir=Path("saida")),
             ),
         ) as mock_process:
-            exit_code = cli.main(["processar"])
+            exit_code = cli.main(["processar", "--data-inicial", "25/03/2026", "--data-final", "31/03/2026"])
         self.assertEqual(exit_code, 0)
         mock_process.assert_called_once()
+        self.assertEqual(mock_process.call_args.kwargs["data_inicial"], "25/03/2026")
+        self.assertEqual(mock_process.call_args.kwargs["data_final"], "31/03/2026")
 
     def test_gui_dispatch(self):
         with patch("financeiro_nfse.gui.renomear_window.main", return_value=0) as mock_gui:

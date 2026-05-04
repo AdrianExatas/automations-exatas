@@ -1,0 +1,66 @@
+{
+  "name": "sefaz-se-dia-alterar-nota-atual",
+  "version": "1.0.0",
+  "description": "Aplicacao desktop para alterar notas fiscais DIA Atual da SEFAZ-SE.",
+  "author": "Exatas",
+  "private": true,
+  "type": "module",
+  "main": "dist/electron/main.js",
+  "scripts": {
+    "build": "bun run build:main && bun run build:preload && bun run build:renderer && bun run build:assets",
+    "build:main": "bun build src/electron/main.ts --target=node --outdir=dist/electron --external=electron --external=playwright --external=playwright-core --sourcemap=external",
+    "build:preload": "bun build src/electron/preload.ts --target=node --format=cjs --outfile=dist/electron/preload.cjs --external=electron",
+    "build:renderer": "bun build src/electron/renderer.ts --target=browser --outdir=dist/electron --sourcemap=external",
+    "build:assets": "bun run scripts/copy-electron-assets.ts",
+    "build:cli": "bun build src/main.ts --target=node --outdir=dist/cli --external=playwright --external=playwright-core --sourcemap=external",
+    "desktop:dev": "bun run build && electron .",
+    "desktop:dist": "bun run build && electron-builder --win nsis",
+    "start": "bun run build:cli && node dist/cli/main.js",
+    "test": "bun test",
+    "typecheck": "bunx tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "playwright": "^1.58.2",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.3.4",
+    "@types/node": "^22.15.3",
+    "electron": "^38.5.0",
+    "electron-builder": "^26.0.12",
+    "typescript": "^5.9.3"
+  },
+  "build": {
+    "appId": "br.com.exatas.sefaz.se.dia.alterar-nota-atual",
+    "productName": "Alterar Nota Fiscal - DIA Atual",
+    "directories": {
+      "output": "release"
+    },
+    "toolsets": {
+      "winCodeSign": null
+    },
+    "files": [
+      "dist/electron/**/*",
+      "package.json",
+      "node_modules/playwright/**/*",
+      "node_modules/playwright-core/**/*",
+      "node_modules/chromium-bidi/**/*",
+      "!**/.tmp-playwright{,/**}",
+      "!**/ms-playwright{,/**}"
+    ],
+    "asar": true,
+    "win": {
+      "signAndEditExecutable": false,
+      "verifyUpdateCodeSignature": false,
+      "target": [
+        "nsis"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "packElevateHelper": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+}

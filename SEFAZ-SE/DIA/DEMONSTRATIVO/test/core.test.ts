@@ -19,6 +19,7 @@ import { isPlaywrightFallbackEnabled, shouldSaveCheckpoint } from "../src/runner
 import { isPdf, isXls } from "../src/signatures";
 import { inferXmlType, parseSiegXmlResponse, SiegXmlClient } from "../src/sieg-client";
 import { extractAccessKeysFromWorkbook, findDiaXlsReports, saveXmlReports, shouldSaveXmlCheckpoint } from "../src/xml-downloads";
+import { getSefazLoginFailureMessage, isSefazLoginConfirmed } from "../../shared/sefaz-playwright-login";
 
 describe("competencia", () => {
   test("calcula mes anterior comum", () => {
@@ -230,13 +231,25 @@ describe("electron request builders", () => {
     const config = buildXmlDownloadConfig({
       competencia: "2026-03",
       outDir: " saida ",
-      threads: 2,
       siegApiKey: " token ",
     });
 
     expect(config.outDir).toBe("saida");
-    expect(config.threads).toBe(2);
+    expect(config.threads).toBe(8);
     expect(config.apiKey).toBe("token");
+    expect(config.timeoutMs).toBe(90_000);
+    expect(config.retryCount).toBe(2);
+    expect(config.retryDelayMs).toBe(1_000);
+  });
+
+  test("request de XML permite sobrescrever threads", () => {
+    const config = buildXmlDownloadConfig({
+      competencia: "2026-03",
+      outDir: " saida ",
+      threads: 2,
+    });
+
+    expect(config.threads).toBe(2);
   });
 });
 
@@ -261,6 +274,23 @@ describe("politicas de execucao", () => {
     expect(shouldSaveCheckpoint(5, 12)).toBe(true);
     expect(shouldSaveCheckpoint(12, 12)).toBe(true);
     expect(shouldSaveXmlCheckpoint(10, 25)).toBe(true);
+  });
+});
+
+describe("login SEFAZ Playwright compartilhado", () => {
+  test("detecta erro retornado pelo portal", () => {
+    expect(getSefazLoginFailureMessage("https://security.sefaz.se.gov.br/internet/erroLogin.jsp", "")).toBe(
+      "Login nao confirmado no portal SEFAZ-SE.",
+    );
+    expect(getSefazLoginFailureMessage("https://security.sefaz.se.gov.br/internet/login/login.jsp", "Usuario invalido")).toContain(
+      "invalido",
+    );
+  });
+
+  test("confirma login por URL do portal ou menu DIA", () => {
+    expect(isSefazLoginConfirmed("https://security.sefaz.se.gov.br/internet/portal.jsp", "")).toBe(true);
+    expect(isSefazLoginConfirmed("https://security.sefaz.se.gov.br/internet/home.jsp", "Menu DIA")).toBe(true);
+    expect(isSefazLoginConfirmed("https://security.sefaz.se.gov.br/internet/login/login.jsp", "Login")).toBe(false);
   });
 });
 
@@ -299,6 +329,30 @@ describe("sieg xml", () => {
     expect(chamadas).toHaveLength(2);
     expect(chamadas[0]).toContain("xmlType=1");
     expect(chamadas[0]).toContain("api_key=token");
+  });
+
+  test("permite configurar tentativas e informa tentativa sem expor chave da API", async () => {
+    const chamadas: string[] = [];
+    const tentativas: Array<{ attempt: number; total: number; timeoutMs: number; xmlType: number; chave: string }> = [];
+    const fetchImpl = ((url: RequestInfo | URL) => {
+      chamadas.push(String(url));
+      return Promise.resolve(new Response("temporario", { status: 503 }));
+    }) as typeof fetch;
+
+    const client = new SiegXmlClient({ apiKey: "token-secreto", fetchImpl, retryCount: 2, retryDelayMs: 0, timeoutMs: 90_000 });
+
+    await expect(
+      client.downloadXml(chaveNfe, undefined, {
+        onAttempt: (attempt) => tentativas.push(attempt),
+      }),
+    ).rejects.toThrow("HTTP 503");
+
+    expect(chamadas).toHaveLength(2);
+    expect(tentativas).toEqual([
+      { chave: chaveNfe, xmlType: 1, attempt: 1, total: 2, timeoutMs: 90_000 },
+      { chave: chaveNfe, xmlType: 1, attempt: 2, total: 2, timeoutMs: 90_000 },
+    ]);
+    expect(JSON.stringify(tentativas)).not.toContain("token-secreto");
   });
 
   test("extrai chaves do XLS e localiza relatorios por empresa", async () => {

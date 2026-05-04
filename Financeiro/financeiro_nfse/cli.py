@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import sys
 from pathlib import Path
 
 from . import renaming, webiss, workflows
@@ -16,6 +17,8 @@ def build_parser() -> argparse.ArgumentParser:
     subparsers = parser.add_subparsers(dest="command", required=True)
 
     consultar = subparsers.add_parser("consultar", help="Consulta a Omie e gera JSON.")
+    consultar.add_argument("--data-inicial", default="", help="Data inicial DD/MM/AAAA.")
+    consultar.add_argument("--data-final", default="", help="Data final DD/MM/AAAA.")
     consultar.add_argument("--competencia", default="", help="Competencia MM-AAAA.")
     consultar.add_argument("--output-dir", default=None, help="Diretorio base de saida.")
     consultar.add_argument("--env-file", default=None, help="Caminho do arquivo .env.")
@@ -49,6 +52,8 @@ def build_parser() -> argparse.ArgumentParser:
     renomear_cmd.add_argument("--dry-run", "--simular", dest="dry_run", action="store_true")
 
     processar = subparsers.add_parser("processar", help="Consulta, baixa e renomeia em um unico fluxo.")
+    processar.add_argument("--data-inicial", default="", help="Data inicial DD/MM/AAAA.")
+    processar.add_argument("--data-final", default="", help="Data final DD/MM/AAAA.")
     processar.add_argument("--competencia", default="", help="Competencia MM-AAAA.")
     processar.add_argument("--output-dir", default=None, help="Diretorio base de saida.")
     processar.add_argument("--env-file", default=None, help="Caminho do arquivo .env.")
@@ -64,7 +69,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     gui = subparsers.add_parser("gui", help="Interfaces graficas.")
     gui_subparsers = gui.add_subparsers(dest="gui_command", required=True)
-    gui_subparsers.add_parser("renomear", help="Abre a GUI de renomeacao.")
+    gui_subparsers.add_parser("renomear", help="Abre a GUI unificada das automacoes.")
 
     return parser
 
@@ -74,12 +79,18 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     if args.command == "consultar":
-        path = workflows.query_nfse_workflow(
-            competencia=args.competencia,
-            output_dir=args.output_dir,
-            env_file=args.env_file,
-            config_path=args.config,
-        )
+        try:
+            path = workflows.query_nfse_workflow(
+                data_inicial=args.data_inicial,
+                data_final=args.data_final,
+                competencia=args.competencia,
+                output_dir=args.output_dir,
+                env_file=args.env_file,
+                config_path=args.config,
+            )
+        except RuntimeError as exc:
+            print(str(exc), file=sys.stderr)
+            return 1
         print(f"JSON gerado em: {path}")
         return 0
 
@@ -126,19 +137,25 @@ def main(argv: list[str] | None = None) -> int:
         return 0 if result.erros == 0 else 1
 
     if args.command == "processar":
-        result = workflows.process_previous_month_workflow(
-            competencia=args.competencia,
-            output_dir=args.output_dir,
-            env_file=args.env_file,
-            config_path=args.config,
-            file_format=args.format,
-            headless=args.headless,
-            limit=args.limit,
-            http_timeout=args.http_timeout,
-            retries=args.retries,
-            rename_dest_dir=args.rename_dest_dir,
-            rename_prefix=args.rename_prefix,
-        )
+        try:
+            result = workflows.process_previous_month_workflow(
+                data_inicial=args.data_inicial,
+                data_final=args.data_final,
+                competencia=args.competencia,
+                output_dir=args.output_dir,
+                env_file=args.env_file,
+                config_path=args.config,
+                file_format=args.format,
+                headless=args.headless,
+                limit=args.limit,
+                http_timeout=args.http_timeout,
+                retries=args.retries,
+                rename_dest_dir=args.rename_dest_dir,
+                rename_prefix=args.rename_prefix,
+            )
+        except RuntimeError as exc:
+            print(str(exc), file=sys.stderr)
+            return 1
         print(f"JSON gerado em: {result.json_path}")
         print(
             f"Concluido. Sucessos: {result.download.successes} | Falhas: {result.download.failures} | Saida: {result.download.output_dir}"

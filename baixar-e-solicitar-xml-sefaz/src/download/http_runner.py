@@ -29,6 +29,7 @@ def executar_download_http() -> None:
     lock_fd = _adquirir_lock_download()
     checkpoint = carregar_checkpoint()
     arquivos_baixados = set(checkpoint.get("arquivos_baixados", [])) if checkpoint else set()
+    downloads_com_erro: set[str] = set()
     total_baixados = checkpoint.get("total_baixados", 0) if checkpoint else 0
     pagina_inicial = state.pagina_inicial or (checkpoint.get("pagina_atual", 1) if checkpoint else 1)
     pagina_final = state.pagina_final
@@ -92,6 +93,7 @@ def executar_download_http() -> None:
                     client=client,
                     pagina_info=pagina_info,
                     arquivos_baixados=arquivos_baixados,
+                    downloads_com_erro=downloads_com_erro,
                     on_download=registrar_download_completo,
                 )
 
@@ -133,9 +135,11 @@ def _processar_pagina_http(
     pagina_info,
     arquivos_baixados: set[str],
     on_download: Callable[[int], None],
+    downloads_com_erro: set[str] | None = None,
 ) -> tuple[int, int]:
     novos = 0
     erros = 0
+    downloads_com_erro = downloads_com_erro if downloads_com_erro is not None else set()
     pagina_checkpoint = pagina_info.current_page or 1
 
     print(f"\n[INFO] Processando pagina {pagina_checkpoint}: {len(pagina_info.downloads)} arquivo(s) pronto(s)")
@@ -156,6 +160,11 @@ def _processar_pagina_http(
             _registrar_arquivo_baixado(info, arquivos_baixados)
             continue
 
+        chave_erro = _chave_download(info)
+        if chave_erro in downloads_com_erro:
+            print(f"   [SKIP] {info.nm_arquivo or info.dt_solicitacao} - erro ja registrado nesta execucao")
+            continue
+
         print(f"   [DOWNLOAD] {info.nm_arquivo or info.dt_solicitacao} [{info.tipo_download}]")
         try:
             client.baixar_arquivo(info, PATHS.downloads_dir)
@@ -164,6 +173,7 @@ def _processar_pagina_http(
             novos += 1
         except SefazHttpError as exc:
             erros += 1
+            downloads_com_erro.add(chave_erro)
             print(f"   [ERRO] {exc}")
 
     return novos, erros
@@ -192,6 +202,18 @@ def _ja_baixado(info: DownloadInfo, arquivos_baixados: set[str]) -> bool:
     if info.dt_solicitacao and info.dt_solicitacao in arquivos_baixados:
         return True
     return False
+
+
+def _chave_download(info: DownloadInfo) -> str:
+    return json.dumps(
+        {
+            "url": info.url,
+            "nome": info.nm_arquivo,
+            "dt_solicitacao": info.dt_solicitacao or "",
+            "tipo_download": info.tipo_download,
+        },
+        sort_keys=True,
+    )
 
 
 def _registrar_arquivo_baixado(info: DownloadInfo, arquivos_baixados: set[str]) -> None:

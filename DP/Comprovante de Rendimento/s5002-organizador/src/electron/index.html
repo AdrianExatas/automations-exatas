@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Organizador S-5002</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="header">
+        <div>
+          <p class="eyebrow">Departamento Pessoal</p>
+          <h1>Organizador S-5002</h1>
+        </div>
+        <div class="status" id="status-text">Carregando...</div>
+      </section>
+
+      <form id="run-form" class="panel">
+        <label class="field">
+          <span>Pasta com ZIPs</span>
+          <div class="path-row">
+            <input id="input-dir" type="text" placeholder="Selecione a pasta de entrada" required />
+            <button id="select-input-dir" type="button">Selecionar</button>
+          </div>
+        </label>
+
+        <label class="field">
+          <span>Pasta de saida</span>
+          <div class="path-row">
+            <input id="output-dir" type="text" placeholder="Selecione a pasta de saida" required />
+            <button id="select-output-dir" type="button">Selecionar</button>
+          </div>
+        </label>
+
+        <div class="actions">
+          <button id="start" class="primary" type="submit">Iniciar</button>
+          <button id="cancel" type="button" disabled>Cancelar</button>
+          <button id="open-output" type="button" disabled>Abrir saida</button>
+          <button id="open-report" type="button" disabled>Abrir relatorio</button>
+        </div>
+      </form>
+
+      <section class="metrics">
+        <div class="metric">
+          <span class="metric-value" id="total-count">0</span>
+          <span class="metric-label">S-5002</span>
+        </div>
+        <div class="metric">
+          <span class="metric-value success" id="success-count">0</span>
+          <span class="metric-label">Organizados</span>
+        </div>
+        <div class="metric">
+          <span class="metric-value danger" id="error-count">0</span>
+          <span class="metric-label">Erros</span>
+        </div>
+        <div class="metric">
+          <span class="metric-value" id="ignored-count">0</span>
+          <span class="metric-label">Ignorados</span>
+        </div>
+      </section>
+
+      <section class="progress-panel">
+        <progress id="progress" value="0" max="1"></progress>
+        <div id="progress-text" class="progress-text">0 de 0</div>
+      </section>
+
+      <section class="log-panel">
+        <pre id="logs"></pre>
+      </section>
+    </main>
+    <script type="module" src="./renderer.js"></script>
+  </body>
+</html>

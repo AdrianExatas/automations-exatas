@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alterar Responsavel Gestta</title>
+    <link rel="stylesheet" href="./renderer.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="panel">
+        <div class="header-row">
+          <div>
+            <h1>Alterar responsavel</h1>
+            <p class="subtitle">Gestta tarefas</p>
+          </div>
+          <button id="openReportsButton" class="ghost-button" type="button">Relatorios</button>
+        </div>
+
+        <form id="automationForm">
+          <div class="grid">
+            <label>
+              E-mail
+              <input id="emailInput" type="email" autocomplete="username" required />
+            </label>
+            <label>
+              Senha
+              <input id="passwordInput" type="password" autocomplete="current-password" required />
+            </label>
+          </div>
+
+          <label class="check-row">
+            <input id="saveCredentialsInput" type="checkbox" />
+            <span>Salvar credenciais</span>
+          </label>
+
+          <label>
+            Planilha
+            <div class="file-row">
+              <input id="sheetInput" type="text" readonly required />
+              <button id="selectSheetButton" class="secondary-button" type="button">Selecionar</button>
+            </div>
+          </label>
+
+          <section id="sheetPreview" class="sheet-preview" hidden>
+            <div class="preview-header">
+              <div>
+                <h2>Estrutura da planilha</h2>
+                <p id="sheetSummary" class="preview-summary"></p>
+              </div>
+              <button id="inspectSheetButton" class="ghost-button" type="button">Atualizar</button>
+            </div>
+            <div id="sheetColumns" class="columns-list"></div>
+            <div class="preview-table-wrap">
+              <table id="sheetPreviewTable"></table>
+            </div>
+          </section>
+
+          <div class="actions">
+            <button id="downloadTemplateButton" class="secondary-button" type="button">Baixar planilha padrao</button>
+            <button id="runButton" class="primary-button" type="submit">Executar automacao</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="log-panel">
+        <div class="log-header">
+          <h2>Execucao</h2>
+          <span id="statusBadge" class="status idle">Pronto</span>
+        </div>
+        <pre id="logOutput"></pre>
+      </section>
+    </main>
+    <script src="./renderer.js"></script>
+  </body>
+</html>

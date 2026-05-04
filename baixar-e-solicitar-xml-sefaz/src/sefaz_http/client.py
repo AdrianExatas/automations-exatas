@@ -5,6 +5,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
+import re
 from typing import Any
 from urllib.parse import parse_qs, urlencode, urlparse, urlunparse
 
@@ -261,28 +262,47 @@ class SefazHttpClient:
         if temp_file.exists():
             temp_file.unlink()
 
-        with self.session.get(
-            info.url,
-            headers={"Referer": self._listing_url or self.PORTAL_URL},
-            stream=True,
-            timeout=self.timeout,
-            allow_redirects=True,
-        ) as response:
-            if response.status_code >= 400:
-                raise SefazHttpError(f"Falha no download HTTP: status {response.status_code}")
+        download_url = info.url
+        referer = self._listing_url or self.PORTAL_URL
 
-            content_type = response.headers.get("Content-Type", "").lower()
-            if "text/html" in content_type:
-                text = response.text
-                message = parse_error_message(text)
-                if message:
-                    raise SefazHttpError(message)
-                raise SefazHttpError("O portal retornou HTML em vez do ZIP solicitado")
+        for _tentativa_redirect in range(3):
+            with self.session.get(
+                download_url,
+                headers={"Referer": referer},
+                stream=True,
+                timeout=self.timeout,
+                allow_redirects=True,
+            ) as response:
+                if response.status_code >= 400:
+                    raise SefazHttpError(f"Falha no download HTTP: status {response.status_code}")
 
-            with open(temp_file, "wb") as fh:
-                for chunk in response.iter_content(chunk_size=1024 * 128):
-                    if chunk:
-                        fh.write(chunk)
+                content_type = response.headers.get("Content-Type", "").lower()
+                if "text/html" in content_type:
+                    text = response.text
+                    redirect_url = parse_js_redirect(response.url, text)
+                    if redirect_url:
+                        download_url = redirect_url
+                        referer = response.url
+                        continue
+
+                    debug_path = self._salvar_html_download_inesperado(info, text)
+                    if is_session_expired(text):
+                        raise SefazSessionExpiredError("Sessao expirada ou portal redirecionou para login")
+                    message = parse_error_message(text)
+                    if message:
+                        raise SefazHttpError(message)
+                    debug_display = _formatar_path_relativo(debug_path)
+                    raise SefazHttpError(
+                        f"O portal retornou HTML em vez do ZIP solicitado (amostra salva em {debug_display})"
+                    )
+
+                with open(temp_file, "wb") as fh:
+                    for chunk in response.iter_content(chunk_size=1024 * 128):
+                        if chunk:
+                            fh.write(chunk)
+                break
+        else:
+            raise SefazHttpError("O portal retornou redirecionamentos HTML repetidos em vez do ZIP solicitado")
 
         if not _verificar_zip_valido(temp_file):
             raise SefazHttpError(f"ZIP baixado esta corrompido: {temp_file.name}")
@@ -463,12 +483,45 @@ class SefazHttpClient:
 
         return _parse_nome_empresa_e_ano_mes(info.nm_arquivo, info.dt_solicitacao)
 
+    def _salvar_html_download_inesperado(self, info: DownloadInfo, html_text: str) -> Path:
+        debug_dir = PATHS.project_root / "_local" / "debug" / "sefaz_download_html"
+        debug_dir.mkdir(parents=True, exist_ok=True)
+
+        nome_base = "_".join(
+            str(part)
+            for part in (info.nm_arquivo, info.dt_solicitacao, info.tipo_download)
+            if part
+        ) or "download_html"
+        nome_seguro = _safe_filename(nome_base)
+        destino = debug_dir / f"{nome_seguro}.html"
+
+        contador = 1
+        while destino.exists():
+            destino = debug_dir / f"{nome_seguro}_{contador}.html"
+            contador += 1
+
+        destino.write_text(html_text, encoding="utf-8", errors="replace")
+        return destino
+
     def _build_listing_page_url(self, base_url: str, pagina: int) -> str:
         parsed = urlparse(base_url)
         query = parse_qs(parsed.query)
         query["navInicio"] = [str(((pagina - 1) * self.NAV_PAGE_STRIDE) + 1)]
         encoded_query = urlencode(query, doseq=True)
         return urlunparse((parsed.scheme, parsed.netloc, parsed.path, parsed.params, encoded_query, parsed.fragment))
+
+
+def _safe_filename(value: str, max_length: int = 120) -> str:
+    value = re.sub(r'[<>:"/\\|?*\x00-\x1f]+', "_", value)
+    value = re.sub(r"\s+", "_", value).strip("._ ")
+    return (value or "download_html")[:max_length]
+
+
+def _formatar_path_relativo(path: Path) -> str:
+    try:
+        return str(path.relative_to(PATHS.project_root))
+    except ValueError:
+        return str(path)
 
 
 def limpar_downloads_temporarios() -> None:

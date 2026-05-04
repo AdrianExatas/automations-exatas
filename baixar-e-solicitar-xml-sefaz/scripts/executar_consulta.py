@@ -323,7 +323,7 @@ def executar_captura_continua_selenium(
                     
                     dias_intervalo = (data_final - data_inicial).days + 1
                     print(f"\n    📋 {tipo_arquivo} ({pesquisar_por}): Solicitando intervalo único ({dias_intervalo} dias)")
-                    print(f"       → Solicitando XMLs de {data_inicial_formatada} até {data_final_formatada}...", end=" ")
+                    print(f"       → Solicitando XMLs {tipo_arquivo}/{pesquisar_por} de {data_inicial_formatada} até {data_final_formatada}...", end=" ")
                     
                     params = {
                         "inscricao_municipal": inscricao,
@@ -355,7 +355,7 @@ def executar_captura_continua_selenium(
                             msg = f"Tipo desconhecido: {tipo_arquivo}"
                         
                         if sucesso_req:
-                            print("✅")
+                            print("[OK]")
                             total_sucesso += 1
                             
                             # Atualiza histórico com a data final do intervalo
@@ -371,11 +371,11 @@ def executar_captura_continua_selenium(
                             except Exception:
                                 pass
                         else:
-                            print(f"❌ {msg[:50]}")
+                            print(f"[ERRO] {msg[:50]}")
                             total_erros += 1
                             
                     except Exception as e:
-                        print(f"❌ Erro: {str(e)[:50]}")
+                        print(f"[ERRO] Erro: {str(e)[:50]}")
                         total_erros += 1
                         logger.error(f"Erro ao processar {inscricao}/{tipo_arquivo}/{data_inicial}-{data_final}: {e}")
                     
@@ -406,10 +406,10 @@ def executar_captura_continua_selenium(
                 data_final_formatada = formatar_data_sefaz(data_final_intervalo)
                 
                 if len(dias_pendentes) == 1:
-                    print(f"       → Solicitando XMLs de {data_inicial_formatada}...", end=" ")
+                    print(f"       → Solicitando XMLs {tipo_arquivo}/{pesquisar_por} de {data_inicial_formatada}...", end=" ")
                 else:
                     dias_intervalo = len(dias_pendentes)
-                    print(f"       → Solicitando XMLs de {data_inicial_formatada} até {data_final_formatada} ({dias_intervalo} dias em 1 consulta)...", end=" ")
+                    print(f"       → Solicitando XMLs {tipo_arquivo}/{pesquisar_por} de {data_inicial_formatada} até {data_final_formatada} ({dias_intervalo} dias em 1 consulta)...", end=" ")
                 
                 params = {
                     "inscricao_municipal": inscricao,
@@ -441,7 +441,7 @@ def executar_captura_continua_selenium(
                         msg = f"Tipo desconhecido: {tipo_arquivo}"
                     
                     if sucesso_req:
-                        print("✅")
+                        print("[OK]")
                         total_sucesso += 1
                         
                         # Atualiza histórico com a data final do intervalo processado
@@ -457,11 +457,11 @@ def executar_captura_continua_selenium(
                         except Exception:
                             pass
                     else:
-                        print(f"❌ {msg[:50]}")
+                        print(f"[ERRO] {msg[:50]}")
                         total_erros += 1
                         
                 except Exception as e:
-                    print(f"❌ Erro: {str(e)[:50]}")
+                    print(f"[ERRO] Erro: {str(e)[:50]}")
                     total_erros += 1
                     logger.error(f"Erro ao processar {inscricao}/{tipo_arquivo}/{data_inicial_intervalo}-{data_final_intervalo}: {e}")
             
@@ -473,8 +473,8 @@ def executar_captura_continua_selenium(
         print("=" * 70)
         print(f"Empresas processadas: {empresas_processadas}/{len(empresas_base)}")
         print(f"Total de solicitações: {total_solicitacoes}")
-        print(f"  ✅ Sucesso: {total_sucesso}")
-        print(f"  ❌ Erros: {total_erros}")
+        print(f"  [OK] Sucesso: {total_sucesso}")
+        print(f"  [ERRO] Erros: {total_erros}")
         if usar_intervalo:
             print(f"Intervalo processado: {data_inicial.strftime('%d/%m/%Y')} até {data_final.strftime('%d/%m/%Y')}")
         else:
@@ -622,11 +622,11 @@ def executar_captura_continua_http(
                     data_final_formatada = formatar_data_sefaz(data_final_intervalo)
 
                     if data_inicial_intervalo == data_final_intervalo:
-                        print(f"       → Solicitando XMLs de {data_inicial_formatada}...", end=" ")
+                        print(f"       → Solicitando XMLs {tipo_arquivo}/{pesquisar_por} de {data_inicial_formatada}...", end=" ")
                     else:
                         dias_intervalo = (data_final_intervalo - data_inicial_intervalo).days + 1
                         print(
-                            f"       → Solicitando XMLs de {data_inicial_formatada} até "
+                            f"       → Solicitando XMLs {tipo_arquivo}/{pesquisar_por} de {data_inicial_formatada} até "
                             f"{data_final_formatada} ({dias_intervalo} dias em 1 consulta)...",
                             end=" "
                         )
@@ -641,7 +641,7 @@ def executar_captura_continua_http(
 
                     try:
                         resultado = client.solicitar_xml(params)
-                        print("✅")
+                        print("[OK]")
                         if resultado.aviso:
                             print(f"         [AVISO] {resultado.aviso[:80]}")
                         total_sucesso += 1
@@ -652,14 +652,14 @@ def executar_captura_continua_http(
                             pesquisar_por
                         )
                     except SefazHttpError as exc:
-                        print(f"❌ {str(exc)[:80]}")
+                        print(f"[ERRO] {str(exc)[:80]}")
                         logger.error(
                             f"Falha HTTP ao processar {inscricao}/{tipo_arquivo}/"
                             f"{data_inicial_formatada}-{data_final_formatada}: {exc}"
                         )
                         total_erros += 1
                     except Exception as exc:
-                        print(f"❌ {str(exc)[:80]}")
+                        print(f"[ERRO] {str(exc)[:80]}")
                         logger.error(
                             f"Erro inesperado ao processar {inscricao}/{tipo_arquivo}/"
                             f"{data_inicial_formatada}-{data_final_formatada}: {exc}"
@@ -673,8 +673,8 @@ def executar_captura_continua_http(
         print("=" * 70)
         print(f"Empresas processadas: {empresas_processadas}/{len(empresas_base)}")
         print(f"Total de solicitações: {total_solicitacoes}")
-        print(f"  ✅ Sucesso: {total_sucesso}")
-        print(f"  ❌ Erros: {total_erros}")
+        print(f"  [OK] Sucesso: {total_sucesso}")
+        print(f"  [ERRO] Erros: {total_erros}")
         if usar_intervalo:
             print(f"Intervalo processado: {data_inicial.strftime('%d/%m/%Y')} até {data_final.strftime('%d/%m/%Y')}")
         else:
@@ -784,7 +784,7 @@ Otimizado para reduzir o número de consultas e respeitar limites da SEFAZ.
         
         if args.data_inicial or args.data_final:
             if not (args.data_inicial and args.data_final):
-                print("❌ ERRO: --data-inicial e --data-final devem ser especificados juntos")
+                print("[ERRO] --data-inicial e --data-final devem ser especificados juntos")
                 sys.exit(1)
             
             try:
@@ -799,7 +799,7 @@ Otimizado para reduzir o número de consultas e respeitar limites da SEFAZ.
                 else:
                     data_final = datetime.strptime(args.data_final, "%d%m%Y").date()
             except ValueError as e:
-                print(f"❌ ERRO: Formato de data inválido. Use DD/MM/YYYY ou DDMMYYYY. Erro: {e}")
+                print(f"[ERRO] Formato de data inválido. Use DD/MM/YYYY ou DDMMYYYY. Erro: {e}")
                 sys.exit(1)
         
         if args.selenium:

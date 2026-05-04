@@ -84,6 +84,14 @@ bun run --cwd Onvio/gestta-tarefas/alterar-responsavel build
 bun run --cwd Onvio/gestta-tarefas/alterar-responsavel start
 ```
 
+Interface local em Electron:
+
+```bash
+bun run --cwd Onvio/gestta-tarefas/alterar-responsavel electron
+```
+
+A interface permite informar e-mail/senha do Onvio, salvar a senha com criptografia do Electron quando disponivel, selecionar a planilha, baixar o modelo padrao e acompanhar os logs da execucao. Execucoes pela interface forcam o uso do artefato renovavel de auth e ignoram JWT fixo do `.env`.
+
 Fluxo recomendado:
 
 1. `bun run --cwd shared/onvio-auth capture-tokens`

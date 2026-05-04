@@ -8,11 +8,10 @@ from .config import (
     competencia_to_slug,
     ensure_runtime_dirs,
     load_env,
-    parse_competencia,
-    previous_month_period,
     resolve_competencia,
     resolve_log_file,
     resolve_output_root,
+    resolve_query_period,
 )
 from .models import DownloadResult, NFSeItem, ProcessResult, RenameResult
 
@@ -49,14 +48,20 @@ def default_json_path(competencia: str, output_dir: str | Path | None, config_pa
 
 def query_nfse_workflow(
     *,
+    data_inicial: str = "",
+    data_final: str = "",
     competencia: str = "",
     output_dir: str | Path | None = None,
     env_file: str | Path | None = None,
     config_path: str | Path | None = None,
 ) -> Path:
     ensure_runtime_dirs()
+    period = resolve_query_period(
+        data_inicial=data_inicial,
+        data_final=data_final,
+        competencia=competencia,
+    )
     env = load_env(env_file)
-    period = parse_competencia(competencia) if competencia else previous_month_period()
     items = omie.fetch_all_nfse(env["APP_KEY"], env["APP_SECRET"], period.start_date, period.end_date)
     target_file = default_json_path(period.competencia, output_dir, config_path)
     save_nfse_items(items, target_file)
@@ -180,6 +185,8 @@ def rename_existing_pdfs_workflow(
 
 def process_previous_month_workflow(
     *,
+    data_inicial: str = "",
+    data_final: str = "",
     competencia: str = "",
     output_dir: str | Path | None = None,
     env_file: str | Path | None = None,
@@ -192,7 +199,14 @@ def process_previous_month_workflow(
     rename_dest_dir: str | Path | None = None,
     rename_prefix: str = "",
 ) -> ProcessResult:
+    period = resolve_query_period(
+        data_inicial=data_inicial,
+        data_final=data_final,
+        competencia=competencia,
+    )
     json_path = query_nfse_workflow(
+        data_inicial=data_inicial,
+        data_final=data_final,
         competencia=competencia,
         output_dir=output_dir,
         env_file=env_file,
@@ -209,7 +223,7 @@ def process_previous_month_workflow(
         rename_pdfs=True,
         rename_dest_dir=rename_dest_dir,
         rename_prefix=rename_prefix,
-        competencia=competencia,
+        competencia=period.competencia,
         config_path=config_path,
     )
     return ProcessResult(json_path=json_path, download=download)

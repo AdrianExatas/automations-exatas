@@ -4,6 +4,10 @@ import type { XmlDownloadConfig } from "../xml-downloads";
 import type { StartRunRequest, StartXmlDownloadRequest } from "./ipc-types";
 
 export const DEFAULT_TIMEOUT_MS = 30_000;
+export const DEFAULT_XML_THREADS = 8;
+export const DEFAULT_XML_TIMEOUT_MS = 90_000;
+export const DEFAULT_XML_RETRY_COUNT = 2;
+export const DEFAULT_XML_RETRY_DELAY_MS = 1_000;
 
 export function buildRunConfig(request: StartRunRequest): RunConfig {
   const user = request.user.trim();
@@ -43,8 +47,10 @@ export function buildXmlDownloadConfig(request: StartXmlDownloadRequest): XmlDow
   return {
     competencia: parseCompetencia(request.competencia),
     outDir,
-    threads: request.threads,
+    threads: request.threads ?? DEFAULT_XML_THREADS,
     apiKey: request.siegApiKey?.trim(),
-    timeoutMs: DEFAULT_TIMEOUT_MS,
+    timeoutMs: DEFAULT_XML_TIMEOUT_MS,
+    retryCount: DEFAULT_XML_RETRY_COUNT,
+    retryDelayMs: DEFAULT_XML_RETRY_DELAY_MS,
   };
 }

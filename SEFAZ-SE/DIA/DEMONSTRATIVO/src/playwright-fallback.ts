@@ -1,12 +1,11 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { chromium, type Browser, type BrowserContext, type Download, type Page } from "playwright";
+import { loginSefazContabilista, openDiaModule } from "../../shared/sefaz-playwright-login";
 import { saveFile } from "./downloads";
 import { isPdf, isXls } from "./signatures";
 import type { Company, Competencia, DownloadResult, ReportFormat, RunConfig } from "./types";
 
-const PORTAL_ACESSO = "https://www.sefaz.se.gov.br/SitePages/acesso_usuario.aspx";
-const OPTION_CONTABILISTA_VALUE = "https://security.sefaz.se.gov.br/internet/portal/contabilista/atoAcessoContabilista.jsp";
 const DEMONSTRATIVO_TRANS_FRAGMENT = "TransId=T34693";
 
 export async function listCompaniesViaPlaywright(config: RunConfig): Promise<Company[]> {
@@ -75,23 +74,9 @@ async function createLoggedContext(config: RunConfig): Promise<{ browser: Browse
   });
   context.setDefaultTimeout(config.timeoutMs);
   const page = await context.newPage();
-  await login(page, config);
+  await loginSefazContabilista(page, config);
+  await openDiaModule(page, config.timeoutMs);
   return { browser, context };
-}
-
-async function login(page: Page, config: RunConfig): Promise<void> {
-  await page.goto(PORTAL_ACESSO, { waitUntil: "domcontentloaded" });
-  await page.locator("#accept-button").click({ timeout: 8_000 }).catch(() => undefined);
-  await page.getByRole("link", { name: /Acesso aos Sistemas/i }).click({ timeout: 8_000 }).catch(() => undefined);
-
-  const main = page.frameLocator('iframe[name="MSOPageViewerWebPart_WebPartWPQ1"]');
-  await main.getByRole("combobox").selectOption(OPTION_CONTABILISTA_VALUE);
-  const loginFrame = main.frameLocator('iframe[name="acesso"]');
-  await loginFrame.locator('input[name="UserName"]').fill(config.user);
-  await loginFrame.locator('input[name="Password"]').fill(config.password);
-  await loginFrame.getByRole("button", { name: /OK/i }).click();
-  await page.waitForLoadState("domcontentloaded").catch(() => undefined);
-  await page.getByText("DIA", { exact: true }).click({ timeout: config.timeoutMs });
 }
 
 async function openDemonstrativo(page: Page, config: RunConfig): Promise<void> {

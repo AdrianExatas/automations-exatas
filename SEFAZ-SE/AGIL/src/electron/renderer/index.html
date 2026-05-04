@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SEFAZ-SE AGIL</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="app-header">
+        <div>
+          <h1>SEFAZ-SE AGIL</h1>
+          <p>Inclusao de notas fiscais em lote</p>
+        </div>
+        <button id="startButton" class="primary-button">Iniciar</button>
+      </header>
+
+      <nav class="tabs" aria-label="Secoes">
+        <button class="tab-button active" data-tab="login" type="button">Login</button>
+        <button class="tab-button" data-tab="notes" type="button">Notas fiscais</button>
+      </nav>
+
+      <section id="loginTab" class="tab-panel active" aria-labelledby="Login">
+        <div class="section-grid">
+          <section class="panel">
+            <h2>Acesso</h2>
+            <div class="segmented-control" role="radiogroup" aria-label="Tipo de acesso">
+              <label>
+                <input type="radio" name="authMode" value="credentials" checked />
+                <span>Login e senha</span>
+              </label>
+              <label>
+                <input type="radio" name="authMode" value="certificate" />
+                <span>Certificado digital</span>
+              </label>
+            </div>
+
+            <div id="credentialsFields" class="field-stack">
+              <label>
+                Usuario
+                <input id="usernameInput" type="text" autocomplete="username" />
+              </label>
+              <label>
+                Senha
+                <input id="passwordInput" type="password" autocomplete="current-password" />
+              </label>
+            </div>
+
+            <p id="certificateNotice" class="notice hidden">
+              A janela do navegador sera aberta para selecionar o certificado digital no prompt do sistema.
+            </p>
+
+            <label class="checkbox-label">
+              <input id="dryRunInput" type="checkbox" />
+              <span>Dry-run: preencher a chave e parar antes de Salvar</span>
+            </label>
+          </section>
+
+          <section class="panel">
+            <h2>Resumo</h2>
+            <dl class="summary-list">
+              <div>
+                <dt>Chaves carregadas</dt>
+                <dd id="summaryTotal">0</dd>
+              </div>
+              <div>
+                <dt>Pendentes</dt>
+                <dd id="summaryPending">0</dd>
+              </div>
+              <div>
+                <dt>Sucesso</dt>
+                <dd id="summarySuccess">0</dd>
+              </div>
+              <div>
+                <dt>Erro</dt>
+                <dd id="summaryError">0</dd>
+              </div>
+            </dl>
+          </section>
+        </div>
+      </section>
+
+      <section id="notesTab" class="tab-panel" aria-labelledby="Notas fiscais">
+        <section class="panel notes-panel">
+          <div class="notes-toolbar">
+            <h2>Chaves das notas fiscais</h2>
+            <div class="button-row">
+              <button id="addManualButton" type="button">Adicionar chaves</button>
+              <button id="importButton" type="button">Importar arquivo</button>
+              <button id="exportReportButton" type="button" disabled>Baixar relatorio</button>
+              <button id="exportPdfsZipButton" type="button" disabled>Baixar PDFs (ZIP)</button>
+              <button id="clearButton" type="button">Limpar</button>
+            </div>
+          </div>
+
+          <label class="textarea-label">
+            Cole as chaves aqui
+            <textarea
+              id="manualKeysInput"
+              rows="7"
+              spellcheck="false"
+              placeholder="Cole uma ou mais chaves de 44 digitos"
+            ></textarea>
+          </label>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Chave</th>
+                  <th>Status</th>
+                  <th>Mensagem</th>
+                </tr>
+              </thead>
+              <tbody id="keysTableBody">
+                <tr class="empty-row">
+                  <td colspan="3">Nenhuma chave carregada.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+
+      <footer class="status-bar">
+        <span id="statusText">Pronto.</span>
+      </footer>
+    </main>
+
+    <script src="./renderer.js"></script>
+  </body>
+</html>

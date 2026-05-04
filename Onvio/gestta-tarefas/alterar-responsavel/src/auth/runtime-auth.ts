@@ -19,6 +19,7 @@ export interface GesttaRuntimeAuth {
 }
 
 interface GesttaRuntimeAuthDeps {
+  forceArtifact?: boolean;
   getExplicitEnvJwt?: () => string;
   resolveArtifactPath?: () => string;
   loadArtifactJwt?: (artifactPath: string) => string | null;
@@ -43,12 +44,39 @@ function createStaticRuntimeAuth(
   };
 }
 
+function createArtifactRuntimeAuth(
+  jwt: string,
+  artifactPath: string,
+  artifactRefresher: (artifactPath: string, reason: string) => Promise<string>
+): GesttaRuntimeAuth {
+  let currentJwt = jwt;
+
+  return {
+    mode: "artifact",
+    source: "artifact",
+    artifactPath,
+    getJwt: () => currentJwt,
+    refreshJwt: async () => {
+      currentJwt = await artifactRefresher(
+        artifactPath,
+        "Recebido erro de autenticacao do Gestta"
+      );
+      return currentJwt;
+    },
+  };
+}
+
 function getExplicitEnvJwt(): string {
   return (
     process.env.JWT_GESTTA?.trim() ||
     process.env.GESTTA_JWT_TOKEN?.trim() ||
     ""
   );
+}
+
+function shouldForceArtifactAuth(): boolean {
+  const value = process.env.GESTTA_FORCE_ARTIFACT_AUTH?.trim().toLowerCase();
+  return value === "true" || value === "1" || value === "sim" || value === "yes";
 }
 
 function resolveLegacyLocalEnvPath(startDir = process.cwd()): string {
@@ -168,8 +196,9 @@ async function refreshArtifactJwt(artifactPath: string, reason: string): Promise
 export async function resolveGesttaRuntimeAuth(
   deps: GesttaRuntimeAuthDeps = {}
 ): Promise<GesttaRuntimeAuth> {
-  const explicitEnvJwt = (deps.getExplicitEnvJwt ?? getExplicitEnvJwt)();
-  if (explicitEnvJwt) {
+  const forceArtifact = deps.forceArtifact ?? shouldForceArtifactAuth();
+  const explicitEnvJwt = forceArtifact ? "" : (deps.getExplicitEnvJwt ?? getExplicitEnvJwt)();
+  if (!forceArtifact && explicitEnvJwt) {
     return createStaticRuntimeAuth("local-env", explicitEnvJwt);
   }
 
@@ -178,20 +207,11 @@ export async function resolveGesttaRuntimeAuth(
   const artifactRefresher = deps.refreshArtifactJwt ?? refreshArtifactJwt;
   const legacyEnvPath = (deps.resolveLegacyEnvPath ?? resolveLegacyLocalEnvPath)();
   const legacyEnvJwt =
-    (deps.loadLegacyEnvJwt ?? loadLegacyLocalEnvJwt)(legacyEnvPath);
+    forceArtifact ? null : (deps.loadLegacyEnvJwt ?? loadLegacyLocalEnvJwt)(legacyEnvPath);
 
   const artifactJwt = artifactLoader(artifactPath);
   if (artifactJwt) {
-    return {
-      mode: "artifact",
-      source: "artifact",
-      artifactPath,
-      getJwt: () => artifactJwt,
-      refreshJwt: async () => artifactRefresher(
-        artifactPath,
-        "Recebido erro de autenticacao do Gestta"
-      ),
-    };
+    return createArtifactRuntimeAuth(artifactJwt, artifactPath, artifactRefresher);
   }
 
   let refreshError: Error | null = null;
@@ -200,16 +220,7 @@ export async function resolveGesttaRuntimeAuth(
       artifactPath,
       `Artefato ausente ou invalido em ${artifactPath}`
     );
-    return {
-      mode: "artifact",
-      source: "artifact",
-      artifactPath,
-      getJwt: () => refreshedJwt,
-      refreshJwt: async () => artifactRefresher(
-        artifactPath,
-        "Recebido erro de autenticacao do Gestta"
-      ),
-    };
+    return createArtifactRuntimeAuth(refreshedJwt, artifactPath, artifactRefresher);
   } catch (error: unknown) {
     refreshError = error instanceof Error ? error : new Error(String(error));
   }

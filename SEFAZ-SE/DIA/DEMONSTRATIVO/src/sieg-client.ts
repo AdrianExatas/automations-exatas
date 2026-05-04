@@ -15,6 +15,18 @@ export type SiegClientOptions = {
   retryDelayMs?: number;
 };
 
+export type SiegDownloadAttempt = {
+  chave: string;
+  xmlType: number;
+  attempt: number;
+  total: number;
+  timeoutMs: number;
+};
+
+export type SiegDownloadCallbacks = {
+  onAttempt?: (attempt: SiegDownloadAttempt) => void;
+};
+
 export class SiegXmlClient {
   private readonly apiKey: string;
   private readonly downloadUrl: string;
@@ -28,21 +40,29 @@ export class SiegXmlClient {
     this.downloadUrl = options.downloadUrl ?? DEFAULT_DOWNLOAD_URL;
     this.fetchImpl = options.fetchImpl ?? fetch;
     this.timeoutMs = options.timeoutMs ?? 30_000;
-    this.retryCount = options.retryCount ?? 3;
-    this.retryDelayMs = options.retryDelayMs ?? 2_000;
+    this.retryCount = Math.max(1, options.retryCount ?? 3);
+    this.retryDelayMs = Math.max(0, options.retryDelayMs ?? 2_000);
 
     if (!this.apiKey) {
       throw new Error("API key da SIEG nao configurada no build.");
     }
   }
 
-  async downloadXml(chave: string, signal?: AbortSignal): Promise<string> {
+  async downloadXml(chave: string, signal?: AbortSignal, callbacks: SiegDownloadCallbacks = {}): Promise<string> {
     const normalizedKey = validateAccessKey(chave);
-    const url = buildDownloadUrl(this.downloadUrl, this.apiKey, inferXmlType(normalizedKey));
+    const xmlType = inferXmlType(normalizedKey);
+    const url = buildDownloadUrl(this.downloadUrl, this.apiKey, xmlType);
     let lastError = "Falha apos retries";
 
     for (let attempt = 0; attempt < this.retryCount; attempt += 1) {
       throwIfAborted(signal);
+      callbacks.onAttempt?.({
+        chave: normalizedKey,
+        xmlType,
+        attempt: attempt + 1,
+        total: this.retryCount,
+        timeoutMs: this.timeoutMs,
+      });
       const timeoutController = new AbortController();
       const timeout = setTimeout(() => timeoutController.abort(), this.timeoutMs);
       const combinedSignal = combineSignals(signal, timeoutController.signal);
@@ -71,7 +91,7 @@ export class SiegXmlClient {
         }
       } catch (error) {
         throwIfAborted(signal);
-        lastError = error instanceof Error && error.name === "AbortError" ? "Timeout na requisicao" : messageOf(error);
+        lastError = error instanceof Error && error.name === "AbortError" ? `Timeout na requisicao apos ${formatDuration(this.timeoutMs)}` : messageOf(error);
       } finally {
         clearTimeout(timeout);
       }
@@ -177,4 +197,8 @@ async function sleep(ms: number, signal: AbortSignal | undefined): Promise<void>
 
 function messageOf(error: unknown): string {
   return error instanceof Error ? error.message : String(error);
+}
+
+function formatDuration(ms: number): string {
+  return ms >= 1_000 && ms % 1_000 === 0 ? `${ms / 1_000}s` : `${ms}ms`;
 }

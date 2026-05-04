@@ -12,6 +12,17 @@ interface RetriableAxiosRequestConfig extends InternalAxiosRequestConfig {
   _gesttaAuthRetried?: boolean;
 }
 
+export class GesttaAuthFatalError extends Error {
+  constructor(message: string, public readonly cause?: unknown) {
+    super(message);
+    this.name = "GesttaAuthFatalError";
+  }
+}
+
+export function isGesttaAuthFatalError(error: unknown): error is GesttaAuthFatalError {
+  return error instanceof GesttaAuthFatalError;
+}
+
 function getAuthorizationHeader(jwt: string): string {
   return `JWT ${jwt}`;
 }
@@ -48,6 +59,8 @@ function setClientAuthorization(client: AxiosInstance, jwt: string): void {
 }
 
 export function createGesttaClient(auth: GesttaRuntimeAuth): AxiosInstance {
+  let authRefreshFailedPermanently = false;
+
   const client = axios.create({
     baseURL: BASE_URL,
     headers: {
@@ -60,19 +73,34 @@ export function createGesttaClient(auth: GesttaRuntimeAuth): AxiosInstance {
     },
   });
 
+  client.interceptors.request.use((config) => {
+    setRequestAuthorization(config, auth.getJwt());
+    return config;
+  });
+
   client.interceptors.response.use(
     (response) => response,
     async (error: AxiosError) => {
       const status = error.response?.status;
       const config = error.config as RetriableAxiosRequestConfig | undefined;
+      const authStatus = status === 401 || status === 403;
 
       if (
         auth.mode !== "artifact" ||
-        (status !== 401 && status !== 403) ||
-        !config ||
-        config._gesttaAuthRetried
+        !authStatus ||
+        !config
       ) {
         return Promise.reject(error);
+      }
+
+      if (authRefreshFailedPermanently || config._gesttaAuthRetried) {
+        authRefreshFailedPermanently = true;
+        return Promise.reject(
+          new GesttaAuthFatalError(
+            `Token do Gestta renovado, mas a API continuou retornando ${status}. Verifique login, MFA e permissoes da conta no Gestta.`,
+            error
+          )
+        );
       }
 
       config._gesttaAuthRetried = true;
@@ -81,13 +109,15 @@ export function createGesttaClient(auth: GesttaRuntimeAuth): AxiosInstance {
         const refreshedJwt = await auth.refreshJwt();
         setClientAuthorization(client, refreshedJwt);
         setRequestAuthorization(config, refreshedJwt);
+        console.log("[auth] Token renovado. Repetindo requisicao autenticada uma vez.");
         return client.request(config);
       } catch (refreshError: unknown) {
         const refreshMessage =
           refreshError instanceof Error ? refreshError.message : String(refreshError);
         return Promise.reject(
-          new Error(
-            `Falha ao renovar token automaticamente apos ${status}: ${refreshMessage}`
+          new GesttaAuthFatalError(
+            `Falha ao renovar token automaticamente apos ${status}: ${refreshMessage}`,
+            refreshError
           )
         );
       }

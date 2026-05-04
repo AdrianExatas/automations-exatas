@@ -36,6 +36,8 @@ export type XmlDownloadConfig = {
   threads?: number;
   apiKey?: string;
   timeoutMs?: number;
+  retryCount?: number;
+  retryDelayMs?: number;
 };
 
 export type XmlDownloadCallbacks = {
@@ -76,6 +78,8 @@ export async function runXmlDownload(config: XmlDownloadConfig, callbacks: XmlDo
   const client = new SiegXmlClient({
     apiKey: resolveSiegApiKey(config),
     timeoutMs: config.timeoutMs,
+    retryCount: config.retryCount,
+    retryDelayMs: config.retryDelayMs,
   });
   const queue = buildDownloadQueue(reports);
   let current = 0;
@@ -105,10 +109,12 @@ export async function runXmlDownload(config: XmlDownloadConfig, callbacks: XmlDo
         item.chave,
       );
 
-      const entry = await downloadOneXml(client, config, item.report, item.chave, callbacks.signal);
+      const entry = await downloadOneXml(client, config, item.report, item.chave, callbacks);
       entries.push(entry);
       current += 1;
-      log(callbacks, entry.status === "sucesso" ? `  XML salvo em ${entry.path}` : `  XML ${entry.chave}: ${entry.mensagem}`);
+      if (entry.status === "sucesso") {
+        log(callbacks, `  XML salvo em ${entry.path}`);
+      }
       emit(callbacks, config, reportPaths, entries, "download", current, total, `${current}/${total} XMLs processados`, item.report.company, item.chave);
       if (shouldSaveXmlCheckpoint(current, total)) {
         await saveCheckpoint();
@@ -234,10 +240,14 @@ async function downloadOneXml(
   config: XmlDownloadConfig,
   report: CompanyReport,
   chave: string,
-  signal: AbortSignal | undefined,
+  callbacks: XmlDownloadCallbacks,
 ): Promise<XmlDownloadEntry> {
   try {
-    const xml = await client.downloadXml(chave, signal);
+    const xml = await client.downloadXml(chave, callbacks.signal, {
+      onAttempt: ({ attempt, total, timeoutMs }) => {
+        log(callbacks, `  Tentativa ${attempt}/${total} para XML ${chave} (timeout ${formatDuration(timeoutMs)})`);
+      },
+    });
     const outputPath = path.join(report.companyDir, "XML", `${chave}.xml`);
     await mkdir(path.dirname(outputPath), { recursive: true });
     await writeFile(outputPath, xml, "utf8");
@@ -251,6 +261,8 @@ async function downloadOneXml(
       path: outputPath,
     };
   } catch (error) {
+    const mensagem = messageOf(error);
+    log(callbacks, `  Falha final no XML ${chave}: ${mensagem}`);
     return {
       competencia: config.competencia.value,
       inscricao: report.company.inscricao,
@@ -258,7 +270,7 @@ async function downloadOneXml(
       xlsPath: report.xlsPath,
       chave,
       status: "erro",
-      mensagem: messageOf(error),
+      mensagem,
     };
   }
 }
@@ -330,6 +342,10 @@ function throwIfAborted(signal: AbortSignal | undefined): void {
   if (signal?.aborted) {
     throw new Error("Execucao cancelada pelo usuario.");
   }
+}
+
+function formatDuration(ms: number): string {
+  return ms >= 1_000 && ms % 1_000 === 0 ? `${ms / 1_000}s` : `${ms}ms`;
 }
 
 export function shouldSaveXmlCheckpoint(processed: number, total: number, interval = REPORT_CHECKPOINT_INTERVAL): boolean {

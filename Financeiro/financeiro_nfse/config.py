@@ -2,13 +2,20 @@ from __future__ import annotations
 
 import configparser
 import re
+import sys
 from datetime import date, datetime, timedelta
 from pathlib import Path
 
 from .models import NFSeItem, QueryPeriod
 
 
-ROOT_DIR = Path(__file__).resolve().parent.parent
+def runtime_root() -> Path:
+    if getattr(sys, "frozen", False):
+        return Path(sys.executable).resolve().parent
+    return Path(__file__).resolve().parent.parent
+
+
+ROOT_DIR = runtime_root()
 CONFIG_DIR = ROOT_DIR / "config"
 VAR_DIR = ROOT_DIR / "var"
 DEFAULT_CONFIG_PATH = CONFIG_DIR / "financeiro.ini"
@@ -137,6 +144,42 @@ def parse_competencia(competencia: str) -> QueryPeriod:
         next_month = date(ano, mes + 1, 1)
     end_date = next_month - timedelta(days=1)
     return QueryPeriod(start_date=start_date, end_date=end_date, competencia=f"{mes:02d}-{ano}")
+
+
+def parse_br_date(value: str, *, field_name: str = "data") -> date:
+    value = value.strip()
+    if not value:
+        raise RuntimeError(f"Informe {field_name} no formato DD/MM/AAAA.")
+    try:
+        return datetime.strptime(value, "%d/%m/%Y").date()
+    except ValueError as exc:
+        raise RuntimeError(f"{field_name.capitalize()} invalida: {value}. Use DD/MM/AAAA.") from exc
+
+
+def parse_date_range(data_inicial: str, data_final: str) -> QueryPeriod:
+    start_date = parse_br_date(data_inicial, field_name="data inicial")
+    end_date = parse_br_date(data_final, field_name="data final")
+
+    if end_date < start_date:
+        raise RuntimeError("Data final nao pode ser anterior a data inicial.")
+    if start_date.month != end_date.month or start_date.year != end_date.year:
+        raise RuntimeError("Informe um intervalo dentro do mesmo mes.")
+
+    competencia = f"{start_date.month:02d}-{start_date.year}"
+    return QueryPeriod(start_date=start_date, end_date=end_date, competencia=competencia)
+
+
+def resolve_query_period(
+    *,
+    data_inicial: str = "",
+    data_final: str = "",
+    competencia: str = "",
+) -> QueryPeriod:
+    if data_inicial.strip() or data_final.strip():
+        return parse_date_range(data_inicial, data_final)
+    if competencia.strip():
+        return parse_competencia(competencia.strip())
+    raise RuntimeError("Informe data inicial e data final no formato DD/MM/AAAA.")
 
 
 def previous_month_period(today: date | None = None) -> QueryPeriod:
