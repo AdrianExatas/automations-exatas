@@ -15,6 +15,31 @@ export const HTTP_PATHS = {
 
 export const SITUACOES_ATIVAS = new Set(["DAR", "CONFIRMADO", "PARCELADO", "ATRASO", "SIMULACAO"]);
 
+export type HttpStep =
+  | "autenticar"
+  | "account"
+  | "consolidacao_consultar"
+  | "consolidacao_detalhe"
+  | "parcelamento_gerar"
+  | "parcelamento_emitir"
+  | "dar_visualizar";
+
+export class HttpRequestError extends Error {
+  readonly status: number;
+  readonly step: HttpStep;
+  readonly url: string;
+  readonly responseBody: string;
+
+  constructor(step: HttpStep, url: string, status: number, responseBody: string) {
+    super(`${formatStepLabel(step)} falhou (${status}): ${responseBody.slice(0, 800)}`);
+    this.name = "HttpRequestError";
+    this.status = status;
+    this.step = step;
+    this.url = url;
+    this.responseBody = responseBody;
+  }
+}
+
 export interface ConsolidacaoItem {
   id?: number | null;
   situacao?: string | null;
@@ -42,6 +67,24 @@ function pessoaHeaders(token: string, numeroPessoa: number): Record<string, stri
   return { ...authHeaders(token), "x-pessoadetrabalho": String(numeroPessoa) };
 }
 
+function formatStepLabel(step: HttpStep): string {
+  const labels: Record<HttpStep, string> = {
+    autenticar: "Autenticacao",
+    account: "GET account",
+    consolidacao_consultar: "POST consolidacao/consultar",
+    consolidacao_detalhe: "GET consolidacao/consultarPorId",
+    parcelamento_gerar: "GET parcelamento/gerar",
+    parcelamento_emitir: "GET parcelamento emitir",
+    dar_visualizar: "POST dar/visualizar",
+  };
+
+  return labels[step];
+}
+
+function throwHttpError(step: HttpStep, url: string, status: number, responseBody: string): never {
+  throw new HttpRequestError(step, url, status, responseBody);
+}
+
 export async function autenticar(username: string, password: string): Promise<string> {
   const res = await fetch(HTTP_PATHS.autenticar, {
     method: "POST",
@@ -51,7 +94,7 @@ export async function autenticar(username: string, password: string): Promise<st
   const data = (await res.json()) as Record<string, unknown>;
   if (!res.ok) {
     const msg = typeof data.message === "string" ? data.message : JSON.stringify(data);
-    throw new Error(`Autenticacao falhou (${res.status}): ${msg}`);
+    throwHttpError("autenticar", HTTP_PATHS.autenticar, res.status, msg);
   }
   const token =
     (typeof data.token === "string" && data.token) ||
@@ -67,7 +110,7 @@ export async function fetchAccount(token: string): Promise<{ numeroPessoa: numbe
   const res = await fetch(HTTP_PATHS.account, { headers: authHeaders(token) });
   const data = (await res.json()) as Record<string, unknown>;
   if (!res.ok) {
-    throw new Error(`GET account falhou (${res.status}): ${JSON.stringify(data).slice(0, 400)}`);
+    throwHttpError("account", HTTP_PATHS.account, res.status, JSON.stringify(data));
   }
   const np = data.numeroPessoa;
   if (typeof np !== "number" || !Number.isFinite(np)) {
@@ -97,7 +140,7 @@ export async function consultarConsolidacoes(token: string, numeroPessoa: number
     return [];
   }
   if (!res.ok) {
-    throw new Error(`POST consolidacao/consultar falhou (${res.status}): ${text.slice(0, 800)}`);
+    throwHttpError("consolidacao_consultar", HTTP_PATHS.consolidacaoConsultar, res.status, text);
   }
   const parsed = JSON.parse(text) as unknown;
   if (!Array.isArray(parsed)) {
@@ -116,7 +159,7 @@ export async function fetchGerar(
   const res = await fetch(url, { headers: pessoaHeaders(token, numeroPessoa) });
   const text = await res.text();
   if (!res.ok) {
-    throw new Error(`GET parcelamento/gerar falhou (${res.status}): ${text.slice(0, 800)}`);
+    throwHttpError("parcelamento_gerar", url, res.status, text);
   }
   const data = JSON.parse(text) as Record<string, unknown>;
   return {
@@ -135,7 +178,7 @@ export async function fetchEmitirParcela(
   const res = await fetch(url, { headers: pessoaHeaders(token, numeroPessoa) });
   const text = await res.text();
   if (!res.ok) {
-    throw new Error(`GET parcelamento emitir falhou (${res.status}): ${text.slice(0, 800)}`);
+    throwHttpError("parcelamento_emitir", url, res.status, text);
   }
   const data = JSON.parse(text) as Record<string, unknown>;
   const numeroProcessamento = typeof data.numeroProcessamento === "number" ? data.numeroProcessamento : null;
@@ -167,7 +210,7 @@ export async function fetchConsolidacaoDetalhe(
   const res = await fetch(url, { headers: pessoaHeaders(token, numeroPessoa) });
   const text = await res.text();
   if (!res.ok) {
-    throw new Error(`GET consolidacao/consultarPorId falhou (${res.status}): ${text.slice(0, 800)}`);
+    throwHttpError("consolidacao_detalhe", url, res.status, text);
   }
   const data = JSON.parse(text) as Record<string, unknown>;
   const quantidadeParcelas = typeof data.quantidadeParcelas === "number" ? data.quantidadeParcelas : 1;
@@ -201,7 +244,7 @@ export async function fetchDarPdf(
   });
   const buf = Buffer.from(await res.arrayBuffer());
   if (!res.ok) {
-    throw new Error(`POST dar/visualizar falhou (${res.status}): ${buf.toString("utf8").slice(0, 800)}`);
+    throwHttpError("dar_visualizar", HTTP_PATHS.darVisualizar, res.status, buf.toString("utf8"));
   }
   const filename = res.headers.get("x-filename");
   return { pdf: buf, filename };
@@ -213,5 +256,12 @@ export function toMaceioMidnight(isoDate: string): string {
 }
 
 export function todayIso(): string {
-  return new Date().toISOString().slice(0, 10);
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "America/Sao_Paulo",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).formatToParts(new Date());
+  const values = new Map(parts.map((part) => [part.type, part.value]));
+  return `${values.get("year")}-${values.get("month")}-${values.get("day")}`;
 }

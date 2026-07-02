@@ -20,6 +20,7 @@ export type StartRunRequest = {
   competencia: string;
   formats: ReportFormat[];
   outDir: string;
+  checkpointEnabled?: boolean;
 };
 
 export type StartXmlDownloadRequest = {
@@ -27,6 +28,7 @@ export type StartXmlDownloadRequest = {
   outDir: string;
   threads?: number;
   siegApiKey?: string;
+  checkpointEnabled?: boolean;
 };
 
 export type SefazDiaApi = {

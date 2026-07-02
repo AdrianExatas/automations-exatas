@@ -1,52 +1,12 @@
 import fs from "node:fs";
 import path from "node:path";
+import { findColumn, normalizeCodigo } from "./empresa-normalization";
 import type { EmpresaBatchItem } from "../types";
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const XLSX = require("xlsx");
 
 export type Empresa = EmpresaBatchItem;
-
-function normalizeHeader(value: string): string {
-  return value
-    .trim()
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-z0-9]+/g, "");
-}
-
-function findColumn(
-  columns: string[],
-  keywords: string[],
-  mode: "exact" | "contains" = "contains",
-): string | undefined {
-  const normalizedColumns = columns.map((column) => ({
-    original: column,
-    normalized: normalizeHeader(column),
-  }));
-  const normalizedKeywords = keywords.map(normalizeHeader);
-
-  for (const keyword of normalizedKeywords) {
-    const exactMatch = normalizedColumns.find((column) => column.normalized === keyword);
-    if (exactMatch) return exactMatch.original;
-  }
-
-  if (mode === "contains") {
-    for (const keyword of normalizedKeywords) {
-      const partialMatch = normalizedColumns.find((column) => column.normalized.includes(keyword));
-      if (partialMatch) return partialMatch.original;
-    }
-  }
-
-  return undefined;
-}
-
-function normalizeCodigo(value: unknown): string {
-  if (value == null || value === "") return "";
-  const asString = typeof value === "number" ? String(Math.floor(value)) : String(value).trim();
-  return /^\d+$/.test(asString) ? String(parseInt(asString, 10)) : asString;
-}
 
 function parseArquivos(value: unknown): string[] {
   if (value == null || value === "") return [];
@@ -85,7 +45,7 @@ export function readEmpresas(excelPath: string): Empresa[] {
   const cnpjColumn = findColumn(columns, ["cnpj", "cpf"]) ?? columns[0];
   const codigoColumn = findColumn(columns, ["codigo", "código", "numero", "id"]);
   const nomeColumn = findColumn(columns, ["empresa", "nome", "razão social", "razao social"]);
-  const solicitanteColumn = findColumn(columns, ["solicitante"]);
+  const solicitanteColumn = findColumn(columns, ["solicitante", "responsavel", "responsável"]);
   const departamentoColumn = findColumn(columns, ["departamento"]);
   const assuntoColumn = findColumn(columns, ["assunto"]);
   const descricaoColumn = findColumn(columns, ["descrição", "descricao"]);

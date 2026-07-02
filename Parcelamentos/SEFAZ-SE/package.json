@@ -2,22 +2,61 @@
   "name": "sefaz-se-parcelamentos-ts",
   "version": "1.0.0",
   "description": "Automacao e geracao de planilha para parcelamentos SEFAZ-SE",
-  "main": "index.js",
+  "main": "dist/electron/main.js",
   "scripts": {
     "start": "tsx src/main.ts",
     "generate-input": "tsx src/generate-input.ts",
+    "build": "node scripts/build-electron.mjs",
+    "electron:dev": "npm run build && electron .",
+    "desktop:dist": "npm run build && electron-builder --win nsis",
     "test": "node --import tsx --test test/**/*.test.ts",
     "typecheck": "tsc -p tsconfig.json"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "build": {
+    "appId": "br.com.exatas.parcelamentos.sefazse",
+    "productName": "Parcelamentos SEFAZ-SE",
+    "directories": {
+      "output": "release"
+    },
+    "toolsets": {
+      "winCodeSign": null
+    },
+    "files": [
+      "dist/electron/**/*",
+      "package.json",
+      "node_modules/playwright/**/*",
+      "node_modules/playwright-core/**/*",
+      "node_modules/chromium-bidi/**/*",
+      "!**/.tmp-playwright{,/**}",
+      "!**/ms-playwright{,/**}"
+    ],
+    "asar": true,
+    "win": {
+      "signAndEditExecutable": false,
+      "verifyUpdateCodeSignature": false,
+      "target": [
+        "nsis"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "packElevateHelper": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  },
   "dependencies": {
     "playwright": "^1.58.2",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@types/node": "^25.5.0",
+    "electron": "^42.0.1",
+    "electron-builder": "^26.8.1",
+    "esbuild": "^0.28.0",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3"
   }

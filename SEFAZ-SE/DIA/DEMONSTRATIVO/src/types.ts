@@ -20,6 +20,7 @@ export type RunConfig = {
   outDir: string;
   limit?: number;
   headless?: boolean;
+  checkpointEnabled?: boolean;
   timeoutMs: number;
 };
 

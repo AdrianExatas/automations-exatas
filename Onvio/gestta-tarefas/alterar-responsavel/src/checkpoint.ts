@@ -64,6 +64,7 @@ function desserializarResultado(raw: unknown): ResultadoLinha | null {
     linha: {
       cod: String(linha.cod ?? ""),
       cnpj: String(linha.cnpj ?? ""),
+      empresa: linha.empresa != null ? String(linha.empresa) : undefined,
       responsavel: String(linha.responsavel ?? ""),
       mesGeracao: { month: mg.month, year: mg.year },
       departamento: linha.departamento != null ? String(linha.departamento) : undefined,
@@ -74,6 +75,9 @@ function desserializarResultado(raw: unknown): ResultadoLinha | null {
     customerId: o.customerId != null ? String(o.customerId) : undefined,
     userId: o.userId != null ? String(o.userId) : undefined,
     groupIds: Array.isArray(o.groupIds) ? (o.groupIds as string[]) : undefined,
+    rollbackItems: Array.isArray(o.rollbackItems)
+      ? (o.rollbackItems as ResultadoLinha["rollbackItems"])
+      : undefined,
     erro: o.erro != null ? String(o.erro) : undefined,
     etapaFalha: o.etapaFalha as ResultadoLinha["etapaFalha"],
   };

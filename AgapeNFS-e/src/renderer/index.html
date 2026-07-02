@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agape NFS-e - Download XML</title>
+    <link rel="stylesheet" href="./renderer.css" />
+  </head>
+  <body>
+    <main class="app">
+      <section class="toolbar" aria-label="Formulario de download">
+        <div class="field">
+          <label for="login">Login</label>
+          <input id="login" autocomplete="username" />
+        </div>
+        <div class="field">
+          <label for="password">Senha</label>
+          <input id="password" type="password" autocomplete="current-password" />
+        </div>
+        <div class="field compact">
+          <label for="startDate">Data inicial</label>
+          <input id="startDate" type="date" />
+        </div>
+        <div class="field compact">
+          <label for="endDate">Data final</label>
+          <input id="endDate" type="date" />
+        </div>
+        <div class="field folder-field">
+          <label for="outputDir">Pasta destino</label>
+          <div class="folder-row">
+            <input id="outputDir" placeholder="Downloads\\XML AgapeNFS-e" />
+            <button id="selectFolder" type="button">Selecionar</button>
+          </div>
+        </div>
+        <label class="check">
+          <input id="saveCredentials" type="checkbox" />
+          <span>Salvar credenciais neste Windows</span>
+        </label>
+        <div class="actions">
+          <button id="runDownload" type="button">Baixar XMLs</button>
+          <span id="status">Pronto</span>
+        </div>
+      </section>
+      <section class="log-shell" aria-label="Logs">
+        <pre id="logs"></pre>
+      </section>
+    </main>
+    <script src="./renderer.js"></script>
+  </body>
+</html>

@@ -1,12 +1,26 @@
 /**
  * Leitura da planilha DP RESPONSÁVEL.xlsx.
- * Colunas: CÓD., CNPJ, RESPONSÁVEL, MES GERACAO (opcional: DEPARTAMENTO, SETOR).
+ * Colunas: CÓD., CNPJ, RESPONSÁVEL, MES GERACAO (opcional: EMPRESA, DEPARTAMENTO, SETOR).
  */
 
 import * as XLSX from "xlsx";
 import path from "path";
 import { LinhaPlanilha } from "./types";
 import { normalizarCnpjDetalhado } from "./cnpj";
+
+export const CAMPOS_OBRIGATORIOS_PLANILHA = "CNPJ + RESPONSAVEL + SETOR";
+
+export class PlanilhaObrigatoriaError extends Error {
+  constructor(public readonly erros: string[]) {
+    super(
+      [
+        `Campos obrigatorios ausentes na planilha (${CAMPOS_OBRIGATORIOS_PLANILHA} obrigatorios).`,
+        ...erros.map((erro) => `- ${erro}`),
+      ].join("\n")
+    );
+    this.name = "PlanilhaObrigatoriaError";
+  }
+}
 
 const MES_ABREV: Record<string, number> = {
   jan: 1, fev: 2, mar: 3, abr: 4, mai: 5, jun: 6,
@@ -73,6 +87,35 @@ function getCell(row: Record<string, unknown>, keys: string[]): unknown {
   return undefined;
 }
 
+function hasAnyData(row: Record<string, unknown>): boolean {
+  return Object.values(row).some((value) => String(value ?? "").trim() !== "");
+}
+
+function getRowNumber(row: Record<string, unknown>, fallback: number): number {
+  const rowNum = (row as Record<string, unknown>).__rowNum__;
+  return typeof rowNum === "number" ? rowNum + 1 : fallback;
+}
+
+function validarCamposObrigatoriosPlanilha(
+  row: Record<string, unknown>,
+  rowNumber: number,
+  cnpjRaw: unknown,
+  responsavel: string,
+  setorOuDepartamento: string | undefined
+): string | null {
+  const faltantes: string[] = [];
+  const cnpjInfo = normalizarCnpjDetalhado(cnpjRaw);
+
+  if (!cnpjInfo.original && !cnpjInfo.digitos) faltantes.push("CNPJ");
+  if (!responsavel) faltantes.push("RESPONSAVEL");
+  if (!setorOuDepartamento) faltantes.push("SETOR");
+
+  if (faltantes.length === 0) return null;
+  const cod = String(getCell(row, ["CÓD.", "COD", "Cód.", "Cod"]) ?? "").trim();
+  const identificador = cod ? ` (COD. ${cod})` : "";
+  return `Linha ${rowNumber}${identificador}: informe ${faltantes.join(", ")}.`;
+}
+
 /**
  * Lê a planilha e retorna array de linhas normalizadas.
  * @param planilhaPath Caminho para o arquivo .xlsx (absoluto ou relativo ao CWD).
@@ -92,20 +135,35 @@ export function lerPlanilha(planilhaPath: string): LinhaPlanilha[] {
   });
 
   const linhas: LinhaPlanilha[] = [];
+  const errosObrigatorios: string[] = [];
 
-  for (const row of data) {
+  for (let index = 0; index < data.length; index++) {
+    const row = data[index];
+    if (!hasAnyData(row)) continue;
+
     const cod = String(getCell(row, ["CÓD.", "COD", "Cód.", "Cod"]) ?? "").trim();
     const cnpjRaw = getCell(row, ["CNPJ", "Cnpj"]);
+    const empresa = String(getCell(row, ["EMPRESA", "Empresa", "RAZAO SOCIAL", "Razao Social", "RAZÃO SOCIAL", "Razão Social"]) ?? "").trim() || undefined;
     const responsavel = String(getCell(row, ["RESPONSÁVEL", "RESPONSÁVEL ", "Responsável", "RESPONSAVEL"]) ?? "").trim();
     const mesGeracaoRaw = getCell(row, ["MES GERACAO", "MES GERAÇÃO", "Mes Geracao", "Mês Geração"]);
     const departamento = String(getCell(row, ["DEPARTAMENTO", "Departamento", "DEPARTAMENTO "]) ?? "").trim() || undefined;
     const setor = String(getCell(row, ["SETOR", "Setor"]) ?? "").trim() || undefined;
+    const setorOuDepartamento = setor || departamento;
+    const erroObrigatorio = validarCamposObrigatoriosPlanilha(
+      row,
+      getRowNumber(row, index + 2),
+      cnpjRaw,
+      responsavel,
+      setorOuDepartamento
+    );
+    if (erroObrigatorio) {
+      errosObrigatorios.push(erroObrigatorio);
+      continue;
+    }
 
     const cnpjInfo = normalizarCnpjDetalhado(cnpjRaw);
     const mesGeracao = parseMesGeracao(mesGeracaoRaw);
 
-    if (!responsavel) continue;
-    if (!cnpjInfo.original && !cnpjInfo.digitos) continue;
     if (!mesGeracao) {
       linhas.push({
         cod,
@@ -113,10 +171,11 @@ export function lerPlanilha(planilhaPath: string): LinhaPlanilha[] {
         ...(cnpjInfo.original && cnpjInfo.original !== cnpjInfo.valor ? { cnpjOriginal: cnpjInfo.original } : {}),
         ...(cnpjInfo.ajustado ? { cnpjFoiAjustado: true } : {}),
         ...(!cnpjInfo.valido ? { cnpjInvalido: true } : {}),
+        empresa,
         responsavel,
         mesGeracao: { month: new Date().getMonth() + 1, year: new Date().getFullYear() },
         departamento,
-        setor,
+        setor: setorOuDepartamento,
       });
       continue;
     }
@@ -127,11 +186,16 @@ export function lerPlanilha(planilhaPath: string): LinhaPlanilha[] {
       ...(cnpjInfo.original && cnpjInfo.original !== cnpjInfo.valor ? { cnpjOriginal: cnpjInfo.original } : {}),
       ...(cnpjInfo.ajustado ? { cnpjFoiAjustado: true } : {}),
       ...(!cnpjInfo.valido ? { cnpjInvalido: true } : {}),
+      empresa,
       responsavel,
       mesGeracao,
       departamento,
-      setor,
+      setor: setorOuDepartamento,
     });
+  }
+
+  if (errosObrigatorios.length > 0) {
+    throw new PlanilhaObrigatoriaError(errosObrigatorios);
   }
 
   return linhas;

@@ -55,11 +55,16 @@ export async function listarFuncionarios(
 }
 
 /** Item retornado por GET /admin/customer/:id/company/task. */
-interface CompanyTaskItem {
+export interface CompanyTaskItem {
   _id: string;
-  company_task?: {
+  company_task?: string | {
+    _id?: string;
+    name?: string;
     company_department?: { _id?: string; name?: string };
   };
+  company_user?: string | UsuarioGestta | null;
+  approve_type?: unknown[];
+  active?: boolean;
 }
 
 /** Normaliza nome para comparação (trim, minúsculo, sem acentos). */
@@ -77,7 +82,7 @@ type CompanyTaskResponse = CompanyTaskItem[] | { docs?: CompanyTaskItem[]; hasNe
 /**
  * Normaliza a resposta do GET company/task para um único array (suporta array direto ou { docs }).
  */
-function normalizarCompanyTaskData(
+export function normalizarCompanyTaskData(
   data: unknown,
   customerId: string
 ): { items: CompanyTaskItem[]; origem: "array" | "docs" } {
@@ -103,11 +108,11 @@ function normalizarCompanyTaskData(
  * Se departamentoOuSetor for informado, retorna os _id dos itens cujo company_task.company_department.name
  * comece com esse valor. Ex.: "Fiscal" engloba "Fiscal" e "Fiscal - Simples Nacional".
  */
-export async function getGroupCustomerIds(
+export async function getGroupCustomerItems(
   client: AxiosInstance,
   customerId: string,
   departamentoOuSetor?: string
-): Promise<string[]> {
+): Promise<CompanyTaskItem[]> {
   try {
     const { data } = await client.get<CompanyTaskResponse>(
       `/admin/customer/${customerId}/company/task`
@@ -127,7 +132,8 @@ export async function getGroupCustomerIds(
 
     const itens = filtro
       ? dataItems.filter((d) => {
-          const nome = d.company_task?.company_department?.name;
+          const task = d.company_task;
+          const nome = typeof task === "object" ? task.company_department?.name : undefined;
           if (nome == null || nome === "") return false;
           return normalizarNomeDepto(nome).startsWith(filtro);
         })
@@ -136,7 +142,8 @@ export async function getGroupCustomerIds(
     if (filtro && itens.length === 0 && dataItems.length > 0) {
       const nomes = new Set<string>();
       for (const d of dataItems) {
-        const n = d.company_task?.company_department?.name;
+        const task = d.company_task;
+        const n = typeof task === "object" ? task.company_department?.name : undefined;
         if (n != null && n !== "") nomes.add(n);
       }
       const lista = nomes.size ? [...nomes].sort().join(", ") : "(nenhum com nome de departamento)";
@@ -145,7 +152,7 @@ export async function getGroupCustomerIds(
       );
     }
 
-    return itens.map((d) => d._id).filter(Boolean);
+    return itens.filter((d) => Boolean(d._id));
   } catch (err: unknown) {
     const status = (err as { response?: { status?: number } })?.response?.status;
     const data = (err as { response?: { data?: unknown } })?.response?.data;
@@ -159,6 +166,15 @@ export async function getGroupCustomerIds(
     );
   }
   return [];
+}
+
+export async function getGroupCustomerIds(
+  client: AxiosInstance,
+  customerId: string,
+  departamentoOuSetor?: string
+): Promise<string[]> {
+  const itens = await getGroupCustomerItems(client, customerId, departamentoOuSetor);
+  return itens.map((d) => d._id).filter(Boolean);
 }
 
 /**

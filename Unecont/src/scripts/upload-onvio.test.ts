@@ -1,4 +1,6 @@
 import path from "node:path";
+import fs from "node:fs";
+import os from "node:os";
 
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
@@ -44,6 +46,18 @@ describe("upload CLI", () => {
     process.env.BD_API_BASE_URL = "http://localhost:3001/api";
     resolveExcelPath.mockReturnValue("C:/tmp/empresas.xlsx");
     findLatestNormalizedDir.mockReturnValue("C:/tmp/normalized");
+    loadEmpresasFromExcel.mockReturnValue([
+      {
+        cnpj: "12345678000190",
+        codigo: "1",
+        nome: "Empresa Teste",
+        solicitante: "Fulano",
+        departamento: "Fiscal",
+        assunto: "",
+        descricao: "",
+        arquivos: [],
+      },
+    ]);
     uploadOnvioBatch.mockResolvedValue({
       summary: {
         total: 1,
@@ -66,6 +80,7 @@ describe("upload CLI", () => {
     delete process.env.ONVIO_AUTO_REFRESH_TOKEN;
     delete process.env.ONVIO_EMAIL;
     delete process.env.ONVIO_PASSWORD;
+    delete process.env.ONVIO_UPLOAD_CHECKPOINT_PATH;
   });
 
   it("passa onUnauthorized quando ONVIO_AUTO_REFRESH_TOKEN e credenciais Onvio estao definidos", async () => {
@@ -158,15 +173,55 @@ describe("upload CLI", () => {
     expect(exitCode).toBe(0);
     expect(loadDotenvFromProjectRoot).toHaveBeenCalled();
     expect(findLatestNormalizedDir).toHaveBeenCalled();
+    expect(loadEmpresasFromExcel).toHaveBeenCalledWith("C:/tmp/empresas.xlsx");
     expect(uploadOnvioBatch).toHaveBeenCalledWith(
       expect.objectContaining({
         token: "token",
-        input: { excelPath: "C:/tmp/empresas.xlsx" },
+        input: {
+          empresas: [
+            expect.objectContaining({
+              codigo: "1",
+              solicitante: "Fulano",
+            }),
+          ],
+        },
         attachmentsDir: "C:/tmp/normalized",
         attachmentsMode: "required",
         dryRun: false,
         bdApiBaseUrl: "http://localhost:3001/api",
       }),
+    );
+  });
+
+  it("exibe aviso de solicitante sem ID tambem em upload real com sucesso", async () => {
+    uploadOnvioBatch.mockResolvedValue({
+      summary: { total: 1, success: 1, failed: 0, skipped: 0 },
+      warnings: [],
+      items: [
+        {
+          empresa: {
+            cnpj: "12345678000190",
+            codigo: "8",
+            nome: "SUPERMERCADO DORIA",
+            solicitante: "EMANUEL",
+            departamento: "Contabil",
+            assunto: "",
+            descricao: "",
+            arquivos: [],
+          },
+          status: "success",
+          message: "2 anexo(s) enviado(s).",
+          ticketId: "ticket-1",
+          attachmentCount: 2,
+        },
+      ],
+    });
+
+    const { main } = await import("./upload-onvio");
+    await main();
+
+    expect(consoleWarn).toHaveBeenCalledWith(
+      expect.stringContaining("Solicitante \"EMANUEL\" sem ID do Onvio resolvido"),
     );
   });
 
@@ -309,6 +364,92 @@ describe("upload CLI", () => {
     const payload = uploadOnvioBatch.mock.calls[0]?.[0] as { input: { empresas: unknown[] } };
     expect(payload.input.empresas).toHaveLength(3);
     expect(payload.input.empresas.map((e: { codigo: string }) => e.codigo)).toEqual(["1", "2", "3"]);
+  });
+
+  it("com --a-partir-de envia da primeira ocorrencia do codigo ate o fim", async () => {
+    const row = (codigo: string) => ({
+      cnpj: `00${codigo}`,
+      codigo,
+      nome: `Empresa ${codigo}`,
+      solicitante: "",
+      departamento: "Fiscal",
+      assunto: "",
+      descricao: "",
+      arquivos: [] as string[],
+    });
+    loadEmpresasFromExcel.mockReturnValue([row("107"), row("313"), row("314"), row("315")]);
+
+    const { main } = await import("./upload-onvio");
+    const exitCode = await main(["--a-partir-de", "314"]);
+
+    expect(exitCode).toBe(0);
+    const payload = uploadOnvioBatch.mock.calls[0]?.[0] as { input: { empresas: { codigo: string }[] } };
+    expect(payload.input.empresas.map((e) => e.codigo)).toEqual(["314", "315"]);
+  });
+
+  it("usa checkpoint para pular empresas ja enviadas e marca sucesso pelo progresso", async () => {
+    const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "unecont-upload-checkpoint-"));
+    const checkpointPath = path.join(tempDir, "upload.json");
+    process.env.ONVIO_UPLOAD_CHECKPOINT_PATH = checkpointPath;
+
+    const row = (codigo: string) => ({
+      cnpj: `00${codigo}`,
+      codigo,
+      nome: `Empresa ${codigo}`,
+      solicitante: "",
+      departamento: "Fiscal",
+      assunto: "",
+      descricao: "",
+      arquivos: [] as string[],
+    });
+    const rows = [row("313"), row("314"), row("315")];
+    loadEmpresasFromExcel.mockReturnValue(rows);
+    fs.writeFileSync(
+      checkpointPath,
+      JSON.stringify({
+        processed: [
+          {
+            key: "313|00313",
+            codigo: "313",
+            cnpj: "00313",
+            nome: "Empresa 313",
+            ticketId: "ticket-313",
+            updatedAt: "2026-05-08T00:00:00.000Z",
+          },
+        ],
+        failed: [],
+      }),
+      "utf-8",
+    );
+    uploadOnvioBatch.mockImplementation(async (options) => {
+      const row314 = options.input.empresas[0];
+      options.onProgress?.({
+        type: "item_done",
+        index: 1,
+        total: 2,
+        row: row314,
+        outcome: "success",
+        ticketId: "ticket-314",
+        message: "ok",
+      });
+      return {
+        summary: { total: 2, success: 1, failed: 0, skipped: 0 },
+        warnings: [],
+        items: [],
+      };
+    });
+
+    const { main } = await import("./upload-onvio");
+    const exitCode = await main();
+
+    expect(exitCode).toBe(0);
+    const payload = uploadOnvioBatch.mock.calls[0]?.[0] as { input: { empresas: { codigo: string }[] } };
+    expect(payload.input.empresas.map((e) => e.codigo)).toEqual(["314", "315"]);
+    const checkpoint = JSON.parse(fs.readFileSync(checkpointPath, "utf-8")) as {
+      processed: Array<{ codigo: string; ticketId?: string }>;
+    };
+    expect(checkpoint.processed.map((entry) => entry.codigo)).toEqual(["313", "314"]);
+    expect(checkpoint.processed.find((entry) => entry.codigo === "314")?.ticketId).toBe("ticket-314");
   });
 
   it("falha quando --limite nao e um inteiro positivo", async () => {

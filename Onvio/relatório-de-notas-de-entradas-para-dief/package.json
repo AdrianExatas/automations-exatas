@@ -1,0 +1,20 @@
+{
+  "name": "relatorio-notas-entradas-dief",
+  "version": "1.0.0",
+  "description": "Tratamento automático de planilhas ENTRADAS do Onvio para formato DIEF",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts",
+    "test": "node --test -r ts-node/register test/transformar.test.ts"
+  },
+  "dependencies": {
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.0"
+  }
+}

@@ -447,6 +447,51 @@ describe("uploadOnvioBatch", () => {
     expect(uploadTicketWithAttachments.mock.calls[2]?.[0]).toMatchObject({ token: "token-novo" });
   });
 
+  it("resolve requesterId via resolveRequesterId antes de employees e envia requesterExpanded", async () => {
+    loadBdLookupData.mockResolvedValue({
+      clientIdByCode: new Map([["543", "client-1"]]),
+      requesterIdByName: new Map(),
+      departmentIdByName: new Map([["FISCAL", "dep-1"]]),
+    });
+
+    const result = await uploadOnvioBatch({
+      token: "token",
+      attachmentsDir: "C:/tmp",
+      bdApiBaseUrl: "http://localhost:3001/api",
+      input: {
+        empresas: [
+          {
+            cnpj: "12",
+            codigo: "543",
+            nome: "Link Informatica",
+            solicitante: "EMANUEL - FUNCIONARIO NOVO",
+            departamento: "Fiscal",
+            assunto: "",
+            descricao: "",
+            arquivos: [],
+          },
+        ],
+      },
+      resolveRequesterId: async () => "contact-emanuel",
+      defaults: {
+        clientId: "client-default",
+        departmentId: "dep-default",
+      },
+    });
+
+    expect(result.summary.success).toBe(1);
+    expect(result.items[0]?.warnings ?? []).not.toEqual(
+      expect.arrayContaining([
+        expect.stringContaining('Solicitante "EMANUEL - FUNCIONARIO NOVO" sem ID do Onvio resolvido'),
+      ]),
+    );
+    expect(uploadTicketWithAttachments).toHaveBeenCalledWith(
+      expect.objectContaining({
+        requesterId: "contact-emanuel",
+      }),
+    );
+  });
+
   it("avisa quando solicitante nao resolve requesterId para o Onvio", async () => {
     loadBdLookupData.mockResolvedValue({
       clientIdByCode: new Map([["543", "client-1"]]),

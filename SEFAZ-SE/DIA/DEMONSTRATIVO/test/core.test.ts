@@ -15,10 +15,16 @@ import {
   extractPdfPath,
   parseCompanies,
 } from "../src/parser";
-import { isPlaywrightFallbackEnabled, shouldSaveCheckpoint } from "../src/runner";
+import { isCheckpointEnabled as isRunCheckpointEnabled, isPlaywrightFallbackEnabled, shouldSaveCheckpoint } from "../src/runner";
 import { isPdf, isXls } from "../src/signatures";
 import { inferXmlType, parseSiegXmlResponse, SiegXmlClient } from "../src/sieg-client";
-import { extractAccessKeysFromWorkbook, findDiaXlsReports, saveXmlReports, shouldSaveXmlCheckpoint } from "../src/xml-downloads";
+import {
+  extractAccessKeysFromWorkbook,
+  findDiaXlsReports,
+  isCheckpointEnabled as isXmlCheckpointEnabled,
+  saveXmlReports,
+  shouldSaveXmlCheckpoint,
+} from "../src/xml-downloads";
 import { getSefazLoginFailureMessage, isSefazLoginConfirmed } from "../../shared/sefaz-playwright-login";
 
 describe("competencia", () => {
@@ -225,6 +231,7 @@ describe("electron request builders", () => {
     expect(config.formats).toEqual(["pdf", "xls"]);
     expect(config.outDir).toBe("saida");
     expect(config.competencia.value).toBe("2026-03");
+    expect(config.checkpointEnabled).toBe(true);
   });
 
   test("valida request de XML e aceita chave SIEG explicita", () => {
@@ -237,9 +244,30 @@ describe("electron request builders", () => {
     expect(config.outDir).toBe("saida");
     expect(config.threads).toBe(8);
     expect(config.apiKey).toBe("token");
+    expect(config.checkpointEnabled).toBe(true);
     expect(config.timeoutMs).toBe(90_000);
     expect(config.retryCount).toBe(2);
     expect(config.retryDelayMs).toBe(1_000);
+  });
+
+  test("permite desativar checkpoint nos requests", () => {
+    const runConfig = buildRunConfig({
+      user: "usuario",
+      password: "senha",
+      rememberCredentials: false,
+      competencia: "2026-03",
+      formats: ["pdf"],
+      outDir: "saida",
+      checkpointEnabled: false,
+    });
+    const xmlConfig = buildXmlDownloadConfig({
+      competencia: "2026-03",
+      outDir: "saida",
+      checkpointEnabled: false,
+    });
+
+    expect(runConfig.checkpointEnabled).toBe(false);
+    expect(xmlConfig.checkpointEnabled).toBe(false);
   });
 
   test("request de XML permite sobrescrever threads", () => {
@@ -274,6 +302,15 @@ describe("politicas de execucao", () => {
     expect(shouldSaveCheckpoint(5, 12)).toBe(true);
     expect(shouldSaveCheckpoint(12, 12)).toBe(true);
     expect(shouldSaveXmlCheckpoint(10, 25)).toBe(true);
+  });
+
+  test("checkpoint fica ativo por padrao e pode ser desativado", () => {
+    expect(isRunCheckpointEnabled({})).toBe(true);
+    expect(isRunCheckpointEnabled({ checkpointEnabled: true })).toBe(true);
+    expect(isRunCheckpointEnabled({ checkpointEnabled: false })).toBe(false);
+    expect(isXmlCheckpointEnabled({})).toBe(true);
+    expect(isXmlCheckpointEnabled({ checkpointEnabled: true })).toBe(true);
+    expect(isXmlCheckpointEnabled({ checkpointEnabled: false })).toBe(false);
   });
 });
 

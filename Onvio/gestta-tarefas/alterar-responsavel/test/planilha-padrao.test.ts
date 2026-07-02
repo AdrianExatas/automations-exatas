@@ -28,6 +28,12 @@ test("gera planilha padrao com abas e cabecalhos esperados", () => {
       { header: 1 }
     );
     assert.ok(instrucoes.length > 3);
+    assert.ok(instrucoes.some((row) => row.includes("SETOR") && row.join(" ").includes("Obrigatorio")));
+    assert.ok(
+      instrucoes.some((row) =>
+        row.includes("A automacao processa apenas linhas com CNPJ, RESPONSAVEL e SETOR preenchidos.")
+      )
+    );
   } finally {
     fs.rmSync(dir, { recursive: true, force: true });
   }

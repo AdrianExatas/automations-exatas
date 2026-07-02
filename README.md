@@ -20,6 +20,12 @@ Detalhes em [docs/REPOSITORY_CONVENTIONS.md](docs/REPOSITORY_CONVENTIONS.md).
 | --- | --- | --- | --- | --- |
 | `certificado-atualizar/` | Node.js/TypeScript | Ativo | Fluxos de certificado digital | `npm run build`, `npm start` |
 
+### Processos
+
+| Caminho | Stack | Status | Objetivo | Execucao |
+| --- | --- | --- | --- | --- |
+| `Pops/` | Bun/TypeScript + Elysia + BullMQ | Ativo | Geracao automatica de POPs a partir de transcricoes | `bun run dev` |
+
 ### Dominio
 
 | Caminho | Stack | Status | Objetivo | Execucao |

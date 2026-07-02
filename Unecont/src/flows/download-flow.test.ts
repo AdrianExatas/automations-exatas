@@ -77,6 +77,7 @@ describe("DownloadFlow", () => {
       longTimeout: 20,
       loginUrl: "https://app.unecont.com/_login/Login.aspx",
       servicosTomadosUrl: "https://app.unecont.com/Contador/ServicosTomados/Default.aspx",
+      empresasUrl: "https://app.unecont.com/Contador/Empresas/Default.aspx",
     });
 
     const filePath = await flow.downloadReport("12345678000190", "C:/tmp/downloads", "001");
@@ -114,6 +115,7 @@ describe("DownloadFlow", () => {
       longTimeout: 20,
       loginUrl: "https://app.unecont.com/_login/Login.aspx",
       servicosTomadosUrl: "https://app.unecont.com/Contador/ServicosTomados/Default.aspx",
+      empresasUrl: "https://app.unecont.com/Contador/Empresas/Default.aspx",
     });
 
     await expect(

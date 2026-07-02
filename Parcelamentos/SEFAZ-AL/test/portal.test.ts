@@ -1,11 +1,17 @@
 import assert from "node:assert/strict";
+import fs from "node:fs/promises";
+import os from "node:os";
+import path from "node:path";
 import test from "node:test";
 import type { Locator, Page } from "playwright";
 import {
   EMPTY_CONSOLIDACOES_MESSAGE,
   buildCalculoIndisponivelMessage,
   calculateParcelaWithRetry,
+  closeParcelamentoModal,
   extractInlineParcelamentoDetalhe,
+  extractVencimentoFromText,
+  selectParcelamentosForConsolidacoes,
   waitForLoginOutcome,
   waitForCalculoParcelaState,
   waitForConsolidacoesState,
@@ -113,6 +119,84 @@ function createLoginPageDouble(config: {
   };
 
   return { locator } as unknown as Page;
+}
+
+function createCloseModalPageDouble(): Page {
+  let page: Page;
+
+  const writeScreenshot = async (options?: { path?: string }) => {
+    if (options?.path) {
+      await fs.writeFile(options.path, Buffer.from("png"));
+    }
+  };
+
+  const createLocator = (kind: string): Record<string, unknown> => ({
+    page: () => page,
+    first() {
+      return this;
+    },
+    locator(selector: string) {
+      if (kind === "modal" && selector.includes("button.close")) {
+        return createLocator("closeButton");
+      }
+
+      return createLocator(selector);
+    },
+    async waitFor(): Promise<void> {
+      throw new Error("not hidden");
+    },
+    async isVisible(): Promise<boolean> {
+      return kind === "modal" || kind === "closeButton" || kind === "overlay";
+    },
+    async click(): Promise<void> {
+      throw new Error("black-overlay intercepts pointer events");
+    },
+    async screenshot(options?: { path?: string }): Promise<void> {
+      await writeScreenshot(options);
+    },
+    async innerText(): Promise<string> {
+      if (kind === "modal") {
+        return "Emissao de Parcelas";
+      }
+
+      if (kind === "body") {
+        return "Sistema Parcelamento Carregando...";
+      }
+
+      return "";
+    },
+  });
+
+  page = {
+    locator(selector: string) {
+      if (selector === "ngb-modal-window .modal-content") {
+        return createLocator("modal");
+      }
+
+      if (selector === ".black-overlay") {
+        return createLocator("overlay");
+      }
+
+      if (selector === "body") {
+        return createLocator("body");
+      }
+
+      return createLocator(selector);
+    },
+    keyboard: {
+      async press(): Promise<void> {
+        return undefined;
+      },
+    },
+    async screenshot(options?: { path?: string }): Promise<void> {
+      await writeScreenshot(options);
+    },
+    url() {
+      return "https://contribuinte.sefaz.al.gov.br/parcelamento/#/consolidacao";
+    },
+  } as unknown as Page;
+
+  return page;
 }
 
 type CalculoStep = { kind: "timeout" | "rows" | "alert" | "modal_closed"; alertText?: string };
@@ -309,6 +393,23 @@ test("usa mensagem padrao quando o alerta de login aparece sem texto util", asyn
   });
 });
 
+test("fechamento do modal nao lanca quando overlay bloqueia o clique", async () => {
+  const page = createCloseModalPageDouble();
+  const diagnosticsRoot = await fs.mkdtemp(path.join(os.tmpdir(), "sefaz-al-diagnostics-"));
+
+  const result = await closeParcelamentoModal(page, diagnosticsRoot, "EMPRESA TESTE", {
+    consolidacao: "123",
+    parcelamento: "456",
+  });
+
+  assert.equal(result.closed, false);
+  assert.match(result.message ?? "", /Nao foi possivel fechar o modal/i);
+  assert.equal(result.evidencias.length, 2);
+  for (const evidencePath of result.evidencias) {
+    await assert.doesNotReject(() => fs.stat(evidencePath));
+  }
+});
+
 test("falha com mensagem especifica quando o portal nao carrega a tabela e informa ausencia no body", async () => {
   const page = createPageDouble({ bodyText: "Nenhuma consolidação encontrada para a situação selecionada." });
 
@@ -415,6 +516,24 @@ test("extrai parcelamento e quantidade total da linha expandida", () => {
     parcelamento: "18196621",
     totalParcelas: 44,
   });
+});
+
+test("extrai vencimento da linha calculada", () => {
+  assert.equal(extractVencimentoFromText("Parcela 34 Valor 123,45 Vencimento 29/05/2026 Emitir"), "29-05-2026");
+  assert.equal(extractVencimentoFromText("sem data"), undefined);
+});
+
+test("filtra parcelamentos por consolidacoes solicitadas", () => {
+  const parcelamentos = [
+    { rowIndex: 0, numeroDebito: "1", consolidacao: "11153709", descricao: "", totalConsolidacao: "", situacao: "DAR" },
+    { rowIndex: 1, numeroDebito: "2", consolidacao: "11153710", descricao: "", totalConsolidacao: "", situacao: "DAR" },
+    { rowIndex: 2, numeroDebito: "3", consolidacao: "17710075", descricao: "", totalConsolidacao: "", situacao: "DAR" },
+  ];
+
+  const selection = selectParcelamentosForConsolidacoes(parcelamentos, ["11153710", "99999999"]);
+
+  assert.deepEqual(selection.selected.map((item) => item.consolidacao), ["11153710"]);
+  assert.deepEqual(selection.missingConsolidacoes, ["99999999"]);
 });
 
 test("classifica alerta do modal sem depender de timeout bruto", async () => {

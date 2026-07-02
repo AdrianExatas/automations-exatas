@@ -19,10 +19,15 @@ export class ServiceRequestIdentifierResolutionError extends Error {
   }
 }
 
+export interface ResolveServiceRequestIdentifiersOptions {
+  clientRequesterId?: string;
+}
+
 export function resolveServiceRequestIdentifiers(
   row: ServiceRequestRow,
   lookups: ServiceRequestIdentifierLookupData,
   defaults: SendServiceRequestsOptions["defaults"] = {},
+  resolveOptions: ResolveServiceRequestIdentifiersOptions = {},
 ): ResolvedServiceRequestIdentifiers {
   const warnings: string[] = [];
 
@@ -40,15 +45,27 @@ export function resolveServiceRequestIdentifiers(
   }
 
   const directRequesterId = row.onvioRequesterId?.trim();
+  const clientRequesterId = resolveOptions.clientRequesterId?.trim();
   const mappedRequesterId = lookups.requesterIdByName.get(normalizeForMatch(row.solicitante));
   const fallbackRequesterId = defaults?.requesterId?.trim();
-  const requesterId = directRequesterId || mappedRequesterId || fallbackRequesterId || undefined;
-  if (!directRequesterId && row.solicitante.trim() && !mappedRequesterId && fallbackRequesterId) {
+  const requesterId =
+    directRequesterId ||
+    clientRequesterId ||
+    mappedRequesterId ||
+    fallbackRequesterId ||
+    undefined;
+  if (
+    !directRequesterId &&
+    !clientRequesterId &&
+    row.solicitante.trim() &&
+    !mappedRequesterId &&
+    fallbackRequesterId
+  ) {
     warnings.push(`Solicitante "${row.solicitante}" nao encontrado no provider; usando fallback.`);
   }
   if (row.solicitante.trim() && !requesterId) {
     warnings.push(
-      `Solicitante "${row.solicitante}" sem ID do Onvio resolvido; o portal exibira o campo vazio. Defina ONVIO_REQUESTER_ID, coluna ONVIO_REQUESTER_ID na planilha ou nome alinhado ao cadastro em /employees (BD_API_BASE_URL).`,
+      `Solicitante "${row.solicitante}" sem ID do Onvio resolvido; o portal exibira o campo vazio. Defina ONVIO_REQUESTER_ID, coluna ONVIO_REQUESTER_ID na planilha, usuario do cliente no Onvio ou nome alinhado ao cadastro em /employees (BD_API_BASE_URL).`,
     );
   }
 

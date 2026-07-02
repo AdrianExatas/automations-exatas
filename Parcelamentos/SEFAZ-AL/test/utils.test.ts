@@ -3,22 +3,45 @@ import assert from "node:assert/strict";
 import path from "node:path";
 import {
   buildCompanyDirectoryName,
+  buildHttpOutputPath,
   buildOutputPath,
   buildParcelamentoDirectoryName,
   buildPdfFileName,
+  buildVencimentoMonthDirectoryName,
   parseParcelasTotais,
 } from "../src/utils.js";
 
 test("monta o caminho final no formato esperado para um parcelamento com 3/14", () => {
-  const actual = buildOutputPath("C:\\saida", "DONA MARIA VARIEDADES LTDA", "11839421", 4, 14);
+  const actual = buildOutputPath("C:\\saida", "DONA MARIA VARIEDADES LTDA", "11839421", 4, 14, "29-05-2026");
   const expected = path.join(
     "C:\\saida",
+    "05-2026",
     "DONA MARIA VARIEDADES LTDA",
     "PARCELAMENTO N° 11839421",
     "PARCELA N°4 DE 14 - 11839421.pdf",
   );
 
   assert.equal(actual, expected);
+});
+
+test("monta caminho HTTP separado por mes de vencimento", () => {
+  const actual = buildHttpOutputPath("C:\\saida", "BONSONO", "11153712", 9, 14, "29-05-2026");
+  const expected = path.join(
+    "C:\\saida",
+    "05-2026",
+    "BONSONO",
+    "PARCELAMENTO N° 11153712",
+    "PARCELA N°9 DE 14 - 11153712 - BONSONO - Vencimento 29-05-2026.pdf",
+  );
+
+  assert.equal(actual, expected);
+});
+
+test("normaliza mes de vencimento a partir de datas BR e ISO", () => {
+  assert.equal(buildVencimentoMonthDirectoryName("29-05-2026"), "05-2026");
+  assert.equal(buildVencimentoMonthDirectoryName("29/05/2026"), "05-2026");
+  assert.equal(buildVencimentoMonthDirectoryName("2026-05-29T23:59:59-03:00"), "05-2026");
+  assert.equal(buildVencimentoMonthDirectoryName(undefined), "SEM VENCIMENTO");
 });
 
 test("cada parcelamento usa sua proxima parcela no nome do arquivo", () => {

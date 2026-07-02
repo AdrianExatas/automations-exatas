@@ -8,6 +8,8 @@ import {
   listarClientes,
   listarFuncionarios,
   getGroupCustomerIds,
+  getGroupCustomerItems,
+  type CompanyTaskItem,
 } from "./api/endpoints";
 import { getCompanyByCnpjFromLocalApi, getDepartmentsFromLocalApi } from "./api/local-api-3001";
 import { ClienteGestta, UsuarioGestta, LinhaPlanilha } from "./types";
@@ -88,6 +90,17 @@ export async function obterGroupCustomerIds(
   departamentoOuSetor?: string
 ): Promise<string[]> {
   return getGroupCustomerIds(client, customerId, departamentoOuSetor);
+}
+
+/**
+ * Obtem os vinculos group_customer completos para capturar snapshot de rollback.
+ */
+export async function obterGroupCustomerItems(
+  client: AxiosInstance,
+  customerId: string,
+  departamentoOuSetor?: string
+): Promise<CompanyTaskItem[]> {
+  return getGroupCustomerItems(client, customerId, departamentoOuSetor);
 }
 
 /** Cache dos nomes de departamento da API 3001 (para validação de setor). */

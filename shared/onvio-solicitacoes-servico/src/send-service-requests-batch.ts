@@ -4,6 +4,7 @@ import { legacyUnecontDefaultContent } from "./adapters/unecont/service-request-
 import {
   AttachmentResolutionError,
   buildAvailableAttachmentFiles,
+  normalizeCode,
   type ResolvedAttachmentFile,
   resolveAttachmentsForServiceRequest,
 } from "./attachments/resolver";
@@ -90,8 +91,21 @@ function mapLegacyItems(items: ServiceRequestBatchItemResult[]) {
     message: item.message,
     ticketId: item.ticketId,
     attachmentCount: item.attachmentCount,
+    resolvedRequesterId: item.resolvedRequesterId,
     warnings: item.warnings,
   }));
+}
+
+function normalizeResolveRequesterIdResult(
+  value: string | { requesterId?: string; warnings?: string[] } | undefined,
+): { requesterId?: string; warnings: string[] } {
+  if (value == null) return { warnings: [] };
+  if (typeof value === "string") {
+    const trimmed = value.trim();
+    return trimmed ? { requesterId: trimmed, warnings: [] } : { warnings: [] };
+  }
+  const requesterId = value.requesterId?.trim() || undefined;
+  return { requesterId, warnings: value.warnings ?? [] };
 }
 
 function buildAttachmentBuffers(attachments: ResolvedAttachmentFile[]) {
@@ -233,12 +247,43 @@ export async function sendServiceRequestsBatch(
       if (mode === "attachments" && extraAttachmentFiles.length > 0) {
         attachments = appendExtraAttachments(attachments, extraAttachmentFiles);
       }
+      let clientRequesterId: string | undefined;
+      if (
+        !serviceRequest.onvioRequesterId?.trim() &&
+        serviceRequest.solicitante.trim() &&
+        options.resolveRequesterId
+      ) {
+        const mappedClientId = lookupData.clientIdByCode.get(normalizeCode(serviceRequest.codigo));
+        const rowForRequesterResolution = {
+          ...serviceRequest,
+          onvioClientId:
+            serviceRequest.onvioClientId?.trim() || mappedClientId || serviceRequest.onvioClientId,
+        };
+        try {
+          const resolvedRequester = normalizeResolveRequesterIdResult(
+            await options.resolveRequesterId(rowForRequesterResolution),
+          );
+          clientRequesterId = resolvedRequester.requesterId;
+          if (resolvedRequester.warnings.length > 0) {
+            itemWarnings.push(...resolvedRequester.warnings);
+          }
+        } catch (error) {
+          itemWarnings.push(
+            `Falha ao resolver solicitante via usuarios do cliente: ${
+              error instanceof Error ? error.message : String(error)
+            }`,
+          );
+        }
+      }
+
       const resolvedIdentifiers = resolveServiceRequestIdentifiers(
         serviceRequest,
         lookupData,
         options.defaults,
+        { clientRequesterId },
       );
       itemWarnings.push(...resolvedIdentifiers.warnings);
+      const resolvedRequesterId = resolvedIdentifiers.requesterId;
 
       if (
         mode === "attachments" &&
@@ -271,6 +316,7 @@ export async function sendServiceRequestsBatch(
           status: "skipped",
           message: skipMessage,
           attachmentCount: attachments.length,
+          resolvedRequesterId,
           warnings: itemWarnings.length > 0 ? itemWarnings : undefined,
         });
         onProgress?.({
@@ -303,6 +349,7 @@ export async function sendServiceRequestsBatch(
           message: "Solicitacao aberta sem anexos.",
           ticketId: response.ticketId,
           attachmentCount: 0,
+          resolvedRequesterId,
           warnings: itemWarnings.length > 0 ? itemWarnings : undefined,
         });
         onProgress?.({
@@ -337,6 +384,7 @@ export async function sendServiceRequestsBatch(
         message: successMessage,
         ticketId: response.ticketId,
         attachmentCount: attachments.length,
+        resolvedRequesterId,
         warnings: itemWarnings.length > 0 ? itemWarnings : undefined,
       });
       onProgress?.({

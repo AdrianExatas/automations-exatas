@@ -1,0 +1,30 @@
+{
+  "name": "baixar-e-solicitar-xml-sefaz-ts",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "consulta": "bun run src-ts/cli/consulta.ts",
+    "download": "bun run src-ts/cli/download.ts",
+    "upload": "bun run src-ts/cli/upload.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "adm-zip": "^0.5.17",
+    "cheerio": "^1.2.0",
+    "commander": "^14.0.3",
+    "dotenv": "^17.4.2",
+    "fast-xml-parser": "^5.8.0",
+    "iconv-lite": "^0.7.2",
+    "p-limit": "^7.3.0",
+    "tough-cookie": "^6.0.1",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@types/adm-zip": "^0.5.8",
+    "@types/node": "^25.7.0",
+    "bun-types": "^1.3.13",
+    "typescript": "^6.0.3"
+  }
+}

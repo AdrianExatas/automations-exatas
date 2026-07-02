@@ -85,7 +85,7 @@ export function readServiceRequests(excelPath: string): ServiceRequestRow[] {
   const cnpjColumn = findColumn(columns, ["cnpj", "cpf"]) ?? columns[0];
   const codigoColumn = findColumn(columns, ["codigo", "numero", "id"]);
   const nomeColumn = findColumn(columns, ["empresa", "nome", "razao social"]);
-  const solicitanteColumn = findColumn(columns, ["solicitante"]);
+  const solicitanteColumn = findColumn(columns, ["solicitante", "responsavel", "responsável"]);
   const departamentoColumn = findColumn(columns, ["departamento"]);
   const assuntoColumn = findColumn(columns, ["assunto"]);
   const descricaoColumn = findColumn(columns, ["descricao"]);

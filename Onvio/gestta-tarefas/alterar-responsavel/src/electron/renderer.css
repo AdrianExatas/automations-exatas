@@ -192,6 +192,13 @@ button:disabled {
   font-size: 13px;
 }
 
+.required-note {
+  margin-top: -8px;
+  color: var(--danger);
+  font-size: 13px;
+  font-weight: 650;
+}
+
 .columns-list {
   display: flex;
   flex-wrap: wrap;

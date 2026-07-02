@@ -4,10 +4,12 @@ const form = document.getElementById("automationForm");
 const emailInput = document.getElementById("emailInput");
 const passwordInput = document.getElementById("passwordInput");
 const saveCredentialsInput = document.getElementById("saveCredentialsInput");
+const startWithoutCheckpointInput = document.getElementById("startWithoutCheckpointInput");
 const sheetInput = document.getElementById("sheetInput");
 const selectSheetButton = document.getElementById("selectSheetButton");
 const inspectSheetButton = document.getElementById("inspectSheetButton");
 const downloadTemplateButton = document.getElementById("downloadTemplateButton");
+const rollbackButton = document.getElementById("rollbackButton");
 const openReportsButton = document.getElementById("openReportsButton");
 const runButton = document.getElementById("runButton");
 const logOutput = document.getElementById("logOutput");
@@ -32,6 +34,7 @@ function setRunning(running) {
   selectSheetButton.disabled = running;
   inspectSheetButton.disabled = running;
   downloadTemplateButton.disabled = running;
+  rollbackButton.disabled = running;
   openReportsButton.disabled = running;
 }
 
@@ -46,7 +49,7 @@ function escapeHtml(value) {
 
 function renderSheetStructure(structure) {
   sheetPreview.hidden = false;
-  sheetSummary.textContent = `${structure.activeSheetName || "Sem aba"} · ${structure.totalRows} linha(s) de dados · ${structure.sheetNames.length} aba(s)`;
+  sheetSummary.textContent = `${structure.activeSheetName || "Sem aba"} - ${structure.totalRows} linha(s) de dados - ${structure.sheetNames.length} aba(s)`;
   sheetColumns.innerHTML = structure.headers.length
     ? structure.headers.map((header) => `<span>${escapeHtml(header)}</span>`).join("")
     : "<span>Nenhuma coluna encontrada</span>";
@@ -108,6 +111,24 @@ downloadTemplateButton.addEventListener("click", async () => {
   }
 });
 
+rollbackButton.addEventListener("click", async () => {
+  logOutput.textContent = "";
+  setStatus("Executando", "running");
+  setRunning(true);
+
+  const result = await api.runRollback({
+    email: emailInput.value,
+    password: passwordInput.value,
+    saveCredentials: saveCredentialsInput.checked,
+  });
+
+  if (!result.ok) {
+    if (!result.canceled) appendLog(`${result.error || "Reversao cancelada."}\n`);
+    setStatus(result.canceled ? "Pronto" : "Erro", result.canceled ? "idle" : "error");
+    setRunning(false);
+  }
+});
+
 openReportsButton.addEventListener("click", async () => {
   const result = await api.openReports();
   if (!result.ok) appendLog(`Erro ao abrir relatorios: ${result.error}\n`);
@@ -123,6 +144,7 @@ form.addEventListener("submit", async (event) => {
     email: emailInput.value,
     password: passwordInput.value,
     saveCredentials: saveCredentialsInput.checked,
+    startWithoutCheckpoint: startWithoutCheckpointInput.checked,
     planilhaPath: sheetInput.value,
   });
 

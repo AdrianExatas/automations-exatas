@@ -40,6 +40,7 @@ describe("upload-execution-report", () => {
           message: "1 anexo(s) enviado(s).",
           ticketId: "abc-123",
           attachmentCount: 1,
+          resolvedRequesterId: "requester-uuid-001",
           warnings: ["Aviso A"],
         },
         {
@@ -90,6 +91,7 @@ describe("upload-execution-report", () => {
         STATUS: "success",
         TICKET_ID: "abc-123",
         QTD_ANEXOS: 1,
+        ONVIO_REQUESTER_ID_RESOLVIDO: "requester-uuid-001",
         AVISOS: "Aviso A",
       });
       expect(itens[1]).toMatchObject({

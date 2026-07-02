@@ -152,13 +152,14 @@ export function resolveUploadIdentifiers(
   const directRequesterId = empresa.onvioRequesterId?.trim();
   const mappedRequesterId = lookups.requesterIdByName.get(normalizeForMatch(empresa.solicitante));
   const fallbackRequesterId = defaults?.requesterId?.trim();
-  const requesterId = directRequesterId || mappedRequesterId || fallbackRequesterId || undefined;
+  const requesterId =
+    directRequesterId || mappedRequesterId || fallbackRequesterId || undefined;
   if (!directRequesterId && empresa.solicitante.trim() && !mappedRequesterId && fallbackRequesterId) {
     warnings.push(`Solicitante "${empresa.solicitante}" não encontrado na API do BD; usando fallback.`);
   }
   if (empresa.solicitante.trim() && !requesterId) {
     warnings.push(
-      `Solicitante "${empresa.solicitante}" sem ID do Onvio resolvido; o portal exibirá o campo vazio. Defina ONVIO_REQUESTER_ID, coluna ONVIO_REQUESTER_ID na planilha ou nome alinhado ao cadastro em /employees (BD_API_BASE_URL).`,
+      `Solicitante "${empresa.solicitante}" sem ID do Onvio resolvido; o portal exibirá o campo vazio. Defina ONVIO_REQUESTER_ID, coluna ONVIO_REQUESTER_ID na planilha, usuário do cliente no Onvio ou nome alinhado ao cadastro em /employees (BD_API_BASE_URL).`,
     );
   }
 

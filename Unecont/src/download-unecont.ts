@@ -42,6 +42,7 @@ function buildRuntimeConfig(options: DownloadUnecontOptions): Config {
     longTimeout: options.timeouts?.longTimeoutSeconds ?? 20,
     loginUrl: options.loginUrl ?? DEFAULT_UNECONT_LOGIN_URL,
     servicosTomadosUrl: options.servicosTomadosUrl ?? DEFAULT_UNECONT_SERVICOS_TOMADOS_URL,
+    empresasUrl: "",
   };
 }
 
@@ -51,6 +52,20 @@ function resolveDownloadsDir(options: DownloadUnecontOptions, runId: string): st
     return path.resolve(configuredDir);
   }
   return resolveRuntimePath("downloads", runId);
+}
+
+function resolveNormalizedDir(
+  options: DownloadUnecontOptions,
+  downloadsDir: string,
+): string | undefined {
+  if (!options.reportFormatting?.enabled) return undefined;
+
+  const configuredDir = options.reportFormatting.outputDir;
+  if (configuredDir && configuredDir.trim()) {
+    return path.resolve(configuredDir);
+  }
+
+  return resolveRuntimePath("normalized", path.basename(downloadsDir));
 }
 
 function formatEmpresaLabel(empresa: EmpresaBatchItem): string {
@@ -115,8 +130,12 @@ export async function downloadUnecontBatch(
   const empresas = resolveEmpresasInput(options.input);
   const runId = generateRunId();
   const downloadsDir = resolveDownloadsDir(options, runId);
+  const normalizedDir = resolveNormalizedDir(options, downloadsDir);
   const logger = options.logger;
   fs.mkdirSync(downloadsDir, { recursive: true });
+  if (normalizedDir) {
+    fs.mkdirSync(normalizedDir, { recursive: true });
+  }
 
   const checkpoint = options.checkpointPath
     ? new Checkpoint(path.resolve(options.checkpointPath))
@@ -141,6 +160,9 @@ export async function downloadUnecontBatch(
       "info",
       `Iniciando download UNECONT: ${empresas.length} empresas. Diretorio: ${downloadsDir}`,
     );
+    if (normalizedDir) {
+      logMessage(logger, "info", `Diretorio normalizado: ${normalizedDir}`);
+    }
     logMessage(logger, "info", "Realizando login no UNECONT...");
 
     const loginFlow = new LoginFlow(page, config);
@@ -183,6 +205,21 @@ export async function downloadUnecontBatch(
             "info",
             `${prefix} Arquivo estabilizado: ${path.basename(filePath)} (${buildWorkbookReadySummary(initialReadiness)})`,
           );
+
+          const rawFilePath = filePath;
+          const normalizedFilePath = path.join(
+            normalizedDir ?? path.dirname(rawFilePath),
+            path.basename(rawFilePath),
+          );
+          if (path.resolve(rawFilePath) !== path.resolve(normalizedFilePath)) {
+            fs.copyFileSync(rawFilePath, normalizedFilePath);
+            filePath = normalizedFilePath;
+            logMessage(
+              logger,
+              "info",
+              `${prefix} Copia normalizada criada: ${path.basename(filePath)}`,
+            );
+          }
 
           logMessage(logger, "info", `${prefix} Formatando planilha: ${path.basename(filePath)}`);
           let formattingResult = await formatDownloadedReport(filePath, options.reportFormatting);
@@ -286,8 +323,13 @@ export async function downloadUnecontBatch(
       }
     }
 
-    if (checkpoint && success + noNotas + notFound >= empresas.length) {
-      checkpoint.clear();
+    if (checkpoint) {
+      const checkpointStats = checkpoint.getStats();
+      const completedInCheckpoint =
+        checkpointStats.processed + checkpointStats.no_notas + checkpointStats.not_found;
+      if (checkpointStats.failed === 0 && completedInCheckpoint >= empresas.length) {
+        checkpoint.clear();
+      }
     }
 
     logMessage(
@@ -324,6 +366,7 @@ export async function downloadUnecontBatch(
     return {
       runId,
       downloadsDir,
+      normalizedDir,
       reportPath,
       summary,
       items,

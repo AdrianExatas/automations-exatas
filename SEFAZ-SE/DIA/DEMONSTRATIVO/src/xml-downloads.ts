@@ -35,6 +35,7 @@ export type XmlDownloadConfig = {
   outDir: string;
   threads?: number;
   apiKey?: string;
+  checkpointEnabled?: boolean;
   timeoutMs?: number;
   retryCount?: number;
   retryDelayMs?: number;
@@ -116,7 +117,7 @@ export async function runXmlDownload(config: XmlDownloadConfig, callbacks: XmlDo
         log(callbacks, `  XML salvo em ${entry.path}`);
       }
       emit(callbacks, config, reportPaths, entries, "download", current, total, `${current}/${total} XMLs processados`, item.report.company, item.chave);
-      if (shouldSaveXmlCheckpoint(current, total)) {
+      if (isCheckpointEnabled(config) && shouldSaveXmlCheckpoint(current, total)) {
         await saveCheckpoint();
       }
     }
@@ -350,4 +351,8 @@ function formatDuration(ms: number): string {
 
 export function shouldSaveXmlCheckpoint(processed: number, total: number, interval = REPORT_CHECKPOINT_INTERVAL): boolean {
   return processed === 1 || processed === total || processed % interval === 0;
+}
+
+export function isCheckpointEnabled(config: Pick<XmlDownloadConfig, "checkpointEnabled">): boolean {
+  return config.checkpointEnabled ?? true;
 }

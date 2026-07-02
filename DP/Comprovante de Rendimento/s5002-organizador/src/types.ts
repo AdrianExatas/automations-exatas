@@ -1,6 +1,13 @@
+import type { SupportedEventType } from "./xml";
+
 export type RunConfig = {
   inputDir: string;
   outputDir: string;
+};
+
+export type EventCounts = {
+  s5002: number;
+  s2501: number;
 };
 
 export type RunCallbacks = {
@@ -17,7 +24,8 @@ export type RunProgress = {
   successCount: number;
   errorCount: number;
   ignoredCount: number;
-  s5002Count: number;
+  eventXmlCount: number;
+  eventCounts: EventCounts;
   processedCount: number;
   outputDir: string;
   excelPath?: string;
@@ -30,12 +38,14 @@ export type DetailErrorCode =
   | "zip_invalido"
   | "xml_invalido"
   | "cpf_ausente"
+  | "multiplos_cpfs"
   | "periodo_ausente"
   | "gravacao_falhou";
 
 export type DetailEntry = {
   ordem: number;
   status: DetailStatus;
+  eventType?: SupportedEventType;
   sourceZip: string;
   sourceEntry?: string;
   cpf?: string;
@@ -51,7 +61,8 @@ export type RunResult = {
   excelPath: string;
   jsonPath: string;
   zipCount: number;
-  s5002Count: number;
+  eventXmlCount: number;
+  eventCounts: EventCounts;
   ignoredCount: number;
   successCount: number;
   errorCount: number;

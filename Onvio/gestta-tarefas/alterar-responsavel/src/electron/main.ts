@@ -14,7 +14,14 @@ interface RunAutomationPayload {
   email: string;
   password: string;
   saveCredentials: boolean;
+  startWithoutCheckpoint: boolean;
   planilhaPath: string;
+}
+
+interface RunRollbackPayload {
+  email: string;
+  password: string;
+  saveCredentials: boolean;
 }
 
 let mainWindow: BrowserWindow | null = null;
@@ -167,6 +174,73 @@ ipcMain.handle("reports:open", async () => {
   return { ok: !error, error };
 });
 
+ipcMain.handle("rollback:run", async (_event, payload: RunRollbackPayload) => {
+  if (runningProcess) {
+    return { ok: false, error: "A automacao ja esta em execucao." };
+  }
+
+  const email = payload.email.trim();
+  const password = payload.password;
+  if (!email || !password) {
+    return { ok: false, error: "Informe e-mail e senha." };
+  }
+
+  const projectRoot = getProjectRoot();
+  const reportsDir = path.join(projectRoot, "relatorios");
+  fs.mkdirSync(reportsDir, { recursive: true });
+  const result = await (mainWindow
+    ? dialog.showOpenDialog(mainWindow, {
+        title: "Selecionar relatorio para reversao",
+        defaultPath: reportsDir,
+        properties: ["openFile"],
+        filters: [{ name: "Relatorio JSON", extensions: ["json"] }],
+      })
+    : dialog.showOpenDialog({
+        title: "Selecionar relatorio para reversao",
+        defaultPath: reportsDir,
+        properties: ["openFile"],
+        filters: [{ name: "Relatorio JSON", extensions: ["json"] }],
+      }));
+
+  if (result.canceled || !result.filePaths[0]) {
+    return { ok: false, canceled: true };
+  }
+
+  saveCredentials(email, password, payload.saveCredentials);
+
+  const scriptPath = path.join(projectRoot, "dist", "index.js");
+  const nodeCommand = process.platform === "win32" ? "node.exe" : "node";
+  sendLog("Iniciando reversao...\n");
+  const child = spawn(nodeCommand, [scriptPath, "--reverter", result.filePaths[0]], {
+    cwd: projectRoot,
+    env: {
+      ...process.env,
+      ONVIO_EMAIL: email,
+      ONVIO_PASSWORD: password,
+      GESTTA_FORCE_ARTIFACT_AUTH: "true",
+      JWT_GESTTA: "",
+      GESTTA_JWT_TOKEN: "",
+    },
+    stdio: ["ignore", "pipe", "pipe"],
+  });
+  runningProcess = child;
+
+  child.stdout?.on("data", (chunk) => sendLog(String(chunk)));
+  child.stderr?.on("data", (chunk) => sendLog(String(chunk)));
+  child.on("error", (error) => {
+    sendLog(`Falha ao iniciar reversao: ${error.message}\n`);
+    mainWindow?.webContents.send("automation:done", { ok: false, code: null });
+    runningProcess = null;
+  });
+  child.on("close", (code) => {
+    sendLog(`\nProcesso finalizado com codigo ${code ?? "N/A"}.\n`);
+    mainWindow?.webContents.send("automation:done", { ok: code === 0, code });
+    runningProcess = null;
+  });
+
+  return { ok: true };
+});
+
 ipcMain.handle("automation:run", async (_event, payload: RunAutomationPayload) => {
   if (runningProcess) {
     return { ok: false, error: "A automacao ja esta em execucao." };
@@ -188,9 +262,12 @@ ipcMain.handle("automation:run", async (_event, payload: RunAutomationPayload) =
   const projectRoot = getProjectRoot();
   const scriptPath = path.join(projectRoot, "dist", "index.js");
   const nodeCommand = process.platform === "win32" ? "node.exe" : "node";
+  const automationArgs = payload.startWithoutCheckpoint
+    ? [scriptPath, "--sem-checkpoint", planilhaPath]
+    : [scriptPath, "--continuar", planilhaPath];
 
   sendLog("Iniciando automacao...\n");
-  const child = spawn(nodeCommand, [scriptPath, "--continuar", planilhaPath], {
+  const child = spawn(nodeCommand, automationArgs, {
     cwd: projectRoot,
     env: {
       ...process.env,

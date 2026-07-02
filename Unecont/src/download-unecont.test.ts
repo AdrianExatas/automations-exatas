@@ -333,6 +333,66 @@ describe("downloadUnecontBatch", () => {
     }
   });
 
+  it("nao limpa o checkpoint quando um subconjunto termina mas ainda existem falhas pendentes", async () => {
+    const empresa: EmpresaBatchItem = {
+      cnpj: "10965766000164",
+      codigo: "008",
+      nome: "Empresa Nao Encontrada",
+      solicitante: "Solicitante",
+      departamento: "Fiscal",
+      assunto: "Assunto",
+      descricao: "Descricao",
+      arquivos: [],
+    };
+    const outraFalha = "32855512000126";
+    const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "unecont-checkpoint-subset-"));
+    const checkpointPath = path.join(tempDir, "checkpoint.json");
+
+    try {
+      fs.writeFileSync(
+        checkpointPath,
+        JSON.stringify({
+          processed: ["02295238000117"],
+          no_notas: [],
+          not_found: [],
+          failed: [empresa.cnpj, outraFalha],
+        }),
+        "utf-8",
+      );
+
+      resolveEmpresasInput.mockReturnValue([empresa]);
+      selectEmpresa.mockRejectedValueOnce(
+        new EmpresaNotFoundError("Empresa nao cadastrada no UNECONT", empresa.cnpj),
+      );
+
+      const { downloadUnecontBatch } = await import("./download-unecont");
+
+      const result = await downloadUnecontBatch({
+        credentials: { email: "teste@example.com", senha: "123" },
+        input: { empresas: [empresa] },
+        checkpointPath,
+      });
+
+      expect(result.summary).toEqual({
+        total: 1,
+        success: 0,
+        noNotas: 0,
+        notFound: 1,
+        failed: 0,
+        skipped: 0,
+      });
+      expect(fs.existsSync(checkpointPath)).toBe(true);
+      expect(JSON.parse(fs.readFileSync(checkpointPath, "utf-8"))).toEqual({
+        processed: ["02295238000117"],
+        no_notas: [],
+        not_found: [empresa.cnpj],
+        failed: [outraFalha],
+      });
+    } finally {
+      fs.rmSync(tempDir, { recursive: true, force: true });
+    }
+  });
+
   it("faz retry da formatacao quando a primeira validacao vem inconsistente e recupera", async () => {
     const empresa: EmpresaBatchItem = {
       cnpj: "12345678000190",
@@ -345,10 +405,18 @@ describe("downloadUnecontBatch", () => {
       arquivos: [],
     };
     const logger = createLogger();
+    const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "unecont-download-format-"));
+    const downloadsDir = path.join(tempDir, "downloads");
+    const normalizedDir = path.join(tempDir, "normalized");
+    const downloadedFile = path.join(downloadsDir, "001 - relatorio.xlsx");
+    const normalizedFile = path.join(normalizedDir, "001 - relatorio.xlsx");
+    fs.mkdirSync(downloadsDir, { recursive: true });
+    fs.writeFileSync(downloadedFile, "stub");
     resolveEmpresasInput.mockReturnValue([empresa]);
+    downloadReport.mockResolvedValue(downloadedFile);
     formatDownloadedReport
       .mockResolvedValueOnce({
-        outputPath: "C:/tmp/downloads/001 - relatorio.xlsx",
+        outputPath: normalizedFile,
         warnings: [],
         filledCount: 5,
         missingMappedCount: 107,
@@ -359,7 +427,7 @@ describe("downloadUnecontBatch", () => {
         ],
       })
       .mockResolvedValueOnce({
-        outputPath: "C:/tmp/downloads/001 - relatorio.xlsx",
+        outputPath: normalizedFile,
         warnings: [],
         filledCount: 112,
         missingMappedCount: 0,
@@ -367,39 +435,52 @@ describe("downloadUnecontBatch", () => {
         issues: [],
       });
 
-    const { downloadUnecontBatch } = await import("./download-unecont");
+    try {
+      const { downloadUnecontBatch } = await import("./download-unecont");
 
-    const result = await downloadUnecontBatch({
-      credentials: { email: "teste@example.com", senha: "123" },
-      input: { empresas: [empresa] },
-      logger,
-      reportFormatting: {
-        enabled: true,
-        modelPath: "C:/tmp/modelo.xlsx",
-        serviceMapPath: "C:/tmp/mapa.xlsx",
-        overwrite: true,
-      },
-    });
+      const result = await downloadUnecontBatch({
+        credentials: { email: "teste@example.com", senha: "123" },
+        input: { empresas: [empresa] },
+        browser: { downloadDir: downloadsDir },
+        logger,
+        reportFormatting: {
+          enabled: true,
+          modelPath: "C:/tmp/modelo.xlsx",
+          serviceMapPath: "C:/tmp/mapa.xlsx",
+          overwrite: true,
+          outputDir: normalizedDir,
+        },
+      });
 
-    expect(result.summary.success).toBe(1);
-    expect(formatDownloadedReport).toHaveBeenCalledTimes(2);
-    expect(ensureWorkbookReady).toHaveBeenCalledTimes(2);
-    expect(collectLogs(logger)).toEqual([
-      expect.stringMatching(/^info:Iniciando download UNECONT: 1 empresas\. Diretorio: /),
-      "info:Realizando login no UNECONT...",
-      "info:Login concluido.",
-      "info:[1/1] Processando 001 - Empresa A (12345678000190)",
-      "info:[1/1] Arquivo baixado: 001 - relatorio.xlsx",
-      "info:[1/1] Arquivo estabilizado: 001 - relatorio.xlsx (30014 bytes, 2 verificacoes)",
-      "info:[1/1] Formatando planilha: 001 - relatorio.xlsx",
-      "info:[1/1] Planilha formatada: 001 - relatorio.xlsx",
-      "warn:[1/1] Primeira validacao inconsistente: 001 - relatorio.xlsx (5 descricoes preenchidas, 107 inconsistencias mapeaveis, 7 sem mapa)",
-      "info:[1/1] Retry de formatacao: 001 - relatorio.xlsx",
-      "info:[1/1] Planilha reformatada apos retry: 001 - relatorio.xlsx",
-      "info:[1/1] Planilha validada: 001 - relatorio.xlsx (112 descricoes preenchidas, 0 inconsistencias mapeaveis, 7 sem mapa)",
-      "info:[1/1] Concluida: 001 - Empresa A (12345678000190) -> 001 - relatorio.xlsx",
-      "info:Resumo: 1 sucesso, 0 sem notas, 0 nao encontradas, 0 falhas, 0 puladas.",
-    ]);
+      expect(result.summary.success).toBe(1);
+      expect(result.normalizedDir).toBe(normalizedDir);
+      expect(formatDownloadedReport).toHaveBeenCalledTimes(2);
+      expect(formatDownloadedReport).toHaveBeenCalledWith(
+        normalizedFile,
+        expect.objectContaining({ outputDir: normalizedDir }),
+      );
+      expect(ensureWorkbookReady).toHaveBeenCalledTimes(2);
+      expect(collectLogs(logger)).toEqual([
+        `info:Iniciando download UNECONT: 1 empresas. Diretorio: ${downloadsDir}`,
+        `info:Diretorio normalizado: ${normalizedDir}`,
+        "info:Realizando login no UNECONT...",
+        "info:Login concluido.",
+        "info:[1/1] Processando 001 - Empresa A (12345678000190)",
+        "info:[1/1] Arquivo baixado: 001 - relatorio.xlsx",
+        "info:[1/1] Arquivo estabilizado: 001 - relatorio.xlsx (30014 bytes, 2 verificacoes)",
+        "info:[1/1] Copia normalizada criada: 001 - relatorio.xlsx",
+        "info:[1/1] Formatando planilha: 001 - relatorio.xlsx",
+        "info:[1/1] Planilha formatada: 001 - relatorio.xlsx",
+        "warn:[1/1] Primeira validacao inconsistente: 001 - relatorio.xlsx (5 descricoes preenchidas, 107 inconsistencias mapeaveis, 7 sem mapa)",
+        "info:[1/1] Retry de formatacao: 001 - relatorio.xlsx",
+        "info:[1/1] Planilha reformatada apos retry: 001 - relatorio.xlsx",
+        "info:[1/1] Planilha validada: 001 - relatorio.xlsx (112 descricoes preenchidas, 0 inconsistencias mapeaveis, 7 sem mapa)",
+        "info:[1/1] Concluida: 001 - Empresa A (12345678000190) -> 001 - relatorio.xlsx",
+        "info:Resumo: 1 sucesso, 0 sem notas, 0 nao encontradas, 0 falhas, 0 puladas.",
+      ]);
+    } finally {
+      fs.rmSync(tempDir, { recursive: true, force: true });
+    }
   });
 
   it("falha o item quando a segunda tentativa ainda deixa codigos mapeaveis sem descricao", async () => {
@@ -414,10 +495,18 @@ describe("downloadUnecontBatch", () => {
       arquivos: [],
     };
     const logger = createLogger();
+    const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "unecont-download-format-"));
+    const downloadsDir = path.join(tempDir, "downloads");
+    const normalizedDir = path.join(tempDir, "normalized");
+    const downloadedFile = path.join(downloadsDir, "001 - relatorio.xlsx");
+    const normalizedFile = path.join(normalizedDir, "001 - relatorio.xlsx");
+    fs.mkdirSync(downloadsDir, { recursive: true });
+    fs.writeFileSync(downloadedFile, "stub");
     resolveEmpresasInput.mockReturnValue([empresa]);
+    downloadReport.mockResolvedValue(downloadedFile);
     formatDownloadedReport
       .mockResolvedValueOnce({
-        outputPath: "C:/tmp/downloads/001 - relatorio.xlsx",
+        outputPath: normalizedFile,
         warnings: [],
         filledCount: 5,
         missingMappedCount: 107,
@@ -429,7 +518,7 @@ describe("downloadUnecontBatch", () => {
         ],
       })
       .mockResolvedValueOnce({
-        outputPath: "C:/tmp/downloads/001 - relatorio.xlsx",
+        outputPath: normalizedFile,
         warnings: [],
         filledCount: 29,
         missingMappedCount: 85,
@@ -441,51 +530,64 @@ describe("downloadUnecontBatch", () => {
         ],
       });
 
-    const { downloadUnecontBatch } = await import("./download-unecont");
+    try {
+      const { downloadUnecontBatch } = await import("./download-unecont");
 
-    const result = await downloadUnecontBatch({
-      credentials: { email: "teste@example.com", senha: "123" },
-      input: { empresas: [empresa] },
-      logger,
-      reportFormatting: {
-        enabled: true,
-        modelPath: "C:/tmp/modelo.xlsx",
-        serviceMapPath: "C:/tmp/mapa.xlsx",
-        overwrite: true,
-      },
-    });
+      const result = await downloadUnecontBatch({
+        credentials: { email: "teste@example.com", senha: "123" },
+        input: { empresas: [empresa] },
+        browser: { downloadDir: downloadsDir },
+        logger,
+        reportFormatting: {
+          enabled: true,
+          modelPath: "C:/tmp/modelo.xlsx",
+          serviceMapPath: "C:/tmp/mapa.xlsx",
+          overwrite: true,
+          outputDir: normalizedDir,
+        },
+      });
 
-    expect(result.summary).toEqual({
-      total: 1,
-      success: 0,
-      noNotas: 0,
-      notFound: 0,
-      failed: 1,
-      skipped: 0,
-    });
-    expect(formatDownloadedReport).toHaveBeenCalledTimes(2);
-    expect(ensureWorkbookReady).toHaveBeenCalledTimes(2);
-    expect(result.items[0]).toMatchObject({
-      status: "failed",
-      message:
-        "Falha de consistencia na planilha 001 - relatorio.xlsx: 85 linhas mapeaveis sem descricao [linha 31 (09.01), linha 32 (09.01), linha 33 (10.05) e mais 82].",
-    });
-    expect(collectLogs(logger)).toEqual([
-      expect.stringMatching(/^info:Iniciando download UNECONT: 1 empresas\. Diretorio: /),
-      "info:Realizando login no UNECONT...",
-      "info:Login concluido.",
-      "info:[1/1] Processando 001 - Empresa A (12345678000190)",
-      "info:[1/1] Arquivo baixado: 001 - relatorio.xlsx",
-      "info:[1/1] Arquivo estabilizado: 001 - relatorio.xlsx (30014 bytes, 2 verificacoes)",
-      "info:[1/1] Formatando planilha: 001 - relatorio.xlsx",
-      "info:[1/1] Planilha formatada: 001 - relatorio.xlsx",
-      "warn:[1/1] Primeira validacao inconsistente: 001 - relatorio.xlsx (5 descricoes preenchidas, 107 inconsistencias mapeaveis, 7 sem mapa)",
-      "info:[1/1] Retry de formatacao: 001 - relatorio.xlsx",
-      "info:[1/1] Planilha reformatada apos retry: 001 - relatorio.xlsx",
-      "info:[1/1] Planilha validada: 001 - relatorio.xlsx (29 descricoes preenchidas, 85 inconsistencias mapeaveis, 5 sem mapa)",
-      "error:[1/1] Falha de consistencia na planilha 001 - relatorio.xlsx: 85 linhas mapeaveis sem descricao [linha 31 (09.01), linha 32 (09.01), linha 33 (10.05) e mais 82].",
-      "error:[1/1] Falha: 001 - Empresa A (12345678000190) -> Falha de consistencia na planilha 001 - relatorio.xlsx: 85 linhas mapeaveis sem descricao [linha 31 (09.01), linha 32 (09.01), linha 33 (10.05) e mais 82].",
-      "info:Resumo: 0 sucesso, 0 sem notas, 0 nao encontradas, 1 falhas, 0 puladas.",
-    ]);
+      expect(result.summary).toEqual({
+        total: 1,
+        success: 0,
+        noNotas: 0,
+        notFound: 0,
+        failed: 1,
+        skipped: 0,
+      });
+      expect(result.normalizedDir).toBe(normalizedDir);
+      expect(formatDownloadedReport).toHaveBeenCalledTimes(2);
+      expect(formatDownloadedReport).toHaveBeenCalledWith(
+        normalizedFile,
+        expect.objectContaining({ outputDir: normalizedDir }),
+      );
+      expect(ensureWorkbookReady).toHaveBeenCalledTimes(2);
+      expect(result.items[0]).toMatchObject({
+        status: "failed",
+        message:
+          "Falha de consistencia na planilha 001 - relatorio.xlsx: 85 linhas mapeaveis sem descricao [linha 31 (09.01), linha 32 (09.01), linha 33 (10.05) e mais 82].",
+      });
+      expect(collectLogs(logger)).toEqual([
+        `info:Iniciando download UNECONT: 1 empresas. Diretorio: ${downloadsDir}`,
+        `info:Diretorio normalizado: ${normalizedDir}`,
+        "info:Realizando login no UNECONT...",
+        "info:Login concluido.",
+        "info:[1/1] Processando 001 - Empresa A (12345678000190)",
+        "info:[1/1] Arquivo baixado: 001 - relatorio.xlsx",
+        "info:[1/1] Arquivo estabilizado: 001 - relatorio.xlsx (30014 bytes, 2 verificacoes)",
+        "info:[1/1] Copia normalizada criada: 001 - relatorio.xlsx",
+        "info:[1/1] Formatando planilha: 001 - relatorio.xlsx",
+        "info:[1/1] Planilha formatada: 001 - relatorio.xlsx",
+        "warn:[1/1] Primeira validacao inconsistente: 001 - relatorio.xlsx (5 descricoes preenchidas, 107 inconsistencias mapeaveis, 7 sem mapa)",
+        "info:[1/1] Retry de formatacao: 001 - relatorio.xlsx",
+        "info:[1/1] Planilha reformatada apos retry: 001 - relatorio.xlsx",
+        "info:[1/1] Planilha validada: 001 - relatorio.xlsx (29 descricoes preenchidas, 85 inconsistencias mapeaveis, 5 sem mapa)",
+        "error:[1/1] Falha de consistencia na planilha 001 - relatorio.xlsx: 85 linhas mapeaveis sem descricao [linha 31 (09.01), linha 32 (09.01), linha 33 (10.05) e mais 82].",
+        "error:[1/1] Falha: 001 - Empresa A (12345678000190) -> Falha de consistencia na planilha 001 - relatorio.xlsx: 85 linhas mapeaveis sem descricao [linha 31 (09.01), linha 32 (09.01), linha 33 (10.05) e mais 82].",
+        "info:Resumo: 0 sucesso, 0 sem notas, 0 nao encontradas, 1 falhas, 0 puladas.",
+      ]);
+    } finally {
+      fs.rmSync(tempDir, { recursive: true, force: true });
+    }
   });
 });

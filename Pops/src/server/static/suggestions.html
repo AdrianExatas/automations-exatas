@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sugestões — Auto-POP Hub</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <h1>Sugestões e Revisões</h1>
+        <p class="subtitle">Feedbacks enviados pelos usuários via link nos POPs</p>
+      </div>
+      <nav><a href="/">Dashboard</a></nav>
+    </header>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Autor</th>
+          <th>Seção</th>
+          <th>Comentário</th>
+          <th>Status</th>
+          <th>Data</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody id="feedbacks-body">
+        <tr><td colspan="6" class="empty">Carregando...</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script src="/static/suggestions.js"></script>
+</body>
+</html>

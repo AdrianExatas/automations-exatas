@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Parcelamentos SEFAZ-SE</title>
+    <link rel="stylesheet" href="./renderer.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="toolbar">
+        <div>
+          <h1>Parcelamentos SEFAZ-SE</h1>
+          <p>Geracao de DAEs e relatorio de processamento</p>
+        </div>
+        <button id="openReportsButton" class="button secondary" type="button">Relatorios</button>
+      </section>
+
+      <section class="panel">
+        <form id="automationForm">
+          <label class="field">
+            <span>Planilha de entrada</span>
+            <div class="file-row">
+              <input id="sheetInput" type="text" readonly required />
+              <button id="selectSheetButton" class="button secondary" type="button">Selecionar</button>
+            </div>
+          </label>
+
+          <div id="sheetStatus" class="sheet-status" hidden></div>
+
+          <label class="check-row">
+            <input id="headedInput" type="checkbox" />
+            <span>Mostrar navegador durante a execucao</span>
+          </label>
+
+          <div class="actions">
+            <button id="createTemplateButton" class="button secondary" type="button">Gerar modelo</button>
+            <button id="inspectSheetButton" class="button secondary" type="button">Validar planilha</button>
+            <button id="runButton" class="button primary" type="submit">Executar automacao</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="log-panel">
+        <div class="log-header">
+          <h2>Execucao</h2>
+          <span id="statusBadge" class="badge idle">Pronto</span>
+        </div>
+        <pre id="logOutput"></pre>
+      </section>
+    </main>
+    <script src="./renderer.js"></script>
+  </body>
+</html>

@@ -1,7 +1,7 @@
 {
   "name": "s5002-organizador",
   "version": "1.0.0",
-  "description": "Aplicacao desktop para organizar XMLs eSocial S-5002 por CPF e periodo de apuracao.",
+  "description": "Aplicacao desktop para organizar XMLs eSocial S-5002 e S-2501 por CPF e periodo de apuracao.",
   "author": "Exatas",
   "private": true,
   "type": "module",
@@ -31,7 +31,7 @@
   },
   "build": {
     "appId": "br.com.exatas.dp.s5002.organizador",
-    "productName": "Organizador S-5002",
+    "productName": "Organizador S-5002 e S-2501",
     "directories": {
       "output": "release"
     },

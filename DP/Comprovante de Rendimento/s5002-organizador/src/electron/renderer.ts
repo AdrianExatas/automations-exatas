@@ -95,7 +95,7 @@ async function initialize(): Promise<void> {
   const defaults = await window.s5002.getDefaults();
   inputDirInput.value = defaults.inputDir;
   outputDirInput.value = defaults.outputDir;
-  setStatus("Pronto para organizar XMLs S-5002.");
+  setStatus("Pronto para organizar XMLs S-5002 e S-2501.");
 }
 
 async function startRun(): Promise<void> {
@@ -113,7 +113,7 @@ async function startRun(): Promise<void> {
     successCount.textContent = String(lastResult.successCount);
     errorCount.textContent = String(lastResult.errorCount);
     ignoredCount.textContent = String(lastResult.ignoredCount);
-    totalCount.textContent = String(lastResult.s5002Count);
+    totalCount.textContent = String(lastResult.eventXmlCount);
     setStatus("Processamento concluido.");
   } catch (error) {
     setStatus(messageOf(error));
@@ -132,7 +132,7 @@ function updateProgress(progress: RunProgress): void {
   successCount.textContent = String(progress.successCount);
   errorCount.textContent = String(progress.errorCount);
   ignoredCount.textContent = String(progress.ignoredCount);
-  totalCount.textContent = String(progress.s5002Count);
+  totalCount.textContent = String(progress.eventXmlCount);
   setStatus(progress.message);
   refreshOutputButtons();
 }

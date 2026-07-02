@@ -1,12 +1,15 @@
 import path from "node:path";
 
 import type { SendServiceRequestsProgressEvent } from "@exatas/onvio-solicitacoes-servico";
+import { createClientUsersRequesterResolver } from "../client-users-requester-resolver";
 import { loadEnvConfig } from "../config";
 import { loadEmpresasFromExcel } from "../input";
+import { OnvioHttpClientUsersProvider } from "../onvio-http-client-users-provider";
 import { resolveRuntimePath } from "../project-paths";
 import type { EmpresaBatchItem } from "../types";
-import { refreshUdsLongTokenForUpload } from "../onvio-uds-refresh";
+import { readCachedUdsLongTokenForUpload, refreshUdsLongTokenForUpload } from "../onvio-uds-refresh";
 import { generateUploadRunId, writeUploadExecutionReport } from "../upload-execution-report";
+import { UploadCheckpoint } from "../upload-checkpoint";
 import { uploadOnvioBatch } from "../upload-onvio-batch";
 import {
   findLatestNormalizedDir,
@@ -20,6 +23,9 @@ interface UploadCliFlags {
   dryRun: boolean;
   limite?: number;
   codigos?: string[];
+  aPartirDe?: string;
+  checkpoint: boolean;
+  checkpointPath?: string;
 }
 
 function parseUploadLimite(argv: string[]): number | undefined {
@@ -66,6 +72,22 @@ function parseUploadCodigos(argv: string[]): string[] | undefined {
   return undefined;
 }
 
+function parseValueArg(argv: string[], flag: string): string | undefined {
+  const idx = argv.indexOf(flag);
+  if (idx >= 0) {
+    const raw = argv[idx + 1];
+    return raw && !raw.startsWith("--") ? raw.trim() : undefined;
+  }
+
+  const prefixed = argv.find((a) => a.startsWith(`${flag}=`));
+  if (prefixed) {
+    const raw = prefixed.slice(flag.length + 1).trim();
+    return raw || undefined;
+  }
+
+  return undefined;
+}
+
 function parseUploadCliArgs(argv: string[]): UploadCliFlags {
   const limiteRaw = parseUploadLimite(argv);
   return {
@@ -73,6 +95,9 @@ function parseUploadCliArgs(argv: string[]): UploadCliFlags {
     dryRun: argv.includes("--dry-run"),
     limite: Number.isNaN(limiteRaw as number) ? undefined : limiteRaw,
     codigos: parseUploadCodigos(argv),
+    aPartirDe: parseValueArg(argv, "--a-partir-de"),
+    checkpoint: !argv.includes("--sem-checkpoint"),
+    checkpointPath: parseValueArg(argv, "--checkpoint"),
   };
 }
 
@@ -82,6 +107,32 @@ function formatEmpresaLabel(empresa: {
   cnpj: string;
 }): string {
   return [empresa.codigo, empresa.nome || empresa.cnpj].filter(Boolean).join(" - ");
+}
+
+function sanitizeCheckpointSegment(value: string): string {
+  return value.replace(/[^a-zA-Z0-9._-]+/g, "_").replace(/^_+|_+$/g, "") || "batch";
+}
+
+function resolveUploadCheckpointPath(options: {
+  cliPath?: string;
+  envPath?: string;
+  attachmentsDir?: string;
+  skipAttachments: boolean;
+}): string {
+  const configured = options.cliPath || options.envPath;
+  if (configured) return path.resolve(configured);
+
+  const segment = options.attachmentsDir
+    ? sanitizeCheckpointSegment(path.basename(path.resolve(options.attachmentsDir)))
+    : "sem-anexos";
+
+  return resolveRuntimePath("checkpoints", `upload-onvio-${segment}.json`);
+}
+
+function filterFromCode(empresas: EmpresaBatchItem[], codigo: string): EmpresaBatchItem[] | null {
+  const wanted = normalizeCode(codigo);
+  const index = empresas.findIndex((row) => normalizeCode(row.codigo) === wanted);
+  return index >= 0 ? empresas.slice(index) : null;
 }
 
 function logUploadOnvioProgress(evt: SendServiceRequestsProgressEvent): void {
@@ -136,12 +187,49 @@ export async function main(argv: string[] = process.argv.slice(2)): Promise<numb
     return 1;
   }
 
-  if (cliFlags.codigos && cliFlags.codigos.length > 0 && cliFlags.limite != null) {
-    console.error("Use apenas uma opcao: --limite ou --codigos, nao ambas.");
+  const aPartirDeFlagPresent =
+    argv.includes("--a-partir-de") || argv.some((a) => a.startsWith("--a-partir-de="));
+  if (aPartirDeFlagPresent && !cliFlags.aPartirDe) {
+    console.error("Uso: --a-partir-de CODIGO, ex.: --a-partir-de 314");
     return 1;
   }
 
-  let batchInput: { excelPath: string } | { empresas: EmpresaBatchItem[] };
+  const filterCount = [
+    cliFlags.codigos && cliFlags.codigos.length > 0,
+    cliFlags.limite != null,
+    Boolean(cliFlags.aPartirDe),
+  ].filter(Boolean).length;
+  if (filterCount > 1) {
+    console.error("Use apenas uma opcao: --limite, --codigos ou --a-partir-de.");
+    return 1;
+  }
+
+  const attachmentsDir: string | undefined = skipAttachments
+    ? undefined
+    : env.unecontUploadDir ||
+      findLatestNormalizedDir(undefined, { requireEligibleUploadFiles: true }) ||
+      undefined;
+  if (!skipAttachments && !attachmentsDir) {
+    console.error(
+      "Nenhum diretorio normalizado encontrado. Configure UNECONT_UPLOAD_DIR ou execute a normalizacao antes do upload.",
+    );
+    return 1;
+  }
+
+  const checkpoint =
+    cliFlags.checkpoint && !dryRun
+      ? new UploadCheckpoint(
+          resolveUploadCheckpointPath({
+            cliPath: cliFlags.checkpointPath,
+            envPath: env.onvioUploadCheckpointPath,
+            attachmentsDir,
+            skipAttachments,
+          }),
+        )
+      : null;
+  checkpoint?.load();
+
+  let batchInput: { empresas: EmpresaBatchItem[] };
   if (cliFlags.codigos && cliFlags.codigos.length > 0) {
     const todas = loadEmpresasFromExcel(excelPath);
     const byCode = new Map<string, EmpresaBatchItem>();
@@ -160,6 +248,21 @@ export async function main(argv: string[] = process.argv.slice(2)): Promise<numb
     }
     console.log(`Upload por codigo(s): ${cliFlags.codigos.join(", ")} (${empresas.length} linha(s)).`);
     batchInput = { empresas };
+  } else if (cliFlags.aPartirDe) {
+    const todas = loadEmpresasFromExcel(excelPath);
+    const empresas = filterFromCode(todas, cliFlags.aPartirDe);
+    if (!empresas) {
+      console.error(`Codigo "${cliFlags.aPartirDe}" nao encontrado na planilha (${excelPath}).`);
+      return 1;
+    }
+    if (empresas.length === 0) {
+      console.error("Planilha sem linhas para upload.");
+      return 1;
+    }
+    console.log(
+      `Upload a partir do codigo ${cliFlags.aPartirDe}: ${empresas.length} cliente(s) de ${todas.length} na planilha.`,
+    );
+    batchInput = { empresas };
   } else if (cliFlags.limite != null) {
     const todas = loadEmpresasFromExcel(excelPath);
     const empresas = todas.slice(0, cliFlags.limite);
@@ -172,17 +275,26 @@ export async function main(argv: string[] = process.argv.slice(2)): Promise<numb
     );
     batchInput = { empresas };
   } else {
-    batchInput = { excelPath };
+    batchInput = { empresas: loadEmpresasFromExcel(excelPath) };
   }
 
-  const attachmentsDir: string | undefined = skipAttachments
-    ? undefined
-    : env.unecontUploadDir || findLatestNormalizedDir() || undefined;
-  if (!skipAttachments && !attachmentsDir) {
-    console.error(
-      "Nenhum diretorio normalizado encontrado. Configure UNECONT_UPLOAD_DIR ou execute a normalizacao antes do upload.",
+  if (checkpoint) {
+    const before = batchInput.empresas.length;
+    batchInput = {
+      empresas: batchInput.empresas.filter((empresa) => !checkpoint.isProcessed(empresa)),
+    };
+    const skippedByCheckpoint = before - batchInput.empresas.length;
+    const stats = checkpoint.getStats();
+    console.log(
+      `[Onvio] Checkpoint: ${checkpoint.path} (${stats.processed} sucesso(s), ${stats.failed} falha(s) registrada(s)).`,
     );
-    return 1;
+    if (skippedByCheckpoint > 0) {
+      console.log(`[Onvio] Checkpoint: ${skippedByCheckpoint} solicitacao(oes) ja enviada(s) serao puladas.`);
+    }
+    if (batchInput.empresas.length === 0) {
+      console.log("[Onvio] Checkpoint: nenhuma solicitacao pendente para enviar.");
+      return 0;
+    }
   }
 
   const nfsVideoTrimmed = env.unecontOnvioNfsVideoPath.trim();
@@ -232,6 +344,34 @@ export async function main(argv: string[] = process.argv.slice(2)): Promise<numb
     return 1;
   }
 
+  const tokenForClientUserLookup = tokenForBatch || readCachedUdsLongTokenForUpload();
+  const canOnvioAutoRefreshForLookup =
+    env.onvioAutoRefreshToken &&
+    env.onvioEmail.trim() !== "" &&
+    env.onvioPassword.trim() !== "";
+  const onUnauthorizedForLookup =
+    onUnauthorized ??
+    (canOnvioAutoRefreshForLookup
+      ? async () => {
+          console.warn(
+            "[Onvio] Resposta 401 na consulta de usuarios do cliente. Renovando UDSLongToken via shared/onvio-auth...",
+          );
+          return refreshUdsLongTokenForUpload();
+        }
+      : undefined);
+
+  const resolveRequesterId = tokenForClientUserLookup
+    ? createClientUsersRequesterResolver(
+        new OnvioHttpClientUsersProvider({
+          token: tokenForClientUserLookup,
+          baseUrl: env.onvioBaseUrl,
+          firmCompanyId: env.onvioFirmCompanyId,
+          cookie: env.onvioCookie,
+          onUnauthorized: onUnauthorizedForLookup,
+        }),
+      )
+    : undefined;
+
   try {
     const result = await uploadOnvioBatch({
       token: tokenForBatch,
@@ -242,7 +382,16 @@ export async function main(argv: string[] = process.argv.slice(2)): Promise<numb
       bdApiBaseUrl: env.bdApiBaseUrl,
       extraAttachmentPaths,
       onUnauthorized,
-      onProgress: logUploadOnvioProgress,
+      resolveRequesterId,
+      onProgress: (evt) => {
+        logUploadOnvioProgress(evt);
+        if (!checkpoint || evt.type !== "item_done") return;
+        if (evt.outcome === "success") {
+          checkpoint.markSuccess(evt.row, evt.ticketId, evt.message);
+        } else if (evt.outcome === "failed") {
+          checkpoint.markFailed(evt.row, evt.message);
+        }
+      },
       defaults: {
         clientId: env.onvioClientId || undefined,
         requesterId: env.onvioRequesterId || undefined,
@@ -291,13 +440,31 @@ export async function main(argv: string[] = process.argv.slice(2)): Promise<numb
           console.warn(`[AVISO] ${empresaLabel}: ${warning}`);
         }
       }
-    } else if (result.summary.failed > 0) {
+    } else {
       for (const item of result.items) {
-        if (item.status !== "failed") continue;
         const empresaLabel = formatEmpresaLabel(item.empresa);
-        console.error(`[ERRO] ${empresaLabel}: ${item.message ?? "Falha sem mensagem."}`);
-        for (const warning of item.warnings ?? []) {
+        if (item.status === "failed") {
+          console.error(`[ERRO] ${empresaLabel}: ${item.message ?? "Falha sem mensagem."}`);
+        }
+
+        const warnings = item.warnings ?? [];
+        const solicitantePreenchido = item.empresa.solicitante.trim().length > 0;
+        const solicitanteSemId =
+          solicitantePreenchido &&
+          !item.resolvedRequesterId?.trim() &&
+          !item.empresa.onvioRequesterId?.trim();
+        const jaAvisouSolicitante = warnings.some((warning) =>
+          warning.includes("sem ID do Onvio resolvido"),
+        );
+
+        for (const warning of warnings) {
           console.warn(`[AVISO] ${empresaLabel}: ${warning}`);
+        }
+
+        if (solicitanteSemId && !jaAvisouSolicitante) {
+          console.warn(
+            `[AVISO] ${empresaLabel}: Solicitante "${item.empresa.solicitante}" sem ID do Onvio resolvido; o portal exibira o campo vazio.`,
+          );
         }
       }
     }

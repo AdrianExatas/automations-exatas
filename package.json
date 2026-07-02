@@ -6,6 +6,7 @@
     "shared/onvio-solicitacoes-servico",
     "shared/onvio-auth",
     "Unecont",
+    "Pops",
     "Onvio/gestta-tarefas/adicionar-validação",
     "Onvio/gestta-tarefas/alterar-responsavel",
     "Onvio/gestta-tarefas/inserir-tarefas"

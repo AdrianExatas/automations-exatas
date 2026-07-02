@@ -111,6 +111,14 @@ bun run --cwd Onvio/gestta-tarefas/alterar-responsavel start -- "C:\\pasta\\minh
 bun run --cwd Onvio/gestta-tarefas/alterar-responsavel dev -- "..\\_local\\data\\DP RESPONSAVEL.xlsx"
 ```
 
+Reverter uma execucao:
+
+```bash
+bun run --cwd Onvio/gestta-tarefas/alterar-responsavel start -- --reverter "C:\\pasta\\relatorios\\execucao_2026-05-04_15-55-44.json"
+```
+
+A reversao so funciona para relatorios gerados depois da inclusao do snapshot de rollback. Relatorios antigos continuam abrindo, mas nao possuem o responsavel anterior necessario para restaurar com seguranca. Pela interface Electron, use **Reverter execucao** e selecione o JSON do relatorio.
+
 ## Formato da planilha
 
 Colunas esperadas:
@@ -119,7 +127,7 @@ Colunas esperadas:
 - `CNPJ`
 - `RESPONSAVEL`
 - `MES GERACAO` (mantida por compatibilidade, nao e usada para executar a alteracao)
-- `SETOR` opcional
+- `SETOR` obrigatorio
 
 ## Observacoes
 

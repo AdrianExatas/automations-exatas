@@ -1,7 +1,11 @@
 export const DEFAULT_UNECONT_LOGIN_URL = "https://app.unecont.com/_login/Login.aspx";
 export const DEFAULT_UNECONT_SERVICOS_TOMADOS_URL =
   "https://app.unecont.com/Contador/ServicosTomados/Default.aspx";
+export const DEFAULT_UNECONT_EMPRESAS_URL =
+  "https://app.unecont.com/Contador/Empresas/Default.aspx";
 export const DEFAULT_BD_API_BASE_URL = "http://localhost:3000/api";
+export const DEFAULT_ONVIO_BASE_URL = "https://onvio.com.br";
+export const DEFAULT_ONVIO_FIRM_COMPANY_ID = "DA26DD8B76C04A7B9A5EE3D029347E4D";
 
 export interface Config {
   unecontEmail: string;
@@ -12,6 +16,7 @@ export interface Config {
   longTimeout: number;
   loginUrl: string;
   servicosTomadosUrl: string;
+  empresasUrl: string;
 }
 
 export interface EnvConfig extends Config {
@@ -25,12 +30,17 @@ export interface EnvConfig extends Config {
   onvioDryRun: boolean;
   bdApiBaseUrl: string;
   unecontUploadDir: string;
+  onvioUploadCheckpointPath: string;
   /** Caminho opcional de vídeo anexado a cada solicitação Onvio (relatório NFS). */
   unecontOnvioNfsVideoPath: string;
   /** Em 401, executa login via shared/onvio-auth (requer ONVIO_EMAIL e ONVIO_PASSWORD). */
   onvioAutoRefreshToken: boolean;
   onvioEmail: string;
   onvioPassword: string;
+  onvioBaseUrl: string;
+  onvioFirmCompanyId: string;
+  onvioCookie: string;
+  unecontEmpresasReportName: string;
 }
 
 function parseBoolean(value: string | undefined, defaultValue: boolean): boolean {
@@ -53,6 +63,7 @@ export function loadEnvConfig(env: NodeJS.ProcessEnv = process.env): EnvConfig {
     longTimeout: parseNumber(env.LONG_TIMEOUT, 20),
     loginUrl: env.UNECONT_LOGIN_URL ?? DEFAULT_UNECONT_LOGIN_URL,
     servicosTomadosUrl: env.UNECONT_SERVICOS_TOMADOS_URL ?? DEFAULT_UNECONT_SERVICOS_TOMADOS_URL,
+    empresasUrl: env.UNECONT_EMPRESAS_URL ?? DEFAULT_UNECONT_EMPRESAS_URL,
     empresasExcelPath: env.EMPRESAS_EXCEL_PATH ?? "assets/templates/empresas-template.xlsx",
     onvioUdsToken: env.ONVIO_UDS_TOKEN ?? "",
     onvioDepartmentName: env.ONVIO_DEPARTMENT_NAME ?? "SETOR FISCAL",
@@ -63,10 +74,16 @@ export function loadEnvConfig(env: NodeJS.ProcessEnv = process.env): EnvConfig {
     onvioDryRun: parseBoolean(env.ONVIO_DRY_RUN, false),
     bdApiBaseUrl: env.BD_API_BASE_URL ?? DEFAULT_BD_API_BASE_URL,
     unecontUploadDir: env.UNECONT_UPLOAD_DIR ?? "",
+    onvioUploadCheckpointPath: env.ONVIO_UPLOAD_CHECKPOINT_PATH ?? "",
     unecontOnvioNfsVideoPath: env.UNECONT_ONVIO_NFS_VIDEO_PATH ?? "",
     onvioAutoRefreshToken: parseBoolean(env.ONVIO_AUTO_REFRESH_TOKEN, false),
     onvioEmail: env.ONVIO_EMAIL ?? "",
     onvioPassword: env.ONVIO_PASSWORD ?? "",
+    onvioBaseUrl: env.ONVIO_BASE_URL ?? DEFAULT_ONVIO_BASE_URL,
+    onvioFirmCompanyId:
+      env.ONVIO_FIRM_COMPANY_ID ?? env.ONVIO_COMPANY_ID ?? DEFAULT_ONVIO_FIRM_COMPANY_ID,
+    onvioCookie: env.ONVIO_COOKIE ?? "",
+    unecontEmpresasReportName: env.UNECONT_EMPRESAS_REPORT_NAME ?? "",
   };
 }
 

@@ -17,6 +17,7 @@ const rememberInput = byId<HTMLInputElement>("remember");
 const competenciaInput = byId<HTMLInputElement>("competencia");
 const pdfInput = byId<HTMLInputElement>("format-pdf");
 const xlsInput = byId<HTMLInputElement>("format-xls");
+const checkpointInput = byId<HTMLInputElement>("checkpoint-enabled");
 const outDirInput = byId<HTMLInputElement>("out-dir");
 const selectOutDirButton = byId<HTMLButtonElement>("select-out-dir");
 const forgetButton = byId<HTMLButtonElement>("forget");
@@ -142,6 +143,7 @@ async function startRun(): Promise<void> {
       competencia: competenciaInput.value,
       formats,
       outDir: outDirInput.value,
+      checkpointEnabled: checkpointInput.checked,
     });
     successCount.textContent = String(state.lastResult.successCount);
     errorCount.textContent = String(state.lastResult.errorCount);
@@ -167,6 +169,7 @@ async function startXmlDownload(): Promise<void> {
     state.lastXmlResult = await window.sefazDia.startXmlDownload({
       competencia: competenciaInput.value,
       outDir: outDirInput.value,
+      checkpointEnabled: checkpointInput.checked,
     });
     successCount.textContent = String(state.lastXmlResult.successCount);
     errorCount.textContent = String(state.lastXmlResult.errorCount);

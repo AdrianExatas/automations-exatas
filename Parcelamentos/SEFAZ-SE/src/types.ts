@@ -37,6 +37,21 @@ export interface RunResult {
 export interface CliOptions {
   inputPath: string;
   headed: boolean;
+  browserChannel?: string;
+}
+
+export interface RunAutomationOptions {
+  inputPath: string;
+  cwd: string;
+  headed: boolean;
+  browserChannel?: string;
+  log?: (message: string) => void;
+}
+
+export interface RunAutomationResult {
+  reportPath: string;
+  successCount: number;
+  errorCount: number;
 }
 
 export interface GeneratedInputRow {

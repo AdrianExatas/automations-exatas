@@ -22,6 +22,7 @@ export interface ReportFormattingOptions {
   modelPath?: string;
   serviceMapPath?: string;
   overwrite?: boolean;
+  outputDir?: string;
 }
 
 export interface ReportValidationIssue {
@@ -59,6 +60,33 @@ export interface DownloadUnecontOptions {
   servicosTomadosUrl?: string;
 }
 
+export interface DownloadEmpresasUnecontOptions {
+  credentials: {
+    email: string;
+    senha: string;
+  };
+  browser?: {
+    headless?: boolean;
+  };
+  outputDir?: string;
+  empresasUrl?: string;
+  reportName?: string;
+  logger?: DownloadLogger;
+  timeouts?: {
+    defaultTimeoutSeconds?: number;
+    shortTimeoutSeconds?: number;
+    longTimeoutSeconds?: number;
+  };
+  loginUrl?: string;
+}
+
+export interface DownloadEmpresasUnecontResult {
+  outputDir: string;
+  filePath: string;
+  reportName: string;
+  sizeBytes: number;
+}
+
 export interface UploadOnvioOptions {
   token: string;
   input: BatchInput;
@@ -82,6 +110,7 @@ export interface DownloadBatchItemResult {
 export interface DownloadBatchResult {
   runId: string;
   downloadsDir: string;
+  normalizedDir?: string;
   reportPath?: string;
   summary: {
     total: number;
@@ -127,6 +156,7 @@ export interface UploadBatchItemResult {
   message?: string;
   ticketId?: string;
   attachmentCount?: number;
+  resolvedRequesterId?: string;
   warnings?: string[];
 }
 
@@ -139,4 +169,140 @@ export interface UploadBatchResult {
   };
   items: UploadBatchItemResult[];
   warnings: string[];
+}
+
+export interface CompareEmpresasPlanilhasOptions {
+  atualizadaPath: string;
+  operacionalPath: string;
+  outputDir?: string;
+  clientUsersProvider?: ClientUsersProvider;
+  logger?: Pick<Console, "info" | "warn" | "error">;
+}
+
+export interface EmpresaComparisonRow {
+  cnpj: string;
+  codigo: string;
+  nome: string;
+}
+
+export interface EmpresaChangedRow {
+  cnpj: string;
+  oldCnpj: string;
+  newCnpj: string;
+  oldCodigo: string;
+  newCodigo: string;
+  oldNome: string;
+  newNome: string;
+}
+
+export interface EmpresaCodigoConflict {
+  codigo: string;
+  operacionalCnpj: string;
+  operacionalNome: string;
+  atualizadaCnpj: string;
+  atualizadaNome: string;
+}
+
+export interface ClientUserLookupRequest {
+  codigo: string;
+  cnpj: string;
+  nome: string;
+  /** Client id do Onvio (ex.: mapeamento BD); reservado para consultas futuras. */
+  onvioClientId?: string;
+}
+
+export interface ClientUser {
+  nome: string;
+  email?: string;
+  id?: string;
+}
+
+export interface ClientUserLookupResult {
+  users: ClientUser[];
+  warnings?: string[];
+}
+
+export interface ClientUsersProvider {
+  lookupUsers(request: ClientUserLookupRequest): Promise<ClientUser[] | ClientUserLookupResult>;
+}
+
+export type ClientUserLookupStatus =
+  | "preenchido_unico"
+  | "multipla_escolha"
+  | "responsavel_corrigido_unico"
+  | "responsavel_invalido_multipla_escolha"
+  | "nenhum_usuario"
+  | "erro_consulta";
+
+export interface ClientUserLookupReportRow {
+  codigo: string;
+  cnpj: string;
+  nome: string;
+  usuariosCliente: string;
+  qtdUsuariosCliente: number;
+  statusUsuariosCliente: ClientUserLookupStatus;
+  mensagem?: string;
+}
+
+export interface CompareEmpresasPlanilhasResult {
+  outputDir: string;
+  reportPath: string;
+  finalPlanilhaPath: string;
+  summary: {
+    atualizadas: number;
+    operacionais: number;
+    final: number;
+    novas: number;
+    removidas: number;
+    alteradas: number;
+    conflitosCodigo: number;
+    usuariosConsultados: number;
+    usuariosPreenchidos: number;
+    usuariosMultiplaEscolha: number;
+    usuariosNaoEncontrados: number;
+    usuariosComErro: number;
+  };
+  novas: EmpresaComparisonRow[];
+  removidas: EmpresaComparisonRow[];
+  alteradas: EmpresaChangedRow[];
+  conflitosCodigo: EmpresaCodigoConflict[];
+  usuariosCliente: ClientUserLookupReportRow[];
+}
+
+export interface UpdatePlanilhaOperacionalOptions {
+  credentials: {
+    email: string;
+    senha: string;
+  };
+  browser?: {
+    headless?: boolean;
+  };
+  operacionalPath?: string;
+  outputDir?: string;
+  publishDir?: string;
+  referenceMonth?: string;
+  force?: boolean;
+  empresasUrl?: string;
+  empresasReportName?: string;
+  accountingCompaniesPath?: string;
+  clientUsersProvider?: ClientUsersProvider;
+  logger?: Pick<Console, "info" | "warn" | "error">;
+  timeouts?: {
+    defaultTimeoutSeconds?: number;
+    shortTimeoutSeconds?: number;
+    longTimeoutSeconds?: number;
+  };
+  loginUrl?: string;
+  now?: Date;
+}
+
+export interface UpdatePlanilhaOperacionalResult {
+  outputDir: string;
+  baseUnecontPath: string;
+  operacionalPath: string;
+  reportPath: string;
+  runtimePlanilhaPath: string;
+  publishedPlanilhaPath: string;
+  referenceMonth: string;
+  summary: CompareEmpresasPlanilhasResult["summary"];
 }

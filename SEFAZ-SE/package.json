@@ -1,0 +1,5 @@
+{
+  "name": "sefaz-se",
+  "private": true,
+  "workspaces": ["app", "packages/*"]
+}

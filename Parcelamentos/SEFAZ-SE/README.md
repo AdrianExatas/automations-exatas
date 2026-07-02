@@ -32,6 +32,30 @@ Para abrir o navegador durante a execucao:
 npm run start -- --input ./model.xlsx --headed
 ```
 
+Para usar o Edge instalado no Windows, como no aplicativo Electron:
+
+```bash
+npm run start -- --input ./model.xlsx --browser-channel msedge
+```
+
+## Aplicativo desktop
+
+Rodar a interface Electron localmente:
+
+```bash
+npm run electron:dev
+```
+
+A interface permite selecionar uma planilha `.xlsx`, validar as linhas, gerar uma planilha modelo vazia, executar a automacao e abrir a pasta de relatorios. No aplicativo desktop, os relatorios sao gravados em `Documents\Exatas\Parcelamentos SEFAZ-SE\output`. Os PDFs continuam sendo salvos no caminho informado pela coluna `LOCAL PARA SALVAR ARQUIVO`.
+
+Gerar o instalador interno para Windows:
+
+```bash
+npm run desktop:dist
+```
+
+O instalador NSIS e gerado em `release\`. A configuracao nao assina o executavel e usa Microsoft Edge por padrao no app instalado.
+
 ## Regras implementadas
 
 - Le todas as linhas da primeira aba de `model.xlsx`.

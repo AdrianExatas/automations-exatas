@@ -21,6 +21,7 @@ export interface ParcelamentoDetalhe {
   parcelasJaPagas: number;
   numeroParcelaEmitida: number;
   totalParcelas: number;
+  vencimento?: string;
 }
 
 export type ResultadoCalculo =
@@ -30,6 +31,18 @@ export type ResultadoCalculo =
   | "alert"
   | "timeout"
   | "modal_closed";
+
+export type CategoriaErro =
+  | "credencial"
+  | "sem_consolidacao"
+  | "listagem_timeout"
+  | "calculo_timeout"
+  | "download_timeout"
+  | "overlay_modal"
+  | "portal_alerta"
+  | "erro_inesperado";
+
+export type FaseErro = "login" | "listagem" | "modal" | "calculo" | "download" | "fechamento" | "geral";
 
 export interface RunResult {
   rowNumber: number;
@@ -41,12 +54,16 @@ export interface RunResult {
   parcelasJaPagas?: number;
   numeroParcelaEmitida?: number;
   totalParcelas?: number;
+  vencimento?: string;
   arquivoSalvo?: string;
   tempoCalculoMs?: number;
   tentativasCalculo?: number;
   resultadoCalculo?: ResultadoCalculo;
   tempoTentativa1Ms?: number;
   tempoTentativa2Ms?: number;
+  categoriaErro?: CategoriaErro;
+  faseErro?: FaseErro;
+  tentativasProcessamento?: number;
   mensagemDiagnostico?: string;
   status: "sucesso" | "erro";
   mensagem: string;

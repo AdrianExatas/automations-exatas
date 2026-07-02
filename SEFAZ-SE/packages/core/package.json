@@ -1,0 +1,21 @@
+{
+  "name": "@sefaz/core",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./agil": "./src/agil/index.ts",
+    "./dae": "./src/dae/index.ts",
+    "./alterar-nota": "./src/alterar-nota/index.ts",
+    "./demonstrativo": "./src/demonstrativo/index.ts"
+  },
+  "dependencies": {
+    "playwright": "^1.58.2",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.3",
+    "typescript": "^5.9.3"
+  }
+}

@@ -1,0 +1,153 @@
+:root {
+  color-scheme: light;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #f5f7f8;
+  color: #1d252c;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.app {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.toolbar {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  padding: 16px;
+  background: #ffffff;
+  border-bottom: 1px solid #d8e0e6;
+}
+
+.field {
+  min-width: 0;
+  display: grid;
+  gap: 5px;
+}
+
+.field label,
+.check,
+#status {
+  font-size: 13px;
+  color: #41515f;
+}
+
+.field input {
+  width: 100%;
+  min-height: 34px;
+  border: 1px solid #b9c4ce;
+  border-radius: 6px;
+  padding: 6px 9px;
+  background: #fff;
+  color: #18212a;
+}
+
+.field input:focus {
+  outline: 2px solid #2f7d99;
+  outline-offset: 1px;
+}
+
+.compact {
+  max-width: 190px;
+}
+
+.folder-field {
+  grid-column: 1 / 4;
+}
+
+.folder-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 112px;
+  gap: 8px;
+}
+
+button {
+  min-height: 34px;
+  border: 1px solid #28718c;
+  border-radius: 6px;
+  padding: 7px 13px;
+  background: #2f7d99;
+  color: #fff;
+  cursor: pointer;
+}
+
+button:hover:not(:disabled) {
+  background: #276e87;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.check {
+  align-self: end;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  min-height: 34px;
+}
+
+.check input {
+  width: 16px;
+  height: 16px;
+}
+
+.actions {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+#runDownload {
+  min-width: 132px;
+}
+
+.log-shell {
+  padding: 16px;
+  min-height: 0;
+}
+
+#logs {
+  margin: 0;
+  height: 100%;
+  min-height: 360px;
+  overflow: auto;
+  border: 1px solid #cad4dc;
+  border-radius: 8px;
+  background: #10171d;
+  color: #e9f2f6;
+  padding: 12px;
+  white-space: pre-wrap;
+  line-height: 1.45;
+}
+
+@media (max-width: 760px) {
+  .toolbar {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .folder-field,
+  .actions {
+    grid-column: 1 / -1;
+  }
+
+  .compact {
+    max-width: none;
+  }
+}

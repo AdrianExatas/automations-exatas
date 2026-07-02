@@ -1,4 +1,4 @@
-import type { Page } from "playwright";
+import type { Locator, Page } from "playwright";
 
 function normalizeCnpj(cnpj: string): string {
   return cnpj.replace(/[./\-]/g, "");
@@ -17,22 +17,83 @@ function formatTaxId(raw: string): string {
 
 export class EmpresaSelectionPage {
   private static readonly LIST_LOAD_TIMEOUT_MS = 15_000;
+  private static readonly MODAL_CLICK_TIMEOUT_MS = 2_000;
 
   constructor(private readonly page: Page) {}
+
+  private get selectionModal(): Locator {
+    return this.page.locator("#modalSelecionaParceiroEmpresaSelecao");
+  }
+
+  private get searchInput(): Locator {
+    return this.selectionModal
+      .locator("input[type='search']:visible, #txtBuscaConteudoMenuLateral:visible")
+      .first();
+  }
+
+  private async waitForSelectionModal(timeout: number): Promise<void> {
+    await this.selectionModal.waitFor({
+      state: "visible",
+      timeout,
+    });
+  }
+
+  private async openSelectionModalWithFallback(): Promise<void> {
+    await this.page
+      .locator(
+        "#LeftSideBarControl_divEmpresaSelecionadaPrincipal button.btSelecionaParceiroEmpresa",
+      )
+      .click();
+
+    try {
+      await this.waitForSelectionModal(EmpresaSelectionPage.MODAL_CLICK_TIMEOUT_MS);
+      return;
+    } catch {
+      await this.page.evaluate(() => {
+        const opener = (
+          window as typeof window & {
+            ExibeModalSelecionaParceiroEmpresaMenuLateral?: () => void;
+          }
+        ).ExibeModalSelecionaParceiroEmpresaMenuLateral;
+
+        if (typeof opener !== "function") {
+          throw new Error("Funcao de abertura do modal de empresas nao encontrada");
+        }
+
+        opener();
+      });
+    }
+
+    await this.waitForSelectionModal(EmpresaSelectionPage.LIST_LOAD_TIMEOUT_MS);
+  }
 
   async closeNovidadeModal(): Promise<void> {
     const checkbox = this.page.locator("#naoAvisarNovamenteProgramaIndicacaoFase02");
     try {
       await checkbox.check({ timeout: 1000 });
     } catch {
-      return;
+      // O modal pode aparecer sem checkbox clicavel; ainda assim precisa sair da frente.
     }
-    const closeBtn = this.page.locator(".modal-content button.close[data-dismiss='modal']");
+    const closeBtn = this.page
+      .locator("#novidadeProgramaIndicacaoFase02 button.close[data-dismiss='modal']")
+      .first();
     await closeBtn.click({ timeout: 1000 }).catch(() => {});
+    await this.page.evaluate(() => {
+      if (typeof document === "undefined") return;
+      const modal = document.querySelector("#novidadeProgramaIndicacaoFase02");
+      if (modal) modal.remove();
+      const body = document.body;
+      if (!body) return;
+      document.querySelectorAll(".modal-backdrop").forEach((backdrop: Element) => backdrop.remove());
+      body.classList.remove("modal-open");
+      body.style.overflow = "";
+      body.style.paddingRight = "";
+    });
   }
 
   private async clearOverlays(): Promise<void> {
     await this.page.evaluate(() => {
+      if (typeof document === "undefined") return;
       const body = document.body;
       if (!body) return;
       document.querySelectorAll(".modal-backdrop").forEach((backdrop: Element) => backdrop.remove());
@@ -46,14 +107,11 @@ export class EmpresaSelectionPage {
     await this.closeNovidadeModal();
     await this.clearOverlays();
 
-    await this.page
-      .locator(
-        "#LeftSideBarControl_divEmpresaSelecionadaPrincipal button.btSelecionaParceiroEmpresa",
-      )
-      .click();
-    await this.page
-      .getByPlaceholder("Pesquise por Cnpj/Cpf, Razão")
-      .waitFor({ state: "visible", timeout: EmpresaSelectionPage.LIST_LOAD_TIMEOUT_MS });
+    await this.openSelectionModalWithFallback();
+    await this.searchInput.waitFor({
+      state: "visible",
+      timeout: EmpresaSelectionPage.LIST_LOAD_TIMEOUT_MS,
+    });
   }
 
   async closeSelectionModal(): Promise<void> {
@@ -65,9 +123,32 @@ export class EmpresaSelectionPage {
   }
 
   async searchCnpj(cnpj: string): Promise<void> {
-    const input = this.page.getByPlaceholder("Pesquise por Cnpj/Cpf, Razão");
-    await input.fill(normalizeCnpj(cnpj));
+    const input = this.searchInput;
+    const normalized = normalizeCnpj(cnpj);
+    await input.click();
+    await input.fill("");
+    await input.type(normalized, { delay: 20 });
     await input.press("Enter");
+    await this.page.evaluate((value) => {
+      const input = document.querySelector<HTMLInputElement>(
+        "#modalSelecionaParceiroEmpresaSelecao #txtBuscaConteudoMenuLateral",
+      );
+      if (!input) return;
+
+      input.value = value;
+      input.dispatchEvent(new Event("input", { bubbles: true }));
+      input.dispatchEvent(new Event("change", { bubbles: true }));
+      input.dispatchEvent(new KeyboardEvent("keyup", { key: "Enter", bubbles: true }));
+
+      const filter = (
+        window as typeof window & {
+          FiltraEmpresaSelecaoMenuLateral?: () => void;
+        }
+      ).FiltraEmpresaSelecaoMenuLateral;
+      if (typeof filter === "function") {
+        filter();
+      }
+    }, normalized);
   }
 
   async selectEmpresaByCnpj(cnpj: string): Promise<void> {

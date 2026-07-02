@@ -13,7 +13,7 @@ async function createWindow(): Promise<void> {
     height: 720,
     minWidth: 860,
     minHeight: 620,
-    title: "Organizador S-5002",
+    title: "Organizador S-5002 e S-2501",
     backgroundColor: "#f7f7f4",
     webPreferences: {
       contextIsolation: true,
@@ -45,7 +45,7 @@ app.on("window-all-closed", () => {
 function registerIpcHandlers(): void {
   ipcMain.handle("app:getDefaults", () => ({
     inputDir: "",
-    outputDir: path.join(app.getPath("downloads"), "S5002-Organizado"),
+    outputDir: path.join(app.getPath("downloads"), "S5002-S2501-Organizado"),
   }));
 
   ipcMain.handle("dialog:selectInputDir", async () => {

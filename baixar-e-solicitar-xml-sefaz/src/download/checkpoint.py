@@ -216,6 +216,38 @@ def limpar_checkpoint() -> bool:
     return False
 
 
+def limpar_checkpoint_se_for_de_outro_dia() -> bool:
+    """Limpa o checkpoint de download quando a ultima execucao foi em outro dia."""
+    garantir_diretorio_checkpoint()
+
+    checkpoints = [
+        _carregar_json_validado(CHECKPOINT_FILE, {"download"}),
+        _carregar_json_validado(CURSOR_CHECKPOINT_FILE, {"download_cursor"}),
+    ]
+    timestamps = []
+    for checkpoint in checkpoints:
+        if not checkpoint:
+            continue
+        try:
+            timestamps.append(datetime.fromisoformat(checkpoint.get("timestamp", "")))
+        except (TypeError, ValueError):
+            continue
+
+    if not timestamps:
+        return False
+
+    ultima_execucao = max(timestamps)
+    hoje = datetime.now().date()
+    if ultima_execucao.date() == hoje:
+        return False
+
+    print(
+        "[CHECKPOINT] Ultima execucao de download foi em "
+        f"{ultima_execucao.date().isoformat()}; limpando checkpoint para iniciar o dia atual."
+    )
+    return limpar_checkpoint()
+
+
 def verificar_checkpoint() -> Optional[Dict[str, Any]]:
     """Verifica se existe checkpoint e exibe informações."""
     checkpoint = carregar_checkpoint()

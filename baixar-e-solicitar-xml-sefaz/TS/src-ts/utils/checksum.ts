@@ -1,0 +1,22 @@
+import { createHash } from "node:crypto";
+
+function stableStringify(value: unknown): string {
+  if (Array.isArray(value)) {
+    return `[${value.map(stableStringify).join(",")}]`;
+  }
+  if (value && typeof value === "object") {
+    const entries = Object.entries(value as Record<string, unknown>)
+      .filter(([key]) => key !== "checksum")
+      .sort(([left], [right]) => left.localeCompare(right));
+    return `{${entries.map(([key, entryValue]) => `${JSON.stringify(key)}:${stableStringify(entryValue)}`).join(",")}}`;
+  }
+  return JSON.stringify(value);
+}
+
+export function calculateChecksum(data: Record<string, unknown>): string {
+  return createHash("sha256").update(stableStringify(data)).digest("hex");
+}
+
+export function hasValidChecksum(data: Record<string, unknown>): boolean {
+  return typeof data.checksum === "string" && data.checksum === calculateChecksum(data);
+}

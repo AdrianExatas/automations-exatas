@@ -12,8 +12,14 @@ contextBridge.exposeInMainWorld("gesttaApp", {
     email: string;
     password: string;
     saveCredentials: boolean;
+    startWithoutCheckpoint: boolean;
     planilhaPath: string;
   }) => ipcRenderer.invoke("automation:run", payload),
+  runRollback: (payload: {
+    email: string;
+    password: string;
+    saveCredentials: boolean;
+  }) => ipcRenderer.invoke("rollback:run", payload),
   onAutomationLog: (callback: (message: string) => void) => {
     const listener = (_event: Electron.IpcRendererEvent, message: string) => callback(message);
     ipcRenderer.on("automation:log", listener);

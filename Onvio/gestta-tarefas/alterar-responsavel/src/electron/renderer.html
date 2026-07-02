@@ -34,6 +34,11 @@
             <span>Salvar credenciais</span>
           </label>
 
+          <label class="check-row">
+            <input id="startWithoutCheckpointInput" type="checkbox" />
+            <span>Iniciar sem checkpoint</span>
+          </label>
+
           <label>
             Planilha
             <div class="file-row">
@@ -41,6 +46,7 @@
               <button id="selectSheetButton" class="secondary-button" type="button">Selecionar</button>
             </div>
           </label>
+          <p class="required-note">Campos obrigatorios: CNPJ, RESPONSAVEL e SETOR.</p>
 
           <section id="sheetPreview" class="sheet-preview" hidden>
             <div class="preview-header">
@@ -58,6 +64,7 @@
 
           <div class="actions">
             <button id="downloadTemplateButton" class="secondary-button" type="button">Baixar planilha padrao</button>
+            <button id="rollbackButton" class="secondary-button" type="button">Reverter execucao</button>
             <button id="runButton" class="primary-button" type="submit">Executar automacao</button>
           </div>
         </form>

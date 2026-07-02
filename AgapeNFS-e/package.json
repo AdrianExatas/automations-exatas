@@ -1,0 +1,55 @@
+{
+  "name": "agape-nfse-xml",
+  "version": "1.0.0",
+  "description": "Desktop app para baixar XML municipal de NFS-e no Agape.",
+  "main": "build/main/main.js",
+  "scripts": {
+    "dev": "bun scripts/electron.ts",
+    "build": "bun scripts/build.ts",
+    "electron": "bun scripts/electron.ts",
+    "test": "bun test",
+    "dist": "bun run build && electron-builder"
+  },
+  "dependencies": {
+    "axios": "^1.13.2",
+    "axios-cookiejar-support": "^6.0.5",
+    "cheerio": "^1.1.2",
+    "tough-cookie": "^6.0.0"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.3.1",
+    "electron": "^39.2.3",
+    "electron-builder": "^26.0.12",
+    "typescript": "^5.9.3"
+  },
+  "build": {
+    "appId": "br.com.exatas.agape-nfse-xml",
+    "productName": "Agape NFS-e XML",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "build/**/*",
+      "package.json"
+    ],
+    "win": {
+      "signAndEditExecutable": false,
+      "forceCodeSigning": false,
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    },
+    "nsis": {
+      "artifactName": "${productName}-Setup-${version}-${arch}.${ext}",
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    },
+    "portable": {
+      "artifactName": "${productName}-Portable-${version}-${arch}.${ext}"
+    }
+  }
+}

@@ -9,6 +9,7 @@ export interface LinhaPlanilha {
   cnpjOriginal?: string;
   cnpjFoiAjustado?: boolean;
   cnpjInvalido?: boolean;
+  empresa?: string;
   responsavel: string;
   /** Mantido por compatibilidade com a planilha e reprocessamento de relatórios. */
   mesGeracao: { month: number; year: number };
@@ -53,6 +54,20 @@ export interface PatchResponsavelBody {
   company_user: string;
 }
 
+/** Snapshot usado para desfazer uma alteracao de responsavel. */
+export interface RollbackResponsavelItem {
+  cnpj: string;
+  empresa?: string;
+  customerId: string;
+  groupCustomerId: string;
+  taskName?: string;
+  departmentName?: string;
+  previousCompanyUserId?: string;
+  previousCompanyUserName?: string;
+  appliedCompanyUserId: string;
+  appliedCompanyUserName: string;
+}
+
 /** Etapa em que ocorreu falha (para diagnóstico de 404 etc.). */
 export type EtapaFalha =
   | "validarCnpj"
@@ -69,6 +84,7 @@ export interface ResultadoLinha {
   customerId?: string;
   userId?: string;
   groupIds?: string[];
+  rollbackItems?: RollbackResponsavelItem[];
   mensagem: string;
   erro?: string;
   /** Preenchido quando há falha: indica em qual etapa a requisição falhou (ex.: 404). */

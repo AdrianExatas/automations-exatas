@@ -34,6 +34,7 @@ export function buildRunConfig(request: StartRunRequest): RunConfig {
     competencia: parseCompetencia(request.competencia),
     formats,
     outDir,
+    checkpointEnabled: request.checkpointEnabled ?? true,
     timeoutMs: DEFAULT_TIMEOUT_MS,
   };
 }
@@ -49,6 +50,7 @@ export function buildXmlDownloadConfig(request: StartXmlDownloadRequest): XmlDow
     outDir,
     threads: request.threads ?? DEFAULT_XML_THREADS,
     apiKey: request.siegApiKey?.trim(),
+    checkpointEnabled: request.checkpointEnabled ?? true,
     timeoutMs: DEFAULT_XML_TIMEOUT_MS,
     retryCount: DEFAULT_XML_RETRY_COUNT,
     retryDelayMs: DEFAULT_XML_RETRY_DELAY_MS,

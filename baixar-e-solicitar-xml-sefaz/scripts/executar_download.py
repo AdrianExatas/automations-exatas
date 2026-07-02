@@ -22,7 +22,7 @@ sys.path.insert(0, str(project_root))
 from src.download import state
 from src.download.http_runner import executar_download_http
 from src.download.login import executar_login_completo, iniciar_thread
-from src.download.checkpoint import verificar_checkpoint, limpar_checkpoint
+from src.download.checkpoint import verificar_checkpoint, limpar_checkpoint, limpar_checkpoint_se_for_de_outro_dia
 from src.download.downloader import executar_download
 
 
@@ -148,6 +148,8 @@ Ideal para agendamento DIÁRIO automático.
         print("Limpando checkpoint (modo não-interativo)...")
         limpar_checkpoint()
         sys.exit(0)
+
+    limpar_checkpoint_se_for_de_outro_dia()
     
     # Configura estado
     state.usar_headless = args.headless

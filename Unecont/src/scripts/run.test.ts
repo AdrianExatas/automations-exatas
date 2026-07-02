@@ -4,6 +4,8 @@ import { getDefaultReportFormattingOptions } from "./report-formatting-defaults"
 const downloadUnecontBatch = vi.fn();
 const resolveExcelPath = vi.fn();
 const loadDotenvFromProjectRoot = vi.fn();
+const getExcelPathArg = vi.fn();
+const openExcelFileDialog = vi.fn();
 
 vi.mock("../download-unecont", () => ({
   downloadUnecontBatch,
@@ -12,6 +14,8 @@ vi.mock("../download-unecont", () => ({
 vi.mock("./cli-helpers", () => ({
   resolveExcelPath,
   loadDotenvFromProjectRoot,
+  getExcelPathArg,
+  openExcelFileDialog,
 }));
 
 describe("download CLI", () => {
@@ -20,6 +24,8 @@ describe("download CLI", () => {
     process.env.UNECONT_EMAIL = "teste@example.com";
     process.env.UNECONT_SENHA = "123";
     process.env.EMPRESAS_EXCEL_PATH = "empresas.xlsx";
+    getExcelPathArg.mockReturnValue(null);
+    openExcelFileDialog.mockReturnValue("C:/tmp/selecionada.xlsx");
     resolveExcelPath.mockReturnValue("C:/tmp/empresas.xlsx");
     downloadUnecontBatch.mockResolvedValue({
       downloadsDir: "C:/tmp/downloads",
@@ -49,7 +55,8 @@ describe("download CLI", () => {
 
       expect(exitCode).toBe(0);
       expect(loadDotenvFromProjectRoot).toHaveBeenCalled();
-      expect(resolveExcelPath).toHaveBeenCalledWith("empresas.xlsx");
+      expect(openExcelFileDialog).toHaveBeenCalled();
+      expect(resolveExcelPath).toHaveBeenCalledWith("C:/tmp/selecionada.xlsx");
       expect(downloadUnecontBatch).toHaveBeenCalledWith(
         expect.objectContaining({
           credentials: {
@@ -65,6 +72,20 @@ describe("download CLI", () => {
       expect(logSpy).toHaveBeenCalledWith(
         "Relatorio: C:/tmp/downloads/_meta/relatorio-execucao.xlsx",
       );
+    } finally {
+      logSpy.mockRestore();
+    }
+  });
+
+  it("usa EMPRESAS_EXCEL_PATH quando o seletor e cancelado", async () => {
+    const logSpy = vi.spyOn(console, "log").mockImplementation(() => undefined);
+    openExcelFileDialog.mockReturnValue(null);
+    const { main } = await import("./run");
+    try {
+      const exitCode = await main();
+
+      expect(exitCode).toBe(0);
+      expect(resolveExcelPath).toHaveBeenCalledWith("empresas.xlsx");
     } finally {
       logSpy.mockRestore();
     }

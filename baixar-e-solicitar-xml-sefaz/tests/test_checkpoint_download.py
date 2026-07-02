@@ -3,6 +3,7 @@ Testes unitarios para checkpoint de download.
 """
 import json
 import unittest
+from datetime import datetime, timedelta
 from pathlib import Path
 import sys
 
@@ -13,8 +14,10 @@ from src.download.checkpoint import (
     CHECKPOINT_FILE,
     CURSOR_CHECKPOINT_FILE,
     LEGACY_BACKUP_FILE,
+    _calcular_checksum,
     carregar_checkpoint,
     limpar_checkpoint,
+    limpar_checkpoint_se_for_de_outro_dia,
     salvar_checkpoint,
     salvar_cursor_checkpoint,
 )
@@ -120,6 +123,62 @@ class TestCheckpointDownload(unittest.TestCase):
 
         self.assertIn("checksum", data)
         self.assertTrue(data["checksum"])
+
+    def test_reset_diario_nao_limpa_checkpoint_de_hoje(self):
+        salvar_checkpoint(4, set(), 0, None)
+
+        limpou = limpar_checkpoint_se_for_de_outro_dia()
+
+        self.assertFalse(limpou)
+        self.assertTrue(CHECKPOINT_FILE.exists())
+
+    def test_reset_diario_limpa_checkpoint_e_cursor_de_ontem(self):
+        ontem = datetime.now() - timedelta(days=1)
+        salvar_checkpoint(4, set(), 0, None)
+        salvar_cursor_checkpoint(6, 0, None)
+        self._ajustar_timestamp(CHECKPOINT_FILE, ontem)
+        self._ajustar_timestamp(CURSOR_CHECKPOINT_FILE, ontem)
+
+        limpou = limpar_checkpoint_se_for_de_outro_dia()
+
+        self.assertTrue(limpou)
+        self.assertFalse(CHECKPOINT_FILE.exists())
+        self.assertFalse(CURSOR_CHECKPOINT_FILE.exists())
+
+    def test_reset_diario_mantem_checkpoint_quando_cursor_mais_recente_e_de_hoje(self):
+        ontem = datetime.now() - timedelta(days=1)
+        hoje = datetime.now()
+        salvar_checkpoint(4, set(), 0, None)
+        salvar_cursor_checkpoint(6, 0, None)
+        self._ajustar_timestamp(CHECKPOINT_FILE, ontem)
+        self._ajustar_timestamp(CURSOR_CHECKPOINT_FILE, hoje)
+
+        limpou = limpar_checkpoint_se_for_de_outro_dia()
+
+        self.assertFalse(limpou)
+        self.assertTrue(CHECKPOINT_FILE.exists())
+        self.assertTrue(CURSOR_CHECKPOINT_FILE.exists())
+
+    def test_reset_diario_limpa_quando_apenas_cursor_e_de_ontem(self):
+        ontem = datetime.now() - timedelta(days=1)
+        salvar_cursor_checkpoint(6, 0, None)
+        self._ajustar_timestamp(CURSOR_CHECKPOINT_FILE, ontem)
+
+        limpou = limpar_checkpoint_se_for_de_outro_dia()
+
+        self.assertTrue(limpou)
+        self.assertFalse(CURSOR_CHECKPOINT_FILE.exists())
+
+    def _ajustar_timestamp(self, arquivo, timestamp):
+        with open(arquivo, "r", encoding="utf-8") as handle:
+            data = json.load(handle)
+
+        data.pop("checksum", None)
+        data["timestamp"] = timestamp.isoformat()
+        data["checksum"] = _calcular_checksum(data)
+
+        with open(arquivo, "w", encoding="utf-8") as handle:
+            json.dump(data, handle, indent=2, ensure_ascii=False)
 
 
 if __name__ == "__main__":

@@ -6,8 +6,8 @@ import type { DetailEntry, RunResult } from "./types";
 export async function saveReports(result: Omit<RunResult, "excelPath" | "jsonPath">): Promise<{ excelPath: string; jsonPath: string }> {
   await mkdir(result.outputDir, { recursive: true });
 
-  const jsonPath = path.join(result.outputDir, "relatorio-s5002.json");
-  const excelPath = path.join(result.outputDir, "relatorio-s5002.xlsx");
+  const jsonPath = path.join(result.outputDir, "relatorio-s5002-s2501.json");
+  const excelPath = path.join(result.outputDir, "relatorio-s5002-s2501.xlsx");
 
   await writeFile(jsonPath, `${JSON.stringify(result, null, 2)}\n`, "utf8");
   writeWorkbook(excelPath, result);
@@ -22,7 +22,9 @@ function writeWorkbook(excelPath: string, result: Omit<RunResult, "excelPath" | 
     { Indicador: "Pasta de entrada", Valor: result.inputDir },
     { Indicador: "Pasta de saida", Valor: result.outputDir },
     { Indicador: "ZIPs encontrados", Valor: result.zipCount },
-    { Indicador: "XMLs S-5002 encontrados", Valor: result.s5002Count },
+    { Indicador: "XMLs S-5002/S-2501 encontrados", Valor: result.eventXmlCount },
+    { Indicador: "XMLs S-5002 encontrados", Valor: result.eventCounts.s5002 },
+    { Indicador: "XMLs S-2501 encontrados", Valor: result.eventCounts.s2501 },
     { Indicador: "Arquivos ignorados", Valor: result.ignoredCount },
     { Indicador: "XMLs organizados", Valor: result.successCount },
     { Indicador: "Erros", Valor: result.errorCount },
@@ -36,6 +38,7 @@ function buildDetailRows(entries: DetailEntry[]): Array<Record<string, string | 
   return entries.map((entry) => ({
     Ordem: entry.ordem,
     Status: entry.status,
+    Evento: entry.eventType ?? "",
     ZIP: entry.sourceZip,
     "Arquivo no ZIP": entry.sourceEntry ?? "",
     CPF: entry.cpf ?? "",

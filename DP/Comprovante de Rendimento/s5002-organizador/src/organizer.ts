@@ -5,7 +5,8 @@ import { messageOf } from "./errors";
 import { findExistingXmlWithSameContent, nextWritablePath, outputXmlName, sanitizePathPart } from "./paths";
 import { saveReports } from "./report";
 import type { DetailEntry, DetailErrorCode, RunCallbacks, RunConfig, RunProgress, RunResult } from "./types";
-import { isS5002XmlEntry, MissingXmlFieldError, parseS5002Metadata } from "./xml";
+import { detectSupportedEventType, MissingXmlFieldError, parseEventMetadata } from "./xml";
+import type { EventMetadata, SupportedEventType } from "./xml";
 
 const decoder = new TextDecoder("utf-8");
 
@@ -21,7 +22,11 @@ export async function runS5002Organizer(config: RunConfig, callbacks: RunCallbac
     successCount: 0,
     errorCount: 0,
     ignoredCount: 0,
-    s5002Count: 0,
+    eventXmlCount: 0,
+    eventCounts: {
+      s5002: 0,
+      s2501: 0,
+    },
     processedCount: 0,
   };
 
@@ -61,14 +66,17 @@ export async function runS5002Organizer(config: RunConfig, callbacks: RunCallbac
     const names = Object.keys(entries).sort((a, b) => a.localeCompare(b));
     for (const entryName of names) {
       throwIfAborted(callbacks.signal);
-      if (entryName.endsWith("/") || !isS5002XmlEntry(entryName)) {
+      const eventType = detectSupportedEventType(entryName);
+      if (entryName.endsWith("/") || !eventType) {
         state.ignoredCount += 1;
         continue;
       }
 
-      state.s5002Count += 1;
+      state.eventXmlCount += 1;
+      incrementEventCount(state.eventCounts, eventType);
       state.processedCount += 1;
       await processXmlEntry({
+        eventType,
         sourceZip,
         entryName,
         bytes: entries[entryName]!,
@@ -101,7 +109,8 @@ export async function runS5002Organizer(config: RunConfig, callbacks: RunCallbac
     inputDir,
     outputDir,
     zipCount: zipPaths.length,
-    s5002Count: state.s5002Count,
+    eventXmlCount: state.eventXmlCount,
+    eventCounts: state.eventCounts,
     ignoredCount: state.ignoredCount,
     successCount: state.successCount,
     errorCount: state.errorCount,
@@ -126,6 +135,7 @@ export async function runS5002Organizer(config: RunConfig, callbacks: RunCallbac
 }
 
 async function processXmlEntry(input: {
+  eventType: SupportedEventType;
   sourceZip: string;
   entryName: string;
   bytes: Uint8Array;
@@ -133,36 +143,37 @@ async function processXmlEntry(input: {
   details: DetailEntry[];
   state: { successCount: number; errorCount: number };
 }): Promise<void> {
-  let metadata: { cpfBenef: string; perApur: string };
+  let metadata: EventMetadata;
   try {
-    metadata = parseS5002Metadata(decoder.decode(input.bytes));
+    metadata = parseEventMetadata(decoder.decode(input.bytes), input.eventType);
   } catch (error) {
     input.state.errorCount += 1;
     const code = error instanceof MissingXmlFieldError ? error.code : "xml_invalido";
-    input.details.push(createErrorEntry(input.details, input.sourceZip, input.entryName, code, messageOf(error)));
+    input.details.push(createErrorEntry(input.details, input.sourceZip, input.entryName, code, messageOf(error), input.eventType));
     return;
   }
 
   try {
-    const collaboratorDir = path.join(input.outputDir, sanitizePathPart(metadata.cpfBenef));
+    const collaboratorDir = path.join(input.outputDir, sanitizePathPart(metadata.eventType), sanitizePathPart(metadata.cpf));
     await mkdir(collaboratorDir, { recursive: true });
     const targetPath =
       (await findExistingXmlWithSameContent(collaboratorDir, input.bytes)) ??
-      (await nextWritablePath(path.join(collaboratorDir, outputXmlName(input.entryName, metadata.perApur)), input.bytes));
+      (await nextWritablePath(path.join(collaboratorDir, outputXmlName(input.entryName, metadata.period)), input.bytes));
     await writeFile(targetPath, input.bytes);
     input.state.successCount += 1;
     input.details.push({
       ordem: input.details.length + 1,
       status: "sucesso",
+      eventType: metadata.eventType,
       sourceZip: input.sourceZip,
       sourceEntry: input.entryName,
-      cpf: metadata.cpfBenef,
-      perApur: metadata.perApur,
+      cpf: metadata.cpf,
+      perApur: metadata.period,
       outputPath: targetPath,
     });
   } catch (error) {
     input.state.errorCount += 1;
-    input.details.push(createErrorEntry(input.details, input.sourceZip, input.entryName, "gravacao_falhou", messageOf(error), metadata.cpfBenef, metadata.perApur));
+    input.details.push(createErrorEntry(input.details, input.sourceZip, input.entryName, "gravacao_falhou", messageOf(error), metadata.eventType, metadata.cpf, metadata.period));
   }
 }
 
@@ -191,12 +202,14 @@ function createErrorEntry(
   sourceEntry: string | undefined,
   errorCode: DetailErrorCode,
   message: string,
+  eventType?: SupportedEventType,
   cpf?: string,
   perApur?: string,
 ): DetailEntry {
   return {
     ordem: details.length + 1,
     status: "erro",
+    eventType,
     sourceZip,
     sourceEntry,
     cpf,
@@ -204,6 +217,14 @@ function createErrorEntry(
     errorCode,
     message,
   };
+}
+
+function incrementEventCount(eventCounts: { s5002: number; s2501: number }, eventType: SupportedEventType): void {
+  if (eventType === "S-5002") {
+    eventCounts.s5002 += 1;
+    return;
+  }
+  eventCounts.s2501 += 1;
 }
 
 function emitProgress(callbacks: RunCallbacks, progress: RunProgress): void {

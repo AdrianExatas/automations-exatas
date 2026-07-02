@@ -1,17 +1,23 @@
 import { downloadUnecontBatch } from "../download-unecont";
 import { loadEnvConfig } from "../config";
 import { resolveRuntimePath } from "../project-paths";
-import { resolveExcelPath, loadDotenvFromProjectRoot } from "./cli-helpers";
+import {
+  getExcelPathArg,
+  loadDotenvFromProjectRoot,
+  openExcelFileDialog,
+  resolveExcelPath,
+} from "./cli-helpers";
 import { getDefaultReportFormattingOptions } from "./report-formatting-defaults";
 
 export async function main(): Promise<number> {
   loadDotenvFromProjectRoot();
   const env = loadEnvConfig();
-  const excelPath = resolveExcelPath(env.empresasExcelPath);
+  const selectedExcelPath = getExcelPathArg() ?? openExcelFileDialog();
+  const excelPath = selectedExcelPath ? resolveExcelPath(selectedExcelPath) : resolveExcelPath(env.empresasExcelPath);
 
   if (!excelPath) {
     console.error(
-      `Planilha nao encontrada. Verifique EMPRESAS_EXCEL_PATH (${env.empresasExcelPath}).`,
+      `Planilha nao encontrada. Selecione um arquivo valido ou verifique EMPRESAS_EXCEL_PATH (${env.empresasExcelPath}).`,
     );
     return 1;
   }
@@ -39,6 +45,9 @@ export async function main(): Promise<number> {
     });
 
     console.log(`Downloads: ${result.downloadsDir}`);
+    if (result.normalizedDir) {
+      console.log(`Normalizadas: ${result.normalizedDir}`);
+    }
     if (result.reportPath) {
       console.log(`Relatorio: ${result.reportPath}`);
     }

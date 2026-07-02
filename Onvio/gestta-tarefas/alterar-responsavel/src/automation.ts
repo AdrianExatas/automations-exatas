@@ -11,14 +11,15 @@ import type { AxiosInstance } from "axios";
 import { resolveGesttaRuntimeAuth, type GesttaRuntimeAuth } from "./auth/runtime-auth";
 import { createGesttaClient, isGesttaAuthFatalError } from "./api/client";
 import { patchResponsavel } from "./api/endpoints";
+import type { CompanyTaskItem } from "./api/endpoints";
 import {
   buscarClientePorCnpj,
   buscarUsuarioPorNome,
-  obterGroupCustomerIds,
+  obterGroupCustomerItems,
   getNomesSetorCanonicos,
 } from "./mapeamentos";
-import { lerPlanilha } from "./planilha";
-import { LinhaPlanilha, ResultadoLinha } from "./types";
+import { CAMPOS_OBRIGATORIOS_PLANILHA, lerPlanilha } from "./planilha";
+import { LinhaPlanilha, ResultadoLinha, RollbackResponsavelItem, UsuarioGestta } from "./types";
 import {
   gerarRelatorioExecucao,
   salvarRelatorio,
@@ -32,6 +33,7 @@ import {
   salvarCheckpoint,
   limparCheckpoint,
 } from "./checkpoint";
+import { executarReversaoRelatorio } from "./rollback";
 
 const DELAY_MS = 500;
 const LEGACY_LOCAL_ENV_PATH = path.resolve(process.cwd(), "..", "_local", ".env");
@@ -40,14 +42,17 @@ const LEGACY_AUTH_ENV_KEYS = new Set(["JWT_GESTTA", "GESTTA_JWT_TOKEN"]);
 export interface AutomationRunOptions {
   planilhaPath: string;
   continuar?: boolean;
+  ignorarCheckpoint?: boolean;
   reprocessarFalhas?: boolean;
   interactiveCheckpoint?: boolean;
 }
 
 interface CliArgs {
   continuar: boolean;
+  ignorarCheckpoint: boolean;
   reprocessarFalhas: boolean;
   reprocessarArquivo: string | null;
+  reverterArquivo: string | null;
   planilhaArg: string | null;
 }
 
@@ -98,11 +103,17 @@ function perguntar(pergunta: string): Promise<string> {
 
 export function parseArgs(argv = process.argv.slice(2)): CliArgs {
   const continuar = argv.some((a) => a === "--continuar" || a === "-c");
+  const ignorarCheckpoint = argv.some((a) => a === "--sem-checkpoint" || a === "--ignorar-checkpoint");
   const reprocessarFalhas = argv.some((a) => a === "--reprocessar-falhas" || a === "-r");
   let reprocessarArquivo: string | null = null;
   const idx = argv.findIndex((a) => a === "--reprocessar");
   if (idx >= 0 && argv[idx + 1]) {
     reprocessarArquivo = path.resolve(process.cwd(), argv[idx + 1].trim());
+  }
+  let reverterArquivo: string | null = null;
+  const idxReverter = argv.findIndex((a) => a === "--reverter");
+  if (idxReverter >= 0 && argv[idxReverter + 1]) {
+    reverterArquivo = path.resolve(process.cwd(), argv[idxReverter + 1].trim());
   }
   const planilhaArg = argv.find(
     (a) =>
@@ -110,15 +121,20 @@ export function parseArgs(argv = process.argv.slice(2)): CliArgs {
       a !== "-s" &&
       a !== "--continuar" &&
       a !== "-c" &&
+      a !== "--sem-checkpoint" &&
+      a !== "--ignorar-checkpoint" &&
       a !== "--reprocessar-falhas" &&
       a !== "-r" &&
       a !== "--reprocessar" &&
+      a !== "--reverter" &&
       !a.startsWith("-")
   ) as string | undefined;
   return {
     continuar,
+    ignorarCheckpoint,
     reprocessarFalhas,
     reprocessarArquivo: reprocessarArquivo && fs.existsSync(reprocessarArquivo) ? reprocessarArquivo : null,
+    reverterArquivo,
     planilhaArg: planilhaArg?.trim() || null,
   };
 }
@@ -136,6 +152,54 @@ function logResumoNormalizacaoCnpj(linhas: LinhaPlanilha[]): void {
   if (ajustados > 0 || invalidos > 0) {
     console.log("");
   }
+}
+
+function formatLinhaLog(linha: LinhaPlanilha): string {
+  const empresa = linha.empresa ? ` - ${linha.empresa}` : "";
+  return `CNPJ ${linha.cnpj}${empresa} (${linha.responsavel})`;
+}
+
+function getTaskName(item: CompanyTaskItem): string | undefined {
+  const task = item.company_task;
+  if (task && typeof task === "object") return task.name;
+  return undefined;
+}
+
+function getDepartmentName(item: CompanyTaskItem): string | undefined {
+  const task = item.company_task;
+  if (task && typeof task === "object") return task.company_department?.name;
+  return undefined;
+}
+
+function getCompanyUserId(companyUser: CompanyTaskItem["company_user"]): string | undefined {
+  if (typeof companyUser === "string") return companyUser;
+  if (companyUser && typeof companyUser === "object") return companyUser._id;
+  return undefined;
+}
+
+function getCompanyUserName(companyUser: CompanyTaskItem["company_user"]): string | undefined {
+  if (companyUser && typeof companyUser === "object") return companyUser.name;
+  return undefined;
+}
+
+function criarRollbackItems(
+  linha: LinhaPlanilha,
+  customerId: string,
+  user: UsuarioGestta,
+  items: CompanyTaskItem[]
+): RollbackResponsavelItem[] {
+  return items.map((item) => ({
+    cnpj: linha.cnpj,
+    ...(linha.empresa ? { empresa: linha.empresa } : {}),
+    customerId,
+    groupCustomerId: item._id,
+    taskName: getTaskName(item),
+    departmentName: getDepartmentName(item),
+    previousCompanyUserId: getCompanyUserId(item.company_user),
+    previousCompanyUserName: getCompanyUserName(item.company_user),
+    appliedCompanyUserId: user._id,
+    appliedCompanyUserName: user.name,
+  }));
 }
 
 function selecionarPlanilhaNoExplorer(): string | null {
@@ -183,9 +247,12 @@ function getPlanilhaPath(reprocessarArquivo: string | null, argv = process.argv.
       a !== "-s" &&
       a !== "--continuar" &&
       a !== "-c" &&
+      a !== "--sem-checkpoint" &&
+      a !== "--ignorar-checkpoint" &&
       a !== "--reprocessar-falhas" &&
       a !== "-r" &&
       a !== "--reprocessar" &&
+      a !== "--reverter" &&
       !a.startsWith("-") &&
       !skip.has(a)
   );
@@ -252,10 +319,10 @@ export async function processarLinha(
   }
   resultado.userId = user._id;
 
-  let ids: string[];
+  let groupItems: CompanyTaskItem[];
   try {
     const departamentoOuSetor = linha.departamento || linha.setor;
-    ids = await obterGroupCustomerIds(client, customer._id, departamentoOuSetor);
+    groupItems = await obterGroupCustomerItems(client, customer._id, departamentoOuSetor);
   } catch (err: unknown) {
     if (isGesttaAuthFatalError(err)) throw err;
     const msg = err instanceof Error ? err.message : String(err);
@@ -264,9 +331,11 @@ export async function processarLinha(
     resultado.etapaFalha = "groupCustomerIds";
     return resultado;
   }
+  const ids = groupItems.map((item) => item._id).filter(Boolean);
   resultado.groupIds = ids;
 
   if (ids.length > 0) {
+    resultado.rollbackItems = criarRollbackItems(linha, customer._id, user, groupItems);
     try {
       await patchResponsavel(client, { ids, company_user: user._id });
     } catch (err: unknown) {
@@ -329,7 +398,7 @@ export async function runReprocessar(caminhoRelatorio: string): Promise<void> {
 
   for (let i = 0; i < linhas.length; i++) {
     const linha = linhas[i];
-    process.stdout.write(`[${i + 1}/${linhas.length}] CNPJ ${linha.cnpj} (${linha.responsavel})... `);
+    process.stdout.write(`[${i + 1}/${linhas.length}] ${formatLinhaLog(linha)}... `);
     const res = await processarLinha(client, linha);
     resultados.push(res);
     if (res.sucesso) console.log("OK");
@@ -366,7 +435,7 @@ export async function runAutomation(options: AutomationRunOptions): Promise<void
 
   const linhas = lerPlanilha(planilhaPath);
   if (linhas.length === 0) {
-    console.log("Nenhuma linha valida na planilha (CNPJ + RESPONSAVEL obrigatorios).");
+    console.log(`Nenhuma linha valida na planilha (${CAMPOS_OBRIGATORIOS_PLANILHA} obrigatorios).`);
     return;
   }
 
@@ -386,7 +455,10 @@ export async function runAutomation(options: AutomationRunOptions): Promise<void
 
   const checkpoint = carregarCheckpoint(planilhaPath);
   if (checkpoint) {
-    if (options.continuar) {
+    if (options.ignorarCheckpoint) {
+      console.log("Checkpoint encontrado, mas sera ignorado. Iniciando da primeira linha.\n");
+      limparCheckpoint(planilhaPath);
+    } else if (options.continuar) {
       resultados = checkpoint.resultados;
       indiceInicial = checkpoint.indiceProximo;
       console.log(`Continuando da linha ${indiceInicial + 1}/${linhas.length} (--continuar).\n`);
@@ -408,7 +480,7 @@ export async function runAutomation(options: AutomationRunOptions): Promise<void
   for (let i = indiceInicial; i < linhas.length; i++) {
     const linha = linhas[i];
     process.stdout.write(
-      `[${i + 1}/${linhas.length}] CNPJ ${linha.cnpj} (${linha.responsavel})... `
+      `[${i + 1}/${linhas.length}] ${formatLinhaLog(linha)}... `
     );
     const res = await processarLinha(client, linha);
     resultados.push(res);
@@ -431,7 +503,7 @@ export async function runAutomation(options: AutomationRunOptions): Promise<void
         const idxOriginal = indicesFalha[j];
         const linha = resultados[idxOriginal].linha;
         process.stdout.write(
-          `[${j + 1}/${indicesFalha.length}] CNPJ ${linha.cnpj} (${linha.responsavel})... `
+          `[${j + 1}/${indicesFalha.length}] ${formatLinhaLog(linha)}... `
         );
         const resNovo = await processarLinha(client, linha);
         resultados[idxOriginal] = resNovo;
@@ -456,7 +528,7 @@ export async function runAutomation(options: AutomationRunOptions): Promise<void
       .filter((r) => !r.sucesso)
       .forEach((r) => {
         const etapa = r.etapaFalha ? ` [etapa: ${r.etapaFalha}]` : "";
-        console.log(`  CNPJ ${r.linha.cnpj}: ${r.mensagem}${etapa}`);
+        console.log(`  ${formatLinhaLog(r.linha)}: ${r.mensagem}${etapa}`);
       });
   }
 
@@ -480,10 +552,15 @@ export async function runCli(argv = process.argv.slice(2)): Promise<void> {
     await runReprocessar(args.reprocessarArquivo);
     return;
   }
+  if (args.reverterArquivo) {
+    await executarReversaoRelatorio(args.reverterArquivo);
+    return;
+  }
 
   await runAutomation({
     planilhaPath: getPlanilhaPath(null, argv),
-    continuar: args.continuar,
+    continuar: args.continuar && !args.ignorarCheckpoint,
+    ignorarCheckpoint: args.ignorarCheckpoint,
     reprocessarFalhas: args.reprocessarFalhas,
     interactiveCheckpoint: true,
   });

@@ -79,6 +79,7 @@ function buildItemRow(item: UploadBatchItemResult): SheetRow {
     TICKET_ID: item.ticketId ?? "",
     QTD_ANEXOS: item.attachmentCount ?? "",
     SOLICITANTE: item.empresa.solicitante,
+    ONVIO_REQUESTER_ID_RESOLVIDO: item.resolvedRequesterId ?? "",
     DEPARTAMENTO: item.empresa.departamento,
     ASSUNTO: item.empresa.assunto,
     AVISOS: avisos,

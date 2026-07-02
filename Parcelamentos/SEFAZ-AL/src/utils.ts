@@ -18,6 +18,15 @@ export function buildParcelamentoDirectoryName(consolidacao: string): string {
   return sanitizePathSegment(`PARCELAMENTO N° ${consolidacao}`);
 }
 
+export function buildVencimentoMonthDirectoryName(vencimento: string | undefined): string {
+  const parsed = parseDateParts(vencimento);
+  if (!parsed) {
+    return "SEM VENCIMENTO";
+  }
+
+  return `${parsed.month}-${parsed.year}`;
+}
+
 export function buildPdfFileName(consolidacao: string, numeroParcelaEmitida: number, totalParcelas: number): string {
   return sanitizePathSegment(`PARCELA N°${numeroParcelaEmitida} DE ${totalParcelas} - ${consolidacao}.pdf`);
 }
@@ -28,12 +37,31 @@ export function buildOutputPath(
   consolidacao: string,
   numeroParcelaEmitida: number,
   totalParcelas: number,
+  vencimento?: string,
 ): string {
   return path.join(
     outputRoot,
+    buildVencimentoMonthDirectoryName(vencimento),
     buildCompanyDirectoryName(empresa),
     buildParcelamentoDirectoryName(consolidacao),
     buildPdfFileName(consolidacao, numeroParcelaEmitida, totalParcelas),
+  );
+}
+
+export function buildHttpOutputPath(
+  outputRoot: string,
+  empresa: string,
+  consolidacao: string,
+  numeroParcelaEmitida: number,
+  totalParcelas: number,
+  vencimentoDDMMYYYY: string,
+): string {
+  return path.join(
+    outputRoot,
+    buildVencimentoMonthDirectoryName(vencimentoDDMMYYYY),
+    buildCompanyDirectoryName(empresa),
+    buildParcelamentoDirectoryName(consolidacao),
+    buildPdfFileNameHttp(consolidacao, empresa, numeroParcelaEmitida, totalParcelas, vencimentoDDMMYYYY),
   );
 }
 
@@ -73,6 +101,21 @@ export function formatVencimento(isoDate: string): string {
   const datePart = isoDate.split("T")[0] ?? isoDate;
   const [year, month, day] = datePart.split("-");
   return `${day}-${month}-${year}`;
+}
+
+function parseDateParts(value: string | undefined): { day: string; month: string; year: string } | undefined {
+  const normalized = String(value ?? "").trim();
+  const isoMatch = normalized.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (isoMatch?.[1] && isoMatch[2] && isoMatch[3]) {
+    return { year: isoMatch[1], month: isoMatch[2], day: isoMatch[3] };
+  }
+
+  const brMatch = normalized.match(/^(\d{2})[-/](\d{2})[-/](\d{4})$/);
+  if (brMatch?.[1] && brMatch[2] && brMatch[3]) {
+    return { day: brMatch[1], month: brMatch[2], year: brMatch[3] };
+  }
+
+  return undefined;
 }
 
 /** Filename com empresa e vencimento, usado pelo start:http */

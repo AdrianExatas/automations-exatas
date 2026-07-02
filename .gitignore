@@ -84,3 +84,10 @@ SEFAZ-SE/DIA/old_GERAR DAE/
 
 # Standalone nested repositories kept outside this monorepo index
 Onvio/BD/
+
+# Generated and operational files excluded from safe Git publishes
+DP/Comprovante de Rendimento/S5002/2/
+dte-caixa-postal/05-2026/
+SEFAZ-SE/app/out/
+Onvio/relat*de-notas-de-entradas-para-dief/*.xls
+Onvio/relat*de-notas-de-entradas-para-dief/assets/*.xls

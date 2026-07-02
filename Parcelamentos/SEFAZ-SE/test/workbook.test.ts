@@ -4,7 +4,7 @@ import path from "node:path";
 import test from "node:test";
 import assert from "node:assert/strict";
 import XLSX from "xlsx";
-import { readInputWorkbook, writeResultWorkbook } from "../src/workbook.js";
+import { readInputWorkbook, TEMPLATE_HEADERS, writeResultWorkbook, writeTemplateWorkbook } from "../src/workbook.js";
 
 test("readInputWorkbook loads valid rows", async () => {
   const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "sefaz-ts-"));
@@ -81,4 +81,19 @@ test("writeResultWorkbook creates output xlsx", async () => {
   assert.equal(rows[0]?.TOAST, "");
   assert.equal(rows[1]?.STATUS, "erro");
   assert.equal(rows[1]?.TOAST, "Ooops... Ocorreu um erro!: Socio/Solicitante nao esta apto a fazer o pagamento");
+});
+
+test("writeTemplateWorkbook creates an empty workbook with expected headers", async () => {
+  const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "sefaz-template-"));
+  const templatePath = path.join(tempDir, "modelo.xlsx");
+
+  await writeTemplateWorkbook(templatePath);
+
+  const workbook = XLSX.readFile(templatePath);
+  const worksheet = workbook.Sheets[workbook.SheetNames[0] ?? "Entrada"];
+  const rows = XLSX.utils.sheet_to_json<string[]>(worksheet, { header: 1, raw: false });
+
+  assert.equal(workbook.SheetNames[0], "Entrada");
+  assert.deepEqual(rows[0], [...TEMPLATE_HEADERS]);
+  assert.equal(rows.length, 1);
 });

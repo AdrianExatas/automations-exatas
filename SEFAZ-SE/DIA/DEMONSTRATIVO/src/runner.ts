@@ -76,7 +76,7 @@ export async function runSefazDia(config: RunConfig, callbacks: RunCallbacks = {
       }
 
       emit(callbacks, config, reportPaths, entries, "download", current, total, `${current}/${total} itens processados`, company, format);
-      if (shouldSaveCheckpoint(current, total)) {
+      if (isCheckpointEnabled(config) && shouldSaveCheckpoint(current, total)) {
         await saveExecutionReports(config, entries);
       }
     }
@@ -241,6 +241,10 @@ function throwIfAborted(signal: AbortSignal | undefined): void {
 
 export function shouldSaveCheckpoint(processed: number, total: number, interval = REPORT_CHECKPOINT_INTERVAL): boolean {
   return processed === 1 || processed === total || processed % interval === 0;
+}
+
+export function isCheckpointEnabled(config: Pick<RunConfig, "checkpointEnabled">): boolean {
+  return config.checkpointEnabled ?? true;
 }
 
 export function isPlaywrightFallbackEnabled(config: RunConfig): boolean {

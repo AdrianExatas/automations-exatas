@@ -99,6 +99,20 @@ describe("empresas-reader", () => {
     expect(result[0]?.qtdArquivos).toBeUndefined();
   });
 
+  it("aceita RESPONSAVEL como alias de SOLICITANTE", () => {
+    const filePath = path.join(tempDir, "empresas-responsavel.xlsx");
+    const workbook = XLSX.utils.book_new();
+    const worksheet = XLSX.utils.aoa_to_sheet([
+      ["CNPJ", "Codigo", "Empresa", "RESPONSÁVEL"],
+      ["12.345.678/0001-90", "100", "Empresa A", "Maria"],
+    ]);
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Empresas");
+    XLSX.writeFile(workbook, filePath);
+
+    const result = readEmpresas(filePath);
+    expect(result[0]?.solicitante).toBe("Maria");
+  });
+
   it("le colunas opcionais de override do Onvio sem quebrar planilhas antigas", () => {
     const filePath = path.join(tempDir, "empresas-onvio.xlsx");
     const workbook = XLSX.utils.book_new();

@@ -103,6 +103,15 @@ export interface SendServiceRequestsOptions {
   onUnauthorized?: () => Promise<string>;
   /** Optional progress hook (e.g. CLI logging). */
   onProgress?: (event: SendServiceRequestsProgressEvent) => void;
+  /** Resolve requesterId from client users when spreadsheet/env/BD lookups fail. */
+  resolveRequesterId?: (
+    row: ServiceRequestRow,
+  ) => Promise<string | ResolveRequesterIdResult | undefined>;
+}
+
+export interface ResolveRequesterIdResult {
+  requesterId?: string;
+  warnings?: string[];
 }
 
 export interface UploadOnvioOptions extends SendServiceRequestsOptions {}
@@ -113,6 +122,7 @@ export interface ServiceRequestBatchItemResult {
   message?: string;
   ticketId?: string;
   attachmentCount?: number;
+  resolvedRequesterId?: string;
   warnings?: string[];
 }
 
@@ -122,6 +132,7 @@ export interface UploadBatchItemResult {
   message?: string;
   ticketId?: string;
   attachmentCount?: number;
+  resolvedRequesterId?: string;
   warnings?: string[];
 }
 

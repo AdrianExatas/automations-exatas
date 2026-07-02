@@ -11,7 +11,7 @@ const REQUIRED_HEADERS = [
   "LOCAL PARA SALVAR ARQUIVO",
 ] as const;
 
-const TEMPLATE_HEADERS = [
+export const TEMPLATE_HEADERS = [
   "CODIGO",
   "EMPRESA",
   "CNPJ",
@@ -130,6 +130,17 @@ export async function writeResultWorkbook(results: RunResult[], cwd: string): Pr
   XLSX.writeFile(workbook, reportPath);
 
   return reportPath;
+}
+
+export async function writeTemplateWorkbook(filePath: string): Promise<string> {
+  await fs.mkdir(path.dirname(filePath), { recursive: true });
+
+  const workbook = XLSX.utils.book_new();
+  const worksheet = XLSX.utils.aoa_to_sheet([[...TEMPLATE_HEADERS]]);
+  XLSX.utils.book_append_sheet(workbook, worksheet, "Entrada");
+  XLSX.writeFile(workbook, filePath);
+
+  return filePath;
 }
 
 export async function writePrefilledInputWorkbook(

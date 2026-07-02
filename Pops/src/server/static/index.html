@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auto-POP Hub</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <h1>Auto-POP Hub</h1>
+        <p class="subtitle">Geração automática de POPs a partir de transcrições</p>
+      </div>
+      <nav><a href="/suggestions">Sugestões</a></nav>
+    </header>
+
+    <section class="card">
+      <h2>Upload em lote</h2>
+      <p class="subtitle">Envie arquivos .txt ou .json com transcrições de vídeos</p>
+      <div class="dropzone" id="dropzone">
+        <input type="file" id="file-input" multiple accept=".txt,.json">
+        <p>Arraste arquivos aqui ou clique para selecionar</p>
+      </div>
+      <p id="upload-message" class="message hidden"></p>
+    </section>
+
+    <section>
+      <h2>Processamento</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Arquivo</th>
+            <th>Status</th>
+            <th>Tentativa</th>
+            <th>Atualizado</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="jobs-body">
+          <tr><td colspan="5" class="empty">Nenhum job ainda</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

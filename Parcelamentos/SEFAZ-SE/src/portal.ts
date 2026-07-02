@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { setTimeout as sleep } from "node:timers/promises";
-import { Browser, Download, FrameLocator, Locator, Page } from "playwright";
+import { APIResponse, Browser, Download, FrameLocator, Locator, Page, Response as PlaywrightResponse } from "playwright";
 import type { InputRow, ParcelMetadata, RunResult } from "./types.js";
 import {
   buildParcelLabel,
@@ -21,6 +21,12 @@ type TableRowInfo = {
   protocolo: string;
   vencimento: string;
   valorParcela: string;
+};
+
+type PaymentPdf = {
+  originalFilename: string;
+  source: "http" | "browser";
+  saveAs: (targetPath: string) => Promise<void>;
 };
 
 class PortalToastError extends Error {
@@ -474,10 +480,9 @@ async function downloadAllPayments(
     const metadata = selectedParcels[index]!;
 
     try {
-      const download = await openPaymentAndDownload(page, frame, index);
-      const originalFilename = download.suggestedFilename();
-      const pdfPath = await saveDownload(download, row, metadata, cwd);
-      results.push(buildSuccessResult(row, metadata, originalFilename, pdfPath));
+      const paymentPdf = await openPaymentAndDownload(page, frame, index);
+      const pdfPath = await savePaymentPdf(paymentPdf, row, metadata, cwd);
+      results.push(buildSuccessResult(row, metadata, paymentPdf.originalFilename, pdfPath, paymentPdf.source));
     } catch (error) {
       const { message, toast } = getErrorDetails(error);
       results.push(buildErrorResult(row, metadata, buildFailureMessage("Falha ao baixar o PDF da parcela", message, toast), toast));
@@ -499,7 +504,7 @@ async function downloadAllPayments(
   return results;
 }
 
-async function openPaymentAndDownload(page: Page, frame: FrameLocator, paymentIndex: number): Promise<Download> {
+async function openPaymentAndDownload(page: Page, frame: FrameLocator, paymentIndex: number): Promise<PaymentPdf> {
   const paymentButton = frame.locator('[data-cy^="pagar-debito-"] button').nth(paymentIndex);
   await waitForSuccessOrError(
     frame,
@@ -518,16 +523,24 @@ async function openPaymentAndDownload(page: Page, frame: FrameLocator, paymentIn
   );
 
   let observedDownload: Download | null = null;
+  let observedPdfResponse: PlaywrightResponse | null = null;
+  let httpCaptureError: string | null = null;
   let popupOpened = false;
 
   const onDownload = (download: Download): void => {
     observedDownload = download;
+  };
+  const onResponse = (response: PlaywrightResponse): void => {
+    if (!observedPdfResponse && response.status() >= 200 && response.status() < 300 && hasPdfHeaders(response.headers())) {
+      observedPdfResponse = response;
+    }
   };
   const onPopup = (): void => {
     popupOpened = true;
   };
 
   page.on("download", onDownload);
+  page.on("response", onResponse);
   page.on("popup", onPopup);
 
   try {
@@ -539,9 +552,27 @@ async function openPaymentAndDownload(page: Page, frame: FrameLocator, paymentIn
 
     const deadline = Date.now() + 90_000;
     while (Date.now() < deadline) {
+      if (observedPdfResponse) {
+        const paymentPdf = await paymentPdfFromBrowserResponse(observedPdfResponse).catch((error: unknown) => {
+          httpCaptureError = error instanceof Error ? error.message : String(error);
+          observedPdfResponse = null;
+          return null;
+        });
+
+        if (paymentPdf) {
+          await closePaymentDialog(page, frame);
+          return paymentPdf;
+        }
+      }
+
       if (observedDownload) {
+        const paymentPdf = await paymentPdfFromDownloadUrl(page, observedDownload).catch((error: unknown) => {
+          httpCaptureError = error instanceof Error ? error.message : String(error);
+          return null;
+        });
+
         await closePaymentDialog(page, frame);
-        return observedDownload;
+        return paymentPdf ?? paymentPdfFromBrowserDownload(observedDownload);
       }
 
       await throwIfErrorToast(frame, "Falha ao baixar o PDF da parcela");
@@ -554,9 +585,13 @@ async function openPaymentAndDownload(page: Page, frame: FrameLocator, paymentIn
     }
 
     await throwIfErrorToast(frame, "Falha ao baixar o PDF da parcela");
+    if (httpCaptureError) {
+      throw new Error(`Baixar PDF retornou uma resposta HTTP invalida: ${httpCaptureError}`);
+    }
     throw new Error("Baixar PDF nao iniciou download dentro do tempo esperado.");
   } finally {
     page.off("download", onDownload);
+    page.off("response", onResponse);
     page.off("popup", onPopup);
 
     if (await paymentDialog.isVisible().catch(() => false)) {
@@ -593,15 +628,125 @@ async function closePaymentDialog(page: Page, frame: FrameLocator): Promise<void
   await paymentDialog.waitFor({ state: "hidden", timeout: 5_000 }).catch(() => undefined);
 }
 
-async function saveDownload(download: Download, row: InputRow, metadata: ParcelMetadata, cwd: string): Promise<string> {
+async function savePaymentPdf(paymentPdf: PaymentPdf, row: InputRow, metadata: ParcelMetadata, cwd: string): Promise<string> {
   const targetDirectory = path.resolve(cwd, row.saveDir);
   await fs.mkdir(targetDirectory, { recursive: true });
 
   const finalFilename = buildPdfFileName(row.codigo, metadata.parcelLabel, row.empresa, metadata.vencimento);
   const finalPath = path.join(targetDirectory, finalFilename);
 
-  await download.saveAs(finalPath);
+  await paymentPdf.saveAs(finalPath);
   return finalPath;
+}
+
+async function paymentPdfFromBrowserResponse(response: PlaywrightResponse): Promise<PaymentPdf> {
+  const body = await response.body();
+  validatePdfBody(body);
+
+  return paymentPdfFromBuffer(body, response.headers(), response.url(), "DAE.pdf");
+}
+
+async function paymentPdfFromDownloadUrl(page: Page, download: Download): Promise<PaymentPdf | null> {
+  const downloadUrl = download.url();
+  if (!downloadUrl || downloadUrl.startsWith("blob:")) {
+    return null;
+  }
+
+  const response = await page.context().request.get(downloadUrl, {
+    timeout: 90_000,
+  });
+
+  if (!response.ok() || !hasPdfHeaders(response.headers())) {
+    return null;
+  }
+
+  const body = await response.body();
+  validatePdfBody(body);
+
+  return paymentPdfFromBuffer(body, response.headers(), response.url(), download.suggestedFilename());
+}
+
+function paymentPdfFromBrowserDownload(download: Download): PaymentPdf {
+  return {
+    originalFilename: download.suggestedFilename(),
+    source: "browser",
+    saveAs: (targetPath) => download.saveAs(targetPath),
+  };
+}
+
+function paymentPdfFromBuffer(
+  body: Buffer,
+  headers: ReturnType<PlaywrightResponse["headers"]> | ReturnType<APIResponse["headers"]>,
+  responseUrl: string,
+  fallbackFilename: string,
+): PaymentPdf {
+  return {
+    originalFilename: filenameFromHeaders(headers) ?? filenameFromUrl(responseUrl) ?? fallbackFilename,
+    source: "http",
+    saveAs: (targetPath) => fs.writeFile(targetPath, body),
+  };
+}
+
+function validatePdfBody(body: Buffer): void {
+  if (body.length === 0) {
+    throw new Error("resposta PDF vazia.");
+  }
+
+  const header = body.subarray(0, 16).toString("latin1");
+  if (!header.includes("%PDF")) {
+    throw new Error("resposta HTTP nao parece ser um arquivo PDF.");
+  }
+}
+
+function hasPdfHeaders(headers: Record<string, string>): boolean {
+  const contentType = getHeader(headers, "content-type");
+  const contentDisposition = getHeader(headers, "content-disposition");
+
+  return /application\/pdf/i.test(contentType) || /\.pdf\b/i.test(contentDisposition);
+}
+
+function filenameFromHeaders(headers: Record<string, string>): string | null {
+  const contentDisposition = getHeader(headers, "content-disposition");
+  const utf8Match = contentDisposition.match(/filename\*=UTF-8''([^;]+)/i);
+  if (utf8Match?.[1]) {
+    return safeDecodeFilename(utf8Match[1]);
+  }
+
+  const quotedMatch = contentDisposition.match(/filename="([^"]+)"/i);
+  if (quotedMatch?.[1]) {
+    return quotedMatch[1];
+  }
+
+  const plainMatch = contentDisposition.match(/filename=([^;]+)/i);
+  return plainMatch?.[1]?.trim() ?? null;
+}
+
+function filenameFromUrl(responseUrl: string): string | null {
+  try {
+    const url = new URL(responseUrl);
+    const lastSegment = path.basename(url.pathname);
+    return lastSegment && lastSegment.includes(".") ? lastSegment : null;
+  } catch {
+    return null;
+  }
+}
+
+function getHeader(headers: Record<string, string>, name: string): string {
+  const direct = headers[name] ?? headers[name.toLowerCase()];
+  if (direct) {
+    return direct;
+  }
+
+  const entry = Object.entries(headers).find(([key]) => key.toLowerCase() === name.toLowerCase());
+  return entry?.[1] ?? "";
+}
+
+function safeDecodeFilename(value: string): string {
+  try {
+    return decodeURIComponent(value);
+  } catch {
+    return value;
+  }
 }
 
 function buildSuccessResult(
@@ -609,7 +754,10 @@ function buildSuccessResult(
   metadata: ParcelMetadata,
   originalFilename: string,
   pdfPath: string,
+  downloadSource: PaymentPdf["source"],
 ): RunResult {
+  const downloadSourceLabel = downloadSource === "http" ? "HTTP" : "navegador";
+
   return {
     rowNumber: row.rowNumber,
     codigo: row.codigo,
@@ -622,7 +770,7 @@ function buildSuccessResult(
     nomeOriginalPdf: originalFilename,
     pdfPath,
     status: "sucesso",
-    mensagem: `PDF gerado com sucesso para o protocolo ${metadata.protocolo}.`,
+    mensagem: `PDF gerado com sucesso para o protocolo ${metadata.protocolo} via ${downloadSourceLabel}.`,
   };
 }
 

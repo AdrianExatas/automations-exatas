@@ -6,7 +6,7 @@
 import fs from "fs";
 import path from "path";
 import * as XLSX from "xlsx";
-import { ResultadoLinha, LinhaPlanilha } from "./types";
+import { ResultadoLinha, LinhaPlanilha, RollbackResponsavelItem } from "./types";
 import { parseMesGeracao } from "./planilha";
 import { normalizarCnpjDetalhado } from "./cnpj";
 
@@ -28,6 +28,7 @@ export interface MetadadosExecucao {
 export interface ResultadoItemRelatorio {
   cnpj: string;
   cnpjOriginal?: string;
+  empresa?: string;
   responsavel: string;
   mesGeracao: string;
   departamento?: string;
@@ -35,6 +36,7 @@ export interface ResultadoItemRelatorio {
   sucesso: boolean;
   mensagem: string;
   etapaFalha?: string;
+  rollbackItems?: RollbackResponsavelItem[];
 }
 
 /** Relatório completo de uma execução. */
@@ -68,11 +70,12 @@ function formatMesGeracao(month: number, year: number): string {
 
 /** Converte ResultadoLinha para o formato serializável do relatório. */
 function resultadoParaItem(r: ResultadoLinha): ResultadoItemRelatorio {
-  const { linha, sucesso, mensagem, etapaFalha } = r;
+  const { linha, sucesso, mensagem, etapaFalha, rollbackItems } = r;
   const mesGeracao = formatMesGeracao(linha.mesGeracao.month, linha.mesGeracao.year);
   return {
     cnpj: linha.cnpj,
     ...(linha.cnpjOriginal && linha.cnpjOriginal !== linha.cnpj ? { cnpjOriginal: linha.cnpjOriginal } : {}),
+    ...(linha.empresa ? { empresa: linha.empresa } : {}),
     responsavel: linha.responsavel,
     mesGeracao,
     departamento: linha.departamento,
@@ -80,6 +83,7 @@ function resultadoParaItem(r: ResultadoLinha): ResultadoItemRelatorio {
     sucesso,
     mensagem,
     etapaFalha,
+    ...(rollbackItems?.length ? { rollbackItems } : {}),
   };
 }
 
@@ -94,6 +98,7 @@ export function reconstruirLinhaDoRelatorio(item: ResultadoItemRelatorio): Linha
     ...(cnpjInfo.original && cnpjInfo.original !== cnpjInfo.valor ? { cnpjOriginal: cnpjInfo.original } : {}),
     ...(cnpjInfo.ajustado ? { cnpjFoiAjustado: true } : {}),
     ...(!cnpjInfo.valido ? { cnpjInvalido: true } : {}),
+    ...(item.empresa ? { empresa: item.empresa } : {}),
     responsavel: item.responsavel,
     mesGeracao,
     departamento: item.departamento,
@@ -256,6 +261,7 @@ export function salvarRelatorioXlsx(
     const headers = [
       "CNPJ",
       "CNPJ Original",
+      "Empresa",
       "Responsável",
       "Mês Geração",
       "Departamento",
@@ -263,10 +269,12 @@ export function salvarRelatorioXlsx(
       "Sucesso",
       "Mensagem",
       "Etapa Falha",
+      "Rollback",
     ];
     const rows: (string | boolean)[][] = resultados.map((r) => [
       r.cnpj,
       r.cnpjOriginal ?? "",
+      r.empresa ?? "",
       r.responsavel,
       r.mesGeracao,
       r.departamento ?? "",
@@ -274,6 +282,13 @@ export function salvarRelatorioXlsx(
       r.sucesso ? "Sim" : "Não",
       r.mensagem,
       r.etapaFalha ?? "",
+      r.rollbackItems?.length
+        ? r.rollbackItems
+            .map((item) =>
+              `${item.groupCustomerId}: ${item.appliedCompanyUserName} -> ${item.previousCompanyUserName ?? item.previousCompanyUserId ?? "(sem responsavel anterior)"}`
+            )
+            .join("; ")
+        : "",
     ]);
     const wsResultados = XLSX.utils.aoa_to_sheet([headers, ...rows]);
     XLSX.utils.book_append_sheet(workbook, wsResultados, "Resultados");

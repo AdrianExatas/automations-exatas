@@ -43,6 +43,16 @@ export function runOnvioAuthCaptureTokens(authPackageRoot: string): Promise<void
   });
 }
 
+export function readCachedUdsLongTokenForUpload(): string {
+  try {
+    const artifactPath = resolveArtifactPathForRead();
+    const artifacts = loadWorkspaceAuthArtifacts(process.cwd(), artifactPath);
+    return artifacts?.onvio?.udsLongToken?.trim() ?? "";
+  } catch {
+    return "";
+  }
+}
+
 export async function refreshUdsLongTokenForUpload(): Promise<string> {
   const authRoot = resolveOnvioAuthPackageRoot();
   await runOnvioAuthCaptureTokens(authRoot);
