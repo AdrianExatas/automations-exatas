@@ -25,6 +25,8 @@ Detalhes em [docs/REPOSITORY_CONVENTIONS.md](docs/REPOSITORY_CONVENTIONS.md).
 | Caminho | Stack | Status | Objetivo | Execucao |
 | --- | --- | --- | --- | --- |
 | `Pops/` | Bun/TypeScript + Elysia + BullMQ | Ativo | Geracao automatica de POPs a partir de transcricoes | `bun run dev` |
+| `mvp-pop/` | Bun/TypeScript + Elysia + BullMQ + Office COM | Ativo | Linha de producao video → POP/IT/FORM com validacao e Indice Mestre | `bun run dev` |
+
 
 ### Dominio
 

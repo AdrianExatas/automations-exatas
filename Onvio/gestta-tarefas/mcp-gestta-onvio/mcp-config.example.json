@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "gestta-onvio": {
+      "command": "node",
+      "args": [
+        "C:\\caminho\\automations-exatas\\Onvio\\gestta-tarefas\\mcp-gestta-onvio\\dist\\index.js"
+      ],
+      "env": {
+        "ONVIO_AUTH_ARTIFACT_PATH": "C:\\caminho\\automations-exatas\\shared\\onvio-auth\\runtime\\latest-auth.json",
+        "MCP_ALLOWED_ROOTS": "C:\\dados\\entrada",
+        "MCP_OUTPUT_DIR": "C:\\dados\\saida-mcp"
+      }
+    }
+  }
+}

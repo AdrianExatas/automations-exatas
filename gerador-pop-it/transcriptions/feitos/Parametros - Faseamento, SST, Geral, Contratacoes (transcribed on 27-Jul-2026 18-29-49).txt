@@ -1,0 +1,17 @@
+Ainda dentro de parâmetros, após o geral, iremos na opção faseamento 
+
+E abaixo ele diz a opção aqui de faseamento, se é grupo 1, se é grupo 2, se é grupo 3 Tá aí o motivo do vídeo 1, eu tenho até tirado um print aqui Mas o meu é social também ainda está ativo, eu poderia ainda consultá -lo aí Empregador, contribuinte, consulta obrigatoriedade Isso nós vamos identificar a época vigente do grupo que essa empresa permanecia, então é grupo 3 Então mesmo que ele tenha alterado de regime, a gente deve seguir o que foi enviado no início Então faseamento dele, grupo 3 
+
+Após inserir, nós vamos na opção SST Na opção a gente marca não enviar eventos de SST, porque os envios estão sendo possivelmente pelas empresas que prestam serviços Nós deixaremos aqui a mesma data de entrada da nossa empresa, 4 de 2026 Cliquemos na opção aqui dos 3 pontos E marcaremos aqui os eventos que não devem ser enviados E clica na opção Fechar Feito isso, nós vamos na opção agora Geral Aqui neste campo aqui, entre configurações de envio Classificação tributária Qual é a classificação tributária dessa empresa? É MEI? É Simples Nacional? É Simples Anexo 4? É Produtor Rural? É Sindicato? É Pessoa Jurídica? Agora nós precisamos fazer uma consulta caso você já não tenha informação Que eu acredito que seja mais segura Você deverá no campo do Google Colocar aqui a opção Consultar 
+
+Optante pelo Simples 
+
+Digitará o CNPJ da empresa Vou dividir a tela, tá? 
+
+E clica em consultar E está aqui, olha A empresa e situação da empresa Não optante pelo Simples Nacional 
+
+Se você clicar em mais informações Ele vai dizer a data de exclusão Porque possivelmente essa empresa Em algum momento foi do Simples Não são todas, tá? Mas essa informação Ela vai detalhar isso Então ela saiu aqui, olha Dia 31 de 12 A partir do janeiro de 2026 Ela já é uma empresa Ou lucro real Ou lucro presumido Então já tem a informação Retorno no sistema domínio E na classificação tributária Quando foi empresa De regime normais Eu clica aqui Em pessoas jurídicas Em geral Ela é uma cooperativa Não Construtora Não Optou pelo resiste eletrônico De empregados Deixe sempre sim É uma informação De detalhe técnico Onde Eu tive essa informação Segura De que é A melhor forma De ser enviado Mesmo que a empresa Ela não tenha A aplicação Posso ir de acordo internacional Não Pronto E as outras informações Você vai Precisar ter E marcar sim Ou não Agora nós vamos Na opção De contratações Contratações Dispensa 
+
+Na opção Contratações Ele vai ter aqui Uma opção Pessoa com deficiência Contratação De pessoa com deficiência É obrigatória É dispensada E aqui traz umas Outras duas informações Veja Vamos a lei O que é que a lei diz No Brasil as empresas É obrigada A contratar pessoas Com deficiência PCDs Assim que a lei E atingir De 100 ou mais Funcionário Conforme a lei De cotas Se essa empresa Já diagnosticamos Que ela não tem Nem funcionar Então eu venho aqui Dispensado Dispensado Com a lei 
+
+Então esse aqui É mais outro processo Eu vou encerrar aqui Para gravar Mais outro Ainda sobre parâmetros 

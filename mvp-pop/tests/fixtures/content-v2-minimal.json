@@ -1,0 +1,138 @@
+{
+  "schema_version": "2.0",
+  "documentos_solicitados": ["pop", "it", "form", "mp"],
+  "saida": {
+    "arquivo_pop": "PR.TST.001 - Processo de Teste.docx",
+    "arquivo_it": "IN.TST.001 - Processo de Teste.docx",
+    "arquivo_form": "FORM.TST.001 - Processo de Teste.xlsx",
+    "arquivo_mp": "MP.TST.001 - Processo de Teste.xlsx"
+  },
+  "documento": {
+    "titulo": "PROCESSO DE TESTE",
+    "codigo_pop": "PR.TST.001",
+    "codigo_it": "IN.TST.001",
+    "codigo_form": "FORM.TST.001",
+    "codigo_mp": "MP.TST.001",
+    "sigla_setor": "TST",
+    "numero": "001",
+    "setor": "Qualidade",
+    "emissao": "21/07/2026",
+    "revisao": "21/07/2026",
+    "versao": "00",
+    "elaborador": "Responsavel pelo teste",
+    "verificador": "Qualidade",
+    "aprovador": "Gestor",
+    "objetivo": "Confirmar o funcionamento do gerador.",
+    "resultado_esperado": "Documentos gerados e validados.",
+    "frequencia": "Sob demanda"
+  },
+  "abreviaturas": [],
+  "documentacao_complementar": [
+    "PR.TST.001",
+    "IN.TST.001",
+    "FORM.TST.001",
+    "MP.TST.001"
+  ],
+  "pop": {
+    "etapas": [
+      {
+        "id": "E01",
+        "o_que": "Executar a conferencia",
+        "como": "Abrindo a tela e confirmando o registro.",
+        "setor": "Qualidade",
+        "registro": "Sistema de teste"
+      }
+    ]
+  },
+  "it": {
+    "perfil_redacao": "passo_a_passo",
+    "secoes": [
+      {
+        "id": "E01",
+        "etapa_id": "E01",
+        "titulo": "1. EXECUTAR A CONFERENCIA",
+        "caminho": "Sistema > Registros > Conferencia",
+        "instrucoes": [
+          "Abra o registro de teste.",
+          "Confirme que o status esta correto."
+        ],
+        "atencoes": [
+          "Nao conclua com dados divergentes."
+        ],
+        "campo_print": {
+          "incluir": true,
+          "id": "E01",
+          "rotulo": "Tela conferida",
+          "orientacao": "Insira manualmente a tela com o status conferido.",
+          "legenda": "Imagem 1 - Registro conferido.",
+          "obrigatorio": true
+        }
+      }
+    ]
+  },
+  "form": {
+    "campos_contexto": [
+      {
+        "id": "cliente",
+        "rotulo": "Cliente",
+        "valor_inicial": ""
+      }
+    ],
+    "prazo_dias": null,
+    "blocos": [
+      {
+        "id": "B01",
+        "etapa_id": "E01",
+        "titulo": "CONFERENCIA",
+        "setor": "Qualidade",
+        "itens": [
+          {
+            "id": "C01",
+            "pergunta": "O registro foi conferido?",
+            "resposta_conforme": "SIM"
+          }
+        ],
+        "campo_evidencia": true
+      }
+    ],
+    "observacoes": []
+  },
+  "mp": {
+    "cadeia": {
+      "fornecedores": ["Solicitante", "Sistema de teste"],
+      "entradas": ["Registro para conferencia", "Criterio de aceite"],
+      "clientes": ["Solicitante", "Qualidade"],
+      "saidas": ["Registro conferido", "Evidencia registrada"]
+    },
+    "riscos": [
+      {
+        "id": "R01",
+        "etapa_id": "E01",
+        "etapa": "Executar a conferencia",
+        "quem_faz": "Qualidade",
+        "como_faz": "Confere o registro no sistema.",
+        "risco": "Concluir um registro divergente.",
+        "barreira": "FORM.TST.001 - Bloco de conferencia.",
+        "probabilidade": null,
+        "gravidade": null,
+        "mitigacao": "",
+        "resultado_indicador": "",
+        "sugerido": true
+      }
+    ]
+  },
+  "revisoes": [
+    {
+      "numero": "00",
+      "alteracao": "Emissao inicial para teste."
+    }
+  ],
+  "pontos_validacao": [
+    "Confirmar o resultado do teste em revisao humana."
+  ],
+  "transcricao": {
+    "status": "fornecida",
+    "idioma": "pt",
+    "observacao": "Conteudo sintetico para teste automatizado."
+  }
+}

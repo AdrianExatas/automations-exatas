@@ -44,6 +44,7 @@ export interface AutomationRunOptions {
   continuar?: boolean;
   ignorarCheckpoint?: boolean;
   reprocessarFalhas?: boolean;
+  backupOnly?: boolean;
   interactiveCheckpoint?: boolean;
 }
 
@@ -51,6 +52,7 @@ interface CliArgs {
   continuar: boolean;
   ignorarCheckpoint: boolean;
   reprocessarFalhas: boolean;
+  backupOnly: boolean;
   reprocessarArquivo: string | null;
   reverterArquivo: string | null;
   planilhaArg: string | null;
@@ -105,6 +107,7 @@ export function parseArgs(argv = process.argv.slice(2)): CliArgs {
   const continuar = argv.some((a) => a === "--continuar" || a === "-c");
   const ignorarCheckpoint = argv.some((a) => a === "--sem-checkpoint" || a === "--ignorar-checkpoint");
   const reprocessarFalhas = argv.some((a) => a === "--reprocessar-falhas" || a === "-r");
+  const backupOnly = argv.some((a) => a === "--backup-only" || a === "--preflight");
   let reprocessarArquivo: string | null = null;
   const idx = argv.findIndex((a) => a === "--reprocessar");
   if (idx >= 0 && argv[idx + 1]) {
@@ -125,6 +128,8 @@ export function parseArgs(argv = process.argv.slice(2)): CliArgs {
       a !== "--ignorar-checkpoint" &&
       a !== "--reprocessar-falhas" &&
       a !== "-r" &&
+      a !== "--backup-only" &&
+      a !== "--preflight" &&
       a !== "--reprocessar" &&
       a !== "--reverter" &&
       !a.startsWith("-")
@@ -133,6 +138,7 @@ export function parseArgs(argv = process.argv.slice(2)): CliArgs {
     continuar,
     ignorarCheckpoint,
     reprocessarFalhas,
+    backupOnly,
     reprocessarArquivo: reprocessarArquivo && fs.existsSync(reprocessarArquivo) ? reprocessarArquivo : null,
     reverterArquivo,
     planilhaArg: planilhaArg?.trim() || null,
@@ -169,6 +175,23 @@ function getDepartmentName(item: CompanyTaskItem): string | undefined {
   const task = item.company_task;
   if (task && typeof task === "object") return task.company_department?.name;
   return undefined;
+}
+
+function normalizarNomeTarefa(nome: string): string {
+  return nome
+    .trim()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "")
+    .replace(/\s+/g, " ");
+}
+
+function filtrarItemsPorTarefaExata(items: CompanyTaskItem[], tarefa: string): CompanyTaskItem[] {
+  const tarefaNormalizada = normalizarNomeTarefa(tarefa);
+  return items.filter((item) => {
+    const nome = getTaskName(item);
+    return nome ? normalizarNomeTarefa(nome) === tarefaNormalizada : false;
+  });
 }
 
 function getCompanyUserId(companyUser: CompanyTaskItem["company_user"]): string | undefined {
@@ -251,6 +274,8 @@ function getPlanilhaPath(reprocessarArquivo: string | null, argv = process.argv.
       a !== "--ignorar-checkpoint" &&
       a !== "--reprocessar-falhas" &&
       a !== "-r" &&
+      a !== "--backup-only" &&
+      a !== "--preflight" &&
       a !== "--reprocessar" &&
       a !== "--reverter" &&
       !a.startsWith("-") &&
@@ -267,6 +292,51 @@ function getPlanilhaPath(reprocessarArquivo: string | null, argv = process.argv.
 
 export async function preflightGesttaAuth(client: AxiosInstance): Promise<void> {
   await client.get("/admin/company/user", { params: { active: true } });
+}
+
+export function prepararLinhasParaExecucao(linhas: LinhaPlanilha[]): LinhaPlanilha[] {
+  if (!linhas.some((linha) => linha.tarefa)) return linhas;
+
+  const porCnpj = new Map<string, LinhaPlanilha[]>();
+  const semCnpj = linhas.filter((linha) => !linha.cnpj);
+  for (const linha of linhas) {
+    if (!linha.cnpj) continue;
+    const atuais = porCnpj.get(linha.cnpj) ?? [];
+    atuais.push(linha);
+    porCnpj.set(linha.cnpj, atuais);
+  }
+
+  const conflitos: string[] = [];
+  const deduplicadas: LinhaPlanilha[] = [...semCnpj];
+  let duplicadosIguais = 0;
+
+  for (const [cnpj, grupo] of porCnpj) {
+    const responsaveis = new Set(grupo.map((linha) => normalizarNomeTarefa(linha.responsavel)));
+    if (responsaveis.size > 1) {
+      const detalhes = grupo
+        .map((linha) => `COD ${linha.cod || "(sem cod)"} -> ${linha.responsavel}`)
+        .join("; ");
+      conflitos.push(`${cnpj}: ${detalhes}`);
+      continue;
+    }
+    deduplicadas.push(grupo[0]);
+    duplicadosIguais += grupo.length - 1;
+  }
+
+  if (conflitos.length > 0) {
+    throw new Error(
+      [
+        "CNPJs duplicados com responsaveis diferentes; execucao bloqueada antes de qualquer PATCH.",
+        ...conflitos.map((conflito) => `- ${conflito}`),
+      ].join("\n")
+    );
+  }
+
+  if (duplicadosIguais > 0) {
+    console.warn(`CNPJs duplicados com mesmo responsavel deduplicados: ${duplicadosIguais}`);
+  }
+
+  return deduplicadas;
 }
 
 export async function processarLinha(
@@ -322,7 +392,12 @@ export async function processarLinha(
   let groupItems: CompanyTaskItem[];
   try {
     const departamentoOuSetor = linha.departamento || linha.setor;
-    groupItems = await obterGroupCustomerItems(client, customer._id, departamentoOuSetor);
+    const itensCliente = await obterGroupCustomerItems(
+      client,
+      customer._id,
+      linha.tarefa ? undefined : departamentoOuSetor
+    );
+    groupItems = linha.tarefa ? filtrarItemsPorTarefaExata(itensCliente, linha.tarefa) : itensCliente;
   } catch (err: unknown) {
     if (isGesttaAuthFatalError(err)) throw err;
     const msg = err instanceof Error ? err.message : String(err);
@@ -333,6 +408,12 @@ export async function processarLinha(
   }
   const ids = groupItems.map((item) => item._id).filter(Boolean);
   resultado.groupIds = ids;
+
+  if (linha.tarefa && ids.length > 1) {
+    resultado.mensagem = `Mais de um vinculo encontrado para a tarefa "${linha.tarefa}"; responsavel nao alterado.`;
+    resultado.etapaFalha = "semGroupCustomer";
+    return resultado;
+  }
 
   if (ids.length > 0) {
     resultado.rollbackItems = criarRollbackItems(linha, customer._id, user, groupItems);
@@ -347,7 +428,9 @@ export async function processarLinha(
       return resultado;
     }
   } else {
-    const filtro = linha.departamento || linha.setor ? ` (departamento/setor: ${linha.departamento || linha.setor})` : "";
+    const filtro = linha.tarefa
+      ? ` (tarefa: ${linha.tarefa})`
+      : linha.departamento || linha.setor ? ` (departamento/setor: ${linha.departamento || linha.setor})` : "";
     resultado.mensagem = `Nenhum vinculo group_customer encontrado${filtro}; responsavel nao alterado.`;
     resultado.etapaFalha = "semGroupCustomer";
     return resultado;
@@ -356,6 +439,129 @@ export async function processarLinha(
   resultado.sucesso = true;
   resultado.mensagem = "Responsavel alterado com sucesso.";
   return resultado;
+}
+
+export async function gerarBackupLinha(
+  client: AxiosInstance,
+  linha: LinhaPlanilha
+): Promise<ResultadoLinha> {
+  const resultado: ResultadoLinha = {
+    linha,
+    sucesso: false,
+    mensagem: "",
+  };
+
+  if (linha.cnpjInvalido || !linha.cnpj) {
+    resultado.mensagem = "CNPJ invalido apos normalizacao";
+    resultado.etapaFalha = "validarCnpj";
+    return resultado;
+  }
+
+  let customer: Awaited<ReturnType<typeof buscarClientePorCnpj>>;
+  try {
+    customer = await buscarClientePorCnpj(client, linha.cnpj);
+  } catch (err: unknown) {
+    if (isGesttaAuthFatalError(err)) throw err;
+    const msg = err instanceof Error ? err.message : String(err);
+    resultado.mensagem = `Erro ao buscar cliente: ${msg}`;
+    resultado.erro = msg;
+    resultado.etapaFalha = "buscarCliente";
+    return resultado;
+  }
+  if (!customer) {
+    resultado.mensagem = `Cliente nao encontrado para CNPJ ${linha.cnpj}`;
+    return resultado;
+  }
+  resultado.customerId = customer._id;
+
+  let user: Awaited<ReturnType<typeof buscarUsuarioPorNome>>;
+  try {
+    user = await buscarUsuarioPorNome(client, linha.responsavel);
+  } catch (err: unknown) {
+    if (isGesttaAuthFatalError(err)) throw err;
+    const msg = err instanceof Error ? err.message : String(err);
+    resultado.mensagem = `Erro ao buscar funcionario: ${msg}`;
+    resultado.erro = msg;
+    resultado.etapaFalha = "buscarUsuario";
+    return resultado;
+  }
+  if (!user) {
+    resultado.mensagem = `Funcionario nao encontrado: "${linha.responsavel}"`;
+    return resultado;
+  }
+  resultado.userId = user._id;
+
+  let groupItems: CompanyTaskItem[];
+  try {
+    const departamentoOuSetor = linha.departamento || linha.setor;
+    const itensCliente = await obterGroupCustomerItems(
+      client,
+      customer._id,
+      linha.tarefa ? undefined : departamentoOuSetor
+    );
+    groupItems = linha.tarefa ? filtrarItemsPorTarefaExata(itensCliente, linha.tarefa) : itensCliente;
+  } catch (err: unknown) {
+    if (isGesttaAuthFatalError(err)) throw err;
+    const msg = err instanceof Error ? err.message : String(err);
+    resultado.mensagem = `Erro ao obter IDs group_customer: ${msg}`;
+    resultado.erro = msg;
+    resultado.etapaFalha = "groupCustomerIds";
+    return resultado;
+  }
+
+  const ids = groupItems.map((item) => item._id).filter(Boolean);
+  resultado.groupIds = ids;
+  if (linha.tarefa && ids.length > 1) {
+    resultado.mensagem = `Mais de um vinculo encontrado para a tarefa "${linha.tarefa}"; backup bloqueado para esta linha.`;
+    resultado.etapaFalha = "semGroupCustomer";
+    return resultado;
+  }
+  if (ids.length === 0) {
+    const filtro = linha.tarefa
+      ? ` (tarefa: ${linha.tarefa})`
+      : linha.departamento || linha.setor ? ` (departamento/setor: ${linha.departamento || linha.setor})` : "";
+    resultado.mensagem = `Nenhum vinculo group_customer encontrado${filtro}; backup nao criado para esta linha.`;
+    resultado.etapaFalha = "semGroupCustomer";
+    return resultado;
+  }
+
+  resultado.rollbackItems = criarRollbackItems(linha, customer._id, user, groupItems);
+  resultado.sucesso = true;
+  resultado.mensagem = "Backup criado; nenhum PATCH executado.";
+  return resultado;
+}
+
+async function gerarBackupPreflight(
+  client: AxiosInstance,
+  planilhaPath: string,
+  linhas: LinhaPlanilha[],
+  inicioExecucao: string
+): Promise<ResultadoLinha[]> {
+  const resultados: ResultadoLinha[] = [];
+  console.log("\n--- Backup/preflight (sem PATCH) ---");
+  for (let i = 0; i < linhas.length; i++) {
+    const linha = linhas[i];
+    process.stdout.write(`[${i + 1}/${linhas.length}] ${formatLinhaLog(linha)}... `);
+    const res = await gerarBackupLinha(client, linha);
+    resultados.push(res);
+    if (res.sucesso) console.log("OK");
+    else console.log("FALHA:", res.mensagem);
+    if (i < linhas.length - 1) await delay(DELAY_MS);
+  }
+
+  const sucesso = resultados.filter((r) => r.sucesso).length;
+  const falha = resultados.length - sucesso;
+  const relatorio = gerarRelatorioExecucao(planilhaPath, resultados, inicioExecucao);
+  relatorio.execucao.backup = true;
+  const caminhoRelatorio = salvarRelatorio(relatorio, "backup");
+  if (!caminhoRelatorio) {
+    throw new Error("Backup/preflight nao foi salvo; execucao real bloqueada antes de qualquer PATCH.");
+  }
+  atualizarIndice(caminhoRelatorio, { total: resultados.length, sucesso, falha }, planilhaPath, inicioExecucao);
+  console.log(`\nBackup salvo: ${caminhoRelatorio}`);
+  const caminhoXlsx = salvarRelatorioXlsx(relatorio, caminhoRelatorio);
+  if (caminhoXlsx) console.log(`Planilha Excel do backup: ${caminhoXlsx}`);
+  return resultados;
 }
 
 export async function runReprocessar(caminhoRelatorio: string): Promise<void> {
@@ -433,11 +639,12 @@ export async function runAutomation(options: AutomationRunOptions): Promise<void
   console.log(`Planilha: ${planilhaPath}`);
   console.log("(Dica: use --selecionar para escolher no Explorer)\n");
 
-  const linhas = lerPlanilha(planilhaPath);
+  let linhas = lerPlanilha(planilhaPath);
   if (linhas.length === 0) {
     console.log(`Nenhuma linha valida na planilha (${CAMPOS_OBRIGATORIOS_PLANILHA} obrigatorios).`);
     return;
   }
+  linhas = prepararLinhasParaExecucao(linhas);
 
   console.log(`Linhas a processar: ${linhas.length}\n`);
   logResumoNormalizacaoCnpj(linhas);
@@ -476,6 +683,15 @@ export async function runAutomation(options: AutomationRunOptions): Promise<void
   logAuthSource(auth);
   const client = createGesttaClient(auth);
   await preflightGesttaAuth(client);
+
+  if (linhas.some((linha) => linha.tarefa)) {
+    await gerarBackupPreflight(client, planilhaPath, linhas, inicioExecucao);
+    if (options.backupOnly) {
+      console.log("\nBackup/preflight concluido. Nenhum responsavel foi alterado.");
+      return;
+    }
+    console.log("\n--- Execucao real ---");
+  }
 
   for (let i = indiceInicial; i < linhas.length; i++) {
     const linha = linhas[i];
@@ -562,6 +778,7 @@ export async function runCli(argv = process.argv.slice(2)): Promise<void> {
     continuar: args.continuar && !args.ignorarCheckpoint,
     ignorarCheckpoint: args.ignorarCheckpoint,
     reprocessarFalhas: args.reprocessarFalhas,
+    backupOnly: args.backupOnly,
     interactiveCheckpoint: true,
   });
 }

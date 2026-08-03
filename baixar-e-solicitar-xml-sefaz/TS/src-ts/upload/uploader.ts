@@ -15,6 +15,21 @@ interface XmlInfo {
   tipo?: string;
 }
 
+interface UploadState {
+  apiKey: string;
+  total: number;
+  iniciados: number;
+  concluidos: number;
+  retryIniciados: number;
+  retryTotal: number;
+  excluirEnviados: boolean;
+  excluidos: number;
+  enviadosSucesso: XmlInfo[];
+  errosEnvio: Array<{ xml: XmlInfo; erro: string }>;
+  errosRecuperaveis: XmlInfo[];
+  errosExclusao: Array<{ xml: XmlInfo; erro: string }>;
+}
+
 const WARM_UP_FASE1_QTD = 5;
 const WARM_UP_FASE1_THREADS = 1;
 const WARM_UP_FASE2_QTD = 15;
@@ -44,13 +59,14 @@ function listarXmlsRecursivo(pasta: string): string[] {
 function carregarXmlsValidos(paths: string[]): { validos: XmlInfo[]; invalidos: Array<{ caminho: string; erro: string }> } {
   const xmlsValidos: XmlInfo[] = [];
   const xmlsInvalidos: Array<{ caminho: string; erro: string }> = [];
-  for (const caminho of paths) {
+  paths.forEach((caminho, index) => {
+    console.log(`[VALIDANDO ${index + 1}/${paths.length}] ${basename(caminho)}`);
     try {
       const conteudo = readFileSync(caminho, "utf8");
       const validacao = validarXmlDetalhado(conteudo);
       if (!validacao.valido) {
         xmlsInvalidos.push({ caminho, erro: validacao.erro });
-        continue;
+        return;
       }
       xmlsValidos.push({
         caminho,
@@ -61,49 +77,78 @@ function carregarXmlsValidos(paths: string[]): { validos: XmlInfo[]; invalidos: 
       });
     } catch (error) {
       xmlsInvalidos.push({ caminho, erro: error instanceof Error ? error.message : String(error) });
-      // ignora arquivos ilegíveis, mantendo o comportamento tolerante do Python
+      // Mantem o comportamento tolerante para arquivos ilegiveis.
     }
-  }
+  });
   return { validos: xmlsValidos, invalidos: xmlsInvalidos };
+}
+
+function formatarIdentificacaoXml(xmlInfo: XmlInfo): string {
+  const chave = xmlInfo.chave && xmlInfo.chave.length === 44 ? `N_${xmlInfo.chave}` : `${xmlInfo.nome.slice(0, 45)}...`;
+  const tipoCompleto = obterTipoCompletoNota(xmlInfo.conteudo);
+  const tipoInfo = tipoCompleto && tipoCompleto !== "Desconhecido" ? ` (${tipoCompleto})` : "";
+  return `${chave}${tipoInfo}`;
+}
+
+function excluirXmlEnviado(xmlInfo: XmlInfo, state: UploadState): void {
+  if (!state.excluirEnviados) {
+    return;
+  }
+
+  try {
+    rmSync(xmlInfo.caminho, { force: true });
+    state.excluidos += 1;
+    console.log(`         [EXCLUIDO] ${xmlInfo.nome}`);
+  } catch (error) {
+    const mensagem = error instanceof Error ? error.message : String(error);
+    state.errosExclusao.push({ xml: xmlInfo, erro: mensagem });
+    console.log(`         [AVISO] Falha ao excluir ${xmlInfo.nome}: ${mensagem}`);
+  }
 }
 
 async function enviarLote(
   xmls: XmlInfo[],
   threads: number,
   faseInfo: string,
-  state: {
-    apiKey: string;
-    total: number;
-    processados: number;
-    enviadosSucesso: XmlInfo[];
-    errosEnvio: Array<{ xml: XmlInfo; erro: string }>;
-    errosRecuperaveis: XmlInfo[];
-  },
+  state: UploadState,
+  options: { retry?: boolean } = {},
 ): Promise<void> {
   const limit = pLimit(Math.max(1, threads));
+  const isRetry = options.retry ?? false;
 
   await Promise.all(
     xmls.map((xmlInfo) =>
       limit(async () => {
-        const [sucesso, msg, recuperavel] = await enviarXml(xmlInfo.conteudo, state.apiKey, undefined, true);
-        state.processados += 1;
+        const identificacao = formatarIdentificacaoXml(xmlInfo);
+        if (isRetry) {
+          state.retryIniciados += 1;
+          console.log(`[ENVIANDO RETRY ${state.retryIniciados}/${state.retryTotal}]${faseInfo} - ${identificacao}`);
+        } else {
+          state.iniciados += 1;
+          console.log(`[ENVIANDO ${state.iniciados}/${state.total}]${faseInfo} - ${identificacao}`);
+        }
 
-        const chave = xmlInfo.chave && xmlInfo.chave.length === 44 ? `N_${xmlInfo.chave}` : `${xmlInfo.nome.slice(0, 45)}...`;
-        const tipoCompleto = obterTipoCompletoNota(xmlInfo.conteudo);
-        const tipoInfo = tipoCompleto && tipoCompleto !== "Desconhecido" ? ` (${tipoCompleto})` : "";
+        const [sucesso, msg, recuperavel] = await enviarXml(xmlInfo.conteudo, state.apiKey, undefined, true);
 
         if (sucesso) {
-          console.log(`[${state.processados}/${state.total}] [OK]${faseInfo} - ${chave}${tipoInfo}`);
+          state.concluidos += 1;
+          console.log(`[OK ${state.concluidos}/${state.total}]${faseInfo} - ${identificacao}`);
           state.enviadosSucesso.push(xmlInfo);
-        } else {
-          console.log(`[${state.processados}/${state.total}] [ERRO]${faseInfo} - ${chave}${tipoInfo}`);
-          console.log(`         ${msg}`);
-          if (recuperavel) {
-            state.errosRecuperaveis.push(xmlInfo);
-          } else {
-            state.errosEnvio.push({ xml: xmlInfo, erro: msg });
-          }
+          excluirXmlEnviado(xmlInfo, state);
+          return;
         }
+
+        if (recuperavel && !isRetry) {
+          console.log(`[RETRY ${state.concluidos}/${state.total}]${faseInfo} - ${identificacao}`);
+          console.log(`         ${msg}`);
+          state.errosRecuperaveis.push(xmlInfo);
+          return;
+        }
+
+        state.concluidos += 1;
+        console.log(`[ERRO ${state.concluidos}/${state.total}]${faseInfo} - ${identificacao}`);
+        console.log(`         ${msg}`);
+        state.errosEnvio.push({ xml: xmlInfo, erro: msg });
       }),
     ),
   );
@@ -169,13 +214,19 @@ export async function enviarAutomatico(options: {
   console.log("=".repeat(60));
   console.log("Consulta previa de existencia desativada; todos os XMLs validos serao enviados.");
 
-  const state = {
+  const state: UploadState = {
     apiKey,
     total: xmlsValidos.length,
-    processados: 0,
-    enviadosSucesso: [] as XmlInfo[],
-    errosEnvio: [] as Array<{ xml: XmlInfo; erro: string }>,
-    errosRecuperaveis: [] as XmlInfo[],
+    iniciados: 0,
+    concluidos: 0,
+    retryIniciados: 0,
+    retryTotal: 0,
+    excluirEnviados,
+    excluidos: 0,
+    enviadosSucesso: [],
+    errosEnvio: [],
+    errosRecuperaveis: [],
+    errosExclusao: [],
   };
   const inicioTempo = Date.now();
 
@@ -211,26 +262,11 @@ export async function enviarAutomatico(options: {
   if (state.errosRecuperaveis.length) {
     const retryList = [...state.errosRecuperaveis];
     state.errosRecuperaveis.length = 0;
+    state.retryIniciados = 0;
+    state.retryTotal = retryList.length;
     console.log(`\n-- Retentando ${retryList.length} XMLs com erro recuperavel --`);
     await sleep(2000);
-    await enviarLote(retryList, 1, " [RETRY]", state);
-    for (const xml of state.errosRecuperaveis) {
-      state.errosEnvio.push({ xml, erro: "Erro recuperavel apos retry" });
-    }
-  }
-
-  if (excluirEnviados && state.enviadosSucesso.length) {
-    console.log(`\nExcluindo ${state.enviadosSucesso.length} XMLs enviados com sucesso...`);
-    let excluidos = 0;
-    for (const xml of state.enviadosSucesso) {
-      try {
-        rmSync(xml.caminho, { force: true });
-        excluidos += 1;
-      } catch {
-        // noop
-      }
-    }
-    console.log(`   [OK] ${excluidos} arquivo(s) excluido(s)`);
+    await enviarLote(retryList, 1, " [RETRY]", state, { retry: true });
   }
 
   const tempoTotal = (Date.now() - inicioTempo) / 1000;
@@ -241,6 +277,8 @@ export async function enviarAutomatico(options: {
   console.log("   Ja existentes no SIEG: 0 (verificacao previa desativada)");
   console.log(`   Enviados com sucesso: ${state.enviadosSucesso.length}`);
   console.log(`   Erros: ${state.errosEnvio.length}`);
+  console.log(`   XMLs excluidos: ${state.excluidos}`);
+  console.log(`   Falhas ao excluir: ${state.errosExclusao.length}`);
   console.log(`   Tempo total: ${tempoTotal.toFixed(2)} segundos`);
   console.log("=".repeat(60));
 

@@ -1,4 +1,7 @@
 import path from "node:path";
+import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { resolveSefazAuthConfig } from "../../shared/sefaz-auth";
 import { describe, expect, test } from "bun:test";
 import { loadConfig } from "../src/config";
 import { parseSheetName, parseTitulo } from "../src/model-loader";
@@ -74,7 +77,88 @@ describe("config", () => {
   });
 
   test("exige credenciais", () => {
-    expect(() => loadConfig([], {})).toThrow("Informe o login da SEFAZ.");
+    expect(() => loadConfig([], { SEFAZ_AUTH_MODE: "password" } as NodeJS.ProcessEnv)).toThrow("Informe o login da SEFAZ.");
+  });
+});
+
+describe("auth certificado SEFAZ", () => {
+  test("detecta pfx padrao e le senha do arquivo", () => {
+    const dir = mkdtempSync(path.join(tmpdir(), "sefaz-cert-"));
+    try {
+      const pfxPath = path.join(dir, "certificado.pfx");
+      const passwordFile = path.join(dir, "SENHA.txt");
+      writeFileSync(pfxPath, "fake-pfx");
+      writeFileSync(passwordFile, "segredo\n");
+
+      const auth = resolveSefazAuthConfig({} as NodeJS.ProcessEnv, {
+        defaultCertDir: dir,
+        defaultPasswordFile: passwordFile,
+      });
+
+      expect(auth.authMode).toBe("auto");
+      expect(auth.certificate?.pfxPath).toBe(pfxPath);
+      expect(auth.certificate?.passphrase).toBe("segredo");
+      expect(auth.certificate?.origins).toContain("https://security.sefaz.se.gov.br");
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
+  });
+
+  test("senha por env sobrescreve arquivo", () => {
+    const dir = mkdtempSync(path.join(tmpdir(), "sefaz-cert-"));
+    try {
+      const pfxPath = path.join(dir, "certificado.pfx");
+      const passwordFile = path.join(dir, "SENHA.txt");
+      writeFileSync(pfxPath, "fake-pfx");
+      writeFileSync(passwordFile, "senha-arquivo\n");
+
+      const auth = resolveSefazAuthConfig({ SEFAZ_CERT_PASSWORD: "senha-env" } as NodeJS.ProcessEnv, {
+        defaultCertDir: dir,
+        defaultPasswordFile: passwordFile,
+      });
+
+      expect(auth.certificate?.passphrase).toBe("senha-env");
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
+  });
+
+  test("modo certificate dispensa usuario e senha", () => {
+    const dir = mkdtempSync(path.join(tmpdir(), "sefaz-cert-"));
+    try {
+      const pfxPath = path.join(dir, "certificado.pfx");
+      const passwordFile = path.join(dir, "SENHA.txt");
+      writeFileSync(pfxPath, "fake-pfx");
+      writeFileSync(passwordFile, "segredo\n");
+
+      const config = loadConfig(["--auth-mode", "certificate", "--cert-path", pfxPath, "--cert-password-file", passwordFile], {} as NodeJS.ProcessEnv);
+      expect(config.user).toBe("");
+      expect(config.password).toBe("");
+      expect(config.authMode).toBe("certificate");
+      expect(config.certificate?.pfxPath).toBe(pfxPath);
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
+  });
+
+  test("modo password continua exigindo credenciais", () => {
+    expect(() => loadConfig(["--auth-mode", "password"], {} as NodeJS.ProcessEnv)).toThrow("Informe o login da SEFAZ.");
+  });
+
+  test("modo auto usa certificado quando disponivel e mantem fallback", () => {
+    const dir = mkdtempSync(path.join(tmpdir(), "sefaz-cert-"));
+    try {
+      const pfxPath = path.join(dir, "certificado.pfx");
+      writeFileSync(pfxPath, "fake-pfx");
+
+      const config = loadConfig(["--cert-path", pfxPath, "--user", "u", "--password", "s"], {} as NodeJS.ProcessEnv);
+      expect(config.authMode).toBe("auto");
+      expect(config.certificate?.pfxPath).toBe(pfxPath);
+      expect(config.user).toBe("u");
+      expect(config.password).toBe("s");
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
   });
 });
 

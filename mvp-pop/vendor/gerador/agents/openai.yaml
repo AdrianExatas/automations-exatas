@@ -1,0 +1,4 @@
+interface:
+  display_name: "Gerar POP, IT, FORM e MP"
+  short_description: "Gera documentação de processos a partir de vídeos"
+  default_prompt: "Use $gerar-pop-it para analisar um processo e gerar os documentos selecionados com campos manuais de print."

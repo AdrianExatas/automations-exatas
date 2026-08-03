@@ -2,10 +2,6 @@ import { spawn } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 import dotenv from "dotenv";
-import {
-  loadWorkspaceAuthArtifacts,
-  resolveWorkspaceAuthArtifactPath,
-} from "@exatas/onvio-auth";
 
 export type GesttaAuthMode = "env" | "artifact";
 export type GesttaAuthSource = "local-env" | "artifact" | "legacy-local-env";
@@ -79,6 +75,11 @@ function shouldForceArtifactAuth(): boolean {
   return value === "true" || value === "1" || value === "sim" || value === "yes";
 }
 
+function shouldDisableExternalAuthRefresh(): boolean {
+  const value = process.env.GESTTA_DISABLE_EXTERNAL_AUTH_REFRESH?.trim().toLowerCase();
+  return value === "true" || value === "1" || value === "sim" || value === "yes";
+}
+
 function resolveLegacyLocalEnvPath(startDir = process.cwd()): string {
   return path.resolve(startDir, "..", "_local", ".env");
 }
@@ -112,6 +113,24 @@ function resolveSharedOnvioAuthDir(startDir = process.cwd()): string {
   return path.resolve(startDir, "shared", "onvio-auth");
 }
 
+function resolveWorkspaceAuthArtifactPath(startDir = process.cwd()): string {
+  let current = path.resolve(startDir);
+
+  while (true) {
+    const candidateDir = path.join(current, "shared", "onvio-auth");
+    const candidatePkg = path.join(candidateDir, "package.json");
+    if (fs.existsSync(candidatePkg)) {
+      return path.join(candidateDir, "runtime", "latest-auth.json");
+    }
+
+    const parent = path.dirname(current);
+    if (parent === current) break;
+    current = parent;
+  }
+
+  return path.resolve(startDir, "shared", "onvio-auth", "runtime", "latest-auth.json");
+}
+
 function resolveConfiguredArtifactPath(startDir = process.cwd()): string {
   const explicitPath = process.env.ONVIO_AUTH_ARTIFACT_PATH?.trim();
   if (explicitPath) {
@@ -122,8 +141,9 @@ function resolveConfiguredArtifactPath(startDir = process.cwd()): string {
 
 function loadArtifactJwt(artifactPath: string): string | null {
   try {
-    const artifacts = loadWorkspaceAuthArtifacts(process.cwd(), artifactPath);
-    const jwt = artifacts?.gestta.jwt?.trim() || "";
+    const raw = fs.readFileSync(artifactPath, "utf8");
+    const artifacts = JSON.parse(raw) as { gestta?: { jwt?: unknown } };
+    const jwt = typeof artifacts.gestta?.jwt === "string" ? artifacts.gestta.jwt.trim() : "";
     return jwt || null;
   } catch {
     return null;
@@ -168,6 +188,12 @@ function runCaptureTokens(authDir: string): Promise<void> {
 }
 
 async function refreshArtifactJwt(artifactPath: string, reason: string): Promise<string> {
+  if (shouldDisableExternalAuthRefresh()) {
+    throw new Error(
+      `${reason}. Faça login novamente pela interface para renovar o acesso ao Gestta.`
+    );
+  }
+
   if (!ongoingRefresh) {
     ongoingRefresh = (async () => {
       const authDir = resolveSharedOnvioAuthDir();

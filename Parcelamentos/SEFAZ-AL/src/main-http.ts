@@ -19,6 +19,7 @@ import {
 import { processPortalRow } from "./portal.js";
 import type { InputRow, RunResult } from "./types.js";
 import {
+  buildExecutionOutputDir,
   buildHttpOutputPath,
   formatVencimento,
 } from "./utils.js";
@@ -300,13 +301,15 @@ export async function main(argv = process.argv.slice(2)): Promise<void> {
   const { inputPath, outputDir, rowFilter, browserFallback } = parseCliArgs(argv);
   const cwd = process.cwd();
   const absoluteInput = path.resolve(cwd, inputPath);
-  const outputRoot = path.resolve(cwd, outputDir);
+  const outputBaseDir = path.resolve(cwd, outputDir);
+  const outputRoot = buildExecutionOutputDir(outputBaseDir);
 
   const allRows = readInputWorkbook(absoluteInput);
   const rows = rowFilter !== undefined ? allRows.filter((_, i) => i === rowFilter) : allRows;
 
   console.log(`Planilha: ${absoluteInput}`);
-  console.log(`Saida: ${outputRoot}`);
+  console.log(`Raiz de downloads: ${outputBaseDir}`);
+  console.log(`Pasta desta execucao: ${outputRoot}`);
   if (rowFilter !== undefined) {
     console.log(`Processando somente rowIndex=${rowFilter}`);
   }

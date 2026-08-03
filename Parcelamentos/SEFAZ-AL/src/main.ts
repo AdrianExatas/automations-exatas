@@ -4,6 +4,7 @@ import { pathToFileURL } from "node:url";
 import { chromium } from "playwright";
 import { processPortalRow } from "./portal.js";
 import type { CliOptions, RunResult } from "./types.js";
+import { buildExecutionOutputDir } from "./utils.js";
 import { readInputWorkbook, writeResultWorkbook } from "./workbook.js";
 
 export const DEFAULT_INPUT_PATH = "model.xlsx";
@@ -13,11 +14,13 @@ export async function main(argv = process.argv.slice(2)): Promise<void> {
   const options = parseCliArgs(argv);
   const cwd = process.cwd();
   const inputPath = path.resolve(cwd, options.inputPath);
-  const outputRoot = resolveOutputDir(cwd, options.outputDir);
+  const outputBaseDir = resolveOutputDir(cwd, options.outputDir);
+  const outputRoot = buildExecutionOutputDir(outputBaseDir);
   const rows = readInputWorkbook(inputPath);
 
   console.log(`Planilha carregada: ${inputPath}`);
-  console.log(`Raiz de saida: ${outputRoot}`);
+  console.log(`Raiz de downloads: ${outputBaseDir}`);
+  console.log(`Pasta desta execucao: ${outputRoot}`);
   console.log(`Total de empresas para processar: ${rows.length}`);
 
   const browser = await chromium.launch({

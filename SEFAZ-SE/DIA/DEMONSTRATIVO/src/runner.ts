@@ -1,6 +1,7 @@
 import { buildJsonReportPath, buildOutputPath, saveFile, saveReport } from "./downloads";
 import { isNonRetriablePortalError, messageOf } from "./errors";
 import { buildExcelReportPath, saveExcelReport } from "./excel-report";
+import { isSefazCertificateAuthEnabled } from "../../shared/sefaz-auth";
 import { SefazHttpClient } from "./sefaz-http";
 import type { Company, ReportEntry, ReportFormat, RunConfig } from "./types";
 
@@ -38,7 +39,8 @@ export type RunCallbacks = {
 };
 
 export async function runSefazDia(config: RunConfig, callbacks: RunCallbacks = {}): Promise<RunResult> {
-  const http = new SefazHttpClient(config.timeoutMs, callbacks.signal);
+  const useCertificate = isSefazCertificateAuthEnabled(config);
+  const http = useCertificate ? undefined : new SefazHttpClient(config.timeoutMs, callbacks.signal);
   const entries: ReportEntry[] = [];
   const reportPaths = buildReportPaths(config);
 
@@ -47,12 +49,14 @@ export async function runSefazDia(config: RunConfig, callbacks: RunCallbacks = {
   throwIfAborted(callbacks.signal);
 
   emit(callbacks, config, reportPaths, entries, "login", 0, 0, "Entrando no portal SEFAZ-SE...");
-  await http.login(config.user, config.password);
+  if (http) {
+    await http.login(config.user, config.password);
+  }
   throwIfAborted(callbacks.signal);
 
   emit(callbacks, config, reportPaths, entries, "companies", 0, 0, "Listando empresas disponiveis...");
-  const companies = await http.listCompanies();
-  log(callbacks, `Empresas encontradas por HTTP: ${companies.length}`);
+  const companies = useCertificate ? await listCompaniesWithCertificate(config) : await http!.listCompanies();
+  log(callbacks, `Empresas encontradas por ${useCertificate ? "Playwright/certificado" : "HTTP"}: ${companies.length}`);
 
   const selectedCompanies = config.limit ? companies.slice(0, config.limit) : companies;
   const total = selectedCompanies.length * config.formats.length;
@@ -65,7 +69,9 @@ export async function runSefazDia(config: RunConfig, callbacks: RunCallbacks = {
     for (const format of config.formats) {
       throwIfAborted(callbacks.signal);
       emit(callbacks, config, reportPaths, entries, "download", current, total, `Baixando ${format.toUpperCase()} de ${company.nome}`, company, format);
-      const entry = await processItem(http, config, company, format, callbacks.signal);
+      const entry = useCertificate
+        ? await processPlaywrightItem(config, company, format, callbacks.signal)
+        : await processItem(http!, config, company, format, callbacks.signal);
       entries.push(entry);
       current += 1;
 
@@ -91,6 +97,11 @@ export async function runSefazDia(config: RunConfig, callbacks: RunCallbacks = {
   emit(callbacks, config, reportPaths, entries, "done", total, total, `Concluido. Sucessos: ${successCount}. Erros: ${errorCount}.`);
   log(callbacks, `Relatorios: ${jsonPath} | ${excelPath}`);
   return result;
+}
+
+async function listCompaniesWithCertificate(config: RunConfig): Promise<Company[]> {
+  const { listCompaniesViaPlaywright } = await import(PLAYWRIGHT_FALLBACK_MODULE);
+  return listCompaniesViaPlaywright(config);
 }
 
 function buildReportPaths(config: RunConfig): { jsonPath: string; excelPath: string } {
@@ -156,6 +167,25 @@ async function processItem(
       via: "http",
     };
   }
+}
+
+async function processPlaywrightItem(
+  config: RunConfig,
+  company: Company,
+  format: ReportFormat,
+  signal: AbortSignal | undefined,
+): Promise<ReportEntry> {
+  const filePath = buildOutputPath(config, company, format);
+  const entry = await tryPlaywrightFallback(config, company, format, filePath, signal);
+  return entry ?? {
+    inscricao: company.inscricao,
+    empresa: company.nome,
+    competencia: config.competencia.value,
+    formato: format,
+    status: "erro",
+    mensagem: "Fallback Playwright indisponivel para login por certificado digital.",
+    via: "playwright",
+  };
 }
 
 async function tryPlaywrightFallback(

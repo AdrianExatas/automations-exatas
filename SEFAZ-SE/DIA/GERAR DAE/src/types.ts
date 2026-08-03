@@ -1,3 +1,5 @@
+import type { SefazAuthConfig } from "../../shared/sefaz-auth";
+
 export type PlaywrightBrowserChannel = "chrome";
 
 export type DaeReferencia = {
@@ -11,7 +13,7 @@ export type Contribuinte = {
   fonte: string;
 };
 
-export type GerarDaeConfig = {
+export type GerarDaeConfig = SefazAuthConfig & {
   user: string;
   password: string;
   headless: boolean;

@@ -90,7 +90,47 @@ Interface local em Electron:
 bun run --cwd Onvio/gestta-tarefas/alterar-responsavel electron
 ```
 
-A interface permite informar e-mail/senha do Onvio, salvar a senha com criptografia do Electron quando disponivel, selecionar a planilha, baixar o modelo padrao e acompanhar os logs da execucao. Execucoes pela interface forcam o uso do artefato renovavel de auth e ignoram JWT fixo do `.env`.
+A interface permite informar e-mail/senha do Onvio, salvar a senha com criptografia do Electron quando disponivel, selecionar a planilha, baixar o modelo padrao e acompanhar os logs da execucao. Execucoes pela interface usam o artefato de auth salvo pelo app e ignoram JWT fixo do `.env`.
+
+## Aplicativo instalavel Windows
+
+Gerar o instalador:
+
+```bash
+bun install
+bun run --cwd Onvio/gestta-tarefas/alterar-responsavel build:installer
+```
+
+O instalador fica em:
+
+```text
+Onvio/gestta-tarefas/alterar-responsavel/installer/
+```
+
+Requisitos para quem vai usar o aplicativo instalado:
+
+- Windows 10 ou superior, 64 bits
+- acesso a internet
+- usuario e senha do Onvio com acesso ao Gestta
+- permissao para ler a planilha Excel usada na execucao
+
+Fluxo para o operador:
+
+1. Abra **Alterar Responsavel Gestta** pelo atalho.
+2. Informe e-mail/senha e clique em **Fazer login**.
+3. Conclua login e MFA na janela do Onvio/Gestta que o aplicativo abrir.
+4. Selecione a planilha `.xlsx`.
+5. Confira a revisao da planilha.
+6. Clique em **Executar automacao**.
+7. Ao final, use o botao de relatorios para abrir a pasta com JSON/XLSX gerados.
+
+Dados do aplicativo instalado:
+
+- login Gestta capturado: `%APPDATA%/Alterar Responsavel Gestta/auth/latest-auth.json`
+- relatorios, checkpoints e reversoes: `%APPDATA%/Alterar Responsavel Gestta/relatorios`
+- credenciais salvas: `%APPDATA%/Alterar Responsavel Gestta/credentials.json`
+
+O instalador desta primeira versao nao e assinado digitalmente. O Windows pode exibir aviso de fornecedor desconhecido.
 
 Fluxo recomendado:
 

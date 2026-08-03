@@ -1,3 +1,4 @@
+import { resolveSefazAuthConfig } from "../../../shared/sefaz-auth";
 import { parseCompetencia } from "../dates";
 import type { RunConfig } from "../types";
 import type { XmlDownloadConfig } from "../xml-downloads";
@@ -10,15 +11,16 @@ export const DEFAULT_XML_RETRY_COUNT = 2;
 export const DEFAULT_XML_RETRY_DELAY_MS = 1_000;
 
 export function buildRunConfig(request: StartRunRequest): RunConfig {
+  const auth = resolveSefazAuthConfig(process.env);
   const user = request.user.trim();
   const password = request.password;
   const formats = request.formats.filter((format) => format === "pdf" || format === "xls");
   const outDir = request.outDir.trim();
 
-  if (!user) {
+  if (requiresPasswordCredentials(auth) && !user) {
     throw new Error("Informe o login da SEFAZ.");
   }
-  if (!password) {
+  if (requiresPasswordCredentials(auth) && !password) {
     throw new Error("Informe a senha da SEFAZ.");
   }
   if (formats.length === 0) {
@@ -36,6 +38,7 @@ export function buildRunConfig(request: StartRunRequest): RunConfig {
     outDir,
     checkpointEnabled: request.checkpointEnabled ?? true,
     timeoutMs: DEFAULT_TIMEOUT_MS,
+    ...auth,
   };
 }
 
@@ -55,4 +58,8 @@ export function buildXmlDownloadConfig(request: StartXmlDownloadRequest): XmlDow
     retryCount: DEFAULT_XML_RETRY_COUNT,
     retryDelayMs: DEFAULT_XML_RETRY_DELAY_MS,
   };
+}
+
+function requiresPasswordCredentials(auth: ReturnType<typeof resolveSefazAuthConfig>): boolean {
+  return auth.authMode === "password" || !auth.certificate;
 }

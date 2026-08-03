@@ -1,0 +1,19 @@
+no vídeo 3 ainda sobre parâmetros nós iremos após a finalização conforme o vídeo anterior em contratações nós vamos na opção cálculo ao clicar em cálculo quais são as opções que você deverá fazer as alterações em usar rúbricas da empresa você vai digitar o código da empresa em lançamento de horas retirar de decimais para minutos e marcar a opção efetuar cálculo de tributos federais conforme DCTF Web nessa opção cálculo é somente essas configurações vamos agora na unidade de cálculo a unidade de cálculo já trouxe aqui essas informações 4 de 2026 mas ela não tem nenhuma vigência então o que a gente precisa fazer se eu já tenho informação que essa empresa ela foi excluída do regime em dezembro eu teria que fazer o seguinte aqui 2022 2022 2022 foi o ano da atividade da empresa vou deixar aqui ainda como simples nacional 
+
+tá se faz necessário primeiro fazer uma vigência anterior nós iremos agora na opção acima regime deixaremos também aqui simples nacional 
+
+em regime nós vamos colocar aqui uma me simples nacional optante por uma 3 5 aqui tá pois isso nós iremos em contabilidade em gerar lançamentos contábeis nós marcaremos ele vai habilitar a opção aqui opções se clica desmarca essas duas opções conforme orientado pelo setor contábil e nós vamos colocar aqui nas opções tipo de cálculo em RPA nós colocamos data do pagamento para o do RPA convenção permanece rescisão e férias data fim 
+
+então esse é o processo de validação dos parâmetros nesse caso como houve uma alteração ele não finaliza tá gente eu vou clicar aqui na opção gravar para mostrar vocês o que ainda deverá ser feito para vocês o que ainda deverá ser feito para essa situação vou gravar aqui ele vai demonstrar o interesse em importação de dados ou convenção de dados nós vamos sempre na opção de importação de dados 
+
+e clica na opção sim 
+
+aqui ele vai apresentar se nós vamos fazer algum tipo de importação mas nesse exemplo não porque a empresa não detende funcionários então fechamos aqui nesse momento 
+
+vamos retornar ao controle parâmetros o que acontece perceba que ele ainda está com habilidade de fazer alterações então ele não foi ainda validado como nós também sabemos por essa opção que cálculo em situação do é social ainda não está validado então o que é que nós vamos fazer 
+
+eu vou retornar aqui em unidade de cálculo e agora eu vou criar uma nova vigência essa nova vigência de janeiro de 2026 como a empresa normal porque ela saiu do regime do simples e aqui em regime nós vamos também criar uma nova vigência do mês 1 de 2026 normal vamos alterar o regime para normal e simples nacional como não optante e agora nós vamos gravar 
+
+permanece como importação de dados 
+
+pronto nós já fazemos gravamos e aqui ele agora nos levou novamente para a importação do e -social no próximo vídeo eu vou demonstrar a vocês como fazer a importação dos serviços que aí sim ele estará validado o nosso cadastro de parâmetros 

@@ -1,14 +1,26 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { setTimeout as sleep } from "node:timers/promises";
-import { APIResponse, Browser, Download, FrameLocator, Locator, Page, Response as PlaywrightResponse } from "playwright";
-import type { InputRow, ParcelMetadata, RunResult } from "./types.js";
 import {
-  buildParcelLabel,
+  APIResponse,
+  Browser,
+  BrowserContext,
+  Download,
+  FrameLocator,
+  Locator,
+  Page,
+  Response as PlaywrightResponse,
+} from "playwright";
+import type { InputRow, ParcelMetadata, ResultTransport, RunResult } from "./types.js";
+import {
   buildPdfFileName,
+  buildSolicitationMonthFolder,
+  classifyDueDate,
   formatToastMessage,
   normalizeWhitespace,
   parseInteger,
+  resolveParcelLabel,
+  shouldEmitParcelByDueStatus,
 } from "./utils.js";
 
 const LOGIN_URL = "https://www.sefaz.se.gov.br/SitePages/login_autoreg.aspx";
@@ -22,6 +34,21 @@ type TableRowInfo = {
   vencimento: string;
   valorParcela: string;
 };
+
+type PortalSession = {
+  context: BrowserContext;
+  page: Page;
+  frame: FrameLocator;
+};
+
+export interface PortalNetworkCapture {
+  attachPage: (page: Page) => void;
+}
+
+export interface ProcessPortalRowOptions {
+  networkCapture?: PortalNetworkCapture;
+  resultTransport?: ResultTransport;
+}
 
 type PaymentPdf = {
   originalFilename: string;
@@ -39,7 +66,45 @@ class PortalToastError extends Error {
   }
 }
 
-export async function processPortalRow(browser: Browser, row: InputRow, cwd: string): Promise<RunResult[]> {
+export async function processPortalRow(
+  browser: Browser,
+  row: InputRow,
+  cwd: string,
+  options: ProcessPortalRowOptions = {},
+): Promise<RunResult[]> {
+  const resultTransport = options.resultTransport ?? "browser";
+  const collection = await collectParcelMetadata(browser, row, options);
+  const results: RunResult[] = [...collection.errors];
+
+  for (const metadata of collection.parcels) {
+    if (!shouldEmitParcelByDueStatus(metadata.situacaoVencimento)) {
+      results.push(buildIgnoredResult(row, metadata, resultTransport));
+      continue;
+    }
+
+    results.push(await processSingleParcel(browser, row, metadata, cwd, options));
+  }
+
+  if (results.length === 0) {
+    return [
+      buildErrorResult(
+        row,
+        undefined,
+        `Nenhuma parcela disponivel foi identificada para o codigo ${row.codigo}.`,
+        undefined,
+        resultTransport,
+      ),
+    ];
+  }
+
+  return results;
+}
+
+async function createPortalSession(
+  browser: Browser,
+  row: InputRow,
+  networkCapture?: PortalNetworkCapture,
+): Promise<PortalSession> {
   const context = await browser.newContext({
     acceptDownloads: true,
     locale: "pt-BR",
@@ -47,6 +112,7 @@ export async function processPortalRow(browser: Browser, row: InputRow, cwd: str
     viewport: { width: 1280, height: 1080 },
   });
   const page = await context.newPage();
+  networkCapture?.attachPage(page);
   page.setDefaultTimeout(30_000);
 
   try {
@@ -54,9 +120,9 @@ export async function processPortalRow(browser: Browser, row: InputRow, cwd: str
     await acceptPrivacyBanner(page);
 
     const frame = page.frameLocator(IFRAME_SELECTOR);
-    await frame.getByRole("radio", { name: /Inscri/i }).click();
-    await frame.getByRole("textbox", { name: /Inscri/i }).fill(row.inscricaoEstadual);
-    const cpfInput = frame.getByRole("textbox", { name: /CPF ou CNPJ/i });
+    await selectInscricaoEstadualLogin(frame);
+    await fillLoginInput(frame, "inscricaoEstadual", row.inscricaoEstadual);
+    const cpfInput = loginInputLocator(frame, "cpfSolicitante");
     const confirmButton = frame.getByRole("button", { name: "Confirmar" });
     await cpfInput.fill(row.cpf);
     await cpfInput.press("Tab");
@@ -89,42 +155,77 @@ export async function processPortalRow(browser: Browser, row: InputRow, cwd: str
       60_000,
     );
 
+    return { context, page, frame };
+  } catch (error) {
+    await context.close();
+    throw error;
+  }
+}
+
+async function selectInscricaoEstadualLogin(frame: FrameLocator): Promise<void> {
+  const button = frame.getByRole("button", { name: /^Inscri/i }).first();
+  if (await button.isVisible().catch(() => false)) {
+    await button.click();
+    return;
+  }
+
+  await frame.getByRole("radio", { name: /Inscri/i }).click();
+}
+
+function loginInputLocator(frame: FrameLocator, field: "inscricaoEstadual" | "cpfSolicitante"): Locator {
+  if (field === "inscricaoEstadual") {
+    return frame.locator("#cdPessoaContribuinte, input[name='cdPessoaContribuinte']").or(
+      frame.getByRole("textbox", { name: /Inscri/i }),
+    );
+  }
+
+  return frame.locator("#input-cdPessoaSolicitante, input[name='cdPessoaSolicitante']").or(
+    frame.getByRole("textbox", { name: /CPF ou CNPJ/i }),
+  );
+}
+
+async function fillLoginInput(
+  frame: FrameLocator,
+  field: "inscricaoEstadual" | "cpfSolicitante",
+  value: string,
+): Promise<void> {
+  const input = loginInputLocator(frame, field);
+  await input.waitFor({ state: "visible", timeout: 30_000 });
+  await input.fill(value);
+}
+
+async function collectParcelMetadata(
+  browser: Browser,
+  row: InputRow,
+  options: ProcessPortalRowOptions,
+): Promise<{ parcels: ParcelMetadata[]; errors: RunResult[] }> {
+  const session = await createPortalSession(browser, row, options.networkCapture);
+  const resultTransport = options.resultTransport ?? "browser";
+
+  try {
     let availableRows: TableRowInfo[];
     try {
-      availableRows = await collectAvailableRows(frame, row.codigo);
+      availableRows = await collectAvailableRows(session.frame, row.codigo);
     } catch (error) {
       const { message, toast } = getErrorDetails(error);
       if (message.includes("Nenhum registro encontrado") || toast) {
-        return [buildErrorResult(row, undefined, message, toast)];
+        return { parcels: [], errors: [buildErrorResult(row, undefined, message, toast, resultTransport)] };
       }
 
       throw error;
     }
 
-    const preDownloadResults: RunResult[] = [];
-    const selectedParcels: ParcelMetadata[] = [];
+    const parcels: ParcelMetadata[] = [];
+    const errors: RunResult[] = [];
 
     for (const availableRow of availableRows) {
       try {
-        await expandRowDetails(frame, availableRow.id);
-        const details = await readRowDetails(frame, availableRow.id);
-        const metadata = buildParcelMetadata(availableRow, details);
-        await selectDebtRow(frame, availableRow.id);
-        selectedParcels.push(metadata);
+        await expandRowDetails(session.frame, availableRow.id);
+        const details = await readRowDetails(session.frame, availableRow.id);
+        parcels.push(buildParcelMetadata(availableRow, details));
       } catch (error) {
         const { message, toast } = getErrorDetails(error);
-        if (toast) {
-          if (selectedParcels.length === 0) {
-            return [buildErrorResult(row, undefined, message, toast)];
-          }
-
-          return [
-            ...preDownloadResults,
-            ...selectedParcels.map((metadata) => buildErrorResult(row, metadata, message, toast)),
-          ];
-        }
-
-        preDownloadResults.push(
+        errors.push(
           buildErrorResult(
             row,
             {
@@ -132,37 +233,58 @@ export async function processPortalRow(browser: Browser, row: InputRow, cwd: str
               vencimento: availableRow.vencimento,
               valorParcela: availableRow.valorParcela,
             },
-            `Falha ao preparar a parcela para emissao: ${message}`,
+            buildFailureMessage("Falha ao preparar a parcela para emissao", message, toast),
+            toast,
+            resultTransport,
           ),
         );
       }
     }
 
-    if (selectedParcels.length === 0) {
-      return preDownloadResults.length > 0
-        ? preDownloadResults
-        : [buildErrorResult(row, undefined, `Nenhuma parcela disponivel foi selecionada para o codigo ${row.codigo}.`)];
-    }
-
-    try {
-      await addToCashCart(page, frame);
-      await openCashCart(frame);
-      await goToSummary(frame);
-      await generateBoleto(frame);
-    } catch (error) {
-      const { message, toast } = getErrorDetails(error);
-      return [
-        ...preDownloadResults,
-        ...selectedParcels.map((metadata) =>
-          buildErrorResult(row, metadata, buildFailureMessage("Falha ao gerar os boletos para a empresa", message, toast), toast),
-        ),
-      ];
-    }
-
-    const downloadResults = await downloadAllPayments(page, frame, row, selectedParcels, cwd);
-    return [...preDownloadResults, ...downloadResults];
+    return { parcels, errors };
   } finally {
-    await context.close();
+    await session.context.close();
+  }
+}
+
+async function processSingleParcel(
+  browser: Browser,
+  row: InputRow,
+  targetMetadata: ParcelMetadata,
+  cwd: string,
+  options: ProcessPortalRowOptions,
+): Promise<RunResult> {
+  const session = await createPortalSession(browser, row, options.networkCapture);
+  const resultTransport = options.resultTransport ?? "browser";
+
+  try {
+    const availableRows = await collectAvailableRows(session.frame, row.codigo);
+    const targetRow = findMatchingAvailableRow(availableRows, targetMetadata);
+
+    await expandRowDetails(session.frame, targetRow.id);
+    const details = await readRowDetails(session.frame, targetRow.id);
+    const metadata = buildParcelMetadata(targetRow, details);
+    await selectDebtRow(session.frame, targetRow.id);
+    await addToCashCart(session.page, session.frame);
+    await openCashCart(session.frame);
+    await goToSummary(session.frame);
+    await generateBoleto(session.frame);
+
+    const [downloadResult] = await downloadAllPayments(session.page, session.frame, row, [metadata], cwd);
+    return downloadResult
+      ? { ...downloadResult, transport: resultTransport }
+      : buildErrorResult(row, metadata, "Nenhum resultado de download foi retornado para a parcela.", undefined, resultTransport);
+  } catch (error) {
+    const { message, toast } = getErrorDetails(error);
+    return buildErrorResult(
+      row,
+      targetMetadata,
+      buildFailureMessage("Falha ao emitir a parcela individualmente", message, toast),
+      toast,
+      resultTransport,
+    );
+  } finally {
+    await session.context.close();
   }
 }
 
@@ -329,16 +451,20 @@ function buildParcelMetadata(row: TableRowInfo, details: DetailDictionary): Parc
   const qtdeParcelas = parseInteger(details["Qtde de parcelas"] ?? "", "Qtde de parcelas");
   const parcelasPagas = parseInteger(details["Parcelas pagas"] ?? "", "Parcelas pagas");
   const parcelasAtrasadas = parseOptionalInteger(details["Parcelas atrasadas"]);
-  const parcelLabel = buildParcelLabel(qtdeParcelas, parcelasPagas, parcelasAtrasadas);
+  const { parcelLabel, criterioRotulo } = resolveParcelLabel(details, qtdeParcelas, parcelasPagas, parcelasAtrasadas);
+  const situacaoVencimento = classifyDueDate(row.vencimento);
 
   return {
+    portalRowId: row.id,
     protocolo: row.protocolo,
     vencimento: row.vencimento,
     valorParcela: row.valorParcela,
     qtdeParcelas,
     parcelasPagas,
     parcelasAtrasadas,
+    situacaoVencimento,
     parcelLabel,
+    criterioRotulo,
   };
 }
 
@@ -346,11 +472,51 @@ function parseOptionalInteger(value: string | undefined): number {
   return value && value.trim() ? parseInteger(value, "Parcelas atrasadas") : 0;
 }
 
+function findMatchingAvailableRow(availableRows: TableRowInfo[], metadata: ParcelMetadata): TableRowInfo {
+  const matches = availableRows.filter((row) => {
+    const sameProtocol = metadata.protocolo ? row.protocolo === metadata.protocolo : true;
+    return sameProtocol && row.vencimento === metadata.vencimento && row.valorParcela === metadata.valorParcela;
+  });
+
+  if (matches.length === 1) {
+    return matches[0]!;
+  }
+
+  if (matches.length > 1) {
+    const exactRowIdMatch = matches.find((row) => metadata.portalRowId && row.id === metadata.portalRowId);
+    if (exactRowIdMatch) {
+      return exactRowIdMatch;
+    }
+
+    throw new Error(
+      `Mais de uma parcela corresponde ao protocolo ${metadata.protocolo || "sem protocolo"} e vencimento ${metadata.vencimento}.`,
+    );
+  }
+
+  const exactRowIdMatch = availableRows.find((row) => metadata.portalRowId && row.id === metadata.portalRowId);
+  if (exactRowIdMatch) {
+    return exactRowIdMatch;
+  }
+
+  throw new Error(
+    `Parcela do protocolo ${metadata.protocolo || "sem protocolo"} com vencimento ${metadata.vencimento} nao foi encontrada ao reabrir o portal.`,
+  );
+}
+
 async function selectDebtRow(frame: FrameLocator, rowId: string): Promise<void> {
-  const checkbox = frame.locator(`[data-cy="checkbox-${rowId}"] .p-checkbox-box`);
-  const isSelected = await checkbox.evaluate((element) => element.classList.contains("p-highlight")).catch(() => false);
+  const checkboxRoot = frame.locator(`[data-cy="checkbox-${rowId}"]`);
+  const checkboxInput = checkboxRoot.locator('input[type="checkbox"]');
+  const checkboxBox = checkboxRoot.locator(".p-checkbox-box");
+  const isSelected = await checkboxInput
+    .evaluate((element) => (element as HTMLInputElement).checked)
+    .catch(async () => checkboxBox.evaluate((element) => element.classList.contains("p-highlight")).catch(() => false));
+
   if (!isSelected) {
-    await checkbox.click();
+    if (await checkboxInput.isVisible().catch(() => false)) {
+      await checkboxInput.click({ force: true });
+    } else {
+      await checkboxBox.click({ force: true });
+    }
   }
 
   await waitForSuccessOrError(
@@ -629,7 +795,7 @@ async function closePaymentDialog(page: Page, frame: FrameLocator): Promise<void
 }
 
 async function savePaymentPdf(paymentPdf: PaymentPdf, row: InputRow, metadata: ParcelMetadata, cwd: string): Promise<string> {
-  const targetDirectory = path.resolve(cwd, row.saveDir);
+  const targetDirectory = path.resolve(cwd, row.saveDir, buildSolicitationMonthFolder());
   await fs.mkdir(targetDirectory, { recursive: true });
 
   const finalFilename = buildPdfFileName(row.codigo, metadata.parcelLabel, row.empresa, metadata.vencimento);
@@ -766,7 +932,12 @@ function buildSuccessResult(
     protocolo: metadata.protocolo,
     vencimento: metadata.vencimento,
     valorParcela: metadata.valorParcela,
+    qtdeParcelas: metadata.qtdeParcelas,
+    parcelasPagas: metadata.parcelasPagas,
+    parcelasAtrasadas: metadata.parcelasAtrasadas,
+    situacaoVencimento: metadata.situacaoVencimento,
     parcelLabel: metadata.parcelLabel,
+    criterioRotulo: metadata.criterioRotulo,
     nomeOriginalPdf: originalFilename,
     pdfPath,
     status: "sucesso",
@@ -774,11 +945,48 @@ function buildSuccessResult(
   };
 }
 
+function buildIgnoredResult(row: InputRow, metadata: ParcelMetadata, transport: ResultTransport): RunResult {
+  return {
+    rowNumber: row.rowNumber,
+    codigo: row.codigo,
+    empresa: row.empresa,
+    cnpj: row.cnpj,
+    protocolo: metadata.protocolo,
+    vencimento: metadata.vencimento,
+    valorParcela: metadata.valorParcela,
+    qtdeParcelas: metadata.qtdeParcelas,
+    parcelasPagas: metadata.parcelasPagas,
+    parcelasAtrasadas: metadata.parcelasAtrasadas,
+    situacaoVencimento: metadata.situacaoVencimento,
+    parcelLabel: metadata.parcelLabel,
+    criterioRotulo: metadata.criterioRotulo,
+    transport,
+    status: "ignorado",
+    mensagem: "Parcela futura ignorada conforme regra de emissao.",
+  };
+}
+
 function buildErrorResult(
   row: InputRow,
-  metadata: Partial<Pick<ParcelMetadata, "protocolo" | "vencimento" | "valorParcela" | "parcelLabel">> | undefined,
+  metadata:
+    | Partial<
+        Pick<
+          ParcelMetadata,
+          | "protocolo"
+          | "vencimento"
+          | "valorParcela"
+          | "qtdeParcelas"
+          | "parcelasPagas"
+          | "parcelasAtrasadas"
+          | "situacaoVencimento"
+          | "parcelLabel"
+          | "criterioRotulo"
+        >
+      >
+    | undefined,
   mensagem: string,
   toast?: string,
+  transport?: ResultTransport,
 ): RunResult {
   return {
     rowNumber: row.rowNumber,
@@ -788,8 +996,14 @@ function buildErrorResult(
     protocolo: metadata?.protocolo,
     vencimento: metadata?.vencimento ?? "",
     valorParcela: metadata?.valorParcela,
+    qtdeParcelas: metadata?.qtdeParcelas,
+    parcelasPagas: metadata?.parcelasPagas,
+    parcelasAtrasadas: metadata?.parcelasAtrasadas,
+    situacaoVencimento: metadata?.situacaoVencimento,
     parcelLabel: metadata?.parcelLabel,
+    criterioRotulo: metadata?.criterioRotulo,
     toast,
+    transport,
     status: "erro",
     mensagem,
   };

@@ -1,0 +1,450 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://exatas.local/schemas/gerar-pop-it/content-v2.schema.json",
+  "title": "Contrato v2 do Gerador de POP, IT, FORM e MP",
+  "description": "Contrato canonico compartilhado pelos quatro geradores. Entradas legadas devem ser normalizadas antes da validacao deste schema.",
+  "$comment": "Compatibilidade de entrada: paragrafos e passo_a_passo viram instrucoes; print_id e prints[] viram somente campo_print manual. Timestamps, nomes de imagem e redactions sao descartados e nao pertencem ao contrato v2.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "documentos_solicitados",
+    "saida",
+    "documento",
+    "abreviaturas",
+    "documentacao_complementar",
+    "pop",
+    "it",
+    "form",
+    "mp",
+    "revisoes",
+    "pontos_validacao",
+    "transcricao"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "2.0"
+    },
+    "documentos_solicitados": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 4,
+      "uniqueItems": true,
+      "items": {
+        "enum": ["pop", "it", "form", "mp"]
+      }
+    },
+    "saida": {
+      "$ref": "#/$defs/saida"
+    },
+    "documento": {
+      "$ref": "#/$defs/documento"
+    },
+    "abreviaturas": {
+      "$ref": "#/$defs/listaTextos"
+    },
+    "documentacao_complementar": {
+      "$ref": "#/$defs/listaTextos"
+    },
+    "pop": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["etapas"],
+      "properties": {
+        "etapas": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/etapaPop"
+          }
+        }
+      }
+    },
+    "it": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["perfil_redacao", "secoes"],
+      "properties": {
+        "perfil_redacao": {
+          "const": "passo_a_passo"
+        },
+        "secoes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/secaoIt"
+          }
+        }
+      }
+    },
+    "form": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["campos_contexto", "prazo_dias", "blocos", "observacoes"],
+      "properties": {
+        "campos_contexto": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/campoContexto"
+          }
+        },
+        "prazo_dias": {
+          "type": ["integer", "null"],
+          "minimum": 0
+        },
+        "blocos": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/blocoForm"
+          }
+        },
+        "observacoes": {
+          "$ref": "#/$defs/listaTextos"
+        }
+      }
+    },
+    "mp": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["cadeia", "riscos"],
+      "properties": {
+        "cadeia": {
+          "$ref": "#/$defs/cadeia"
+        },
+        "riscos": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/risco"
+          }
+        }
+      }
+    },
+    "revisoes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/revisao"
+      }
+    },
+    "pontos_validacao": {
+      "$ref": "#/$defs/listaTextos"
+    },
+    "transcricao": {
+      "$ref": "#/$defs/transcricao"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "documentos_solicitados": {
+            "contains": {"const": "pop"}
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "pop": {
+            "properties": {
+              "etapas": {"minItems": 1}
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "documentos_solicitados": {
+            "contains": {"const": "it"}
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "it": {
+            "properties": {
+              "secoes": {"minItems": 1}
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "documentos_solicitados": {
+            "contains": {"const": "form"}
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "form": {
+            "properties": {
+              "blocos": {"minItems": 1}
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "documentos_solicitados": {
+            "contains": {"const": "mp"}
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "mp": {
+            "properties": {
+              "riscos": {"minItems": 1}
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "texto": {
+      "type": "string"
+    },
+    "textoObrigatorio": {
+      "type": "string",
+      "minLength": 1
+    },
+    "idEtapa": {
+      "type": "string",
+      "pattern": "^E[0-9]{2,}$"
+    },
+    "listaTextos": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "saida": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["arquivo_pop", "arquivo_it", "arquivo_form", "arquivo_mp"],
+      "properties": {
+        "arquivo_pop": {
+          "type": "string",
+          "pattern": "^[^/\\\\]+\\.docx$"
+        },
+        "arquivo_it": {
+          "type": "string",
+          "pattern": "^[^/\\\\]+\\.docx$"
+        },
+        "arquivo_form": {
+          "type": "string",
+          "pattern": "^[^/\\\\]+\\.xlsx$"
+        },
+        "arquivo_mp": {
+          "type": "string",
+          "pattern": "^[^/\\\\]+\\.xlsx$"
+        }
+      }
+    },
+    "documento": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "titulo",
+        "codigo_pop",
+        "codigo_it",
+        "codigo_form",
+        "codigo_mp",
+        "sigla_setor",
+        "numero",
+        "setor",
+        "emissao",
+        "revisao",
+        "versao",
+        "elaborador",
+        "verificador",
+        "aprovador",
+        "objetivo",
+        "resultado_esperado",
+        "frequencia"
+      ],
+      "properties": {
+        "titulo": {"$ref": "#/$defs/textoObrigatorio"},
+        "codigo_pop": {"type": "string", "pattern": "^PR\\.[A-Za-z0-9]+\\.[A-Za-z0-9]+$"},
+        "codigo_it": {"type": "string", "pattern": "^IN\\.[A-Za-z0-9]+\\.[A-Za-z0-9]+$"},
+        "codigo_form": {"type": "string", "pattern": "^FORM\\.[A-Za-z0-9]+\\.[A-Za-z0-9]+$"},
+        "codigo_mp": {"type": "string", "pattern": "^MP\\.[A-Za-z0-9]+\\.[A-Za-z0-9]+$"},
+        "sigla_setor": {"$ref": "#/$defs/textoObrigatorio"},
+        "numero": {"$ref": "#/$defs/textoObrigatorio"},
+        "setor": {"$ref": "#/$defs/textoObrigatorio"},
+        "emissao": {"$ref": "#/$defs/textoObrigatorio"},
+        "revisao": {"$ref": "#/$defs/textoObrigatorio"},
+        "versao": {"$ref": "#/$defs/textoObrigatorio"},
+        "elaborador": {"$ref": "#/$defs/textoObrigatorio"},
+        "verificador": {"$ref": "#/$defs/textoObrigatorio"},
+        "aprovador": {"$ref": "#/$defs/textoObrigatorio"},
+        "objetivo": {"$ref": "#/$defs/texto"},
+        "resultado_esperado": {"$ref": "#/$defs/texto"},
+        "frequencia": {"$ref": "#/$defs/textoObrigatorio"}
+      }
+    },
+    "etapaPop": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "o_que", "como", "setor", "registro"],
+      "properties": {
+        "id": {"$ref": "#/$defs/idEtapa"},
+        "o_que": {"$ref": "#/$defs/textoObrigatorio"},
+        "como": {"$ref": "#/$defs/textoObrigatorio"},
+        "setor": {"$ref": "#/$defs/textoObrigatorio"},
+        "registro": {"$ref": "#/$defs/textoObrigatorio"}
+      }
+    },
+    "campoPrint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["incluir", "id", "rotulo", "orientacao", "legenda", "obrigatorio"],
+      "properties": {
+        "incluir": {"type": "boolean"},
+        "id": {"type": "string", "minLength": 1},
+        "rotulo": {"$ref": "#/$defs/textoObrigatorio"},
+        "orientacao": {"$ref": "#/$defs/textoObrigatorio"},
+        "legenda": {"$ref": "#/$defs/textoObrigatorio"},
+        "obrigatorio": {"type": "boolean"}
+      }
+    },
+    "secaoIt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "etapa_id", "titulo", "caminho", "instrucoes", "atencoes", "campo_print"],
+      "properties": {
+        "id": {"$ref": "#/$defs/idEtapa"},
+        "etapa_id": {"$ref": "#/$defs/idEtapa"},
+        "titulo": {"$ref": "#/$defs/textoObrigatorio"},
+        "caminho": {"$ref": "#/$defs/texto"},
+        "instrucoes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/textoObrigatorio"}
+        },
+        "atencoes": {"$ref": "#/$defs/listaTextos"},
+        "campo_print": {"$ref": "#/$defs/campoPrint"}
+      }
+    },
+    "campoContexto": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "rotulo", "valor_inicial"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "rotulo": {"$ref": "#/$defs/textoObrigatorio"},
+        "valor_inicial": {"$ref": "#/$defs/texto"}
+      }
+    },
+    "itemForm": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "pergunta", "resposta_conforme"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^C[0-9]{2,}$"},
+        "pergunta": {"$ref": "#/$defs/textoObrigatorio"},
+        "resposta_conforme": {"enum": ["SIM", "NAO", "NÃO"]}
+      }
+    },
+    "blocoForm": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "etapa_id", "titulo", "setor", "itens", "campo_evidencia"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^B[0-9]{2,}$"},
+        "etapa_id": {"$ref": "#/$defs/idEtapa"},
+        "titulo": {"$ref": "#/$defs/textoObrigatorio"},
+        "setor": {"$ref": "#/$defs/textoObrigatorio"},
+        "itens": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/itemForm"}
+        },
+        "campo_evidencia": {"type": "boolean"}
+      }
+    },
+    "cadeia": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fornecedores", "entradas", "clientes", "saidas"],
+      "properties": {
+        "fornecedores": {"$ref": "#/$defs/listaTextos"},
+        "entradas": {"$ref": "#/$defs/listaTextos"},
+        "clientes": {"$ref": "#/$defs/listaTextos"},
+        "saidas": {"$ref": "#/$defs/listaTextos"}
+      }
+    },
+    "risco": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "etapa_id",
+        "etapa",
+        "quem_faz",
+        "como_faz",
+        "risco",
+        "barreira",
+        "probabilidade",
+        "gravidade",
+        "mitigacao",
+        "resultado_indicador",
+        "sugerido"
+      ],
+      "properties": {
+        "id": {"type": "string", "pattern": "^R[0-9]{2,}$"},
+        "etapa_id": {"$ref": "#/$defs/idEtapa"},
+        "etapa": {"$ref": "#/$defs/textoObrigatorio"},
+        "quem_faz": {"$ref": "#/$defs/textoObrigatorio"},
+        "como_faz": {"$ref": "#/$defs/textoObrigatorio"},
+        "risco": {"$ref": "#/$defs/textoObrigatorio"},
+        "barreira": {"$ref": "#/$defs/textoObrigatorio"},
+        "probabilidade": {"type": ["integer", "null"], "minimum": 1, "maximum": 5},
+        "gravidade": {"type": ["integer", "null"], "minimum": 1, "maximum": 5},
+        "mitigacao": {"$ref": "#/$defs/texto"},
+        "resultado_indicador": {"$ref": "#/$defs/texto"},
+        "sugerido": {"type": "boolean"}
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "sugerido": {"const": true}
+            },
+            "required": ["sugerido"]
+          },
+          "then": {
+            "properties": {
+              "probabilidade": {"type": "null"},
+              "gravidade": {"type": "null"}
+            }
+          }
+        }
+      ]
+    },
+    "revisao": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["numero", "alteracao"],
+      "properties": {
+        "numero": {"$ref": "#/$defs/textoObrigatorio"},
+        "alteracao": {"$ref": "#/$defs/textoObrigatorio"}
+      }
+    },
+    "transcricao": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "idioma"],
+      "properties": {
+        "status": {"type": "string", "minLength": 1},
+        "idioma": {"type": "string", "minLength": 2},
+        "observacao": {"$ref": "#/$defs/texto"}
+      }
+    }
+  }
+}

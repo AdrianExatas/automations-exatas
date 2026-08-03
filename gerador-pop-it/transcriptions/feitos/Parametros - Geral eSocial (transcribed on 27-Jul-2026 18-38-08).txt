@@ -1,0 +1,25 @@
+Fala pessoal, neste vídeo vou ensinar você como parametrizar uma empresa do lucro real ou lucro presumido nós estamos com esse exemplo como modelo e nós vamos iniciarmos o processo de configuração que vai estartar o processo dentro do nosso fluxo de parametrização do departamento pessoal após abrir o sistema domínio com usuário e senha acima você deverá clicar na opção controle abaixo clicar na opção parâmetros 
+
+após abertura da página inicial você deverá clicar em gerar e social ele vai habilitar agora o campo que até então só tinha do teste e ele vai habilitar agora o campo ambiente oficial você deverá marcar ambiente oficial no campo geral na opção que empresa já enviada anteriormente você vai clicar sim ou não quais são os casos de não e os casos de sim geralmente casos de não são empresas constituídas abertura de do seu CNPJ recentemente então provavelmente ele não foi enviado em nenhum momento e como consultar se essa empresa já foi enviado nós iremos aqui na opção controle empresas 
+
+um dos motivos que logicamente representa que ela é uma empresa de início de 2022 então provavelmente essa empresa foi encaminhada pelo ano porém como nós temos uma validação nós deveremos abrir é entrar no s social para fazer essa consulta então nós aqui na página do google digitamos é social .gov .br clicamos na opção entrar com o gol br 
+
+na opção abaixo de seu certificado digital 
+
+seleciona o certificado digital tanto da exatas contabilidade ou do marcelio alves nesse caso vamos para as exatas contabilidade clique em ok 
+
+acima na opção trocar perfil módulo você clica 
+
+selecione seu perfil você vai deverá selecionar procurador de pessoa jurídica informa informa o CNPJ representado vou dividir aqui a tela para nós termos objetividade seleciona aqui o CNPJ da empresa o número 
+
+e clica em verificar abaixo ele vai trazer alguns módulos você vai clicar em geral está aqui acima empregador nós já estamos com o uso da procuração e provavelmente a empresa já foi provavelmente não isso demonstra que a empresa já foi enviada em algum momento caso não estivesse ela daria aqui como é uma outra opção de cadastro tá aqui se você vir aí empregador contribuinte na opção consulta obrigatória ele traz até o grupo aí que a empresa pertence que é o grupo 3 nessa informação nós iremos até utilizarmos no processo de parâmetros eu vou tirar até aqui um suposto print porque já 
+
+terei essa informação futura 
+
+caso você vem aqui também em folha de pagamento gestão de folha você já pode vir nos meses anteriores e consultar se essa empresa ela tem funcionários como eu já fui aqui desde janeiro de 2021 e está em aberto possivelmente ela não tem nenhum funcionário tá quer validar ainda mais trabalhadores remuneração tá vendo nenhuma informação então retornemos aqui o processo no sistema domínio em parâmetros sabemos que essa empresa ela sim já foi enviada anteriormente então marca opção sim e qual a competência a competência nós vamos sempre colocar a data a entrada de entrada em nossa base então 4 de 2026 certificado digital sempre o 
+
+sempre do contador abaixo em trans inscrição transmissor altera para o cnpj 
+
+tá aqui esse é o primeiro objetivo do do campo geral 
+
+e este é o processo que deverá ser feito para início aqui do parâmetro geral e eu vou fazer em outros vídeos ainda dentro do parâmetros para gente não se prolongar tanto em um único vídeo tá 

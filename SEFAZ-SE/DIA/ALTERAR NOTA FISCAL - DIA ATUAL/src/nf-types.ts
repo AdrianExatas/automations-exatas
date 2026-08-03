@@ -1,3 +1,5 @@
+import type { SefazAuthConfig } from "../../shared/sefaz-auth";
+
 export type NotaFiscalAcao = "ignorar" | "alterar-imposto" | "adiar" | "zerar-cobranca";
 
 export type NotaFiscalAlteracaoInput = {
@@ -36,7 +38,7 @@ export type NotaFiscalAlteracaoEntry = {
 /** Navegador usado pelo Playwright em modo headed (ver `nf-playwright`). */
 export type PlaywrightBrowserChannel = "chrome" | "msedge" | "chromium";
 
-export type RunAlterarNotaFiscalConfig = {
+export type RunAlterarNotaFiscalConfig = SefazAuthConfig & {
   user: string;
   password: string;
   spreadsheetPath: string;

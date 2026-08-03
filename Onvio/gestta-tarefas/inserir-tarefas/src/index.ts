@@ -25,6 +25,17 @@ import {
 } from "./relatorio";
 import { executarSincronizacaoTarefa, SyncTaskApi } from "./sync";
 import {
+  executarInclusaoAditiva,
+  EmpresaTobiasResolvida,
+  InclusaoAditivaApi,
+  TarefaTobiasResolvida,
+} from "./tobias-sync";
+import {
+  lerPlanilhaTobias,
+  TAREFAS_FINANCEIRO_TOBIAS,
+  TOTAL_EMPRESAS_TOBIAS_ESPERADO,
+} from "./tobias";
+import {
   ClienteGestta,
   FuncionarioLocal,
   GrupoTarefaResolvida,
@@ -49,6 +60,7 @@ interface CliArgs {
   apply: boolean;
   dryRunFlag: boolean;
   continuar: boolean;
+  tobias: boolean;
   planilhaArg: string | null;
 }
 
@@ -57,15 +69,23 @@ function parseArgs(): CliArgs {
   const apply = args.includes("--apply");
   const dryRunFlag = args.includes("--dry-run");
   const continuar = args.includes("--continuar") || args.includes("-c");
+  const tobias = args.includes("--tobias");
   const planilhaArg = args.find((arg) => !arg.startsWith("-")) ?? null;
-  return { apply, dryRunFlag, continuar, planilhaArg };
+  return { apply, dryRunFlag, continuar, tobias, planilhaArg };
 }
 
 function getJwt(): string {
+  const authArtifactPath = process.env.ONVIO_AUTH_ARTIFACT_PATH?.trim() || undefined;
+  if (authArtifactPath) {
+    const artifacts = loadWorkspaceAuthArtifacts(process.cwd(), authArtifactPath);
+    const artifactJwt = artifacts?.gestta.jwt?.trim() || "";
+    if (artifactJwt) return artifactJwt;
+    throw new Error(`JWT Gestta nao encontrado no artefato de auth: ${authArtifactPath}.`);
+  }
+
   const jwt = process.env.JWT_GESTTA || process.env.GESTTA_JWT_TOKEN || "";
   if (jwt) return jwt;
 
-  const authArtifactPath = process.env.ONVIO_AUTH_ARTIFACT_PATH?.trim() || undefined;
   const artifacts = loadWorkspaceAuthArtifacts(process.cwd(), authArtifactPath);
   const artifactJwt = artifacts?.gestta.jwt?.trim() || "";
   if (artifactJwt) {
@@ -262,12 +282,115 @@ function imprimirResumoFinal(results: Awaited<ReturnType<typeof executarSincroni
   }
 }
 
+function imprimirResumoInclusaoAditiva(results: Awaited<ReturnType<typeof executarInclusaoAditiva>>[]): void {
+  const sucesso = results.filter((item) => item.sucesso).length;
+  const falha = results.length - sucesso;
+
+  console.log("\n--- Resumo da inclusao aditiva ---");
+  console.log(`Sucesso: ${sucesso}`);
+  console.log(`Falha: ${falha}`);
+
+  for (const result of results) {
+    const prefix = result.sucesso ? "OK" : "FALHA";
+    console.log(
+      `${prefix} ${result.tarefaPlanilha}: atuais=${result.vinculosAtuais}, ` +
+        `inclusoes=${result.inclusoes}, finais=${result.vinculosFinais ?? "nao validado"}. ${result.mensagem}`,
+    );
+    for (const detail of result.detalhes) {
+      console.log(`  - ${detail}`);
+    }
+  }
+}
+
+function getTobiasPlanilhaPath(planilhaArg: string | null): string {
+  if (!planilhaArg) {
+    throw new Error("Informe o caminho da planilha ao usar --tobias.");
+  }
+  return path.resolve(process.cwd(), planilhaArg);
+}
+
+async function executarModoTobias(args: CliArgs): Promise<void> {
+  if (args.continuar) {
+    throw new Error("O modo --tobias nao usa checkpoint; remova --continuar.");
+  }
+
+  const dryRun = args.dryRunFlag || !args.apply;
+  const planilhaPath = getTobiasPlanilhaPath(args.planilhaArg);
+  const inicioExecucao = new Date().toISOString();
+
+  if (!fs.existsSync(planilhaPath)) {
+    throw new Error(`Planilha nao encontrada: ${planilhaPath}`);
+  }
+
+  const linhas = lerPlanilhaTobias(planilhaPath);
+  if (linhas.length !== TOTAL_EMPRESAS_TOBIAS_ESPERADO) {
+    throw new Error(
+      `A aba Tobias deve conter ${TOTAL_EMPRESAS_TOBIAS_ESPERADO} CNPJs unicos; foram encontrados ${linhas.length}.`,
+    );
+  }
+
+  console.log("CLI Gestta - Inclusao aditiva Tobias\n");
+  console.log(`Modo: ${dryRun ? "dry-run" : "apply"}`);
+  console.log(`Planilha: ${planilhaPath}`);
+  console.log(`Empresas alvo: ${linhas.length}`);
+  console.log(`Tarefas alvo: ${TAREFAS_FINANCEIRO_TOBIAS.length}\n`);
+
+  const client = createGesttaClient(getJwt(), {
+    timeoutMs: getPositiveIntegerEnv("GESTTA_HTTP_TIMEOUT_MS", 60000),
+  });
+  const [clientes, tarefas] = await Promise.all([
+    listarClientes(client),
+    listarTarefasRecorrentesAtivas(client),
+  ]);
+  const tarefasByName = uniqueBy(tarefas, (item) => normalizarNomeTarefa(item.name));
+  const empresas: EmpresaTobiasResolvida[] = linhas.map((linha) => {
+    const cliente = resolverCliente(clientes, linha.cnpj);
+    return {
+      customerId: cliente._id,
+      customerName: cliente.name,
+      cnpj: linha.cnpj,
+    };
+  });
+  const tarefasAlvo: TarefaTobiasResolvida[] = TAREFAS_FINANCEIRO_TOBIAS.map((nome) => {
+    const tarefa = resolverTarefa(tarefasByName, nome);
+    return { taskId: tarefa._id, taskName: tarefa.name };
+  });
+
+  const api: InclusaoAditivaApi = {
+    listTaskCustomers: (taskId) => listarClientesDaTarefa(client, taskId),
+    addCustomersToTask: (taskId, customerIds) => adicionarClientesNaTarefa(client, taskId, customerIds),
+  };
+  const resultados: Awaited<ReturnType<typeof executarInclusaoAditiva>>[] = [];
+
+  for (const tarefa of tarefasAlvo) {
+    resultados.push(await executarInclusaoAditiva(api, tarefa, empresas, dryRun));
+  }
+
+  imprimirResumoInclusaoAditiva(resultados);
+  const relatorio = gerarRelatorioExecucao(planilhaPath, dryRun, resultados, inicioExecucao);
+  const caminhoJson = salvarRelatorio(relatorio);
+  if (caminhoJson) {
+    atualizarIndice(caminhoJson, relatorio);
+    console.log(`\nRelatorio JSON: ${caminhoJson}`);
+    const caminhoXlsx = salvarRelatorioXlsx(relatorio, caminhoJson);
+    if (caminhoXlsx) console.log(`Relatorio XLSX: ${caminhoXlsx}`);
+  }
+
+  if (resultados.some((item) => !item.sucesso)) {
+    process.exitCode = 1;
+  }
+}
+
 async function main(): Promise<void> {
   console.log("CLI Gestta - Inserir tarefas v1\n");
 
   const args = parseArgs();
   if (args.apply && args.dryRunFlag) {
     throw new Error("Use apenas um modo por execucao: --apply ou --dry-run.");
+  }
+  if (args.tobias) {
+    await executarModoTobias(args);
+    return;
   }
   const dryRun = args.dryRunFlag || !args.apply;
   const planilhaPath = path.resolve(process.cwd(), getPlanilhaPath(args.planilhaArg));

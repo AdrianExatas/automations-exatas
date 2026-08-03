@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import path from "node:path";
 import {
+  buildExecutionOutputDir,
   buildCompanyDirectoryName,
   buildHttpOutputPath,
   buildOutputPath,
@@ -9,6 +10,7 @@ import {
   buildPdfFileName,
   buildVencimentoMonthDirectoryName,
   parseParcelasTotais,
+  timestampForDirectory,
 } from "../src/utils.js";
 
 test("monta o caminho final no formato esperado para um parcelamento com 3/14", () => {
@@ -42,6 +44,16 @@ test("normaliza mes de vencimento a partir de datas BR e ISO", () => {
   assert.equal(buildVencimentoMonthDirectoryName("29/05/2026"), "05-2026");
   assert.equal(buildVencimentoMonthDirectoryName("2026-05-29T23:59:59-03:00"), "05-2026");
   assert.equal(buildVencimentoMonthDirectoryName(undefined), "SEM VENCIMENTO");
+});
+
+test("monta diretorio de execucao com data e hora", () => {
+  const date = new Date(2026, 6, 6, 12, 9, 8);
+
+  assert.equal(timestampForDirectory(date), "2026-07-06_12-09-08");
+  assert.equal(
+    buildExecutionOutputDir("C:\\saida", date),
+    path.join("C:\\saida", "execucoes", "2026-07-06_12-09-08"),
+  );
 });
 
 test("cada parcelamento usa sua proxima parcela no nome do arquivo", () => {

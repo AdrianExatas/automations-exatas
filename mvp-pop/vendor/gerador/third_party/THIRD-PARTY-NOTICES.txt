@@ -1,0 +1,34 @@
+THIRD-PARTY NOTICES
+===================
+
+This package contains the following third-party components. They remain
+subject to their own licenses; no ownership of those components is claimed.
+
+FFmpeg 8.1.2
+------------
+The Windows x64 executables are the GyanD essentials build of FFmpeg 8.1.2,
+built from FFmpeg commit 38b88335f99e76ed89ff3c93f877fdefce736c13.
+The distributed build is licensed under GPL version 3. The package contains
+the build provider's license and build notes, the corresponding official
+FFmpeg source archive, and its upstream signature under third_party/ffmpeg.
+FFmpeg project: https://ffmpeg.org/
+Binary provider: https://github.com/GyanD/codexffmpeg/releases/tag/8.1.2
+Source: https://ffmpeg.org/releases/ffmpeg-8.1.2.tar.xz
+
+whisper.cpp 1.9.1
+-----------------
+Copyright (c) the ggml authors. whisper.cpp is licensed under the MIT License.
+The license and pinned source archive are under third_party/whisper.cpp.
+Project: https://github.com/ggml-org/whisper.cpp
+
+Whisper ggml-small-q5_1 model
+-----------------------------
+The quantized multilingual model is distributed from the whisper.cpp model
+repository and is based on OpenAI Whisper. The applicable MIT license notice
+is under third_party/whisper-model.
+Model: https://huggingface.co/ggerganov/whisper.cpp
+Original project: https://github.com/openai/whisper
+
+Exact versions, source revisions, download locations, and archive hashes are
+recorded in third_party/versions.json. Hashes of the files shipped in this
+skill are recorded in third_party/checksums.sha256.

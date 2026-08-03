@@ -1,0 +1,39 @@
+Dando continuidade ao processo de execução de parametrização do setor do DP Esse segundo passo nós iremos agora aprender a executar a configuração dentro do sistema de serviços da empresa Então após abrir o sistema domínio com usuário e senha, na parte superior na opção arquivo Você vai clicar nele, abaixo na opção serviços 
+
+E aqui ele vai trazer as informações já pré -preenchidas dos dados da empresa Mas qual o objetivo do nosso setor em relação a configuração? Deverá vir aqui na opção é social 
+
+Aqui haverá três tipos de informação, tipo de serviço, tipo de lotação é social e registro de ponto O tipo de lotação é social, ele sempre permanecerá esse, independente da classificação de regime da empresa No registro de ponto, qual a opção? Ele tem algumas opções Porém aqui nós devemos utilizar como padrão E depois disso pode sim ser alterado Mas pouco importante É a opção deixada como eletrônicos e outros Por quê? Porque o que é que diz sobre o registro de ponto? A lei é obrigatória acima de 20 funcionários 
+
+E a gente tem uma opção de 24 da CLT Essa é obrigatoriedade de se ter registro de ponto No entanto, a própria lei Ela não exige que resista exclusivamente a eletrônica Ela pode ser manual, mecânico, digital e eletrônica Então independente da quantitativo E 
+
+se está ou não A gente coloca aí eletrônico Outros Fica mais adequado para a situação Tá? Vamos em contratações Em contratações ele tem uma opção Aqui contratações de jovem aprendiz E quando você clica Ele dá três opções Dispensado, de acordo com a lei Dispensado mesmo Que parcialmente em virtude de processo judicial Ou obrigatório Mas como eu sei identificar Se essa empresa que eu estou parametrizando Ela está obrigada ou dispensada Vamos aqui O que a lei determina Que o artigo 429 da consolidação das leis Ele deixa claro Que tem pelo menos De sete empregados Já são obrigados a empregar É... Jovens aprendizes A partir de sete empregados Que equivale a um percentual De cinco Até quinze por cento O número deve ser calculado Sobre total de empregados Cujas funções Demanda de profissional Não vou entrar aqui em detalhe Do cálculo do jovem aprendiz Estamos falando da parametrização Mas o que eu quero abordar Isso com você Que para você identificar Seu objetivo é É facultativa A contratação de aprendizes Pelas empresas empregadas E empresas de EPP Inclusive as que fazem parte Do sistema integrado De pagamento de contribuições Denominadas Simples Nacional Então elas são Facultativas Não obrigatórias Tá? Então já deixa aí Uma informação É... Que encurta caminho Toda empresa do Simples Nacional Não são obrigadas Bem também como Empresas de entidades De fins lucrativos Então entende -se que Empresas de lucro real Lucro presumido E da acima de sete Elas já são Obrigatórias 
+
+Então todas as empresas Que venham Do Simples Nacional Você deixa Como dispensado E agora aí Mais importante Dessa configuração É no campo INSS 
+
+Aqui nós vamos fazer agora A configuração Do código FEPAS Desta empresa Que se for Presumido E real Tem impactos Em relação a O recolhimento De código De terceiros E de RAT E como configurar Corretamente É... O código FEPAS Ao abrir O Google Você Digitará DP O meu aqui Já está salvo Tem dpoobjetivo .com .br E aí ele vai trazer Algumas tabelas Atribuições De Kenae 
+
+Aqui no campo Específico Aqui Na lupa De pesquisa Você deverá É... Você deverá É... Inserir O... O Kenae Principal Da Empresa Então eu vou Dividir Aqui A minha Tela Vou clicar Na opção Do domínio Controle Empresas 
+
+Venho no campo Aqui Atividades E nesse Kenae 2 .3 Eu identifico A atividade Principal Da empresa Nesse caso É construção De estações E rede de telecomunicamento E o código Agora eu volto E retorno Lá Na página De dpoobjetivo Soluções E clico E digito O número Do Kenae 4221904 E clico Na opção Enter 
+
+Pronto Aqui ele já Trouxe As atribuições Eu vou clicar Nesse primeiro Aqui Tá Atribuições Do Kenae 
+
+E ele vai Me trazer As informações Necessárias Que eu preciso Aqui ele já pegou Aí perceba Já trouxe A atividade Da empresa Abaixo Ele vai trazer Informações Se a empresa É obrigada Ou não Se é permitida Tá no Simples Ou não Mas isso Não vem ao nosso caso Nós vamos Aqui Na opção 
+
+Primeiro Nós vamos Nas atribuições Do FEPAIS Por atividades Do Kenae E o que é FEPAIS FEPAIS Fundo Da Previdência E assistência Social Então eu vou Aqui Dividir Novamente A tela Retorno Ao Sistema Domínio E vou Preencher No campo INSS O código Do FEPAIS 
+
+O código Do FEPAIS O código Do FEPAIS O código Do FEPAIS Para essa Atividade É O 507 
+
+Como Nós Já Sabemos Que Essa Empresa Que Está Como Exemplo Ela Não É Optante Pela Simples Nacional Então Nós Vamos Aqui Em Código De Terceiros Digitar E aí Nós Retornamos Ao DP Objetivo Código De Terceiro Qual Código 0079 Então Digito Lá 0079 INSS Empresa Alíquota Do Patronal 20 % 
+
+Acidente De Trabalho Aqui Nós Colocamos 
+
+Colocamos De 
+
+Terceiro Qual Código De Terceiro Qual Código De Terceiro 
+
+mais e o código gps para efeito de salvar permanece o 2100 que era um código antigo do recolhimento feito isso a gente vai aqui em fgts não tem nenhuma informação para trazê -la e nós clicamos em gravar 
+
+e 
+
+aí o processo de execução de serviço de uma empresa do lucro presumido lucro real tá 

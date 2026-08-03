@@ -1,0 +1,200 @@
+:root {
+  --bg: #f4f6f8;
+  --ink: #1a2332;
+  --muted: #5c6b7a;
+  --brand: #0b5fff;
+  --brand-dark: #0847c7;
+  --surface: #ffffff;
+  --line: #d8e0e8;
+  --ok: #0f7b4c;
+  --warn: #a15c00;
+  --err: #b42318;
+  --radius: 10px;
+  --font: "Segoe UI", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: var(--font);
+  color: var(--ink);
+  background:
+    radial-gradient(1200px 500px at 10% -10%, #d9e8ff 0%, transparent 60%),
+    radial-gradient(900px 400px at 100% 0%, #e8f5ef 0%, transparent 55%),
+    var(--bg);
+  min-height: 100vh;
+}
+
+a { color: var(--brand); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  background: rgba(255,255,255,.85);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.brand { font-weight: 700; letter-spacing: .02em; }
+.nav { display: flex; gap: 1rem; flex-wrap: wrap; font-size: .95rem; }
+
+.wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+h1 { margin: 0 0 .35rem; font-size: 1.75rem; }
+.lead { color: var(--muted); margin: 0 0 1.25rem; }
+
+.grid {
+  display: grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap: 1.25rem;
+}
+@media (max-width: 900px) {
+  .grid { grid-template-columns: 1fr; }
+}
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+}
+
+label {
+  display: block;
+  font-size: .85rem;
+  font-weight: 600;
+  margin: .75rem 0 .3rem;
+}
+input, select, textarea, button {
+  font: inherit;
+}
+input, select, textarea {
+  width: 100%;
+  padding: .65rem .75rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+textarea { min-height: 90px; resize: vertical; }
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .75rem;
+}
+@media (max-width: 640px) {
+  .row { grid-template-columns: 1fr; }
+}
+
+.checks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem 1.25rem;
+  margin-top: .5rem;
+}
+.checks label {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  font-weight: 500;
+  margin: 0;
+}
+.checks input { width: auto; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .4rem;
+  border: none;
+  border-radius: 8px;
+  padding: .7rem 1rem;
+  background: var(--brand);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn:hover { background: var(--brand-dark); }
+.btn.secondary { background: #eef2f6; color: var(--ink); }
+.btn.danger { background: var(--err); }
+.btn.ok { background: var(--ok); }
+.actions { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1rem; }
+
+.muted { color: var(--muted); font-size: .9rem; }
+.badge {
+  display: inline-block;
+  padding: .15rem .5rem;
+  border-radius: 999px;
+  font-size: .75rem;
+  font-weight: 700;
+  background: #eef2f6;
+}
+.badge.em_validacao, .badge.documentacao_gerada, .badge.documento_atualizado { background: #fff4d6; color: var(--warn); }
+.badge.vigente, .badge.aprovado { background: #ddf6e9; color: var(--ok); }
+.badge.erro, .badge.ajuste_solicitado { background: #fde8e6; color: var(--err); }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .9rem;
+}
+th, td {
+  text-align: left;
+  padding: .55rem .4rem;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+th { color: var(--muted); font-weight: 600; }
+
+.flash {
+  padding: .75rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  display: none;
+}
+.flash.show { display: block; }
+.flash.ok { background: #ddf6e9; color: var(--ok); }
+.flash.err { background: #fde8e6; color: var(--err); }
+
+.video {
+  width: 100%;
+  max-height: 320px;
+  background: #000;
+  border-radius: 8px;
+}
+
+.pre {
+  white-space: pre-wrap;
+  background: #f7fafc;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: .75rem;
+  max-height: 280px;
+  overflow: auto;
+  font-size: .85rem;
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: .75rem;
+  margin-bottom: 1rem;
+}
+.stat {
+  background: #f7fafc;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: .75rem;
+}
+.stat strong { display: block; font-size: 1.4rem; }

@@ -1,10 +1,14 @@
 import path from "node:path";
 import process from "node:process";
+import { resolveSefazAuthConfig, type SefazAuthMode } from "../../shared/sefaz-auth";
 import type { DaeReferencia, GerarDaeConfig, PlaywrightBrowserChannel } from "./types";
 
 type ParseState = Partial<Omit<GerarDaeConfig, "referencia">> & {
   ano?: number;
   mes?: number;
+  authMode?: SefazAuthMode;
+  certPath?: string;
+  certPasswordFile?: string;
 };
 
 export function loadConfig(argv: string[], env: NodeJS.ProcessEnv = process.env): GerarDaeConfig {
@@ -48,6 +52,18 @@ export function loadConfig(argv: string[], env: NodeJS.ProcessEnv = process.env)
         options.browserChannel = parseBrowserChannel(requiredValue(arg, value));
         index += 1;
         break;
+      case "--auth-mode":
+        options.authMode = parseAuthMode(requiredValue(arg, value));
+        index += 1;
+        break;
+      case "--cert-path":
+        options.certPath = path.resolve(cwd, requiredValue(arg, value));
+        index += 1;
+        break;
+      case "--cert-password-file":
+        options.certPasswordFile = path.resolve(cwd, requiredValue(arg, value));
+        index += 1;
+        break;
       case "--model-dir":
         options.modelDir = path.resolve(cwd, requiredValue(arg, value));
         index += 1;
@@ -74,11 +90,16 @@ export function loadConfig(argv: string[], env: NodeJS.ProcessEnv = process.env)
   const timeoutMs = options.timeoutMs;
   const modelDir = options.modelDir;
   const outDir = options.outDir;
+  const auth = resolveSefazAuthConfig(env, {
+    authMode: options.authMode,
+    certPath: options.certPath,
+    certPasswordFile: options.certPasswordFile,
+  });
 
-  if (!user) {
+  if (requiresPasswordCredentials(auth) && !user) {
     throw new Error("Informe o login da SEFAZ.");
   }
-  if (!password?.trim()) {
+  if (requiresPasswordCredentials(auth) && !password?.trim()) {
     throw new Error("Informe a senha da SEFAZ.");
   }
   if (typeof timeoutMs !== "number" || !Number.isFinite(timeoutMs) || timeoutMs <= 0) {
@@ -94,14 +115,15 @@ export function loadConfig(argv: string[], env: NodeJS.ProcessEnv = process.env)
   const referencia = buildReferencia(options.ano, options.mes);
 
   return {
-    user,
-    password,
+    user: user ?? "",
+    password: password ?? "",
     headless: options.headless ?? true,
     timeoutMs,
     browserChannel: options.browserChannel,
     modelDir,
     outDir,
     referencia,
+    ...auth,
   };
 }
 
@@ -119,6 +141,19 @@ function parseBrowserChannel(raw: string): PlaywrightBrowserChannel {
   }
 
   throw new Error("Canal de navegador invalido. Use chrome.");
+}
+
+function parseAuthMode(raw: string): SefazAuthMode {
+  const value = raw.trim().toLowerCase();
+  if (value === "auto" || value === "certificate" || value === "password") {
+    return value;
+  }
+
+  throw new Error("Use --auth-mode com auto, certificate ou password.");
+}
+
+function requiresPasswordCredentials(auth: ReturnType<typeof resolveSefazAuthConfig>): boolean {
+  return auth.authMode === "password" || !auth.certificate;
 }
 
 function parseAno(raw: string): number {

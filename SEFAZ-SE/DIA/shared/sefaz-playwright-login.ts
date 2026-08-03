@@ -1,4 +1,7 @@
+import type { SefazAuthConfig } from "./sefaz-auth";
+
 export const LOGIN_CONTABILISTA_URL = "https://security.sefaz.se.gov.br/internet/portal/contabilista/atoAcessoContabilista.jsp";
+export const PORTAL_URL = "https://security.sefaz.se.gov.br/internet/portal.jsp";
 
 type SefazLocator = {
   click(options?: { timeout?: number }): Promise<unknown>;
@@ -15,13 +18,29 @@ type SefazPlaywrightPage = {
   waitForLoadState(state: "domcontentloaded"): Promise<unknown>;
 };
 
-export type SefazLoginOptions = {
+export type SefazLoginOptions = Partial<SefazAuthConfig> & {
   user: string;
   password: string;
   timeoutMs: number;
 };
 
 export async function loginSefazContabilista(page: SefazPlaywrightPage, options: SefazLoginOptions): Promise<void> {
+  if (options.authMode !== "password" && options.certificate) {
+    await page.goto(PORTAL_URL, { waitUntil: "domcontentloaded" });
+    await page.waitForLoadState("domcontentloaded").catch(() => undefined);
+    if (await isLoggedIn(page, options.timeoutMs)) {
+      return;
+    }
+
+    if (options.authMode === "certificate") {
+      throw new Error("Login por certificado digital nao confirmado no portal SEFAZ-SE.");
+    }
+  }
+
+  if (!options.user.trim() || !options.password.trim()) {
+    throw new Error("Login por certificado digital nao confirmado e credenciais SEFAZ nao foram informadas para fallback.");
+  }
+
   await page.goto(LOGIN_CONTABILISTA_URL, { waitUntil: "domcontentloaded" });
   const userInput = page.locator('input[name="UserName"]');
   const passwordInput = page.locator('input[name="Password"]');
@@ -68,4 +87,13 @@ async function assertLoggedIn(page: SefazPlaywrightPage, timeoutMs: number): Pro
   if (!isSefazLoginConfirmed(page.url(), body)) {
     throw new Error("Login nao confirmado no portal SEFAZ-SE.");
   }
+}
+
+async function isLoggedIn(page: SefazPlaywrightPage, timeoutMs: number): Promise<boolean> {
+  const body = await page.locator("body").innerText({ timeout: Math.min(timeoutMs, 5_000) }).catch(() => "");
+  return isSefazCertificateLoginConfirmed(body);
+}
+
+function isSefazCertificateLoginConfirmed(bodyText: string): boolean {
+  return /logout\.jsp/i.test(bodyText) || /\bDIA\b/i.test(bodyText);
 }

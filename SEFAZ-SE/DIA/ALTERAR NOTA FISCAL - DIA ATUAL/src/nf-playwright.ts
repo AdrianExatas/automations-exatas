@@ -1,5 +1,6 @@
 import process from "node:process";
 import { chromium, type Browser, type BrowserContext, type Locator, type Page } from "playwright";
+import { buildClientCertificates } from "../../shared/sefaz-auth";
 import { loginSefazContabilista, openDiaModule } from "../../shared/sefaz-playwright-login";
 import { matchesNotaFiscal } from "./normalize";
 import type { NotaFiscalAlteracaoInput, NotaFiscalMatch, RunAlterarNotaFiscalConfig } from "./nf-types";
@@ -32,6 +33,7 @@ export class NotaFiscalPlaywrightClient {
       locale: "pt-BR",
       timezoneId: "America/Sao_Paulo",
       viewport: { width: 1280, height: 900 },
+      clientCertificates: buildClientCertificates(this.config.certificate),
     });
     this.context.setDefaultTimeout(this.config.timeoutMs);
     this.page = await this.context.newPage();

@@ -16,6 +16,7 @@ export interface LinhaPlanilha {
   /** Nome do departamento (ex.: Pessoal, Fiscal) – define o setor para alterar responsável. */
   departamento?: string;
   setor?: string;
+  tarefa?: string;
 }
 
 /** Cliente retornado pelo GET admin/customer. */

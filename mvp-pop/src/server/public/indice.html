@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Índice Mestre — MVP POP</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">Exatas · Índice Mestre</div>
+    <nav class="nav">
+      <a href="/">Envio</a>
+      <a href="/validacao">Validação</a>
+      <a href="/painel">Painel</a>
+      <a href="/indice">Índice Mestre</a>
+    </nav>
+  </header>
+  <main class="wrap">
+    <h1>Índice Mestre</h1>
+    <p class="lead">Controle de códigos, versões e status. Espelho também em Indice-Mestre.json/.csv na pasta de publicação.</p>
+    <div class="actions" style="margin-top:0;">
+      <button class="btn secondary" id="exportBtn" type="button">Exportar arquivos</button>
+    </div>
+    <div class="panel" style="margin-top:1rem;">
+      <table>
+        <thead>
+          <tr>
+            <th>Código</th><th>Documento</th><th>Setor</th><th>Versão</th><th>Status</th><th>Responsável</th><th>Revisão</th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+  </main>
+  <script src="/static/indice.js"></script>
+</body>
+</html>

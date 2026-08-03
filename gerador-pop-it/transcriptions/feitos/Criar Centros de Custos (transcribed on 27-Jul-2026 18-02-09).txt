@@ -1,0 +1,19 @@
+Neste vídeo eu vou apresentar como você deverá criar o centro de custo de uma empresa Após abrir o domínio com seu usuário e senha, domínio folha, você vai clicar na parte superior na opção arquivo 
+
+Logo abaixo você vai procurar a opção centro de custos 
+
+Ele vai apresentar aqui caso a empresa seja nova, que não há nenhum cadastro, que está vazio, então você clica ok E aqui em centro do custo você vai criar a determinada departamento, chamada centro de custos Então vamos criar aqui como modelo o doado administrativo 
+
+criado em geral Após fazer a descrição na opção nome, basta você clicar em gravar Pronto, 
+
+está aí um centro de custos criado, vamos criar um outro, você clica em novo 
+
+Vou cancelar aqui um minuto 
+
+Pronto, você clica agora em novo e vou criar um administrativo 
+
+E abaixo eu clico em gravar Perceba que agora eu já tenho dois centros de custos Essa é a opção de fazer com que a criação do processo de centro de custos Onde eu aloco isso? 
+
+Eu venho aqui em arquivos e empregados O centro de custos nada mais é nada menos que uma empresa que tem determinadas categorias dentro da sua empresa como produção setor administrativo, setor administrativo, loja, precisa conhecer a empresa E quando for fazer a admissão de um colaborador, um cadastro empregado Então eu venho aqui em arquivo, empregados Na opção centro de custos, eu clico em F2 E ele vai aparecer os centros de custos criados Neste nosso exemplo nós criamos um administrativo em geral Então suponhamos que essa empresa ela tem administrativo Eu clico aqui em administrativo Eu clico aqui em administrativo e faço a determinada Concluo com os cadastros admissionais Como neste vídeo o conteúdo é apenas a criação e a inclusão do centro de custos Então nós concluímos por aqui Qual o propósito e objetivo dele? Fazer com que a empresa contabilmente apareça a separação dos custos Então quando eu crio o centro de custos Quando eu insiro dentro do cadastro do colaborador Eu vou agora para a opção do contábil Então eu venho aqui em controle Empresas Perdão, controle, parâmetros Procuro a opção acima Contabilidade 
+
+Abaixo Aqui ele vai ter uma opção Separa, lançar Lançamento por aí não separa São as opções centro de custos Departamento, serviços ou filiais Neste caso centro de custos Lembrando A empresa ela precisa estar No grupo prêmio contábil Seria importante todas as empresas Que vai ter contabilidade E esse é o processo Depois é só clicar aqui acima gravar Não vou fazer nesse porque o cliente Ele não detém Dessas formalidades Então tá aí Mais um vídeo sobre criação de centro de custos 

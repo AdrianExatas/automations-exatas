@@ -1,0 +1,4 @@
+interface:
+  display_name: "Gerar POP, IT, FORM e MP"
+  short_description: "Gera documentação de processos a partir de uma transcrição"
+  default_prompt: "Use $gerar-pop-it para montar os documentos selecionados a partir da transcrição fornecida, com brief de metadados, rubrica de qualidade, campos manuais de print e atualização da Lista Documental Mestra."

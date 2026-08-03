@@ -9,6 +9,7 @@ import path from "path";
 import { ResultadoLinha } from "./types";
 
 const PASTA_RELATORIOS = "relatorios";
+const RELATORIOS_DIR_ENV = "GESTTA_RELATORIOS_DIR";
 
 export interface DadosCheckpoint {
   planilhaPath: string;
@@ -19,6 +20,8 @@ export interface DadosCheckpoint {
 
 /** Diretório base (Alterar-responsavel). */
 function getRelatoriosDir(): string {
+  const configuredDir = process.env[RELATORIOS_DIR_ENV]?.trim();
+  if (configuredDir) return path.resolve(configuredDir);
   return path.join(process.cwd(), PASTA_RELATORIOS);
 }
 
@@ -69,6 +72,7 @@ function desserializarResultado(raw: unknown): ResultadoLinha | null {
       mesGeracao: { month: mg.month, year: mg.year },
       departamento: linha.departamento != null ? String(linha.departamento) : undefined,
       setor: linha.setor != null ? String(linha.setor) : undefined,
+      tarefa: linha.tarefa != null ? String(linha.tarefa) : undefined,
     },
     sucesso: Boolean(o.sucesso),
     mensagem: String(o.mensagem ?? ""),

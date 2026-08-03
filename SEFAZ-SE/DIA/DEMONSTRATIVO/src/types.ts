@@ -1,3 +1,5 @@
+import type { SefazAuthConfig } from "../../shared/sefaz-auth";
+
 export type ReportFormat = "pdf" | "xls";
 
 export type Company = {
@@ -12,7 +14,7 @@ export type Competencia = {
   monthSelectValue: string;
 };
 
-export type RunConfig = {
+export type RunConfig = SefazAuthConfig & {
   user: string;
   password: string;
   competencia: Competencia;

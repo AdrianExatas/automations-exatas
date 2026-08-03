@@ -1,0 +1,35 @@
+{
+    "schema_version":  "1.0",
+    "platform":  "windows-x64",
+    "components":  [
+                       {
+                           "name":  "FFmpeg essentials build",
+                           "version":  "8.1.2",
+                           "binary_provider":  "GyanD/codexffmpeg",
+                           "source_commit":  "38b88335f99e76ed89ff3c93f877fdefce736c13",
+                           "license":  "GPL-3.0",
+                           "archive_url":  "https://github.com/GyanD/codexffmpeg/releases/download/8.1.2/ffmpeg-8.1.2-essentials_build.zip",
+                           "archive_sha256":  "db580001caa24ac104c8cb856cd113a87b0a443f7bdf47d8c12b1d740584a2ec",
+                           "corresponding_source":  "third_party/ffmpeg/source/ffmpeg-8.1.2.tar.xz",
+                           "source_sha256":  "464beb5e7bf0c311e68b45ae2f04e9cc2af88851abb4082231742a74d97b524c"
+                       },
+                       {
+                           "name":  "whisper.cpp",
+                           "version":  "1.9.1",
+                           "source_commit":  "f049fff95a089aa9969deb009cdd4892b3e74916",
+                           "license":  "MIT",
+                           "archive_url":  "https://github.com/ggml-org/whisper.cpp/releases/download/v1.9.1/whisper-bin-x64.zip",
+                           "archive_sha256":  "7d8be46ecd31828e1eb7a2ecdd0d6b314feafd82163038ab6092594b0a063539",
+                           "source_archive":  "third_party/whisper.cpp/source/whisper.cpp-f049fff95a.zip",
+                           "source_sha256":  "58347c4dc92142c47b6d6e5a2a7e1b00b501c9bf8cdaff7f089e49ae59eb3a44"
+                       },
+                       {
+                           "name":  "Whisper ggml-small-q5_1 model",
+                           "revision":  "98aa99a0a9db05ae2342309f5096248665f7cba3",
+                           "license":  "MIT",
+                           "source_url":  "https://huggingface.co/ggerganov/whisper.cpp/resolve/98aa99a0a9db05ae2342309f5096248665f7cba3/ggml-small-q5_1.bin?download=true",
+                           "sha256":  "ae85e4a935d7a567bd102fe55afc16bb595bdb618e11b2fc7591bc08120411bb",
+                           "size_bytes":  190085487
+                       }
+                   ]
+}

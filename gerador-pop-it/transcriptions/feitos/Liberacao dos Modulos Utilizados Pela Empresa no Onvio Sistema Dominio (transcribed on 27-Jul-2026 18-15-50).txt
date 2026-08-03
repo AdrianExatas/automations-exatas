@@ -1,0 +1,17 @@
+Neste vídeo eu vou ensinar você como você deverá fazer um processo de liberação de acesso tanto ao sistema Onvio, tanto como portal do cliente. Perceba nessas duas imagens. 
+
+Porque não foi feito um processo inicial na configuração das empresas dentro do sistema Onvio. 
+
+Então como deverá ser feito? 
+
+Vamos pegar essas empresas como modelo. Acima do canto esquerdo você vai clicar em controle. Abaixo empresas. 
+
+Abaixo tem algumas opções como novo, editar, alterações. Você deverá clicar em módulos. 
+
+Ele vai abrir aqui umas opções domínio contábil. Você deverá clicar aqui no canto Onvio. Perceba que aqui não está marcado. Então os módulos você deverá clicar. Então clica em portal do cliente, portal do empregado e clique em ok. Agora você vai clicar em gravar. 
+
+Feito isso, você deverá vir agora em 
+
+em arquivo filiais e agora ele já apresenta. Basta você clicar em permitir 
+
+permitir cadastrar colaboradores no Onvio. Clicar em gravar. Pronto. Sistema agora habilitado para uso desse cliente. 

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MVP POP — Envio de atividade</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">Exatas · MVP POP/IT</div>
+    <nav class="nav">
+      <a href="/">Envio</a>
+      <a href="/validacao">Validação</a>
+      <a href="/painel">Painel</a>
+      <a href="/indice">Índice Mestre</a>
+    </nav>
+  </header>
+  <main class="wrap">
+    <h1>Envio da atividade</h1>
+    <p class="lead">Grave a execução, preencha os dados e a linha de produção gera IT/POP/FORM para validação do responsável.</p>
+    <div id="flash" class="flash"></div>
+    <div class="grid">
+      <form id="form" class="panel" enctype="multipart/form-data">
+        <div class="row">
+          <div>
+            <label for="setor">Setor</label>
+            <select id="setor" name="setor" required>
+              <option>Atendimento</option>
+              <option>Fiscal</option>
+              <option>Contábil</option>
+              <option>Departamento Pessoal</option>
+              <option>Paralegal</option>
+              <option>Qualidade</option>
+              <option>TI</option>
+            </select>
+          </div>
+          <div>
+            <label for="sistema">Sistema utilizado</label>
+            <input id="sistema" name="sistema" value="Bitrix" required />
+          </div>
+        </div>
+        <label for="atividade">Nome da atividade</label>
+        <input id="atividade" name="atividade" value="Registrar solicitação no Bitrix" required />
+        <div class="row">
+          <div>
+            <label for="responsavel">Responsável pela execução</label>
+            <input id="responsavel" name="responsavel" placeholder="Analista de Atendimento" required />
+          </div>
+          <div>
+            <label for="frequencia">Frequência</label>
+            <input id="frequencia" name="frequencia" value="Diária" required />
+          </div>
+        </div>
+        <label for="prazo">Prazo</label>
+        <input id="prazo" name="prazo" value="Imediato" required />
+        <label for="video">Vídeo da execução</label>
+        <input id="video" name="video" type="file" accept="video/*" required />
+        <p class="muted">Obrigatório — sem o vídeo o envio é rejeitado.</p>
+        <label for="attachments">Arquivos complementares</label>
+        <input id="attachments" name="attachments" type="file" multiple />
+        <label>Documentos desejados</label>
+        <div class="checks">
+          <label><input type="checkbox" name="doc" value="pop" /> POP</label>
+          <label><input type="checkbox" name="doc" value="it" checked /> IT</label>
+          <label><input type="checkbox" name="doc" value="form" checked /> Checklist (FORM)</label>
+          <label><input type="checkbox" name="doc" value="mp" /> MP</label>
+        </div>
+        <label for="updateOfCode">Atualização de documento existente (código)</label>
+        <input id="updateOfCode" name="updateOfCode" placeholder="Ex.: IN.ATE.017" />
+        <label for="observacoes">Observações importantes</label>
+        <textarea id="observacoes" name="observacoes" placeholder="Alertas, exceções, campos obrigatórios..."></textarea>
+        <div class="actions">
+          <button class="btn" type="submit">Enviar para processamento</button>
+        </div>
+        <p class="muted">Após o envio o status inicia como <strong>recebido</strong> e segue automaticamente até a validação.</p>
+      </form>
+      <aside class="panel">
+        <h2 style="margin-top:0;font-size:1.1rem;">Fluxo</h2>
+        <ol class="muted">
+          <li>Recebido</li>
+          <li>Transcrição e estrutura</li>
+          <li>Geração POP/IT/FORM</li>
+          <li>Prints e validação</li>
+          <li>Aprovação → Vigente</li>
+        </ol>
+        <p class="muted">Códigos oficiais: <code>PR.</code> <code>IN.</code> <code>FORM.</code> <code>MP.</code></p>
+        <p><a href="/validacao">Ir para validação →</a></p>
+      </aside>
+    </div>
+  </main>
+  <script src="/static/app.js?v=2"></script>
+</body>
+</html>

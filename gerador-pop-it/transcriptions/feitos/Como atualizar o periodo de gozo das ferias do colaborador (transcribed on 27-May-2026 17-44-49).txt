@@ -1,0 +1,45 @@
+Ainda dando continuidade ao processo de atualização cadastral, nós vamos falar agora sobre programação de férias férias. 
+
+Quando eu tenho a informação da antiga contabilidade, 
+
+eu preciso deixar o meu sistema contábil da mesma forma que se encontra no cenário atual para que a gente evite qualquer erro, principalmente no cálculo de férias. Então, 
+
+quando venho aqui no processo da domínio, eu vou dar um exemplo. 
+
+Perceba que as informações não estão condizentes com a realidade, porque ainda o sistema não consegue baixar de forma automática na importação do S -Social. Então, o que deverá ser feito? 
+
+Como eu preciso deixar da maneira correta, que é seguindo a informação da contabilidade, a forma de execução será, eu venho em processo, 
+
+férias, individual. 
+
+Vamos usar como parâmetro o Jonathan. 
+
+Vou executar. Ao invés de calcular, eu venho nessa opção aqui. 
+
+Como eu sei que ele está me tratando uma posição onde aqui consta 2, mas no relatório, 
+
+consta 1, consta 1, consta 1, então eu entendo que a antiga já foi gozada. Então, venho a editar. Na opção situação, eu venho gozado e gravo. Vou fechar aqui. 
+
+Solicitar mais um relatório de férias. 
+
+E vou conferir a importância da conferência. Então, aqui ele me traz umas férias, 23, 24, prazo para abril de 2025, e eu consulto no relatório. 
+
+Então, aí, 23 do 4, apenas umas férias. 
+
+Jonathan. Jonathan. Jonathan, ele ainda teve um gozo de 20 dias. Perceba aqui no relatório. Então, eu venho novamente aqui na pasta, certifico se o recibo de férias do Jonathan está na... se foi encaminhado. O objetivo é atualizar e deixar idêntico. Então, eu vou procurar aqui. Clico em Contra F. 
+
+E percebo que o Jonathan... 
+
+Vieira Lima, ele gozou de umas férias 20 dias. Em janeiro deste ano. Então, eu venho novamente em Processos. 
+
+Clico em Contra F. E, em dia 1, 2 de 1, 20 dias. 
+
+Não houve, pelo que estou vendo aqui, o pagamento do abono. 
+
+E calculo. 
+
+Após o cálculo, eu venho novamente, solicito um novo relatório. 
+
+E valido se as informações estão condizentes. Prontinho. Então, aqui, olha. Ele me traz o Jonathan. 
+
+30, 20, 10. Convencimento, 23 do 4, 2025. Valido na informação da antiga contabilidade. 30, 20, 10. 23, 4, 25. Então, Jonathan, aqui, eu consegui deixar em dentro. Então, objetivo. O objetivo dessa aplicação é, sem dúvidas, deixar idêntico ao cenário da contabilidade. 

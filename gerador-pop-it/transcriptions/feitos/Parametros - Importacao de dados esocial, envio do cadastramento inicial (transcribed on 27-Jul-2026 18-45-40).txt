@@ -1,0 +1,33 @@
+Nesta quarta fase de parâmetros, nós iremos executar o processo de envio para o e -social. Então nós vamos clicar aqui na opção Utilitários, 
+
+Importação de Dados do E -Social. 
+
+Em Tipo de Acesso, nós podemos selecionar a opção Certificado de Procuração ou Certificado da própria empresa. Vamos fazer um teste utilizando a procuração. 
+
+A opção Importar, nós vamos marcar aqui a opção Somente Serviços e Filiais. Abaixo nós vamos incluir, neste meu exemplo ele já tem, perdão. Mas você ao clicar aqui em Incluir, ele vai dizer qual o CNPJ da procuração. Então você vai digitar aqui o CNPJ das Atas. Eu vou escolher esse porque o meu já constava. 
+
+E antes de você clicar aqui e iniciar, você deverá vir aqui em Controle, Empresas, 
+
+Certificado Digital. Perceba que foi incluso o da empresa, mas para esse processo a gente não, nós precisamos retirar, senão ele não vai passar. Então você clica aqui em A3, tipo de certificado A3, vai zerar e clica em Gravar. 
+
+Pronto. Espera salvar. Feito isso, você retorna aqui na opção Importação de Dados do E -Social e clica em Iniciar. Ele vai trazer a informação que pode demorar, processo, clica em Sim e ele já está aí em Execução. 
+
+Aqui ele vai apresentar algumas informações para a gente fazer, seleciona a categoria de imagem de referência da categoria. Então vamos aqui, próximo. Verificar. Aqui ele vai pedir ainda para você selecionar o certificado digital da procuração. Vem aqui em Exato, Contabilidade, OK. 
+
+Processo em Execução e Aguarda. 
+
+Processo de Importação finalizado, OK. Só uma observação, tá gente? Tá aqui, não muda, ele não altera. E aí eu vi um vídeo do próprio Domínio explicando sobre isso em Soluções. Essa opção após importar ele não vai alterar. O dos funcionários sim, mas esse não. 
+
+Ele ainda não foi transmitido, eu venho aqui em Regime, cadê? 
+
+Um cálculo, perdão. Aí nós vamos enviar o E -Social. Clicamos em Relatório, E -Social, 
+
+Cadastramento Inicial, Fase 1 e Fase 1 e Fase 1. Aqui ele vai pedir apenas se você quer o relatório. Eu vou clicar em Não. Cadastramento Inicial da Fase 1, já foi enviado para esta empresa, OK? Clicamos aqui em Social, 
+
+Painel Dependências e a gente verifica se o envio foi ou será transmitido. e agora vai depender da estabilidade o melhor do acesso aí do portal do e -social 
+
+agora foi perceba que ele está enviando aqui no painel de pendências do e -social a empresa, estabelecimentos, lotações 
+
+pronto aparentemente não houve nenhum tipo de problema vou fechar aqui o painel de pendências retornamos em controle parâmetros 
+
+e está aí se eu vim aqui clicar em cálculo validado pelo e -social então esse é o processo nesse execução de parâmetros 

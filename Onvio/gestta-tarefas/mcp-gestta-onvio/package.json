@@ -1,0 +1,42 @@
+{
+  "name": "@exatas/mcp-gestta-onvio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Servidor MCP local para Gestta Processos e Onvio",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "mcp-gestta-onvio": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx src/index.ts",
+    "start": "node dist/index.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:inspector": "npx @modelcontextprotocol/inspector --cli node dist/index.js --method tools/list",
+    "inspector": "npx @modelcontextprotocol/inspector node dist/index.js",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "inventory": "tsx src/scripts/inventory.ts"
+  },
+  "dependencies": {
+    "@exatas/onvio-auth": "workspace:*",
+    "@exatas/onvio-solicitacoes-servico": "workspace:*",
+    "@modelcontextprotocol/server": "^2.0.0",
+    "playwright": "^1.58.2",
+    "xlsx": "^0.18.5",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/client": "^2.0.0",
+    "@modelcontextprotocol/inspector": "^2.0.0",
+    "@types/node": "^22.0.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.0",
+    "vitest": "^4.0.0"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

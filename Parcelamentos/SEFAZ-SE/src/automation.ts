@@ -1,16 +1,19 @@
 import path from "node:path";
-import { chromium, type LaunchOptions } from "playwright";
+import { chromium, type Browser, type LaunchOptions } from "playwright";
+import { HttpPortalClient, HttpPortalUnsupportedError } from "./http-client.js";
 import { processPortalRow } from "./portal.js";
-import type { RunAutomationOptions, RunAutomationResult, RunResult } from "./types.js";
+import type { AutomationTransport, RunAutomationOptions, RunAutomationResult, RunResult } from "./types.js";
 import { readInputWorkbook, writeResultWorkbook } from "./workbook.js";
 
 export async function runAutomation(options: RunAutomationOptions): Promise<RunAutomationResult> {
   const inputPath = path.resolve(options.cwd, options.inputPath);
   const rows = readInputWorkbook(inputPath);
   const log = options.log ?? (() => undefined);
+  const transport = options.transport ?? "browser";
 
   log(`Planilha carregada: ${inputPath}`);
   log(`Total de linhas para processar: ${rows.length}`);
+  log(`Transporte: ${transport}`);
 
   const launchOptions: LaunchOptions = {
     headless: !options.headed,
@@ -21,7 +24,15 @@ export async function runAutomation(options: RunAutomationOptions): Promise<RunA
     launchOptions.channel = options.browserChannel;
   }
 
-  const browser = await chromium.launch(launchOptions);
+  const browserHolder: { browser: Browser | null } = { browser: null };
+  const getBrowser = async (): Promise<Browser> => {
+    browserHolder.browser ??= await chromium.launch(launchOptions);
+    return browserHolder.browser;
+  };
+  const httpClient = new HttpPortalClient({
+    cwd: options.cwd,
+    mapDir: options.mapDir,
+  });
   const results: RunResult[] = [];
 
   try {
@@ -29,13 +40,21 @@ export async function runAutomation(options: RunAutomationOptions): Promise<RunA
       log(`\n[linha ${row.rowNumber}] Processando codigo ${row.codigo}...`);
 
       try {
-        const rowResults = await processPortalRow(browser, row, options.cwd);
+        const rowResults = await processRowByTransport({
+          transport,
+          row,
+          cwd: options.cwd,
+          httpClient,
+          getBrowser,
+          log: (message) => log(`[linha ${row.rowNumber}] ${message}`),
+        });
         results.push(...rowResults);
 
         const successCount = rowResults.filter((result) => result.status === "sucesso").length;
         const errorCount = rowResults.filter((result) => result.status === "erro").length;
+        const ignoredCount = rowResults.filter((result) => result.status === "ignorado").length;
         log(
-          `[linha ${row.rowNumber}] Concluido. Parcelas com sucesso: ${successCount}. Parcelas com erro: ${errorCount}.`,
+          `[linha ${row.rowNumber}] Concluido. Parcelas com sucesso: ${successCount}. Parcelas ignoradas: ${ignoredCount}. Parcelas com erro: ${errorCount}.`,
         );
       } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
@@ -52,19 +71,67 @@ export async function runAutomation(options: RunAutomationOptions): Promise<RunA
       }
     }
   } finally {
-    await browser.close();
+    const browserToClose = browserHolder.browser;
+    if (browserToClose) {
+      await browserToClose.close();
+    }
   }
 
   const reportPath = await writeResultWorkbook(results, options.cwd);
   const successCount = results.filter((result) => result.status === "sucesso").length;
   const errorCount = results.filter((result) => result.status === "erro").length;
+  const ignoredCount = results.filter((result) => result.status === "ignorado").length;
 
-  log(`\nProcessamento concluido. Sucessos: ${successCount}. Erros: ${errorCount}.`);
+  log(`\nProcessamento concluido. Sucessos: ${successCount}. Ignorados: ${ignoredCount}. Erros: ${errorCount}.`);
   log(`Relatorio salvo em: ${reportPath}`);
 
   return {
     reportPath,
     successCount,
     errorCount,
+    ignoredCount,
   };
+}
+
+async function processRowByTransport(options: {
+  transport: AutomationTransport;
+  row: ReturnType<typeof readInputWorkbook>[number];
+  cwd: string;
+  httpClient: HttpPortalClient;
+  getBrowser: () => Promise<Browser>;
+  log: (message: string) => void;
+}): Promise<RunResult[]> {
+  if (options.transport === "browser") {
+    return processPortalRow(await options.getBrowser(), options.row, options.cwd, {
+      resultTransport: "browser",
+    });
+  }
+
+  if (options.transport === "http") {
+    return options.httpClient.processRow(options.row);
+  }
+
+  try {
+    const httpResults = await options.httpClient.processRow(options.row);
+    const shouldFallback = httpResults.length > 0
+      && httpResults.every((result) => result.status === "erro" && result.transport === "http");
+
+    if (!shouldFallback) {
+      return httpResults;
+    }
+
+    const message = httpResults.map((result) => result.mensagem).filter(Boolean).join(" | ");
+    options.log(`HTTP falhou; usando fallback browser: ${message}`);
+  } catch (error) {
+    if (!(error instanceof HttpPortalUnsupportedError)) {
+      options.log(`HTTP falhou; usando fallback browser: ${error instanceof Error ? error.message : String(error)}`);
+    } else {
+      options.log(`HTTP indisponivel; usando fallback browser: ${error.message}`);
+    }
+  }
+
+  const fallbackResults = await processPortalRow(await options.getBrowser(), options.row, options.cwd, {
+    resultTransport: "http_fallback_browser",
+  });
+  return fallbackResults.map((result) => ({ ...result, transport: result.transport ?? "http_fallback_browser" }));
 }

@@ -1,0 +1,67 @@
+{
+  "documentos_solicitados": ["PR", "IN"],
+  "saida": {
+    "arquivo_pop": "PR.TST.002 - Contrato Legado.docx",
+    "arquivo_it": "IN.TST.002 - Contrato Legado.docx",
+    "arquivo_form": "FORM.TST.002 - Contrato Legado.xlsx",
+    "arquivo_mp": "MP.TST.002 - Contrato Legado.xlsx"
+  },
+  "documento": {
+    "titulo": "CONTRATO LEGADO",
+    "codigo_pop": "PR.TST.002",
+    "codigo_it": "IN.TST.002",
+    "codigo_form": "FORM.TST.002",
+    "codigo_mp": "MP.TST.002",
+    "sigla_setor": "TST",
+    "numero": "002",
+    "setor": "Qualidade",
+    "emissao": "21/07/2026",
+    "revisao": "21/07/2026",
+    "versao": "00",
+    "elaborador": "Responsavel pelo teste",
+    "verificador": "Qualidade",
+    "aprovador": "Gestor",
+    "objetivo": "Validar a normalizacao do contrato legado.",
+    "resultado_esperado": "JSON v2 coerente e documentos gerados sem imagens automaticas."
+  },
+  "pop": {
+    "etapas": [
+      {
+        "id": "E01",
+        "o_que": "Validar o legado",
+        "como": "Normalizando os aliases antigos.",
+        "setor": "Qualidade",
+        "registro": "Teste automatizado"
+      }
+    ]
+  },
+  "it": {
+    "secoes": [
+      {
+        "id": "E01",
+        "titulo": "1. VALIDAR O LEGADO",
+        "paragrafos": [
+          "Caminho: Sistema > Compatibilidade",
+          "COMO: Abra o registro legado.",
+          "Confirme que a normalizacao foi concluida.",
+          "Aten\u00e7\u00e3o: Nao reutilize imagens antigas."
+        ],
+        "print_id": "print-legado"
+      }
+    ]
+  },
+  "prints": [
+    {
+      "id": "print-legado",
+      "caption": "Imagem 1 - Campo manual recuperado do legado.",
+      "arquivo": "fixture-print-que-nao-existe.png",
+      "timestamp": "00:00:10",
+      "redactions": ["cliente"]
+    }
+  ],
+  "pontos_validacao": [],
+  "transcricao": {
+    "status": "fornecida",
+    "idioma": "pt"
+  }
+}

@@ -9,7 +9,9 @@
     "Pops",
     "Onvio/gestta-tarefas/adicionar-validação",
     "Onvio/gestta-tarefas/alterar-responsavel",
-    "Onvio/gestta-tarefas/inserir-tarefas"
+    "Onvio/gestta-tarefas/inserir-tarefas",
+    "Onvio/gestta-tarefas/mcp-gestta-onvio",
+    "Onvio/gestta-tarefas/parametrizacao-onboarding"
   ],
   "dependencies": {
     "@playwright/test": "^1.58.2"

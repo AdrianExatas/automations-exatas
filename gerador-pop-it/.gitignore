@@ -1,0 +1,7 @@
+# Dados operacionais e artefatos gerados
+videos/
+output/
+dist/
+tmp/
+*.mp4
+*.wav

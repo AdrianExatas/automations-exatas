@@ -1,0 +1,71 @@
+{
+  "name": "parametrizacao-onboarding-gestta",
+  "version": "1.0.0",
+  "description": "Interface local para parametrizar tarefas de onboarding no Gestta a partir de matriz por regime",
+  "author": "Exatas",
+  "main": "dist/electron/main.js",
+  "scripts": {
+    "build": "tsc && bun run copy:electron-assets",
+    "copy:electron-assets": "node scripts/copy-electron-assets.js",
+    "dist:win": "bun run build && electron-builder --win nsis --x64",
+    "pack:win": "bun run build && electron-builder --dir --win --x64",
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts",
+    "levantamento:anuais": "ts-node src/levantamento-anuais.ts",
+    "electron": "bun run build && electron dist/electron/main.js",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "dotenv": "^16.3.0",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "electron": "^37.2.0",
+    "electron-builder": "^26.0.12",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.0",
+    "vitest": "^3.2.4"
+  },
+  "build": {
+    "appId": "br.com.exatas.parametrizacao-onboarding-gestta",
+    "productName": "Parametrizacao Onboarding Gestta",
+    "asar": true,
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "package.json",
+      "!dist/resources/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "dist/resources",
+        "to": "resources",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "win": {
+      "icon": "dist/resources/icon.ico",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Parametrizacao Onboarding Gestta"
+    }
+  }
+}

@@ -22,6 +22,7 @@ export interface MetadadosExecucao {
   reprocessamento?: boolean;
   /** Arquivo de relatório de origem (quando reprocessamento a partir de relatório). */
   origemRelatorio?: string;
+  backup?: boolean;
 }
 
 /** Item de resultado serializável para o JSON (permite reconstruir LinhaPlanilha). */
@@ -33,6 +34,7 @@ export interface ResultadoItemRelatorio {
   mesGeracao: string;
   departamento?: string;
   setor?: string;
+  tarefa?: string;
   sucesso: boolean;
   mensagem: string;
   etapaFalha?: string;
@@ -58,9 +60,12 @@ export interface EntradaIndice {
 const PASTA_RELATORIOS = "relatorios";
 const ARQUIVO_INDICE = "indice.json";
 const MAX_ENTRADAS_INDICE = 50;
+const RELATORIOS_DIR_ENV = "GESTTA_RELATORIOS_DIR";
 
 /** Diretório base: Alterar-responsavel (onde roda o processo). */
 function getRelatoriosDir(): string {
+  const configuredDir = process.env[RELATORIOS_DIR_ENV]?.trim();
+  if (configuredDir) return path.resolve(configuredDir);
   return path.join(process.cwd(), PASTA_RELATORIOS);
 }
 
@@ -80,6 +85,7 @@ function resultadoParaItem(r: ResultadoLinha): ResultadoItemRelatorio {
     mesGeracao,
     departamento: linha.departamento,
     setor: linha.setor,
+    tarefa: linha.tarefa,
     sucesso,
     mensagem,
     etapaFalha,
@@ -103,6 +109,7 @@ export function reconstruirLinhaDoRelatorio(item: ResultadoItemRelatorio): Linha
     mesGeracao,
     departamento: item.departamento,
     setor: item.setor,
+    tarefa: item.tarefa,
   };
 }
 
@@ -145,7 +152,7 @@ export function gerarRelatorioExecucao(
  * Garante que a pasta relatorios existe, gera nome do arquivo, grava o JSON e retorna o caminho.
  * Em caso de erro (disco, permissão), loga e retorna null (não lança).
  */
-export function salvarRelatorio(relatorio: RelatorioExecucao): string | null {
+export function salvarRelatorio(relatorio: RelatorioExecucao, prefixo = "execucao"): string | null {
   try {
     const dir = getRelatoriosDir();
     if (!fs.existsSync(dir)) {
@@ -153,7 +160,7 @@ export function salvarRelatorio(relatorio: RelatorioExecucao): string | null {
     }
 
     const now = new Date();
-    const nomeArquivo = `execucao_${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}_${String(now.getHours()).padStart(2, "0")}-${String(now.getMinutes()).padStart(2, "0")}-${String(now.getSeconds()).padStart(2, "0")}.json`;
+    const nomeArquivo = `${prefixo}_${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}_${String(now.getHours()).padStart(2, "0")}-${String(now.getMinutes()).padStart(2, "0")}-${String(now.getSeconds()).padStart(2, "0")}.json`;
     const caminho = path.join(dir, nomeArquivo);
     fs.writeFileSync(caminho, JSON.stringify(relatorio, null, 2), "utf8");
     return caminho;
@@ -252,6 +259,7 @@ export function salvarRelatorioXlsx(
       ["Sucesso", execucao.sucesso],
       ["Falha", execucao.falha],
       ...(execucao.reprocessamento ? [["Reprocessamento", "Sim"]] : []),
+      ...(execucao.backup ? [["Backup", "Sim"]] : []),
       ...(execucao.origemRelatorio ? [["Origem (relatório)", execucao.origemRelatorio]] : []),
     ];
     const wsResumo = XLSX.utils.aoa_to_sheet(resumoData);
@@ -266,6 +274,9 @@ export function salvarRelatorioXlsx(
       "Mês Geração",
       "Departamento",
       "Setor",
+      "Tarefa",
+      "Responsavel Atual",
+      "Responsavel Planejado",
       "Sucesso",
       "Mensagem",
       "Etapa Falha",
@@ -279,6 +290,9 @@ export function salvarRelatorioXlsx(
       r.mesGeracao,
       r.departamento ?? "",
       r.setor ?? "",
+      r.tarefa ?? "",
+      r.rollbackItems?.[0]?.previousCompanyUserName ?? r.rollbackItems?.[0]?.previousCompanyUserId ?? "",
+      r.rollbackItems?.[0]?.appliedCompanyUserName ?? "",
       r.sucesso ? "Sim" : "Não",
       r.mensagem,
       r.etapaFalha ?? "",

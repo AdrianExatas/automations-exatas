@@ -101,17 +101,19 @@ function validarCamposObrigatoriosPlanilha(
   rowNumber: number,
   cnpjRaw: unknown,
   responsavel: string,
-  setorOuDepartamento: string | undefined
+  setorOuDepartamento: string | undefined,
+  tarefa: string | undefined
 ): string | null {
   const faltantes: string[] = [];
   const cnpjInfo = normalizarCnpjDetalhado(cnpjRaw);
+  const usaTarefaAlvo = Boolean(tarefa);
 
-  if (!cnpjInfo.original && !cnpjInfo.digitos) faltantes.push("CNPJ");
+  if (!usaTarefaAlvo && !cnpjInfo.original && !cnpjInfo.digitos) faltantes.push("CNPJ");
   if (!responsavel) faltantes.push("RESPONSAVEL");
-  if (!setorOuDepartamento) faltantes.push("SETOR");
+  if (!usaTarefaAlvo && !setorOuDepartamento) faltantes.push("SETOR");
 
   if (faltantes.length === 0) return null;
-  const cod = String(getCell(row, ["CÓD.", "COD", "Cód.", "Cod"]) ?? "").trim();
+  const cod = String(getCell(row, ["CÓD.", "COD", "Cód.", "Cod", "COD.", "CODIGO"]) ?? "").trim();
   const identificador = cod ? ` (COD. ${cod})` : "";
   return `Linha ${rowNumber}${identificador}: informe ${faltantes.join(", ")}.`;
 }
@@ -141,20 +143,22 @@ export function lerPlanilha(planilhaPath: string): LinhaPlanilha[] {
     const row = data[index];
     if (!hasAnyData(row)) continue;
 
-    const cod = String(getCell(row, ["CÓD.", "COD", "Cód.", "Cod"]) ?? "").trim();
-    const cnpjRaw = getCell(row, ["CNPJ", "Cnpj"]);
+    const cod = String(getCell(row, ["CÓD.", "COD", "Cód.", "Cod", "COD.", "CODIGO"]) ?? "").trim();
+    const cnpjRaw = getCell(row, ["CNPJ", "Cnpj", "CNPJ EMPRESA", "Cnpj Empresa"]);
     const empresa = String(getCell(row, ["EMPRESA", "Empresa", "RAZAO SOCIAL", "Razao Social", "RAZÃO SOCIAL", "Razão Social"]) ?? "").trim() || undefined;
     const responsavel = String(getCell(row, ["RESPONSÁVEL", "RESPONSÁVEL ", "Responsável", "RESPONSAVEL"]) ?? "").trim();
     const mesGeracaoRaw = getCell(row, ["MES GERACAO", "MES GERAÇÃO", "Mes Geracao", "Mês Geração"]);
     const departamento = String(getCell(row, ["DEPARTAMENTO", "Departamento", "DEPARTAMENTO "]) ?? "").trim() || undefined;
     const setor = String(getCell(row, ["SETOR", "Setor"]) ?? "").trim() || undefined;
+    const tarefa = String(getCell(row, ["TAREFA", "Tarefa"]) ?? "").trim() || undefined;
     const setorOuDepartamento = setor || departamento;
     const erroObrigatorio = validarCamposObrigatoriosPlanilha(
       row,
       getRowNumber(row, index + 2),
       cnpjRaw,
       responsavel,
-      setorOuDepartamento
+      setorOuDepartamento,
+      tarefa
     );
     if (erroObrigatorio) {
       errosObrigatorios.push(erroObrigatorio);
@@ -176,6 +180,7 @@ export function lerPlanilha(planilhaPath: string): LinhaPlanilha[] {
         mesGeracao: { month: new Date().getMonth() + 1, year: new Date().getFullYear() },
         departamento,
         setor: setorOuDepartamento,
+        tarefa,
       });
       continue;
     }
@@ -191,6 +196,7 @@ export function lerPlanilha(planilhaPath: string): LinhaPlanilha[] {
       mesGeracao,
       departamento,
       setor: setorOuDepartamento,
+      tarefa,
     });
   }
 

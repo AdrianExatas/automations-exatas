@@ -8,72 +8,122 @@
   </head>
   <body>
     <main class="app-shell">
-      <section class="panel">
-        <div class="header-row">
+      <section class="workflow-panel">
+        <header class="app-header">
           <div>
+            <p class="eyebrow">Gestta tarefas</p>
             <h1>Alterar responsavel</h1>
-            <p class="subtitle">Gestta tarefas</p>
           </div>
-          <button id="openReportsButton" class="ghost-button" type="button">Relatorios</button>
-        </div>
+          <button id="openReportsButton" class="icon-button" type="button" title="Abrir relatorios" aria-label="Abrir relatorios">
+            <span aria-hidden="true">R</span>
+          </button>
+        </header>
 
-        <form id="automationForm">
-          <div class="grid">
-            <label>
-              E-mail
-              <input id="emailInput" type="email" autocomplete="username" required />
-            </label>
-            <label>
-              Senha
-              <input id="passwordInput" type="password" autocomplete="current-password" required />
-            </label>
-          </div>
-
-          <label class="check-row">
-            <input id="saveCredentialsInput" type="checkbox" />
-            <span>Salvar credenciais</span>
-          </label>
-
-          <label class="check-row">
-            <input id="startWithoutCheckpointInput" type="checkbox" />
-            <span>Iniciar sem checkpoint</span>
-          </label>
-
-          <label>
-            Planilha
-            <div class="file-row">
-              <input id="sheetInput" type="text" readonly required />
-              <button id="selectSheetButton" class="secondary-button" type="button">Selecionar</button>
-            </div>
-          </label>
-          <p class="required-note">Campos obrigatorios: CNPJ, RESPONSAVEL e SETOR.</p>
-
-          <section id="sheetPreview" class="sheet-preview" hidden>
-            <div class="preview-header">
+        <section class="step-section">
+          <div class="step-marker" id="authStepMarker">1</div>
+          <div class="step-content">
+            <div class="step-heading">
               <div>
-                <h2>Estrutura da planilha</h2>
-                <p id="sheetSummary" class="preview-summary"></p>
+                <h2>Login</h2>
+                <p id="authStatusText" class="muted">Aguardando login.</p>
               </div>
-              <button id="inspectSheetButton" class="ghost-button" type="button">Atualizar</button>
+              <span id="authBadge" class="status idle">Pendente</span>
             </div>
-            <div id="sheetColumns" class="columns-list"></div>
-            <div class="preview-table-wrap">
-              <table id="sheetPreviewTable"></table>
-            </div>
-          </section>
 
-          <div class="actions">
-            <button id="downloadTemplateButton" class="secondary-button" type="button">Baixar planilha padrao</button>
-            <button id="rollbackButton" class="secondary-button" type="button">Reverter execucao</button>
-            <button id="runButton" class="primary-button" type="submit">Executar automacao</button>
+            <div class="grid">
+              <label>
+                E-mail
+                <input id="emailInput" type="email" autocomplete="username" required />
+              </label>
+              <label>
+                Senha
+                <input id="passwordInput" type="password" autocomplete="current-password" required />
+              </label>
+            </div>
+
+            <div class="inline-row">
+              <label class="check-row">
+                <input id="saveCredentialsInput" type="checkbox" />
+                <span>Salvar credenciais</span>
+              </label>
+              <button id="clearAuthButton" class="ghost-button" type="button">Limpar login</button>
+            </div>
+
+            <button id="loginButton" class="primary-button full-button" type="button">Fazer login</button>
           </div>
-        </form>
+        </section>
+
+        <section class="step-section">
+          <div class="step-marker" id="sheetStepMarker">2</div>
+          <div class="step-content">
+            <div class="step-heading">
+              <div>
+                <h2>Planilha</h2>
+                <p class="muted">Campos obrigatorios: CNPJ, RESPONSAVEL e SETOR.</p>
+              </div>
+              <button id="downloadTemplateButton" class="ghost-button" type="button">Modelo</button>
+            </div>
+
+            <label>
+              Arquivo
+              <div class="file-row">
+                <input id="sheetInput" type="text" readonly required />
+                <button id="selectSheetButton" class="secondary-button" type="button">Selecionar</button>
+              </div>
+            </label>
+
+            <section id="sheetPreview" class="sheet-preview" hidden>
+              <div class="preview-header">
+                <div>
+                  <h3>Revisao</h3>
+                  <p id="sheetSummary" class="preview-summary"></p>
+                </div>
+                <button id="inspectSheetButton" class="ghost-button" type="button">Atualizar</button>
+              </div>
+              <div id="sheetColumns" class="columns-list"></div>
+              <div class="preview-table-wrap">
+                <table id="sheetPreviewTable"></table>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <section class="step-section">
+          <div class="step-marker" id="runStepMarker">3</div>
+          <div class="step-content">
+            <div class="step-heading">
+              <div>
+                <h2>Execucao</h2>
+                <p id="runHint" class="muted">Faça login e selecione uma planilha.</p>
+              </div>
+              <span id="statusBadge" class="status idle">Pronto</span>
+            </div>
+
+            <details class="advanced-panel">
+              <summary>Opcoes avancadas</summary>
+              <label class="check-row">
+                <input id="startWithoutCheckpointInput" type="checkbox" />
+                <span>Iniciar sem checkpoint</span>
+              </label>
+              <label class="check-row">
+                <input id="reprocessFailuresInput" type="checkbox" />
+                <span>Reprocessar falhas ao final</span>
+              </label>
+              <button id="rollbackButton" class="secondary-button" type="button">Reverter execucao</button>
+            </details>
+
+            <button id="runButton" class="primary-button full-button" type="button" disabled>Executar automacao</button>
+          </div>
+        </section>
       </section>
 
       <section class="log-panel">
         <div class="log-header">
-          <h2>Execucao</h2>
-          <span id="statusBadge" class="status idle">Pronto</span>
+          <div>
+            <h2>Resultado</h2>
+            <p id="resultSummary" class="muted">Nenhuma execucao iniciada.</p>
+          </div>
+          <button id="clearLogButton" class="ghost-button" type="button">Limpar</button>
         </div>
         <pre id="logOutput"></pre>
       </section>

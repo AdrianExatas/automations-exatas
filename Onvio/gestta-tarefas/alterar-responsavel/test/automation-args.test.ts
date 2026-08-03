@@ -17,3 +17,10 @@ test("parseArgs permite --sem-checkpoint junto com --continuar", () => {
   assert.equal(args.continuar, true);
   assert.equal(args.planilhaArg, "entrada.xlsx");
 });
+
+test("parseArgs reconhece --backup-only sem tratar como caminho de planilha", () => {
+  const args = parseArgs(["--backup-only", "entrada.xlsx"]);
+
+  assert.equal(args.backupOnly, true);
+  assert.equal(args.planilhaArg, "entrada.xlsx");
+});

@@ -1,4 +1,4 @@
-import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterEach, beforeEach, describe, expect, it, mock } from "bun:test";
@@ -56,5 +56,40 @@ describe("uploader", () => {
 
     expect(resultado).toMatchObject({ total: 1, enviados: 1, erros: 0 });
     expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(existsSync(xmlPath)).toBe(true);
+  });
+
+  it("exclui XML valido logo apos envio bem-sucedido", async () => {
+    process.env.SIEG_API_KEY = "teste";
+    const fetchMock = mock(async () => new Response(JSON.stringify({ ok: true }), { status: 200, headers: { "Content-Type": "application/json" } }));
+    globalThis.fetch = fetchMock as unknown as typeof fetch;
+
+    mkdirSync(join(tempDir, "xmls"), { recursive: true });
+    const xmlPath = join(tempDir, "xmls", "nota.xml");
+    writeFileSync(xmlPath, xmlValido, "utf8");
+
+    const { enviarAutomatico } = await import("../src-ts/upload/uploader.js");
+    const resultado = await enviarAutomatico({ pasta: tempDir, excluirEnviados: true, numThreads: 1 });
+
+    expect(resultado).toMatchObject({ total: 1, enviados: 1, erros: 0 });
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(existsSync(xmlPath)).toBe(false);
+  });
+
+  it("nao exclui XML quando o envio falha", async () => {
+    process.env.SIEG_API_KEY = "teste";
+    const fetchMock = mock(async () => new Response(JSON.stringify({ erro: "xml rejeitado" }), { status: 400, headers: { "Content-Type": "application/json" } }));
+    globalThis.fetch = fetchMock as unknown as typeof fetch;
+
+    mkdirSync(join(tempDir, "xmls"), { recursive: true });
+    const xmlPath = join(tempDir, "xmls", "nota.xml");
+    writeFileSync(xmlPath, xmlValido, "utf8");
+
+    const { enviarAutomatico } = await import("../src-ts/upload/uploader.js");
+    const resultado = await enviarAutomatico({ pasta: tempDir, excluirEnviados: true, numThreads: 1 });
+
+    expect(resultado).toMatchObject({ total: 1, enviados: 0, erros: 1 });
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(existsSync(xmlPath)).toBe(true);
   });
 });

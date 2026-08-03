@@ -40,6 +40,23 @@ bun run --cwd Onvio/gestta-tarefas/inserir-tarefas dev -- --apply
 bun run --cwd Onvio/gestta-tarefas/inserir-tarefas start -- --apply
 ```
 
+## Inclusao aditiva da aba Tobias
+
+Para incluir, sem remover vinculos existentes nem alterar responsaveis, as 63 empresas da
+primeira aba `Tobias` nas tarefas financeiras de emissao de nota:
+
+```bash
+# Preflight sem alteracoes
+bun run dev -- --tobias "C:\\caminho\\PLANILHA DE NOTAS FISCAIS (2).xlsx" --dry-run
+
+# Aplicar somente apos o preflight bem-sucedido
+bun run dev -- --tobias "C:\\caminho\\PLANILHA DE NOTAS FISCAIS (2).xlsx" --apply
+```
+
+O modo `--tobias` exige exatamente 63 CNPJs unicos na primeira aba e inclui cada empresa nas
+tarefas `EMISSÃO NOTA FISCAL - PRODUTO` e `EMISSÃO NOTA FISCAL - SERVIÇO`. Ele somente chama os
+endpoints de leitura e inclusao; nao remove empresas nem modifica responsaveis.
+
 Continuar uma execucao interrompida:
 
 ```bash

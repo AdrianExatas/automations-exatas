@@ -8,14 +8,25 @@ export interface InputRow {
   saveDir: string;
 }
 
+export type SituacaoVencimento = "vencida" | "mes_atual" | "futura";
+
+export type CriterioRotulo = "tela" | "fallback";
+
+export type AutomationTransport = "browser" | "http" | "auto";
+
+export type ResultTransport = "browser" | "http" | "http_fallback_browser";
+
 export interface ParcelMetadata {
+  portalRowId?: string;
   protocolo: string;
   vencimento: string;
   valorParcela: string;
   qtdeParcelas: number;
   parcelasPagas: number;
   parcelasAtrasadas: number;
+  situacaoVencimento: SituacaoVencimento;
   parcelLabel: string;
+  criterioRotulo: CriterioRotulo;
 }
 
 export interface RunResult {
@@ -26,11 +37,17 @@ export interface RunResult {
   protocolo?: string;
   vencimento: string;
   valorParcela?: string;
+  qtdeParcelas?: number;
+  parcelasPagas?: number;
+  parcelasAtrasadas?: number;
+  situacaoVencimento?: SituacaoVencimento;
   parcelLabel?: string;
+  criterioRotulo?: CriterioRotulo;
   nomeOriginalPdf?: string;
   pdfPath?: string;
   toast?: string;
-  status: "sucesso" | "erro";
+  transport?: ResultTransport;
+  status: "sucesso" | "erro" | "ignorado";
   mensagem: string;
 }
 
@@ -38,6 +55,10 @@ export interface CliOptions {
   inputPath: string;
   headed: boolean;
   browserChannel?: string;
+  transport: AutomationTransport;
+  mode: "run" | "http-map";
+  rowNumber?: number;
+  mapDir?: string;
 }
 
 export interface RunAutomationOptions {
@@ -45,6 +66,8 @@ export interface RunAutomationOptions {
   cwd: string;
   headed: boolean;
   browserChannel?: string;
+  transport?: AutomationTransport;
+  mapDir?: string;
   log?: (message: string) => void;
 }
 
@@ -52,6 +75,7 @@ export interface RunAutomationResult {
   reportPath: string;
   successCount: number;
   errorCount: number;
+  ignoredCount: number;
 }
 
 export interface GeneratedInputRow {

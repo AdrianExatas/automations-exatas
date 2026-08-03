@@ -11,6 +11,7 @@ import {
   loginSefazContabilista,
   openDiaModule,
 } from "../../shared/sefaz-playwright-login";
+import { buildClientCertificates } from "../../shared/sefaz-auth";
 import { nomeMesPt } from "./referencia";
 import type { Contribuinte, DaeReferencia, GerarDaeConfig } from "./types";
 
@@ -309,6 +310,7 @@ export class GerarDaePlaywrightClient {
         timezoneId: "America/Sao_Paulo",
         viewport: { width: 1280, height: 900 },
         storageState,
+        clientCertificates: buildClientCertificates(this.config.certificate),
       });
       headlessContext.setDefaultTimeout(this.config.timeoutMs);
       const headlessPage = await headlessContext.newPage();
@@ -342,6 +344,7 @@ export class GerarDaePlaywrightClient {
       locale: "pt-BR",
       timezoneId: "America/Sao_Paulo",
       viewport: { width: 1280, height: 900 },
+      clientCertificates: buildClientCertificates(this.config.certificate),
     });
   }
 

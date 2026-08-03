@@ -1,5 +1,6 @@
 import path from "node:path";
 import { readFile } from "node:fs/promises";
+import { resolveSefazAuthConfig, type SefazAuthMode } from "../../shared/sefaz-auth";
 import type { PlaywrightBrowserChannel, RunAlterarNotaFiscalConfig } from "./nf-types";
 
 type CliOptions = {
@@ -12,6 +13,9 @@ type CliOptions = {
   browserChannel?: PlaywrightBrowserChannel;
   limit?: number;
   stepDelayMs?: number;
+  authMode?: SefazAuthMode;
+  certPath?: string;
+  certPasswordFile?: string;
 };
 
 export async function loadConfig(argv = process.argv.slice(2)): Promise<RunAlterarNotaFiscalConfig> {
@@ -20,11 +24,16 @@ export async function loadConfig(argv = process.argv.slice(2)): Promise<RunAlter
   const user = cli.user ?? process.env.SEFAZ_USER ?? "";
   const password = cli.password ?? process.env.SEFAZ_PASSWORD ?? "";
   const spreadsheetPath = cli.spreadsheetPath ?? process.env.PLANILHA_NOTAS ?? "";
+  const auth = resolveSefazAuthConfig(process.env, {
+    authMode: cli.authMode,
+    certPath: cli.certPath,
+    certPasswordFile: cli.certPasswordFile,
+  });
 
-  if (!user.trim()) {
+  if (requiresPasswordCredentials(auth) && !user.trim()) {
     throw new Error("Informe --user ou SEFAZ_USER.");
   }
-  if (!password) {
+  if (requiresPasswordCredentials(auth) && !password) {
     throw new Error("Informe --password ou SEFAZ_PASSWORD.");
   }
   if (!spreadsheetPath.trim()) {
@@ -42,6 +51,7 @@ export async function loadConfig(argv = process.argv.slice(2)): Promise<RunAlter
     limit: cli.limit,
     stepDelayMs: cli.stepDelayMs ?? Number(process.env.STEP_DELAY_MS ?? 0),
     timeoutMs: Number(process.env.SEFAZ_TIMEOUT_MS ?? 30_000),
+    ...auth,
   };
 }
 
@@ -97,6 +107,18 @@ function parseArgs(args: string[]): CliOptions {
         }
         if (inlineValue === undefined) index += 1;
         break;
+      case "--auth-mode":
+        options.authMode = parseAuthMode(requiredValue(name, value));
+        if (inlineValue === undefined) index += 1;
+        break;
+      case "--cert-path":
+        options.certPath = path.resolve(requiredValue(name, value));
+        if (inlineValue === undefined) index += 1;
+        break;
+      case "--cert-password-file":
+        options.certPasswordFile = path.resolve(requiredValue(name, value));
+        if (inlineValue === undefined) index += 1;
+        break;
       default:
         throw new Error(`Argumento desconhecido: ${arg}`);
     }
@@ -137,6 +159,19 @@ function parseBrowserChannel(raw: string): PlaywrightBrowserChannel {
   }
 
   throw new Error("Use --channel com chrome, msedge ou chromium.");
+}
+
+function parseAuthMode(raw: string): SefazAuthMode {
+  const value = raw.trim().toLowerCase();
+  if (value === "auto" || value === "certificate" || value === "password") {
+    return value;
+  }
+
+  throw new Error("Use --auth-mode com auto, certificate ou password.");
+}
+
+function requiresPasswordCredentials(auth: ReturnType<typeof resolveSefazAuthConfig>): boolean {
+  return auth.authMode === "password" || !auth.certificate;
 }
 
 async function loadDotEnv(filePath = ".env"): Promise<void> {

@@ -26,6 +26,8 @@ export interface RelatorioRollback {
 }
 
 function getRelatoriosDir(): string {
+  const configuredDir = process.env.GESTTA_RELATORIOS_DIR?.trim();
+  if (configuredDir) return path.resolve(configuredDir);
   return path.join(process.cwd(), "relatorios");
 }
 

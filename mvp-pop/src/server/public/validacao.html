@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Validação — MVP POP</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">Exatas · Validação</div>
+    <nav class="nav">
+      <a href="/">Envio</a>
+      <a href="/validacao">Validação</a>
+      <a href="/painel">Painel</a>
+      <a href="/indice">Índice Mestre</a>
+    </nav>
+  </header>
+  <main class="wrap">
+    <h1>Validação pelo responsável</h1>
+    <p class="lead">Revise vídeo, transcrição e documentos. Aprove ou solicite ajuste — sem editar o arquivo manualmente.</p>
+    <div id="flash" class="flash"></div>
+    <div class="panel" style="margin-bottom:1rem;">
+      <label for="pick">Solicitação</label>
+      <select id="pick"></select>
+      <p class="muted" id="meta"></p>
+    </div>
+    <div class="grid">
+      <section class="panel">
+        <h2 style="margin-top:0;font-size:1.1rem;">Vídeo e transcrição</h2>
+        <video id="video" class="video" controls></video>
+        <div id="transcription" class="pre" style="margin-top:.75rem;"></div>
+        <h3 style="font-size:1rem;">Arquivos gerados</h3>
+        <ul id="files"></ul>
+        <h3 style="font-size:1rem;">Prints</h3>
+        <div id="prints" class="row"></div>
+      </section>
+      <section class="panel">
+        <h2 style="margin-top:0;font-size:1.1rem;">Decisão</h2>
+        <label for="actor">Seu nome</label>
+        <input id="actor" placeholder="Líder do Atendimento" />
+        <label for="comment">Comentário de ajuste (se necessário)</label>
+        <textarea id="comment" placeholder="Ex.: O passo 4 está incorreto. Antes de selecionar o setor, definir a prioridade."></textarea>
+        <div class="actions">
+          <button class="btn ok" id="btnApprove" type="button">Aprovar</button>
+          <button class="btn danger" id="btnAdjust" type="button">Solicitar ajuste</button>
+          <button class="btn secondary" id="btnRefresh" type="button">Atualizar</button>
+        </div>
+        <h3 style="font-size:1rem;">Feedback do inspetor IA</h3>
+        <div id="inspector" class="pre"></div>
+        <h3 style="font-size:1rem;">Auditoria</h3>
+        <div id="audit" class="pre"></div>
+      </section>
+    </div>
+  </main>
+  <script src="/static/validacao.js?v=3"></script>
+</body>
+</html>

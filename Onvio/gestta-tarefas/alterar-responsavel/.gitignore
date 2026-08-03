@@ -1,3 +1,4 @@
 # Generated task reports
 relatorios/*.json
 relatorios/*.xlsx
+installer/

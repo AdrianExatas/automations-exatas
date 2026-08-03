@@ -1,6 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { chromium, type Browser, type BrowserContext, type Download, type Page } from "playwright";
+import { buildClientCertificates } from "../../shared/sefaz-auth";
 import { loginSefazContabilista, openDiaModule } from "../../shared/sefaz-playwright-login";
 import { saveFile } from "./downloads";
 import { isPdf, isXls } from "./signatures";
@@ -71,6 +72,7 @@ async function createLoggedContext(config: RunConfig): Promise<{ browser: Browse
     locale: "pt-BR",
     timezoneId: "America/Sao_Paulo",
     viewport: { width: 1280, height: 900 },
+    clientCertificates: buildClientCertificates(config.certificate),
   });
   context.setDefaultTimeout(config.timeoutMs);
   const page = await context.newPage();

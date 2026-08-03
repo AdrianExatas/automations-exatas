@@ -1,4 +1,5 @@
 import path from "node:path";
+import type { CriterioRotulo, SituacaoVencimento } from "./types.js";
 
 const INVALID_FILE_CHARS = /[<>:"/\\|?*\u0000-\u001f]/g;
 
@@ -76,6 +77,31 @@ export function getMonthKeyFromBrazilianDate(value: string): string | null {
   return parsed ? monthYearKey(parsed) : null;
 }
 
+function dateOnly(date: Date): Date {
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+}
+
+export function classifyDueDate(vencimento: string, referenceDate = new Date()): SituacaoVencimento {
+  const parsed = parseBrazilianDate(vencimento);
+  if (!parsed) {
+    throw new Error(`Nao foi possivel classificar o vencimento "${vencimento}".`);
+  }
+
+  if (dateOnly(parsed).getTime() < dateOnly(referenceDate).getTime()) {
+    return "vencida";
+  }
+
+  if (monthYearKey(parsed) === monthYearKey(referenceDate)) {
+    return "mes_atual";
+  }
+
+  return "futura";
+}
+
+export function shouldEmitParcelByDueStatus(situacaoVencimento: SituacaoVencimento): boolean {
+  return situacaoVencimento === "vencida" || situacaoVencimento === "mes_atual";
+}
+
 export function buildParcelLabel(totalInstallments: number, paidInstallments: number, overdueInstallments: number): string {
   if (totalInstallments <= 0) {
     throw new Error("Qtde de parcelas precisa ser maior que zero para montar o nome do PDF.");
@@ -87,6 +113,84 @@ export function buildParcelLabel(totalInstallments: number, paidInstallments: nu
   const boundedInstallment = Math.min(Math.max(nextInstallment, 1), totalInstallments);
 
   return `${String(boundedInstallment).padStart(2, "0")}-${String(totalInstallments).padStart(2, "0")}`;
+}
+
+export function resolveParcelLabel(
+  details: Record<string, string>,
+  totalInstallments: number,
+  paidInstallments: number,
+  overdueInstallments: number,
+): { parcelLabel: string; criterioRotulo: CriterioRotulo } {
+  const labelFromDetails = extractParcelLabelFromDetails(details, totalInstallments);
+
+  if (labelFromDetails) {
+    return {
+      parcelLabel: labelFromDetails,
+      criterioRotulo: "tela",
+    };
+  }
+
+  return {
+    parcelLabel: buildParcelLabel(totalInstallments, paidInstallments, overdueInstallments),
+    criterioRotulo: "fallback",
+  };
+}
+
+function extractParcelLabelFromDetails(details: Record<string, string>, totalInstallments: number): string | null {
+  for (const [rawKey, rawValue] of Object.entries(details)) {
+    const key = normalizeWhitespace(rawKey).toLocaleLowerCase("pt-BR");
+
+    if (!isParcelNumberKey(key)) {
+      continue;
+    }
+
+    const parsed = parseParcelLabelValue(rawValue, totalInstallments);
+    if (parsed) {
+      return parsed;
+    }
+  }
+
+  return null;
+}
+
+function isParcelNumberKey(key: string): boolean {
+  if (!key.includes("parcela")) {
+    return false;
+  }
+
+  if (/(qtde|qtd|quantidade|pagas?|atrasadas?|vencidas?)/i.test(key)) {
+    return false;
+  }
+
+  return /(^|\b)(n[ºo.]?\s*(da\s*)?)?parcela\b/i.test(key) || /n[uú]mero\s+da\s+parcela/i.test(key);
+}
+
+function parseParcelLabelValue(value: string, totalInstallments: number): string | null {
+  const normalized = normalizeWhitespace(value);
+  const explicitTotal = normalized.match(/\b(\d{1,3})\s*(?:\/|-|de)\s*(\d{1,3})\b/i);
+
+  if (explicitTotal) {
+    return formatParcelLabel(Number(explicitTotal[1]), Number(explicitTotal[2]));
+  }
+
+  const singleNumber = normalized.match(/\b(\d{1,3})\b/);
+  if (singleNumber && totalInstallments > 0) {
+    return formatParcelLabel(Number(singleNumber[1]), totalInstallments);
+  }
+
+  return null;
+}
+
+function formatParcelLabel(currentInstallment: number, totalInstallments: number): string | null {
+  if (!Number.isInteger(currentInstallment) || !Number.isInteger(totalInstallments)) {
+    return null;
+  }
+
+  if (currentInstallment <= 0 || totalInstallments <= 0 || currentInstallment > totalInstallments) {
+    return null;
+  }
+
+  return `${String(currentInstallment).padStart(2, "0")}-${String(totalInstallments).padStart(2, "0")}`;
 }
 
 export function extractPdfNumber(filename: string): string {
@@ -104,6 +208,11 @@ export function extractPdfNumber(filename: string): string {
 
 export function sanitizeFileName(filename: string): string {
   return filename.replace(INVALID_FILE_CHARS, " ").replace(/\s+/g, " ").trim();
+}
+
+export function buildSolicitationMonthFolder(date = new Date()): string {
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  return `${month}-${date.getFullYear()}`;
 }
 
 export function formatToastMessage(title: string | null | undefined, message: string | null | undefined): string {

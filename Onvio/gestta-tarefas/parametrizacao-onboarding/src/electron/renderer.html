@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Parametrizacao Onboarding Gestta</title>
+    <link rel="stylesheet" href="./renderer.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <span class="brand-mark">PO</span>
+          <div>
+            <strong>Onboarding Gestta</strong>
+            <span>Parametrizacao de tarefas</span>
+          </div>
+        </div>
+
+        <div class="mode-switch" role="radiogroup" aria-label="Modo da interface">
+          <label>
+            <input type="radio" name="uiMode" value="basic" checked />
+            <span>Basico</span>
+          </label>
+          <label>
+            <input type="radio" name="uiMode" value="advanced" />
+            <span>Avancado</span>
+          </label>
+        </div>
+
+        <nav class="steps" aria-label="Etapas">
+          <button type="button" class="step-link active" data-step="sheet">1. Planilha</button>
+          <button type="button" class="step-link" data-step="login">2. Login</button>
+          <button type="button" class="step-link" data-step="company">3. Empresa</button>
+          <button type="button" class="step-link" data-step="options">4. Opcoes</button>
+          <button type="button" class="step-link" data-step="execute">5. Executar</button>
+        </nav>
+
+        <div class="sidebar-actions">
+          <button id="openReports" type="button" class="ghost">Relatorios</button>
+          <button id="clearCredentials" type="button" class="ghost danger">Limpar acesso</button>
+        </div>
+      </aside>
+
+      <section class="workspace">
+        <header class="topbar">
+          <div>
+            <h1>Parametrizacao Onboarding Gestta</h1>
+            <p id="status" class="status" aria-live="polite">Carregando configuracao...</p>
+          </div>
+          <div class="health">
+            <span id="matrixBadge" class="badge muted">Planilha</span>
+            <span id="authBadge" class="badge muted">Login</span>
+          </div>
+        </header>
+
+        <div class="work-grid">
+          <form class="form-panel">
+            <section class="step-section active" data-section="sheet">
+              <div class="section-heading">
+                <h2>Planilha</h2>
+                <span id="matrixSource" class="section-meta">Padrao</span>
+              </div>
+              <p id="matrixInfo" class="matrix-info">Carregando...</p>
+              <div class="actions">
+                <button id="selectMatrix" type="button" class="secondary">Selecionar planilha</button>
+                <button id="resetMatrix" type="button" class="ghost">Usar padrao</button>
+              </div>
+            </section>
+
+            <section class="step-section" data-section="login">
+              <div class="section-heading">
+                <h2>Login</h2>
+                <span id="authInfo" class="section-meta">Nao autenticado</span>
+              </div>
+              <div class="grid two">
+                <label>
+                  E-mail Onvio
+                  <input id="email" type="email" autocomplete="username" />
+                </label>
+                <label>
+                  Senha
+                  <input id="password" type="password" autocomplete="current-password" />
+                </label>
+              </div>
+              <label class="check">
+                <input id="saveCredentials" type="checkbox" />
+                Salvar neste computador
+              </label>
+              <div class="actions">
+                <button id="loginButton" type="button" class="primary">Fazer login</button>
+              </div>
+            </section>
+
+            <section class="step-section" data-section="company">
+              <div class="section-heading">
+                <h2>Empresa</h2>
+                <span class="section-meta">Dados do cliente</span>
+              </div>
+              <div class="grid two">
+                <label>
+                  CNPJ
+                  <input id="cnpj" inputmode="numeric" placeholder="00.000.000/0000-00" />
+                </label>
+                <label>
+                  Regime fiscal
+                  <select id="regimeFiscal">
+                    <option value="simples_nacional">Simples Nacional</option>
+                    <option value="fiscal_normal">Fiscal Normal</option>
+                  </select>
+                </label>
+              </div>
+              <fieldset class="area-group">
+                <legend>Areas</legend>
+                <label class="check"><input type="checkbox" name="area" value="dp" checked /> DP</label>
+                <label class="check"><input type="checkbox" name="area" value="fiscal" checked /> Fiscal</label>
+                <label class="check"><input type="checkbox" name="area" value="financeiro" /> Financeiro</label>
+                <label class="check"><input type="checkbox" name="area" value="contabil" checked /> Contabil</label>
+                <label class="check"><input type="checkbox" name="area" value="sucesso_cliente" /> Sucesso do Cliente</label>
+              </fieldset>
+            </section>
+
+            <section class="step-section" data-section="options">
+              <div class="section-heading">
+                <h2>Opcoes</h2>
+                <span class="section-meta">Regras da matriz</span>
+              </div>
+              <fieldset>
+                <legend>Inclusoes</legend>
+                <label class="check"><input id="incluirAnuais" type="checkbox" /> Incluir anuais</label>
+                <label class="check"><input id="planoPremium" type="checkbox" /> Plano premium</label>
+                <label class="check"><input id="supervisor" type="checkbox" /> Supervisor</label>
+                <label class="check"><input id="adicionarAnaliseParcelamentos" type="checkbox" /> Análise de parcelamentos</label>
+              </fieldset>
+              <div class="advanced-only">
+                <div class="grid two">
+                  <label>
+                    UF
+                    <select id="uf">
+                      <option value="">Todas</option>
+                      <option>AC</option><option>AL</option><option>AP</option><option>AM</option>
+                      <option>BA</option><option>CE</option><option>DF</option><option>ES</option>
+                      <option>GO</option><option>MA</option><option>MT</option><option>MS</option>
+                      <option>MG</option><option>PA</option><option>PB</option><option>PR</option>
+                      <option>PE</option><option>PI</option><option>RJ</option><option>RN</option>
+                      <option>RS</option><option>RO</option><option>RR</option><option>SC</option>
+                      <option>SP</option><option>SE</option><option>TO</option>
+                    </select>
+                  </label>
+                  <label>
+                    Timeout Gestta (ms)
+                    <input id="timeoutMs" type="number" min="1000" step="1000" value="60000" />
+                  </label>
+                </div>
+                <div class="grid two">
+                  <label>
+                    Tentativas de leitura
+                    <input id="readRetries" type="number" min="0" step="1" value="5" />
+                  </label>
+                  <label>
+                    Intervalo entre leituras (ms)
+                    <input id="readRetryDelayMs" type="number" min="0" step="500" value="2000" />
+                  </label>
+                </div>
+              </div>
+            </section>
+
+            <section class="step-section" data-section="execute">
+              <div class="section-heading">
+                <h2>Executar</h2>
+                <span class="section-meta">Previa e aplicacao</span>
+              </div>
+              <div class="actions stack-mobile">
+                <button id="previewButton" type="button" class="secondary">Calcular previa</button>
+                <button id="dryRunButton" type="button" class="secondary">Simular sem alterar</button>
+                <button id="runButton" type="button" class="primary">Aplicar parametrizacao</button>
+                <button id="cancelButton" type="button" class="ghost danger" disabled>Cancelar</button>
+              </div>
+            </section>
+          </form>
+
+          <section class="output-panel">
+            <div class="output-header">
+              <div>
+                <h2>Previa</h2>
+                <span id="previewCount">0 tarefas</span>
+              </div>
+              <span id="reportsPath" class="path-label"></span>
+            </div>
+            <div id="warnings" class="warnings"></div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Aba</th>
+                    <th>Tarefa</th>
+                    <th>Responsavel</th>
+                  </tr>
+                </thead>
+                <tbody id="previewRows"></tbody>
+              </table>
+            </div>
+            <div class="logs-heading">
+              <h2>Logs</h2>
+              <button id="clearLogs" type="button" class="ghost small">Limpar</button>
+            </div>
+            <pre id="logs"></pre>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <div id="confirmModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+      <div class="modal-panel">
+        <h2 id="confirmTitle">Aplicar parametrizacao</h2>
+        <p>Esta execucao vai alterar tarefas no Gestta para o CNPJ informado.</p>
+        <div class="actions">
+          <button id="confirmCancel" type="button" class="ghost">Voltar</button>
+          <button id="confirmApply" type="button" class="primary">Confirmar aplicacao</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="./renderer.js"></script>
+  </body>
+</html>

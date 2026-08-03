@@ -93,6 +93,7 @@ describe("planilha", () => {
     const result = await runAlterarNotaFiscal({
       user: "usuario",
       password: "senha",
+      authMode: "password",
       spreadsheetPath: modelSpreadsheetPath(),
       outDir: dir,
       headless: true,

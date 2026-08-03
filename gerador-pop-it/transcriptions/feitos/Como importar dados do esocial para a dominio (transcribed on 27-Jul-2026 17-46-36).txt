@@ -1,0 +1,53 @@
+Neste outro vídeo eu vou demonstrar como você utiliza a opção importação de dados do e social ele trata de pegar as informações dos funcionários e importar para a nossa base da domínio 
+
+Nesta opção qual o tipo de acesso que ele dá que vai ser necessário ou certificado da empresa ou procuração se tiver procuração já da exatas utiliza essa opção se tivermos usando o certificado da empresa que é este exemplo porque a baita lecola ainda não se encontra com a procuração a gente retorna para a própria empresa 
+
+E como deve ser iniciado vamos lá se a empresa ela tiver as informações de ficha de empregado dos colaboradores na pasta você pode usar lá ou você não tendo essas informações algum documento porque quais as opções que nesta nesse processo ele utiliza como falamos o ator primordial o CPF do colaborador a data de admissão a opção se ele é empregado estagiário ou contribuinte e só então são três tipos de informações necessárias então se eu não tenho nenhum documento na ficha deles ou qualquer outro documento eu devo utilizar como uma outra opção talvez uma opção até mas é difícil assim em termos de demorar sendo claro mas temos o é social 
+
+eu vou consultar primeiramente na pasta empresas já estamos aqui na baita lecone para ver se tem alguma informação daquelas que a gente precisa também departamento pessoal então veja que nessa opção encontra -se como nenhuma informação neste caso deve terá que ser ou solicitado a empresa ou nós iremos para o é social eu vou dar um exemplo você vem folha gestão de folha e aquele já vem com as competências eu clico em uma competência anterior a não responsabilidade das atas eu clico em trabalhadores e aqui ele já me traz remuneração devida 
+
+e aqui ele já me traz uma lista de funcionários além disso ele já me traz o CPF mas tá se eu não preciso também preciso de mais informações que não seja somente CPF onde eu devo consultar é aí a parte dificultoso que eu falei anteriormente porque você deverá copiar o CPF 
+
+eu tenho um pequeno do erro aqui deixa eu 
+
+fazer novamente 
+
+aqui no problema 
+
+retorno ao domínio aqui eu vou dividir a tela 
+
+e digito na opção CPF o CPF do colaborador 
+
+na data de admissão 
+
+na data de admissão 18 de 3 de 2019 eu já sei que ele trata -se de um empregado e como eu sei Itás eu vou retornar novamente a página de gestão de folha de pagamento remuneração 
+
+e aqui ele já me traz empregados se você passar aqui outras páginas 
+
+aqui ele tem demais empregados mais uma 
+
+perceba que na última página ele traz que existe um trabalhador sem vínculo aqui provavelmente é um dos sócios da empresa a única dificuldade que teremos em relação ao uso do é social para essas informações é que ele não traz se é um estagiário por exemplo então aí está a importância de ter a ficha de empregados mas retornando 
+
+para a importação você clica agora 
+
+altera para empregado e você clica em gravar 
+
+depois clica novamente e vem iniciar o processo processo a importação poderá demorar desejo continuar assim 
+
+neste caso está com uma instabilidade do é social 
+
+possivelmente está com alguma instabilidade social mas eu quero recordar também é que nesta opção aqui que ele traz somente colaboradores serviços e filiais deve se alterar para somente colaboradores marca as duas opções e vamos tentar novamente 
+
+agora retornar agora retornou 
+
+aguarda alguns minutinhos onde ele vai aparecer a opção do certificado digital e 
+
+pronto ele vai demonstrar a opção do certificado digital você vai procurar neste exemplo o certificado que estamos usando que é o da empresa 
+
+clica em ok se fosse a procuração seria o da exatas lembrando essa opção aqui o tipo de acesso 
+
+e agora é só aguardar para ver 
+
+processo finalizado clicamos em ok 
+
+e sim é que ele conclui que a importação foi feita devidamente então esse é o objetivo da importação nessa tarefa 

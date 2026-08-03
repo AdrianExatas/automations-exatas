@@ -1,0 +1,35 @@
+por fim ainda no fluxo do onboarding levantamento de debito parcelamento eu irei mostrar a vocês, deixa eu marcar isso aqui que eu já executei no vídeo anterior e agora eu vou demonstrar a vocês como preencher a planilha do grupo do onboarding com os débitos e parcelamentos encontrados então, só repaginando, fizemos as consultas que aqui estão representadas nesse checklist para esse modelo da nossa empresa, vou voltar aqui, nós não tivemos nenhuma pendência nenhuma do setor trabalhista, então vou demonstrar a você como encontrar a planilha, onde ela está e como executar dentro dela, tá certo? então vamos lá, primeiro eu vou abrir aqui um outro bitrix, 
+
+você deverá ir no grupo de trabalho onboarding, provavelmente você estará participando, acima você clica em ver grupo de trabalho 
+
+após abrir aqui as opções, você vem e clica na opção arquivos 
+
+aqui ele vai apresentar alguns modelos, tá? entretanto nós vamos nessa opção aqui, parametrização de verificação de pendências, é esse que nós vamos 
+
+utilizar para a nossa demanda do checklist, eu vou arrastar ele aqui 
+
+e esse é o modelo da planilha, tá certo? abaixo vocês percebam que existem algumas empresas, olha, eu vou passar aqui e vocês estão observando então você deverá procurar a empresa que você está executando, tá certo? porque cada uma dessas aqui são empresas distintas que já foram passadas ou que ainda estão em execução, então vou procurar aqui a empresa que nós estamos fazendo 
+
+e caso você não encontre de imediato, então você deverá usar no canto esquerdo abaixo a opção deslizar a lista de folha ou para esquerda ou para direita, então vou procurar a empresa que nós estamos em teste de apresentação e aqui encontrei, e aqui encontrei, essa é a empresa, eu clico nela, tá vendo que já tem a planilha, né, modelo, alguns setores já foram feitas a execução, dentre elas aqui, olha, está um registro do setor pessoal, em janeiro de 2026, então como a empresa ela não detém e foi executado também agora, o que é que a gente pode estar fazendo aqui? registrando novamente, ah, uma observação aqui, quando abre a planilha, no canto acima, está até ali meio que pintado de esverdeado, em destaque, você clica na opção editar, 
+
+se não clicar nessa opção, não vai conseguir fazer as devidas informações aqui, tá? ele voltou aqui para o anterior, deixa eu retornar aqui para a empresa que eu necessito, ok? eu vou registrar aqui, o que eu encontrei lá, então nas consultas nós não encontramos nenhuma pendência, então eu registro aqui sem pendência, esfera, 
+
+setor pessoal, conforme estão ali, 
+
+período, vou descrever aqui o mês 5, valor 0, corrigir aqui a outra e como nós não temos nenhuma informação abaixo então a gente não faz nenhum tipo de situação neste momento, tá? para esse modelo específico a gente conclui aqui a tarefa se caso tivesse 
+
+dívidas, então vou dar um exemplo se tivesse uma dívida de FGTS eu teria que descrever aqui qual a pendência vou botar FGTS mensal 
+
+a esfera federal, aqui nesse caso, colocaria a data que está em execução e o valor do débito encontrado, tá certo? se fosse INSS, mesma coisa, INSS, federal, a competência e o valor, 
+
+tá certo? parcelamento, então você descreveria aqui o parcelamento, qual é a esfera dela, geralmente o nosso caso sempre vai ser federal e o valor é isso que você faria se uma empresa tivesse débito e aqui você pode descrever mais em detalhes, tá? não se limita, tiver informações que deixe mais 
+
+intuitivo e educativo para quem for ver não ter dúvidas, melhor ainda, tá certo? então fica aqui após esse resíduo registro, eu vou apagar aqui, tá gente? porque eu preciso também que quando vocês inserirem essas informações, você clica aqui, olha, no canto esquerdo ali, tipo um disquete, na opção salvar, então você salva aqui 
+
+tira o print, para comprovar, tudo tem que ter comprovação 
+
+volta na tarefa aqui de levantamento, insere a imagem é feito 
+
+clica na opção e tá aí o processo dessa demanda dentro do checklist aqui o que acontece, nós já concluímos essa tarefa, por quê? a quinta é verificar melhor uma alternativa para o cliente caso haja possibilidade de parcelamento ou redução de multas e juros como essa empresa não tem, a gente não consegue fazer essa situação, mas ela deixa claro aqui no checklist, então essa também vai muito de particularidade das empresas, mas eu vou ressaltar aqui para também deixar vocês cientes dessa quinta demanda do checklist de levantamento de débito, aproveitando, se tiver algum débito antigo de INSS, de FGTS, analisar se existe algum programa do governo que detenha de alguma opção de redução e aí a gente precisa ter também esse conhecimento, buscar essa informação, analisar o processo antes de passar para o cliente descrever aqui, chamar o seu líder do setor para conversar e debater uma melhor estratégia para esse cliente, tá certo? Então é isso, nesse caso aqui não vou marcar e a gente clica em concluir. 
+
+tá aí a tarefa aqui nós encerramos todo o processo do levantamento de débito parcelamento espero que tenha ajudado 

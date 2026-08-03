@@ -1,0 +1,41 @@
+Vamos dar início a um processo de execução dessa tarefa chamada levantamento de débitos e parcelamento pessoal é um fluxo onde ocorre no processo de onboard das empresas, seja por migração, seja por constituição e aqui abaixo nós temos o checklist que você deverá fazer seguindo o passo a passo de cada demanda que está aqui descrito então nós temos verificação de FGTS, que aqui será feita as consultas de possíveis débitos que a empresa tenha ou detenha, seja ela débitos FGTS mensais ou de parcelamentos, temos a verificação de situação fiscal que são os débitos da Receita Federal, temos consultas de parcelamento previdenciário então esse é focado aos previdenciários caso a empresa tenha, também será apresentado através do ECAC e como preencher a planilha do grupo do onboarding quando executamos as consultas nós temos uma planilha de preenchimento dos débitos possíveis débitos ou de nenhuma pendência porque isso parte do outro escorpo da equipe ela apresenta para o cliente a determinada situação que a empresa detenha, tá? então será gravados vídeos e conteúdos de cada processo desse e agora nós vamos iniciarmos por verificação de FGTS primeiramente iremos abrir aqui o domínio folha 
+
+você irá digitar o seu usuário e a senha 
+
+nós iremos pegar uma empresa modelo já em execução essa tarefa nós iremos utilizarmos a empresa 689 do nosso sistema domínio e aqui no canto esquerdo acima vocês clicam 
+
+você poderá pesquisar tanto por código da empresa como apelido neste exemplo vamos utilizar 
+
+após estar na empresa que você irá fazer 
+
+abrir uma página do google geralmente eu gosto de utilizar clicando aqui nos três pontos acima ali no canto direito a opção nova janela anônima e você digitará FGTS digital aqui já aparece aqui no canto direito a opção do sistema .gov .br portal login clica na opção entrar com gov .br 
+
+aqui permitiu desta vez na opção de entrar você clicará no seu certificado digital 
+
+e deverá sempre utilizar a do escritório a exata contabilidade em alguns momentos possa ser até que se utilize a de uma marcilio alves andrade entretanto é o ideal é utilizar sempre a exata contabilidade clique em ok 
+
+na primeira página inicial você vai clicar aqui primeiro aqui ao lado do canto direito abaixo aceitar e acima ele já apresenta definir o perfil se você vai ter o acesso a essa empresa exatas ou procurador como estamos executando uma empresa nós vamos optar aqui na opção a execução né procurador clica e vamos digitar o CNPJ 
+
+como faço para consultar o CNPJ eu vou dividir aqui a tela porque a gente acaba ficando mais prático na execução e coloco aqui no domínio eu vou na opção controle 
+
+empresas 
+
+pronto ele vai aparecer aqui as informações dentre elas o número do CNPJ você pode clicar e copiar no mouse com o botão direito ctrl c ctrl v volta na página do FGTS digital na opção CNPJ e cola e clica na opção definir 
+
+você pode agora abrir a tela e como você vai consultar os débitos dessa empresa ou possíveis débitos perdão você vem clica em consultar do empregador na opção aqui na tela inicial perceba que você já estamos aqui é a sessão da empresa procurada 
+
+clica em consulta de competências de referências 
+
+aqui tem algumas informações qual a gente precisa para acelerar o processo no período ele dá ele dá as opções seis meses 12 meses 12 meses e completo você clica em completo e aqui em situação da competência obrigatório ele dá a opção irregular irregular você desmarca a opção regular e clica agora na opção filtrar 
+
+pronto perceba que essa empresa aqui não tem nenhuma pendência de FGTS então você vai 
+
+parcelamento se a empresa tem algum parcelamento de FGTS então você clica aqui em parcelamento 
+
+consulta de parcelamentos e perceba que a empresa também não tem nenhum parcelamento executado em processo então você vai tira também o print volta na tarefa 
+
+e descreve sem nenhum parcelamento de FGTS 
+
+agora você vai retornar aqui na página de início 
+
+novamente e clicar na opção você retornará para a página inicial em algumas opções de empresas caso ela detenha de empréstimos consignado do colaborador haverá a opção para também consultar se existe algum débito provavelmente essa empresa não tem nenhum colaborador ou nenhum colaborador que detenha de informações de empréstimos por isso que neste exemplo aqui não vai irá não apareceu entretanto vale ressaltar que em alguns momentos também deverá ser consultado o FGTS do empréstimos consignados se a empresa tem e se está em aberto então fica aqui por completo este vídeo do passo a passo espero que esteja ajudado vocês na execução 

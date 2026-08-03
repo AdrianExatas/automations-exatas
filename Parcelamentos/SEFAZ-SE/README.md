@@ -38,6 +38,26 @@ Para usar o Edge instalado no Windows, como no aplicativo Electron:
 npm run start -- --input ./model.xlsx --browser-channel msedge
 ```
 
+Para escolher o transporte da automacao:
+
+```bash
+npm run start -- --input ./model.xlsx --transport browser
+npm run start -- --input ./model.xlsx --transport auto
+npm run start -- --input ./model.xlsx --transport http
+```
+
+O transporte `browser` e o fluxo estavel por Playwright. O transporte `http` usa diretamente os endpoints mapeados do portal para consultar parcelas, adicionar uma parcela isolada ao carrinho, gerar o DAE e baixar o PDF. O transporte `auto` tenta HTTP primeiro e volta para o navegador quando o HTTP falhar antes de produzir um resultado util.
+
+Para mapear as requisicoes reais usadas pelo portal em uma linha da planilha:
+
+```bash
+npm run start -- --http-map --input ./model.xlsx --row-number 2
+```
+
+O mapeamento grava artefatos redigidos em `output/http-map/<timestamp>/`, incluindo `network-map.json` e `summary.txt`. Esses arquivos podem conter estrutura de sessao e nao devem ser versionados.
+
+O parametro `--map-dir ./output/http-map/<timestamp>` fica reservado para diagnostico/replay de mapas capturados; a execucao HTTP normal nao depende de `replayPlan`.
+
 ## Aplicativo desktop
 
 Rodar a interface Electron localmente:
@@ -60,8 +80,10 @@ O instalador NSIS e gerado em `release\`. A configuracao nao assina o executavel
 
 - Le todas as linhas da primeira aba de `model.xlsx`.
 - Usa `INSCRICAO ESTADUAL` + `CPF` para acessar o portal.
-- Seleciona a parcela cujo vencimento esteja no mes corrente.
-- Gera o PDF e renomeia para `PARCELA <rotulo> N\u00BA <numero-do-dae>.pdf`.
-- O rotulo da parcela segue a regra `parcelas pagas + parcelas atrasadas`; se nao houver atrasadas, usa `parcelas pagas + 1`.
-- Salva o PDF em `LOCAL PARA SALVAR ARQUIVO`.
-- Gera um relatorio XLSX separado em `output/`.
+- Coleta as parcelas disponiveis e classifica cada vencimento como `vencida`, `mes_atual` ou `futura`.
+- Emite separadamente cada parcela vencida ou do mes atual, reabrindo uma sessao limpa para evitar carrinho unificado.
+- Parcelas futuras nao sao emitidas e aparecem no relatorio com status `ignorado`.
+- Gera o PDF e renomeia com codigo, rotulo da parcela, empresa e vencimento.
+- Salva os PDFs em uma subpasta por mes de solicitacao dentro de `LOCAL PARA SALVAR ARQUIVO`, no formato `MM-AAAA`.
+- O rotulo da parcela usa o numero exibido no portal quando disponivel; caso contrario, usa `parcelas pagas + parcelas atrasadas` ou `parcelas pagas + 1`.
+- Gera um relatorio XLSX separado em `output/`, incluindo protocolo, vencimento, valor, situacao do vencimento, contadores de parcelas, criterio do rotulo e transporte usado.

@@ -1,0 +1,15 @@
+Neste vídeo eu vou ensinar a você como você deverá fazer o cadastro de jornada e horários dentro de uma empresa padrão a utilização do setor do onboard então após a abertura do sistema domínio com usuário e senha no domínio folha você deverá clicar na opção acima em arquivo abaixo você vai selecionar a opção jornadas aqui ele vai apresentar que não houve nenhum cadastro você clica em ok 
+
+no campo código você deixa o campo automático então nesse nosso exemplo número 1 no nome você vai digitar 
+
+o nome comercial início em é uma data então com a data iremos usar usarmos como padrão você clica em controle empresas e você vai inserir a data desde que ele se tornou o cliente então dia 16 de 6 de 2026 em tipo de jornada você você clica deixará como padrão tá por mais que ele tem aqui outras outras opções e em jornada de social você vai deixar em jornada com horário diário fixo e com foca fixa no domingo 
+
+e pronto essa é a jornada entretanto para que possa ser gravado e vou clicar aqui como exemplo aí o campo descrição jornada de preenchimento obrigatório na social e o seu não preenchimento poderá ocasionar validações desde a continuar mesmo que você clique em sim ele não salva por quê porque exige agora olha é obrigatória informação de um horário na jornada clique ok deverá existir a jornada de horário para essa jornada então qual o padrão que nós iremos utilizarmos abaixo você deverá clicar em 
+
+em incluir 
+
+semana ele já vai apresentar que segunda a sexta você vai clicar no campo código horário e clicar no teclado f7 aqui ele vai dar opção de cadastro da dos horários e no nosso padrão você deverá inserir na opção nome 08 2 .00 as 18 2 .00 qual a data a data do início a data lei desde cliente o cliente desde perdão então você insere o tipo trabalhado variação diária não qual a hora de entrada geralmente do começo das oito às 18 o tipo de intervalo deverá ser horário fixo e você clica aqui nesses três pontinhos porque ele vai pedir aqui o horário do intervalo né do almoço do colaborador então você clica em incluir 12 horário fim 14 e clica em gravar pronto após feito esse cadastro você clica em gravar aqui perceba que ele já traz o horário e agora nós vamos cadastrar o sábado então você clica em incluir no código F7 porque ele não tem ainda né o cadastro feito aqui você vai em nome e aqui você vai em nome escrever SAB início 
+
+mesma data entrada do cliente na base trabalhado horário das oito às doze não tem horário de intervalo você clica em gravar e por fim iremos cadastrar agora o domingo então você clica em incluir ele já aparece ali de forma automática novamente no campo código horário F7 no nome você descreve folga a data permanece permanece e o tipo você vai inserir a opção folga pronto não precisa fazer mais nenhum tipo de de cadastro clique em gravar 
+
+e clica agora no canto ao lado ali direito na opção gravar pronto está aí o processo de execução de jornada e horário 

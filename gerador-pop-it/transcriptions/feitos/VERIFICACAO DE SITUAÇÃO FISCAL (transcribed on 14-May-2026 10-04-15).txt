@@ -1,0 +1,49 @@
+Vamos dar continuidade ao vídeo de execução do check list do fluxo de onboard, levantamento de débito e parcelamento. 
+
+Neste vídeo eu vou apresentar a você como verificar a situação fiscal da empresa. Então vamos lá. Ainda com o seu domínio em aberto, lembrando que você deverá entrar com usuário e senha. Nós vamos agora para a página do Google. 
+
+Reforçando, eu venho aqui em nova janela anônima, no canto direito, lá nos três pontinhos, é minha forma de utilizar. 
+
+E vamos aqui em eCAC. 
+
+E -C -A -C, essa é a palavra que você vai digitar. 
+
+Logo em seguida você clicará na opção portal eCAC. 
+
+Na página inicial tem a opção entrar com gov.br. 
+
+Ainda na página inicial tem a opção aqui, clica aqui em permitir desta vez, caso apareça. e você vem logo abaixo aqui na opção seu certificado digital. 
+
+Sempre, sempre mesmo, utilizar a opção Exatas Contabilidade em seu computador, porque nós vamos usar procuração para os nossos clientes. 
+
+Na página inicial do eCAC tem a opção aqui, no canto direito, alterar perfil de acesso. Então você vai clicar e ele vai dar aqui algumas opções. 
+
+Procurador de pessoa física, CPF, o procurador de pessoa jurídica e algumas outras informações. Geralmente utilizamos mais a parte do procurador de pessoa jurídica, CNPJ. Porém, pode ocorrer a parte da CPF. 
+
+mas voltando aqui o nosso exemplo que trata de uma pessoa do CNPJ. Eu vou dividir novamente a tela, para ficar mais produtivo. Clicamos aqui na divisão na parte domínio. Clicamos aqui na opção controle. Empresas. 
+
+Irá aparecer as informações da empresa que você está consultando. No tipo de inscrição CNPJ, você clica ou descreve. Eu vou dar um exemplo aqui copiando. Como eu dei lá no exemplo do FGTS digital. E perceba que na página do eCAC ele traz ponto e a barra. Então ele não consegue puxar todo o CNPJ. Então você pode fazer apagando e inserindo os números restantes. Ou você pode apagar e ao ver o CNPJ, você descrever. A maneira mais rápida que você puder, você utiliza. E são os dois modelos com os quais eu trabalho. E agora você clica na opção alterar, após inserir o CNPJ. 
+
+Aqui ele constatou o CNPJ inválido. 
+
+Digitei novamente. Vamos clicar em alterar. Pronto. Dessa vez está correto. Perceba logo acima lá da tela que ela já está no procurador. E como é que executamos aquela tarefa. Clicando aqui na opção certidões e situação fiscal. 
+
+Vai aparecer duas opções. Consulta de pendências. Inclusão no cardim pela ERFB. Porém nós vamos para a execução da tarefa. Consulta de pendências. Situação fiscal. É essa que você vai clicar. 
+
+Ele vai entrar aqui. Ele vai aparecer uma informação de autenticação. Você clica em entrar com gov.br. 
+
+Houve uma mudança na página da Receita Federal. Então o que ocorre? Quando entramos naquela opção de autenticação, ele permanece aqui com o da Exatas. Então como é que a gente muda para a empresa consultante? E tem que ser feito isso. Você clica aqui lá no canto direito. Na opção Exatas. Ele vai abrir aqui uma aba de informações no canto direito. E ele tem aqui a opção CNPJ. Então vou dividir novamente a tela. Vou copiar aqui. Deixa eu ver se nessa opção ele me dá por completo. Perfeito. E vou clicar na opção procurador abaixo. Após a descrição do CNPJ. procurador abaixo. Ele vai dar aqui a opção procurador abaixo. Ele vai dar aqui a opção representar. Então você clica. 
+
+E agora sim perceba lá a mudança aí. Guimarães procurador. Agora sim ele se encontra na empresa que nós estamos consultando. Abaixo tem detalhamento da análise. Então está constando aqui uma dívida de DCTF Web. O que a gente precisa fazer para a conclusão da tarefa? Baixar relatório. Então você clica aqui na opção baixar relatório. Ele vai dar a opção de você salvar. Então você pode salvar aqui em downloads. 
+
+Vai aparecer aqui a imagem para você verificar. Ou seja, clica e analisa. Então essa empresa aqui. Aquela situação de DCTF Web que apareceu. Não é uma dívida. Porque a competência é 4 e o vencimento ainda é dia 25. É apenas um informativo de que tem um valor a ser pago. Tá certo? E ele não detende nenhuma pendência a mais. Tanto é que se você voltar nas minhas dívidas e pendências. A empresa está apta a baixar certidão. É um outro ponto também interessante de análise. Por que? Só se baixa a certidão negativa se não tiver nenhum débito. 
+
+Após baixar o relatório e analisar. Você retornará na tarefa. 
+
+E encaminhará dentro dela. 
+
+O relatório fiscal. Neste exemplo meu. Eu vou descrever aqui como. Sem Nenhuma Pendência fiscal Conforme relatório. 
+
+E encaminhar dentro da tarefa. Então tá aí. Essa segunda opção de verificação de situação fiscal. É dessa forma que faz. A conclusão. Desse checklist aí. Tá certo? Espero ter ajudado. 
+
+Você marca aqui. E ainda. Nos próximos vídeos. Irei apresentar os outros dois. 

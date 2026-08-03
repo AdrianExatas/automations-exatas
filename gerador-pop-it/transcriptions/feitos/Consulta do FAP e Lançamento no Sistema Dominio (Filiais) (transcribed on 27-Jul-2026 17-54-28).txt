@@ -1,0 +1,27 @@
+Neste vídeo eu vou ensinar como você deverá fazer a consulta do FAP de uma determinada empresa caso necessário. Então após a abertura da página Google você vai digitar acima consultar FAP. O que significa FAP? O FAP é o fator acidentado de prevenção. É um indicador que acaba sendo um fator primordial para o cálculo de recolhimento do RAT, chamado do RAT ajustado. Geralmente para as empresas do lucro real e lucro presumido, onde acabam atribuindo um recolhimento obrigatório sobre a sua folha de pagamento. Então você deverá clicar aqui em consultar o fator acidentado de prevenção FAP. 
+
+Aqui na página você vai clicar nesse canto aqui, esverdeado, iniciar. Abaixo, acesso ao FAP, você vai se dirigindo abaixo e vai clicar nessa opção, acesse o FAP. 
+
+Caso apareça no seu site essa informação, você vai clicar em avançadas e abaixo e ir para o FAP .dataprev .com .br Aqui deve ser alguma informação do site. 
+
+Aqui é a página inicial do FAP, você vai clicar sou representante de uma empresa ou cidadão, entrar com gov .br, clica. 
+
+Aqui caso apareça essas informações no canto esquerdo, você vai clicar em permitir desta vez. Abaixo, você vem na opção seu certificado digital. Ele vai demonstrar aqui as empresas e você vai clicar, eu vou utilizar como exemplo esse cliente nosso, então eu vou direcionar o certificado dele, selecionar e clicar em ok. 
+
+Está aqui as opções que ele vai nos trazer, dentre elas até procurações eletrônicas, mas vamos aqui na opção consulta do FAP. 
+
+No campo vigência você vai colocar o ano de vigência, então nós estamos em 2026. No CNPJ ao clicar ele vai aparecer o nome da empresa, você vai clicar. em estabelecimento, em estabelecimento, o número do CNPJ, basta clicar uma vez por cada e você vai aqui agora no canto direito na opção consultar. Aguarda a informação, está aí a informação do consulta. Essa empresa realizada em dia 30 de setembro de 2025, foi a última atualização, é um processo anual. Ela tem um FAP de 0 ,5%. Feito isso, o que você poderá fazer dentro do sistema domínio? Você vai abrir o sistema domínio com usuários sem a folha. 
+
+Você vai clicar em arquivo, filiais. 
+
+Após a abertura das opções, você vai e clica na opção FAP. Perceba que o ano vigente aqui é ainda anterior, é uma empresa recente. Nós vamos clicar em nova vigência. 
+
+Vai clicar aqui em 9 de 2025, porque foi a última atualização. 
+
+E no fator, ao invés de 1, vamos botar meio. 
+
+E agora você clica em gravar. 
+
+Clique em OK. 
+
+Tá aí. Esse é o processo que você deverá executar dentro do FAP consulta e domínio. 
