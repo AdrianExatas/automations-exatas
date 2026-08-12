@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "kind": "gestta-dp-consultivo-achei-aug-workaround",
+  "startedAt": "2026-08-12T18:38:50.634Z",
+  "finishedAt": "2026-08-12T18:38:55.036Z",
+  "competence": {
+    "month": 8,
+    "year": 2026
+  },
+  "rootCause": "POST /task-gen/admin/customer/ACHEI retorna 500 para 08/2026 quando o modelo CONFERÊNCIA APDATA_1 está com frequency_date.business_day=15 (Nº dia útil). O mesmo modelo regenera EXATAS com sucesso. Com APDATA temporariamente em month_day=21 (equivalente ao 15º DU de ago/2026), a geração do ACHEI funciona.",
+  "workaround": "Gerar ACHEI 08/2026 com APDATA em dia calendário 21; restaurar APDATA para MONTHLY/15º DU; regenerar só EXATAS com o modelo restaurado; NÃO apagar de novo as instâncias do ACHEI em 08/2026.",
+  "steps": [
+    {
+      "step": "temp_apdata_month_day",
+      "ok": true,
+      "frequency_date": {
+        "business_day": null,
+        "start_day": null,
+        "month_day": 21,
+        "month": null,
+        "week_day": null
+      },
+      "business_day_accountancy": false
+    },
+    {
+      "step": "achei_regen_with_temp",
+      "erase": {
+        "ok": false,
+        "status": 404,
+        "body": {
+          "code": "customer_task.not.found",
+          "message": "customer_task not found"
+        }
+      },
+      "generate": {
+        "ok": true,
+        "status": 200,
+        "body": "OK"
+      },
+      "ok": true
+    },
+    {
+      "step": "restore_apdata_15du",
+      "ok": true,
+      "frequency_date": {
+        "business_day": 15,
+        "start_day": null,
+        "month_day": null,
+        "month": null,
+        "week_day": null
+      },
+      "business_day": false,
+      "business_day_accountancy": true
+    },
+    {
+      "step": "exatas_regen_with_restored",
+      "erase": {
+        "ok": false,
+        "status": 404,
+        "body": {
+          "code": "customer_task.not.found",
+          "message": "customer_task not found"
+        }
+      },
+      "generate": {
+        "ok": true,
+        "status": 200,
+        "body": "OK"
+      },
+      "ok": false
+    },
+    {
+      "step": "achei_aug_probe_post_without_delete",
+      "status": 404,
+      "body": {
+        "code": "customer_task.not.found",
+        "message": "customer_task not found"
+      },
+      "interpretedAsAlreadyGenerated": true
+    }
+  ],
+  "result": "success"
+}

@@ -1,0 +1,237 @@
+{
+  "schemaVersion": 1,
+  "kind": "gestta-recorrencias-icms-efd-execution-report",
+  "startedAt": "2026-08-03T18:53:21.165Z",
+  "finishedAt": "2026-08-03T18:53:31.261Z",
+  "backupPath": "C:\\Users\\Exatas\\Documents\\GitHub\\automations-exatas\\Onvio\\gestta-tarefas\\relatorios\\backup_recorrencias_icms_efd_2026-08-03T18-53-21-165Z.json",
+  "summary": {
+    "targeted": 13,
+    "eligibleForUpdate": 12,
+    "success": 12,
+    "skipped": 1,
+    "failure": 0
+  },
+  "results": [
+    {
+      "id": "69b00053ad04225fc1906260",
+      "name": "ICMS NORMAL (TOCANTINS)",
+      "result": "skipped_already_compliant",
+      "before": {
+        "meta": 5,
+        "legal": 7,
+        "monthDay": 7,
+        "accountancy": -2
+      },
+      "after": {
+        "meta": 5,
+        "legal": 7,
+        "monthDay": 7,
+        "accountancy": -2
+      }
+    },
+    {
+      "id": "67ca5775c9ebba287327c4a8",
+      "name": "ICMS NORMAL (SERGIPE) SIMPLES NACIONAL",
+      "result": "success",
+      "before": {
+        "meta": 6,
+        "legal": 9,
+        "monthDay": 9,
+        "accountancy": -3
+      },
+      "after": {
+        "meta": 7,
+        "legal": 10,
+        "monthDay": 10,
+        "accountancy": -3
+      }
+    },
+    {
+      "id": "60be0832e6e6ae0006a2ba39",
+      "name": "ICMS NORMAL (SERGIPE)",
+      "result": "success",
+      "before": {
+        "meta": 6,
+        "legal": 9,
+        "monthDay": 9,
+        "accountancy": -3
+      },
+      "after": {
+        "meta": 7,
+        "legal": 10,
+        "monthDay": 10,
+        "accountancy": -3
+      }
+    },
+    {
+      "id": "6a2800c3f687b8d0ae85b4d5",
+      "name": "ICMS NORMAL (BAHIA) - VIA WHATSAPP",
+      "result": "success",
+      "before": {
+        "meta": 6,
+        "legal": 9,
+        "monthDay": 9,
+        "accountancy": -3
+      },
+      "after": {
+        "meta": 7,
+        "legal": 10,
+        "monthDay": 10,
+        "accountancy": -3
+      }
+    },
+    {
+      "id": "611e608e33a3680006ba3212",
+      "name": "ICMS NORMAL (BAHIA)",
+      "result": "success",
+      "before": {
+        "meta": 6,
+        "legal": 9,
+        "monthDay": 9,
+        "accountancy": -3
+      },
+      "after": {
+        "meta": 7,
+        "legal": 10,
+        "monthDay": 10,
+        "accountancy": -3
+      }
+    },
+    {
+      "id": "60c8c507e9b9260006d4fedb",
+      "name": "ICMS NORMAL (ALAGOAS)",
+      "result": "success",
+      "before": {
+        "meta": 6,
+        "legal": 9,
+        "monthDay": 9,
+        "accountancy": -3
+      },
+      "after": {
+        "meta": 5,
+        "legal": 7,
+        "monthDay": 7,
+        "accountancy": -2
+      }
+    },
+    {
+      "id": "67bce2a127f54799f028bce6",
+      "name": "EFD ICMS IPI - SN (SERGIPE)",
+      "result": "success",
+      "before": {
+        "meta": 9,
+        "legal": 15,
+        "monthDay": 15,
+        "accountancy": -6
+      },
+      "after": {
+        "meta": 7,
+        "legal": 10,
+        "monthDay": 10,
+        "accountancy": -3
+      }
+    },
+    {
+      "id": "676ae6d0ac41842e5c30bb61",
+      "name": "EFD ICMS IPI - SN (ALAGOAS)",
+      "result": "success",
+      "before": {
+        "meta": 9,
+        "legal": 25,
+        "monthDay": 25,
+        "accountancy": -16
+      },
+      "after": {
+        "meta": 5,
+        "legal": 7,
+        "monthDay": 7,
+        "accountancy": -2
+      }
+    },
+    {
+      "id": "69affe7cb49b99ccd6f3f80e",
+      "name": "EFD ICMS IPI - NORMAL (TOCANTINS) - VIA WHATSAPP",
+      "result": "success",
+      "before": {
+        "meta": 9,
+        "legal": 15,
+        "monthDay": 15,
+        "accountancy": -6
+      },
+      "after": {
+        "meta": 5,
+        "legal": 7,
+        "monthDay": 7,
+        "accountancy": -2
+      }
+    },
+    {
+      "id": "60b61ec51da683000632353c",
+      "name": "EFD ICMS IPI - NORMAL (SERGIPE)",
+      "result": "success",
+      "before": {
+        "meta": 9,
+        "legal": 15,
+        "monthDay": 15,
+        "accountancy": -6
+      },
+      "after": {
+        "meta": 7,
+        "legal": 10,
+        "monthDay": 10,
+        "accountancy": -3
+      }
+    },
+    {
+      "id": "6a27ffca4b67b61fffb3ecac",
+      "name": "EFD ICMS IPI - NORMAL (BAHIA) - VIA WHATSAPP",
+      "result": "success",
+      "before": {
+        "meta": 9,
+        "legal": 25,
+        "monthDay": 25,
+        "accountancy": -16
+      },
+      "after": {
+        "meta": 7,
+        "legal": 10,
+        "monthDay": 10,
+        "accountancy": -3
+      }
+    },
+    {
+      "id": "60edac9b99b9340006386118",
+      "name": "EFD ICMS IPI - NORMAL (BAHIA)",
+      "result": "success",
+      "before": {
+        "meta": 9,
+        "legal": 25,
+        "monthDay": 25,
+        "accountancy": -16
+      },
+      "after": {
+        "meta": 7,
+        "legal": 10,
+        "monthDay": 10,
+        "accountancy": -3
+      }
+    },
+    {
+      "id": "60c64138faf1790006758b9b",
+      "name": "EFD ICMS IPI - NORMAL (ALAGOAS)",
+      "result": "success",
+      "before": {
+        "meta": 9,
+        "legal": 25,
+        "monthDay": 25,
+        "accountancy": -16
+      },
+      "after": {
+        "meta": 5,
+        "legal": 7,
+        "monthDay": 7,
+        "accountancy": -2
+      }
+    }
+  ]
+}

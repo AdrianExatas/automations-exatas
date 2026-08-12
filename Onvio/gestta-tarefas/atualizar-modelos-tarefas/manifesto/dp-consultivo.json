@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 1,
+  "id": "dp-consultivo",
+  "title": "Alinhamento consultivo tarefas DP",
+  "description": "Inativa 8 modelos, renomeia FGTS, ajusta APDATA para 15º dia útil e adiciona checklists FGTS/RF DP.",
+  "actions": [
+    {
+      "op": "setActive",
+      "taskId": "690a1194c9ee3c8d84e89d55",
+      "expectedName": "RELAÇÃO DE FÉRIAS",
+      "active": false
+    },
+    {
+      "op": "setActive",
+      "taskId": "695d27f422fe5742c2071954",
+      "expectedName": "ANÁLISE DE PARCELAMENTOS (EMPRESA ENTRANTE) - DP",
+      "active": false
+    },
+    {
+      "op": "setActive",
+      "taskId": "63446cc9870c090007719de7",
+      "expectedName": "RELATÓRIO DE FOLHA DE PAGAMENTO",
+      "active": false
+    },
+    {
+      "op": "setActive",
+      "taskId": "67ba191ae4b52ec8453d413e",
+      "expectedName": "VERIFICAÇÃO GOB SETOR PESSOAL",
+      "active": false
+    },
+    {
+      "op": "setActive",
+      "taskId": "689cefb0b7792b545a5ad197",
+      "expectedName": "CONSULTA DE PENDENCIAS DE FGTS CONECTIVIDADE SOCIAL",
+      "active": false
+    },
+    {
+      "op": "setActive",
+      "taskId": "67891b0260f29d51d3e5f0d4",
+      "expectedName": "PARCELAMENTO PREVIDENCIÁRIO ECAC - SIMPLIFICADO",
+      "active": false
+    },
+    {
+      "op": "setActive",
+      "taskId": "6824e837e77ce0328e4f6353",
+      "expectedName": "PARCELAMENTO PREVIDENCIÁRIO GPS",
+      "active": false
+    },
+    {
+      "op": "setActive",
+      "taskId": "63c1b527837d3e0007ab7e36",
+      "expectedName": "PARCELAMENTO PREVIDENCIARIO PGFN - DP",
+      "active": false
+    },
+    {
+      "op": "rename",
+      "taskId": "68094ac2c7354cdfc5c68861",
+      "expectedName": "VERIFICAÇÃO DO EMPRESTIMO FGTS (DET - EMPREGA BRASIL)",
+      "name": "VERIFICAÇÃO DE PENDENCIA FGTS"
+    },
+    {
+      "op": "setFrequencyBusinessDay",
+      "taskId": "673c9c08d2dc517895bc1b01",
+      "expectedName": "CONFERÊNCIA APDATA_1",
+      "frequency": "MONTHLY",
+      "businessDay": 15,
+      "regenerateTaskGen": true
+    },
+    {
+      "op": "addSteps",
+      "taskId": "68094ac2c7354cdfc5c68861",
+      "expectedNameAfterRename": "VERIFICAÇÃO DE PENDENCIA FGTS",
+      "steps": [
+        {
+          "name": "Verificar se a empresa tem parcelamento em aberto de FGTS; se tiver, encaminhar no portal ONVIO e avisar ao cliente.",
+          "required": true
+        },
+        {
+          "name": "Consultar guia em aberto do FGTS; se tiver, encaminhar no portal ONVIO e avisar ao cliente.",
+          "required": true
+        }
+      ]
+    },
+    {
+      "op": "addSteps",
+      "taskId": "67646f7495dd8939078ccc21",
+      "expectedName": "VERIFICAR PENDENCIAS - RECEITA FEDERAL (DP)",
+      "steps": [
+        {
+          "name": "Consultar e encaminhar a guia no portal ONVIO do parcelamento previdenciário simplificado caso o cliente apresente.",
+          "required": true
+        },
+        {
+          "name": "Consultar e encaminhar a guia no portal ONVIO do parcelamento previdenciário caso o cliente apresente.",
+          "required": true
+        },
+        {
+          "name": "Consultar e encaminhar a guia no portal ONVIO do parcelamento previdenciário PGFN caso o cliente apresente.",
+          "required": true
+        }
+      ]
+    }
+  ]
+}

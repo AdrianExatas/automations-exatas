@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "kind": "gestta-dp-consultivo-achei-regen-note",
+  "createdAt": "2026-08-12T18:38:55.036Z",
+  "customerId": "64d4c7bbf8fefe0007e875c7",
+  "customerName": "ACHEI COMERCIO E SERVICOS LTDA",
+  "taskId": "673c9c08d2dc517895bc1b01",
+  "taskName": "CONFERÊNCIA APDATA_1",
+  "competence": {
+    "month": 8,
+    "year": 2026
+  },
+  "status": "fixed",
+  "priorFailure": "relatorios/regeneracao_dp_consultivo_2026-08-12T18-31-44-237Z.json — DELETE 200, POST 500 x3",
+  "retryFailure": "relatorios/regeneracao_achei_retry_2026-08-12T18-33-51-053Z.json — DELETE 404 (já apagado), POST 500 x3",
+  "workaroundReport": "relatorios/regeneracao_achei_workaround_2026-08-12T18-38-55-036Z.json",
+  "modelAfterFix": {
+    "frequency": "MONTHLY",
+    "frequency_date_business_day": 15,
+    "business_day": false,
+    "business_day_accountancy": true,
+    "note": "Modelo global restaurado ao contrato consultivo (15º dia útil)."
+  },
+  "acheiAugustInstances": "Regeneradas com due date baseada em month_day=21 durante o workaround; em ago/2026 o 15º dia útil coincide com o dia 21, então a data operacional fica alinhada. Não reexecutar DELETE+POST do ACHEI em 08/2026 enquanto o bug Gestta persistir.",
+  "rootCause": "Bug/instabilidade no gerador Gestta (POST /task-gen) para o cliente ACHEI na competência 08/2026 quando CONFERÊNCIA APDATA_1 usa Nº dia útil (frequency_date.business_day=15). EXATAS com o mesmo modelo gera OK. Julho/2026 no ACHEI também regenera OK com o modelo 15º DU.",
+  "manualWorkaroundIfNeededAgain": [
+    "1) PUT APDATA temporariamente para frequency=MONTHLY, frequency_date.month_day=<15º DU do mês alvo>, business_day=false, business_day_accountancy=false.",
+    "2) POST /task-gen/admin/customer/64d4c7bbf8fefe0007e875c7 com {month,year} (DELETE só se ainda houver instâncias).",
+    "3) Restaurar APDATA para frequency_date.business_day=15 + business_day_accountancy=true + business_day=false.",
+    "4) Regenerar EXATAS (e demais clientes OK) com o modelo restaurado.",
+    "5) Alternativa UI: Gerar tarefas do ACHEI na competência; se a UI também falhar, abrir chamado Gestta com x-request-id do 500 e customerId ACHEI."
+  ],
+  "exatasStatus": "re-regenerated_ok_after_model_restore"
+}

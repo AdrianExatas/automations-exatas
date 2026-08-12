@@ -1,0 +1,149 @@
+{
+  "schemaVersion": 1,
+  "kind": "gestta-dp-consultivo-achei-regen-retry",
+  "startedAt": "2026-08-12T18:33:36.680Z",
+  "finishedAt": "2026-08-12T18:33:51.053Z",
+  "competence": {
+    "month": 8,
+    "year": 2026
+  },
+  "customerId": "64d4c7bbf8fefe0007e875c7",
+  "customerName": "ACHEI COMERCIO E SERVICOS LTDA",
+  "taskId": "673c9c08d2dc517895bc1b01",
+  "taskName": "CONFERÊNCIA APDATA_1",
+  "diagnosis": {
+    "taskId": "673c9c08d2dc517895bc1b01",
+    "taskName": "CONFERÊNCIA APDATA_1",
+    "active": true,
+    "frequency": "MONTHLY",
+    "frequency_date": {
+      "business_day": 15,
+      "start_day": null,
+      "month_day": null,
+      "month": null,
+      "week_day": null
+    },
+    "business_day": false,
+    "customersLinked": 2,
+    "acheiLinked": true,
+    "acheiName": "ACHEI COMERCIO E SERVICOS LTDA",
+    "acheiLinkRaw": {
+      "_id": "6a45145a43d1f04b8ba9aa39",
+      "company": "60b61ebc1da6830006322e1e",
+      "company_task": "673c9c08d2dc517895bc1b01",
+      "customer": {
+        "_id": "64d4c7bbf8fefe0007e875c7",
+        "company_groupers": [],
+        "notify": true,
+        "active": true,
+        "inactivated_by_gestta": false,
+        "tags": [],
+        "personal_department": [],
+        "identifier_disabled_validation": true,
+        "group_customer_count": 30,
+        "group_workflow_customer_count": 0,
+        "company": "60b61ebc1da6830006322e1e",
+        "cnpj": "51753053000114",
+        "name": "ACHEI COMERCIO E SERVICOS LTDA",
+        "created_by": "60b61ec61da68300063236ec",
+        "code": "424",
+        "opening_date": "2023-08-10T03:00:00.000Z",
+        "received_at": "2026-08-10T15:21:37.038Z",
+        "federative_unit": "SE",
+        "external_id": "9BECDDDCF47C4E7D918105FD016F37CE",
+        "partner_config": {
+          "has_onvio_portal": true,
+          "origin": "CONTABIL"
+        },
+        "created_at": "2023-08-10T11:19:23.297Z",
+        "updated_at": "2026-08-10T15:21:37.182Z",
+        "__v": 0,
+        "federal_regime": {
+          "_id": "60b61ebc1da6830006322e33",
+          "name": "SIMPLES NACIONAL",
+          "sphere": "FEDERAL",
+          "__v": 0,
+          "identifier": "SIMPLES_NACIONAL",
+          "company": "60b61ebc1da6830006322e1e",
+          "created_by": "60b61ebc1da6830006322e1e",
+          "created_at": "2021-06-01T11:49:17.526Z"
+        },
+        "state_inscription": "272011398",
+        "trading_name": "ACHEI COMERCIO",
+        "ccm": "20173001",
+        "city": "Umbaúba",
+        "neighborhood": "CENTRO",
+        "number": "961",
+        "postal_code": "49260000",
+        "street": "R CAMERINO",
+        "complement": "TERREOGALPAO",
+        "justification": "Ativado em lote por Thauane Vidal dos Santos"
+      },
+      "approvers": [],
+      "approve_type": [],
+      "active": true,
+      "__v": 0,
+      "created_at": "2026-07-01T13:21:30.310Z",
+      "updated_at": "2026-07-28T17:34:06.887Z",
+      "company_user": "6a109a7068f46978705ac891"
+    },
+    "customerProbe": {
+      "status": 404,
+      "keys": "string"
+    }
+  },
+  "attempts": [
+    {
+      "attempt": 1,
+      "at": "2026-08-12T18:33:38.475Z",
+      "erase": {
+        "ok": false,
+        "status": 404,
+        "body": {
+          "code": "customer_task.not.found",
+          "message": "customer_task not found"
+        }
+      },
+      "generate": {
+        "ok": false,
+        "status": 500,
+        "body": "Internal Server Error"
+      }
+    },
+    {
+      "attempt": 2,
+      "at": "2026-08-12T18:33:44.941Z",
+      "erase": {
+        "ok": false,
+        "status": 404,
+        "body": {
+          "code": "customer_task.not.found",
+          "message": "customer_task not found"
+        }
+      },
+      "generate": {
+        "ok": false,
+        "status": 500,
+        "body": "Internal Server Error"
+      }
+    },
+    {
+      "attempt": 3,
+      "at": "2026-08-12T18:33:51.053Z",
+      "erase": {
+        "ok": false,
+        "status": 404,
+        "body": {
+          "code": "customer_task.not.found",
+          "message": "customer_task not found"
+        }
+      },
+      "generate": {
+        "ok": false,
+        "status": 500,
+        "body": "Internal Server Error"
+      }
+    }
+  ],
+  "result": "failure"
+}

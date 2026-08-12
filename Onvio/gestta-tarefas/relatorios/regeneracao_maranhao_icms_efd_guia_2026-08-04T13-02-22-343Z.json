@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "kind": "gestta-maranhao-icms-efd-guia-regeneration-report",
+  "startedAt": "2026-08-04T13:02:26.710Z",
+  "backupPath": "C:\\Users\\Exatas\\Documents\\GitHub\\automations-exatas\\Onvio\\gestta-tarefas\\relatorios\\backup_maranhao_icms_efd_guia_2026-08-04T13-02-22-343Z.json",
+  "configPath": "C:\\Users\\Exatas\\Documents\\GitHub\\automations-exatas\\Onvio\\gestta-tarefas\\relatorios\\execucao_maranhao_icms_efd_guia_2026-08-04T13-02-22-343Z.json",
+  "competence": {
+    "month": 8,
+    "year": 2026
+  },
+  "summary": {
+    "targeted": 4,
+    "success": 4,
+    "failure": 0,
+    "notStarted": 0
+  },
+  "results": [
+    {
+      "id": "68b6f20cc89edd44f0334343",
+      "name": "ICMS NORMAL (MARANHÃO)",
+      "result": "success",
+      "erase": {
+        "ok": true,
+        "status": 200,
+        "body": "OK"
+      },
+      "generate": {
+        "ok": true,
+        "status": 200,
+        "body": "OK"
+      }
+    },
+    {
+      "id": "68b6f2a0cac04669fa8fbfaa",
+      "name": "GUIA DIFERENCIAL DE ALÍQUOTAS (MARANHÃO)",
+      "result": "success",
+      "erase": {
+        "ok": true,
+        "status": 200,
+        "body": "OK"
+      },
+      "generate": {
+        "ok": true,
+        "status": 200,
+        "body": "OK"
+      }
+    },
+    {
+      "id": "697a73b57014c6a0db34c01a",
+      "name": "EFD ICMS IPI - SN (MARANHÃO)",
+      "result": "success",
+      "erase": {
+        "ok": true,
+        "status": 200,
+        "body": "OK"
+      },
+      "generate": {
+        "ok": true,
+        "status": 200,
+        "body": "OK"
+      }
+    },
+    {
+      "id": "68b6f2dc6ce38de6845fa7ff",
+      "name": "EFD ICMS IPI - NORMAL (MARANHÃO)",
+      "result": "success",
+      "erase": {
+        "ok": true,
+        "status": 200,
+        "body": "OK"
+      },
+      "generate": {
+        "ok": true,
+        "status": 200,
+        "body": "OK"
+      }
+    }
+  ],
+  "finishedAt": "2026-08-04T13:02:31.521Z"
+}

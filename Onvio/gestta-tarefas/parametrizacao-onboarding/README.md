@@ -41,7 +41,7 @@ O modo avancado mostra UF e ajustes de rede: timeout, tentativas de leitura e in
 - le a matriz por regime/departamento;
 - calcula tarefas marcadas com `Sim` na coluna B;
 - inclui tarefas com marcador `PLANO PREMIUM` quando `planoPremium` estiver ativo;
-- inclui as tarefas de analise de parcelamentos fiscal e DP quando `adicionarAnaliseParcelamentos` estiver ativo;
+- inclui a tarefa de analise de parcelamentos fiscal quando `adicionarAnaliseParcelamentos` estiver ativo;
 - resolve empresa por CNPJ, tarefa recorrente ativa por nome e responsavel por nome;
 - adiciona a empresa em tarefas ausentes;
 - ajusta o responsavel do vinculo quando necessario;

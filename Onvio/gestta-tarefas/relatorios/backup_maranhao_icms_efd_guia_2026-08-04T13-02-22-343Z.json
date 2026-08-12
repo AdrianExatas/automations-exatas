@@ -1,0 +1,388 @@
+{
+  "schemaVersion": 1,
+  "kind": "gestta-maranhao-icms-efd-guia-backup",
+  "createdAt": "2026-08-04T13:02:22.343Z",
+  "taskCount": 4,
+  "tasks": [
+    {
+      "id": "68b6f20cc89edd44f0334343",
+      "name": "ICMS NORMAL (MARANHÃO)",
+      "originalTask": {
+        "_id": "68b6f20cc89edd44f0334343",
+        "company": "60b61ebc1da6830006322e1e",
+        "name": "ICMS NORMAL (MARANHÃO)",
+        "company_department": "60b61ebc1da6830006322e3b",
+        "regimes": [],
+        "type": "RECURRENT",
+        "subtype": "AUTOMATIC",
+        "competence": -1,
+        "frequency": "MONTHLY",
+        "frequency_date": {
+          "business_day": null,
+          "start_day": null,
+          "month_day": 9,
+          "month": null,
+          "week_day": null
+        },
+        "sphere": "STATE",
+        "notify_customer": false,
+        "accountancy": -3,
+        "fine": true,
+        "value": 0,
+        "company_documents": [
+          "68e4fc7dd2ed44bc225958fc"
+        ],
+        "score": null,
+        "business_day": false,
+        "business_day_accountancy": false,
+        "postpone": false,
+        "tags": [],
+        "group_customer_count": 10,
+        "active": true,
+        "created_by": "60b61ebc1da6830006322e1e",
+        "created_at": "2025-09-02T13:33:00.765Z",
+        "__v": 0
+      },
+      "restorePayload": {
+        "name": "ICMS NORMAL (MARANHÃO)",
+        "company_department": "60b61ebc1da6830006322e3b",
+        "subtype": "AUTOMATIC",
+        "competence": -1,
+        "frequency": "MONTHLY",
+        "frequency_date": {
+          "business_day": null,
+          "start_day": null,
+          "month_day": 9,
+          "month": null,
+          "week_day": null
+        },
+        "sphere": "STATE",
+        "notify_customer": false,
+        "accountancy": -3,
+        "fine": true,
+        "business_day": false,
+        "business_day_accountancy": false,
+        "postpone": false,
+        "accounting_view": false,
+        "tags": [],
+        "active": true,
+        "link_existing_customers": false
+      },
+      "intendedPayload": {
+        "name": "ICMS NORMAL (MARANHÃO)",
+        "company_department": "60b61ebc1da6830006322e3b",
+        "subtype": "AUTOMATIC",
+        "competence": -1,
+        "frequency": "MONTHLY",
+        "frequency_date": {
+          "business_day": null,
+          "start_day": null,
+          "month_day": 10,
+          "month": null,
+          "week_day": null
+        },
+        "sphere": "STATE",
+        "notify_customer": false,
+        "accountancy": -3,
+        "fine": true,
+        "business_day": false,
+        "business_day_accountancy": false,
+        "postpone": false,
+        "accounting_view": false,
+        "tags": [],
+        "active": true,
+        "link_existing_customers": false
+      },
+      "expected": {
+        "monthDay": 10,
+        "accountancy": -3
+      },
+      "willUpdate": true
+    },
+    {
+      "id": "68b6f2a0cac04669fa8fbfaa",
+      "name": "GUIA DIFERENCIAL DE ALÍQUOTAS (MARANHÃO)",
+      "originalTask": {
+        "_id": "68b6f2a0cac04669fa8fbfaa",
+        "company": "60b61ebc1da6830006322e1e",
+        "name": "GUIA DIFERENCIAL DE ALÍQUOTAS (MARANHÃO)",
+        "company_department": "60b61ebc1da6830006322e3b",
+        "regimes": [],
+        "type": "RECURRENT",
+        "subtype": "AUTOMATIC",
+        "competence": -1,
+        "frequency": "MONTHLY",
+        "frequency_date": {
+          "business_day": null,
+          "start_day": null,
+          "month_day": 9,
+          "month": null,
+          "week_day": null
+        },
+        "sphere": "STATE",
+        "notify_customer": false,
+        "accountancy": -3,
+        "fine": true,
+        "value": 0,
+        "company_documents": [
+          "69ab1c44c193694468d61d8b"
+        ],
+        "score": null,
+        "business_day": false,
+        "business_day_accountancy": false,
+        "postpone": false,
+        "tags": [],
+        "group_customer_count": 11,
+        "active": true,
+        "created_by": "60b61ebc1da6830006322e1e",
+        "created_at": "2025-09-02T13:35:28.811Z",
+        "__v": 0
+      },
+      "restorePayload": {
+        "name": "GUIA DIFERENCIAL DE ALÍQUOTAS (MARANHÃO)",
+        "company_department": "60b61ebc1da6830006322e3b",
+        "subtype": "AUTOMATIC",
+        "competence": -1,
+        "frequency": "MONTHLY",
+        "frequency_date": {
+          "business_day": null,
+          "start_day": null,
+          "month_day": 9,
+          "month": null,
+          "week_day": null
+        },
+        "sphere": "STATE",
+        "notify_customer": false,
+        "accountancy": -3,
+        "fine": true,
+        "business_day": false,
+        "business_day_accountancy": false,
+        "postpone": false,
+        "accounting_view": false,
+        "tags": [],
+        "active": true,
+        "link_existing_customers": false
+      },
+      "intendedPayload": {
+        "name": "GUIA DIFERENCIAL DE ALÍQUOTAS (MARANHÃO)",
+        "company_department": "60b61ebc1da6830006322e3b",
+        "subtype": "AUTOMATIC",
+        "competence": -1,
+        "frequency": "MONTHLY",
+        "frequency_date": {
+          "business_day": null,
+          "start_day": null,
+          "month_day": 20,
+          "month": null,
+          "week_day": null
+        },
+        "sphere": "STATE",
+        "notify_customer": false,
+        "accountancy": -8,
+        "fine": true,
+        "business_day": false,
+        "business_day_accountancy": false,
+        "postpone": false,
+        "accounting_view": false,
+        "tags": [],
+        "active": true,
+        "link_existing_customers": false
+      },
+      "expected": {
+        "monthDay": 20,
+        "accountancy": -8
+      },
+      "willUpdate": true
+    },
+    {
+      "id": "697a73b57014c6a0db34c01a",
+      "name": "EFD ICMS IPI - SN (MARANHÃO)",
+      "originalTask": {
+        "_id": "697a73b57014c6a0db34c01a",
+        "company": "60b61ebc1da6830006322e1e",
+        "name": "EFD ICMS IPI - SN (MARANHÃO)",
+        "company_department": "645cd4b3426c380007d13f02",
+        "regimes": [],
+        "type": "RECURRENT",
+        "subtype": "AUTOMATIC",
+        "competence": -1,
+        "frequency": "MONTHLY",
+        "frequency_date": {
+          "business_day": null,
+          "start_day": null,
+          "month_day": 15,
+          "month": null,
+          "week_day": null
+        },
+        "sphere": "STATE",
+        "notify_customer": false,
+        "accountancy": -6,
+        "fine": true,
+        "value": 0,
+        "company_documents": [
+          "60b61ebf1da6830006323514"
+        ],
+        "score": 1,
+        "business_day": false,
+        "business_day_accountancy": false,
+        "postpone": false,
+        "tags": [],
+        "group_customer_count": 1,
+        "active": true,
+        "created_by": "60b61ebc1da6830006322e1e",
+        "created_at": "2026-01-28T20:38:13.427Z",
+        "__v": 0
+      },
+      "restorePayload": {
+        "name": "EFD ICMS IPI - SN (MARANHÃO)",
+        "company_department": "645cd4b3426c380007d13f02",
+        "subtype": "AUTOMATIC",
+        "competence": -1,
+        "frequency": "MONTHLY",
+        "frequency_date": {
+          "business_day": null,
+          "start_day": null,
+          "month_day": 15,
+          "month": null,
+          "week_day": null
+        },
+        "sphere": "STATE",
+        "notify_customer": false,
+        "accountancy": -6,
+        "fine": true,
+        "business_day": false,
+        "business_day_accountancy": false,
+        "postpone": false,
+        "accounting_view": false,
+        "tags": [],
+        "active": true,
+        "link_existing_customers": false
+      },
+      "intendedPayload": {
+        "name": "EFD ICMS IPI - SN (MARANHÃO)",
+        "company_department": "645cd4b3426c380007d13f02",
+        "subtype": "AUTOMATIC",
+        "competence": -1,
+        "frequency": "MONTHLY",
+        "frequency_date": {
+          "business_day": null,
+          "start_day": null,
+          "month_day": 20,
+          "month": null,
+          "week_day": null
+        },
+        "sphere": "STATE",
+        "notify_customer": false,
+        "accountancy": -8,
+        "fine": true,
+        "business_day": false,
+        "business_day_accountancy": false,
+        "postpone": false,
+        "accounting_view": false,
+        "tags": [],
+        "active": true,
+        "link_existing_customers": false
+      },
+      "expected": {
+        "monthDay": 20,
+        "accountancy": -8
+      },
+      "willUpdate": true
+    },
+    {
+      "id": "68b6f2dc6ce38de6845fa7ff",
+      "name": "EFD ICMS IPI - NORMAL (MARANHÃO)",
+      "originalTask": {
+        "_id": "68b6f2dc6ce38de6845fa7ff",
+        "company": "60b61ebc1da6830006322e1e",
+        "name": "EFD ICMS IPI - NORMAL (MARANHÃO)",
+        "company_department": "60b61ebc1da6830006322e3b",
+        "regimes": [],
+        "type": "RECURRENT",
+        "subtype": "AUTOMATIC",
+        "competence": -1,
+        "frequency": "MONTHLY",
+        "frequency_date": {
+          "business_day": null,
+          "start_day": null,
+          "month_day": 15,
+          "month": null,
+          "week_day": null
+        },
+        "sphere": "STATE",
+        "notify_customer": false,
+        "accountancy": -6,
+        "fine": true,
+        "value": 0,
+        "company_documents": [
+          "60b61ebf1da6830006323514"
+        ],
+        "score": null,
+        "business_day": false,
+        "business_day_accountancy": false,
+        "postpone": false,
+        "tags": [],
+        "group_customer_count": 8,
+        "active": true,
+        "created_by": "60b61ebc1da6830006322e1e",
+        "created_at": "2025-09-02T13:36:28.669Z",
+        "__v": 0
+      },
+      "restorePayload": {
+        "name": "EFD ICMS IPI - NORMAL (MARANHÃO)",
+        "company_department": "60b61ebc1da6830006322e3b",
+        "subtype": "AUTOMATIC",
+        "competence": -1,
+        "frequency": "MONTHLY",
+        "frequency_date": {
+          "business_day": null,
+          "start_day": null,
+          "month_day": 15,
+          "month": null,
+          "week_day": null
+        },
+        "sphere": "STATE",
+        "notify_customer": false,
+        "accountancy": -6,
+        "fine": true,
+        "business_day": false,
+        "business_day_accountancy": false,
+        "postpone": false,
+        "accounting_view": false,
+        "tags": [],
+        "active": true,
+        "link_existing_customers": false
+      },
+      "intendedPayload": {
+        "name": "EFD ICMS IPI - NORMAL (MARANHÃO)",
+        "company_department": "60b61ebc1da6830006322e3b",
+        "subtype": "AUTOMATIC",
+        "competence": -1,
+        "frequency": "MONTHLY",
+        "frequency_date": {
+          "business_day": null,
+          "start_day": null,
+          "month_day": 20,
+          "month": null,
+          "week_day": null
+        },
+        "sphere": "STATE",
+        "notify_customer": false,
+        "accountancy": -8,
+        "fine": true,
+        "business_day": false,
+        "business_day_accountancy": false,
+        "postpone": false,
+        "accounting_view": false,
+        "tags": [],
+        "active": true,
+        "link_existing_customers": false
+      },
+      "expected": {
+        "monthDay": 20,
+        "accountancy": -8
+      },
+      "willUpdate": true
+    }
+  ]
+}

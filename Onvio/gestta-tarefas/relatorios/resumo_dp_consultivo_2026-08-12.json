@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 1,
+  "kind": "gestta-dp-consultivo-final-summary",
+  "createdAt": "2026-08-12T18:33:00.000Z",
+  "contract": {
+    "updateModel": "PUT /admin/company/task/{taskId}",
+    "listSteps": "GET /admin/company/task/{taskId}/step",
+    "createStep": "POST /admin/company/task/{taskId}/step  body={name,order,required}",
+    "deleteStep": "DELETE /admin/company/task/step/{stepId}",
+    "taskGen": "DELETE|POST /task-gen/admin/customer/{customerId} body={month,year}",
+    "noteApdataBusinessDay": "15º dia útil = frequency=MONTHLY + frequency_date.business_day=15. Top-level business_day permanece false nesta tarefa (API rejeita true com accountancy=0 + business_day_accountancy=true)."
+  },
+  "artifacts": {
+    "package": "atualizar-modelos-tarefas/",
+    "manifest": "atualizar-modelos-tarefas/manifesto/dp-consultivo.json",
+    "dryRun": {
+      "backup": "relatorios/backup_dp_consultivo_2026-08-12T18-29-50-800Z.json",
+      "execucao": "relatorios/execucao_dp_consultivo_2026-08-12T18-29-50-800Z.json",
+      "checklist": "relatorios/checklist_dp_consultivo_2026-08-12T18-29-50-800Z.json"
+    },
+    "apply": {
+      "backup": "relatorios/backup_dp_consultivo_2026-08-12T18-29-59-850Z.json",
+      "execucao": "relatorios/execucao_dp_consultivo_2026-08-12T18-29-59-850Z.json",
+      "checklist": "relatorios/checklist_dp_consultivo_2026-08-12T18-29-59-850Z.json"
+    },
+    "regeneracao": "relatorios/regeneracao_dp_consultivo_2026-08-12T18-31-44-237Z.json",
+    "validacao": "relatorios/validacao_dp_consultivo_2026-08-12T18-31-44-237Z.json"
+  },
+  "applyResults": [
+    {
+      "task": "RELAÇÃO DE FÉRIAS",
+      "op": "setActive(false)",
+      "result": "success"
+    },
+    {
+      "task": "ANÁLISE DE PARCELAMENTOS (EMPRESA ENTRANTE) - DP",
+      "op": "setActive(false)",
+      "result": "success"
+    },
+    {
+      "task": "RELATÓRIO DE FOLHA DE PAGAMENTO",
+      "op": "setActive(false)",
+      "result": "success"
+    },
+    {
+      "task": "VERIFICAÇÃO GOB SETOR PESSOAL",
+      "op": "setActive(false)",
+      "result": "success"
+    },
+    {
+      "task": "CONSULTA DE PENDENCIAS DE FGTS CONECTIVIDADE SOCIAL",
+      "op": "setActive(false)",
+      "result": "success"
+    },
+    {
+      "task": "PARCELAMENTO PREVIDENCIÁRIO ECAC - SIMPLIFICADO",
+      "op": "setActive(false)",
+      "result": "success"
+    },
+    {
+      "task": "PARCELAMENTO PREVIDENCIÁRIO GPS",
+      "op": "setActive(false)",
+      "result": "success"
+    },
+    {
+      "task": "PARCELAMENTO PREVIDENCIARIO PGFN - DP",
+      "op": "setActive(false)",
+      "result": "success"
+    },
+    {
+      "task": "VERIFICAÇÃO DE PENDENCIA FGTS",
+      "op": "rename",
+      "result": "success"
+    },
+    {
+      "task": "CONFERÊNCIA APDATA_1",
+      "op": "setFrequencyBusinessDay(15)",
+      "result": "success",
+      "note": "Aplicado após ajuste do payload (top-level business_day=false)"
+    },
+    {
+      "task": "VERIFICAÇÃO DE PENDENCIA FGTS",
+      "op": "addSteps(2)",
+      "result": "success"
+    },
+    {
+      "task": "VERIFICAR PENDENCIAS - RECEITA FEDERAL (DP)",
+      "op": "addSteps(3)",
+      "result": "success"
+    }
+  ],
+  "regeneration": {
+    "EXATAS CONTABILIDADE LTDA": "success",
+    "ACHEI COMERCIO E SERVICOS LTDA": "success_via_workaround",
+    "acheiDetail": "POST 500 com APDATA em 15º DU; corrigido gerando 08/2026 com month_day=21 (equiv. 15º DU ago/2026) e restaurando o modelo. Ver nota_achei_regen_2026-08-12.json.",
+    "acheiNote": "relatorios/nota_achei_regen_2026-08-12.json",
+    "acheiWorkaroundReport": "relatorios/regeneracao_achei_workaround_2026-08-12T18-38-55-036Z.json"
+  },
+  "checklists": {
+    "status": "applied_via_api",
+    "fgts": "2 itens adicionados (orders 2-3); item original mantido",
+    "rfDp": "3 itens adicionados (orders 5-7); 4 itens originais mantidos",
+    "manualRemaining": "nenhum — API de steps disponível e usada"
+  },
+  "updatedAt": "2026-08-12T18:38:55.036Z"
+}

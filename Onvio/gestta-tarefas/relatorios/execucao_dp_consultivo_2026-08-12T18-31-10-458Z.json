@@ -1,0 +1,816 @@
+{
+  "schemaVersion": 1,
+  "kind": "gestta-dp-consultivo-update-report",
+  "startedAt": "2026-08-12T18:31:10.457Z",
+  "finishedAt": "2026-08-12T18:31:12.857Z",
+  "mode": "apply",
+  "manifestId": "dp-consultivo",
+  "backupPath": "C:\\Users\\Exatas\\Documents\\GitHub\\automations-exatas\\Onvio\\gestta-tarefas\\relatorios\\backup_dp_consultivo_2026-08-12T18-31-10-458Z.json",
+  "checklistPath": "C:\\Users\\Exatas\\Documents\\GitHub\\automations-exatas\\Onvio\\gestta-tarefas\\relatorios\\checklist_dp_consultivo_2026-08-12T18-31-10-458Z.json",
+  "regenerationPath": null,
+  "summary": {
+    "targeted": 12,
+    "success": 0,
+    "planned": 0,
+    "skipped": 11,
+    "failure": 1
+  },
+  "results": [
+    {
+      "op": "setActive",
+      "taskId": "690a1194c9ee3c8d84e89d55",
+      "name": "RELAÇÃO DE FÉRIAS",
+      "result": "skipped",
+      "detail": "Payload ja esta no estado desejado",
+      "before": {
+        "name": "RELAÇÃO DE FÉRIAS",
+        "active": false,
+        "frequency": "MONTHLY",
+        "frequency_date": {
+          "business_day": null,
+          "start_day": null,
+          "month_day": 6,
+          "month": null,
+          "week_day": null
+        },
+        "business_day": false,
+        "customers": 2
+      },
+      "after": {
+        "name": "RELAÇÃO DE FÉRIAS",
+        "active": false,
+        "frequency": "MONTHLY",
+        "frequency_date": {
+          "business_day": null,
+          "start_day": null,
+          "month_day": 6,
+          "month": null,
+          "week_day": null
+        },
+        "business_day": false,
+        "customers": 2
+      },
+      "intendedPayload": {
+        "name": "RELAÇÃO DE FÉRIAS",
+        "company_department": "60b61ebc1da6830006322e3d",
+        "subtype": "MANUAL",
+        "competence": 0,
+        "frequency": "MONTHLY",
+        "frequency_date": {
+          "business_day": null,
+          "start_day": null,
+          "month_day": 6,
+          "month": null,
+          "week_day": null
+        },
+        "notify_customer": false,
+        "accountancy": 0,
+        "fine": false,
+        "business_day": false,
+        "business_day_accountancy": false,
+        "postpone": false,
+        "accounting_view": false,
+        "tags": [],
+        "active": false,
+        "link_existing_customers": false
+      },
+      "restorePayload": {
+        "name": "RELAÇÃO DE FÉRIAS",
+        "company_department": "60b61ebc1da6830006322e3d",
+        "subtype": "MANUAL",
+        "competence": 0,
+        "frequency": "MONTHLY",
+        "frequency_date": {
+          "business_day": null,
+          "start_day": null,
+          "month_day": 6,
+          "month": null,
+          "week_day": null
+        },
+        "notify_customer": false,
+        "accountancy": 0,
+        "fine": false,
+        "business_day": false,
+        "business_day_accountancy": false,
+        "postpone": false,
+        "accounting_view": false,
+        "tags": [],
+        "active": false,
+        "link_existing_customers": false
+      }
+    },
+    {
+      "op": "setActive",
+      "taskId": "695d27f422fe5742c2071954",
+      "name": "ANÁLISE DE PARCELAMENTOS (EMPRESA ENTRANTE) - DP",
+      "result": "skipped",
+      "detail": "Payload ja esta no estado desejado",
+      "before": {
+        "name": "ANÁLISE DE PARCELAMENTOS (EMPRESA ENTRANTE) - DP",
+        "active": false,
+        "frequency": "MONTHLY",
+        "frequency_date": {
+          "business_day": null,
+          "start_day": null,
+          "month_day": 11,
+          "month": null,
+          "week_day": null
+        },
+        "business_day": false,
+        "customers": 35
+      },
+      "after": {
+        "name": "ANÁLISE DE PARCELAMENTOS (EMPRESA ENTRANTE) - DP",
+        "active": false,
+        "frequency": "MONTHLY",
+        "frequency_date": {
+          "business_day": null,
+          "start_day": null,
+          "month_day": 11,
+          "month": null,
+          "week_day": null
+        },
+        "business_day": false,
+        "customers": 35
+      },
+      "intendedPayload": {
+        "name": "ANÁLISE DE PARCELAMENTOS (EMPRESA ENTRANTE) - DP",
+        "company_department": "60b61ebc1da6830006322e3d",
+        "subtype": "AUTOMATIC",
+        "competence": 0,
+        "frequency": "MONTHLY",
+        "frequency_date": {
+          "business_day": null,
+          "start_day": null,
+          "month_day": 11,
+          "month": null,
+          "week_day": null
+        },
+        "notify_customer": false,
+        "accountancy": 0,
+        "fine": true,
+        "business_day": false,
+        "business_day_accountancy": false,
+        "postpone": false,
+        "accounting_view": false,
+        "tags": [],
+        "active": false,
+        "link_existing_customers": false
+      },
+      "restorePayload": {
+        "name": "ANÁLISE DE PARCELAMENTOS (EMPRESA ENTRANTE) - DP",
+        "company_department": "60b61ebc1da6830006322e3d",
+        "subtype": "AUTOMATIC",
+        "competence": 0,
+        "frequency": "MONTHLY",
+        "frequency_date": {
+          "business_day": null,
+          "start_day": null,
+          "month_day": 11,
+          "month": null,
+          "week_day": null
+        },
+        "notify_customer": false,
+        "accountancy": 0,
+        "fine": true,
+        "business_day": false,
+        "business_day_accountancy": false,
+        "postpone": false,
+        "accounting_view": false,
+        "tags": [],
+        "active": false,
+        "link_existing_customers": false
+      }
+    },
+    {
+      "op": "setActive",
+      "taskId": "63446cc9870c090007719de7",
+      "name": "RELATÓRIO DE FOLHA DE PAGAMENTO",
+      "result": "skipped",
+      "detail": "Payload ja esta no estado desejado",
+      "before": {
+        "name": "RELATÓRIO DE FOLHA DE PAGAMENTO",
+        "active": false,
+        "frequency": "MONTHLY",
+        "frequency_date": {
+          "business_day": null,
+          "start_day": null,
+          "month_day": 20,
+          "month": null,
+          "week_day": null
+        },
+        "business_day": false,
+        "customers": 6
+      },
+      "after": {
+        "name": "RELATÓRIO DE FOLHA DE PAGAMENTO",
+        "active": false,
+        "frequency": "MONTHLY",
+        "frequency_date": {
+          "business_day": null,
+          "start_day": null,
+          "month_day": 20,
+          "month": null,
+          "week_day": null
+        },
+        "business_day": false,
+        "customers": 6
+      },
+      "intendedPayload": {
+        "name": "RELATÓRIO DE FOLHA DE PAGAMENTO",
+        "company_department": "60b61ebc1da6830006322e3d",
+        "subtype": "MANUAL",
+        "competence": 0,
+        "frequency": "MONTHLY",
+        "frequency_date": {
+          "business_day": null,
+          "start_day": null,
+          "month_day": 20,
+          "month": null,
+          "week_day": null
+        },
+        "notify_customer": false,
+        "accountancy": -4,
+        "fine": false,
+        "business_day": false,
+        "business_day_accountancy": false,
+        "postpone": false,
+        "accounting_view": false,
+        "tags": [],
+        "active": false,
+        "link_existing_customers": false,
+        "sphere": "FEDERAL"
+      },
+      "restorePayload": {
+        "name": "RELATÓRIO DE FOLHA DE PAGAMENTO",
+        "company_department": "60b61ebc1da6830006322e3d",
+        "subtype": "MANUAL",
+        "competence": 0,
+        "frequency": "MONTHLY",
+        "frequency_date": {
+          "business_day": null,
+          "start_day": null,
+          "month_day": 20,
+          "month": null,
+          "week_day": null
+        },
+        "notify_customer": false,
+        "accountancy": -4,
+        "fine": false,
+        "business_day": false,
+        "business_day_accountancy": false,
+        "postpone": false,
+        "accounting_view": false,
+        "tags": [],
+        "active": false,
+        "link_existing_customers": false,
+        "sphere": "FEDERAL"
+      }
+    },
+    {
+      "op": "setActive",
+      "taskId": "67ba191ae4b52ec8453d413e",
+      "name": "VERIFICAÇÃO GOB SETOR PESSOAL",
+      "result": "skipped",
+      "detail": "Payload ja esta no estado desejado",
+      "before": {
+        "name": "VERIFICAÇÃO GOB SETOR PESSOAL",
+        "active": false,
+        "frequency": "MONTHLY",
+        "frequency_date": {
+          "business_day": null,
+          "start_day": null,
+          "month_day": 19,
+          "month": null,
+          "week_day": null
+        },
+        "business_day": false,
+        "customers": 1
+      },
+      "after": {
+        "name": "VERIFICAÇÃO GOB SETOR PESSOAL",
+        "active": false,
+        "frequency": "MONTHLY",
+        "frequency_date": {
+          "business_day": null,
+          "start_day": null,
+          "month_day": 19,
+          "month": null,
+          "week_day": null
+        },
+        "business_day": false,
+        "customers": 1
+      },
+      "intendedPayload": {
+        "name": "VERIFICAÇÃO GOB SETOR PESSOAL",
+        "company_department": "60b61ebc1da6830006322e3d",
+        "subtype": "MANUAL",
+        "competence": 0,
+        "frequency": "MONTHLY",
+        "frequency_date": {
+          "business_day": null,
+          "start_day": null,
+          "month_day": 19,
+          "month": null,
+          "week_day": null
+        },
+        "notify_customer": false,
+        "accountancy": 0,
+        "fine": false,
+        "business_day": false,
+        "business_day_accountancy": true,
+        "postpone": false,
+        "accounting_view": false,
+        "tags": [],
+        "active": false,
+        "link_existing_customers": false,
+        "sphere": "FEDERAL"
+      },
+      "restorePayload": {
+        "name": "VERIFICAÇÃO GOB SETOR PESSOAL",
+        "company_department": "60b61ebc1da6830006322e3d",
+        "subtype": "MANUAL",
+        "competence": 0,
+        "frequency": "MONTHLY",
+        "frequency_date": {
+          "business_day": null,
+          "start_day": null,
+          "month_day": 19,
+          "month": null,
+          "week_day": null
+        },
+        "notify_customer": false,
+        "accountancy": 0,
+        "fine": false,
+        "business_day": false,
+        "business_day_accountancy": true,
+        "postpone": false,
+        "accounting_view": false,
+        "tags": [],
+        "active": false,
+        "link_existing_customers": false,
+        "sphere": "FEDERAL"
+      }
+    },
+    {
+      "op": "setActive",
+      "taskId": "689cefb0b7792b545a5ad197",
+      "name": "CONSULTA DE PENDENCIAS DE FGTS CONECTIVIDADE SOCIAL",
+      "result": "skipped",
+      "detail": "Payload ja esta no estado desejado",
+      "before": {
+        "name": "CONSULTA DE PENDENCIAS DE FGTS CONECTIVIDADE SOCIAL",
+        "active": false,
+        "frequency": "MONTHLY",
+        "frequency_date": {
+          "business_day": null,
+          "start_day": null,
+          "month_day": 26,
+          "month": null,
+          "week_day": null
+        },
+        "business_day": true,
+        "customers": 2
+      },
+      "after": {
+        "name": "CONSULTA DE PENDENCIAS DE FGTS CONECTIVIDADE SOCIAL",
+        "active": false,
+        "frequency": "MONTHLY",
+        "frequency_date": {
+          "business_day": null,
+          "start_day": null,
+          "month_day": 26,
+          "month": null,
+          "week_day": null
+        },
+        "business_day": true,
+        "customers": 2
+      },
+      "intendedPayload": {
+        "name": "CONSULTA DE PENDENCIAS DE FGTS CONECTIVIDADE SOCIAL",
+        "company_department": "60b61ebc1da6830006322e3d",
+        "subtype": "MANUAL",
+        "competence": 0,
+        "frequency": "MONTHLY",
+        "frequency_date": {
+          "business_day": null,
+          "start_day": null,
+          "month_day": 26,
+          "month": null,
+          "week_day": null
+        },
+        "notify_customer": false,
+        "accountancy": 0,
+        "fine": false,
+        "business_day": true,
+        "business_day_accountancy": false,
+        "postpone": false,
+        "accounting_view": false,
+        "tags": [],
+        "active": false,
+        "link_existing_customers": false
+      },
+      "restorePayload": {
+        "name": "CONSULTA DE PENDENCIAS DE FGTS CONECTIVIDADE SOCIAL",
+        "company_department": "60b61ebc1da6830006322e3d",
+        "subtype": "MANUAL",
+        "competence": 0,
+        "frequency": "MONTHLY",
+        "frequency_date": {
+          "business_day": null,
+          "start_day": null,
+          "month_day": 26,
+          "month": null,
+          "week_day": null
+        },
+        "notify_customer": false,
+        "accountancy": 0,
+        "fine": false,
+        "business_day": true,
+        "business_day_accountancy": false,
+        "postpone": false,
+        "accounting_view": false,
+        "tags": [],
+        "active": false,
+        "link_existing_customers": false
+      }
+    },
+    {
+      "op": "setActive",
+      "taskId": "67891b0260f29d51d3e5f0d4",
+      "name": "PARCELAMENTO PREVIDENCIÁRIO ECAC - SIMPLIFICADO",
+      "result": "skipped",
+      "detail": "Payload ja esta no estado desejado",
+      "before": {
+        "name": "PARCELAMENTO PREVIDENCIÁRIO ECAC - SIMPLIFICADO",
+        "active": false,
+        "frequency": "MONTHLY",
+        "frequency_date": {
+          "business_day": null,
+          "start_day": null,
+          "month_day": 7,
+          "month": null,
+          "week_day": null
+        },
+        "business_day": true,
+        "customers": 7
+      },
+      "after": {
+        "name": "PARCELAMENTO PREVIDENCIÁRIO ECAC - SIMPLIFICADO",
+        "active": false,
+        "frequency": "MONTHLY",
+        "frequency_date": {
+          "business_day": null,
+          "start_day": null,
+          "month_day": 7,
+          "month": null,
+          "week_day": null
+        },
+        "business_day": true,
+        "customers": 7
+      },
+      "intendedPayload": {
+        "name": "PARCELAMENTO PREVIDENCIÁRIO ECAC - SIMPLIFICADO",
+        "company_department": "60b61ebc1da6830006322e3d",
+        "subtype": "MANUAL",
+        "competence": 0,
+        "frequency": "MONTHLY",
+        "frequency_date": {
+          "business_day": null,
+          "start_day": null,
+          "month_day": 7,
+          "month": null,
+          "week_day": null
+        },
+        "notify_customer": true,
+        "accountancy": -6,
+        "fine": false,
+        "business_day": true,
+        "business_day_accountancy": false,
+        "postpone": false,
+        "accounting_view": false,
+        "tags": [],
+        "active": false,
+        "link_existing_customers": false,
+        "sphere": "FEDERAL"
+      },
+      "restorePayload": {
+        "name": "PARCELAMENTO PREVIDENCIÁRIO ECAC - SIMPLIFICADO",
+        "company_department": "60b61ebc1da6830006322e3d",
+        "subtype": "MANUAL",
+        "competence": 0,
+        "frequency": "MONTHLY",
+        "frequency_date": {
+          "business_day": null,
+          "start_day": null,
+          "month_day": 7,
+          "month": null,
+          "week_day": null
+        },
+        "notify_customer": true,
+        "accountancy": -6,
+        "fine": false,
+        "business_day": true,
+        "business_day_accountancy": false,
+        "postpone": false,
+        "accounting_view": false,
+        "tags": [],
+        "active": false,
+        "link_existing_customers": false,
+        "sphere": "FEDERAL"
+      }
+    },
+    {
+      "op": "setActive",
+      "taskId": "6824e837e77ce0328e4f6353",
+      "name": "PARCELAMENTO PREVIDENCIÁRIO GPS",
+      "result": "skipped",
+      "detail": "Payload ja esta no estado desejado",
+      "before": {
+        "name": "PARCELAMENTO PREVIDENCIÁRIO GPS",
+        "active": false,
+        "frequency": "MONTHLY",
+        "frequency_date": {
+          "business_day": null,
+          "start_day": null,
+          "month_day": 30,
+          "month": null,
+          "week_day": null
+        },
+        "business_day": false,
+        "customers": 4
+      },
+      "after": {
+        "name": "PARCELAMENTO PREVIDENCIÁRIO GPS",
+        "active": false,
+        "frequency": "MONTHLY",
+        "frequency_date": {
+          "business_day": null,
+          "start_day": null,
+          "month_day": 30,
+          "month": null,
+          "week_day": null
+        },
+        "business_day": false,
+        "customers": 4
+      },
+      "intendedPayload": {
+        "name": "PARCELAMENTO PREVIDENCIÁRIO GPS",
+        "company_department": "60b61ebc1da6830006322e3d",
+        "subtype": "MANUAL",
+        "competence": 0,
+        "frequency": "MONTHLY",
+        "frequency_date": {
+          "business_day": null,
+          "start_day": null,
+          "month_day": 30,
+          "month": null,
+          "week_day": null
+        },
+        "notify_customer": false,
+        "accountancy": -10,
+        "fine": false,
+        "business_day": false,
+        "business_day_accountancy": false,
+        "postpone": false,
+        "accounting_view": false,
+        "tags": [],
+        "active": false,
+        "link_existing_customers": false,
+        "sphere": "FEDERAL"
+      },
+      "restorePayload": {
+        "name": "PARCELAMENTO PREVIDENCIÁRIO GPS",
+        "company_department": "60b61ebc1da6830006322e3d",
+        "subtype": "MANUAL",
+        "competence": 0,
+        "frequency": "MONTHLY",
+        "frequency_date": {
+          "business_day": null,
+          "start_day": null,
+          "month_day": 30,
+          "month": null,
+          "week_day": null
+        },
+        "notify_customer": false,
+        "accountancy": -10,
+        "fine": false,
+        "business_day": false,
+        "business_day_accountancy": false,
+        "postpone": false,
+        "accounting_view": false,
+        "tags": [],
+        "active": false,
+        "link_existing_customers": false,
+        "sphere": "FEDERAL"
+      }
+    },
+    {
+      "op": "setActive",
+      "taskId": "63c1b527837d3e0007ab7e36",
+      "name": "PARCELAMENTO PREVIDENCIARIO PGFN - DP",
+      "result": "skipped",
+      "detail": "Payload ja esta no estado desejado",
+      "before": {
+        "name": "PARCELAMENTO PREVIDENCIARIO PGFN - DP",
+        "active": false,
+        "frequency": "MONTHLY",
+        "frequency_date": {
+          "business_day": null,
+          "start_day": null,
+          "month_day": 30,
+          "month": null,
+          "week_day": null
+        },
+        "business_day": false,
+        "customers": 5
+      },
+      "after": {
+        "name": "PARCELAMENTO PREVIDENCIARIO PGFN - DP",
+        "active": false,
+        "frequency": "MONTHLY",
+        "frequency_date": {
+          "business_day": null,
+          "start_day": null,
+          "month_day": 30,
+          "month": null,
+          "week_day": null
+        },
+        "business_day": false,
+        "customers": 5
+      },
+      "intendedPayload": {
+        "name": "PARCELAMENTO PREVIDENCIARIO PGFN - DP",
+        "company_department": "60b61ebc1da6830006322e3d",
+        "subtype": "MANUAL",
+        "competence": 0,
+        "frequency": "MONTHLY",
+        "frequency_date": {
+          "business_day": null,
+          "start_day": null,
+          "month_day": 30,
+          "month": null,
+          "week_day": null
+        },
+        "notify_customer": false,
+        "accountancy": -10,
+        "fine": false,
+        "business_day": false,
+        "business_day_accountancy": false,
+        "postpone": false,
+        "accounting_view": false,
+        "tags": [],
+        "active": false,
+        "link_existing_customers": false,
+        "sphere": "FEDERAL"
+      },
+      "restorePayload": {
+        "name": "PARCELAMENTO PREVIDENCIARIO PGFN - DP",
+        "company_department": "60b61ebc1da6830006322e3d",
+        "subtype": "MANUAL",
+        "competence": 0,
+        "frequency": "MONTHLY",
+        "frequency_date": {
+          "business_day": null,
+          "start_day": null,
+          "month_day": 30,
+          "month": null,
+          "week_day": null
+        },
+        "notify_customer": false,
+        "accountancy": -10,
+        "fine": false,
+        "business_day": false,
+        "business_day_accountancy": false,
+        "postpone": false,
+        "accounting_view": false,
+        "tags": [],
+        "active": false,
+        "link_existing_customers": false,
+        "sphere": "FEDERAL"
+      }
+    },
+    {
+      "op": "rename",
+      "taskId": "68094ac2c7354cdfc5c68861",
+      "name": "VERIFICAÇÃO DE PENDENCIA FGTS",
+      "result": "failure",
+      "detail": "Nome vivo diverge do esperado. vivo=\"VERIFICAÇÃO DE PENDENCIA FGTS\" esperado=\"VERIFICAÇÃO DO EMPRESTIMO FGTS (DET - EMPREGA BRASIL)\"",
+      "before": {
+        "name": "VERIFICAÇÃO DE PENDENCIA FGTS",
+        "active": true,
+        "frequency": "MONTHLY",
+        "frequency_date": {
+          "business_day": null,
+          "start_day": null,
+          "month_day": 29,
+          "month": null,
+          "week_day": null
+        },
+        "business_day": false,
+        "customers": 47
+      }
+    },
+    {
+      "op": "setFrequencyBusinessDay",
+      "taskId": "673c9c08d2dc517895bc1b01",
+      "name": "CONFERÊNCIA APDATA_1",
+      "result": "skipped",
+      "detail": "Payload ja esta no estado desejado",
+      "before": {
+        "name": "CONFERÊNCIA APDATA_1",
+        "active": true,
+        "frequency": "MONTHLY",
+        "frequency_date": {
+          "business_day": 15,
+          "start_day": null,
+          "month_day": null,
+          "month": null,
+          "week_day": null
+        },
+        "business_day": false,
+        "customers": 2
+      },
+      "after": {
+        "name": "CONFERÊNCIA APDATA_1",
+        "active": true,
+        "frequency": "MONTHLY",
+        "frequency_date": {
+          "business_day": 15,
+          "start_day": null,
+          "month_day": null,
+          "month": null,
+          "week_day": null
+        },
+        "business_day": false,
+        "customers": 2
+      },
+      "intendedPayload": {
+        "name": "CONFERÊNCIA APDATA_1",
+        "company_department": "60b61ebc1da6830006322e3d",
+        "subtype": "MANUAL",
+        "competence": 0,
+        "frequency": "MONTHLY",
+        "frequency_date": {
+          "business_day": 15,
+          "start_day": null,
+          "month_day": null,
+          "month": null,
+          "week_day": null
+        },
+        "notify_customer": false,
+        "accountancy": 0,
+        "fine": false,
+        "business_day": false,
+        "business_day_accountancy": true,
+        "postpone": false,
+        "accounting_view": false,
+        "tags": [],
+        "active": true,
+        "link_existing_customers": false,
+        "sphere": "FEDERAL"
+      },
+      "restorePayload": {
+        "name": "CONFERÊNCIA APDATA_1",
+        "company_department": "60b61ebc1da6830006322e3d",
+        "subtype": "MANUAL",
+        "competence": 0,
+        "frequency": "MONTHLY",
+        "frequency_date": {
+          "business_day": 15,
+          "start_day": null,
+          "month_day": null,
+          "month": null,
+          "week_day": null
+        },
+        "notify_customer": false,
+        "accountancy": 0,
+        "fine": false,
+        "business_day": false,
+        "business_day_accountancy": true,
+        "postpone": false,
+        "accounting_view": false,
+        "tags": [],
+        "active": true,
+        "link_existing_customers": false,
+        "sphere": "FEDERAL"
+      }
+    },
+    {
+      "op": "addSteps",
+      "taskId": "68094ac2c7354cdfc5c68861",
+      "name": "VERIFICAÇÃO DE PENDENCIA FGTS",
+      "result": "skipped",
+      "detail": "Todos os steps ja existem",
+      "stepsAdded": []
+    },
+    {
+      "op": "addSteps",
+      "taskId": "67646f7495dd8939078ccc21",
+      "name": "VERIFICAR PENDENCIAS - RECEITA FEDERAL (DP)",
+      "result": "skipped",
+      "detail": "Todos os steps ja existem",
+      "stepsAdded": []
+    }
+  ]
+}

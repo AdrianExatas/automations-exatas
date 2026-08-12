@@ -501,7 +501,7 @@ describe("execucao parametrizacao", () => {
     expect(api.calls.patch).toBe(2);
   });
 
-  test("apply adiciona analise de parcelamentos fiscal e dp sem areas selecionadas", async () => {
+  test("apply adiciona analise de parcelamentos fiscal sem areas selecionadas", async () => {
     const api = createApiMock({
       tasks: [
         {
@@ -510,13 +510,6 @@ describe("execucao parametrizacao", () => {
           active: true,
           type: "RECURRENT",
           company_department: { name: "Fiscal" },
-        },
-        {
-          _id: "task-parcelamentos-dp",
-          name: "ANÁLISE DE PARCELAMENTOS (EMPRESA ENTRANTE) - DP",
-          active: true,
-          type: "RECURRENT",
-          company_department: { name: "DP" },
         },
       ],
     });
@@ -539,24 +532,16 @@ describe("execucao parametrizacao", () => {
       },
     });
 
-    expect(relatorio.resultados.map((item) => item.taskId).sort()).toEqual([
-      "task-parcelamentos-dp",
-      "task-parcelamentos-fiscal",
-    ]);
+    expect(relatorio.resultados.map((item) => item.taskId)).toEqual(["task-parcelamentos-fiscal"]);
     expect(relatorio.resultados).toEqual([
-      expect.objectContaining({
-        tarefaPlanilha: "ANÁLISE DE PARCELAMENTOS (EMPRESA ENTRANTE) - DP",
-        responsavelGestta: "Tasso Nata Ramos de Jesus",
-        sucesso: true,
-      }),
       expect.objectContaining({
         tarefaPlanilha: "ANÁLISE DE PARCELAMENTOS (EMPRESA ENTRANTE) - FISCAL",
         responsavelGestta: "Emilly Adrielle",
         sucesso: true,
       }),
     ]);
-    expect(api.calls.add).toBe(2);
-    expect(api.calls.patch).toBe(2);
+    expect(api.calls.add).toBe(1);
+    expect(api.calls.patch).toBe(1);
   });
 
   test("tarefa de caixa postal SEFAZ fiscal normal ambigua do Maranhao e aplicada nas duas recorrentes do Gestta", async () => {

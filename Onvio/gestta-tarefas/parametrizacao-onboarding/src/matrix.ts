@@ -29,16 +29,12 @@ const CONTROLE_KEYS: Record<AreaParametrizacao | "fiscal_sn", string> = {
 };
 
 const ANALISE_PARCELAMENTOS_TAREFAS: Array<{
-  area: Extract<AreaParametrizacao, "dp" | "fiscal">;
+  area: Extract<AreaParametrizacao, "fiscal">;
   tarefa: string;
 }> = [
   {
     area: "fiscal",
     tarefa: "ANÁLISE DE PARCELAMENTOS (EMPRESA ENTRANTE) - FISCAL",
-  },
-  {
-    area: "dp",
-    tarefa: "ANÁLISE DE PARCELAMENTOS (EMPRESA ENTRANTE) - DP",
   },
 ];
 

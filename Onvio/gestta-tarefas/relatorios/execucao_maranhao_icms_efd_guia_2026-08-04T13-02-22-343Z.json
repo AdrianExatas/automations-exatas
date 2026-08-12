@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "kind": "gestta-maranhao-icms-efd-guia-update-report",
+  "startedAt": "2026-08-04T13:02:22.343Z",
+  "backupPath": "C:\\Users\\Exatas\\Documents\\GitHub\\automations-exatas\\Onvio\\gestta-tarefas\\relatorios\\backup_maranhao_icms_efd_guia_2026-08-04T13-02-22-343Z.json",
+  "summary": {
+    "targeted": 4,
+    "eligibleForUpdate": 4,
+    "success": 4,
+    "skipped": 0,
+    "failure": 0,
+    "notStarted": 0
+  },
+  "results": [
+    {
+      "id": "68b6f20cc89edd44f0334343",
+      "name": "ICMS NORMAL (MARANHÃO)",
+      "result": "success",
+      "before": {
+        "meta": 6,
+        "legal": 9,
+        "monthDay": 9,
+        "accountancy": -3
+      },
+      "after": {
+        "meta": 7,
+        "legal": 10,
+        "monthDay": 10,
+        "accountancy": -3
+      }
+    },
+    {
+      "id": "68b6f2a0cac04669fa8fbfaa",
+      "name": "GUIA DIFERENCIAL DE ALÍQUOTAS (MARANHÃO)",
+      "result": "success",
+      "before": {
+        "meta": 6,
+        "legal": 9,
+        "monthDay": 9,
+        "accountancy": -3
+      },
+      "after": {
+        "meta": 12,
+        "legal": 20,
+        "monthDay": 20,
+        "accountancy": -8
+      }
+    },
+    {
+      "id": "697a73b57014c6a0db34c01a",
+      "name": "EFD ICMS IPI - SN (MARANHÃO)",
+      "result": "success",
+      "before": {
+        "meta": 9,
+        "legal": 15,
+        "monthDay": 15,
+        "accountancy": -6
+      },
+      "after": {
+        "meta": 12,
+        "legal": 20,
+        "monthDay": 20,
+        "accountancy": -8
+      }
+    },
+    {
+      "id": "68b6f2dc6ce38de6845fa7ff",
+      "name": "EFD ICMS IPI - NORMAL (MARANHÃO)",
+      "result": "success",
+      "before": {
+        "meta": 9,
+        "legal": 15,
+        "monthDay": 15,
+        "accountancy": -6
+      },
+      "after": {
+        "meta": 12,
+        "legal": 20,
+        "monthDay": 20,
+        "accountancy": -8
+      }
+    }
+  ],
+  "finishedAt": "2026-08-04T13:02:26.704Z"
+}

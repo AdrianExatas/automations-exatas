@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "kind": "gestta-dp-consultivo-regeneration-report",
+  "startedAt": "2026-08-12T18:31:44.237Z",
+  "finishedAt": "2026-08-12T18:31:52.597Z",
+  "competence": {
+    "month": 8,
+    "year": 2026
+  },
+  "summary": {
+    "targeted": 2,
+    "success": 1,
+    "failure": 1
+  },
+  "results": [
+    {
+      "taskId": "673c9c08d2dc517895bc1b01",
+      "taskName": "CONFERÊNCIA APDATA_1",
+      "customerId": "64d4c7bbf8fefe0007e875c7",
+      "customerName": "ACHEI COMERCIO E SERVICOS LTDA",
+      "result": "failure",
+      "erase": {
+        "ok": true,
+        "status": 200,
+        "body": "OK"
+      },
+      "generate": {
+        "ok": false,
+        "status": 500,
+        "body": "Internal Server Error"
+      }
+    },
+    {
+      "taskId": "673c9c08d2dc517895bc1b01",
+      "taskName": "CONFERÊNCIA APDATA_1",
+      "customerId": "60b6797d9fda5800070dbe7c",
+      "customerName": "EXATAS CONTABILIDADE LTDA",
+      "result": "success",
+      "erase": {
+        "ok": true,
+        "status": 200,
+        "body": "OK"
+      },
+      "generate": {
+        "ok": true,
+        "status": 200,
+        "body": "OK"
+      }
+    }
+  ]
+}

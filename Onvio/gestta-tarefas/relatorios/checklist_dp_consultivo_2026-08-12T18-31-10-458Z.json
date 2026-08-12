@@ -1,0 +1,115 @@
+{
+  "schemaVersion": 1,
+  "kind": "gestta-dp-consultivo-checklist-report",
+  "createdAt": "2026-08-12T18:31:12.858Z",
+  "mode": "apply",
+  "appliedViaApi": true,
+  "note": "API descoberta: GET/POST /admin/company/task/{taskId}/step ; DELETE /admin/company/task/step/{stepId}",
+  "roteiroManualUi": [
+    "Admin Gestta → Modelos de tarefa → abrir a tarefa",
+    "Aba/seção de etapas (checklist)",
+    "Incluir os itens listados em toAdd (se ainda faltarem)",
+    "FGTS: VERIFICAÇÃO DE PENDENCIA FGTS (2 itens)",
+    "RF DP: VERIFICAR PENDENCIAS - RECEITA FEDERAL (DP) (3 itens)"
+  ],
+  "tasks": [
+    {
+      "taskId": "68094ac2c7354cdfc5c68861",
+      "taskName": "VERIFICAÇÃO DE PENDENCIA FGTS",
+      "existingSteps": [
+        {
+          "_id": "68094f2a463ebd4abcd6e949",
+          "name": "Consultar e verificar importação via API através do sistema domínio",
+          "order": 1,
+          "required": true
+        },
+        {
+          "_id": "6a7cbbb1bb4fc977b5ad8da6",
+          "name": "Verificar se a empresa tem parcelamento em aberto de FGTS; se tiver, encaminhar no portal ONVIO e avisar ao cliente.",
+          "order": 2,
+          "required": true
+        },
+        {
+          "_id": "6a7cbbb14585bcb048618d3f",
+          "name": "Consultar guia em aberto do FGTS; se tiver, encaminhar no portal ONVIO e avisar ao cliente.",
+          "order": 3,
+          "required": true
+        }
+      ],
+      "toAdd": [],
+      "alreadyPresent": [
+        {
+          "name": "Verificar se a empresa tem parcelamento em aberto de FGTS; se tiver, encaminhar no portal ONVIO e avisar ao cliente.",
+          "required": true
+        },
+        {
+          "name": "Consultar guia em aberto do FGTS; se tiver, encaminhar no portal ONVIO e avisar ao cliente.",
+          "required": true
+        }
+      ]
+    },
+    {
+      "taskId": "67646f7495dd8939078ccc21",
+      "taskName": "VERIFICAR PENDENCIAS - RECEITA FEDERAL (DP)",
+      "existingSteps": [
+        {
+          "_id": "67648cc1bb5a8efa76f44b06",
+          "name": "Verificar DCTFWEB sem envio ou retificado gerando pendência",
+          "order": 1,
+          "required": true
+        },
+        {
+          "_id": "67648cc14934ea25e886bf60",
+          "name": "Verificar débitos de DCTFWEB e informar cliente",
+          "order": 2,
+          "required": true
+        },
+        {
+          "_id": "67648cc29ecc78b035e20d94",
+          "name": "Verificar parcelamentos atrasados e informar cliente",
+          "order": 3,
+          "required": true
+        },
+        {
+          "_id": "67648cc24934ea25e886bf6f",
+          "name": "Verificar débitos de FGTS e informar cliente",
+          "order": 4,
+          "required": true
+        },
+        {
+          "_id": "6a7cbbb14585bcb048618d5c",
+          "name": "Consultar e encaminhar a guia no portal ONVIO do parcelamento previdenciário simplificado caso o cliente apresente.",
+          "order": 5,
+          "required": true
+        },
+        {
+          "_id": "6a7cbbb2cfbec9c06ef4a4b5",
+          "name": "Consultar e encaminhar a guia no portal ONVIO do parcelamento previdenciário caso o cliente apresente.",
+          "order": 6,
+          "required": true
+        },
+        {
+          "_id": "6a7cbbb28c54ad12bc545e88",
+          "name": "Consultar e encaminhar a guia no portal ONVIO do parcelamento previdenciário PGFN caso o cliente apresente.",
+          "order": 7,
+          "required": true
+        }
+      ],
+      "toAdd": [],
+      "alreadyPresent": [
+        {
+          "name": "Consultar e encaminhar a guia no portal ONVIO do parcelamento previdenciário simplificado caso o cliente apresente.",
+          "required": true
+        },
+        {
+          "name": "Consultar e encaminhar a guia no portal ONVIO do parcelamento previdenciário caso o cliente apresente.",
+          "required": true
+        },
+        {
+          "name": "Consultar e encaminhar a guia no portal ONVIO do parcelamento previdenciário PGFN caso o cliente apresente.",
+          "required": true
+        }
+      ]
+    }
+  ]
+}

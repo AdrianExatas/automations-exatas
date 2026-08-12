@@ -22,7 +22,7 @@ describe("matriz de parametrizacao", () => {
   test("inclui apenas linhas marcadas com Sim na coluna B", () => {
     const preview = calcularPreviewMatriz(matrixPath, input({ areas: ["dp"], incluirAnuais: true }));
 
-    expect(preview.tarefas).toHaveLength(12);
+    expect(preview.tarefas).toHaveLength(11);
     expect(preview.tarefas.every((item) => item.aba === "DP")).toBe(true);
     expect(preview.tarefas.some((item) => item.tarefa === "ALTERACAO SALARIAL")).toBe(false);
   });
@@ -62,12 +62,6 @@ describe("matriz de parametrizacao", () => {
     );
 
     expect(preview.tarefas).toEqual([
-      expect.objectContaining({
-        area: "dp",
-        aba: "OPCOES",
-        tarefa: "ANÁLISE DE PARCELAMENTOS (EMPRESA ENTRANTE) - DP",
-        responsavel: "Tasso Nata Ramos de Jesus",
-      }),
       expect.objectContaining({
         area: "fiscal",
         aba: "OPCOES",

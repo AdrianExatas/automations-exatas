@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "kind": "gestta-guia-diferencial-aliquotas-update-report",
+  "startedAt": "2026-08-04T11:53:29.068Z",
+  "backupPath": "C:\\Users\\Exatas\\Documents\\GitHub\\automations-exatas\\Onvio\\gestta-tarefas\\relatorios\\backup_guia_diferencial_aliquotas_2026-08-04T11-53-29-068Z.json",
+  "summary": {
+    "targeted": 5,
+    "eligibleForUpdate": 5,
+    "success": 5,
+    "skipped": 0,
+    "failure": 0,
+    "notStarted": 0
+  },
+  "results": [
+    {
+      "id": "69affed1ead7f8366917d355",
+      "name": "GUIA DIFERENCIAL DE ALÍQUOTAS (TOCANTINS)",
+      "result": "success",
+      "before": {
+        "meta": 6,
+        "legal": 9,
+        "monthDay": 9,
+        "accountancy": -3
+      },
+      "after": {
+        "meta": 5,
+        "legal": 7,
+        "monthDay": 7,
+        "accountancy": -2
+      }
+    },
+    {
+      "id": "60b61ec51da683000632354b",
+      "name": "GUIA DIFERENCIAL DE ALÍQUOTAS (SERGIPE)",
+      "result": "success",
+      "before": {
+        "meta": 6,
+        "legal": 9,
+        "monthDay": 9,
+        "accountancy": -3
+      },
+      "after": {
+        "meta": 7,
+        "legal": 10,
+        "monthDay": 10,
+        "accountancy": -3
+      }
+    },
+    {
+      "id": "63e136ed1c3dc00007108fe7",
+      "name": "GUIA DIFERENCIAL DE ALÍQUOTAS (BAHIA)",
+      "result": "success",
+      "before": {
+        "meta": 6,
+        "legal": 9,
+        "monthDay": 9,
+        "accountancy": -3
+      },
+      "after": {
+        "meta": 7,
+        "legal": 10,
+        "monthDay": 10,
+        "accountancy": -3
+      }
+    },
+    {
+      "id": "6a4fa43a13f70edf78ac2efa",
+      "name": "GUIA DIFERENCIAL DE ALÍQUOTAS (ALAGOAS) - BONSONO (206)",
+      "result": "success",
+      "before": {
+        "meta": 13,
+        "legal": 20,
+        "monthDay": 20,
+        "accountancy": -7
+      },
+      "after": {
+        "meta": 5,
+        "legal": 7,
+        "monthDay": 7,
+        "accountancy": -2
+      }
+    },
+    {
+      "id": "60c69406faf179000675aee4",
+      "name": "GUIA DIFERENCIAL DE ALÍQUOTAS (ALAGOAS)",
+      "result": "success",
+      "before": {
+        "meta": 7,
+        "legal": 10,
+        "monthDay": 10,
+        "accountancy": -3
+      },
+      "after": {
+        "meta": 5,
+        "legal": 7,
+        "monthDay": 7,
+        "accountancy": -2
+      }
+    }
+  ],
+  "finishedAt": "2026-08-04T11:53:34.211Z"
+}

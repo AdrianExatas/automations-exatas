@@ -1,0 +1,355 @@
+{
+  "createdAt": "2026-08-12T18:31:52.598Z",
+  "tasks": [
+    {
+      "id": "673c9c08d2dc517895bc1b01",
+      "name": "CONFERÊNCIA APDATA_1",
+      "active": true,
+      "frequency": "MONTHLY",
+      "frequency_date": {
+        "business_day": 15,
+        "start_day": null,
+        "month_day": null,
+        "month": null,
+        "week_day": null
+      },
+      "business_day": false,
+      "steps": [
+        {
+          "order": 1,
+          "name": "ATIVA AS HORAS DA TAREFA"
+        },
+        {
+          "order": 2,
+          "name": "CONFERÊNCIA DOS CONTRATOS DOS SEUS CLIENTES E INFORMAR AOS CLIENTES"
+        },
+        {
+          "order": 3,
+          "name": "ANALISE DE FÉRIAS  E INFORMAR AOS CLIENTES"
+        },
+        {
+          "order": 4,
+          "name": "ANALISE DE ALTERAÇÃO DE CBO E AVISAR AO DEPARTAMENTO DP"
+        },
+        {
+          "order": 5,
+          "name": "Site: https://apdataexperience.reportload.com/signin | Login: pessoal@exatascontabilidade.com.br | Senha: Exatas1010@+"
+        }
+      ]
+    },
+    {
+      "id": "68094ac2c7354cdfc5c68861",
+      "name": "VERIFICAÇÃO DE PENDENCIA FGTS",
+      "active": true,
+      "frequency": "MONTHLY",
+      "frequency_date": {
+        "business_day": null,
+        "start_day": null,
+        "month_day": 29,
+        "month": null,
+        "week_day": null
+      },
+      "business_day": false,
+      "steps": [
+        {
+          "order": 1,
+          "name": "Consultar e verificar importação via API através do sistema domínio"
+        },
+        {
+          "order": 2,
+          "name": "Verificar se a empresa tem parcelamento em aberto de FGTS; se tiver, encaminhar no portal ONVIO e avisar ao cliente."
+        },
+        {
+          "order": 3,
+          "name": "Consultar guia em aberto do FGTS; se tiver, encaminhar no portal ONVIO e avisar ao cliente."
+        }
+      ]
+    },
+    {
+      "id": "67646f7495dd8939078ccc21",
+      "name": "VERIFICAR PENDENCIAS - RECEITA FEDERAL (DP)",
+      "active": true,
+      "frequency": "BIMONTHLY",
+      "frequency_date": {
+        "week_day": null,
+        "month": 1,
+        "month_day": 30,
+        "start_day": null,
+        "business_day": null
+      },
+      "business_day": false,
+      "steps": [
+        {
+          "order": 1,
+          "name": "Verificar DCTFWEB sem envio ou retificado gerando pendência"
+        },
+        {
+          "order": 2,
+          "name": "Verificar débitos de DCTFWEB e informar cliente"
+        },
+        {
+          "order": 3,
+          "name": "Verificar parcelamentos atrasados e informar cliente"
+        },
+        {
+          "order": 4,
+          "name": "Verificar débitos de FGTS e informar cliente"
+        },
+        {
+          "order": 5,
+          "name": "Consultar e encaminhar a guia no portal ONVIO do parcelamento previdenciário simplificado caso o cliente apresente."
+        },
+        {
+          "order": 6,
+          "name": "Consultar e encaminhar a guia no portal ONVIO do parcelamento previdenciário caso o cliente apresente."
+        },
+        {
+          "order": 7,
+          "name": "Consultar e encaminhar a guia no portal ONVIO do parcelamento previdenciário PGFN caso o cliente apresente."
+        }
+      ]
+    },
+    {
+      "id": "690a1194c9ee3c8d84e89d55",
+      "name": "RELAÇÃO DE FÉRIAS",
+      "active": false,
+      "frequency": "MONTHLY",
+      "frequency_date": {
+        "business_day": null,
+        "start_day": null,
+        "month_day": 6,
+        "month": null,
+        "week_day": null
+      },
+      "business_day": false,
+      "steps": [
+        {
+          "order": 1,
+          "name": "Enviar relatórios de férias do funcionários para empresa ter o controle"
+        }
+      ]
+    },
+    {
+      "id": "695d27f422fe5742c2071954",
+      "name": "ANÁLISE DE PARCELAMENTOS (EMPRESA ENTRANTE) - DP",
+      "active": false,
+      "frequency": "MONTHLY",
+      "frequency_date": {
+        "business_day": null,
+        "start_day": null,
+        "month_day": 11,
+        "month": null,
+        "week_day": null
+      },
+      "business_day": false,
+      "steps": [
+        {
+          "order": 1,
+          "name": "Analisar se a empresa possui parcelamentos, pois a competência dela se inicia esse mês e precisamos enviar para o cliente."
+        },
+        {
+          "order": 2,
+          "name": "Se a empresa já estiver na nossa base a mais de um mês e já tiver tarefa gerada, desconsiderar tarefa para sempre."
+        }
+      ]
+    },
+    {
+      "id": "63446cc9870c090007719de7",
+      "name": "RELATÓRIO DE FOLHA DE PAGAMENTO",
+      "active": false,
+      "frequency": "MONTHLY",
+      "frequency_date": {
+        "business_day": null,
+        "start_day": null,
+        "month_day": 20,
+        "month": null,
+        "week_day": null
+      },
+      "business_day": false,
+      "steps": [
+        {
+          "order": 1,
+          "name": "Relatório analítico de GPS"
+        },
+        {
+          "order": 2,
+          "name": "Declaração SEFIP"
+        },
+        {
+          "order": 3,
+          "name": "Relatório SEFIP"
+        },
+        {
+          "order": 4,
+          "name": "Protocolo SEFIP"
+        },
+        {
+          "order": 5,
+          "name": "Certidão de regularidade do FGTS - CRF"
+        },
+        {
+          "order": 6,
+          "name": "Certidão negativa de débito trabalhista - CNDT"
+        },
+        {
+          "order": 7,
+          "name": "Certidão negativa de débito - CND"
+        }
+      ]
+    },
+    {
+      "id": "67ba191ae4b52ec8453d413e",
+      "name": "VERIFICAÇÃO GOB SETOR PESSOAL",
+      "active": false,
+      "frequency": "MONTHLY",
+      "frequency_date": {
+        "business_day": null,
+        "start_day": null,
+        "month_day": 19,
+        "month": null,
+        "week_day": null
+      },
+      "business_day": false,
+      "steps": [
+        {
+          "order": 1,
+          "name": "Nº 35 | VERIFICAÇÃO GOB SETOR PESSOAL - DCTFWEB | CAMINHO DO VÍDEO: V:\\DP\\Gestta\\Verificação de Pendências de Dctfweb - GOB.mp4"
+        },
+        {
+          "order": 2,
+          "name": "Nº 115 | VERIFICAÇÃO GOB SETOR PESSOAL - E-SOCIAL | CAMINHO DO VÍDEO: V:\\DP\\Gestta\\Verificacao GOB Setor Pessoal - E-SOCIAL.mp4"
+        },
+        {
+          "order": 3,
+          "name": "INFORMATIVO: O CAMINHO DO VÍDEO CORRESPONDENTE CONSTA AO FINAL DE CADA ITEM DO CHECKLIST. CASO NÃO CONSIGA ACESSAR PELO CAMINHO INFORMADO, CONSULTE A PLANILHA DE TAREFAS."
+        }
+      ]
+    },
+    {
+      "id": "689cefb0b7792b545a5ad197",
+      "name": "CONSULTA DE PENDENCIAS DE FGTS CONECTIVIDADE SOCIAL",
+      "active": false,
+      "frequency": "MONTHLY",
+      "frequency_date": {
+        "business_day": null,
+        "start_day": null,
+        "month_day": 26,
+        "month": null,
+        "week_day": null
+      },
+      "business_day": true,
+      "steps": [
+        {
+          "order": 1,
+          "name": "Acessar site da caixa - https://conectividadesocialv2.caixa.gov.br/sicns/"
+        },
+        {
+          "order": 2,
+          "name": "Clicar na Aba Empregador"
+        },
+        {
+          "order": 3,
+          "name": "Selecionar o certificado digital da empresa ou o do escritório caso tenha procuração"
+        },
+        {
+          "order": 4,
+          "name": "Clica em Selecione aqui o serviço desejado"
+        },
+        {
+          "order": 5,
+          "name": "Clica em Solicitar extrato analítico"
+        },
+        {
+          "order": 6,
+          "name": "Preencher o PIS ou o nome do empregado (sem preposições: da(s), do(s), de) e selecionar a Base"
+        },
+        {
+          "order": 7,
+          "name": "Clica em retornar e selecionar novamente o serviço"
+        },
+        {
+          "order": 8,
+          "name": "Clicar em Solicitar extrato para fins rescisórios"
+        },
+        {
+          "order": 9,
+          "name": "Preencher o PIS ou o nome do empregado (sem preposições: da(s), do(s), de) e selecionar a Base"
+        },
+        {
+          "order": 10,
+          "name": "A caixa disponibilizará os extratos no dia seguinte"
+        },
+        {
+          "order": 11,
+          "name": "Receber Extratos e extrair arquivos"
+        },
+        {
+          "order": 12,
+          "name": "Fazer uma planilha com as informações de pendências (Se houver)"
+        },
+        {
+          "order": 13,
+          "name": "Enviar informações de pendências para os clientes ressaltando a possibilidade de fiscalização, caso estas não sejam sanadas"
+        },
+        {
+          "order": 14,
+          "name": "Deixar histórico salvo na pasta do cliente com relatórios elaborados, a fim de evitar transtornos referentes as pendencias anteriores ao FGTS Digital"
+        }
+      ]
+    },
+    {
+      "id": "67891b0260f29d51d3e5f0d4",
+      "name": "PARCELAMENTO PREVIDENCIÁRIO ECAC - SIMPLIFICADO",
+      "active": false,
+      "frequency": "MONTHLY",
+      "frequency_date": {
+        "business_day": null,
+        "start_day": null,
+        "month_day": 7,
+        "month": null,
+        "week_day": null
+      },
+      "business_day": true,
+      "steps": []
+    },
+    {
+      "id": "6824e837e77ce0328e4f6353",
+      "name": "PARCELAMENTO PREVIDENCIÁRIO GPS",
+      "active": false,
+      "frequency": "MONTHLY",
+      "frequency_date": {
+        "business_day": null,
+        "start_day": null,
+        "month_day": 30,
+        "month": null,
+        "week_day": null
+      },
+      "business_day": false,
+      "steps": []
+    },
+    {
+      "id": "63c1b527837d3e0007ab7e36",
+      "name": "PARCELAMENTO PREVIDENCIARIO PGFN - DP",
+      "active": false,
+      "frequency": "MONTHLY",
+      "frequency_date": {
+        "business_day": null,
+        "start_day": null,
+        "month_day": 30,
+        "month": null,
+        "week_day": null
+      },
+      "business_day": false,
+      "steps": [
+        {
+          "order": 1,
+          "name": "O:\\EXATAS CONTABILIDADE\\5 - DPTO DP\\1.6 VIDEOS DOS PROCESSOS DP\\2.7 Como pegar a guia do parcelamento na PGFN"
+        },
+        {
+          "order": 2,
+          "name": "O:\\EXATAS CONTABILIDADE\\5 - DPTO DP\\1.6 VIDEOS DOS PROCESSOS DP\\2.6 Como pegar a guia do parcelamento na Receita Federal"
+        }
+      ]
+    }
+  ]
+}
