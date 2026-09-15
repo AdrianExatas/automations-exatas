@@ -56,6 +56,17 @@ function dataRecord(value: unknown): RecordValue {
   return record.data && typeof record.data === "object" && !Array.isArray(record.data) ? record.data as RecordValue : record;
 }
 
+function taskSearchPageCount(value: unknown): number {
+  if (!value || typeof value !== "object") return 1;
+  const record = value as RecordValue;
+  const nested = record.data && typeof record.data === "object" && !Array.isArray(record.data)
+    ? record.data as RecordValue
+    : undefined;
+  const raw = record.pages ?? nested?.pages;
+  const pages = Number(raw);
+  return Number.isInteger(pages) && pages > 0 ? pages : 1;
+}
+
 function attachedFileName(file: unknown): string | undefined {
   if (!file) return undefined;
   const raw = String(file);
@@ -125,6 +136,16 @@ interface DocumentKindResolution {
 }
 
 function resolutionFor(kind: DocumentKind): DocumentKindResolution {
+  if (kind === "dae_esocial") {
+    return {
+      allowedDocuments: ["DAE ESOCIAL"],
+      preferredDocuments: ["DAE ESOCIAL"],
+      taskNameFilter: "DAE ESOCIAL",
+      taskLabel: "DAE eSocial",
+      demoDocumentName: "DAE ESOCIAL",
+      demoTaskName: "DAE ESOCIAL",
+    };
+  }
   if (kind === "fgts_consignado") {
     return {
       allowedDocuments: ["FGTS DIGITAL CONSIGNADO"],
@@ -280,12 +301,14 @@ export class AuthenticatedExpressDocumentsGateway implements ExpressDocumentsGat
   }
 
   async findTasks(input: TaskResolutionInput): Promise<TaskReference[]> {
-    const compatible = await this.compatibleTasks(input);
-    return compatible.map((item) => this.toTaskReference(input.company, item));
+    const open = await this.compatibleTasks(input, ["OPEN", "IMPEDIMENT"]);
+    if (open.length > 0) return open.map((item) => this.toTaskReference(input.company, item));
+    const completed = await this.compatibleTasks(input, ["DONE"], true);
+    return completed.map((item) => this.toTaskReference(input.company, item));
   }
 
   async resolveTask(input: TaskResolutionInput): Promise<TaskReference> {
-    const compatible = await this.compatibleTasks(input);
+    const compatible = await this.compatibleTasks(input, ["OPEN", "IMPEDIMENT"]);
     const resolution = input.documentKind ? resolutionFor(input.documentKind) : undefined;
     const taskLabel = resolution?.taskLabel || "compativel";
     if (input.preferredTaskId) {
@@ -306,21 +329,37 @@ export class AuthenticatedExpressDocumentsGateway implements ExpressDocumentsGat
     return this.toTaskReference(input.company, compatible[0]);
   }
 
-  private async compatibleTasks(input: TaskResolutionInput): Promise<Array<{ task: RecordValue; details: RecordValue; document: RecordValue }>> {
+  private async compatibleTasks(
+    input: TaskResolutionInput,
+    statuses: string[],
+    paginate = false,
+  ): Promise<Array<{ task: RecordValue; details: RecordValue; document: RecordValue }>> {
     if (!input.documentKind) throw new Error("O tipo do documento nao permite resolver uma tarefa com seguranca.");
     const darfCota = isDarfCotaKind(input.documentKind);
     if (!darfCota && !input.competence) throw new Error("A competencia do PDF nao foi identificada de forma unica.");
     if (darfCota && !input.competence && !input.dueDate) {
       throw new Error("A competencia ou o vencimento do PDF nao foram identificados de forma unica.");
     }
-    const response = await this.fetcher("https://api.gestta.com.br/core/customer/task/search", {
-      method: "POST", headers: this.gesttaHeaders(true),
-      body: JSON.stringify({ page: 1, limit: 500, customer: [input.company.id], status: ["OPEN", "IMPEDIMENT"] }),
-      signal: AbortSignal.timeout(30_000),
-    });
-    const tasks = records(await checkedJson(response, "Consulta de tarefas no Express", "task_lookup")).filter((task) => {
+    const searchResults: RecordValue[] = [];
+    let page = 1;
+    let pages = 1;
+    do {
+      const response = await this.fetcher("https://api.gestta.com.br/core/customer/task/search", {
+        method: "POST", headers: this.gesttaHeaders(true),
+        body: JSON.stringify({ page, limit: 500, customer: [input.company.id], status: statuses }),
+        signal: AbortSignal.timeout(30_000),
+      });
+      const payload = await checkedJson(response, "Consulta de tarefas no Express", "task_lookup");
+      searchResults.push(...records(payload));
+      pages = paginate ? taskSearchPageCount(payload) : 1;
+      page += 1;
+    } while (page <= pages);
+
+    const allowedStatuses = new Set(statuses);
+    const tasks = searchResults.filter((task) => {
       const customer = task.customer && typeof task.customer === "object" ? task.customer as RecordValue : {};
-      if (String(customer._id || "") !== input.company.id || taskStatus(task.status) !== "open") return false;
+      if (String(customer._id || "") !== input.company.id
+        || !allowedStatuses.has(String(task.status || "").toUpperCase())) return false;
       if (!darfCota) return competenceOf(task.competence_date) === input.competence;
       return true;
     });
@@ -351,7 +390,7 @@ export class AuthenticatedExpressDocumentsGateway implements ExpressDocumentsGat
       id: String(item.task._id),
       name: String(item.task.name),
       competence: competenceOf(item.task.competence_date),
-      status: "open",
+      status: taskStatus(item.task.status),
       company,
       companyDocumentId: String(item.document._id),
       companyDocumentName: String(item.document.name || ""),

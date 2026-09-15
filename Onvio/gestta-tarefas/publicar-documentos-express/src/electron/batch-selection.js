@@ -14,7 +14,7 @@
 
   function isConfirmEligible(row, confirmation) {
     const hardError = (row.messages || []).some((item) => item.severity === "error" && !CORRECTABLE_CODES.has(item.code));
-    return !hardError && Boolean(row.company) && Boolean(row.task) && isValidIsoDate(confirmation?.confirmedDueDate || "");
+    return !hardError && Boolean(row.company) && row.task?.status === "open" && isValidIsoDate(confirmation?.confirmedDueDate || "");
   }
 
   function buildConfirmationPreview(rows, confirmations, selectedIds, today) {

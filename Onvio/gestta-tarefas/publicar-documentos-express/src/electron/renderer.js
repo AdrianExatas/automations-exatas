@@ -443,7 +443,7 @@ function openBatchConfirmationModal() {
 
 function isReady(row) {
   const confirmation = confirmationFor(row);
-  return !hasHardError(row) && Boolean(row.company) && Boolean(row.task) && /^\d{4}-\d{2}-\d{2}$/.test(confirmation.confirmedDueDate) && confirmation.companyConfirmed && confirmation.taskConfirmed && confirmation.dueDateConfirmed;
+  return !hasHardError(row) && Boolean(row.company) && row.task?.status === "open" && /^\d{4}-\d{2}-\d{2}$/.test(confirmation.confirmedDueDate) && confirmation.companyConfirmed && confirmation.taskConfirmed && confirmation.dueDateConfirmed;
 }
 
 function updateReviewAvailability() {
@@ -558,11 +558,12 @@ function renderTaskCell(row) {
     });
     const sub = document.createElement("span");
     sub.className = "subtle";
-    sub.textContent = row.task ? "Tarefa em aberto" : "Tarefa pendente";
+    sub.textContent = row.task?.status === "completed" ? "Tarefa ja concluida" : row.task ? "Tarefa em aberto" : "Tarefa pendente";
     wrap.append(select, sub);
     return wrap;
   }
-  return stacked(row.task?.name, row.task ? "Tarefa em aberto" : "Tarefa pendente");
+  const status = row.task?.status === "completed" ? "Tarefa ja concluida" : row.task ? "Tarefa em aberto" : "Tarefa pendente";
+  return stacked(row.task?.name, status);
 }
 
 function renderMessages(row) {
@@ -633,7 +634,7 @@ function renderValidationRows() {
     const taskCheck = document.createElement("input");
     taskCheck.type = "checkbox";
     taskCheck.checked = confirmation.taskConfirmed;
-    taskCheck.disabled = !row.task;
+    taskCheck.disabled = row.task?.status !== "open";
     taskCheck.addEventListener("change", () => { confirmation.taskConfirmed = taskCheck.checked; updateReviewAvailability(); });
     taskLabel.append(taskCheck, document.createTextNode("Tarefa"));
     const dueLabel = document.createElement("label");

@@ -105,6 +105,50 @@ describe("Persistência e Cache de Consultas SERPRO (Economia e Rastreabilidade)
     expect(list[0].origemConsulta).toBe("CACHE_PERSISTIDO");
   });
 
+  test("lista histórico da empresa por competência com limite e campos financeiros canônicos", () => {
+    const base: ReconciliationResult = {
+      empresa: { codiEmp: "77", cnpj: "77777777000177", razaoSocial: "EMPRESA HISTORICO" },
+      competencia: "2026-07",
+      status: "CONFORME",
+      totalDominioOrigem6: 6053.95,
+      totalDctfwebOrigem6: 6053.95,
+      diferencaOrigem6: 0,
+      totalDominioOrigem7: 0,
+      totalDctfwebOrigem7: 0,
+      diferencaOrigem7: 0,
+      totalGeralDominio: 6053.95,
+      totalGeralDctfweb: 6053.95,
+      diferencaGeral: 0,
+      fechamentosUtilizados: [],
+      pendencias: [],
+      mensagens: [],
+      detalhes: [],
+      dataUltimaConsulta: "2026-08-10T12:00:00.000Z",
+    };
+
+    storage.saveCompanyResult(base);
+    storage.saveCompanyResult({
+      ...base,
+      competencia: "2026-08",
+      status: "DIVERGENTE",
+      totalGeralDctfweb: 6000,
+      diferencaGeral: 53.95,
+      dataUltimaConsulta: "2026-09-10T12:00:00.000Z",
+    });
+
+    const history = storage.getCompanyReconciliationHistory("77", 1);
+    expect(history).toHaveLength(1);
+    expect(history[0]).toEqual({
+      competencia: "2026-08",
+      status: "DIVERGENTE",
+      totalGeralDominio: 6053.95,
+      totalGeralDctfweb: 6000,
+      diferencaGeral: 53.95,
+      dataUltimaConsulta: "2026-09-10T12:00:00.000Z",
+    });
+    expect(storage.getCompanyReconciliationHistory("inexistente")).toEqual([]);
+  });
+
   test("Orquestrador reaproveita cache evitando chamada ao SERPRO quando forceRefresh=false", async () => {
     let mockSerproCalls = 0;
     const mockProvider = async (_cnpj: string, _comp: string) => {

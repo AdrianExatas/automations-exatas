@@ -5,18 +5,22 @@ import { afterEach, describe, expect, it } from "vitest";
 import { DemoCompanyResolver } from "../src/company-resolver";
 import { DemoExpressDocumentsGateway } from "../src/gateway";
 import { ProcessedDocumentStore } from "../src/processed-store";
-import type { CompanyResolver } from "../src/types";
+import type { CompanyResolver, ExpressDocumentsGateway } from "../src/types";
 import { DocumentValidator } from "../src/validation";
 
 const roots: string[] = [];
 afterEach(() => { for (const root of roots.splice(0)) fs.rmSync(root, { recursive: true, force: true }); });
 
-async function inspect(text: string, companies: CompanyResolver = new DemoCompanyResolver()) {
+async function inspect(
+  text: string,
+  companies: CompanyResolver = new DemoCompanyResolver(),
+  gateway: ExpressDocumentsGateway = new DemoExpressDocumentsGateway(),
+) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "express-identity-"));
   roots.push(root);
   const filePath = path.join(root, "999999-arquivo.pdf");
   fs.writeFileSync(filePath, "%PDF-1.4\nfixture pesquisavel");
-  const validator = new DocumentValidator(companies, new DemoExpressDocumentsGateway(), new ProcessedDocumentStore(path.join(root, "store.json")), async () => ({ text }));
+  const validator = new DocumentValidator(companies, gateway, new ProcessedDocumentStore(path.join(root, "store.json")), async () => ({ text }));
   return (await validator.inspectMany([filePath]))[0];
 }
 
@@ -201,6 +205,69 @@ describe("validacao de identidade e competencia", () => {
     });
     expect(row.task?.companyDocumentName).toBe("DARF 6012");
     expect(row.messages.some((item) => item.severity === "error")).toBe(false);
+  });
+
+  it("identifica e prepara um DAE eSocial com o template exclusivo", async () => {
+    const text = [
+      "Documento de Arrecadacao do eSocial",
+      "12.345.678/0001-95",
+      "EMPRESA EXEMPLO LTDA",
+      "Periodo de Apuracao",
+      "agosto/2026",
+      "Data de Vencimento",
+      "18/09/2026",
+      "Composicao do Documento de Arrecadacao",
+      "1082 CONTR PREV DESCONTA SEGURADO-EMPREGADO/AVULSO",
+      "07 CP SEGURADOS - EMPREGADO CONTRATADO POR MEI",
+      "PA:08/2026",
+    ].join("\n");
+    const row = await inspect(text);
+    expect(row).toMatchObject({
+      documentKind: "dae_esocial",
+      competence: "2026-08",
+      extractedDueDate: "2026-09-18",
+      extractedCnpj: "12.345.678/0001-95",
+      status: "ready",
+    });
+    expect(row.task).toMatchObject({
+      name: "DAE ESOCIAL",
+      companyDocumentName: "DAE ESOCIAL",
+    });
+    expect(row.messages.some((item) => item.severity === "error")).toBe(false);
+  });
+
+  it("identifica mas bloqueia um DAE eSocial cuja tarefa ja esta concluida", async () => {
+    const gateway = new DemoExpressDocumentsGateway();
+    gateway.findTasks = async (input) => [{
+      id: "task-dae-done",
+      name: "DAE ESOCIAL",
+      competence: input.competence,
+      status: "completed",
+      company: input.company,
+      companyDocumentId: "document-dae",
+      companyDocumentName: "DAE ESOCIAL",
+    }];
+    const text = [
+      "Documento de Arrecadacao do eSocial",
+      "12.345.678/0001-95",
+      "EMPRESA EXEMPLO LTDA",
+      "Periodo de Apuracao",
+      "agosto/2026",
+      "Data de Vencimento",
+      "18/09/2026",
+      "Composicao do Documento de Arrecadacao",
+      "07 CP SEGURADOS - EMPREGADO CONTRATADO POR MEI",
+      "PA:08/2026",
+    ].join("\n");
+
+    const row = await inspect(text, new DemoCompanyResolver(), gateway);
+    expect(row).toMatchObject({ documentKind: "dae_esocial", status: "pending_review" });
+    expect(row.task).toMatchObject({ id: "task-dae-done", status: "completed", name: "DAE ESOCIAL" });
+    expect(row.messages).toContainEqual(expect.objectContaining({
+      code: "task_completed",
+      severity: "error",
+      message: expect.stringContaining("documento nao sera enviado"),
+    }));
   });
 
   it("trata divergencia de competencia DARF como aviso e mantem pronto para envio", async () => {

@@ -56,6 +56,19 @@ describe("validacao do lote", () => {
       taskConfirmed: true,
     });
     expect(messages.filter((item) => item.severity === "error")).toEqual([]);
+
+    row.task = { ...row.task!, status: "completed" };
+    const completedMessages = validator.validateConfirmation(row, {
+      id: row.id,
+      sha256: row.sha256,
+      companyId: row.company!.id,
+      taskId: row.task.id,
+      confirmedDueDate: "2026-08-22",
+      dueDateConfirmed: true,
+      companyConfirmed: true,
+      taskConfirmed: true,
+    });
+    expect(completedMessages).toContainEqual(expect.objectContaining({ code: "task_completed", severity: "error" }));
   });
 
   it("bloqueia integracao sem contrato capturado", async () => {

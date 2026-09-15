@@ -1,11 +1,18 @@
 /**
  * Lógica da aplicação frontend para conciliação fiscal REINF × DCTFWeb × Domínio
- * e Módulos Integrados: Situação Fiscal (CND), Caixa Postal / DTE e Pagamentos Arrecadados
+ * e Módulos Integrados da API SERPRO Integra Contador 360°:
+ * 1. Conferência DCTFWeb & Emissão de DARF
+ * 2. Situação Fiscal & CND (RFB / PGFN)
+ * 3. Caixa Postal Fiscal & DTE
+ * 4. Pagamentos Arrecadados & Comprovantes
+ * 5. Simples Nacional (PGDAS-D, DAS de Apuração, Extrato, DEFIS)
+ * 6. Gestor de Parcelamentos Fiscais (PARCSN / PARCMEI)
  */
 
 // Estado global da aplicação
 const state = {
   activeTab: "dctfweb",
+  activeHub: "apuracoes",
   competencia: "2026-08",
   dominioOverview: [],
   reconciledMap: new Map(), // codiEmp -> ReconciliationResult
@@ -14,16 +21,30 @@ const state = {
   summary: null,
   expandedRows: new Set(),
 
-  // Estados dos novos módulos
+  // Estados dos módulos
   sitfisMap: new Map(), // cnpj -> SitfisResult
   caixaMap: new Map(), // cnpj -> CaixaPostalResult
   pagamentosMap: new Map(), // cnpj -> PagamentosResult
+  simplesMap: new Map(), // cnpj -> SimplesResult
+  parcelamentosMap: new Map(), // cnpj -> ParcelamentoResult
+
   currentSitfisFilter: "ALL",
   currentCaixaFilter: "ALL",
   currentPagFilter: "ALL",
+  currentSimplesFilter: "ALL",
+  currentParcFilter: "ALL",
+  currentProcFilter: "ALL",
+
   searchSitfisQuery: "",
   searchCaixaQuery: "",
   searchPagQuery: "",
+  searchSimplesQuery: "",
+  searchParcQuery: "",
+  searchProcQuery: "",
+
+  procuracoesMap: new Map(), // cnpj -> ProcuracaoResult
+  workerPollInterval: null,
+  pgfnList: [],
 };
 
 // Elementos do DOM
@@ -81,18 +102,33 @@ const dom = {
   loadingOverlay: document.getElementById("loadingOverlay"),
   loadingText: document.getElementById("loadingText"),
 
-  // Novos Modais
+  // Modal Caixa Postal
   caixaPostalModal: document.getElementById("caixaPostalModal"),
   btnCloseCaixaModal: document.getElementById("btnCloseCaixaModal"),
   btnCloseCaixaBtn: document.getElementById("btnCloseCaixaBtn"),
   caixaModalTitle: document.getElementById("caixaModalTitle"),
   caixaModalBody: document.getElementById("caixaModalBody"),
 
+  // Modal Pagamentos
   pagamentosModal: document.getElementById("pagamentosModal"),
   btnClosePagamentosModal: document.getElementById("btnClosePagamentosModal"),
   btnClosePagamentosBtn: document.getElementById("btnClosePagamentosBtn"),
   pagamentosModalTitle: document.getElementById("pagamentosModalTitle"),
   pagamentosModalBody: document.getElementById("pagamentosModalBody"),
+
+  // Modal Simples Nacional
+  simplesModal: document.getElementById("simplesModal"),
+  btnCloseSimplesModal: document.getElementById("btnCloseSimplesModal"),
+  btnCloseSimplesBtn: document.getElementById("btnCloseSimplesBtn"),
+  simplesModalTitle: document.getElementById("simplesModalTitle"),
+  simplesModalBody: document.getElementById("simplesModalBody"),
+
+  // Modal Parcelamentos
+  parcelamentoModal: document.getElementById("parcelamentoModal"),
+  btnCloseParcModal: document.getElementById("btnCloseParcModal"),
+  btnCloseParcBtn: document.getElementById("btnCloseParcBtn"),
+  parcModalTitle: document.getElementById("parcModalTitle"),
+  parcModalBody: document.getElementById("parcModalBody"),
 
   // Situação Fiscal
   tableSitfisBody: document.getElementById("tableSitfisBody"),
@@ -134,6 +170,118 @@ const dom = {
   countPagSem: document.getElementById("countPagSem"),
   countPagNaoCons: document.getElementById("countPagNaoCons"),
   badgePagamentosCount: document.getElementById("badgePagamentosCount"),
+
+  // Simples Nacional
+  tableSimplesBody: document.getElementById("tableSimplesBody"),
+  searchSimplesInput: document.getElementById("searchSimplesInput"),
+  valSimplesTotal: document.getElementById("valSimplesTotal"),
+  valSimplesDeclaradas: document.getElementById("valSimplesDeclaradas"),
+  valSimplesPagas: document.getElementById("valSimplesPagas"),
+  valSimplesEmAberto: document.getElementById("valSimplesEmAberto"),
+  valSimplesDefis: document.getElementById("valSimplesDefis"),
+  countSimplesAll: document.getElementById("countSimplesAll"),
+  countSimplesPago: document.getElementById("countSimplesPago"),
+  countSimplesAberto: document.getElementById("countSimplesAberto"),
+  countSimplesNaoCons: document.getElementById("countSimplesNaoCons"),
+  badgeSimplesCount: document.getElementById("badgeSimplesCount"),
+
+  // Parcelamentos
+  tableParcBody: document.getElementById("tableParcBody"),
+  searchParcInput: document.getElementById("searchParcInput"),
+  valParcTotal: document.getElementById("valParcTotal"),
+  valParcAtivos: document.getElementById("valParcAtivos"),
+  valParcParcelas: document.getElementById("valParcParcelas"),
+  valParcSemAcordo: document.getElementById("valParcSemAcordo"),
+  countParcAll: document.getElementById("countParcAll"),
+  countParcCom: document.getElementById("countParcCom"),
+  countParcComParc: document.getElementById("countParcComParc"),
+  countParcNaoCons: document.getElementById("countParcNaoCons"),
+  badgeParcelamentosCount: document.getElementById("badgeParcelamentosCount"),
+
+  // Parcelamentos PGFN
+  valPgfnTotal: document.getElementById("valPgfnTotal"),
+  valPgfnPagos: document.getElementById("valPgfnPagos"),
+  valPgfnEmDia: document.getElementById("valPgfnEmDia"),
+  valPgfnRisco: document.getElementById("valPgfnRisco"),
+  tablePgfnBody: document.getElementById("tablePgfnBody"),
+  novoAcordoPgfnModal: document.getElementById("novoAcordoPgfnModal"),
+  pgfnId: document.getElementById("pgfnId"),
+  pgfnEmpresaSelect: document.getElementById("pgfnEmpresaSelect"),
+  pgfnNumeroNegociacao: document.getElementById("pgfnNumeroNegociacao"),
+  pgfnModalidade: document.getElementById("pgfnModalidade"),
+  pgfnValorParcela: document.getElementById("pgfnValorParcela"),
+  pgfnDiaVencimento: document.getElementById("pgfnDiaVencimento"),
+  pgfnCodigoReceita: document.getElementById("pgfnCodigoReceita"),
+  pgfnObservacoes: document.getElementById("pgfnObservacoes"),
+
+  // Worker Noturno
+  btnRunWorker: document.getElementById("btnRunWorker"),
+  workerStatusText: document.getElementById("workerStatusText"),
+  workerModal: document.getElementById("workerModal"),
+  btnCloseWorkerModal: document.getElementById("btnCloseWorkerModal"),
+  btnCloseWorkerBtn: document.getElementById("btnCloseWorkerBtn"),
+  btnTriggerWorkerNow: document.getElementById("btnTriggerWorkerNow"),
+  btnTriggerWorkerAll: document.getElementById("btnTriggerWorkerAll"),
+  workerProgressBar: document.getElementById("workerProgressBar"),
+  workerStatusLabel: document.getElementById("workerStatusLabel"),
+  workerProgressPercent: document.getElementById("workerProgressPercent"),
+  workerNovasMsg: document.getElementById("workerNovasMsg"),
+  workerProcCriticas: document.getElementById("workerProcCriticas"),
+  workerPendenciasCnd: document.getElementById("workerPendenciasCnd"),
+
+  // Procurações RFB
+  valProcTotal: document.getElementById("valProcTotal"),
+  valProcVigentes: document.getElementById("valProcVigentes"),
+  valProcAlerta: document.getElementById("valProcAlerta"),
+  valProcCritica: document.getElementById("valProcCritica"),
+  countProcAll: document.getElementById("countProcAll"),
+  countProcCritica: document.getElementById("countProcCritica"),
+  countProcAlerta: document.getElementById("countProcAlerta"),
+  countProcVigente: document.getElementById("countProcVigente"),
+  countProcNaoCons: document.getElementById("countProcNaoCons"),
+  badgeProcuracoesAlerta: document.getElementById("badgeProcuracoesAlerta"),
+  searchProcInput: document.getElementById("searchProcInput"),
+  tableProcBody: document.getElementById("tableProcBody"),
+  procuracaoModal: document.getElementById("procuracaoModal"),
+  btnCloseProcModal: document.getElementById("btnCloseProcModal"),
+  btnCloseProcBtn: document.getElementById("btnCloseProcBtn"),
+  procModalTitle: document.getElementById("procModalTitle"),
+  procModalBody: document.getElementById("procModalBody"),
+
+  // MEI Expresso
+  meiCnpjInput: document.getElementById("meiCnpjInput"),
+  meiPeriodoInput: document.getElementById("meiPeriodoInput"),
+  btnEmitirCcmei: document.getElementById("btnEmitirCcmei"),
+  btnGerarDasMei: document.getElementById("btnGerarDasMei"),
+  btnDividaAtivaMei: document.getElementById("btnDividaAtivaMei"),
+  meiResultContainer: document.getElementById("meiResultContainer"),
+  meiResultTitle: document.getElementById("meiResultTitle"),
+  meiResultBody: document.getElementById("meiResultBody"),
+
+  // Calculadora Sicalc
+  sicalcCnpj: document.getElementById("sicalcCnpj"),
+  sicalcReceita: document.getElementById("sicalcReceita"),
+  sicalcPA: document.getElementById("sicalcPA"),
+  sicalcValor: document.getElementById("sicalcValor"),
+  sicalcVencimento: document.getElementById("sicalcVencimento"),
+  sicalcConsolidacao: document.getElementById("sicalcConsolidacao"),
+  btnEmitirDarfSicalc: document.getElementById("btnEmitirDarfSicalc"),
+  sicalcResultContainer: document.getElementById("sicalcResultContainer"),
+  sicalcResultBody: document.getElementById("sicalcResultBody"),
+
+  // Dossiê Obsidian
+  obsidianModal: document.getElementById("obsidianModal"),
+  btnCloseObsidianModal: document.getElementById("btnCloseObsidianModal"),
+  btnCloseObsidianBtn: document.getElementById("btnCloseObsidianBtn"),
+  obsidianPreviewPre: document.getElementById("obsidianPreviewPre"),
+  btnCopyMarkdown: document.getElementById("btnCopyMarkdown"),
+  btnDownloadDossieMd: document.getElementById("btnDownloadDossieMd"),
+
+  // Kit Mensal
+  kitMensalModal: document.getElementById("kitMensalModal"),
+  btnCloseKitModal: document.getElementById("btnCloseKitModal"),
+  btnCloseKitBtn: document.getElementById("btnCloseKitBtn"),
+  kitModalBody: document.getElementById("kitModalBody"),
 };
 
 // Formatação monetária e de documentos
@@ -168,6 +316,15 @@ function formatDateTime(isoStr) {
   }
 }
 
+function formatPa(paStr) {
+  if (!paStr) return "-";
+  const clean = String(paStr).replace(/\D/g, "");
+  if (clean.length === 6) {
+    return `${clean.slice(4, 6)}/${clean.slice(0, 4)}`;
+  }
+  return paStr;
+}
+
 function downloadBase64Pdf(base64Data, fileName) {
   const byteCharacters = atob(base64Data);
   const byteNumbers = new Array(byteCharacters.length);
@@ -186,25 +343,73 @@ function downloadBase64Pdf(base64Data, fileName) {
   URL.revokeObjectURL(url);
 }
 
+// Work Hubs Navigation Mapping
+const HUB_TABS = {
+  apuracoes: ["dctfweb", "simples", "mei"],
+  regularidade: ["sitfis", "parcelamentos", "procuracoes"],
+  comunicacao: ["caixapostal", "pagamentos", "sicalc"],
+};
+
+function selectHub(hubId) {
+  state.activeHub = hubId;
+  document.querySelectorAll(".hub-pill").forEach((pill) => {
+    pill.classList.toggle("active", pill.getAttribute("data-hub") === hubId);
+  });
+
+  const allowedTabs = HUB_TABS[hubId] || [];
+  document.querySelectorAll(".nav-tab").forEach((tab) => {
+    const tabHub = tab.getAttribute("data-hub");
+    if (!tabHub || tabHub === hubId) {
+      tab.style.display = "inline-flex";
+    } else {
+      tab.style.display = "none";
+    }
+  });
+
+  if (!allowedTabs.includes(state.activeTab)) {
+    switchTab(allowedTabs[0]);
+  }
+}
+window.selectHub = selectHub;
+
 // Inicialização
 window.addEventListener("DOMContentLoaded", async () => {
   setupEventListeners();
+  selectHub("apuracoes");
   await loadStatus();
   await loadCompetencias();
   await loadDominioData();
   await loadSitfisData();
   await loadCaixaPostalData();
   await loadPagamentosData();
+  await loadSimplesData();
+  await loadParcelamentosData();
+  await loadParcelamentosPgfn();
+  await loadProcuracoesData();
+  await checkWorkerStatus();
 });
 
 // Configuração de Event Listeners
 function setupEventListeners() {
+  // Hubs Pill Listeners
+  document.querySelectorAll(".hub-pill").forEach((pill) => {
+    pill.addEventListener("click", () => {
+      const hub = pill.getAttribute("data-hub");
+      if (hub) selectHub(hub);
+    });
+  });
+
   // Tabs Navigation
   const tabButtons = [
     { id: "tabBtnDctfweb", tab: "dctfweb" },
     { id: "tabBtnSitfis", tab: "sitfis" },
     { id: "tabBtnCaixapostal", tab: "caixapostal" },
     { id: "tabBtnPagamentos", tab: "pagamentos" },
+    { id: "tabBtnSimples", tab: "simples" },
+    { id: "tabBtnParcelamentos", tab: "parcelamentos" },
+    { id: "tabBtnProcuracoes", tab: "procuracoes" },
+    { id: "tabBtnMei", tab: "mei" },
+    { id: "tabBtnSicalc", tab: "sicalc" },
   ];
 
   tabButtons.forEach(({ id, tab }) => {
@@ -253,11 +458,87 @@ function setupEventListeners() {
   });
 
   dom.btnExportExcel.addEventListener("click", () => {
+    if (state.reconciledMap.size === 0) {
+      alert("Aviso: Nenhuma conciliação com a DCTFWeb foi processada ainda para a competência " + state.competencia + ".\n\nPara gerar o relatório Excel, clique no botão 'Conciliar com DCTFWeb' e execute a conciliação do lote.");
+      return;
+    }
     window.location.href = "/api/export/latest";
   });
 
+  // Fechar modais ao clicar fora (no backdrop)
+  document.querySelectorAll(".modal-overlay").forEach((overlay) => {
+    overlay.addEventListener("click", (e) => {
+      if (e.target === overlay) {
+        overlay.classList.remove("active");
+        overlay.classList.remove("open");
+      }
+    });
+  });
+
+  // Global Search Instantâneo
+  const globalSearch = document.getElementById("globalCompanySearch");
+  if (globalSearch) {
+    globalSearch.addEventListener("input", (e) => {
+      const q = e.target.value.toLowerCase().trim();
+      state.searchQuery = q;
+      state.searchSitfisQuery = q;
+      state.searchCaixaQuery = q;
+      state.searchPagQuery = q;
+      state.searchSimplesQuery = q;
+      state.searchParcQuery = q;
+      state.searchProcQuery = q;
+
+      if (dom.searchInput) dom.searchInput.value = e.target.value;
+      if (dom.searchSitfisInput) dom.searchSitfisInput.value = e.target.value;
+      if (dom.searchCaixaInput) dom.searchCaixaInput.value = e.target.value;
+      if (dom.searchPagInput) dom.searchPagInput.value = e.target.value;
+      if (dom.searchSimplesInput) dom.searchSimplesInput.value = e.target.value;
+      if (dom.searchParcInput) dom.searchParcInput.value = e.target.value;
+      if (dom.searchProcInput) dom.searchProcInput.value = e.target.value;
+
+      if (state.activeTab === "dctfweb") renderTable();
+      else if (state.activeTab === "sitfis") renderSitfisTable();
+      else if (state.activeTab === "caixapostal") renderCaixaPostalTable();
+      else if (state.activeTab === "pagamentos") renderPagamentosTable();
+      else if (state.activeTab === "simples") renderSimplesTable();
+      else if (state.activeTab === "parcelamentos") renderParcelamentosTable();
+      else if (state.activeTab === "procuracoes") renderProcuracoesTable();
+    });
+  }
+
+  // Atalho global Ctrl + K e fechar drawer com Escape
+  window.addEventListener("keydown", (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
+      e.preventDefault();
+      if (globalSearch) {
+        globalSearch.focus();
+        globalSearch.select();
+      }
+    } else if (e.key === "Escape") {
+      fecharPerfilEmpresa360();
+    }
+  });
+
+  // Drawer Lateral 360° Listeners
+  const btnCloseDrawer = document.getElementById("btnCloseDrawer");
+  if (btnCloseDrawer) {
+    btnCloseDrawer.addEventListener("click", () => fecharPerfilEmpresa360());
+  }
+
+  const companyDrawer = document.getElementById("companyDrawer");
+  if (companyDrawer) {
+    companyDrawer.addEventListener("click", (e) => {
+      if (e.target === companyDrawer) {
+        fecharPerfilEmpresa360();
+      }
+    });
+  }
+
   dom.searchInput.addEventListener("input", (e) => {
     state.searchQuery = e.target.value.toLowerCase().trim();
+    if (globalSearch && globalSearch.value !== e.target.value) {
+      globalSearch.value = e.target.value;
+    }
     renderTable();
   });
 
@@ -271,6 +552,10 @@ function setupEventListeners() {
       renderCaixaPostalTable();
       updatePagKpis();
       renderPagamentosTable();
+      updateSimplesKpis();
+      renderSimplesTable();
+      updateParcKpis();
+      renderParcelamentosTable();
     });
   }
 
@@ -339,11 +624,127 @@ function setupEventListeners() {
 
   if (dom.btnClosePagamentosModal) dom.btnClosePagamentosModal.addEventListener("click", () => closePagamentosModal());
   if (dom.btnClosePagamentosBtn) dom.btnClosePagamentosBtn.addEventListener("click", () => closePagamentosModal());
+
+  // Simples Nacional Filters, Search & Modal
+  if (dom.searchSimplesInput) {
+    dom.searchSimplesInput.addEventListener("input", (e) => {
+      state.searchSimplesQuery = e.target.value.toLowerCase().trim();
+      renderSimplesTable();
+    });
+  }
+
+  document.querySelectorAll(".filter-pill[data-simples-filter]").forEach((pill) => {
+    pill.addEventListener("click", () => {
+      document.querySelectorAll(".filter-pill[data-simples-filter]").forEach((p) => p.classList.remove("active"));
+      pill.classList.add("active");
+      state.currentSimplesFilter = pill.getAttribute("data-simples-filter");
+      renderSimplesTable();
+    });
+  });
+
+  if (dom.btnCloseSimplesModal) dom.btnCloseSimplesModal.addEventListener("click", () => closeSimplesModal());
+  if (dom.btnCloseSimplesBtn) dom.btnCloseSimplesBtn.addEventListener("click", () => closeSimplesModal());
+
+  // Parcelamentos Filters, Search & Modal
+  if (dom.searchParcInput) {
+    dom.searchParcInput.addEventListener("input", (e) => {
+      state.searchParcQuery = e.target.value.toLowerCase().trim();
+      renderParcelamentosTable();
+    });
+  }
+
+  document.querySelectorAll(".filter-pill[data-parc-filter]").forEach((pill) => {
+    pill.addEventListener("click", () => {
+      document.querySelectorAll(".filter-pill[data-parc-filter]").forEach((p) => p.classList.remove("active"));
+      pill.classList.add("active");
+      state.currentParcFilter = pill.getAttribute("data-parc-filter");
+      renderParcelamentosTable();
+    });
+  });
+
+  if (dom.btnCloseParcModal) dom.btnCloseParcModal.addEventListener("click", () => closeParcModal());
+  if (dom.btnCloseParcBtn) dom.btnCloseParcBtn.addEventListener("click", () => closeParcModal());
+
+  // Procurações Filters & Search
+  if (dom.searchProcInput) {
+    dom.searchProcInput.addEventListener("input", (e) => {
+      state.searchProcQuery = e.target.value.toLowerCase().trim();
+      renderProcuracoesTable();
+    });
+  }
+
+  document.querySelectorAll(".filter-pill[data-proc-filter]").forEach((pill) => {
+    pill.addEventListener("click", () => {
+      document.querySelectorAll(".filter-pill[data-proc-filter]").forEach((p) => p.classList.remove("active"));
+      pill.classList.add("active");
+      state.currentProcFilter = pill.getAttribute("data-proc-filter");
+      renderProcuracoesTable();
+    });
+  });
+
+  if (dom.btnCloseProcModal) dom.btnCloseProcModal.addEventListener("click", () => closeProcModal());
+  if (dom.btnCloseProcBtn) dom.btnCloseProcBtn.addEventListener("click", () => closeProcModal());
+
+  // Worker Noturno
+  if (dom.btnRunWorker) dom.btnRunWorker.addEventListener("click", () => abrirModalWorker());
+  if (dom.btnCloseWorkerModal) dom.btnCloseWorkerModal.addEventListener("click", () => closeWorkerModal());
+  if (dom.btnCloseWorkerBtn) dom.btnCloseWorkerBtn.addEventListener("click", () => closeWorkerModal());
+  if (dom.btnTriggerWorkerNow) dom.btnTriggerWorkerNow.addEventListener("click", () => triggerWorker(5));
+  if (dom.btnTriggerWorkerAll) dom.btnTriggerWorkerAll.addEventListener("click", () => triggerWorker());
+
+  // MEI Expresso
+  if (dom.btnEmitirCcmei) dom.btnEmitirCcmei.addEventListener("click", () => emitirCcmei());
+  if (dom.btnGerarDasMei) dom.btnGerarDasMei.addEventListener("click", () => gerarDasMei());
+  if (dom.btnDividaAtivaMei) dom.btnDividaAtivaMei.addEventListener("click", () => consultarDividaAtivaMei());
+
+  // Calculadora Sicalc
+  if (dom.btnEmitirDarfSicalc) dom.btnEmitirDarfSicalc.addEventListener("click", () => emitirDarfSicalc());
+
+  // Dossiê Obsidian
+  if (dom.btnCloseObsidianModal) dom.btnCloseObsidianModal.addEventListener("click", () => closeObsidianModal());
+  if (dom.btnCloseObsidianBtn) dom.btnCloseObsidianBtn.addEventListener("click", () => closeObsidianModal());
+  if (dom.btnCopyMarkdown) dom.btnCopyMarkdown.addEventListener("click", () => copiarMarkdownObsidian());
+  if (dom.btnDownloadDossieMd) dom.btnDownloadDossieMd.addEventListener("click", () => baixarDossieMarkdown());
+
+  // Kit Mensal
+  if (dom.btnCloseKitModal) dom.btnCloseKitModal.addEventListener("click", () => closeKitModal());
+  if (dom.btnCloseKitBtn) dom.btnCloseKitBtn.addEventListener("click", () => closeKitModal());
 }
 
 function switchTab(tabId) {
   state.activeTab = tabId;
-  const tabs = ["dctfweb", "sitfis", "caixapostal", "pagamentos"];
+
+  // Sincroniza o Work Hub ativo caso a aba selecionada pertença a outro hub
+  const activeTabBtn = document.querySelector(`.nav-tab[data-tab="${tabId}"]`);
+  if (activeTabBtn) {
+    const hubId = activeTabBtn.getAttribute("data-hub");
+    if (hubId && hubId !== state.activeHub) {
+      state.activeHub = hubId;
+      document.querySelectorAll(".hub-pill").forEach((pill) => {
+        pill.classList.toggle("active", pill.getAttribute("data-hub") === hubId);
+      });
+      document.querySelectorAll(".nav-tab").forEach((tab) => {
+        const tabHub = tab.getAttribute("data-hub");
+        if (!tabHub || tabHub === hubId) {
+          tab.style.display = "inline-flex";
+        } else {
+          tab.style.display = "none";
+        }
+      });
+    }
+  }
+
+  const tabs = [
+    "dctfweb",
+    "sitfis",
+    "caixapostal",
+    "pagamentos",
+    "simples",
+    "parcelamentos",
+    "procuracoes",
+    "mei",
+    "sicalc",
+  ];
   tabs.forEach((t) => {
     const btnId = "tabBtn" + t.charAt(0).toUpperCase() + t.slice(1);
     const viewId = "view" + t.charAt(0).toUpperCase() + t.slice(1);
@@ -361,6 +762,12 @@ function switchTab(tabId) {
   if (tabId === "sitfis") renderSitfisTable();
   if (tabId === "caixapostal") renderCaixaPostalTable();
   if (tabId === "pagamentos") renderPagamentosTable();
+  if (tabId === "simples") renderSimplesTable();
+  if (tabId === "parcelamentos") {
+    renderParcelamentosTable();
+    renderTablePgfn();
+  }
+  if (tabId === "procuracoes") renderProcuracoesTable();
 }
 
 async function loadStatus() {
@@ -382,7 +789,7 @@ async function loadStatus() {
             .writeText(data.network.lanUrl)
             .then(() => {
               const originalText = lanStatusText.textContent;
-              lanStatusText.textContent = "✓ Link copiado!";
+              lanStatusText.textContent = "Link copiado!";
               setTimeout(() => {
                 lanStatusText.textContent = originalText;
               }, 2500);
@@ -418,7 +825,196 @@ async function loadCompetencias() {
   }
 }
 
+function renderSkeletonTable() {
+  if (!dom.tableBody) return;
+  let rows = "";
+  for (let i = 0; i < 8; i++) {
+    rows += `
+      <tr class="skeleton-row">
+        <td style="text-align: center;"><div class="skeleton" style="height: 14px; width: 14px; margin: auto;"></div></td>
+        <td><div class="skeleton" style="height: 14px; width: 36px;"></div></td>
+        <td><div class="skeleton" style="height: 14px; width: 130px;"></div></td>
+        <td><div class="skeleton" style="height: 14px; width: 220px;"></div></td>
+        <td><div class="skeleton" style="height: 18px; width: 95px; border-radius: 9999px;"></div></td>
+        <td style="text-align: right;"><div class="skeleton" style="height: 14px; width: 75px; margin-left: auto;"></div></td>
+        <td style="text-align: right;"><div class="skeleton" style="height: 14px; width: 75px; margin-left: auto;"></div></td>
+        <td style="text-align: right;"><div class="skeleton" style="height: 14px; width: 70px; margin-left: auto;"></div></td>
+        <td><div class="skeleton" style="height: 20px; width: 85px; border-radius: 9999px;"></div></td>
+        <td><div class="skeleton" style="height: 26px; width: 110px; border-radius: 6px;"></div></td>
+      </tr>
+    `;
+  }
+  dom.tableBody.innerHTML = rows;
+}
+
+// Drawer Perfil Fiscal 360° da Empresa
+function fecharPerfilEmpresa360() {
+  const drawer = document.getElementById("companyDrawer");
+  if (drawer) {
+    drawer.classList.remove("active");
+    drawer.classList.remove("open");
+  }
+}
+window.fecharPerfilEmpresa360 = fecharPerfilEmpresa360;
+
+window.abrirPerfilEmpresa360 = function (codiEmpOrCnpj) {
+  const drawer = document.getElementById("companyDrawer");
+  if (!drawer) return;
+
+  const targetClean = String(codiEmpOrCnpj || "").trim();
+  const targetDigits = targetClean.replace(/\D/g, "");
+
+  // Localiza a empresa pelo código Domínio ou CNPJ
+  const item = state.dominioOverview.find((d) => {
+    return (
+      String(d.empresa.codiEmp) === targetClean ||
+      d.empresa.cnpj.replace(/\D/g, "") === targetDigits
+    );
+  });
+
+  if (!item) {
+    console.warn("Empresa não localizada para abertura do Perfil 360°:", codiEmpOrCnpj);
+    return;
+  }
+
+  const emp = item.empresa;
+  const cleanCnpj = emp.cnpj.replace(/\D/g, "");
+  const combined = getCompanyCombinedState(item);
+
+  // Cabeçalho do Drawer
+  const nameEl = document.getElementById("drawerCompanyName");
+  const cnpjEl = document.getElementById("drawerCompanyCnpj");
+  const badgeEl = document.getElementById("drawerRegimeBadge");
+
+  if (nameEl) nameEl.textContent = emp.razaoSocial || `Empresa ${emp.codiEmp}`;
+  if (cnpjEl) cnpjEl.textContent = maskCnpj(emp.cnpj);
+
+  if (badgeEl) {
+    if (emp.ativo === false) {
+      badgeEl.textContent = "INATIVA";
+      badgeEl.className = "drawer-badge badge-inativa";
+    } else {
+      const simples = state.simplesMap.get(cleanCnpj);
+      if (simples?.optante) {
+        badgeEl.textContent = "SIMPLES NACIONAL";
+        badgeEl.className = "drawer-badge badge-simples";
+      } else {
+        badgeEl.textContent = "EMPRESA ATIVA";
+        badgeEl.className = "drawer-badge";
+      }
+    }
+  }
+
+  // Diagnóstico Fiscal 360°
+  const stDctf = document.getElementById("drawerStatusDctfweb");
+  if (stDctf) {
+    stDctf.textContent = combined.statusLabel || "Pendente";
+    stDctf.className = `font-mono status-badge ${combined.statusClass}`;
+  }
+
+  const stSit = document.getElementById("drawerStatusSitfis");
+  if (stSit) {
+    const sitfis = state.sitfisMap.get(cleanCnpj);
+    if (!sitfis) {
+      stSit.textContent = "Não consultado";
+      stSit.className = "font-mono";
+    } else if (sitfis.situacao === "REGULAR" || sitfis.cndEmitida) {
+      stSit.textContent = "CND Negativa (Regular)";
+      stSit.className = "font-mono text-success";
+    } else {
+      stSit.textContent = sitfis.statusLabel || "Com Pendências";
+      stSit.className = "font-mono text-warning";
+    }
+  }
+
+  const stCaixa = document.getElementById("drawerStatusCaixa");
+  if (stCaixa) {
+    const cx = state.caixaMap.get(cleanCnpj);
+    if (!cx) {
+      stCaixa.textContent = "Não consultado";
+      stCaixa.className = "font-mono";
+    } else if (cx.mensagensNaoLidas > 0) {
+      stCaixa.textContent = `${cx.mensagensNaoLidas} novas mensagens`;
+      stCaixa.className = "font-mono text-warning";
+    } else {
+      stCaixa.textContent = "Sem pendências DTE";
+      stCaixa.className = "font-mono text-success";
+    }
+  }
+
+  const stProc = document.getElementById("drawerStatusProc");
+  if (stProc) {
+    const pr = state.procuracoesMap.get(cleanCnpj);
+    if (!pr) {
+      stProc.textContent = "Não verificado";
+      stProc.className = "font-mono";
+    } else if (pr.alertaVencimento) {
+      stProc.textContent = "Vence em breve";
+      stProc.className = "font-mono text-warning";
+    } else {
+      stProc.textContent = pr.status || "Vigente";
+      stProc.className = "font-mono text-success";
+    }
+  }
+
+  // Totais da Competência
+  const compLabel = document.getElementById("drawerCompLabel");
+  if (compLabel) compLabel.textContent = state.competencia;
+
+  const valDom = document.getElementById("drawerValDominio");
+  if (valDom) valDom.textContent = formatCurrency(item.totalGeralDominio);
+
+  const valDctf = document.getElementById("drawerValDctfweb");
+  if (valDctf) valDctf.textContent = combined.isConsulted ? formatCurrency(combined.totalDctfweb) : "Pendente";
+
+  const valDiff = document.getElementById("drawerValDiferenca");
+  if (valDiff) {
+    if (combined.isConsulted) {
+      const isDiff = Math.abs(combined.diferenca) >= 0.01;
+      valDiff.textContent = formatCurrency(combined.diferenca);
+      valDiff.className = `font-mono ${isDiff ? "diff-positive" : "diff-zero"}`;
+    } else {
+      valDiff.textContent = "-";
+      valDiff.className = "font-mono";
+    }
+  }
+
+  // Ações Operacionais Diretas
+  const btnRec = document.getElementById("drawerBtnReconciliar");
+  if (btnRec) {
+    btnRec.onclick = () => {
+      fecharPerfilEmpresa360();
+      reprocessSingle(emp.codiEmp, combined.isConsulted);
+    };
+  }
+
+  const btnDarf = document.getElementById("drawerBtnEmitirDarf");
+  if (btnDarf) {
+    btnDarf.onclick = () => {
+      emitirDarfDctfweb(emp.cnpj, state.competencia);
+    };
+  }
+
+  const btnKit = document.getElementById("drawerBtnKitMensal");
+  if (btnKit) {
+    btnKit.onclick = () => {
+      abrirModalKitMensal(emp.cnpj);
+    };
+  }
+
+  const btnObs = document.getElementById("drawerBtnObsidian");
+  if (btnObs) {
+    btnObs.onclick = () => {
+      abrirModalObsidian(emp.cnpj);
+    };
+  }
+
+  // Abre a gaveta lateral
+  drawer.classList.add("active", "open");
+};
+
 async function loadDominioData() {
+  renderSkeletonTable();
   showLoading(`Capturando dados do Domínio para ${state.competencia}...`);
   try {
     const res = await fetch(`/api/dominio/overview?competencia=${encodeURIComponent(state.competencia)}`);
@@ -453,6 +1049,10 @@ async function loadDominioData() {
     renderCaixaPostalTable();
     updatePagKpis();
     renderPagamentosTable();
+    updateSimplesKpis();
+    renderSimplesTable();
+    updateParcKpis();
+    renderParcelamentosTable();
   } catch (err) {
     alert("Erro ao conectar no banco Domínio: " + err.message);
   } finally {
@@ -690,7 +1290,7 @@ function renderTable() {
             combined.isConsulted && combined.dataUltimaConsulta
               ? `
             <div class="consultation-meta">
-              <span title="Data e hora da consulta à API SERPRO">🕒 ${formatDateTime(combined.dataUltimaConsulta)}</span>
+              <span title="Data e hora da consulta à API SERPRO">${formatDateTime(combined.dataUltimaConsulta)}</span>
               ${
                 combined.origemConsulta === "CACHE_PERSISTIDO"
                   ? '<span class="badge-cache" title="Economia garantida: recuperado do banco local sem cobrança SERPRO">Cache</span>'
@@ -702,9 +1302,14 @@ function renderTable() {
           }
         </td>
         <td>
-          <button class="${btnActionClass}" style="padding: 0.35rem 0.7rem; font-size: 0.75rem;"${btnActionTitle} onclick="event.stopPropagation(); reprocessSingle('${item.empresa.codiEmp}', ${combined.isConsulted})">
-            ${combined.isConsulted ? "Reconsultar" : "Consultar DCTFWeb"}
-          </button>
+          <div style="display: flex; gap: 0.35rem; align-items: center;">
+            <button class="${btnActionClass}" style="padding: 0.35rem 0.7rem; font-size: 0.75rem;"${btnActionTitle} onclick="event.stopPropagation(); reprocessSingle('${item.empresa.codiEmp}', ${combined.isConsulted})">
+              ${combined.isConsulted ? "Reconsultar" : "Consultar"}
+            </button>
+            <button class="btn btn-secondary" style="padding: 0.35rem 0.5rem; font-size: 0.75rem;" title="Perfil Fiscal 360° da Empresa" onclick="event.stopPropagation(); abrirPerfilEmpresa360('${item.empresa.codiEmp}')">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </button>
+          </div>
         </td>
       </tr>
     `;
@@ -757,7 +1362,7 @@ function renderDetailSubTable(item, combined) {
       <div style="display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; font-size: 0.8rem;">
         <div>
           <span style="color: #94A3B8;">Última Consulta SERPRO:</span>
-          <strong style="color: #F8FAFC; margin-left: 0.35rem;">🕒 ${formatDateTime(combined.dataUltimaConsulta)}</strong>
+          <strong style="color: #F8FAFC; margin-left: 0.35rem;">${formatDateTime(combined.dataUltimaConsulta)}</strong>
         </div>
         <div>
           <span style="color: #94A3B8;">Origem do Dado:</span>
@@ -1108,13 +1713,13 @@ function renderSitfisTable() {
 
     if (sit) {
       if (sit.situacao === "REGULAR") {
-        badgeHtml = '<span class="status-badge badge-sitfis-regular">✓ CND Negativa (Regular)</span>';
+        badgeHtml = '<span class="status-badge badge-sitfis-regular">CND Negativa (Regular)</span>';
         diagText = "Regularidade fiscal plena perante RFB e PGFN";
       } else if (sit.situacao === "PROCESSANDO") {
-        badgeHtml = '<span class="status-badge badge-sitfis-processando">⏳ Processando</span>';
+        badgeHtml = '<span class="status-badge badge-sitfis-processando">Processando</span>';
         diagText = "Protocolo gerado, relatório em compilação";
       } else {
-        badgeHtml = '<span class="status-badge badge-sitfis-pendencia">✕ Pendências Identificadas</span>';
+        badgeHtml = '<span class="status-badge badge-sitfis-pendencia">Pendências Identificadas</span>';
         diagText = "Existem débitos ou declarações em atraso";
       }
 
@@ -1128,7 +1733,7 @@ function renderSitfisTable() {
               : ""
           }
           <button class="btn btn-secondary" style="padding: 0.35rem 0.65rem; font-size: 0.75rem;" onclick="consultarSitfisSingle('${cnpj}', true)">
-            ↻ Atualizar
+            ↻
           </button>
         </div>
       `;
@@ -1145,7 +1750,7 @@ function renderSitfisTable() {
         <td>
           ${
             sit?.data_consulta
-              ? '<span class="badge-cache">Cache Local</span>'
+              ? '<span class="badge-cache">Cache</span>'
               : '<span style="color: var(--text-muted);">-</span>'
           }
         </td>
@@ -1307,7 +1912,7 @@ function renderCaixaPostalTable() {
 
     if (cx) {
       if (cx.indicador_novas > 0) {
-        statusHtml = '<span class="status-badge badge-caixa-novas">📬 Novas Mensagens</span>';
+        statusHtml = '<span class="status-badge badge-caixa-novas">Novas Mensagens</span>';
       } else {
         statusHtml = '<span class="status-badge badge-caixa-ok">✓ Caixa em Dia</span>';
       }
@@ -1406,8 +2011,8 @@ window.abrirModalCaixa = function (cnpj) {
           }
         </div>
         <div class="msg-meta">
-          <span class="msg-origem">🏛️ ${m.descricaoOrigem || "Receita Federal"}</span>
-          <span>📅 Data: ${m.dataEnvio || "-"} ${m.horaEnvio || ""}</span>
+          <span class="msg-origem">${m.descricaoOrigem || "Receita Federal"}</span>
+          <span>Data: ${m.dataEnvio || "-"} ${m.horaEnvio || ""}</span>
           <span>Identificador: ${m.isn || "-"}</span>
         </div>
       </div>
@@ -1683,6 +2288,1517 @@ window.baixarComprovante = async function (cnpj, numeroDocumento) {
 
 function closePagamentosModal() {
   dom.pagamentosModal.classList.remove("active");
+}
+
+/* ========================================================================= */
+/* MÓDULO 5: SIMPLES NACIONAL (PGDAS-D / DEFIS)                              */
+/* ========================================================================= */
+
+async function loadSimplesData() {
+  try {
+    const res = await fetch("/api/simples/list");
+    const list = await res.json();
+    if (Array.isArray(list)) {
+      for (const item of list) {
+        state.simplesMap.set(item.cnpj, item);
+      }
+    }
+    updateSimplesKpis();
+    renderSimplesTable();
+  } catch (err) {
+    console.warn("Falha ao carregar cache do Simples Nacional:", err);
+  }
+}
+
+function updateSimplesKpis() {
+  const showInactive = dom.chkShowInactive ? dom.chkShowInactive.checked : false;
+  const list = state.dominioOverview.filter((item) => showInactive || item.empresa.ativo !== false);
+
+  let declaradas = 0;
+  let pagas = 0;
+  let emAberto = 0;
+  let defisCount = 0;
+  let naoConsultadas = 0;
+
+  for (const item of list) {
+    const cnpj = String(item.empresa.cnpj || "").replace(/\D/g, "");
+    const sn = state.simplesMap.get(cnpj);
+    if (!sn) {
+      naoConsultadas++;
+    } else {
+      if (sn.declaracoes && sn.declaracoes.length > 0) {
+        declaradas++;
+        const hasPago = sn.declaracoes.some((d) => d.dasPago === true);
+        if (hasPago) pagas++;
+        else emAberto++;
+      } else {
+        naoConsultadas++;
+      }
+      if (sn.defis && sn.defis.length > 0) {
+        defisCount += sn.defis.length;
+      }
+    }
+  }
+
+  if (dom.valSimplesTotal) dom.valSimplesTotal.textContent = list.length;
+  if (dom.valSimplesDeclaradas) dom.valSimplesDeclaradas.textContent = declaradas;
+  if (dom.valSimplesPagas) dom.valSimplesPagas.textContent = pagas;
+  if (dom.valSimplesEmAberto) dom.valSimplesEmAberto.textContent = emAberto;
+  if (dom.valSimplesDefis) dom.valSimplesDefis.textContent = defisCount;
+
+  if (dom.countSimplesAll) dom.countSimplesAll.textContent = list.length;
+  if (dom.countSimplesPago) dom.countSimplesPago.textContent = pagas;
+  if (dom.countSimplesAberto) dom.countSimplesAberto.textContent = emAberto;
+  if (dom.countSimplesNaoCons) dom.countSimplesNaoCons.textContent = naoConsultadas;
+
+  if (dom.badgeSimplesCount) {
+    dom.badgeSimplesCount.textContent = `${declaradas} PGDAS`;
+  }
+}
+
+function renderSimplesTable() {
+  if (!dom.tableSimplesBody) return;
+  const showInactive = dom.chkShowInactive ? dom.chkShowInactive.checked : false;
+  const q = state.searchSimplesQuery;
+  const filter = state.currentSimplesFilter;
+
+  const filtered = state.dominioOverview.filter((item) => {
+    if (!showInactive && item.empresa.ativo === false) return false;
+    const cnpj = String(item.empresa.cnpj || "").replace(/\D/g, "");
+    const sn = state.simplesMap.get(cnpj);
+
+    const hasPago = sn?.declaracoes?.some((d) => d.dasPago === true);
+    const hasAberto = sn?.declaracoes?.some((d) => d.dasPago === false);
+
+    if (filter === "PAGO" && !hasPago) return false;
+    if (filter === "EM_ABERTO" && (!hasAberto || hasPago)) return false;
+    if (filter === "NAO_CONSULTADA" && sn?.declaracoes?.length > 0) return false;
+
+    if (q) {
+      const matchCod = item.empresa.codiEmp.toLowerCase().includes(q);
+      const matchRazao = item.empresa.razaoSocial.toLowerCase().includes(q);
+      const matchCnpj = item.empresa.cnpj.toLowerCase().includes(q);
+      if (!matchCod && !matchRazao && !matchCnpj) return false;
+    }
+    return true;
+  });
+
+  if (filtered.length === 0) {
+    dom.tableSimplesBody.innerHTML = `
+      <tr>
+        <td colspan="9" class="empty-state">Nenhuma empresa encontrada com os filtros do Simples Nacional.</td>
+      </tr>
+    `;
+    return;
+  }
+
+  let html = "";
+  for (const item of filtered) {
+    const cnpj = String(item.empresa.cnpj || "").replace(/\D/g, "");
+    const sn = state.simplesMap.get(cnpj);
+    const isAtiva = item.empresa.ativo !== false;
+
+    const paFormatted = state.competencia ? state.competencia.replace("-", "") : "202608";
+    const decl = sn?.declaracoes?.find((d) => d.periodoApuracao === paFormatted) || sn?.declaracoes?.[0];
+
+    let statusBadge = '<span class="status-badge badge-neutral">Não Consultada</span>';
+    let acoesHtml = `
+      <button class="btn btn-secondary" style="padding: 0.35rem 0.65rem; font-size: 0.75rem;" onclick="consultarSimplesSingle('${cnpj}')">
+        Consultar PGDAS
+      </button>
+    `;
+
+    if (decl) {
+      if (decl.dasPago) {
+        statusBadge = '<span class="status-badge badge-success">DAS Pago</span>';
+      } else {
+        statusBadge = '<span class="status-badge badge-warning">Em Aberto</span>';
+      }
+
+      acoesHtml = `
+        <div style="display: flex; gap: 0.35rem; flex-wrap: wrap;">
+          <button class="btn btn-success" style="padding: 0.3rem 0.55rem; font-size: 0.72rem;" onclick="emitirDasSimples('${cnpj}', '${decl.periodoApuracao}')">
+            Emitir DAS
+          </button>
+          <button class="btn btn-primary" style="padding: 0.3rem 0.55rem; font-size: 0.72rem;" onclick="abrirModalSimples('${cnpj}')">
+            Detalhes
+          </button>
+          <button class="btn btn-secondary" style="padding: 0.3rem 0.55rem; font-size: 0.72rem;" onclick="consultarSimplesSingle('${cnpj}', true)">
+            ↻
+          </button>
+        </div>
+      `;
+    }
+
+    html += `
+      <tr class="${!isAtiva ? "row-inactive" : ""}">
+        <td class="mono"><strong>${item.empresa.codiEmp}</strong></td>
+        <td class="mono">${maskCnpj(item.empresa.cnpj)}</td>
+        <td><strong>${item.empresa.razaoSocial}</strong></td>
+        <td class="mono">${decl ? formatPa(decl.periodoApuracao) : formatPa(paFormatted)}</td>
+        <td class="mono" style="font-size: 0.8rem; color: #94A3B8;">${decl?.numeroDeclaracao || "-"}</td>
+        <td>${statusBadge}</td>
+        <td style="font-size: 0.8rem;">${decl?.dataHoraTransmissao ? formatDateTime(decl.dataHoraTransmissao) : "-"}</td>
+        <td>
+          ${
+            sn?.data_consulta
+              ? '<span class="badge-cache">Cache</span>'
+              : '<span style="color: var(--text-muted);">-</span>'
+          }
+        </td>
+        <td>${acoesHtml}</td>
+      </tr>
+    `;
+  }
+
+  dom.tableSimplesBody.innerHTML = html;
+}
+
+window.consultarSimplesSingle = async function (cnpj, forceRefresh = false) {
+  const pa = state.competencia ? state.competencia.replace("-", "") : "202608";
+  showLoading(`Consultando declaração PGDAS-D e situação no SERPRO para ${maskCnpj(cnpj)}...`);
+  try {
+    const res = await fetch("/api/simples/declaracoes", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ cnpj, periodoApuracao: pa, forceRefresh }),
+    });
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+
+    const existing = state.simplesMap.get(cnpj) || {};
+    state.simplesMap.set(cnpj, {
+      ...existing,
+      cnpj,
+      periodo_apuracao: pa,
+      declaracoes: data.declaracoes || [],
+      data_consulta: new Date().toISOString(),
+    });
+
+    updateSimplesKpis();
+    renderSimplesTable();
+  } catch (err) {
+    alert("Erro ao consultar Simples Nacional: " + err.message);
+  } finally {
+    hideLoading();
+  }
+};
+
+window.emitirDasSimples = async function (cnpj, periodoApuracao) {
+  showLoading(`Emitindo DAS oficial PGDAS-D para o período ${formatPa(periodoApuracao)}...`);
+  try {
+    const res = await fetch("/api/simples/gerar-das", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ cnpj, periodoApuracao }),
+    });
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+    if (!data.pdfBase64) throw new Error("A API não retornou o arquivo PDF do DAS.");
+    downloadBase64Pdf(data.pdfBase64, `das_simples_${cnpj}_${periodoApuracao}.pdf`);
+  } catch (err) {
+    alert("Erro ao emitir DAS do Simples Nacional: " + err.message);
+  } finally {
+    hideLoading();
+  }
+};
+
+window.abrirModalSimples = function (cnpj) {
+  const sn = state.simplesMap.get(cnpj);
+  const emp = state.dominioOverview.find((i) => String(i.empresa.cnpj || "").replace(/\D/g, "") === cnpj);
+  dom.simplesModalTitle.textContent = `Simples Nacional — ${emp ? emp.empresa.razaoSocial : maskCnpj(cnpj)}`;
+
+  let contentHtml = `
+    <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+      <div>
+        <h4 style="color: #38BDF8; font-size: 0.9rem; text-transform: uppercase; margin-bottom: 0.5rem;">
+          Histórico de Declarações PGDAS-D Transmitidas
+        </h4>
+        <table class="sub-table" style="width: 100%;">
+          <thead>
+            <tr>
+              <th>Período</th>
+              <th>Tipo Operação</th>
+              <th>Nº Declaração</th>
+              <th>Nº DAS</th>
+              <th>Status Pagamento</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+  `;
+
+  if (sn && sn.declaracoes && sn.declaracoes.length > 0) {
+    for (const d of sn.declaracoes) {
+      contentHtml += `
+        <tr>
+          <td class="mono"><strong>${formatPa(d.periodoApuracao)}</strong></td>
+          <td>${d.tipoOperacao || "Original"}</td>
+          <td class="mono">${d.numeroDeclaracao || "-"}</td>
+          <td class="mono">${d.numeroDas || "-"}</td>
+          <td>
+            ${
+              d.dasPago
+                ? '<span class="status-badge badge-success" style="font-size: 0.72rem;">Pago</span>'
+                : '<span class="status-badge badge-warning" style="font-size: 0.72rem;">Em Aberto</span>'
+            }
+          </td>
+          <td>
+            <button class="btn btn-success" style="padding: 0.25rem 0.5rem; font-size: 0.72rem;" onclick="emitirDasSimples('${cnpj}', '${d.periodoApuracao}')">
+              Gerar DAS
+            </button>
+          </td>
+        </tr>
+      `;
+    }
+  } else {
+    contentHtml += `<tr><td colspan="6" class="empty-state">Nenhuma declaração PGDAS-D em cache.</td></tr>`;
+  }
+
+  contentHtml += `
+          </tbody>
+        </table>
+      </div>
+
+      <div style="display: flex; align-items: center; justify-content: space-between; background: var(--bg-surface-elevated); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-medium);">
+        <div>
+          <h5 style="color: #A855F7; font-size: 0.85rem; text-transform: uppercase;">Declaração Anual DEFIS</h5>
+          <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.2rem;">Verifique se a DEFIS anual do contribuinte foi entregue à RFB.</p>
+        </div>
+        <button class="btn btn-primary" style="font-size: 0.8rem;" onclick="consultarDefisModal('${cnpj}')">
+          Consultar DEFIS
+        </button>
+      </div>
+      <div id="defisResultContainer"></div>
+    </div>
+  `;
+
+  dom.simplesModalBody.innerHTML = contentHtml;
+  dom.simplesModal.classList.add("active");
+};
+
+window.consultarDefisModal = async function (cnpj) {
+  const container = document.getElementById("defisResultContainer");
+  if (container) container.innerHTML = `<div style="color: #94A3B8; font-size: 0.85rem; padding: 0.5rem 0;">Consultando DEFIS no SERPRO...</div>`;
+  try {
+    const res = await fetch("/api/simples/defis", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ cnpj, forceRefresh: true }),
+    });
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+
+    const existing = state.simplesMap.get(cnpj) || {};
+    state.simplesMap.set(cnpj, { ...existing, defis: data.defis || [] });
+    updateSimplesKpis();
+
+    if (container) {
+      if (!data.defis || data.defis.length === 0) {
+        container.innerHTML = `<div style="color: #FBBF24; font-size: 0.85rem;">Nenhuma declaração DEFIS localizada na Receita Federal.</div>`;
+        return;
+      }
+      let html = `
+        <table class="sub-table" style="width: 100%; margin-top: 0.5rem;">
+          <thead>
+            <tr>
+              <th>Ano-Calendário</th>
+              <th>Identificador DEFIS</th>
+              <th>Tipo</th>
+              <th>Data/Hora Transmissão</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+      for (const df of data.defis) {
+        html += `
+          <tr>
+            <td><strong>${df.anoCalendario}</strong></td>
+            <td class="mono">${df.idDefis}</td>
+            <td>${df.tipo}</td>
+            <td style="font-size: 0.8rem;">${df.dataHora}</td>
+          </tr>
+        `;
+      }
+      html += `</tbody></table>`;
+      container.innerHTML = html;
+    }
+  } catch (err) {
+    if (container) container.innerHTML = `<div style="color: #EF4444; font-size: 0.85rem;">Erro ao consultar DEFIS: ${err.message}</div>`;
+  }
+};
+
+function closeSimplesModal() {
+  dom.simplesModal.classList.remove("active");
+}
+
+/* ========================================================================= */
+/* MÓDULO 6: GESTOR DE PARCELAMENTOS FISCAIS (PARCSN / PARCMEI)             */
+/* ========================================================================= */
+
+async function loadParcelamentosData() {
+  try {
+    const res = await fetch("/api/parcelamentos/list");
+    const list = await res.json();
+    if (Array.isArray(list)) {
+      for (const item of list) {
+        state.parcelamentosMap.set(item.cnpj, item);
+      }
+    }
+    updateParcKpis();
+    renderParcelamentosTable();
+  } catch (err) {
+    console.warn("Falha ao carregar cache de Parcelamentos:", err);
+  }
+}
+
+function updateParcKpis() {
+  const showInactive = dom.chkShowInactive ? dom.chkShowInactive.checked : false;
+  const list = state.dominioOverview.filter((item) => showInactive || item.empresa.ativo !== false);
+
+  let ativos = 0;
+  let parcelasTotal = 0;
+  let semAcordo = 0;
+  let naoConsultadas = 0;
+
+  for (const item of list) {
+    const cnpj = String(item.empresa.cnpj || "").replace(/\D/g, "");
+    const prc = state.parcelamentosMap.get(cnpj);
+    if (!prc) {
+      naoConsultadas++;
+    } else if (prc.pedidos && prc.pedidos.length > 0) {
+      ativos++;
+      if (prc.parcelas) parcelasTotal += prc.parcelas.length;
+    } else {
+      semAcordo++;
+    }
+  }
+
+  if (dom.valParcTotal) dom.valParcTotal.textContent = list.length;
+  if (dom.valParcAtivos) dom.valParcAtivos.textContent = ativos;
+  if (dom.valParcParcelas) dom.valParcParcelas.textContent = parcelasTotal;
+  if (dom.valParcSemAcordo) dom.valParcSemAcordo.textContent = semAcordo;
+
+  if (dom.countParcAll) dom.countParcAll.textContent = list.length;
+  if (dom.countParcCom) dom.countParcCom.textContent = ativos;
+  if (dom.countParcComParc) dom.countParcComParc.textContent = parcelasTotal;
+  if (dom.countParcNaoCons) dom.countParcNaoCons.textContent = naoConsultadas;
+
+  if (dom.badgeParcelamentosCount) {
+    dom.badgeParcelamentosCount.textContent = `${ativos} ativos`;
+  }
+}
+
+function renderParcelamentosTable() {
+  if (!dom.tableParcBody) return;
+  const showInactive = dom.chkShowInactive ? dom.chkShowInactive.checked : false;
+  const q = state.searchParcQuery;
+  const filter = state.currentParcFilter;
+
+  const filtered = state.dominioOverview.filter((item) => {
+    if (!showInactive && item.empresa.ativo === false) return false;
+    const cnpj = String(item.empresa.cnpj || "").replace(/\D/g, "");
+    const prc = state.parcelamentosMap.get(cnpj);
+
+    const hasAcordo = prc?.pedidos?.length > 0;
+    const hasParcela = prc?.parcelas?.length > 0;
+
+    if (filter === "COM_ACORDO" && !hasAcordo) return false;
+    if (filter === "COM_PARCELA" && !hasParcela) return false;
+    if (filter === "NAO_CONSULTADA" && prc) return false;
+
+    if (q) {
+      const matchCod = item.empresa.codiEmp.toLowerCase().includes(q);
+      const matchRazao = item.empresa.razaoSocial.toLowerCase().includes(q);
+      const matchCnpj = item.empresa.cnpj.toLowerCase().includes(q);
+      if (!matchCod && !matchRazao && !matchCnpj) return false;
+    }
+    return true;
+  });
+
+  if (filtered.length === 0) {
+    dom.tableParcBody.innerHTML = `
+      <tr>
+        <td colspan="9" class="empty-state">Nenhum parcelamento encontrado com os filtros selecionados.</td>
+      </tr>
+    `;
+    return;
+  }
+
+  let html = "";
+  for (const item of filtered) {
+    const cnpj = String(item.empresa.cnpj || "").replace(/\D/g, "");
+    const prc = state.parcelamentosMap.get(cnpj);
+    const isAtiva = item.empresa.ativo !== false;
+
+    const pedido = prc?.pedidos?.[0];
+    const qtdParcelas = prc?.parcelas?.length || 0;
+
+    let statusBadge = '<span class="status-badge badge-neutral">Não Verificado</span>';
+    let acoesHtml = `
+      <button class="btn btn-secondary" style="padding: 0.35rem 0.65rem; font-size: 0.75rem;" onclick="consultarParcelamentoSingle('${cnpj}')">
+        Consultar Acordo
+      </button>
+    `;
+
+    if (pedido) {
+      statusBadge = '<span class="status-badge badge-success">Acordo Ativo</span>';
+      acoesHtml = `
+        <div style="display: flex; gap: 0.35rem;">
+          <button class="btn btn-primary" style="padding: 0.35rem 0.65rem; font-size: 0.75rem;" onclick="abrirModalParcelamento('${cnpj}')">
+            Ver Parcelas (${qtdParcelas})
+          </button>
+          <button class="btn btn-secondary" style="padding: 0.35rem 0.65rem; font-size: 0.75rem;" onclick="consultarParcelamentoSingle('${cnpj}', true)">
+            ↻
+          </button>
+        </div>
+      `;
+    } else if (prc && prc.pedidos?.length === 0) {
+      statusBadge = '<span class="status-badge badge-neutral">Sem Acordo</span>';
+    }
+
+    html += `
+      <tr class="${!isAtiva ? "row-inactive" : ""}">
+        <td class="mono"><strong>${item.empresa.codiEmp}</strong></td>
+        <td class="mono">${maskCnpj(item.empresa.cnpj)}</td>
+        <td><strong>${item.empresa.razaoSocial}</strong></td>
+        <td><strong>${prc?.modalidade || "PARCSN"}</strong></td>
+        <td class="mono" style="font-size: 0.8rem; color: #94A3B8;">${pedido?.numero || "-"}</td>
+        <td>${statusBadge}</td>
+        <td class="mono"><strong>${qtdParcelas} parcela(s)</strong></td>
+        <td style="font-size: 0.8rem;">${formatDateTime(prc?.data_consulta)}</td>
+        <td>${acoesHtml}</td>
+      </tr>
+    `;
+  }
+
+  dom.tableParcBody.innerHTML = html;
+}
+
+window.consultarParcelamentoSingle = async function (cnpj, forceRefresh = false) {
+  showLoading(`Consultando parcelamentos e parcelas disponíveis no SERPRO para ${maskCnpj(cnpj)}...`);
+  try {
+    const pedRes = await fetch("/api/parcelamentos/pedidos", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ cnpj, modalidade: "PARCSN", forceRefresh }),
+    });
+    const pedData = await pedRes.json();
+    if (pedData.error) throw new Error(pedData.error);
+
+    const parcRes = await fetch("/api/parcelamentos/parcelas", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ cnpj, modalidade: "PARCSN", forceRefresh }),
+    });
+    const parcData = await parcRes.json();
+    if (parcData.error) throw new Error(parcData.error);
+
+    state.parcelamentosMap.set(cnpj, {
+      cnpj,
+      modalidade: "PARCSN",
+      pedidos: pedData.pedidos || [],
+      parcelas: parcData.parcelas || [],
+      data_consulta: new Date().toISOString(),
+    });
+
+    updateParcKpis();
+    renderParcelamentosTable();
+  } catch (err) {
+    alert("Erro ao consultar parcelamentos: " + err.message);
+  } finally {
+    hideLoading();
+  }
+};
+
+window.abrirModalParcelamento = function (cnpj) {
+  const prc = state.parcelamentosMap.get(cnpj);
+  const emp = state.dominioOverview.find((i) => String(i.empresa.cnpj || "").replace(/\D/g, "") === cnpj);
+  dom.parcModalTitle.textContent = `Parcelamento Fiscal — ${emp ? emp.empresa.razaoSocial : maskCnpj(cnpj)}`;
+
+  let html = `
+    <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+      <div>
+        <h4 style="color: #38BDF8; font-size: 0.9rem; text-transform: uppercase; margin-bottom: 0.5rem;">
+          Parcelas Disponíveis para Emissão do DAS
+        </h4>
+        <table class="sub-table" style="width: 100%;">
+          <thead>
+            <tr>
+              <th>Parcela (Mês/Ano)</th>
+              <th>Valor (R$)</th>
+              <th>Ação</th>
+            </tr>
+          </thead>
+          <tbody>
+  `;
+
+  if (prc && prc.parcelas && prc.parcelas.length > 0) {
+    for (const p of prc.parcelas) {
+      html += `
+        <tr>
+          <td class="mono"><strong>${formatPa(p.parcela)}</strong></td>
+          <td class="mono"><strong>${formatCurrency(p.valor)}</strong></td>
+          <td>
+            <button class="btn btn-success" style="padding: 0.25rem 0.5rem; font-size: 0.72rem;" onclick="emitirDasParcela('${cnpj}', '${p.parcela}', '${prc.modalidade || "PARCSN"}')">
+              Baixar DAS (PDF)
+            </button>
+          </td>
+        </tr>
+      `;
+    }
+  } else {
+    html += `<tr><td colspan="3" class="empty-state">Nenhuma parcela com emissão pendente neste momento.</td></tr>`;
+  }
+
+  html += `
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+
+  dom.parcModalBody.innerHTML = html;
+  dom.parcelamentoModal.classList.add("active");
+};
+
+window.emitirDasParcela = async function (cnpj, parcela, modalidade = "PARCSN") {
+  showLoading(`Emitindo DAS da parcela ${formatPa(parcela)} do acordo ${modalidade}...`);
+  try {
+    const res = await fetch("/api/parcelamentos/gerar-das", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ cnpj, parcela, modalidade }),
+    });
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+    if (!data.pdfBase64) throw new Error("A API não retornou o PDF do DAS de parcelamento.");
+    downloadBase64Pdf(data.pdfBase64, `das_parcelamento_${cnpj}_${parcela}.pdf`);
+  } catch (err) {
+    alert("Erro ao emitir DAS do parcelamento: " + err.message);
+  } finally {
+    hideLoading();
+  }
+};
+
+function closeParcModal() {
+  dom.parcelamentoModal.classList.remove("active");
+}
+
+/* ========================================================================= */
+/* MÓDULO: GESTÃO & RASTREIO DE PARCELAMENTOS PGFN (DÍVIDA ATIVA DA UNIÃO)   */
+/* ========================================================================= */
+
+async function loadParcelamentosPgfn() {
+  try {
+    const res = await fetch("/api/parcelamentos-pgfn");
+    const list = await res.json();
+    if (Array.isArray(list)) {
+      state.pgfnList = list;
+    } else {
+      state.pgfnList = [];
+    }
+    updatePgfnKpis();
+    renderTablePgfn();
+  } catch (err) {
+    console.warn("Falha ao carregar acordos PGFN:", err);
+  }
+}
+
+function updatePgfnKpis() {
+  const list = state.pgfnList || [];
+  let pagos = 0;
+  let emDia = 0;
+  let risco = 0;
+
+  for (const p of list) {
+    if (p.status === "PAGO_NO_MES") pagos++;
+    else if (p.status === "RISCO_RESCISAO" || p.status === "PENDENTE") risco++;
+    else emDia++;
+  }
+
+  if (dom.valPgfnTotal) dom.valPgfnTotal.textContent = list.length;
+  if (dom.valPgfnPagos) dom.valPgfnPagos.textContent = pagos;
+  if (dom.valPgfnEmDia) dom.valPgfnEmDia.textContent = emDia;
+  if (dom.valPgfnRisco) dom.valPgfnRisco.textContent = risco;
+}
+
+function renderTablePgfn() {
+  if (!dom.tablePgfnBody) return;
+  const list = state.pgfnList || [];
+
+  if (list.length === 0) {
+    dom.tablePgfnBody.innerHTML = `
+      <tr>
+        <td colspan="9" class="empty-state">
+          Nenhum acordo de parcelamento PGFN cadastrado. Clique no botão acima "+ Novo Acordo PGFN" para monitorar.
+        </td>
+      </tr>
+    `;
+    return;
+  }
+
+  let html = "";
+  for (const p of list) {
+    let statusBadge = `<span class="badge-pgfn-emdia">Em Dia</span>`;
+    if (p.status === "PAGO_NO_MES") {
+      statusBadge = `<span class="badge-pgfn-pago">Quitado no Mês</span>`;
+    } else if (p.status === "PENDENTE") {
+      statusBadge = `<span class="badge-pgfn-pendente">Pendente</span>`;
+    } else if (p.status === "RISCO_RESCISAO") {
+      statusBadge = `<span class="badge-pgfn-risco">Risco de Rescisão</span>`;
+    }
+
+    const auditStr = p.ultima_auditoria
+      ? `<span style="font-size:0.75rem; color:#94A3B8;">${formatDateTime(p.ultima_auditoria)}</span>`
+      : `<span style="font-size:0.75rem; color:#64748B;">Pendente de auditoria</span>`;
+
+    const detalheStr = p.detalhes_auditoria
+      ? `<div style="font-size:0.72rem; color:#94A3B8; margin-top:0.2rem; max-width:260px;">${p.detalhes_auditoria}</div>`
+      : "";
+
+    html += `
+      <tr>
+        <td>
+          <div style="font-weight:600; color:#F8FAFC;">${p.razao_social || maskCnpj(p.cnpj)}</div>
+          <div class="mono" style="font-size:0.75rem; color:#64748B;">${maskCnpj(p.cnpj)}</div>
+        </td>
+        <td class="mono font-bold" style="color:#60A5FA;">${p.numero_negociacao}</td>
+        <td><span style="font-size:0.85rem;">${p.modalidade}</span></td>
+        <td class="mono font-bold" style="color:#34D399;">${formatCurrency(p.valor_parcela || 0)}</td>
+        <td><span style="font-size:0.85rem;">Dia ${p.dia_vencimento || 30}</span></td>
+        <td class="mono" style="font-size:0.8rem; color:#94A3B8;">${p.codigo_receita || "1734"}</td>
+        <td>${statusBadge}</td>
+        <td>${auditStr}${detalheStr}</td>
+        <td>
+          <div style="display:flex; gap:0.4rem; align-items:center;">
+            <button class="btn btn-secondary" style="padding:0.35rem 0.65rem; font-size:0.75rem;" onclick="auditarAcordoPgfn(${p.id})">
+              Auditar
+            </button>
+            <button class="btn btn-primary" style="padding:0.35rem 0.65rem; font-size:0.75rem;" onclick="prepararSicalcParaPgfn('${p.cnpj}', '${p.codigo_receita || "1734"}', ${p.valor_parcela || 0})">
+              DARF Sicalc
+            </button>
+            <button class="btn btn-danger" style="padding:0.35rem 0.5rem; font-size:0.75rem;" onclick="excluirAcordoPgfn(${p.id})">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+            </button>
+          </div>
+        </td>
+      </tr>
+    `;
+  }
+
+  dom.tablePgfnBody.innerHTML = html;
+}
+
+window.abrirModalNovoAcordoPgfn = function (id) {
+  if (dom.pgfnEmpresaSelect) {
+    let options = `<option value="">Selecione uma empresa ativa do Domínio...</option>`;
+    for (const item of state.dominioOverview) {
+      if (item.empresa && item.empresa.ativo !== false) {
+        const cnpjClean = String(item.empresa.cnpj || "").replace(/\D/g, "");
+        options += `<option value="${cnpjClean}" data-razao="${item.empresa.razaoSocial || ""}">
+          ${item.empresa.codiEmp} - ${item.empresa.razaoSocial} (${maskCnpj(cnpjClean)})
+        </option>`;
+      }
+    }
+    dom.pgfnEmpresaSelect.innerHTML = options;
+  }
+
+  if (id) {
+    const p = (state.pgfnList || []).find((x) => x.id === id);
+    if (p) {
+      if (dom.pgfnId) dom.pgfnId.value = p.id;
+      if (dom.pgfnEmpresaSelect) dom.pgfnEmpresaSelect.value = p.cnpj;
+      if (dom.pgfnNumeroNegociacao) dom.pgfnNumeroNegociacao.value = p.numero_negociacao;
+      if (dom.pgfnModalidade) dom.pgfnModalidade.value = p.modalidade;
+      if (dom.pgfnValorParcela) dom.pgfnValorParcela.value = p.valor_parcela;
+      if (dom.pgfnDiaVencimento) dom.pgfnDiaVencimento.value = p.dia_vencimento;
+      if (dom.pgfnCodigoReceita) dom.pgfnCodigoReceita.value = p.codigo_receita || "1734";
+      if (dom.pgfnObservacoes) dom.pgfnObservacoes.value = p.observacoes || "";
+    }
+  } else {
+    if (dom.pgfnId) dom.pgfnId.value = "";
+    if (dom.pgfnEmpresaSelect) dom.pgfnEmpresaSelect.value = "";
+    if (dom.pgfnNumeroNegociacao) dom.pgfnNumeroNegociacao.value = "";
+    if (dom.pgfnValorParcela) dom.pgfnValorParcela.value = "";
+    if (dom.pgfnDiaVencimento) dom.pgfnDiaVencimento.value = "30";
+    if (dom.pgfnCodigoReceita) dom.pgfnCodigoReceita.value = "1734";
+    if (dom.pgfnObservacoes) dom.pgfnObservacoes.value = "";
+  }
+
+  if (dom.novoAcordoPgfnModal) dom.novoAcordoPgfnModal.classList.add("active");
+};
+
+window.fecharModalPgfn = function () {
+  if (dom.novoAcordoPgfnModal) dom.novoAcordoPgfnModal.classList.remove("active");
+};
+
+window.onSelectEmpresaPgfn = function (el) {
+  // Eventual auto-preenchimento
+};
+
+window.salvarAcordoPgfn = async function (e) {
+  if (e) e.preventDefault();
+  const select = dom.pgfnEmpresaSelect;
+  const opt = select?.selectedOptions?.[0];
+  const cnpj = (select?.value || "").replace(/\D/g, "");
+  const razaoSocial = opt?.getAttribute("data-razao") || "";
+  const numero_negociacao = (dom.pgfnNumeroNegociacao?.value || "").trim();
+  const modalidade = dom.pgfnModalidade?.value || "Transação por Edital PGDAU";
+  const valor_parcela = Number(dom.pgfnValorParcela?.value || 0);
+  const dia_vencimento = Number(dom.pgfnDiaVencimento?.value || 30);
+  const codigo_receita = (dom.pgfnCodigoReceita?.value || "1734").trim();
+  const observacoes = (dom.pgfnObservacoes?.value || "").trim();
+  const idVal = dom.pgfnId?.value ? Number(dom.pgfnId.value) : undefined;
+
+  if (!cnpj || !numero_negociacao) {
+    alert("Por favor selecione a empresa e informe o número da negociação.");
+    return;
+  }
+
+  showLoading("Salvando acordo de parcelamento PGFN...");
+  try {
+    const res = await fetch("/api/parcelamentos-pgfn", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        id: idVal,
+        cnpj,
+        razao_social: razaoSocial,
+        numero_negociacao,
+        modalidade,
+        valor_parcela,
+        dia_vencimento,
+        codigo_receita,
+        observacoes,
+      }),
+    });
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+
+    fecharModalPgfn();
+    await loadParcelamentosPgfn();
+  } catch (err) {
+    alert("Erro ao salvar acordo PGFN: " + err.message);
+  } finally {
+    hideLoading();
+  }
+};
+
+window.auditarAcordoPgfn = async function (id) {
+  showLoading("Auditando recolhimentos bancários e situação fiscal na PGFN...");
+  try {
+    const res = await fetch(`/api/parcelamentos-pgfn/${id}/auditar`, {
+      method: "POST",
+    });
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+
+    await loadParcelamentosPgfn();
+    alert(`Resultado da Auditoria PGFN:\n\nStatus: ${data.status}\nDiagnóstico: ${data.detalhes_auditoria || "Em conformidade"}`);
+  } catch (err) {
+    alert("Erro ao auditar acordo PGFN: " + err.message);
+  } finally {
+    hideLoading();
+  }
+};
+
+window.prepararSicalcParaPgfn = function (cnpj, codigoReceita = "1734", valor = 0) {
+  if (typeof switchTab === "function") {
+    switchTab("sicalc");
+  }
+  if (dom.sicalcCnpj) dom.sicalcCnpj.value = maskCnpj(cnpj);
+  if (dom.sicalcReceita) dom.sicalcReceita.value = codigoReceita;
+  if (dom.sicalcValor) dom.sicalcValor.value = valor > 0 ? valor : "";
+  if (dom.sicalcPA) {
+    const now = new Date();
+    const mm = String(now.getMonth() + 1).padStart(2, "0");
+    dom.sicalcPA.value = `${now.getFullYear()}${mm}`;
+    dom.sicalcPA.focus();
+  }
+};
+
+window.excluirAcordoPgfn = async function (id) {
+  if (!confirm("Tem certeza que deseja remover este acordo de parcelamento PGFN da listagem de monitoramento?")) {
+    return;
+  }
+  showLoading("Removendo acordo PGFN...");
+  try {
+    const res = await fetch(`/api/parcelamentos-pgfn/${id}`, { method: "DELETE" });
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+    await loadParcelamentosPgfn();
+  } catch (err) {
+    alert("Erro ao remover: " + err.message);
+  } finally {
+    hideLoading();
+  }
+};
+
+/* ========================================================================= */
+/* MÓDULO: PROCURAÇÕES ELETRÔNICAS RFB & REDESIM                             */
+/* ========================================================================= */
+
+async function loadProcuracoesData() {
+  try {
+    const res = await fetch("/api/procuracoes/lista");
+    const list = await res.json();
+    if (Array.isArray(list)) {
+      for (const item of list) {
+        state.procuracoesMap.set(item.cnpj, item);
+      }
+    }
+    updateProcKpis();
+    renderProcuracoesTable();
+  } catch (err) {
+    console.warn("Falha ao carregar cache de Procurações:", err);
+  }
+}
+
+function updateProcKpis() {
+  const showInactive = dom.chkShowInactive ? dom.chkShowInactive.checked : false;
+  const list = state.dominioOverview.filter((item) => showInactive || item.empresa.ativo !== false);
+
+  let vigentes = 0;
+  let alerta = 0;
+  let critica = 0;
+  let naoCons = 0;
+
+  for (const item of list) {
+    const cnpj = String(item.empresa.cnpj || "").replace(/\D/g, "");
+    const proc = state.procuracoesMap.get(cnpj);
+    if (!proc) {
+      naoCons++;
+    } else if (proc.situacao === "EXPIRADA" || proc.situacao === "CRITICA") {
+      critica++;
+    } else if (proc.situacao === "ALERTA") {
+      alerta++;
+    } else {
+      vigentes++;
+    }
+  }
+
+  if (dom.valProcTotal) dom.valProcTotal.textContent = list.length - naoCons;
+  if (dom.valProcVigentes) dom.valProcVigentes.textContent = vigentes;
+  if (dom.valProcAlerta) dom.valProcAlerta.textContent = alerta;
+  if (dom.valProcCritica) dom.valProcCritica.textContent = critica;
+
+  if (dom.countProcAll) dom.countProcAll.textContent = list.length;
+  if (dom.countProcCritica) dom.countProcCritica.textContent = critica;
+  if (dom.countProcAlerta) dom.countProcAlerta.textContent = alerta;
+  if (dom.countProcVigente) dom.countProcVigente.textContent = vigentes;
+  if (dom.countProcNaoCons) dom.countProcNaoCons.textContent = naoCons;
+
+  const totalAlertas = critica + alerta;
+  if (dom.badgeProcuracoesAlerta) {
+    if (totalAlertas > 0) {
+      dom.badgeProcuracoesAlerta.textContent = `${totalAlertas} alerta${totalAlertas > 1 ? "s" : ""}`;
+      dom.badgeProcuracoesAlerta.style.display = "inline-block";
+    } else {
+      dom.badgeProcuracoesAlerta.style.display = "none";
+    }
+  }
+}
+
+function renderProcuracoesTable() {
+  if (!dom.tableProcBody) return;
+  const showInactive = dom.chkShowInactive ? dom.chkShowInactive.checked : false;
+  const q = state.searchProcQuery;
+  const filter = state.currentProcFilter;
+
+  const filtered = state.dominioOverview.filter((item) => {
+    if (!showInactive && item.empresa.ativo === false) return false;
+    const cnpj = String(item.empresa.cnpj || "").replace(/\D/g, "");
+    const proc = state.procuracoesMap.get(cnpj);
+
+    if (filter === "CRITICA_EXPIRADA" && (!proc || (proc.situacao !== "EXPIRADA" && proc.situacao !== "CRITICA"))) return false;
+    if (filter === "ALERTA" && (!proc || proc.situacao !== "ALERTA")) return false;
+    if (filter === "VIGENTE" && (!proc || proc.situacao !== "VIGENTE")) return false;
+    if (filter === "NAO_CONSULTADA" && proc) return false;
+
+    if (q) {
+      const matchCod = item.empresa.codiEmp.toLowerCase().includes(q);
+      const matchRazao = item.empresa.razaoSocial.toLowerCase().includes(q);
+      const matchCnpj = item.empresa.cnpj.toLowerCase().includes(q);
+      if (!matchCod && !matchRazao && !matchCnpj) return false;
+    }
+    return true;
+  });
+
+  if (filtered.length === 0) {
+    dom.tableProcBody.innerHTML = `
+      <tr>
+        <td colspan="9" class="empty-state">Nenhuma procuração encontrada com os filtros selecionados.</td>
+      </tr>
+    `;
+    return;
+  }
+
+  let html = "";
+  for (const item of filtered) {
+    const cnpj = String(item.empresa.cnpj || "").replace(/\D/g, "");
+    const proc = state.procuracoesMap.get(cnpj);
+    const isAtiva = item.empresa.ativo !== false;
+
+    let badgeClass = "badge-proc-nao-consultada";
+    let badgeText = "Não Consultada";
+    let diasText = "-";
+    let expText = "-";
+    let totalSistemas = 0;
+
+    if (proc) {
+      if (proc.situacao === "EXPIRADA") {
+        badgeClass = "badge-proc-expirada";
+        badgeText = "Expirada";
+      } else if (proc.situacao === "CRITICA") {
+        badgeClass = "badge-proc-critica";
+        badgeText = "Crítica (≤ 30d)";
+      } else if (proc.situacao === "ALERTA") {
+        badgeClass = "badge-proc-alerta";
+        badgeText = "Atenção (31-60d)";
+      } else {
+        badgeClass = "badge-proc-vigente";
+        badgeText = "Vigente";
+      }
+
+      diasText = proc.dias_restantes !== null && proc.dias_restantes !== undefined ? `${proc.dias_restantes} dias` : "-";
+      expText = proc.data_expiracao || "-";
+      totalSistemas = proc.total_sistemas || (proc.sistemas ? proc.sistemas.length : 0);
+    }
+
+    const inactiveBadgeHtml = !isAtiva
+      ? '<span class="status-badge badge-neutral" style="margin-left: 0.5rem; font-size: 0.68rem;">Inativa</span>'
+      : "";
+
+    html += `
+      <tr>
+        <td class="mono font-bold">${item.empresa.codiEmp}</td>
+        <td class="mono">${maskCnpj(item.empresa.cnpj)}</td>
+        <td>
+          <strong>${item.empresa.razaoSocial}</strong>${inactiveBadgeHtml}
+        </td>
+        <td class="mono">${expText}</td>
+        <td class="mono"><strong>${diasText}</strong></td>
+        <td><span class="${badgeClass}">${badgeText}</span></td>
+        <td>
+          ${
+            proc && totalSistemas > 0
+              ? `<button class="btn btn-secondary" style="padding: 0.25rem 0.6rem; font-size: 0.75rem;" onclick="abrirModalSistemas('${cnpj}')">
+                  ${totalSistemas} sistemas
+                 </button>`
+              : '<span class="text-muted">-</span>'
+          }
+        </td>
+        <td class="mono" style="font-size: 0.8rem; color: #94A3B8;">
+          ${proc ? formatDateTime(proc.data_consulta) : "-"}
+        </td>
+        <td>
+          <div style="display: flex; gap: 0.35rem; align-items: center;">
+            <button class="btn btn-primary" style="padding: 0.35rem 0.65rem; font-size: 0.75rem;" onclick="consultarProcuracao('${cnpj}', true)">
+              ${proc ? "Atualizar" : "Consultar"}
+            </button>
+            <button class="btn btn-secondary" style="padding: 0.35rem 0.55rem; font-size: 0.75rem;" title="Ver Dossiê Fiscal Obsidian" onclick="abrirModalObsidian('${cnpj}')">
+              Dossiê Obsidian
+            </button>
+            <button class="btn btn-secondary" style="padding: 0.35rem 0.55rem; font-size: 0.75rem;" title="Kit Mensal de Guias" onclick="abrirModalKitMensal('${cnpj}')">
+              Kit Mensal
+            </button>
+          </div>
+        </td>
+      </tr>
+    `;
+  }
+
+  dom.tableProcBody.innerHTML = html;
+}
+
+window.consultarProcuracao = async function (cnpj, forceRefresh = false) {
+  showLoading(`Consultando procuração eletrônica RFB do CNPJ ${maskCnpj(cnpj)}...`);
+  try {
+    const res = await fetch("/api/procuracoes/consultar", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ cnpj, forceRefresh }),
+    });
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+
+    state.procuracoesMap.set(cnpj, data);
+    updateProcKpis();
+    renderProcuracoesTable();
+  } catch (err) {
+    alert("Erro ao consultar procuração: " + err.message);
+  } finally {
+    hideLoading();
+  }
+};
+
+window.abrirModalSistemas = function (cnpj) {
+  const proc = state.procuracoesMap.get(cnpj);
+  const emp = state.dominioOverview.find((i) => String(i.empresa.cnpj || "").replace(/\D/g, "") === cnpj);
+  dom.procModalTitle.textContent = `Procuração RFB — ${emp ? emp.empresa.razaoSocial : maskCnpj(cnpj)}`;
+
+  let html = `
+    <div style="display: flex; flex-direction: column; gap: 1rem;">
+      <div style="background: #0F172A; padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-medium);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+          <span style="color: #94A3B8; font-size: 0.85rem;">Status Geral:</span>
+          <strong>${proc?.situacao || "Vigente"}</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+          <span style="color: #94A3B8; font-size: 0.85rem;">Vencimento RFB:</span>
+          <strong>${proc?.data_expiracao || "-"}</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <span style="color: #94A3B8; font-size: 0.85rem;">Dias Restantes:</span>
+          <strong style="color: #38BDF8;">${proc?.dias_restantes ?? "-"} dias</strong>
+        </div>
+      </div>
+      <div>
+        <h4 style="font-size: 0.9rem; color: #F8FAFC; margin-bottom: 0.5rem;">Sistemas e Serviços com Acesso Delegado:</h4>
+        <div class="sistemas-tags-container">
+  `;
+
+  if (proc && proc.sistemas && proc.sistemas.length > 0) {
+    proc.sistemas.forEach((s) => {
+      html += `<span class="sistema-tag">  ${s}</span>`;
+    });
+  } else {
+    html += `<span class="text-muted">Nenhum sistema específico listado.</span>`;
+  }
+
+  html += `
+        </div>
+      </div>
+    </div>
+  `;
+
+  dom.procModalBody.innerHTML = html;
+  dom.procuracaoModal.classList.add("active");
+};
+
+function closeProcModal() {
+  dom.procuracaoModal.classList.remove("active");
+}
+
+/* ========================================================================= */
+/* MÓDULO: WORKER NOTURNO & VARREDURA AUTOMÁTICA EM SEGUNDO PLANO           */
+/* ========================================================================= */
+
+function abrirModalWorker() {
+  dom.workerModal.classList.add("active");
+  checkWorkerStatus();
+}
+
+function closeWorkerModal() {
+  dom.workerModal.classList.remove("active");
+}
+
+async function triggerWorker(limit) {
+  try {
+    const res = await fetch("/api/worker/run", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ limit }),
+    });
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+
+    pollWorkerStatus();
+  } catch (err) {
+    alert("Erro ao disparar varredura: " + err.message);
+  }
+}
+
+async function checkWorkerStatus() {
+  try {
+    const res = await fetch("/api/worker/status");
+    const data = await res.json();
+    updateWorkerUI(data.current, data.latest);
+
+    if (data.current?.isRunning) {
+      pollWorkerStatus();
+    }
+  } catch (err) {
+    console.warn("Falha ao checar status do worker:", err);
+  }
+}
+
+function pollWorkerStatus() {
+  if (state.workerPollInterval) clearInterval(state.workerPollInterval);
+
+  state.workerPollInterval = setInterval(async () => {
+    try {
+      const res = await fetch("/api/worker/status");
+      const data = await res.json();
+      const curr = data.current;
+      updateWorkerUI(curr, data.latest);
+
+      if (!curr?.isRunning) {
+        clearInterval(state.workerPollInterval);
+        state.workerPollInterval = null;
+        loadCaixaPostalData();
+        loadProcuracoesData();
+        loadSitfisData();
+      }
+    } catch {
+      clearInterval(state.workerPollInterval);
+      state.workerPollInterval = null;
+    }
+  }, 1000);
+}
+
+function updateWorkerUI(curr, latest) {
+  if (curr?.isRunning) {
+    const pct = curr.totalEmpresas > 0 ? Math.round((curr.processadas / curr.totalEmpresas) * 100) : 0;
+    if (dom.workerStatusText) dom.workerStatusText.textContent = `Varrendo (${pct}%)...`;
+    if (dom.workerStatusLabel) dom.workerStatusLabel.textContent = `Em execução: ${curr.processadas} de ${curr.totalEmpresas} empresas...`;
+    if (dom.workerProgressPercent) dom.workerProgressPercent.textContent = `${pct}%`;
+    if (dom.workerProgressBar) dom.workerProgressBar.style.width = `${pct}%`;
+
+    if (dom.workerNovasMsg) dom.workerNovasMsg.textContent = curr.novasMensagensEncontradas || 0;
+    if (dom.workerProcCriticas) dom.workerProcCriticas.textContent = curr.procuracoesVencendo || 0;
+    if (dom.workerPendenciasCnd) dom.workerPendenciasCnd.textContent = curr.pendenciasEncontradas || 0;
+  } else {
+    if (dom.workerStatusText) dom.workerStatusText.textContent = "Varredura Noturna";
+    if (dom.workerProgressBar) dom.workerProgressBar.style.width = "100%";
+    if (dom.workerProgressPercent) dom.workerProgressPercent.textContent = "Concluído";
+    if (latest) {
+      if (dom.workerStatusLabel) {
+        dom.workerStatusLabel.textContent = `Última execução: ${formatDateTime(latest.data_execucao)} (${latest.empresas_processadas} empresas)`;
+      }
+      if (dom.workerNovasMsg) dom.workerNovasMsg.textContent = latest.novas_mensagens_encontradas || 0;
+      if (dom.workerProcCriticas) dom.workerProcCriticas.textContent = latest.procuracoes_vencendo || 0;
+      if (dom.workerPendenciasCnd) dom.workerPendenciasCnd.textContent = latest.pendencias_encontradas || 0;
+    } else {
+      if (dom.workerStatusLabel) dom.workerStatusLabel.textContent = "Status: Ocioso";
+    }
+  }
+}
+
+/* ========================================================================= */
+/* MÓDULO: ATENDIMENTO EXPRESSO MEI                                          */
+/* ========================================================================= */
+
+async function emitirCcmei() {
+  const cnpj = (dom.meiCnpjInput?.value || "").replace(/\D/g, "");
+  if (!cnpj) {
+    alert("Por favor, informe o CNPJ do Microempreendedor Individual (MEI).");
+    return;
+  }
+
+  showLoading(`Emitindo Certificado da Condição de MEI (CCMEI)...`);
+  try {
+    const res = await fetch("/api/mei/ccmei", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ cnpj }),
+    });
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+    if (!data.pdfBase64) throw new Error("A API não retornou o PDF do CCMEI.");
+
+    downloadBase64Pdf(data.pdfBase64, `ccmei_${cnpj}.pdf`);
+  } catch (err) {
+    alert("Erro ao emitir CCMEI: " + err.message);
+  } finally {
+    hideLoading();
+  }
+}
+
+async function gerarDasMei() {
+  const cnpj = (dom.meiCnpjInput?.value || "").replace(/\D/g, "");
+  const pa = (dom.meiPeriodoInput?.value || "").replace(/\D/g, "");
+  if (!cnpj) {
+    alert("Por favor, informe o CNPJ do MEI.");
+    return;
+  }
+  if (!pa || pa.length !== 6) {
+    alert("Por favor, informe o Período de Apuração no formato AAAAMM (ex: 202608).");
+    return;
+  }
+
+  showLoading(`Gerando DAS-MEI para o período ${formatPa(pa)}...`);
+  try {
+    const res = await fetch("/api/mei/das", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ cnpj, periodoApuracao: pa }),
+    });
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+    if (!data.pdfBase64) throw new Error("A API não retornou o PDF do DAS-MEI.");
+
+    downloadBase64Pdf(data.pdfBase64, `das_mei_${cnpj}_${pa}.pdf`);
+  } catch (err) {
+    alert("Erro ao gerar DAS-MEI: " + err.message);
+  } finally {
+    hideLoading();
+  }
+}
+
+async function consultarDividaAtivaMei() {
+  const cnpj = (dom.meiCnpjInput?.value || "").replace(/\D/g, "");
+  if (!cnpj) {
+    alert("Por favor, informe o CNPJ do MEI.");
+    return;
+  }
+
+  showLoading(`Consultando Dívida Ativa da União na PGFN...`);
+  try {
+    const res = await fetch("/api/mei/divida-ativa", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ cnpj }),
+    });
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+
+    let html = "";
+    if (data.debitos && data.debitos.length > 0) {
+      html += `
+        <table class="sub-table" style="width: 100%; margin-top: 0.5rem;">
+          <thead>
+            <tr>
+              <th>Período</th>
+              <th>Tributo</th>
+              <th>Valor (R$)</th>
+              <th>Ente Federado</th>
+              <th>Situação do Débito</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+      for (const d of data.debitos) {
+        html += `
+          <tr>
+            <td class="mono">${formatPa(d.periodoApuracao)}</td>
+            <td><strong>${d.tributo}</strong></td>
+            <td class="mono font-bold text-danger">${formatCurrency(d.valor)}</td>
+            <td>${d.enteFederado}</td>
+            <td><span class="badge-proc-critica">${d.situacaoDebito}</span></td>
+          </tr>
+        `;
+      }
+      html += `</tbody></table>`;
+    } else {
+      html = `
+        <div class="alert-box alert-success" style="margin-top: 0.5rem;">
+          Regular: Nenhum débito inscrito em Dívida Ativa da União foi localizado para este MEI.
+        </div>
+      `;
+    }
+
+    if (dom.meiResultTitle) dom.meiResultTitle.textContent = `Dívida Ativa da União — MEI ${maskCnpj(cnpj)}`;
+    if (dom.meiResultBody) dom.meiResultBody.innerHTML = html;
+    if (dom.meiResultContainer) dom.meiResultContainer.style.display = "block";
+  } catch (err) {
+    alert("Erro ao consultar dívida ativa: " + err.message);
+  } finally {
+    hideLoading();
+  }
+}
+
+/* ========================================================================= */
+/* MÓDULO: CALCULADORA SICALC E EMISSÃO DE DARF AVULSO                      */
+/* ========================================================================= */
+
+async function emitirDarfSicalc() {
+  const cnpj = (dom.sicalcCnpj?.value || "").replace(/\D/g, "");
+  const codigoReceita = (dom.sicalcReceita?.value || "").trim();
+  const dataPA = (dom.sicalcPA?.value || "").trim();
+  const valorImposto = Number(dom.sicalcValor?.value || 0);
+  const vencimento = dom.sicalcVencimento?.value || undefined;
+  const dataConsolidacao = dom.sicalcConsolidacao?.value || undefined;
+
+  if (!cnpj || !codigoReceita || !dataPA || valorImposto <= 0) {
+    alert("Por favor, preencha CNPJ, Código da Receita, PA e Valor do Imposto.");
+    return;
+  }
+
+  showLoading(`Calculando encargos legais e consolidando DARF oficial no SERPRO...`);
+  try {
+    const res = await fetch("/api/sicalc/gerar-darf", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        cnpj,
+        codigoReceita,
+        dataPA,
+        valorImposto,
+        vencimento,
+        dataConsolidacao,
+      }),
+    });
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+
+    const c = data.consolidado || {};
+    const html = `
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
+        <div style="background: rgba(255,255,255,0.03); padding: 0.75rem; border-radius: 6px;">
+          <div style="font-size: 0.75rem; color: #94A3B8;">Valor Principal</div>
+          <div style="font-size: 1.1rem; font-weight: 700; color: #F8FAFC;">${formatCurrency(data.valorPrincipal || valorImposto)}</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.03); padding: 0.75rem; border-radius: 6px;">
+          <div style="font-size: 0.75rem; color: #94A3B8;">Multa de Mora</div>
+          <div style="font-size: 1.1rem; font-weight: 700; color: #FBBF24;">${formatCurrency(data.valorMulta || 0)}</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.03); padding: 0.75rem; border-radius: 6px;">
+          <div style="font-size: 0.75rem; color: #94A3B8;">Juros SELIC</div>
+          <div style="font-size: 1.1rem; font-weight: 700; color: #FBBF24;">${formatCurrency(data.valorJuros || 0)}</div>
+        </div>
+        <div style="background: rgba(16,185,129,0.08); padding: 0.75rem; border-radius: 6px; border: 1px solid rgba(16,185,129,0.3);">
+          <div style="font-size: 0.75rem; color: #34D399;">Total Consolidado</div>
+          <div style="font-size: 1.25rem; font-weight: 800; color: #34D399;">${formatCurrency(data.valorTotal || valorImposto)}</div>
+        </div>
+      </div>
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <span style="font-size: 0.85rem; color: #94A3B8;">Nº do Documento Oficial: <strong>${data.numeroDocumento || "-"}</strong></span>
+        ${
+          data.pdfBase64
+            ? `<button class="btn btn-success" style="padding: 0.5rem 1rem;" onclick="downloadBase64Pdf('${data.pdfBase64}', 'darf_sicalc_${codigoReceita}_${cnpj}.pdf')">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Baixar DARF Oficial (PDF)
+               </button>`
+            : ""
+        }
+      </div>
+    `;
+
+    if (dom.sicalcResultBody) dom.sicalcResultBody.innerHTML = html;
+    if (dom.sicalcResultContainer) dom.sicalcResultContainer.style.display = "block";
+  } catch (err) {
+    alert("Erro ao emitir DARF Sicalc: " + err.message);
+  } finally {
+    hideLoading();
+  }
+}
+
+/* ========================================================================= */
+/* MÓDULO: SINCRONIZAÇÃO COM OBSIDIAN & KIT MENSAL DE GUIAS                  */
+/* ========================================================================= */
+
+let currentObsidianMarkdown = "";
+let currentObsidianFilename = "";
+
+window.abrirModalObsidian = async function (cnpj) {
+  showLoading("Compilando Dossiê Fiscal da empresa para o Obsidian...");
+  try {
+    const res = await fetch(`/api/obsidian/dossie/${cnpj}`);
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+
+    currentObsidianMarkdown = data.markdown;
+    currentObsidianFilename = data.filename;
+
+    if (dom.obsidianModalTitle) {
+      dom.obsidianModalTitle.textContent = `Dossiê Fiscal — ${data.razaoSocial}`;
+    }
+    if (dom.obsidianPreviewPre) {
+      dom.obsidianPreviewPre.textContent = data.markdown;
+    }
+
+    dom.obsidianModal.classList.add("active");
+  } catch (err) {
+    alert("Erro ao gerar Dossiê Obsidian: " + err.message);
+  } finally {
+    hideLoading();
+  }
+};
+
+function copiarMarkdownObsidian() {
+  if (!currentObsidianMarkdown) return;
+  navigator.clipboard.writeText(currentObsidianMarkdown).then(() => {
+    alert("Markdown copiado com sucesso! Você pode colar diretamente em uma nota do Obsidian.");
+  });
+}
+
+function baixarDossieMarkdown() {
+  if (!currentObsidianMarkdown) return;
+  const blob = new Blob([currentObsidianMarkdown], { type: "text/markdown;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = currentObsidianFilename || "Dossie-Fiscal.md";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function closeObsidianModal() {
+  dom.obsidianModal.classList.remove("active");
+}
+
+window.abrirModalKitMensal = async function (cnpj) {
+  const comp = state.competencia || "2026-08";
+  showLoading(`Compilando Kit de Guias do mês para a competência ${comp}...`);
+  try {
+    const res = await fetch(`/api/empresas/${cnpj}/kit-mensal/${comp}`);
+    const kit = await res.json();
+    if (kit.error) throw new Error(kit.error);
+
+    dom.kitModalTitle.textContent = `Kit Mensal de Guias — ${kit.razaoSocial} (${comp})`;
+
+    let html = `
+      <div style="margin-bottom: 1rem; background: #0F172A; padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-medium);">
+        <h4 style="font-size: 0.85rem; color: #94A3B8; text-transform: uppercase; margin-bottom: 0.5rem;">Diagnóstico do Mês</h4>
+        <div style="display: flex; gap: 1.5rem; font-size: 0.85rem;">
+          <span>Procuração: <strong>${kit.situacaoGeral.procuracao}</strong></span>
+          <span>CND / Situação: <strong>${kit.situacaoGeral.sitfis}</strong></span>
+          <span>Caixa Postal: <strong>${kit.situacaoGeral.novasMensagens ? "Novas Mensagens" : "Em dia"}</strong></span>
+        </div>
+      </div>
+      <div>
+        <h4 style="font-size: 0.95rem; color: #F8FAFC; margin-bottom: 0.75rem;">Guias e Documentos Disponíveis:</h4>
+    `;
+
+    for (const g of kit.guias) {
+      html += `
+        <div class="kit-guia-item">
+          <div class="kit-guia-info">
+            <span class="kit-guia-title">${g.tipo}</span>
+            <span class="kit-guia-sub">${g.descricao}</span>
+          </div>
+          <button class="btn btn-primary" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;" onclick="gerarGuiaDoKit('${g.gerarUrl}', ${JSON.stringify(g.payload).replace(/"/g, '&quot;')})">
+            Emitir PDF
+          </button>
+        </div>
+      `;
+    }
+
+    html += `</div>`;
+    dom.kitModalBody.innerHTML = html;
+    dom.kitMensalModal.classList.add("active");
+  } catch (err) {
+    alert("Erro ao compilar Kit Mensal: " + err.message);
+  } finally {
+    hideLoading();
+  }
+};
+
+window.gerarGuiaDoKit = async function (url, payload) {
+  showLoading("Emitindo guia de arrecadação...");
+  try {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+    if (!data.pdfBase64) throw new Error("A API não retornou o PDF da guia.");
+    downloadBase64Pdf(data.pdfBase64, `guia_${payload.cnpj || "doc"}.pdf`);
+  } catch (err) {
+    alert("Erro ao emitir guia: " + err.message);
+  } finally {
+    hideLoading();
+  }
+};
+
+function closeKitModal() {
+  dom.kitMensalModal.classList.remove("active");
 }
 
 /* ========================================================================= */

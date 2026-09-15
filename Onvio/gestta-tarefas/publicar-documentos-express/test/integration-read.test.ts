@@ -150,6 +150,102 @@ describe("contratos autenticados de leitura", () => {
     expect(gateway.status().capabilities?.taskCompletion).toBe(true);
   });
 
+  it("resolve DAE eSocial somente pela tarefa e pelo template exclusivos", async () => {
+    const fetcher = vi.fn(async (input: string | URL | Request) => {
+      const url = String(input);
+      if (url.endsWith("/task/task-dae")) return json({
+        _id: "task-dae", status: "IMPEDIMENT", competence_date: "2026-08-21T02:59:59.999Z", customer: { _id: "gestta-1" },
+        company_documents: [{ _id: "document-dae", name: "DAE ESOCIAL" }],
+      });
+      if (url.endsWith("/task/task-dctfweb")) return json({
+        _id: "task-dctfweb", status: "OPEN", competence_date: "2026-08-21T02:59:59.999Z", customer: { _id: "gestta-1" },
+        company_documents: [{ _id: "document-dctfweb", name: "DARF DCTFWEB" }],
+      });
+      return json({ docs: [
+        { _id: "task-dae", name: "DAE ESOCIAL", customer: { _id: "gestta-1" }, status: "IMPEDIMENT", competence_date: "2026-08-21T02:59:59.999Z" },
+        { _id: "task-dctfweb", name: "DCTFWEB - SETOR PESSOAL", customer: { _id: "gestta-1" }, status: "OPEN", competence_date: "2026-08-21T02:59:59.999Z" },
+      ] });
+    });
+    const gateway = new AuthenticatedExpressDocumentsGateway(authFile(), fetcher as typeof fetch);
+    const task = await gateway.resolveTask({
+      filePath: "dae.pdf", fileName: "dae.pdf", sha256: "abc",
+      company: { id: "gestta-1", name: "EMPRESA EXEMPLO LTDA" }, competence: "2026-08",
+      documentKind: "dae_esocial", extractedText: "",
+    });
+    expect(task).toMatchObject({
+      id: "task-dae",
+      name: "DAE ESOCIAL",
+      companyDocumentId: "document-dae",
+      companyDocumentName: "DAE ESOCIAL",
+    });
+    expect(fetcher).not.toHaveBeenCalledWith(expect.stringContaining("/task/task-dctfweb"), expect.anything());
+  });
+
+  it("localiza DAE eSocial concluido em paginas posteriores somente para diagnostico", async () => {
+    const searches: Array<{ page: number; status: string[] }> = [];
+    const fetcher = vi.fn(async (input: string | URL | Request, init?: RequestInit) => {
+      const url = String(input);
+      if (url.endsWith("/task/task-done")) return json({
+        _id: "task-done", status: "DONE", competence_date: "2026-08-21T02:59:59.999Z", customer: { _id: "gestta-1" },
+        company_documents: [{ _id: "document-dae", name: "DAE ESOCIAL" }],
+      });
+      const body = JSON.parse(String(init?.body || "{}")) as { page: number; status: string[] };
+      searches.push({ page: body.page, status: body.status });
+      if (body.status.includes("DONE") && body.page === 1) return json({
+        docs: [{ _id: "old", name: "DAE ESOCIAL", customer: { _id: "gestta-1" }, status: "DONE", competence_date: "2025-08-21T02:59:59.999Z" }],
+        pages: 2,
+      });
+      if (body.status.includes("DONE") && body.page === 2) return json({
+        docs: [{ _id: "task-done", name: "DAE ESOCIAL", customer: { _id: "gestta-1" }, status: "DONE", competence_date: "2026-08-21T02:59:59.999Z" }],
+        pages: 2,
+      });
+      return json({ docs: [], pages: 1 });
+    });
+    const gateway = new AuthenticatedExpressDocumentsGateway(authFile(), fetcher as typeof fetch);
+    const input = {
+      filePath: "dae.pdf", fileName: "dae.pdf", sha256: "abc",
+      company: { id: "gestta-1", name: "EMPRESA EXEMPLO LTDA" }, competence: "2026-08",
+      documentKind: "dae_esocial" as const, extractedText: "",
+    };
+
+    await expect(gateway.findTasks(input)).resolves.toMatchObject([{
+      id: "task-done", status: "completed", companyDocumentId: "document-dae", companyDocumentName: "DAE ESOCIAL",
+    }]);
+    expect(searches).toEqual([
+      { page: 1, status: ["OPEN", "IMPEDIMENT"] },
+      { page: 1, status: ["DONE"] },
+      { page: 2, status: ["DONE"] },
+    ]);
+
+    searches.length = 0;
+    await expect(gateway.resolveTask(input)).rejects.toThrow("Nenhuma tarefa DAE eSocial em aberto");
+    expect(searches).toEqual([{ page: 1, status: ["OPEN", "IMPEDIMENT"] }]);
+  });
+
+  it("prefere DAE eSocial aberto sem consultar o historico concluido", async () => {
+    const searches: string[][] = [];
+    const fetcher = vi.fn(async (input: string | URL | Request, init?: RequestInit) => {
+      const url = String(input);
+      if (url.endsWith("/task/task-open")) return json({
+        _id: "task-open", status: "OPEN", competence_date: "2026-08-21T02:59:59.999Z", customer: { _id: "gestta-1" },
+        company_documents: [{ _id: "document-dae", name: "DAE ESOCIAL" }],
+      });
+      const body = JSON.parse(String(init?.body || "{}")) as { status: string[] };
+      searches.push(body.status);
+      return json({ docs: [
+        { _id: "task-open", name: "DAE ESOCIAL", customer: { _id: "gestta-1" }, status: "OPEN", competence_date: "2026-08-21T02:59:59.999Z" },
+      ], pages: 1 });
+    });
+    const gateway = new AuthenticatedExpressDocumentsGateway(authFile(), fetcher as typeof fetch);
+    const tasks = await gateway.findTasks({
+      filePath: "dae.pdf", fileName: "dae.pdf", sha256: "abc",
+      company: { id: "gestta-1", name: "EMPRESA EXEMPLO LTDA" }, competence: "2026-08",
+      documentKind: "dae_esocial", extractedText: "",
+    });
+    expect(tasks).toMatchObject([{ id: "task-open", status: "open" }]);
+    expect(searches).toEqual([["OPEN", "IMPEDIMENT"]]);
+  });
+
   it("bloqueia tarefa ausente sem escolher outra tarefa aberta", async () => {
     const fetcher = vi.fn(async () => json({ docs: [
       { _id: "wrong", name: "DAS", customer: { _id: "gestta-1" }, status: "OPEN", competence_date: "2026-08-01T03:00:00.000Z" },

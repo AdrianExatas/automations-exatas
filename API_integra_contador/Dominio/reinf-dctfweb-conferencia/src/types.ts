@@ -157,6 +157,15 @@ export interface ReconciliationResult {
   origemConsulta?: "SERPRO_LIVE" | "CACHE_PERSISTIDO";
 }
 
+export interface CompanyReconciliationHistoryItem {
+  competencia: string;
+  status: StatusConferencia;
+  totalGeralDominio: number;
+  totalGeralDctfweb: number;
+  diferencaGeral: number;
+  dataUltimaConsulta: string;
+}
+
 export interface BatchSummary {
   competencia: string;
   totalEmpresas: number;
@@ -190,4 +199,3 @@ export interface DominioCompetenciaItem {
   totalEmpresas: number;
   totalFechamentos: number;
 }
-

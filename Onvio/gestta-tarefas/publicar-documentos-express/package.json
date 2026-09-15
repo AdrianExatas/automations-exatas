@@ -1,6 +1,6 @@
 {
   "name": "@exatas/publicar-documentos-express",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "private": true,
   "author": "Exatas",
   "description": "Aplicativo desktop para validar e publicar documentos externos pelo Express/Onvio",

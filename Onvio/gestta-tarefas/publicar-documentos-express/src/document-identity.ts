@@ -9,6 +9,7 @@ export interface ExtractedCnpjs {
 
 export type DocumentKind =
   | "dctfweb"
+  | "dae_esocial"
   | "fgts_digital"
   | "fgts_consignado"
   | "darf_6012"
@@ -158,9 +159,13 @@ export function identifyDocumentKind(text: string): DocumentKind | undefined {
     if (hasConsignadoValues && !hasFgtsValues) return "fgts_consignado";
     return "fgts_digital";
   }
+  const hasSocialSecurityComposition = normalized.includes("CP DESCONTADA") || normalized.includes("CP SEGURADOS");
+  const isEsocialCollection = normalized.includes("DOCUMENTO DE ARRECADACAO DO ESOCIAL")
+    && normalized.includes("COMPOSICAO DO DOCUMENTO DE ARRECADACAO")
+    && hasSocialSecurityComposition;
+  if (isEsocialCollection) return "dae_esocial";
   const isFederalCollection = normalized.includes("DOCUMENTO DE ARRECADACAO DE RECEITAS FEDERAIS");
   const hasDeclarationReceipt = normalized.includes("RECIBO DECLARACAO");
-  const hasSocialSecurityComposition = normalized.includes("CP DESCONTADA") || normalized.includes("CP SEGURADOS");
   if (isFederalCollection && hasDeclarationReceipt && hasSocialSecurityComposition) return "dctfweb";
   const has6012 = normalized.includes("6012CSLL") || /6012\s*CSLL/i.test(text);
   const has3373 = normalized.includes("3373IRPJ") || /3373\s*IRPJ/i.test(text);

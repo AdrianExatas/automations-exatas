@@ -1,0 +1,14 @@
+# Credenciais de conexao com o banco (Sybase SQL Anywhere)
+.env
+
+# Relatorios gerados: contem dados pessoais (CPF, nome, remuneracao) e sao
+# reproduziveis a partir dos scripts + banco, nao devem ir para o git
+relatorios/*.xlsx
+relatorios/~$*.xlsx
+
+# Dumps de engenharia reversa (arquivos do PowerBuilder, pode conter dados sensiveis)
+archive_reverse_engineering/dumps/
+
+# Python
+__pycache__/
+*.pyc

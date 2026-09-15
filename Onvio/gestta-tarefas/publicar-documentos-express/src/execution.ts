@@ -147,6 +147,7 @@ export class BatchExecutor {
     if (hardErrors.length) return hardErrors.join(" ");
     if (!row.company) return "A empresa nao foi resolvida.";
     if (!row.task) return "A tarefa nao foi resolvida.";
+    if (row.task.status !== "open") return "A tarefa identificada ja esta concluida; o documento nao sera enviado.";
     if (!confirmation || confirmation.sha256 !== row.sha256 || confirmation.companyId !== row.company.id || confirmation.taskId !== row.task.id) {
       return "A confirmacao nao corresponde ao documento validado.";
     }

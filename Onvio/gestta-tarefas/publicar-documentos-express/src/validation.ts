@@ -116,6 +116,8 @@ export class DocumentValidator {
     }
     if (!row.task || confirmation.taskId !== row.task.id || !confirmation.taskConfirmed) {
       messages.push(message("task_not_confirmed", "error", "Confirme a tarefa identificada."));
+    } else if (row.task.status !== "open") {
+      messages.push(message("task_completed", "error", "A tarefa identificada ja esta concluida; o documento nao sera enviado."));
     }
     if (!confirmation.dueDateConfirmed || !isIsoDate(confirmation.confirmedDueDate)) {
       messages.push(message("due_date_not_confirmed", "error", "Confirme uma data de vencimento valida."));
@@ -305,18 +307,35 @@ export class DocumentValidator {
         documentKind: pdf.documentKind,
         extractedText: pdf.text,
       });
-      if (tasks.length === 0) {
+      const openTasks = tasks.filter((item) => item.status === "open");
+      const completedTasks = tasks.filter((item) => item.status === "completed");
+      if (openTasks.length === 0 && completedTasks.length > 0) {
+        const completedTask = completedTasks.length === 1 ? completedTasks[0] : undefined;
+        messages.push(message(
+          "task_completed",
+          "error",
+          completedTask
+            ? `A tarefa ${completedTask.name} da competencia ${completedTask.competence || pdf.competence} ja esta concluida no Gestta; o documento nao sera enviado.`
+            : `As tarefas compativeis da competencia ${pdf.competence} ja estao concluidas no Gestta; o documento nao sera enviado.`,
+        ));
+        return {
+          task: completedTask,
+          taskCandidates: completedTasks.length > 1 ? completedTasks : undefined,
+          stored,
+        };
+      }
+      if (openTasks.length === 0) {
         messages.push(message("task_resolution_failed", "error", isDarfCotaKind(pdf.documentKind)
           ? `Nenhuma tarefa em aberto foi encontrada para ${company.name}.`
           : `Nenhuma tarefa em aberto foi encontrada para ${company.name} na competencia ${pdf.competence}.`));
         return { stored };
       }
-      if (tasks.length > 1) {
+      if (openTasks.length > 1) {
         messages.push(message("task_ambiguous", "warning", `Mais de uma tarefa em aberto foi encontrada para ${company.name}. Selecione a tarefa correta.`));
-        return { taskCandidates: tasks, stored };
+        return { taskCandidates: openTasks, stored };
       }
 
-      const task = tasks[0];
+      const task = openTasks[0];
       if (task.status !== "open" && !stored) messages.push(message("task_completed", "error", "A tarefa identificada ja esta concluida."));
       if (task.company.id !== company.id) messages.push(message("task_company_mismatch", "error", "A tarefa pertence a outra empresa."));
       if (task.competence && pdf.competence !== task.competence) {

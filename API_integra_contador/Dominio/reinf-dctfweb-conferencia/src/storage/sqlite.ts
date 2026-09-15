@@ -3,7 +3,11 @@
  * NUNCA armazena XMLs brutos, senhas, certificados ou tokens.
  */
 import { Database } from "bun:sqlite";
-import type { BatchSummary, ReconciliationResult } from "../types.ts";
+import type {
+  BatchSummary,
+  CompanyReconciliationHistoryItem,
+  ReconciliationResult,
+} from "../types.ts";
 
 export class SqliteStorage {
   private db: Database;
@@ -120,6 +124,77 @@ export class SqliteStorage {
         receita TEXT,
         valor_total REAL,
         payload_json TEXT NOT NULL
+      );
+    `);
+
+    this.db.run(`
+      CREATE TABLE IF NOT EXISTS cache_simples_nacional (
+        cnpj TEXT NOT NULL,
+        periodo_apuracao TEXT NOT NULL,
+        data_consulta TEXT NOT NULL,
+        declaracoes_json TEXT,
+        das_gerado_json TEXT,
+        defis_json TEXT,
+        PRIMARY KEY (cnpj, periodo_apuracao)
+      );
+    `);
+
+    this.db.run(`
+      CREATE TABLE IF NOT EXISTS cache_parcelamentos (
+        cnpj TEXT NOT NULL,
+        modalidade TEXT NOT NULL,
+        data_consulta TEXT NOT NULL,
+        pedidos_json TEXT,
+        parcelas_json TEXT,
+        PRIMARY KEY (cnpj, modalidade)
+      );
+    `);
+
+    this.db.run(`
+      CREATE TABLE IF NOT EXISTS cache_procuracoes (
+        cnpj TEXT PRIMARY KEY,
+        outorgado TEXT NOT NULL,
+        data_expiracao TEXT,
+        dias_restantes INTEGER,
+        situacao TEXT NOT NULL,
+        total_sistemas INTEGER DEFAULT 0,
+        sistemas_json TEXT,
+        procuracoes_json TEXT,
+        data_consulta TEXT NOT NULL
+      );
+    `);
+
+    this.db.run(`
+      CREATE TABLE IF NOT EXISTS historico_worker_noturno (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        data_execucao TEXT NOT NULL,
+        status TEXT NOT NULL,
+        total_empresas INTEGER NOT NULL,
+        empresas_processadas INTEGER NOT NULL,
+        novas_mensagens_encontradas INTEGER NOT NULL,
+        pendencias_encontradas INTEGER NOT NULL,
+        procuracoes_vencendo INTEGER NOT NULL,
+        duracao_ms INTEGER NOT NULL,
+        detalhes_json TEXT
+      );
+    `);
+
+    this.db.run(`
+      CREATE TABLE IF NOT EXISTS parcelamentos_pgfn (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        cnpj TEXT NOT NULL,
+        razao_social TEXT,
+        numero_negociacao TEXT NOT NULL,
+        modalidade TEXT NOT NULL,
+        codigo_receita TEXT DEFAULT '1734',
+        valor_parcela REAL DEFAULT 0,
+        dia_vencimento INTEGER DEFAULT 30,
+        status TEXT DEFAULT 'EM_DIA',
+        ultima_auditoria TEXT,
+        detalhes_auditoria TEXT,
+        observacoes TEXT,
+        data_criacao TEXT NOT NULL,
+        data_atualizacao TEXT NOT NULL
       );
     `);
   }
@@ -286,6 +361,26 @@ export class SqliteStorage {
       }
     }
     return results;
+  }
+
+  public getCompanyReconciliationHistory(
+    codiEmp: string,
+    limit = 6,
+  ): CompanyReconciliationHistoryItem[] {
+    const safeLimit = Math.min(12, Math.max(1, Math.trunc(limit) || 6));
+    return this.db.prepare(`
+      SELECT
+        competencia,
+        status,
+        total_dominio AS totalGeralDominio,
+        total_dctfweb AS totalGeralDctfweb,
+        diferenca AS diferencaGeral,
+        data_consulta AS dataUltimaConsulta
+      FROM cache_consultas_serpro
+      WHERE codi_emp = ?
+      ORDER BY competencia DESC, data_consulta DESC
+      LIMIT ?
+    `).all(codiEmp, safeLimit) as CompanyReconciliationHistoryItem[];
   }
 
   public listExecutions(limit = 50): Array<Record<string, unknown>> {
@@ -461,7 +556,421 @@ export class SqliteStorage {
     return rows.map((r) => JSON.parse(r.payload_json));
   }
 
+  // --- Módulo Simples Nacional ---
+  public saveSimplesResult(
+    cnpj: string,
+    periodoApuracao: string,
+    data: {
+      declaracoes?: any[];
+      dasGerado?: any;
+      defis?: any[];
+    },
+  ): void {
+    const cleanCnpj = cnpj.replace(/\D/g, "");
+    const pa = periodoApuracao.replace(/\D/g, "");
+    const now = new Date().toISOString();
+
+    const existing = this.getSimplesResult(cleanCnpj, pa);
+    const declJson = data.declaracoes ? JSON.stringify(data.declaracoes) : existing?.declaracoes_json || null;
+    const dasJson = data.dasGerado ? JSON.stringify(data.dasGerado) : existing?.das_gerado_json || null;
+    const defisJson = data.defis ? JSON.stringify(data.defis) : existing?.defis_json || null;
+
+    this.db.prepare(`
+      INSERT INTO cache_simples_nacional (cnpj, periodo_apuracao, data_consulta, declaracoes_json, das_gerado_json, defis_json)
+      VALUES (?, ?, ?, ?, ?, ?)
+      ON CONFLICT(cnpj, periodo_apuracao) DO UPDATE SET
+        data_consulta = excluded.data_consulta,
+        declaracoes_json = COALESCE(excluded.declaracoes_json, cache_simples_nacional.declaracoes_json),
+        das_gerado_json = COALESCE(excluded.das_gerado_json, cache_simples_nacional.das_gerado_json),
+        defis_json = COALESCE(excluded.defis_json, cache_simples_nacional.defis_json)
+    `).run(cleanCnpj, pa, now, declJson, dasJson, defisJson);
+  }
+
+  public getSimplesResult(cnpj: string, periodoApuracao: string): any {
+    const cleanCnpj = cnpj.replace(/\D/g, "");
+    const pa = periodoApuracao.replace(/\D/g, "");
+    const row = this.db.prepare(`
+      SELECT * FROM cache_simples_nacional WHERE cnpj = ? AND periodo_apuracao = ?
+    `).get(cleanCnpj, pa) as any;
+    if (!row) return null;
+
+    return {
+      cnpj: row.cnpj,
+      periodo_apuracao: row.periodo_apuracao,
+      data_consulta: row.data_consulta,
+      declaracoes: row.declaracoes_json ? JSON.parse(row.declaracoes_json) : [],
+      dasGerado: row.das_gerado_json ? JSON.parse(row.das_gerado_json) : null,
+      defis: row.defis_json ? JSON.parse(row.defis_json) : [],
+    };
+  }
+
+  public listAllSimplesResults(): any[] {
+    const rows = this.db.prepare(`
+      SELECT * FROM cache_simples_nacional ORDER BY data_consulta DESC
+    `).all() as any[];
+
+    return rows.map((row) => ({
+      cnpj: row.cnpj,
+      periodo_apuracao: row.periodo_apuracao,
+      data_consulta: row.data_consulta,
+      declaracoes: row.declaracoes_json ? JSON.parse(row.declaracoes_json) : [],
+      dasGerado: row.das_gerado_json ? JSON.parse(row.das_gerado_json) : null,
+      defis: row.defis_json ? JSON.parse(row.defis_json) : [],
+    }));
+  }
+
+  // --- Módulo Parcelamentos ---
+  public saveParcelamentoResult(
+    cnpj: string,
+    modalidade: "PARCSN" | "PARCMEI",
+    data: {
+      pedidos?: any[];
+      parcelas?: any[];
+    },
+  ): void {
+    const cleanCnpj = cnpj.replace(/\D/g, "");
+    const now = new Date().toISOString();
+
+    const existing = this.getParcelamentoResult(cleanCnpj, modalidade);
+    const pedidosJson = data.pedidos ? JSON.stringify(data.pedidos) : existing?.pedidos_json || null;
+    const parcelasJson = data.parcelas ? JSON.stringify(data.parcelas) : existing?.parcelas_json || null;
+
+    this.db.prepare(`
+      INSERT INTO cache_parcelamentos (cnpj, modalidade, data_consulta, pedidos_json, parcelas_json)
+      VALUES (?, ?, ?, ?, ?)
+      ON CONFLICT(cnpj, modalidade) DO UPDATE SET
+        data_consulta = excluded.data_consulta,
+        pedidos_json = COALESCE(excluded.pedidos_json, cache_parcelamentos.pedidos_json),
+        parcelas_json = COALESCE(excluded.parcelas_json, cache_parcelamentos.parcelas_json)
+    `).run(cleanCnpj, modalidade, now, pedidosJson, parcelasJson);
+  }
+
+  public getParcelamentoResult(cnpj: string, modalidade: "PARCSN" | "PARCMEI" = "PARCSN"): any {
+    const cleanCnpj = cnpj.replace(/\D/g, "");
+    const row = this.db.prepare(`
+      SELECT * FROM cache_parcelamentos WHERE cnpj = ? AND modalidade = ?
+    `).get(cleanCnpj, modalidade) as any;
+    if (!row) return null;
+
+    return {
+      cnpj: row.cnpj,
+      modalidade: row.modalidade,
+      data_consulta: row.data_consulta,
+      pedidos: row.pedidos_json ? JSON.parse(row.pedidos_json) : [],
+      parcelas: row.parcelas_json ? JSON.parse(row.parcelas_json) : [],
+    };
+  }
+
+  public listAllParcelamentos(): any[] {
+    const rows = this.db.prepare(`
+      SELECT * FROM cache_parcelamentos ORDER BY data_consulta DESC
+    `).all() as any[];
+
+    return rows.map((row) => ({
+      cnpj: row.cnpj,
+      modalidade: row.modalidade,
+      data_consulta: row.data_consulta,
+      pedidos: row.pedidos_json ? JSON.parse(row.pedidos_json) : [],
+      parcelas: row.parcelas_json ? JSON.parse(row.parcelas_json) : [],
+    }));
+  }
+
+  // --- Módulo Procurações RFB ---
+  public saveProcuracao(dados: {
+    cnpj: string;
+    outorgado?: string;
+    data_expiracao?: string | null;
+    dataExpiracaoMaisProxima?: string | null;
+    dias_restantes?: number | null;
+    menorDiasRestantes?: number | null;
+    situacao?: string;
+    statusGeral?: string;
+    total_sistemas?: number;
+    totalSistemas?: number;
+    sistemas?: string[];
+    procuracoes?: any[];
+  }): void {
+    const cleanCnpj = dados.cnpj.replace(/\D/g, "");
+    const cleanOutorgado = (dados.outorgado || "").replace(/\D/g, "");
+    const now = new Date().toISOString();
+    const sistemasJson = JSON.stringify(dados.sistemas || []);
+    const procuracoesJson = JSON.stringify(dados.procuracoes || []);
+    const situacao = dados.situacao || dados.statusGeral || "VIGENTE";
+    const dataExp = dados.data_expiracao || dados.dataExpiracaoMaisProxima || null;
+    const diasRest = dados.dias_restantes ?? dados.menorDiasRestantes ?? null;
+    const totalSistemas = dados.total_sistemas ?? dados.totalSistemas ?? (dados.sistemas ? dados.sistemas.length : 0);
+
+    this.db.prepare(`
+      INSERT INTO cache_procuracoes (
+        cnpj, outorgado, data_expiracao, dias_restantes, situacao, total_sistemas, sistemas_json, procuracoes_json, data_consulta
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+      ON CONFLICT(cnpj) DO UPDATE SET
+        outorgado = excluded.outorgado,
+        data_expiracao = excluded.data_expiracao,
+        dias_restantes = excluded.dias_restantes,
+        situacao = excluded.situacao,
+        total_sistemas = excluded.total_sistemas,
+        sistemas_json = excluded.sistemas_json,
+        procuracoes_json = excluded.procuracoes_json,
+        data_consulta = excluded.data_consulta
+    `).run(
+      cleanCnpj,
+      cleanOutorgado,
+      dataExp,
+      diasRest,
+      situacao,
+      totalSistemas,
+      sistemasJson,
+      procuracoesJson,
+      now
+    );
+  }
+
+  public getProcuracao(cnpj: string): any {
+    const cleanCnpj = cnpj.replace(/\D/g, "");
+    const row = this.db.prepare(`
+      SELECT * FROM cache_procuracoes WHERE cnpj = ?
+    `).get(cleanCnpj) as any;
+    if (!row) return null;
+
+    return {
+      cnpj: row.cnpj,
+      outorgado: row.outorgado,
+      data_expiracao: row.data_expiracao,
+      dias_restantes: row.dias_restantes,
+      situacao: row.situacao,
+      total_sistemas: row.total_sistemas,
+      sistemas: row.sistemas_json ? JSON.parse(row.sistemas_json) : [],
+      procuracoes: row.procuracoes_json ? JSON.parse(row.procuracoes_json) : [],
+      data_consulta: row.data_consulta,
+    };
+  }
+
+  public listAllProcuracoes(): any[] {
+    const rows = this.db.prepare(`
+      SELECT * FROM cache_procuracoes ORDER BY dias_restantes ASC NULLS LAST
+    `).all() as any[];
+
+    return rows.map((row) => ({
+      cnpj: row.cnpj,
+      outorgado: row.outorgado,
+      data_expiracao: row.data_expiracao,
+      dias_restantes: row.dias_restantes,
+      situacao: row.situacao,
+      total_sistemas: row.total_sistemas,
+      sistemas: row.sistemas_json ? JSON.parse(row.sistemas_json) : [],
+      procuracoes: row.procuracoes_json ? JSON.parse(row.procuracoes_json) : [],
+      data_consulta: row.data_consulta,
+    }));
+  }
+
+  // --- Módulo Worker Noturno / Varredura Automática ---
+  public saveWorkerHistorico(execucao: {
+    status: string;
+    total_empresas: number;
+    empresas_processadas: number;
+    novas_mensagens_encontradas: number;
+    pendencias_encontradas: number;
+    procuracoes_vencendo: number;
+    duracao_ms: number;
+    detalhes?: any;
+  }): number {
+    const now = new Date().toISOString();
+    const detalhesJson = execucao.detalhes ? JSON.stringify(execucao.detalhes) : null;
+
+    const res = this.db.prepare(`
+      INSERT INTO historico_worker_noturno (
+        data_execucao, status, total_empresas, empresas_processadas,
+        novas_mensagens_encontradas, pendencias_encontradas, procuracoes_vencendo,
+        duracao_ms, detalhes_json
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `).run(
+      now,
+      execucao.status,
+      execucao.total_empresas,
+      execucao.empresas_processadas,
+      execucao.novas_mensagens_encontradas,
+      execucao.pendencias_encontradas,
+      execucao.procuracoes_vencendo,
+      execucao.duracao_ms,
+      detalhesJson
+    );
+
+    return Number(res.lastInsertRowid);
+  }
+
+  public listWorkerHistorico(limit: number = 20): any[] {
+    const rows = this.db.prepare(`
+      SELECT * FROM historico_worker_noturno ORDER BY id DESC LIMIT ?
+    `).all(limit) as any[];
+
+    return rows.map((r) => ({
+      id: r.id,
+      data_execucao: r.data_execucao,
+      status: r.status,
+      total_empresas: r.total_empresas,
+      empresas_processadas: r.empresas_processadas,
+      novas_mensagens_encontradas: r.novas_mensagens_encontradas,
+      pendencias_encontradas: r.pendencias_encontradas,
+      procuracoes_vencendo: r.procuracoes_vencendo,
+      duracao_ms: r.duracao_ms,
+      detalhes: r.detalhes_json ? JSON.parse(r.detalhes_json) : null,
+    }));
+  }
+
+  public getLatestWorkerHistorico(): any | null {
+    const r = this.db.prepare(`
+      SELECT * FROM historico_worker_noturno ORDER BY id DESC LIMIT 1
+    `).get() as any;
+    if (!r) return null;
+
+    return {
+      id: r.id,
+      data_execucao: r.data_execucao,
+      status: r.status,
+      total_empresas: r.total_empresas,
+      empresas_processadas: r.empresas_processadas,
+      novas_mensagens_encontradas: r.novas_mensagens_encontradas,
+      pendencias_encontradas: r.pendencias_encontradas,
+      procuracoes_vencendo: r.procuracoes_vencendo,
+      duracao_ms: r.duracao_ms,
+      detalhes: r.detalhes_json ? JSON.parse(r.detalhes_json) : null,
+    };
+  }
+
+  public saveParcelamentoPgfn(p: ParcelamentoPgfnInput): number {
+    const now = new Date().toISOString();
+    if (p.id) {
+      this.db.prepare(`
+        UPDATE parcelamentos_pgfn
+        SET cnpj = ?, razao_social = ?, numero_negociacao = ?, modalidade = ?,
+            codigo_receita = ?, valor_parcela = ?, dia_vencimento = ?,
+            status = COALESCE(?, status), observacoes = ?, data_atualizacao = ?
+        WHERE id = ?
+      `).run(
+        p.cnpj.replace(/\D/g, ""),
+        p.razao_social || "",
+        p.numero_negociacao,
+        p.modalidade,
+        p.codigo_receita || "1734",
+        p.valor_parcela || 0,
+        p.dia_vencimento || 30,
+        p.status || "EM_DIA",
+        p.observacoes || "",
+        now,
+        p.id
+      );
+      return p.id;
+    }
+
+    const res = this.db.prepare(`
+      INSERT INTO parcelamentos_pgfn (
+        cnpj, razao_social, numero_negociacao, modalidade, codigo_receita,
+        valor_parcela, dia_vencimento, status, observacoes, data_criacao, data_atualizacao
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `).run(
+      p.cnpj.replace(/\D/g, ""),
+      p.razao_social || "",
+      p.numero_negociacao,
+      p.modalidade,
+      p.codigo_receita || "1734",
+      p.valor_parcela || 0,
+      p.dia_vencimento || 30,
+      p.status || "EM_DIA",
+      p.observacoes || "",
+      now,
+      now
+    );
+
+    return Number(res.lastInsertRowid);
+  }
+
+  public listParcelamentosPgfn(cnpj?: string): ParcelamentoPgfnRecord[] {
+    let query = "SELECT * FROM parcelamentos_pgfn";
+    const params: any[] = [];
+    if (cnpj) {
+      query += " WHERE cnpj = ?";
+      params.push(cnpj.replace(/\D/g, ""));
+    }
+    query += " ORDER BY id DESC";
+
+    const rows = this.db.prepare(query).all(...params) as any[];
+    return rows.map((r) => ({
+      id: r.id,
+      cnpj: r.cnpj,
+      razao_social: r.razao_social,
+      numero_negociacao: r.numero_negociacao,
+      modalidade: r.modalidade,
+      codigo_receita: r.codigo_receita,
+      valor_parcela: r.valor_parcela,
+      dia_vencimento: r.dia_vencimento,
+      status: r.status,
+      ultima_auditoria: r.ultima_auditoria,
+      detalhes_auditoria: r.detalhes_auditoria,
+      observacoes: r.observacoes,
+      data_criacao: r.data_criacao,
+      data_atualizacao: r.data_atualizacao,
+    }));
+  }
+
+  public getParcelamentoPgfn(id: number): ParcelamentoPgfnRecord | null {
+    const r = this.db.prepare("SELECT * FROM parcelamentos_pgfn WHERE id = ?").get(id) as any;
+    if (!r) return null;
+    return {
+      id: r.id,
+      cnpj: r.cnpj,
+      razao_social: r.razao_social,
+      numero_negociacao: r.numero_negociacao,
+      modalidade: r.modalidade,
+      codigo_receita: r.codigo_receita,
+      valor_parcela: r.valor_parcela,
+      dia_vencimento: r.dia_vencimento,
+      status: r.status,
+      ultima_auditoria: r.ultima_auditoria,
+      detalhes_auditoria: r.detalhes_auditoria,
+      observacoes: r.observacoes,
+      data_criacao: r.data_criacao,
+      data_atualizacao: r.data_atualizacao,
+    };
+  }
+
+  public deleteParcelamentoPgfn(id: number): boolean {
+    const res = this.db.prepare("DELETE FROM parcelamentos_pgfn WHERE id = ?").run(id);
+    return res.changes > 0;
+  }
+
+  public updateParcelamentoPgfnAuditoria(id: number, status: string, detalhes: string): boolean {
+    const now = new Date().toISOString();
+    const res = this.db.prepare(`
+      UPDATE parcelamentos_pgfn
+      SET status = ?, ultima_auditoria = ?, detalhes_auditoria = ?, data_atualizacao = ?
+      WHERE id = ?
+    `).run(status, now, detalhes, now, id);
+    return res.changes > 0;
+  }
+
   public close(): void {
     this.db.close();
   }
+}
+
+export interface ParcelamentoPgfnInput {
+  id?: number;
+  cnpj: string;
+  razao_social?: string;
+  numero_negociacao: string;
+  modalidade: string;
+  codigo_receita?: string;
+  valor_parcela?: number;
+  dia_vencimento?: number;
+  status?: string;
+  observacoes?: string;
+}
+
+export interface ParcelamentoPgfnRecord extends ParcelamentoPgfnInput {
+  id: number;
+  ultima_auditoria?: string;
+  detalhes_auditoria?: string;
+  data_criacao: string;
+  data_atualizacao: string;
 }

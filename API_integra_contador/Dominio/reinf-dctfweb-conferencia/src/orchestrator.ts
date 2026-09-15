@@ -143,7 +143,7 @@ export class ConferenciaOrchestrator {
           totalR2000: tot2000,
           totalR4000: tot4000,
           totalGeralDominio: totalGeral,
-          temMovimento: hasRecibo && totalGeral > 0,
+          temMovimento: hasRecibo, // inclui empresas fechadas com "sem movimento" (R-2099 com total zero)
           statusDominio,
         };
       });

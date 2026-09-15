@@ -30,6 +30,16 @@ describe("identidade do documento", () => {
     expect(identifyDocumentKind("706 - DCTFWEB 082026.pdf")).toBeUndefined();
   });
 
+  it("reconhece DAE eSocial somente pela combinacao de marcadores internos", () => {
+    const header = "Documento de Arrecadacao do eSocial\nComposicao do Documento de Arrecadacao\n";
+    expect(identifyDocumentKind(`${header}07 CP SEGURADOS - EMPREGADO CONTRATADO POR MEI`)).toBe("dae_esocial");
+    expect(identifyDocumentKind(`${header}07 CP DESCONTADA SEGURADO-EMPREGADO`)).toBe("dae_esocial");
+    expect(identifyDocumentKind("160 - DAE ESOCIAL 08-2026.pdf")).toBeUndefined();
+    expect(identifyDocumentKind("Documento de Arrecadacao do eSocial\nCP SEGURADOS")).toBeUndefined();
+    expect(identifyDocumentKind("Composicao do Documento de Arrecadacao\nCP SEGURADOS")).toBeUndefined();
+    expect(identifyDocumentKind(header)).toBeUndefined();
+  });
+
   it("reconhece FGTS Digital e extrai raiz e razao social pelos rotulos", () => {
     const text = "CPF/CNPJ do Empregador\n46.583.870\nNome/Razao Social do Empregador\nR DA S LIMA\nInformacoes de recolhimentos do FGTS\nGFD - Guia do FGTS Digital";
     expect(identifyDocumentKind(text)).toBe("fgts_digital");

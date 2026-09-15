@@ -54,6 +54,21 @@ describe("execucao do lote", () => {
     expect(store.has(row.sha256, row.task!.id)).toBe(true);
   });
 
+  it("nunca executa uma tarefa ja concluida", async () => {
+    const { root, row, confirmation } = setup();
+    row.task = { ...row.task!, status: "completed" };
+    const gateway = new DemoExpressDocumentsGateway();
+    const complete = vi.spyOn(gateway, "completeTaskWithDocument");
+    const executor = new BatchExecutor(
+      new DemoCompanyResolver(), gateway, new ProcessedDocumentStore(path.join(root, "store.json")),
+      async () => ({ text: "CNPJ 12.345.678/0001-95\nEmpresa Demonstracao Ltda\nCompetencia: 07/2026\nVencimento: 21/08/2026" }),
+    );
+    const report = await executor.run([row], [confirmation], { isCancellationRequested: () => false });
+    expect(report.items[0]).toMatchObject({ status: "failed" });
+    expect(report.items[0].message).toContain("ja esta concluida");
+    expect(complete).not.toHaveBeenCalled();
+  });
+
   it("mantem documento publicado como pendencia quando o vencimento falha", async () => {
     const { root, row, confirmation } = setup();
     const gateway = new DemoExpressDocumentsGateway();

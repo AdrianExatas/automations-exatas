@@ -1,0 +1,62 @@
+-- ==============================================================================
+-- CONSULTA: VALOR eSOCIAL - RETORNO S-5002 EXTRATOR DA DIRF
+-- Descrição: Extrai os rendimentos, deduções, imposto retido e isentos
+--            retornados pelo eSocial nos eventos S-5002 processados pelo Extrator.
+-- Parâmetros opcionais a serem injetados dinamicamente no Python:
+--   :WHERE_EMPRESA (ex: tot.CODI_EMP = 206 ou tot.CODI_EMP IN (...))
+--   :WHERE_COMPETENCIA (ex: tot.COMPETENCIA_REF BETWEEN '2026-01-01' AND '2026-12-01')
+-- ==============================================================================
+
+SELECT 
+    tot.CODI_EMP,
+    emp.NOME_EMP,
+    tot.COMPETENCIA_REF,
+    ext.CPF,
+    ext.NOME                            AS NOME_COLABORADOR,
+    tot.I_DADOS_EVENTOS,
+    tot.CRMEN,
+
+    -- Rendimentos Tributáveis
+    COALESCE(tot.VLRRENDTRIB, 0)        AS ESOCIAL_RENDTRIB_MENSAL,
+    COALESCE(tot.VLRRENDTRIB13, 0)      AS ESOCIAL_RENDTRIB_13,
+    
+    -- Previdência Oficial
+    COALESCE(tot.VLRPREVOFICIAL, 0)     AS ESOCIAL_PREV_OFICIAL_MENSAL,
+    COALESCE(tot.VLRPREVOFICIAL13, 0)   AS ESOCIAL_PREV_OFICIAL_13,
+    
+    -- Imposto Retido
+    COALESCE(tot.VLRCRMEN, 0)           AS ESOCIAL_IMPOSTO_RETIDO_MENSAL,
+    COALESCE(tot.VLRCR13MEN, 0)         AS ESOCIAL_IMPOSTO_RETIDO_13,
+
+    -- Rendimentos Isentos e Não Tributáveis
+    COALESCE(tot.VLRPARCISENTA65, 0)    AS ESOCIAL_PARC_ISENTA_65,
+    COALESCE(tot.VLRPARCISENTA65DEC, 0) AS ESOCIAL_PARC_ISENTA_65DEC,
+    COALESCE(tot.VLRDIARIAS, 0)         AS ESOCIAL_DIARIAS,
+    COALESCE(tot.VLRAJUDACUSTO, 0)      AS ESOCIAL_AJUDA_CUSTO,
+    COALESCE(tot.VLRINDRESCONTRATO, 0)  AS ESOCIAL_INDENIZACAO_RESC,
+    COALESCE(tot.VLRABONOPEC, 0)        AS ESOCIAL_ABONO_PEC,
+    COALESCE(tot.VLRRENDMOLEGRAVE, 0)   AS ESOCIAL_MOLESTIA_GRAVE,
+    COALESCE(tot.VLRRENDMOLEGRAVE13, 0) AS ESOCIAL_MOLESTIA_GRAVE_13,
+    COALESCE(tot.VLRAUXMORADIA, 0)      AS ESOCIAL_AUX_MORADIA,
+    COALESCE(tot.VLRBOLSAMEDICO, 0)     AS ESOCIAL_BOLSA_MEDICO,
+    COALESCE(tot.VLRBOLSAMEDICO13, 0)   AS ESOCIAL_BOLSA_MEDICO_13,
+    COALESCE(tot.VLRJUROSMORA, 0)       AS ESOCIAL_JUROS_MORA,
+    COALESCE(tot.VLRISENOUTROS, 0)      AS ESOCIAL_OUTROS_ISENTOS
+
+FROM bethadba.FOESOCIAL_ARQUIVO_RETORNO_S_5002_EXTRATOR_TOTALIZADOR tot
+JOIN bethadba.FOESOCIAL_ARQUIVO_RETORNO_S_5002_EXTRATOR ext
+  ON ext.CODI_EMP = tot.CODI_EMP 
+ AND ext.I_DADOS_EVENTOS = tot.I_DADOS_EVENTOS
+JOIN bethadba.GEEMPRE emp 
+  ON emp.CODI_EMP = tot.CODI_EMP
+JOIN bethadba.FOESOCIAL_DADOS_EVENTOS fde
+  ON fde.CODI_EMP = tot.CODI_EMP 
+ AND fde.I_DADOS_EVENTOS = tot.I_DADOS_EVENTOS
+WHERE fde.VALIDADO = 1
+  AND NOT EXISTS (
+      SELECT 1 
+      FROM bethadba.FOESOCIAL_DADOS_EVENTOS ret
+      WHERE ret.CODI_EMP_EVENTO_RETIFICADO = fde.CODI_EMP
+        AND ret.I_DADOS_EVENTOS_EVENTO_RETIFICADO = fde.I_DADOS_EVENTOS
+        AND ret.VALIDADO = 1
+  )

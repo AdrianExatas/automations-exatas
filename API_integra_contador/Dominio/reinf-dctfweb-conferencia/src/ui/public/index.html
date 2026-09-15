@@ -6,7 +6,7 @@
   <title>Conferência REINF × DCTFWeb × Domínio — Integra Contador 360°</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -61,34 +61,108 @@
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
           Conciliar com DCTFWeb
         </button>
-        <button id="btnExportExcel" class="btn btn-success" disabled>
+        <button id="btnRunWorker" class="btn btn-worker" title="Executar varredura automática em segundo plano (Caixa Postal, Procurações e CND)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+          <span id="workerStatusText">Varredura Noturna</span>
+        </button>
+        <button id="btnExportExcel" class="btn btn-success" title="Exportar planilha Excel de conciliação DCTFWeb">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           Exportar Excel
         </button>
       </div>
     </header>
 
+    <!-- Work Hubs Bar -->
+    <div class="work-hubs-bar">
+      <div class="work-hubs-container">
+        <button type="button" class="hub-pill active" data-hub="apuracoes" id="hubBtnApuracoes" aria-pressed="true">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          <span>Declarações & DCTFWeb</span>
+        </button>
+        <button type="button" class="hub-pill" data-hub="regularidade" id="hubBtnRegularidade" aria-pressed="false">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+          <span>Regularidade & Auditoria</span>
+          <span class="hub-count" id="hubAlertRegularidade" hidden>0</span>
+        </button>
+        <button type="button" class="hub-pill" data-hub="comunicacao" id="hubBtnComunicacao" aria-pressed="false">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22 6 12 13 2 6"/></svg>
+          <span>Comunicação & Guias</span>
+          <span class="hub-count hub-count-warning" id="hubAlertComunicacao" hidden>0</span>
+        </button>
+      </div>
+
+      <div class="global-search-wrap" role="search">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="search" id="globalCompanySearch" placeholder="Buscar empresa por CNPJ, nome ou código..." class="global-search-input" autocomplete="off" aria-autocomplete="list" aria-controls="globalSearchResults" aria-expanded="false">
+        <span class="search-shortcut">Ctrl K</span>
+        <div id="globalSearchResults" class="global-search-results" role="listbox" aria-label="Empresas encontradas" hidden></div>
+      </div>
+    </div>
+
     <!-- Navigation Tabs Bar -->
-    <nav class="app-tabs-nav">
-      <div class="tabs-container">
-        <button class="nav-tab active" data-tab="dctfweb" id="tabBtnDctfweb">
-          <span class="tab-icon">📊</span>
+    <nav class="app-tabs-nav" aria-label="Módulos fiscais">
+      <div class="tabs-container" role="tablist">
+        <button type="button" class="nav-tab active" data-tab="dctfweb" data-hub="apuracoes" id="tabBtnDctfweb" role="tab" aria-selected="true" aria-controls="viewDctfweb">
+          <span class="tab-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          </span>
           <span class="tab-title">Conferência DCTFWeb</span>
         </button>
-        <button class="nav-tab" data-tab="sitfis" id="tabBtnSitfis">
-          <span class="tab-icon">🛡️</span>
+        <button type="button" class="nav-tab" data-tab="simples" data-hub="apuracoes" id="tabBtnSimples" role="tab" aria-selected="false" aria-controls="viewSimples">
+          <span class="tab-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+          </span>
+          <span class="tab-title">Simples Nacional (PGDAS-D)</span>
+          <span class="nav-tab-badge" id="badgeSimplesCount">0</span>
+        </button>
+        <button type="button" class="nav-tab" data-tab="mei" data-hub="apuracoes" id="tabBtnMei" role="tab" aria-selected="false" aria-controls="viewMei">
+          <span class="tab-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </span>
+          <span class="tab-title">MEI Expresso</span>
+        </button>
+
+        <button type="button" class="nav-tab" data-tab="sitfis" data-hub="regularidade" id="tabBtnSitfis" role="tab" aria-selected="false" aria-controls="viewSitfis">
+          <span class="tab-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+          </span>
           <span class="tab-title">Situação Fiscal (CND)</span>
           <span class="nav-tab-badge" id="badgeSitfisCount">0</span>
         </button>
-        <button class="nav-tab" data-tab="caixapostal" id="tabBtnCaixapostal">
-          <span class="tab-icon">📬</span>
-          <span class="tab-title">Caixa Postal Fiscal & DTE</span>
+        <button type="button" class="nav-tab" data-tab="parcelamentos" data-hub="regularidade" id="tabBtnParcelamentos" role="tab" aria-selected="false" aria-controls="viewParcelamentos">
+          <span class="tab-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          </span>
+          <span class="tab-title">Parcelamentos Fiscais & PGFN</span>
+          <span class="nav-tab-badge" id="badgeParcelamentosCount">0</span>
+        </button>
+        <button type="button" class="nav-tab" data-tab="procuracoes" data-hub="regularidade" id="tabBtnProcuracoes" role="tab" aria-selected="false" aria-controls="viewProcuracoes">
+          <span class="tab-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><polyline points="17 11 19 13 23 9"/></svg>
+          </span>
+          <span class="tab-title">Procurações RFB</span>
+          <span class="nav-tab-badge badge-warning" id="badgeProcuracoesAlerta" style="display: none;">0 alertas</span>
+        </button>
+
+        <button type="button" class="nav-tab" data-tab="caixapostal" data-hub="comunicacao" id="tabBtnCaixapostal" role="tab" aria-selected="false" aria-controls="viewCaixapostal">
+          <span class="tab-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22 6 12 13 2 6"/></svg>
+          </span>
+          <span class="tab-title">Caixa Postal & DTE</span>
           <span class="nav-tab-badge badge-unread" id="badgeCaixaPostalNovas">0 novas</span>
         </button>
-        <button class="nav-tab" data-tab="pagamentos" id="tabBtnPagamentos">
-          <span class="tab-icon">💳</span>
+        <button type="button" class="nav-tab" data-tab="pagamentos" data-hub="comunicacao" id="tabBtnPagamentos" role="tab" aria-selected="false" aria-controls="viewPagamentos">
+          <span class="tab-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+          </span>
           <span class="tab-title">Pagamentos Arrecadados</span>
           <span class="nav-tab-badge" id="badgePagamentosCount">0</span>
+        </button>
+        <button type="button" class="nav-tab" data-tab="sicalc" data-hub="comunicacao" id="tabBtnSicalc" role="tab" aria-selected="false" aria-controls="viewSicalc">
+          <span class="tab-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="16" y1="14" x2="16" y2="18"/><line x1="8" y1="10" x2="8.01" y2="10"/><line x1="12" y1="10" x2="12.01" y2="10"/><line x1="16" y1="10" x2="16.01" y2="10"/><line x1="8" y1="14" x2="8.01" y2="14"/><line x1="12" y1="14" x2="12.01" y2="14"/><line x1="8" y1="18" x2="8.01" y2="18"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+          </span>
+          <span class="tab-title">Calculadora Sicalc</span>
         </button>
       </div>
     </nav>
@@ -98,13 +172,13 @@
       <!-- ========================================================================= -->
       <!-- ABA 1: CONFERÊNCIA REINF X DCTFWEB X DOMÍNIO                             -->
       <!-- ========================================================================= -->
-      <div id="viewDctfweb" class="tab-view active">
+      <div id="viewDctfweb" class="tab-view active" role="tabpanel" aria-labelledby="tabBtnDctfweb">
         <!-- Executive KPI Cards -->
         <section class="kpi-grid">
           <div class="kpi-card" id="cardTotal">
             <div class="kpi-header">
               <span class="kpi-label">Empresas no Domínio</span>
-              <span class="kpi-icon icon-neutral">🏢</span>
+              <span class="kpi-icon icon-neutral"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16M9 9h1M9 13h1M9 17h1M14 9h1M14 13h1M14 17h1"/></svg></span>
             </div>
             <div class="kpi-value" id="valTotalEmpresas">0</div>
             <div class="kpi-sub" id="subTotalEmpresas">841 cadastradas na base</div>
@@ -113,7 +187,7 @@
           <div class="kpi-card card-blue" id="cardMovimento">
             <div class="kpi-header">
               <span class="kpi-label">Com Movimento (Domínio)</span>
-              <span class="kpi-icon icon-blue">📊</span>
+              <span class="kpi-icon icon-blue"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span>
             </div>
             <div class="kpi-value" id="valComMovimento">0</div>
             <div class="kpi-sub">Apuração ativa (Débitos > R$ 0)</div>
@@ -122,7 +196,7 @@
           <div class="kpi-card card-success" id="cardConformes">
             <div class="kpi-header">
               <span class="kpi-label">Conformes (DCTFWeb)</span>
-              <span class="kpi-icon icon-success">✓</span>
+              <span class="kpi-icon icon-success"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></span>
             </div>
             <div class="kpi-value" id="valConformes">0</div>
             <div class="kpi-sub">100% coincidentes em centavos</div>
@@ -131,7 +205,7 @@
           <div class="kpi-card card-danger" id="cardDivergentes">
             <div class="kpi-header">
               <span class="kpi-label">Divergentes</span>
-              <span class="kpi-icon icon-danger">✕</span>
+              <span class="kpi-icon icon-danger"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span>
             </div>
             <div class="kpi-value" id="valDivergentes">0</div>
             <div class="kpi-sub">Diferença ≥ R$ 0,01</div>
@@ -140,7 +214,7 @@
           <div class="kpi-card card-warning" id="cardPendentes">
             <div class="kpi-header">
               <span class="kpi-label">Pendentes na Domínio</span>
-              <span class="kpi-icon icon-warning">⚠</span>
+              <span class="kpi-icon icon-warning"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></span>
             </div>
             <div class="kpi-value" id="valPendentes">0</div>
             <div class="kpi-sub">Reaberto ou sem recibo</div>
@@ -149,7 +223,7 @@
           <div class="kpi-card card-purple" id="cardSemDctf">
             <div class="kpi-header">
               <span class="kpi-label">Sem DCTFWeb</span>
-              <span class="kpi-icon icon-purple">📄</span>
+              <span class="kpi-icon icon-purple"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span>
             </div>
             <div class="kpi-value" id="valSemDctf">0</div>
             <div class="kpi-sub">Não transmitida no SERPRO</div>
@@ -158,6 +232,10 @@
 
         <!-- Financial Totals Banner -->
         <section class="financial-banner">
+          <div class="financial-context">
+            <span>Conciliação da competência</span>
+            <strong id="finCoverage">0 de 0 empresas conciliadas</strong>
+          </div>
           <div class="fin-item">
             <span class="fin-label">Total EFD-Reinf (Domínio)</span>
             <span class="fin-value" id="finTotalDominio">R$ 0,00</span>
@@ -182,8 +260,8 @@
           </div>
 
           <div class="status-filters">
-            <button class="filter-pill active pill-blue" data-status="COM_MOVIMENTO">Com Movimento (<span id="countComMov">0</span>)</button>
-            <button class="filter-pill" data-status="SEM_MOVIMENTO">Sem Movimento (<span id="countSemMov">0</span>)</button>
+            <button class="filter-pill active pill-blue" data-status="COM_MOVIMENTO">Com Recibo Reinf (<span id="countComMov">0</span>)</button>
+            <button class="filter-pill" data-status="SEM_MOVIMENTO">Sem Fechamento (<span id="countSemMov">0</span>)</button>
             <button class="filter-pill" data-status="ALL">Todas (<span id="countAll">0</span>)</button>
             <button class="filter-pill pill-success" data-status="CONFORME">Conformes (<span id="countConf">0</span>)</button>
             <button class="filter-pill pill-danger" data-status="DIVERGENTE">Divergentes (<span id="countDiv">0</span>)</button>
@@ -235,13 +313,13 @@
       <!-- ========================================================================= -->
       <!-- ABA 2: SITUAÇÃO FISCAL & CND (RFB / PGFN)                                -->
       <!-- ========================================================================= -->
-      <div id="viewSitfis" class="tab-view" style="display: none;">
+      <div id="viewSitfis" class="tab-view" role="tabpanel" aria-labelledby="tabBtnSitfis" hidden>
         <!-- KPI Cards Situação Fiscal -->
         <section class="kpi-grid">
           <div class="kpi-card" id="cardSitfisTotal">
             <div class="kpi-header">
               <span class="kpi-label">Total Empresas</span>
-              <span class="kpi-icon icon-neutral">🏢</span>
+              <span class="kpi-icon icon-neutral"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16M9 9h1M9 13h1M9 17h1M14 9h1M14 13h1M14 17h1"/></svg></span>
             </div>
             <div class="kpi-value" id="valSitfisTotal">0</div>
             <div class="kpi-sub">Empresas ativas cadastradas</div>
@@ -249,7 +327,7 @@
           <div class="kpi-card card-success" id="cardSitfisRegular">
             <div class="kpi-header">
               <span class="kpi-label">CND Regular (Negativa)</span>
-              <span class="kpi-icon icon-success">🛡️</span>
+              <span class="kpi-icon icon-success"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
             </div>
             <div class="kpi-value" id="valSitfisRegular">0</div>
             <div class="kpi-sub">Sem pendências na Receita/PGFN</div>
@@ -257,7 +335,7 @@
           <div class="kpi-card card-danger" id="cardSitfisPendencias">
             <div class="kpi-header">
               <span class="kpi-label">Com Pendências Fiscais</span>
-              <span class="kpi-icon icon-danger">✕</span>
+              <span class="kpi-icon icon-danger"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span>
             </div>
             <div class="kpi-value" id="valSitfisPendencias">0</div>
             <div class="kpi-sub">Débitos, omissões ou dívida ativa</div>
@@ -273,7 +351,7 @@
           <div class="kpi-card" id="cardSitfisNaoConsultadas">
             <div class="kpi-header">
               <span class="kpi-label">Não Consultadas</span>
-              <span class="kpi-icon icon-neutral">⚪</span>
+              <span class="kpi-icon icon-neutral"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg></span>
             </div>
             <div class="kpi-value" id="valSitfisNaoConsultadas">0</div>
             <div class="kpi-sub">Sem solicitação recente</div>
@@ -325,13 +403,13 @@
       <!-- ========================================================================= -->
       <!-- ABA 3: CAIXA POSTAL FISCAL & DTE (RFB / SIMPLES)                         -->
       <!-- ========================================================================= -->
-      <div id="viewCaixapostal" class="tab-view" style="display: none;">
+      <div id="viewCaixapostal" class="tab-view" role="tabpanel" aria-labelledby="tabBtnCaixapostal" hidden>
         <!-- KPI Cards Caixa Postal -->
         <section class="kpi-grid">
           <div class="kpi-card" id="cardCaixaTotal">
             <div class="kpi-header">
               <span class="kpi-label">Empresas Monitoradas</span>
-              <span class="kpi-icon icon-neutral">🏢</span>
+              <span class="kpi-icon icon-neutral"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16M9 9h1M9 13h1M9 17h1M14 9h1M14 13h1M14 17h1"/></svg></span>
             </div>
             <div class="kpi-value" id="valCaixaTotal">0</div>
             <div class="kpi-sub">Com CNPJ na base Domínio</div>
@@ -339,7 +417,7 @@
           <div class="kpi-card card-danger" id="cardCaixaNovas">
             <div class="kpi-header">
               <span class="kpi-label">Com Novas Mensagens</span>
-              <span class="kpi-icon icon-danger">📬</span>
+              <span class="kpi-icon icon-danger"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22 6 12 13 2 6"/></svg></span>
             </div>
             <div class="kpi-value" id="valCaixaNovas">0</div>
             <div class="kpi-sub">Mensagens não lidas na RFB</div>
@@ -347,7 +425,7 @@
           <div class="kpi-card card-blue" id="cardCaixaTotalMsg">
             <div class="kpi-header">
               <span class="kpi-label">Mensagens Carregadas</span>
-              <span class="kpi-icon icon-blue">💬</span>
+              <span class="kpi-icon icon-blue"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
             </div>
             <div class="kpi-value" id="valCaixaTotalMsg">0</div>
             <div class="kpi-sub">Notificações e avisos oficiais</div>
@@ -355,7 +433,7 @@
           <div class="kpi-card card-success" id="cardCaixaEmDia">
             <div class="kpi-header">
               <span class="kpi-label">Caixa Postal Em Dia</span>
-              <span class="kpi-icon icon-success">✓</span>
+              <span class="kpi-icon icon-success"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></span>
             </div>
             <div class="kpi-value" id="valCaixaEmDia">0</div>
             <div class="kpi-sub">Sem mensagens pendentes</div>
@@ -406,13 +484,13 @@
       <!-- ========================================================================= -->
       <!-- ABA 4: PAGAMENTOS ARRECADADOS (DARF / DAS / COMPROVANTES)                -->
       <!-- ========================================================================= -->
-      <div id="viewPagamentos" class="tab-view" style="display: none;">
+      <div id="viewPagamentos" class="tab-view" role="tabpanel" aria-labelledby="tabBtnPagamentos" hidden>
         <!-- KPI Cards Pagamentos -->
         <section class="kpi-grid">
           <div class="kpi-card" id="cardPagTotalEmpresas">
             <div class="kpi-header">
               <span class="kpi-label">Empresas Monitoradas</span>
-              <span class="kpi-icon icon-neutral">🏢</span>
+              <span class="kpi-icon icon-neutral"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16M9 9h1M9 13h1M9 17h1M14 9h1M14 13h1M14 17h1"/></svg></span>
             </div>
             <div class="kpi-value" id="valPagTotalEmpresas">0</div>
             <div class="kpi-sub">Total da carteira</div>
@@ -420,7 +498,7 @@
           <div class="kpi-card card-success" id="cardPagComPagamentos">
             <div class="kpi-header">
               <span class="kpi-label">Com Pagamentos Identificados</span>
-              <span class="kpi-icon icon-success">💰</span>
+              <span class="kpi-icon icon-success"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>
             </div>
             <div class="kpi-value" id="valPagComPagamentos">0</div>
             <div class="kpi-sub">Guias pagas na rede bancária</div>
@@ -428,7 +506,7 @@
           <div class="kpi-card card-blue" id="cardPagTotalValor">
             <div class="kpi-header">
               <span class="kpi-label">Total Arrecadado</span>
-              <span class="kpi-icon icon-blue">💳</span>
+              <span class="kpi-icon icon-blue"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></span>
             </div>
             <div class="kpi-value" id="valPagTotalValor">R$ 0,00</div>
             <div class="kpi-sub">Soma de tributos liquidados</div>
@@ -436,7 +514,7 @@
           <div class="kpi-card card-purple" id="cardPagTotalGuias">
             <div class="kpi-header">
               <span class="kpi-label">Guias Arrecadadas</span>
-              <span class="kpi-icon icon-purple">📄</span>
+              <span class="kpi-icon icon-purple"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span>
             </div>
             <div class="kpi-value" id="valPagTotalGuias">0</div>
             <div class="kpi-sub">DARFs, DAS e comprovantes</div>
@@ -483,14 +561,430 @@
           </div>
         </section>
       </div>
+
+      <!-- ========================================================================= -->
+      <!-- ABA 5: SIMPLES NACIONAL (PGDAS-D / DEFIS)                                -->
+      <!-- ========================================================================= -->
+      <div id="viewSimples" class="tab-view" role="tabpanel" aria-labelledby="tabBtnSimples" hidden>
+        <!-- KPI Cards Simples Nacional -->
+        <section class="kpi-grid">
+          <div class="kpi-card" id="cardSimplesTotal">
+            <div class="kpi-header">
+              <span class="kpi-label">Empresas Monitoradas</span>
+              <span class="kpi-icon icon-neutral"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16M9 9h1M9 13h1M9 17h1M14 9h1M14 13h1M14 17h1"/></svg></span>
+            </div>
+            <div class="kpi-value" id="valSimplesTotal">0</div>
+            <div class="kpi-sub">Total da carteira</div>
+          </div>
+          <div class="kpi-card card-blue" id="cardSimplesDeclaradas">
+            <div class="kpi-header">
+              <span class="kpi-label">PGDAS-D Transmitidos</span>
+              <span class="kpi-icon icon-blue"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span>
+            </div>
+            <div class="kpi-value" id="valSimplesDeclaradas">0</div>
+            <div class="kpi-sub">Declarações mensais apuradas</div>
+          </div>
+          <div class="kpi-card card-success" id="cardSimplesPagas">
+            <div class="kpi-header">
+              <span class="kpi-label">DAS Pago / Quitado</span>
+              <span class="kpi-icon icon-success"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></span>
+            </div>
+            <div class="kpi-value" id="valSimplesPagas">0</div>
+            <div class="kpi-sub">Comprovado no SERPRO</div>
+          </div>
+          <div class="kpi-card card-warning" id="cardSimplesEmAberto">
+            <div class="kpi-header">
+              <span class="kpi-label">DAS Em Aberto</span>
+              <span class="kpi-icon icon-warning">⏳</span>
+            </div>
+            <div class="kpi-value" id="valSimplesEmAberto">0</div>
+            <div class="kpi-sub">Aguardando pagamento</div>
+          </div>
+          <div class="kpi-card card-purple" id="cardSimplesDefis">
+            <div class="kpi-header">
+              <span class="kpi-label">DEFIS Transmitidas</span>
+              <span class="kpi-icon icon-purple"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span>
+            </div>
+            <div class="kpi-value" id="valSimplesDefis">0</div>
+            <div class="kpi-sub">Declaração Anual RFB</div>
+          </div>
+        </section>
+
+        <!-- Toolbar Simples Nacional -->
+        <section class="filter-bar">
+          <div class="search-box">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="searchSimplesInput" placeholder="Buscar por Razão Social, CNPJ ou Código..." />
+          </div>
+          <div class="status-filters">
+            <button class="filter-pill active pill-blue" data-simples-filter="ALL">Todas (<span id="countSimplesAll">0</span>)</button>
+            <button class="filter-pill pill-success" data-simples-filter="PAGO">DAS Pago (<span id="countSimplesPago">0</span>)</button>
+            <button class="filter-pill pill-warning" data-simples-filter="EM_ABERTO">DAS Em Aberto (<span id="countSimplesAberto">0</span>)</button>
+            <button class="filter-pill" data-simples-filter="NAO_CONSULTADA">Não Consultadas (<span id="countSimplesNaoCons">0</span>)</button>
+          </div>
+        </section>
+
+        <!-- Table Simples Nacional -->
+        <section class="table-section">
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Código</th>
+                  <th>CNPJ</th>
+                  <th>Razão Social</th>
+                  <th>PA</th>
+                  <th>Nº Declaração</th>
+                  <th>Status DAS</th>
+                  <th>Data Transmissão</th>
+                  <th>Origem</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="tableSimplesBody">
+                <tr>
+                  <td colspan="9" class="empty-state">Carregando dados do Simples Nacional...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+
+      <!-- ========================================================================= -->
+      <!-- ABA 6: GESTOR DE PARCELAMENTOS FISCAIS (PARCSN / PARCMEI)                -->
+      <!-- ========================================================================= -->
+      <div id="viewParcelamentos" class="tab-view" role="tabpanel" aria-labelledby="tabBtnParcelamentos" hidden>
+        <!-- KPI Cards Parcelamentos -->
+        <section class="kpi-grid">
+          <div class="kpi-card" id="cardParcTotal">
+            <div class="kpi-header">
+              <span class="kpi-label">Empresas Monitoradas</span>
+              <span class="kpi-icon icon-neutral"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16M9 9h1M9 13h1M9 17h1M14 9h1M14 13h1M14 17h1"/></svg></span>
+            </div>
+            <div class="kpi-value" id="valParcTotal">0</div>
+            <div class="kpi-sub">Total da carteira</div>
+          </div>
+          <div class="kpi-card card-success" id="cardParcAtivos">
+            <div class="kpi-header">
+              <span class="kpi-label">Acordos Ativos</span>
+              <span class="kpi-icon icon-success"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span>
+            </div>
+            <div class="kpi-value" id="valParcAtivos">0</div>
+            <div class="kpi-sub">Parcelamentos em cobrança regular</div>
+          </div>
+          <div class="kpi-card card-warning" id="cardParcParcelas">
+            <div class="kpi-header">
+              <span class="kpi-label">Parcelas a Vencer</span>
+              <span class="kpi-icon icon-warning">⏳</span>
+            </div>
+            <div class="kpi-value" id="valParcParcelas">0</div>
+            <div class="kpi-sub">Guias disponíveis para emissão</div>
+          </div>
+          <div class="kpi-card card-blue" id="cardParcSemAcordo">
+            <div class="kpi-header">
+              <span class="kpi-label">Sem Parcelamento</span>
+              <span class="kpi-icon icon-blue"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></span>
+            </div>
+            <div class="kpi-value" id="valParcSemAcordo">0</div>
+            <div class="kpi-sub">Sem débitos parcelados</div>
+          </div>
+        </section>
+
+        <!-- Toolbar Parcelamentos -->
+        <section class="filter-bar">
+          <div class="search-box">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="searchParcInput" placeholder="Buscar por Razão Social, CNPJ ou Código..." />
+          </div>
+          <div class="status-filters">
+            <button class="filter-pill active pill-blue" data-parc-filter="ALL">Todas (<span id="countParcAll">0</span>)</button>
+            <button class="filter-pill pill-success" data-parc-filter="COM_ACORDO">Com Acordo Ativo (<span id="countParcCom">0</span>)</button>
+            <button class="filter-pill pill-warning" data-parc-filter="COM_PARCELA">Com Parcela a Gerar (<span id="countParcComParc">0</span>)</button>
+            <button class="filter-pill" data-parc-filter="NAO_CONSULTADA">Não Consultadas (<span id="countParcNaoCons">0</span>)</button>
+          </div>
+        </section>
+
+        <!-- Table Parcelamentos -->
+        <section class="table-section">
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Código</th>
+                  <th>CNPJ</th>
+                  <th>Razão Social</th>
+                  <th>Modalidade</th>
+                  <th>Nº do Pedido</th>
+                  <th>Situação</th>
+                  <th>Parcelas a Gerar</th>
+                  <th>Última Consulta</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="tableParcBody">
+                <tr>
+                  <td colspan="9" class="empty-state">Carregando Parcelamentos Fiscais...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Divisor e Seção PGFN -->
+        <div style="margin: 2.5rem 0 1.5rem 0; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-medium); padding-top: 1.5rem;">
+          <div>
+            <h3 style="font-size: 1.15rem; font-weight: 700; color: #F8FAFC; display: flex; align-items: center; gap: 0.5rem;">
+              <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 16l3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1zM2 16l3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1zM7 21h10M12 3v18M3 7h18"/></svg></span> Gestão & Rastreio de Parcelamentos PGFN (Dívida Ativa da União)
+            </h3>
+            <p style="font-size: 0.85rem; color: #94A3B8; margin-top: 0.25rem;">
+              Acompanhamento de acordos da PGFN (Edital PGDAU, Ordinário, Transações) com auditoria automática de pagamentos bancários e alertas de risco de rescisão.
+            </p>
+          </div>
+          <button class="btn btn-primary" id="btnNovoAcordoPgfn" onclick="abrirModalNovoAcordoPgfn()">
+            + Novo Acordo PGFN
+          </button>
+        </div>
+
+        <!-- KPIs PGFN -->
+        <section class="kpi-grid">
+          <div class="kpi-card" id="cardPgfnTotal">
+            <div class="kpi-header">
+              <span class="kpi-label">Acordos PGFN</span>
+              <span class="kpi-icon icon-neutral"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 16l3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1zM2 16l3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1zM7 21h10M12 3v18M3 7h18"/></svg></span>
+            </div>
+            <div class="kpi-value" id="valPgfnTotal">0</div>
+            <div class="kpi-sub">Total de contas cadastradas</div>
+          </div>
+          <div class="kpi-card card-success" id="cardPgfnPagos">
+            <div class="kpi-header">
+              <span class="kpi-label">Quitados no Mês</span>
+              <span class="kpi-icon icon-success"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></span>
+            </div>
+            <div class="kpi-value" id="valPgfnPagos">0</div>
+            <div class="kpi-sub">Confirmados no SERPRO Pagamentos</div>
+          </div>
+          <div class="kpi-card card-blue" id="cardPgfnEmDia">
+            <div class="kpi-header">
+              <span class="kpi-label">A Vencer no Mês</span>
+              <span class="kpi-icon icon-blue">⏳</span>
+            </div>
+            <div class="kpi-value" id="valPgfnEmDia">0</div>
+            <div class="kpi-sub">Dentro do prazo regulamentar</div>
+          </div>
+          <div class="kpi-card card-warning" id="cardPgfnRisco">
+            <div class="kpi-header">
+              <span class="kpi-label">Risco de Rescisão / Alerta</span>
+              <span class="kpi-icon icon-warning"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></span>
+            </div>
+            <div class="kpi-value" id="valPgfnRisco">0</div>
+            <div class="kpi-sub">Pendências impeditivas na PGFN</div>
+          </div>
+        </section>
+
+        <!-- Tabela PGFN -->
+        <section class="table-section">
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>CNPJ / Razão Social</th>
+                  <th>Nº da Negociação / Conta</th>
+                  <th>Modalidade PGFN</th>
+                  <th>Parcela Estimada</th>
+                  <th>Vencimento</th>
+                  <th>Código Receita</th>
+                  <th>Status de Quitação</th>
+                  <th>Última Auditoria</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="tablePgfnBody">
+                <tr>
+                  <td colspan="9" class="empty-state">Nenhum acordo de parcelamento PGFN cadastrado. Clique em "+ Novo Acordo PGFN" para adicionar.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+
+      <!-- ========================================================================= -->
+      <!-- ABA 7: AUDITORIA DE PROCURAÇÕES ELETRÔNICAS RFB                           -->
+      <!-- ========================================================================= -->
+      <div id="viewProcuracoes" class="tab-view" role="tabpanel" aria-labelledby="tabBtnProcuracoes" hidden>
+        <section class="kpi-grid">
+          <div class="kpi-card" id="cardProcTotal">
+            <div class="kpi-header">
+              <span class="kpi-label">Procurações Mapeadas</span>
+              <span class="kpi-icon icon-neutral"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span>
+            </div>
+            <div class="kpi-value" id="valProcTotal">0</div>
+            <div class="kpi-sub">Total de clientes auditados</div>
+          </div>
+          <div class="kpi-card" id="cardProcVigentes">
+            <div class="kpi-header">
+              <span class="kpi-label">Vigentes (> 60 dias)</span>
+              <span class="kpi-icon icon-success"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></span>
+            </div>
+            <div class="kpi-value" id="valProcVigentes">0</div>
+            <div class="kpi-sub">Procurações regulares</div>
+          </div>
+          <div class="kpi-card" id="cardProcAlerta">
+            <div class="kpi-header">
+              <span class="kpi-label">Atenção (31 a 60 dias)</span>
+              <span class="kpi-icon icon-warning"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></span>
+            </div>
+            <div class="kpi-value" id="valProcAlerta">0</div>
+            <div class="kpi-sub">Programar renovação</div>
+          </div>
+          <div class="kpi-card" id="cardProcCritica">
+            <div class="kpi-header">
+              <span class="kpi-label">Críticas / Expiradas (≤ 30d)</span>
+              <span class="kpi-icon icon-danger"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></span>
+            </div>
+            <div class="kpi-value" id="valProcCritica">0</div>
+            <div class="kpi-sub">Risco iminente de bloqueio</div>
+          </div>
+        </section>
+
+        <section class="filters-section">
+          <div class="search-box">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <input type="text" id="searchProcInput" placeholder="Buscar procuração por Razão Social, CNPJ ou Código..." />
+          </div>
+          <div class="status-filters">
+            <button class="filter-pill active pill-blue" data-proc-filter="ALL">Todas (<span id="countProcAll">0</span>)</button>
+            <button class="filter-pill pill-danger" data-proc-filter="CRITICA_EXPIRADA">Críticas / Expiradas (<span id="countProcCritica">0</span>)</button>
+            <button class="filter-pill pill-warning" data-proc-filter="ALERTA">Em Alerta (<span id="countProcAlerta">0</span>)</button>
+            <button class="filter-pill pill-success" data-proc-filter="VIGENTE">Vigentes (<span id="countProcVigente">0</span>)</button>
+            <button class="filter-pill" data-proc-filter="NAO_CONSULTADA">Não Consultadas (<span id="countProcNaoCons">0</span>)</button>
+          </div>
+        </section>
+
+        <section class="table-section">
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Código</th>
+                  <th>CNPJ</th>
+                  <th>Razão Social</th>
+                  <th>Expiração RFB</th>
+                  <th>Dias Restantes</th>
+                  <th>Status de Vigência</th>
+                  <th>Sistemas Autorizados</th>
+                  <th>Última Consulta</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="tableProcBody">
+                <tr>
+                  <td colspan="9" class="empty-state">Carregando Procurações Eletrônicas...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+
+      <!-- ========================================================================= -->
+      <!-- ABA 8: ATENDIMENTO EXPRESSO MEI                                           -->
+      <!-- ========================================================================= -->
+      <div id="viewMei" class="tab-view" role="tabpanel" aria-labelledby="tabBtnMei" hidden>
+        <div class="panel-card" style="margin-bottom: 1.5rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 1.5rem;">
+          <div class="panel-card-header" style="margin-bottom: 1rem;">
+            <h3 style="font-size: 1.25rem; font-weight: 700; color: #F8FAFC;">Central de Atendimento Expresso MEI</h3>
+            <p style="color: #94A3B8; font-size: 0.9rem; margin-top: 0.25rem;">
+              Emissão oficial do CCMEI em PDF, geração direta do DAS-MEI do mês e consulta de débitos na Dívida Ativa da União via webservice SERPRO.
+            </p>
+          </div>
+          <div style="display: grid; grid-template-columns: 2fr 1fr auto; gap: 1rem; align-items: flex-end;">
+            <div>
+              <label style="display: block; font-size: 0.85rem; color: #94A3B8; margin-bottom: 0.35rem;">CNPJ do Microempreendedor (MEI):</label>
+              <input type="text" id="meiCnpjInput" placeholder="Ex: 00.000.000/0001-00" style="width: 100%; padding: 0.65rem 1rem; border-radius: var(--radius-md); background: #0F172A; border: 1px solid var(--border-color); color: #F8FAFC;" />
+            </div>
+            <div>
+              <label style="display: block; font-size: 0.85rem; color: #94A3B8; margin-bottom: 0.35rem;">Período de Apuração (AAAAMM):</label>
+              <input type="text" id="meiPeriodoInput" placeholder="Ex: 202608" style="width: 100%; padding: 0.65rem 1rem; border-radius: var(--radius-md); background: #0F172A; border: 1px solid var(--border-color); color: #F8FAFC;" />
+            </div>
+            <div style="display: flex; gap: 0.5rem;">
+              <button id="btnEmitirCcmei" class="btn btn-primary" title="Emite Certificado da Condição de MEI em PDF">
+                CCMEI (PDF)
+              </button>
+              <button id="btnGerarDasMei" class="btn btn-success" title="Gera o DAS-MEI em PDF">
+                DAS-MEI (PDF)
+              </button>
+              <button id="btnDividaAtivaMei" class="btn btn-secondary" title="Consulta débitos inscritos em dívida ativa">
+                Dívida Ativa
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div id="meiResultContainer" class="panel-card" style="display: none; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 1.5rem;">
+          <h4 id="meiResultTitle" style="color: #60A5FA; margin-bottom: 0.75rem; font-size: 1.1rem;">Resultado da Operação MEI</h4>
+          <div id="meiResultBody"></div>
+        </div>
+      </div>
+
+      <!-- ========================================================================= -->
+      <!-- ABA 9: CALCULADORA SICALC E EMISSÃO DE DARF AVULSO                        -->
+      <!-- ========================================================================= -->
+      <div id="viewSicalc" class="tab-view" role="tabpanel" aria-labelledby="tabBtnSicalc" hidden>
+        <div class="panel-card" style="margin-bottom: 1.5rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 1.5rem;">
+          <div class="panel-card-header" style="margin-bottom: 1rem;">
+            <h3 style="font-size: 1.25rem; font-weight: 700; color: #F8FAFC;">Emissão de DARF Avulso e Cálculo de Acréscimos (Sicalc)</h3>
+            <p style="color: #94A3B8; font-size: 0.9rem; margin-top: 0.25rem;">
+              Cálculo oficial de multas e juros SELIC pela Receita Federal e consolidação de DARF avulso numerado com código de barras em PDF.
+            </p>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+            <div>
+              <label style="display: block; font-size: 0.85rem; color: #94A3B8; margin-bottom: 0.35rem;">CNPJ do Contribuinte:</label>
+              <input type="text" id="sicalcCnpj" placeholder="CNPJ (14 dígitos)" style="width: 100%; padding: 0.65rem 1rem; border-radius: var(--radius-md); background: #0F172A; border: 1px solid var(--border-color); color: #F8FAFC;" />
+            </div>
+            <div>
+              <label style="display: block; font-size: 0.85rem; color: #94A3B8; margin-bottom: 0.35rem;">Código da Receita:</label>
+              <input type="text" id="sicalcReceita" placeholder="Ex: 0190, 0220, 1162, 1708" style="width: 100%; padding: 0.65rem 1rem; border-radius: var(--radius-md); background: #0F172A; border: 1px solid var(--border-color); color: #F8FAFC;" />
+            </div>
+            <div>
+              <label style="display: block; font-size: 0.85rem; color: #94A3B8; margin-bottom: 0.35rem;">Período de Apuração (MM/AAAA):</label>
+              <input type="text" id="sicalcPA" placeholder="Ex: 08/2026" style="width: 100%; padding: 0.65rem 1rem; border-radius: var(--radius-md); background: #0F172A; border: 1px solid var(--border-color); color: #F8FAFC;" />
+            </div>
+            <div>
+              <label style="display: block; font-size: 0.85rem; color: #94A3B8; margin-bottom: 0.35rem;">Valor Principal (R$):</label>
+              <input type="number" step="0.01" id="sicalcValor" placeholder="Ex: 1500.00" style="width: 100%; padding: 0.65rem 1rem; border-radius: var(--radius-md); background: #0F172A; border: 1px solid var(--border-color); color: #F8FAFC;" />
+            </div>
+            <div>
+              <label style="display: block; font-size: 0.85rem; color: #94A3B8; margin-bottom: 0.35rem;">Vencimento Original:</label>
+              <input type="date" id="sicalcVencimento" style="width: 100%; padding: 0.65rem 1rem; border-radius: var(--radius-md); background: #0F172A; border: 1px solid var(--border-color); color: #F8FAFC;" />
+            </div>
+            <div>
+              <label style="display: block; font-size: 0.85rem; color: #94A3B8; margin-bottom: 0.35rem;">Data de Pagamento:</label>
+              <input type="date" id="sicalcConsolidacao" style="width: 100%; padding: 0.65rem 1rem; border-radius: var(--radius-md); background: #0F172A; border: 1px solid var(--border-color); color: #F8FAFC;" />
+            </div>
+          </div>
+          <div style="margin-top: 1.25rem; display: flex; justify-content: flex-end;">
+            <button id="btnEmitirDarfSicalc" class="btn btn-primary" style="padding: 0.75rem 1.5rem; font-size: 1rem;">
+              Calcular e Emitir DARF Oficial (PDF)
+            </button>
+          </div>
+        </div>
+
+        <div id="sicalcResultContainer" class="panel-card" style="display: none; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 1.5rem;">
+          <h4 style="color: #34D399; margin-bottom: 0.75rem; font-size: 1.1rem;">Demonstrativo de Cálculo e Emissão Sicalc</h4>
+          <div id="sicalcResultBody"></div>
+        </div>
+      </div>
     </main>
   </div>
 
   <!-- Modal Estimativa de Chamadas SERPRO (DCTFWeb) -->
-  <div class="modal-overlay" id="estimateModal">
+  <div class="modal-overlay" id="estimateModal" role="dialog" aria-modal="true" aria-labelledby="estimateModalTitle" aria-hidden="true">
     <div class="modal-card">
       <div class="modal-header">
-        <h3>Estimativa de Tarifação SERPRO</h3>
+        <h3 id="estimateModalTitle">Estimativa de Tarifação SERPRO</h3>
         <button class="modal-close" id="btnCloseModal">&times;</button>
       </div>
       <div class="modal-body">
@@ -547,7 +1041,7 @@
   </div>
 
   <!-- Modal Detalhes Caixa Postal -->
-  <div class="modal-overlay" id="caixaPostalModal">
+  <div class="modal-overlay" id="caixaPostalModal" role="dialog" aria-modal="true" aria-labelledby="caixaModalTitle" aria-hidden="true">
     <div class="modal-card" style="max-width: 800px;">
       <div class="modal-header">
         <h3 id="caixaModalTitle">Mensagens da Caixa Postal RFB</h3>
@@ -563,7 +1057,7 @@
   </div>
 
   <!-- Modal Detalhes Pagamentos -->
-  <div class="modal-overlay" id="pagamentosModal">
+  <div class="modal-overlay" id="pagamentosModal" role="dialog" aria-modal="true" aria-labelledby="pagamentosModalTitle" aria-hidden="true">
     <div class="modal-card" style="max-width: 900px;">
       <div class="modal-header">
         <h3 id="pagamentosModalTitle">Guias e Tributos Arrecadados</h3>
@@ -578,8 +1072,285 @@
     </div>
   </div>
 
+  <!-- Modal Detalhes Simples Nacional -->
+  <div class="modal-overlay" id="simplesModal" role="dialog" aria-modal="true" aria-labelledby="simplesModalTitle" aria-hidden="true">
+    <div class="modal-card" style="max-width: 900px;">
+      <div class="modal-header">
+        <h3 id="simplesModalTitle">Detalhes do Simples Nacional / PGDAS-D</h3>
+        <button class="modal-close" id="btnCloseSimplesModal">&times;</button>
+      </div>
+      <div class="modal-body" id="simplesModalBody">
+        <div class="loading-state">Carregando detalhes do Simples Nacional...</div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="btnCloseSimplesBtn">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Detalhes Parcelamentos -->
+  <div class="modal-overlay" id="parcelamentoModal" role="dialog" aria-modal="true" aria-labelledby="parcModalTitle" aria-hidden="true">
+    <div class="modal-card" style="max-width: 850px;">
+      <div class="modal-header">
+        <h3 id="parcModalTitle">Parcelamento Fiscal — Acordos e Parcelas</h3>
+        <button class="modal-close" id="btnCloseParcModal">&times;</button>
+      </div>
+      <div class="modal-body" id="parcModalBody">
+        <div class="loading-state">Carregando parcelas do acordo...</div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="btnCloseParcBtn">Fechar</button>
+  <!-- Modal Detalhes Procuração e Sistemas -->
+  <div class="modal-overlay" id="procuracaoModal" role="dialog" aria-modal="true" aria-labelledby="procModalTitle" aria-hidden="true">
+    <div class="modal-card" style="max-width: 800px;">
+      <div class="modal-header">
+        <h3 id="procModalTitle">Sistemas Autorizados na Procuração RFB</h3>
+        <button class="modal-close" id="btnCloseProcModal">&times;</button>
+      </div>
+      <div class="modal-body" id="procModalBody">
+        <div class="loading-state">Carregando detalhes da procuração...</div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="btnCloseProcBtn">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Dossiê Fiscal Obsidian -->
+  <div class="modal-overlay" id="obsidianModal" role="dialog" aria-modal="true" aria-labelledby="obsidianModalTitle" aria-hidden="true">
+    <div class="modal-card" style="max-width: 950px; max-height: 90vh; display: flex; flex-direction: column;">
+      <div class="modal-header">
+        <h3 id="obsidianModalTitle">Dossiê Fiscal da Empresa — Integração Obsidian</h3>
+        <button class="modal-close" id="btnCloseObsidianModal">&times;</button>
+      </div>
+      <div class="modal-body" style="flex: 1; overflow-y: auto;">
+        <div style="margin-bottom: 0.75rem; display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-size: 0.85rem; color: #94A3B8;">Estrutura oficial em Markdown com Frontmatter YAML e Tags contábeis</span>
+          <div style="display: flex; gap: 0.5rem;">
+            <button id="btnCopyMarkdown" class="btn btn-secondary" style="font-size: 0.8rem; padding: 0.4rem 0.8rem;">
+              Copiar Markdown
+            </button>
+            <button id="btnDownloadDossieMd" class="btn btn-primary" style="font-size: 0.8rem; padding: 0.4rem 0.8rem;">
+              ⬇️ Baixar Arquivo .md
+            </button>
+          </div>
+        </div>
+        <pre id="obsidianPreviewPre" style="background: #090D16; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1rem; color: #E2E8F0; font-family: 'Consolas', monospace; font-size: 0.85rem; white-space: pre-wrap; line-height: 1.5;"></pre>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="btnCloseObsidianBtn">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Kit Mensal de Fechamento -->
+  <div class="modal-overlay" id="kitMensalModal" role="dialog" aria-modal="true" aria-labelledby="kitModalTitle" aria-hidden="true">
+    <div class="modal-card" style="max-width: 850px;">
+      <div class="modal-header">
+        <h3 id="kitModalTitle">Kit Mensal de Fechamento & Guias</h3>
+        <button class="modal-close" id="btnCloseKitModal">&times;</button>
+      </div>
+      <div class="modal-body" id="kitModalBody">
+        <div class="loading-state">Compilando guias do mês...</div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="btnCloseKitBtn">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Worker Noturno / Varredura -->
+  <div class="modal-overlay" id="workerModal" role="dialog" aria-modal="true" aria-labelledby="workerModalTitle" aria-hidden="true">
+    <div class="modal-card" style="max-width: 750px;">
+      <div class="modal-header">
+        <h3 id="workerModalTitle">Varredura Noturna &amp; Rotina em Segundo Plano</h3>
+        <button class="modal-close" id="btnCloseWorkerModal">&times;</button>
+      </div>
+      <div class="modal-body" id="workerModalBody">
+        <div id="workerLiveStatus">
+          <p style="color: #94A3B8; margin-bottom: 1rem;">
+            A varredura percorre proativamente a carteira de empresas ativas, consultando mensagens novas na Caixa Postal, atualizando procurações RFB e checando a situação de CND no SERPRO.
+          </p>
+          <div id="workerProgressBox" style="background: #0F172A; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.25rem; margin-bottom: 1rem;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+              <span id="workerStatusLabel" style="font-weight: 600;">Status: Ocioso</span>
+              <span id="workerProgressPercent">0%</span>
+            </div>
+            <div style="background: #1E293B; border-radius: 999px; height: 8px; overflow: hidden;">
+              <div id="workerProgressBar" style="background: var(--primary); height: 100%; width: 0%; transition: width 0.3s ease;"></div>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; margin-top: 1rem; text-align: center;">
+              <div style="background: rgba(255,255,255,0.03); padding: 0.5rem; border-radius: 6px;">
+                <div style="font-size: 0.75rem; color: #94A3B8;">Novas Mensagens</div>
+                <div id="workerNovasMsg" style="font-size: 1.1rem; font-weight: 700; color: #60A5FA;">0</div>
+              </div>
+              <div style="background: rgba(255,255,255,0.03); padding: 0.5rem; border-radius: 6px;">
+                <div style="font-size: 0.75rem; color: #94A3B8;">Procurações Críticas</div>
+                <div id="workerProcCriticas" style="font-size: 1.1rem; font-weight: 700; color: #F87171;">0</div>
+              </div>
+              <div style="background: rgba(255,255,255,0.03); padding: 0.5rem; border-radius: 6px;">
+                <div style="font-size: 0.75rem; color: #94A3B8;">Pendências CND</div>
+                <div id="workerPendenciasCnd" style="font-size: 1.1rem; font-weight: 700; color: #FBBF24;">0</div>
+              </div>
+            </div>
+          </div>
+          <div style="display: flex; gap: 0.75rem; justify-content: flex-end;">
+            <button id="btnTriggerWorkerNow" class="btn btn-primary">
+              ▶️ Iniciar Varredura de Amostra (5 empresas)
+            </button>
+            <button id="btnTriggerWorkerAll" class="btn btn-secondary">
+              Iniciar Varredura Completa (Carteira Ativa)
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="btnCloseWorkerBtn">Fechar</button>
+      </div>
+    </div>
+  <!-- Modal Novo Acordo PGFN -->
+  <div class="modal-overlay" id="novoAcordoPgfnModal" role="dialog" aria-modal="true" aria-labelledby="modalPgfnTitle" aria-hidden="true">
+    <div class="modal-card" style="max-width: 600px;">
+      <div class="modal-header">
+        <h3 id="modalPgfnTitle">Cadastrar Acordo de Parcelamento PGFN</h3>
+        <button class="modal-close" onclick="fecharModalPgfn()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="formAcordoPgfn" onsubmit="salvarAcordoPgfn(event)">
+          <input type="hidden" id="pgfnId" />
+          <div class="form-group" style="margin-bottom: 1rem;">
+            <label style="display: block; font-size: 0.85rem; color: #94A3B8; margin-bottom: 0.4rem;">Empresa do Domínio:</label>
+            <select id="pgfnEmpresaSelect" class="form-control" style="width: 100%;" required onchange="onSelectEmpresaPgfn(this)">
+              <option value="">Selecione uma empresa ativa...</option>
+            </select>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+            <div class="form-group">
+              <label style="display: block; font-size: 0.85rem; color: #94A3B8; margin-bottom: 0.4rem;">Nº da Negociação / Conta DAU:</label>
+              <input type="text" id="pgfnNumeroNegociacao" class="form-control" placeholder="ex: 80.123.456-7" required />
+            </div>
+            <div class="form-group">
+              <label style="display: block; font-size: 0.85rem; color: #94A3B8; margin-bottom: 0.4rem;">Modalidade PGFN:</label>
+              <select id="pgfnModalidade" class="form-control" required>
+                <option value="Transação por Edital PGDAU">Transação por Edital PGDAU</option>
+                <option value="Parcelamento Ordinário PGFN">Parcelamento Ordinário PGFN</option>
+                <option value="Transação por Adesão">Transação por Adesão</option>
+                <option value="Transação Individual PGFN">Transação Individual PGFN</option>
+                <option value="PARCSN em Dívida Ativa">PARCSN em Dívida Ativa</option>
+                <option value="Outros Acordos DAU">Outros Acordos DAU</option>
+              </select>
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+            <div class="form-group">
+              <label style="display: block; font-size: 0.85rem; color: #94A3B8; margin-bottom: 0.4rem;">Valor da Parcela (R$):</label>
+              <input type="number" step="0.01" id="pgfnValorParcela" class="form-control" placeholder="0,00" required />
+            </div>
+            <div class="form-group">
+              <label style="display: block; font-size: 0.85rem; color: #94A3B8; margin-bottom: 0.4rem;">Dia Vencimento:</label>
+              <input type="number" min="1" max="31" id="pgfnDiaVencimento" class="form-control" value="30" required />
+            </div>
+            <div class="form-group">
+              <label style="display: block; font-size: 0.85rem; color: #94A3B8; margin-bottom: 0.4rem;">Código Receita:</label>
+              <input type="text" id="pgfnCodigoReceita" class="form-control" value="1734" placeholder="1734" />
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom: 1.5rem;">
+            <label style="display: block; font-size: 0.85rem; color: #94A3B8; margin-bottom: 0.4rem;">Observações / Detalhes da Negociação:</label>
+            <textarea id="pgfnObservacoes" class="form-control" rows="2" placeholder="Observações internas sobre o parcelamento, desconto de juros ou garantias..."></textarea>
+          </div>
+          <div style="display: flex; justify-content: flex-end; gap: 0.75rem;">
+            <button type="button" class="btn btn-secondary" onclick="fecharModalPgfn()">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Salvar Acordo PGFN</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Drawer Lateral: Perfil Fiscal 360° da Empresa -->
+  <div class="drawer-overlay" id="companyDrawer" role="dialog" aria-modal="true" aria-labelledby="drawerCompanyName" aria-hidden="true">
+    <div class="drawer-card" tabindex="-1">
+      <div class="drawer-header">
+        <div>
+          <span class="drawer-badge" id="drawerRegimeBadge">EMPRESA ATIVA</span>
+          <h3 id="drawerCompanyName" class="drawer-title">Razão Social da Empresa</h3>
+          <span id="drawerCompanyCnpj" class="drawer-subtitle font-mono">00.000.000/0000-00</span>
+        </div>
+        <button class="drawer-close" id="btnCloseDrawer" title="Fechar painel">&times;</button>
+      </div>
+
+      <div class="drawer-body">
+        <!-- Status 360° Summary Cards -->
+        <div class="drawer-section">
+          <h4 class="drawer-section-title">Diagnóstico Fiscal 360°</h4>
+          <div class="drawer-status-grid">
+            <div class="drawer-status-item">
+              <span class="drawer-status-label">Conferência DCTFWeb</span>
+              <strong id="drawerStatusDctfweb" class="font-mono">Pendente</strong>
+            </div>
+            <div class="drawer-status-item">
+              <span class="drawer-status-label">Situação Fiscal (CND)</span>
+              <strong id="drawerStatusSitfis">Consultando...</strong>
+            </div>
+            <div class="drawer-status-item">
+              <span class="drawer-status-label">Caixa Postal DTE</span>
+              <strong id="drawerStatusCaixa">Consultando...</strong>
+            </div>
+            <div class="drawer-status-item">
+              <span class="drawer-status-label">Procuração Eletrônica</span>
+              <strong id="drawerStatusProc">Vigente</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Totalizadores Fiscais -->
+        <div class="drawer-section">
+          <h4 class="drawer-section-title">Apuração na Competência (<span id="drawerCompLabel">2026-08</span>)</h4>
+          <div class="drawer-financial-box">
+            <div class="fin-row">
+              <span>Total Apurado Domínio:</span>
+              <strong id="drawerValDominio" class="font-mono">R$ 0,00</strong>
+            </div>
+            <div class="fin-row">
+              <span>Total Apurado DCTFWeb:</span>
+              <strong id="drawerValDctfweb" class="font-mono">R$ 0,00</strong>
+            </div>
+            <div class="fin-row fin-row-diff">
+              <span>Diferença / Divergência:</span>
+              <strong id="drawerValDiferenca" class="font-mono">R$ 0,00</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ações Rápidas -->
+        <div class="drawer-section">
+          <h4 class="drawer-section-title">Ações Operacionais Diretas</h4>
+          <div class="drawer-actions-grid">
+            <button class="btn btn-primary" id="drawerBtnReconciliar" style="width: 100%;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              Reconciliar com DCTFWeb
+            </button>
+            <button class="btn btn-secondary" id="drawerBtnEmitirDarf" style="width: 100%;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              Emitir Guia DARF Oficial
+            </button>
+            <button class="btn btn-secondary" id="drawerBtnKitMensal" style="width: 100%;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+              Compilar Kit Mensal de Guias
+            </button>
+            <button class="btn btn-secondary" id="drawerBtnObsidian" style="width: 100%;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+              Abrir Dossiê Markdown (Obsidian)
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Loading Overlay -->
-  <div class="loading-overlay" id="loadingOverlay">
+  <div class="loading-overlay" id="loadingOverlay" role="status" aria-live="polite" aria-hidden="true">
     <div class="loading-spinner"></div>
     <div class="loading-text" id="loadingText">Capturando dados do banco Domínio...</div>
   </div>
