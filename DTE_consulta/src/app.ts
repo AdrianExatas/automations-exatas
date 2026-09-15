@@ -48,18 +48,35 @@ export async function runAutomation(options: RunAutomationOptions = {}): Promise
   let fatal = false;
 
   try {
-    session = await launchBrowserSession(config);
-
     try {
-      await authenticateSpe(session.page!, config.procuratorCnpj, config.captchaTimeoutMs, logger);
-      targets = await fetchAllSpeProcurations(session.page!, config.procuratorCnpj, logger);
-      if (options.maxCompanies !== undefined) targets = targets.slice(0, options.maxCompanies);
-      await logger.log("info", `${targets.length} empresa(s) unica(s) carregada(s) do SPE.`);
+      session = await launchBrowserSession(config);
     } catch (error) {
       fatal = true;
-      failures.push(toFailure(error, "spe_list"));
+      failures.push(toFailure(error, "spe_auth"));
       await logger.log("error", error);
-      await saveAuthDiagnostic(session.page, runDir, "spe-auth-error.png");
+    }
+
+    if (!fatal) {
+      try {
+        await authenticateSpe(session.page!, config.procuratorCnpj, config.captchaTimeoutMs, logger);
+      } catch (error) {
+        fatal = true;
+        failures.push(toFailure(error, "spe_auth"));
+        await logger.log("error", error);
+        await saveAuthDiagnostic(session.page, runDir, "spe-auth-error.png");
+      }
+    }
+
+    if (!fatal) {
+      try {
+        targets = await fetchAllSpeProcurations(session.page!, config.procuratorCnpj, logger);
+        if (options.maxCompanies !== undefined) targets = targets.slice(0, options.maxCompanies);
+        await logger.log("info", `${targets.length} empresa(s) unica(s) carregada(s) do SPE.`);
+      } catch (error) {
+        fatal = true;
+        failures.push(toFailure(error, "spe_list"));
+        await logger.log("error", error);
+      }
     }
 
     const candidates = targets.filter((target) => {
@@ -131,32 +148,42 @@ async function processCompany(
   failures: FailureRecord[],
   logger: SafeLogger,
 ): Promise<void> {
+  let authorized: boolean;
   try {
-    const authorized = await client.checkDetPermission(target.cnpj);
-    if (!authorized) {
-      companies.push({
-        cnpj: target.cnpj,
-        corporateName: target.corporateName,
-        procurationStatus: target.rawStatus,
-        authorizedDet: false,
-        totalMessages: 0,
-        unreadMessages: null,
-        status: "unauthorized",
-        error: "Servico DET0003 nao autorizado.",
-      });
-      failures.push({
-        cnpj: target.cnpj,
-        corporateName: target.corporateName,
-        stage: "dte_permission",
-        category: "authorization",
-        httpStatus: null,
-        message: "Servico DET0003 nao autorizado.",
-        retryable: false,
-      });
-      await logger.log("warn", `${target.cnpj}: servico DET0003 nao autorizado.`);
-      return;
-    }
+    authorized = await client.checkDetPermission(target.cnpj);
+  } catch (error) {
+    const failure = toFailure(error, "dte_permission", target);
+    failures.push(failure);
+    companies.push(failedCompany(target, failure.message));
+    await logger.log("error", `${target.cnpj}: ${failure.message}`);
+    return;
+  }
 
+  if (!authorized) {
+    companies.push({
+      cnpj: target.cnpj,
+      corporateName: target.corporateName,
+      procurationStatus: target.rawStatus,
+      authorizedDet: false,
+      totalMessages: 0,
+      unreadMessages: null,
+      status: "unauthorized",
+      error: "Servico DET0003 nao autorizado.",
+    });
+    failures.push({
+      cnpj: target.cnpj,
+      corporateName: target.corporateName,
+      stage: "dte_permission",
+      category: "authorization",
+      httpStatus: null,
+      message: "Servico DET0003 nao autorizado.",
+      retryable: false,
+    });
+    await logger.log("warn", `${target.cnpj}: servico DET0003 nao autorizado.`);
+    return;
+  }
+
+  try {
     const mailbox = await client.getMailbox(target);
     companies.push({
       cnpj: target.cnpj,
@@ -174,11 +201,7 @@ async function processCompany(
       `${target.cnpj}: ${mailbox.messages.length} mensagem(ns), ${mailbox.unreadMessages} nao lida(s).`,
     );
   } catch (error) {
-    const stage: FailureStage =
-      error instanceof DteRequestError && error.category === "authorization"
-        ? "dte_permission"
-        : "dte_mailbox";
-    const failure = toFailure(error, stage, target);
+    const failure = toFailure(error, "dte_mailbox", target);
     failures.push(failure);
     companies.push(failedCompany(target, failure.message));
     await logger.log("error", `${target.cnpj}: ${failure.message}`);
