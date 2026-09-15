@@ -124,11 +124,14 @@ Fluxo para o operador:
 6. Clique em **Executar automacao**.
 7. Ao final, use o botao de relatorios para abrir a pasta com JSON/XLSX gerados.
 
+A ultima planilha selecionada fica salva no aplicativo. Ao abrir novamente, ela e restaurada automaticamente com os responsaveis que foram salvos no Excel. Ao usar **Modelo** sobre um arquivo ja existente, escolha **Usar arquivo existente** para preserva-lo; a substituicao pelo modelo padrao agora exige uma confirmacao explicita.
+
 Dados do aplicativo instalado:
 
 - login Gestta capturado: `%APPDATA%/Alterar Responsavel Gestta/auth/latest-auth.json`
 - relatorios, checkpoints e reversoes: `%APPDATA%/Alterar Responsavel Gestta/relatorios`
 - credenciais salvas: `%APPDATA%/Alterar Responsavel Gestta/credentials.json`
+- ultima planilha selecionada: `%APPDATA%/Alterar Responsavel Gestta/sheet-settings.json`
 
 O instalador desta primeira versao nao e assinado digitalmente. O Windows pode exibir aviso de fornecedor desconhecido.
 
@@ -177,6 +180,60 @@ Colunas esperadas:
 - `../_local/.env` continua existindo por compatibilidade, mas nao deve mais bloquear o uso do artefato renovado
 - os relatorios ficam em `relatorios/`
 - detalhes sobre a API local e lacunas do Gestta estao em [../docs/uso-api-3001-e-lacunas-gestta.md](../docs/uso-api-3001-e-lacunas-gestta.md)
+
+## Reatribuicao do setor Fiscal
+
+Para a planilha de responsabilidades fiscais com as abas `Planilha1` e `BD`, use primeiro o levantamento. Ele consulta somente tarefas dos departamentos `Fiscal` e `Fiscal - Simples Nacional`, cria backup JSON/XLSX em `relatorios/` e **nao executa PATCH**:
+
+```bash
+bun run --cwd Onvio/gestta-tarefas/alterar-responsavel start -- --levantamento-fiscal "C:\\Users\\Exatas\\Downloads\\Planilha de responsabilidades setor Fiscal.xlsx"
+```
+
+Toda tarefa fiscal cujo responsavel atual seja `Joao Flavio` fica fora da alteracao, independentemente do nome. Tarefas cujo nome contenha `parcelamento` ou `emissao de nota` (ignorando acentos e maiusculas) tambem ficam fora da alteracao; se nao estiverem com Joao Flavio, aparecem como pendencia na aba **Excecoes Joao Flavio**.
+
+Depois de revisar o backup JSON gerado e aprovar as linhas de **Alteracoes planejadas**, aplique-o explicitamente:
+
+```bash
+bun run --cwd Onvio/gestta-tarefas/alterar-responsavel start -- --aplicar-levantamento-fiscal "C:\\...\\backup_reatribuicao_fiscal_YYYY-MM-DD_HH-MM-SS.json" --confirmar
+```
+
+Antes de cada PATCH, a aplicacao confere que o vinculo e o responsavel atual ainda correspondem ao backup. Divergencias sao bloqueadas e registradas. O checkpoint permite retomar uma aplicacao interrompida com o mesmo comando.
+
+## Reatribuicao Pessoal — tarefas existentes
+
+Para a planilha bruta de responsabilidades (colunas `COD.`, `RAZAO SOCIAL` e `RESPONSAVEL`), o fluxo Pessoal resolve a empresa pelo codigo Gestta — com razao social como fallback unico — e nao exige CNPJ, setor ou mes de geracao na fonte.
+
+O levantamento inclui todos os vinculos existentes do departamento Pessoal, os vinculos dos modelos normal e VIA WHATSAPP de **VERIFICAR PENDENCIAS - RECEITA FEDERAL (DP)** e somente as instancias `OPEN` de agosto de 2026 desses dois modelos. Nenhuma tarefa e gerada, removida ou regenerada.
+
+```bash
+# Gera JSON/XLSX para revisao; nao altera o Gestta.
+bun run --cwd Onvio/gestta-tarefas/alterar-responsavel start -- --pessoal-preflight "C:\\Users\\Exatas\\Downloads\\Responsabilidade das Empresas.xlsx"
+
+# Aplica exclusivamente uma previa revisada.
+bun run --cwd Onvio/gestta-tarefas/alterar-responsavel start -- --pessoal-apply "C:\\...\\previa_reatribuicao_pessoal_....json" --confirmar
+
+# Reverte uma execucao quando o estado atual ainda corresponder ao snapshot.
+bun run --cwd Onvio/gestta-tarefas/alterar-responsavel start -- --pessoal-rollback "C:\\...\\execucao_reatribuicao_pessoal_....json" --confirmar
+```
+
+Codigos repetidos com responsaveis diferentes, empresas ambiguas e usuarios nao resolvidos ficam na aba **Pendencias** e nao recebem alteracao. O preflight tambem bloqueia a execucao se nao localizar uma unica variante VIA WHATSAPP do modelo informado.
+
+## Transferencia de tarefas pendentes do Pessoal
+
+Para transferir somente instancias ja geradas e ainda pendentes (`OPEN` ou `IMPEDIMENT`) entre dois usuarios, use uma planilha com `COD.` e `RAZAO SOCIAL`. Tarefas exibidas como atrasadas pelo Gestta continuam com status `OPEN`; `DELAYED` e `REVIEW` nao pertencem ao enum aceito pelo endpoint de busca. O fluxo nao altera vinculos, modelos ou recorrencias.
+
+```bash
+# Consulta e cria a previa; nao transfere tarefas.
+bun run --cwd Onvio/gestta-tarefas/alterar-responsavel start -- --pessoal-pendentes-preflight "C:\...\empresas.xlsx" --origem "Kamilly Vitoria" --destino "Samara Lima"
+
+# Aplica apenas a previa sem pendencias, revalidando cada instancia.
+bun run --cwd Onvio/gestta-tarefas/alterar-responsavel start -- --pessoal-pendentes-apply "C:\...\previa_reatribuicao_pessoal_pendentes_....json" --confirmar
+
+# Reverte somente itens efetivamente alterados e que ainda estejam no destino.
+bun run --cwd Onvio/gestta-tarefas/alterar-responsavel start -- --pessoal-pendentes-rollback "C:\...\execucao_reatribuicao_pessoal_pendentes_....json" --confirmar
+```
+
+O preflight exige resolucao unica de todas as empresas e dos usuarios. A aplicacao salva checkpoint, confirma o responsavel apos cada transferencia e executa uma verificacao final em todas as empresas.
 
 ## Troubleshooting
 

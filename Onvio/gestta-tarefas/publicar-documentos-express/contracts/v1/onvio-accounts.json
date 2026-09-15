@@ -1,0 +1,4 @@
+{
+  "request": { "active": true, "hideNonOnvio": true },
+  "response": [{ "companyId": "onvio-firm-id", "name": "ESCRITORIO EXEMPLO" }]
+}

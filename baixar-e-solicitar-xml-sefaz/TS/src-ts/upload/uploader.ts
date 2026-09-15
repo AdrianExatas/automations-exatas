@@ -4,8 +4,17 @@ import { basename, join } from "node:path";
 import { PATHS, SIEG_API_KEY } from "../core/config.js";
 import type { UploadResult } from "../types.js";
 import { sleep } from "../utils/retry.js";
-import { enviarXml } from "./sieg-api.js";
-import { extrairChaveAcesso, identificarTipoXml, obterTipoCompletoNota, validarXmlDetalhado } from "./utils.js";
+import { enviarXml, verificarEventoExisteComRetry, verificarXmlExisteComRetry } from "./sieg-api.js";
+import {
+  classificarXmlSieg,
+  extrairChaveAcesso,
+  extrairTipoEvento,
+  identificarTipoXml,
+  obterTipoCompletoNota,
+  obterXmlTypeSieg,
+  type XmlCategoriaSieg,
+  validarXmlDetalhado,
+} from "./utils.js";
 
 interface XmlInfo {
   caminho: string;
@@ -13,6 +22,9 @@ interface XmlInfo {
   conteudo: string;
   chave?: string;
   tipo?: string;
+  categoria: XmlCategoriaSieg;
+  tipoEvento?: number;
+  xmlTypeSieg: number;
 }
 
 interface UploadState {
@@ -28,6 +40,10 @@ interface UploadState {
   errosEnvio: Array<{ xml: XmlInfo; erro: string }>;
   errosRecuperaveis: XmlInfo[];
   errosExclusao: Array<{ xml: XmlInfo; erro: string }>;
+  confirmadosSieg: XmlInfo[];
+  eventosConfirmadosSieg: XmlInfo[];
+  semValidacaoFinalSieg: XmlInfo[];
+  naoConfirmadosSieg: XmlInfo[];
 }
 
 const WARM_UP_FASE1_QTD = 5;
@@ -37,6 +53,7 @@ const WARM_UP_FASE2_THREADS = 5;
 const WARM_UP_FASE3_QTD = 30;
 const WARM_UP_FASE3_THREADS = 10;
 const WARM_UP_DELAY_MS = 200;
+const VERIFICACAO_FINAL_THREADS = 5;
 export const NUM_THREADS_PADRAO = 20;
 
 function listarXmlsRecursivo(pasta: string): string[] {
@@ -68,12 +85,16 @@ function carregarXmlsValidos(paths: string[]): { validos: XmlInfo[]; invalidos: 
         xmlsInvalidos.push({ caminho, erro: validacao.erro });
         return;
       }
+      const chave = extrairChaveAcesso(conteudo);
       xmlsValidos.push({
         caminho,
         nome: basename(caminho),
         conteudo,
-        chave: extrairChaveAcesso(conteudo),
+        chave,
         tipo: identificarTipoXml(conteudo),
+        categoria: classificarXmlSieg(conteudo),
+        tipoEvento: extrairTipoEvento(conteudo),
+        xmlTypeSieg: obterXmlTypeSieg(conteudo),
       });
     } catch (error) {
       xmlsInvalidos.push({ caminho, erro: error instanceof Error ? error.message : String(error) });
@@ -84,7 +105,8 @@ function carregarXmlsValidos(paths: string[]): { validos: XmlInfo[]; invalidos: 
 }
 
 function formatarIdentificacaoXml(xmlInfo: XmlInfo): string {
-  const chave = xmlInfo.chave && xmlInfo.chave.length === 44 ? `N_${xmlInfo.chave}` : `${xmlInfo.nome.slice(0, 45)}...`;
+  const prefixo = xmlInfo.tipo === "CTe" ? "C" : "N";
+  const chave = xmlInfo.chave && xmlInfo.chave.length === 44 ? `${prefixo}_${xmlInfo.chave}` : `${xmlInfo.nome.slice(0, 45)}...`;
   const tipoCompleto = obterTipoCompletoNota(xmlInfo.conteudo);
   const tipoInfo = tipoCompleto && tipoCompleto !== "Desconhecido" ? ` (${tipoCompleto})` : "";
   return `${chave}${tipoInfo}`;
@@ -134,7 +156,6 @@ async function enviarLote(
           state.concluidos += 1;
           console.log(`[OK ${state.concluidos}/${state.total}]${faseInfo} - ${identificacao}`);
           state.enviadosSucesso.push(xmlInfo);
-          excluirXmlEnviado(xmlInfo, state);
           return;
         }
 
@@ -152,6 +173,85 @@ async function enviarLote(
       }),
     ),
   );
+}
+
+async function validarEnviadosNoSieg(state: UploadState): Promise<void> {
+  if (!state.enviadosSucesso.length) {
+    return;
+  }
+
+  console.log("\n" + "=".repeat(60));
+  console.log("Validando XMLs enviados no SIEG...");
+  console.log("=".repeat(60));
+
+  const limit = pLimit(VERIFICACAO_FINAL_THREADS);
+  let iniciados = 0;
+
+  await Promise.all(
+    state.enviadosSucesso.map((xmlInfo) =>
+      limit(async () => {
+        const indice = ++iniciados;
+        const identificacao = formatarIdentificacaoXml(xmlInfo);
+        console.log(`[VALIDANDO SIEG ${indice}/${state.enviadosSucesso.length}] ${identificacao}`);
+
+        if (xmlInfo.categoria === "inutilizacao") {
+          registrarSemValidacaoFinal(xmlInfo, state, "Inutilizacao aceita no upload; sem endpoint publico de validacao final");
+          return;
+        }
+
+        if (!xmlInfo.chave || xmlInfo.chave.length !== 44) {
+          registrarSemValidacaoFinal(xmlInfo, state, "XML aceito no upload, mas sem chave de acesso para validacao final");
+          return;
+        }
+
+        const xmlTypeSieg = xmlInfo.xmlTypeSieg;
+        if (obterTipoCompletoNota(xmlInfo.conteudo) === "Desconhecido") {
+          console.log("         [AVISO] Tipo de XML nao identificado; validando no SIEG como NF-e (xmlType=1)");
+        }
+
+        if (xmlInfo.categoria === "evento") {
+          if (!xmlInfo.tipoEvento || !Number.isFinite(xmlInfo.tipoEvento)) {
+            registrarSemValidacaoFinal(xmlInfo, state, "Evento aceito no upload, mas sem tpEvento para validacao final");
+            return;
+          }
+
+          const eventoConfirmado = await verificarEventoExisteComRetry(
+            xmlInfo.chave,
+            xmlInfo.tipoEvento,
+            state.apiKey,
+            undefined,
+            undefined,
+            xmlTypeSieg,
+          );
+          if (eventoConfirmado) {
+            state.eventosConfirmadosSieg.push(xmlInfo);
+            console.log("         [SIEG OK] Evento confirmado no SIEG");
+            excluirXmlEnviado(xmlInfo, state);
+          } else {
+            state.naoConfirmadosSieg.push(xmlInfo);
+            console.log("         [AVISO] Evento enviado, mas ainda nao foi confirmado no SIEG na validacao final");
+          }
+          return;
+        }
+
+        const confirmado = await verificarXmlExisteComRetry(xmlInfo.chave, state.apiKey, undefined, undefined, xmlTypeSieg);
+        if (confirmado) {
+          state.confirmadosSieg.push(xmlInfo);
+          console.log("         [SIEG OK] XML confirmado no SIEG");
+          excluirXmlEnviado(xmlInfo, state);
+        } else {
+          state.naoConfirmadosSieg.push(xmlInfo);
+          console.log("         [AVISO] XML enviado, mas ainda nao foi confirmado no SIEG na validacao final");
+        }
+      }),
+    ),
+  );
+}
+
+function registrarSemValidacaoFinal(xmlInfo: XmlInfo, state: UploadState, mensagem: string): void {
+  state.semValidacaoFinalSieg.push(xmlInfo);
+  console.log(`         [SIEG SEM VALIDACAO FINAL] ${mensagem}`);
+  excluirXmlEnviado(xmlInfo, state);
 }
 
 export async function enviarAutomatico(options: {
@@ -227,6 +327,10 @@ export async function enviarAutomatico(options: {
     errosEnvio: [],
     errosRecuperaveis: [],
     errosExclusao: [],
+    confirmadosSieg: [],
+    eventosConfirmadosSieg: [],
+    semValidacaoFinalSieg: [],
+    naoConfirmadosSieg: [],
   };
   const inicioTempo = Date.now();
 
@@ -269,6 +373,8 @@ export async function enviarAutomatico(options: {
     await enviarLote(retryList, 1, " [RETRY]", state, { retry: true });
   }
 
+  await validarEnviadosNoSieg(state);
+
   const tempoTotal = (Date.now() - inicioTempo) / 1000;
   console.log("\n" + "=".repeat(60));
   console.log("RESUMO FINAL DO UPLOAD");
@@ -276,6 +382,10 @@ export async function enviarAutomatico(options: {
   console.log(`   Total de XMLs encontrados: ${xmlsValidos.length}`);
   console.log("   Ja existentes no SIEG: 0 (verificacao previa desativada)");
   console.log(`   Enviados com sucesso: ${state.enviadosSucesso.length}`);
+  console.log(`   Confirmados no SIEG: ${state.confirmadosSieg.length}`);
+  console.log(`   Eventos confirmados no SIEG: ${state.eventosConfirmadosSieg.length}`);
+  console.log(`   Sem validacao final no SIEG: ${state.semValidacaoFinalSieg.length}`);
+  console.log(`   Nao confirmados no SIEG: ${state.naoConfirmadosSieg.length}`);
   console.log(`   Erros: ${state.errosEnvio.length}`);
   console.log(`   XMLs excluidos: ${state.excluidos}`);
   console.log(`   Falhas ao excluir: ${state.errosExclusao.length}`);
@@ -287,5 +397,9 @@ export async function enviarAutomatico(options: {
     enviados: state.enviadosSucesso.length,
     existentes: 0,
     erros: state.errosEnvio.length,
+    confirmadosSieg: state.confirmadosSieg.length,
+    eventosConfirmadosSieg: state.eventosConfirmadosSieg.length,
+    semValidacaoFinalSieg: state.semValidacaoFinalSieg.length,
+    naoConfirmadosSieg: state.naoConfirmadosSieg.length,
   };
 }

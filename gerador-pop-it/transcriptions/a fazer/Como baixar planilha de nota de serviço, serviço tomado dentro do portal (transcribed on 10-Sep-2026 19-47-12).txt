@@ -1,0 +1,9 @@
+Hoje eu vou mostrar como a gente faz para baixar planilha de nota de serviço, serviço tomado dentro do portal do contribuinte. A gente faz acesso com certificado digital, eu vou utilizar a empresa Léo, mas seria a empresa que você vai realizar, né? Deixa eu procurar o certificado dela, ok? Tem que ser pelo Google, porque a gente vai utilizar a extinção.
+No meu caso, eu já tenho aqui baixado, mas se não tiver, é só pesquisar a extensão Portal Nacional no Google e baixar e instalar no computador. A gente vem aqui, tem emitidas e recebidas, pode ser as duas, a gente pode utilizar, né? Depende daquilo que a gente vai precisar, qual vai ser esse tomado, vou colocar recebidas, data inicial, data final, e pode ser geração simples ou completa. Eu gosto da geração completa, aqui vem mais dados.
+Pronto, agora a gente vai na pasta, né? Pronto, agora a gente vai na pasta, né? Da empresa, fiscal, 2026, 2007, tomado, vou colocar aqui.
+Aqui a gente tem o número da nota, data, a competência, CNPJ, nome, a quantidade de notas, se a empresa, ela é optante pelo CNPJ Nacional, se é regime normal, se é MEI,
+a gente consegue ver local, valor, base de cálculo, alíquota, se o ISS é retido ou não.
+Tem o código de tributação, que vai auxiliar quando a gente for efetuar, né?
+Qualquer tipo de apuração referente ao serviço tomado, e também para a gente conseguir comparar, né?
+Um depara das notas que a gente baixar pelo portal dos serviços do município.
+E também do Uniconte.

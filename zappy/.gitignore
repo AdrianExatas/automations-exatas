@@ -1,0 +1,8 @@
+.env
+contacts.csv
+contacts.json
+api_probe_results.json
+persist_test.json
+_test_doc.pdf
+__pycache__/
+*.pyc

@@ -1,0 +1,45 @@
+- generic [ref=f3e6]:
+  - generic [ref=f3e7]:
+    - generic [ref=f3e8]:
+      - link [ref=f3e9] [cursor=pointer]:
+        - /url: https://bitrix24.com
+      - generic [ref=f3e10]: Visualizar
+    - generic [ref=f3e12]:
+      - generic "Permissão insuficiente para editar o item" [ref=f3e13]: Editar
+      - link "Baixar" [ref=f3e15] [cursor=pointer]:
+        - /url: /docs/pub/a2ddb7767959d348da3d180eb9921d0d/download?token=ufjiayj1ttyr
+      - generic [ref=f3e17]:
+        - generic [ref=f3e18]: Online
+        - generic "Convidado" [ref=f3e24]
+  - iframe [ref=f3e27]:
+    - application [ref=f4e1]:
+      - list [ref=f4e6]:
+        - listitem [ref=f4e7]
+        - listitem [ref=f4e8]
+      - main [ref=f4e12]:
+        - generic [ref=f4e14]:
+          - toolbar [ref=f4e16]
+          - generic [ref=f4e18]:
+            - menubar "Menu esquerdo" [ref=f4e21]:
+              - button "Pesquisar" [disabled] [ref=f4e22]
+              - button "Feedback e Suporte" [disabled] [ref=f4e24]
+              - button "Sobre" [disabled] [ref=f4e26]
+            - generic [ref=f4e31]:
+              - generic [ref=f4e32]:
+                - textbox [ref=f4e33]
+                - button [ref=f4e34]
+              - button [ref=f4e37] [cursor=pointer]
+              - textbox [ref=f4e40]
+          - generic [ref=f4e47]:
+            - generic [ref=f4e48]:
+              - button "Deslizar lista de folha esquerda" [disabled] [ref=f4e49]
+              - button "Deslizar lista de folha direita" [disabled] [ref=f4e51]
+            - generic [ref=f4e53]:
+              - button "Adicionar planilha" [disabled] [ref=f4e54]
+              - button "Lista de planilhas" [ref=f4e57] [cursor=pointer]
+            - generic [ref=f4e59]:
+              - button "Reduzir (Ctrl+-)" [ref=f4e61] [cursor=pointer]
+              - generic "Zoom" [ref=f4e63]:
+                - button "Zoom 100%" [ref=f4e64] [cursor=pointer]
+              - button "Ampliar (Ctrl++)" [ref=f4e66] [cursor=pointer]
+            - list [ref=f4e70]

@@ -1,8 +1,6 @@
 import { AlertCircle, FileUp, PlayCircle, StopCircle, X } from "lucide-react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import ProgressMonitor from "../components/ProgressMonitor";
-
-type AuthMode = "credentials" | "certificate";
 
 type DanfeResult = {
   danfe: string;
@@ -17,11 +15,6 @@ type Report = {
 };
 
 export default function AgilPage() {
-  const [authMode, setAuthMode] = useState<AuthMode>("credentials");
-  const [user, setUser] = useState("");
-  const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [remembered, setRemembered] = useState(false);
   const [danfesText, setDanfesText] = useState("");
   const [dryRun, setDryRun] = useState(false);
   const [running, setRunning] = useState(false);
@@ -31,16 +24,6 @@ export default function AgilPage() {
   const [report, setReport] = useState<Report | null>(null);
   const [pdfPaths, setPdfPaths] = useState<string[]>([]);
   const cleanupRef = useRef<(() => void) | null>(null);
-
-  useEffect(() => {
-    window.api?.loadAgilCredentials().then((creds) => {
-      if (creds) {
-        setUser(creds.user);
-        setPassword(creds.password);
-        setRemembered(true);
-      }
-    }).catch(() => undefined);
-  }, []);
 
   function addLog(message: string) {
     setLogs((prev) => [...prev, message]);
@@ -84,10 +67,16 @@ export default function AgilPage() {
       return;
     }
 
+    if (!window.api?.agilStartBatch) {
+      setError("API do AGIL indisponível. Feche e reinicie o aplicativo.");
+      return;
+    }
+
     setResults(danfes.map((d) => ({ danfe: d, status: "pending" })));
     setRunning(true);
+    addLog("Abrindo o navegador. Selecione o certificado no Windows e o vínculo Empresa Inscrita no portal.");
 
-    const cleanup = window.api?.onAgilProgress((event) => {
+    const cleanup = window.api.onAgilProgress((event) => {
       const ev = event as DanfeResult;
       setResults((prev) =>
         prev.map((r) => (r.danfe === ev.danfe ? { ...r, ...ev } : r)),
@@ -97,12 +86,15 @@ export default function AgilPage() {
     cleanupRef.current = cleanup ?? null;
 
     try {
-      const auth =
-        authMode === "credentials"
-          ? { authMode: "credentials" as const, username: user, password }
-          : { authMode: "certificate" as const };
+      const batchResults = (await window.api.agilStartBatch({
+        auth: {},
+        danfes,
+        dryRun,
+      })) as DanfeResult[];
 
-      const batchResults = (await window.api?.agilStartBatch({ auth, danfes, dryRun })) as DanfeResult[];
+      if (!Array.isArray(batchResults)) {
+        throw new Error("A execução não retornou o resultado do lote. Reinicie o aplicativo e tente de novo.");
+      }
 
       const events = batchResults.map((r) => ({
         timestamp: new Date().toISOString(),
@@ -141,15 +133,6 @@ export default function AgilPage() {
     addLog("Execução cancelada.");
   }
 
-  function handleRememberChange(checked: boolean) {
-    setRemembered(checked);
-    if (checked && user && password) {
-      window.api?.saveAgilCredentials({ user, password }).catch(() => undefined);
-    } else if (!checked) {
-      window.api?.clearAgilCredentials().catch(() => undefined);
-    }
-  }
-
   async function handleExportReport() {
     if (!report) return;
     await window.api?.agilExportReport(report).catch((err) => setError(String(err)));
@@ -162,7 +145,6 @@ export default function AgilPage() {
 
   return (
     <div className="flex h-full flex-col">
-      {/* Header */}
       <div className="border-b border-slate-800 px-8 py-6">
         <p className="text-xs font-semibold uppercase tracking-widest text-slate-500">SEFAZ-SE</p>
         <h1 className="mt-0.5 text-xl font-bold text-slate-100">AGIL — Incluir Nota Fiscal</h1>
@@ -180,69 +162,15 @@ export default function AgilPage() {
       )}
 
       <div className="flex flex-1 gap-0 overflow-hidden">
-        {/* Left panel — form */}
         <div className="flex w-80 shrink-0 flex-col gap-5 overflow-y-auto border-r border-slate-800 p-6">
-          {/* Auth mode */}
-          <div className="space-y-3">
-            <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">Modo de acesso</p>
-            <div className="flex gap-2">
-              {(["credentials", "certificate"] as const).map((mode) => (
-                <button
-                  key={mode}
-                  type="button"
-                  onClick={() => setAuthMode(mode)}
-                  disabled={running}
-                  className={[
-                    "flex-1 rounded-lg border py-2 text-xs font-medium transition",
-                    authMode === mode
-                      ? "border-blue-500 bg-blue-600/20 text-blue-300"
-                      : "border-slate-700 bg-slate-800 text-slate-400 hover:border-slate-600 hover:text-slate-200",
-                  ].join(" ")}
-                >
-                  {mode === "credentials" ? "Login/Senha" : "Certificado"}
-                </button>
-              ))}
-            </div>
+          <div className="space-y-2">
+            <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">Acesso</p>
+            <p className="text-xs leading-relaxed text-slate-500">
+              O navegador abre visível. Selecione o certificado no prompt do Windows e o vínculo
+              Empresa Inscrita no Portal Fazendário. Depois o AGIL inicia sozinho.
+            </p>
           </div>
 
-          {/* Credentials */}
-          {authMode === "credentials" && (
-            <div className="space-y-2">
-              <label className="block">
-                <span className="mb-1 block text-xs text-slate-400">Login</span>
-                <input
-                  type="text"
-                  value={user}
-                  onChange={(e) => setUser(e.target.value)}
-                  disabled={running}
-                  placeholder="usuário"
-                  className="w-full rounded-lg border border-slate-700 bg-slate-800 px-3 py-2 text-sm text-slate-100 placeholder-slate-500 outline-none transition focus:border-blue-500 focus:ring-1 focus:ring-blue-500 disabled:opacity-50"
-                />
-              </label>
-              <label className="block">
-                <span className="mb-1 block text-xs text-slate-400">Senha</span>
-                <input
-                  type={showPassword ? "text" : "password"}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  disabled={running}
-                  placeholder="••••••••"
-                  className="w-full rounded-lg border border-slate-700 bg-slate-800 px-3 py-2 text-sm text-slate-100 placeholder-slate-500 outline-none transition focus:border-blue-500 focus:ring-1 focus:ring-blue-500 disabled:opacity-50"
-                />
-              </label>
-              <label className="flex cursor-pointer items-center gap-2 text-xs text-slate-400">
-                <input
-                  type="checkbox"
-                  checked={remembered}
-                  onChange={(e) => handleRememberChange(e.target.checked)}
-                  disabled={running}
-                />
-                Lembrar credenciais
-              </label>
-            </div>
-          )}
-
-          {/* Chaves DANFE */}
           <div className="space-y-2">
             <div className="flex items-center justify-between">
               <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">Chaves DANFE</p>
@@ -269,7 +197,6 @@ export default function AgilPage() {
             </p>
           </div>
 
-          {/* Opções */}
           <label className="flex cursor-pointer items-center gap-2 text-sm text-slate-300">
             <input
               type="checkbox"
@@ -280,7 +207,6 @@ export default function AgilPage() {
             Dry-run (não confirmar)
           </label>
 
-          {/* Ações */}
           <div className="mt-auto flex gap-2">
             {!running ? (
               <button
@@ -303,7 +229,6 @@ export default function AgilPage() {
             )}
           </div>
 
-          {/* Export buttons */}
           {!running && (report || pdfPaths.length > 0) && (
             <div className="flex flex-col gap-2">
               {report && (
@@ -328,7 +253,6 @@ export default function AgilPage() {
           )}
         </div>
 
-        {/* Right panel — monitor */}
         <div className="flex-1 overflow-hidden p-6">
           <ProgressMonitor
             successCount={successCount}

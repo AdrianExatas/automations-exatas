@@ -1,0 +1,13 @@
+{
+  "request": { "taskId": "task-id" },
+  "response": {
+    "_id": "task-id",
+    "name": "DCTFWEB - SETOR PESSOAL",
+    "status": "OPEN",
+    "competence_date": "2026-08-01T03:00:00.000Z",
+    "customer": { "_id": "gestta-customer-id" },
+    "company_documents": [
+      { "_id": "company-document-id", "name": "DARF DCTFWEB", "validation_required": true, "has_documents_integration": true }
+    ]
+  }
+}

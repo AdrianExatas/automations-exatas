@@ -1,0 +1,33 @@
+Neste vídeo eu vou apresentar você como você deverá executar o aviso de encerramento de contrato de experiência tomaremos como exemplo a empresa aqua plus onde ele solicitou o encerramento de um colaborador você pode clicar em arquivos na opção empregados ou vir pela aba por essa aba que empregados certo 
+
+após a abertura você irá atrás decorrente da solicitação do colaborador e para este exemplo eles querem desligar o jonathan você vê informações contratuais e clica nesses três pontos aqui você valida qual a data de encerramento deste colaborador do contrato de experiência e perceba que o fim está para 31 de 3 você fecha esta aba 
+
+e agora você irá clicar em processos rescisões aviso pré -cola individual 
+
+em seu teclado você clica a opção f2 
+
+aqui já está selecionado jonathan você também poderia vir pelo código número 34 
+
+aqui já existia uma opção mas eu vou retificar você clica em novo 
+
+na opção motivo de rescisão você clica na seta ele vai dar algumas opções a as que existe hoje de um desligamento 
+
+e neste específico você irá clicar na opção 
+
+termo de contrato de trabalho por tempo indeterminado concedido por empregado o empregador neste exemplo será pelo empregador o tipo ausência e dispensa qual a data do aviso então já vimos que foi dia 31 do 3 de 2024 você irá alterar nessa data do aviso e na data de demissão 31 de 2024 e basta clicar na opção gravar 
+
+clica em ok aqui ele traz um exemplo de um relatório 
+
+de aviso se você clicar nele 
+
+em editar 
+
+perceba que aqui tem alguns modelos que representa o desligamento de só que para esse efeito nós não iremos utilizar esse relatório para encerramento de contrato de experiência é necessário que você clique em relatórios gerenciador de relatórios rescisão 
+
+dispensa o término do contrato de experiência aqui você coloca o código do empregado está sendo desligado e a data de encerramento 
+
+do 3 e clique em executar 
+
+aqui está o relatório deverá encaminhar 
+
+para a empresa 

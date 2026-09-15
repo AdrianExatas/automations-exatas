@@ -1,0 +1,55 @@
+- main [ref=e2]:
+  - complementary [ref=e3]:
+    - generic [ref=e4]:
+      - generic [ref=e5]: PO
+      - generic [ref=e6]:
+        - strong [ref=e7]: Onboarding Gestta
+        - generic [ref=e8]: Parametrizacao de tarefas
+    - radiogroup "Modo da interface" [ref=e9]:
+      - generic [ref=e10]:
+        - radio "Basico" [checked] [ref=e11]
+        - generic [ref=e12] [cursor=pointer]: Basico
+      - generic [ref=e13]:
+        - radio "Avancado" [ref=e14]
+        - generic [ref=e15] [cursor=pointer]: Avancado
+    - navigation "Etapas" [ref=e16]:
+      - button "1. Planilha" [ref=e17] [cursor=pointer]
+      - button "2. Login" [ref=e18] [cursor=pointer]
+      - button "3. Empresa" [ref=e19] [cursor=pointer]
+      - button "4. Opcoes" [ref=e20] [cursor=pointer]
+      - button "5. Executar" [ref=e21] [cursor=pointer]
+    - generic [ref=e22]:
+      - button "Relatorios" [ref=e23] [cursor=pointer]
+      - button "Limpar acesso" [ref=e24] [cursor=pointer]
+  - generic [ref=e25]:
+    - generic [ref=e26]:
+      - generic [ref=e27]:
+        - heading "Parametrizacao Onboarding Gestta" [level=1] [ref=e28]
+        - paragraph [ref=e29]: Carregando configuracao...
+      - generic [ref=e30]:
+        - generic [ref=e31]: Planilha
+        - generic [ref=e32]: Login
+    - generic [ref=e33]:
+      - generic [ref=e35]:
+        - generic [ref=e36]:
+          - heading "Planilha" [level=2] [ref=e37]
+          - generic [ref=e38]: Padrao
+        - paragraph [ref=e39]: Carregando...
+        - generic [ref=e40]:
+          - button "Selecionar planilha" [ref=e41] [cursor=pointer]
+          - button "Usar padrao" [ref=e42] [cursor=pointer]
+      - generic [ref=e43]:
+        - generic [ref=e45]:
+          - heading "Previa" [level=2] [ref=e46]
+          - text: 0 tarefas
+        - table [ref=e48]:
+          - rowgroup [ref=e49]:
+            - row [ref=e50]:
+              - columnheader "Aba" [ref=e51]
+              - columnheader "Categoria" [ref=e52]
+              - columnheader "Tarefa" [ref=e53]
+              - columnheader "Responsavel" [ref=e54]
+          - rowgroup
+        - generic [ref=e55]:
+          - heading "Logs" [level=2] [ref=e56]
+          - button "Limpar" [ref=e57] [cursor=pointer]

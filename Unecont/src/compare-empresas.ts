@@ -65,6 +65,8 @@ const FINAL_HEADERS = [
   "QTD_ARQUIVOS",
   "ARQUIVOS",
   "ONVIO_CLIENT_ID",
+  "ONVIO_STATUS",
+  "ONVIO_CLIENT_SOURCE",
   "ONVIO_REQUESTER_ID",
   "ONVIO_DEPARTMENT_ID",
   "USUARIOS_CLIENTE",
@@ -253,6 +255,8 @@ function buildFinalRows(options: {
         QTD_ARQUIVOS: operacional?.qtdArquivos ?? "",
         ARQUIVOS: operacional?.arquivos ?? "",
         ONVIO_CLIENT_ID: operacional?.onvioClientId ?? "",
+        ONVIO_STATUS: "",
+        ONVIO_CLIENT_SOURCE: "",
         ONVIO_REQUESTER_ID: operacional?.onvioRequesterId ?? "",
         ONVIO_DEPARTMENT_ID: operacional?.onvioDepartmentId ?? "",
         [USUARIOS_CLIENTE_COLUMN]: "",
@@ -542,6 +546,7 @@ async function writeOutputFiles(options: {
     reportWorkbook,
     [
       { CAMPO: "ATUALIZADAS_ATIVAS", VALOR: options.result.summary.atualizadas },
+      { CAMPO: "EXCLUIDAS_POR_COMPETENCIA", VALOR: options.result.summary.excluidasPorCompetencia },
       { CAMPO: "OPERACIONAIS", VALOR: options.result.summary.operacionais },
       { CAMPO: "PLANILHA_FINAL", VALOR: options.result.summary.final },
       { CAMPO: "NOVAS", VALOR: options.result.summary.novas },
@@ -557,6 +562,7 @@ async function writeOutputFiles(options: {
     "Resumo",
   );
   appendRowsSheet(reportWorkbook, options.result.novas, "Novas");
+  appendRowsSheet(reportWorkbook, options.result.excluidasPorCompetencia, "Excluidas Competencia");
   appendRowsSheet(reportWorkbook, options.result.removidas, "Removidas");
   appendRowsSheet(reportWorkbook, options.result.alteradas, "Alteradas");
   appendRowsSheet(reportWorkbook, options.result.conflitosCodigo, "Conflitos Codigo");
@@ -592,6 +598,18 @@ export async function compareEmpresasPlanilhas(
   const atualizadas = readAtualizadaRows(atualizadaPath);
   const atualizadasAtivas = atualizadas.filter(isAtualizadaRowActive);
   const operacionais = readOperacionalRows(operacionalPath);
+  const excludedCodes = options.excludedCodes
+    ? new Set(options.excludedCodes.map(normalizeCodigo).filter(Boolean))
+    : undefined;
+  const atualizadasElegiveis = excludedCodes
+    ? atualizadasAtivas.filter((row) => !excludedCodes.has(row.codigo))
+    : atualizadasAtivas;
+  const excluidasPorCompetencia = excludedCodes
+    ? atualizadasAtivas
+        .filter((row) => excludedCodes.has(row.codigo))
+        .map(toComparisonRow)
+        .sort((a, b) => compareCodigoNumerically(a.codigo, b.codigo))
+    : [];
 
   const atualizadaByCnpj = buildMapByCnpj(atualizadasAtivas, "atualizada");
   const operacionalByCnpj = buildMapByCnpj(operacionais, "operacional");
@@ -644,7 +662,7 @@ export async function compareEmpresasPlanilhas(
   conflitosCodigo.sort((a, b) => compareCodigoNumerically(a.codigo, b.codigo));
 
   const finalRows = buildFinalRows({
-    atualizadasAtivas,
+    atualizadasAtivas: atualizadasElegiveis,
     operacionalByCnpj,
     defaults: findDefaults(operacionais),
   });
@@ -671,6 +689,7 @@ export async function compareEmpresasPlanilhas(
   const resultWithoutPaths = {
     summary: {
       atualizadas: atualizadasAtivas.length,
+      excluidasPorCompetencia: excluidasPorCompetencia.length,
       operacionais: operacionais.length,
       final: finalRows.length,
       novas: novas.length,
@@ -684,6 +703,7 @@ export async function compareEmpresasPlanilhas(
       usuariosComErro: usuariosStatusCounts.comErro,
     },
     novas,
+    excluidasPorCompetencia,
     removidas,
     alteradas,
     conflitosCodigo,

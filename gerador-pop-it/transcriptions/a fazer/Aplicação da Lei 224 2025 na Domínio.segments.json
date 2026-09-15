@@ -1,0 +1,108 @@
+{
+  "media": "G:\\Meu Drive\\GESTÃO DE PROCESSOS\\03 - Fiscal\\VÍDEOS\\POP SOBRE APLICAÇÃO DA LEI 224-2025 NA DOMINIO.mp4",
+  "transcript_path": "C:\\Users\\Exatas\\Documents\\GitHub\\automations-exatas\\gerador-pop-it\\transcriptions\\a fazer\\POP SOBRE APLICAÇÃO DA LEI 224-2025 NA DOMINIO (transcribed on 10-Sep-2026 20-02-55).txt",
+  "language": "pt",
+  "duration_sec": 154.496,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 11.5,
+      "text": "Pessoal, eu estou aqui com o Tati, né? Nós estamos gravando aqui um vídeo para disponibilizar para vocês uma melhoria que é referente à exceção da tributação da Lei nº 2.4."
+    },
+    {
+      "start": 11.5,
+      "end": 23.0,
+      "text": "Então, vamos lá. O primeiro passo é o seguinte, a gente tem a opção aqui dentro de utilitários, alterar produto, cadastro, né? Eu venho aqui, coloco o NCN do produto,"
+    },
+    {
+      "start": 23.0,
+      "end": 34.5,
+      "text": "consequentemente, eu gosto de deixar habilitada essa aba aqui, porque a gente vai consultar. Aí eu venho aqui em alterar não, em criar nova vigência,"
+    },
+    {
+      "start": 34.5,
+      "end": 46.5,
+      "text": "e essa nova vigência a partir do mês 4 de 2026, aí eu coloco aqui, regime não formulativo, exceção."
+    },
+    {
+      "start": 46.5,
+      "end": 55.1,
+      "text": "E exceção, porque esses produtos, eles são da cesta básica, e aí não se aplica a majoração do PIS e confins."
+    },
+    {
+      "start": 56.0,
+      "end": 64.44,
+      "text": "Então, eu vou colocar aqui, vou colocar o CST-03, aí eu vou nessa opção aqui, produto não sujeito à redução,"
+    },
+    {
+      "start": 64.58,
+      "end": 71.5,
+      "text": "porque todos os produtos que tem o CST-06, ele vai sofrer a majoração, exceto se tiver marcado isso daqui."
+    },
+    {
+      "start": 71.5,
+      "end": 78.5,
+      "text": "E cria a exceção, automaticamente ele vai pedir o quê? Para reapurar novamente."
+    },
+    {
+      "start": 78.5,
+      "end": 80.7,
+      "text": "Sempre que eles querem a categoria nova, vai ter que configurar."
+    },
+    {
+      "start": 81.0,
+      "end": 86.84,
+      "text": "Perfeito, aqui as alterações que não foram, não serão aplicadas, ou não, também que os lançamentos já gravados."
+    },
+    {
+      "start": 87.22,
+      "end": 92.24,
+      "text": "Somente os novos para atualizar os lançamentos gravados do interior, é preciso executar o utilitário."
+    },
+    {
+      "start": 92.24,
+      "end": 100.12,
+      "text": "Então, depois que a gente faz essa alteração, vamos pegar aqui, ok, aí eu vou ter que vir novamente aqui em utilitários,"
+    },
+    {
+      "start": 100.32,
+      "end": 107.92,
+      "text": "em movimentação de produtos, e fazer a correta, vamos dizer assim, o processo novamente."
+    },
+    {
+      "start": 108.58,
+      "end": 114.76,
+      "text": "Deixa eu pegar aqui, 4 de 2026, aí eu vou colocar, vai servir tanto para a entrada como para a saída, né?"
+    },
+    {
+      "start": 114.76,
+      "end": 123.26,
+      "text": "Então, eu coloco todos, vou colocar o NCN, porque eu só quero trabalhar nesses produtos, listo eles, alterar,"
+    },
+    {
+      "start": 123.4,
+      "end": 131.48,
+      "text": "isso daqui eu deixo eles marcados, coloco aqui todos, e atualizar, gravar, pronto."
+    },
+    {
+      "start": 131.6,
+      "end": 137.6,
+      "text": "Aqui já vai fazer todo o processo de atualização, ou seja, a tributação que ele estava gerando desses produtos,"
+    },
+    {
+      "start": 137.68,
+      "end": 141.54,
+      "text": "não vai gerar mais, então a gente vai ter que fazer em todos os produtos da cesta básica,"
+    },
+    {
+      "start": 141.54,
+      "end": 150.0,
+      "text": "esse processo para que ele não seja tributado, né, consequentemente sobre as saídas que seria dos produtos da cesta básica."
+    },
+    {
+      "start": 150.28,
+      "end": 154.34,
+      "text": "Então, o processo é esse, e aí a gente tem a correta tributação."
+    }
+  ]
+}

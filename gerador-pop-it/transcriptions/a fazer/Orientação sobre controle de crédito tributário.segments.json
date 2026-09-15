@@ -1,0 +1,143 @@
+{
+  "media": "G:\\Meu Drive\\GESTÃO DE PROCESSOS\\03 - Fiscal\\VÍDEOS\\POP DE ORINETAÇÃO SOBRE CONTROLE DE CCRÉDITO TRIBUTÁRIO.mkv",
+  "transcript_path": "C:\\Users\\Exatas\\Documents\\GitHub\\automations-exatas\\gerador-pop-it\\transcriptions\\a fazer\\POP DE ORINETAÇÃO SOBRE CONTROLE DE CCRÉDITO TRIBUTÁRIO (transcribed on 10-Sep-2026 19-57-35).txt",
+  "language": "pt",
+  "duration_sec": 312.5546875,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 29.38,
+      "text": "Fala pessoal, então aqui nós vamos criar mais um processo, e nesse processo é o seguinte, levantamento de crédito, toda vez que tiver um levantamento de crédito em uma determinada empresa, a gente vai ter que controlar isso da seguinte forma, aqui nós temos essa planilha, onde essa planilha foi criada e você alimenta o crédito que foi originado, nesse caso aqui a gente está falando de crédito de IPI, aí eu vou colocar aqui a aba,"
+    },
+    {
+      "start": 30.0,
+      "end": 58.36,
+      "text": "qual tributo, tributo, nesse caso aqui foi IPI, então eu vou pegar, a empresa levantou crédito de IPI de 3 trimestres, primeiro trimestre, segundo trimestre, segundo, terceiro e quarto trimestre de 2025, esse caso aqui pode ser aplicado a qualquer outro, levantamento de saldo negativo, de imposto em renda, crédito de PIS e COFINS pago indevido, então aqui a gente vai trazer o crédito,"
+    },
+    {
+      "start": 58.36,
+      "end": 79.02,
+      "text": "e aí a gente vai funcionar da seguinte maneira, essa aba é onde eu vou dizer, pegar o saldo que a empresa tinha de crédito, menos o que ela usou, e aqui a gente vai ter o controle da perda e compra, nesse caso aqui a empresa compensou com COFINS e PIS,"
+    },
+    {
+      "start": 79.02,
+      "end": 97.3,
+      "text": "o IPI de março de 2025, totalizando aqui 15.324, então desse valor aqui sobrou 63 reais, do segundo trimestre a empresa tinha 32 mil, já utilizou e sobrou 3.967, já nos outros ainda não foi utilizado,"
+    },
+    {
+      "start": 97.3,
+      "end": 106.76,
+      "text": "e aqui vai ter o totalizador de crédito ainda, que sobra, aqui era o crédito total, após isso a gente vai fazer o seguinte, a gente vai ter o controle,"
+    },
+    {
+      "start": 106.98,
+      "end": 114.8,
+      "text": "e como é que vai funcionar o controle pessoal? É muito importante que a gente controle isso dentro do CRM, então o que é que vai acontecer?"
+    },
+    {
+      "start": 114.8,
+      "end": 126.94,
+      "text": "Vou pegar aqui um caso, a gente vai aqui em ICRM, a gente vai na parte de contabilidade, e vai procurar, esse caso da empresa específica que eu estou procurando é Terminox,"
+    },
+    {
+      "start": 127.04,
+      "end": 139.22,
+      "text": "então dou pesquisa aqui, chego na empresa Terminox, abro aqui e vou na aba tarefas, chegando aqui na aba tarefas, eu já tenho ela aqui pronto,"
+    },
+    {
+      "start": 139.22,
+      "end": 154.02,
+      "text": "eu vou colocar crédito de IPI 2025, foi apurado, foi levantado crédito de IPI dos seguintes trimestres,"
+    },
+    {
+      "start": 154.02,
+      "end": 177.91,
+      "text": "primeiro trimestre 2025, segundo trimestre de 2025, terceiro trimestre de 2025, e quarto trimestre de 2025,"
+    },
+    {
+      "start": 188.12,
+      "end": 195.04,
+      "text": "essa foi a planilha de controle, então o que é que eu vou fazer aqui?"
+    },
+    {
+      "start": 195.04,
+      "end": 201.68,
+      "text": "eu vou colocar o responsável pela empresa, sempre aqui, a gente tem que deixar que é a pessoa que vai utilizar o crédito,"
+    },
+    {
+      "start": 202.16,
+      "end": 212.76,
+      "text": "e vou colocar os líderes dos setores, então Thaís, Sibeli, Vini, aí você vai me perguntar,"
+    },
+    {
+      "start": 212.86,
+      "end": 219.08,
+      "text": "Sinsuários, por que você colocou? E aqui eu vou colocar Carlos, porque a empresa pode compensar com o NSS,"
+    },
+    {
+      "start": 219.72,
+      "end": 224.82,
+      "text": "então o que é que acontece? Por que eu estou colocando os quatro líderes e colocando o Renan como responsável?"
+    },
+    {
+      "start": 224.82,
+      "end": 232.8,
+      "text": "porque o Renan é o responsável pelo fiscal, esse tipo de perdicomp, quem faz o levantamento desse tipo de crédito,"
+    },
+    {
+      "start": 233.26,
+      "end": 239.08,
+      "text": "é o setor fiscal, e quem é que faz? É o responsável pela empresa, então eu estou colocando ele aqui,"
+    },
+    {
+      "start": 239.18,
+      "end": 245.48,
+      "text": "nomeando ele como responsável, e agora eu vou adicionar a planilha, então eu coloco a planilha aqui,"
+    },
+    {
+      "start": 245.48,
+      "end": 256.28,
+      "text": "lembrando, aí eu crio a tarefa, toda vez que fizer uma nova perda de compra, a pessoa não precisa incluir uma nova planilha,"
+    },
+    {
+      "start": 256.38,
+      "end": 263.48,
+      "text": "é só ir aqui na planilha e editar, então automaticamente eu indo aqui, eu consigo fazer o preenchimento,"
+    },
+    {
+      "start": 263.48,
+      "end": 269.88,
+      "text": "preenchimento, né, de tudo, tanto dessa aba, né, do que foi usado, colocando aqui o sinal de menos, né,"
+    },
+    {
+      "start": 270.22,
+      "end": 277.36,
+      "text": "aí eu iria para vincular aqui, por exemplo, se fosse aqui, hipoteticamente, ele ia já me reduzir, né,"
+    },
+    {
+      "start": 277.42,
+      "end": 284.92,
+      "text": "então aqui já estaria reduzido, tá vendo? Vou tirar, então aqui ficaria dessa forma,"
+    },
+    {
+      "start": 285.04,
+      "end": 291.2,
+      "text": "então aqui pessoal, esse vídeo é um vídeo mais, é um procedimento que tem que ser adotado a partir de agora,"
+    },
+    {
+      "start": 291.2,
+      "end": 299.1,
+      "text": "para justamente facilitar o contábil, né, facilitar o fiscal e facilitar o DP, caso necessite compensar,"
+    },
+    {
+      "start": 299.38,
+      "end": 304.16,
+      "text": "para que o cliente não pague, né, imposto, visto que ele tem 55 mil de crédito tributário aqui,"
+    },
+    {
+      "start": 304.54,
+      "end": 312.02,
+      "text": "habilitado para utilização, e assim eu encerro mais um vídeo de orientação de procedimentos operacionais internos."
+    }
+  ]
+}

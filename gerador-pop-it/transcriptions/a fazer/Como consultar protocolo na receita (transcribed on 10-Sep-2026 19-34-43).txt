@@ -1,0 +1,12 @@
+Irei mostrar como fazer a consulta do processo protocolado na Receita. No portal do ECAC, você vem na opção de procuração, vai informar o CNPJ da empresa, certo? Você protocolou, 422-239, altera. Pronto, Exatas, Protocolo da Conecta Serviço.
+Vai no campo de Processos, Processos Digitais, Processos em que eu sou o interessado principal. Clico aqui, e aqui já tem o protocolo, certo? Se eu clicar nessa opção, ele só vai me trazer a ficha. Então, eu quero saber a questão do histórico.
+Aqui, eu vou conseguir ter acesso às datas quando ele tiver movimentação. Aqui, ele está informando que foi realizada a triagem no dia 30 do 12. A cada movimentação que for feita, será atualizado, e aí você pode ficar monitorando através da data de entrada.
+Aqui, ele está dizendo que o tempo médio nessa triagem é de um dia, podendo levar dois, três, quatro dias, a depender. Muito da Receita Federal.
+Então, para fazer a consulta, já sabe, vem aqui. Aqui também tem outras informações, quer consultar a informação do processo, porém, para saber mesmo o acompanhamento de onde está e quanto tempo está levando,
+só basta vir nessa parte do histórico do processo, e aqui você vai ter como monitorar as datas da movimentação do processo.
+No final, ele vai estar lá informando a última data e a opção também de finalizado.
+Sendo que, quando ele concluir, esse protocolo, que ao clicar aqui em processo que sou interessado, principal, essa aba não vai estar mais aqui e vai vir aqui para arquivos e arquivados e inativados.
+Então, se ele está ativo é porque ele ainda não concluiu, certo?
+Aí você pode ir lá na parte de histórico e fazer a consulta do andamento.
+Acessou, viu que aqui vai estar em branco, não tem mais essa opção, você vem aqui em arquivados, ele provavelmente já vai estar aqui e você já sabe que ele está finalizado.
+E aí você só vai verificar se foi deferido ou indeferido o pedido.

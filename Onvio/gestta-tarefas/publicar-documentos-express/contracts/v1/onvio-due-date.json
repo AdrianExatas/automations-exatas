@@ -1,0 +1,27 @@
+{
+  "metadataResponse": {
+    "data": {
+      "id": "portal-document-id",
+      "name": "document.pdf",
+      "containerId": "folder-id",
+      "mimeType": "application/pdf",
+      "status": "ACTIVE",
+      "primaryAssociationClientId": "onvio-client-id",
+      "userTags": [],
+      "customFields": { "clientId": "onvio-client-id" },
+      "root": { "id": "project-id", "containerType": "Projects", "primaryAssociationId": "onvio-client-id" }
+    }
+  },
+  "updateRequestPatch": {
+    "customFields": { "clientId": "onvio-client-id", "dueDate": "2026-09-18T00:00:00" },
+    "addUserTags": ["TAX_DOCUMENT"]
+  },
+  "updateResponse": {
+    "data": {
+      "id": "portal-document-id",
+      "containerId": "folder-id",
+      "userTags": ["TAX_DOCUMENT"],
+      "customFields": { "clientId": "onvio-client-id", "dueDate": "2026-09-18T00:00:00Z" }
+    }
+  }
+}

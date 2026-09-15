@@ -1,0 +1,2 @@
+Irei mostrar como fazer a consulta do TLF na Prefeitura de Maceió. Acesse o site, Prefeitura de Maceió, na opção empresários, guia de pagamento, em cadastro seleciona pessoa física ou pessoa jurídica, informa o CNPJ da empresa que deseja fazer a consulta, ele já puxou aqui a informação e logo abaixo tem dizendo licença,
+seleciona emissão de guia, verifica as informações e salva na faixa da impressão. Feito isso, é só enviar para o cliente.

@@ -1,0 +1,83 @@
+{
+  "media": "G:\\Meu Drive\\GESTÃO DE PROCESSOS\\02 - Departamento Pessoal\\VÍDEOS\\1.1 Introdução da tarefa de verificação de pendencias FGTS.mp4",
+  "transcript_path": "C:\\Users\\Exatas\\Documents\\GitHub\\automations-exatas\\gerador-pop-it\\transcriptions\\a fazer\\1.1 Introdução da tarefa de verificação de pendencias FGTS (transcribed on 10-Sep-2026 18-59-52).txt",
+  "language": "pt",
+  "duration_sec": 158.1653125,
+  "segments": [
+    {
+      "start": 1.1,
+      "end": 30.66,
+      "text": "Neste vídeo eu vou ensinar a você como você deverá entender o procedimento a ser executado nessa tarefa de verificação de pendências de FGTS. Iremos pegar este cliente como exemplo e faremos uma leitura da seguinte maneira. É uma tarefa recorrente onde deveremos fazer uma consulta de pendências e abaixo vocês terão um checklist."
+    },
+    {
+      "start": 31.1,
+      "end": 46.1,
+      "text": "O primeiro é consultar e validar no sistema domínio, folha, a importação das informações realizadas via API, verificando se os dados foram integrados corretamente e identificando eventuais inconsistências."
+    },
+    {
+      "start": 46.1,
+      "end": 63.68,
+      "text": "O segundo é consultar a existência de possíveis parcelamentos de FGTS em aberto para a empresa e, quando identificados, disponibilizar as informações em documentos correspondentes no portal Onvio e comunicar ao cliente sobre a pendência."
+    },
+    {
+      "start": 63.68,
+      "end": 79.68,
+      "text": "Terceiro é consultar a existência de guias de FGTS em aberto e, quando identificadas, disponibilizar a respectiva guia do portal do Onvio e comunicar ao cliente o conhecimento para a regularização."
+    },
+    {
+      "start": 79.68,
+      "end": 91.68,
+      "text": "Por fim, quarto item, registrar na tarefa o resultado das consultas realizadas, anexando, quando aplicável, os documentos comprobatórios e completividade."
+    },
+    {
+      "start": 91.68,
+      "end": 98.24,
+      "text": "Então, vamos lá. No segundo vídeo, eu vou ensinar você como executar o checklist."
+    },
+    {
+      "start": 98.58,
+      "end": 101.92,
+      "text": "Nessa parte intradutória, o que ele quer dizer?"
+    },
+    {
+      "start": 102.64,
+      "end": 107.18,
+      "text": "Fazer uma consulta entre domínio e e-social, no primeiro item."
+    },
+    {
+      "start": 107.18,
+      "end": 113.34,
+      "text": "No segundo, consultar se a empresa tem alguma parcela de FGTS e se está em aberto."
+    },
+    {
+      "start": 114.24,
+      "end": 117.4,
+      "text": "No terceiro, se tem alguma pendência de FGTS em aberto."
+    },
+    {
+      "start": 118.56,
+      "end": 125.8,
+      "text": "Caso ambos tenham alguma guia, deverá encaminhar para o Onvio e falar ao cliente."
+    },
+    {
+      "start": 125.96,
+      "end": 130.98,
+      "text": "Ou, ao contrário, comunicar ao cliente, caso ele solicite, encaminhe no Onvio."
+    },
+    {
+      "start": 130.98,
+      "end": 137.88,
+      "text": "E, por fim, para concluir a tarefa, não necessariamente apenas vai ser obrigatório marcar."
+    },
+    {
+      "start": 138.36,
+      "end": 151.06,
+      "text": "Vocês deverão comprovar se, de fato, a sua consulta teve validação."
+    },
+    {
+      "start": 151.58,
+      "end": 157.48,
+      "text": "Então, no próximo vídeo, eu irei executar com você como deverá ser feito."
+    }
+  ]
+}

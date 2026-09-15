@@ -1,0 +1,10 @@
+{
+  "request": {
+    "filterSearchSort": { "orderBy": "name asc", "search": "EMPRESA EXEMPLO LTDA", "searchBy": null, "filter": null },
+    "pagingDataRequest": { "startIndex": null, "pageIndex": 1, "itemsPerPage": 100 },
+    "expand": "primaryContactExpanded",
+    "frp": "Onvio.StaffStorage",
+    "excludeCount": true
+  },
+  "response": { "items": [{ "id": "onvio-client-id", "code": "1001", "name": "EMPRESA EXEMPLO LTDA", "taxIdentification": "12.345.678/0001-95" }] }
+}

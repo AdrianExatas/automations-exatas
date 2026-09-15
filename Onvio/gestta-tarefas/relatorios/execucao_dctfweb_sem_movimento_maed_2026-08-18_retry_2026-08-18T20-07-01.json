@@ -1,0 +1,1330 @@
+{
+  "generatedAt": "2026-08-18T20:07:27.698Z",
+  "mode": "apply",
+  "sourceExcel": "C:\\Users\\Exatas\\Downloads\\Levantamento de Maed sem movimento.xlsx",
+  "targetTasks": {
+    "jan": {
+      "id": "6a84a5cfb622a707a3c7eb85",
+      "name": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - JAN"
+    },
+    "dez": {
+      "id": "6a84a5e0037f098cd1533f42",
+      "name": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - DEZ"
+    }
+  },
+  "totals": {
+    "empresas": 15,
+    "remocoes": 86,
+    "inclusoes": 9,
+    "ok": 15,
+    "failed": 0,
+    "skipped": 0
+  },
+  "empresas": [
+    {
+      "codigoPlanilha": "101",
+      "nomePlanilha": "JOSE PAULO DOS SANTOS 94580197534",
+      "documento": "35901903000128",
+      "customerId": "60b67abe5e12720006e0144d",
+      "codigoGestta": "101",
+      "nomeGestta": "JOSE PAULO DOS SANTOS 94580197534",
+      "resolveStatus": "ok",
+      "detalhe": "Resolvido por documento",
+      "removedPessoal": [
+        {
+          "linkId": "696164b7648e52b6ad7fc329",
+          "taskId": "6961362d8e1a570ed10e8bcf",
+          "taskName": "ANÁLISE DE EMPRESA SEM MOVIMENTO - DP",
+          "companyUserId": "60da0e2fe03dfd000742f690",
+          "companyUserName": "Tasso Nata Ramos de Jesus",
+          "approvers": [],
+          "approveType": []
+        },
+        {
+          "linkId": "696164abb419c0fcc2254d7c",
+          "taskId": "60b61ec51da6830006323533",
+          "taskName": "CONSULTAR EXTRATOR DIRF",
+          "companyUserId": "60da0e2fe03dfd000742f690",
+          "companyUserName": "Tasso Nata Ramos de Jesus",
+          "approvers": [],
+          "approveType": []
+        },
+        {
+          "linkId": "696164aff0bebb18f0e4d255",
+          "taskId": "60b61ec51da683000632355f",
+          "taskName": "PLR - PARTICIPAÇÃO NOS LUCROS",
+          "companyUserId": "60da0e2fe03dfd000742f690",
+          "companyUserName": "Tasso Nata Ramos de Jesus",
+          "approvers": [],
+          "approveType": []
+        },
+        {
+          "linkId": "696164b3b87f4b5024a8bb61",
+          "taskId": "67646f7495dd8939078ccc21",
+          "taskName": "VERIFICAR PENDENCIAS - RECEITA FEDERAL (DP)",
+          "companyUserId": "60da0e2fe03dfd000742f690",
+          "companyUserName": "Tasso Nata Ramos de Jesus",
+          "approvers": [],
+          "approveType": []
+        }
+      ],
+      "addedTargets": [
+        {
+          "taskId": "6a84a5cfb622a707a3c7eb85",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - JAN",
+          "alreadyLinked": true,
+          "action": "skip"
+        },
+        {
+          "taskId": "6a84a5e0037f098cd1533f42",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - DEZ",
+          "alreadyLinked": false,
+          "action": "add",
+          "newLinkId": "6a84bb664bea6f389cbcc1a3"
+        }
+      ],
+      "responsibleId": "60da0e2fe03dfd000742f690",
+      "responsibleName": "Tasso Nata Ramos de Jesus",
+      "applyStatus": "ok",
+      "applyDetail": "removidos=4; adicionados=1"
+    },
+    {
+      "codigoPlanilha": "108",
+      "nomePlanilha": "CASA AGROPECUARIA SANTANA LTDA",
+      "documento": "24291220000180",
+      "customerId": "60b67ab69c73af0006505225",
+      "codigoGestta": "108",
+      "nomeGestta": "CASA AGROPECUARIA SANTANA LTDA",
+      "resolveStatus": "ok",
+      "detalhe": "Resolvido por documento",
+      "removedPessoal": [
+        {
+          "linkId": "637f6291ad2a94000794d9ba",
+          "taskId": "637f6291ad2a94000794d998",
+          "taskName": "13º DCTFWEB",
+          "companyUserId": "6a109a7068f46978705ac891",
+          "companyUserName": "Kamilly Vitoria",
+          "approvers": [],
+          "approveType": [
+            "DONE",
+            "DISCONSIDERED"
+          ]
+        },
+        {
+          "linkId": "63776cd5b118ba0007b1fce7",
+          "taskId": "60b61ec51da6830006323519",
+          "taskName": "13º SALÁRIO ADIANTAMENTO",
+          "companyUserId": "6a109a7068f46978705ac891",
+          "companyUserName": "Kamilly Vitoria",
+          "approvers": [],
+          "approveType": [
+            "DONE",
+            "DISCONSIDERED"
+          ]
+        },
+        {
+          "linkId": "61a119b12592b30006d615b5",
+          "taskId": "60b61ec51da683000632351a",
+          "taskName": "13º SALÁRIO INTEGRAL",
+          "companyUserId": "6a109a7068f46978705ac891",
+          "companyUserName": "Kamilly Vitoria",
+          "approvers": [],
+          "approveType": [
+            "DONE",
+            "DISCONSIDERED"
+          ]
+        },
+        {
+          "linkId": "63bac45b2b882f0007f15ddf",
+          "taskId": "63bac454c2323100077c473a",
+          "taskName": "ALTERACAO SALARIAL",
+          "companyUserId": "6a109a7068f46978705ac891",
+          "companyUserName": "Kamilly Vitoria",
+          "approvers": [],
+          "approveType": [
+            "DONE",
+            "DISCONSIDERED"
+          ]
+        },
+        {
+          "linkId": "63ba9c5ef469f8000658cd36",
+          "taskId": "63ba9c51580507000649c22f",
+          "taskName": "COMPROVANTE DE RENDIMENTO",
+          "companyUserId": "6a109a7068f46978705ac891",
+          "companyUserName": "Kamilly Vitoria",
+          "approvers": [],
+          "approveType": [
+            "DONE",
+            "DISCONSIDERED"
+          ]
+        },
+        {
+          "linkId": "6a7f1ca34b078767265b18e0",
+          "taskId": "6a7f1af956cce4c28f914034",
+          "taskName": "CONSULTAR DET",
+          "companyUserId": "6a109a7068f46978705ac891",
+          "companyUserName": "Kamilly Vitoria",
+          "approvers": [],
+          "approveType": []
+        },
+        {
+          "linkId": "63ef6a2b81a50f0007f7c4ae",
+          "taskId": "60b61ec51da6830006323533",
+          "taskName": "CONSULTAR EXTRATOR DIRF",
+          "companyUserId": "6a109a7068f46978705ac891",
+          "companyUserName": "Kamilly Vitoria",
+          "approvers": [],
+          "approveType": [
+            "DONE",
+            "DISCONSIDERED"
+          ]
+        },
+        {
+          "linkId": "67ec3cc5f2f9db887706a127",
+          "taskId": "6252c6e82dbce400063d5fa1",
+          "taskName": "DCTFWEB - SETOR PESSOAL",
+          "companyUserId": "6a109a7068f46978705ac891",
+          "companyUserName": "Kamilly Vitoria",
+          "approvers": [],
+          "approveType": []
+        },
+        {
+          "linkId": "67c1c9f59809bfacbcd36569",
+          "taskId": "65b00e53296a9100066c8684",
+          "taskName": "FGTS DIGITAL",
+          "companyUserId": "6a109a7068f46978705ac891",
+          "companyUserName": "Kamilly Vitoria",
+          "approvers": [],
+          "approveType": []
+        },
+        {
+          "linkId": "69b1de3b670bae89cad6f901",
+          "taskId": "69b1de3b670bae89cad6f88e",
+          "taskName": "FGTS DIGITAL CONSIGNADO",
+          "companyUserId": "6a109a7068f46978705ac891",
+          "companyUserName": "Kamilly Vitoria",
+          "approvers": [],
+          "approveType": []
+        },
+        {
+          "linkId": "6a635a204d8819abae3149e4",
+          "taskId": "6a635a204d8819abae314957",
+          "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+          "companyUserId": "6a109a7068f46978705ac891",
+          "companyUserName": "Kamilly Vitoria",
+          "approvers": [],
+          "approveType": []
+        },
+        {
+          "linkId": "68af3fba53742d4934514ada",
+          "taskId": "62fe7db236c2e400064524b0",
+          "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 2",
+          "companyUserId": "6a109a7068f46978705ac891",
+          "companyUserName": "Kamilly Vitoria",
+          "approvers": [],
+          "approveType": []
+        },
+        {
+          "linkId": "68fb8fc2ef56cc5da91fe033",
+          "taskId": "60b61ec51da6830006323547",
+          "taskName": "FOLHA DE PONTO",
+          "companyUserId": "6a109a7068f46978705ac891",
+          "companyUserName": "Kamilly Vitoria",
+          "approvers": [],
+          "approveType": []
+        },
+        {
+          "linkId": "67aa39798093603ec2a28c32",
+          "taskId": "60b61ec51da683000632355f",
+          "taskName": "PLR - PARTICIPAÇÃO NOS LUCROS",
+          "companyUserId": "6a109a7068f46978705ac891",
+          "companyUserName": "Kamilly Vitoria",
+          "approvers": [],
+          "approveType": []
+        },
+        {
+          "linkId": "676475ebbb5a8efa76f1fee3",
+          "taskId": "67646f7495dd8939078ccc21",
+          "taskName": "VERIFICAR PENDENCIAS - RECEITA FEDERAL (DP)",
+          "companyUserId": "6a109a7068f46978705ac891",
+          "companyUserName": "Kamilly Vitoria",
+          "approvers": [],
+          "approveType": []
+        }
+      ],
+      "addedTargets": [
+        {
+          "taskId": "6a84a5cfb622a707a3c7eb85",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - JAN",
+          "alreadyLinked": true,
+          "action": "skip"
+        },
+        {
+          "taskId": "6a84a5e0037f098cd1533f42",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - DEZ",
+          "alreadyLinked": true,
+          "action": "skip"
+        }
+      ],
+      "responsibleId": "6a109a7068f46978705ac891",
+      "responsibleName": "Kamilly Vitoria",
+      "applyStatus": "ok",
+      "applyDetail": "removidos=15; adicionados=0"
+    },
+    {
+      "codigoPlanilha": "137",
+      "nomePlanilha": "LICO COMERCIO DE PNEUS LTDA",
+      "documento": "33037737000138",
+      "customerId": "60b67a53d7f461000622d50a",
+      "codigoGestta": "137",
+      "nomeGestta": "LICO COMERCIO DE PNEUS LTDA",
+      "resolveStatus": "ok",
+      "detalhe": "Resolvido por documento",
+      "removedPessoal": [
+        {
+          "linkId": "69616514648e52b6ad7fcaa5",
+          "taskId": "6961362d8e1a570ed10e8bcf",
+          "taskName": "ANÁLISE DE EMPRESA SEM MOVIMENTO - DP",
+          "companyUserId": "60da0e2fe03dfd000742f690",
+          "companyUserName": "Tasso Nata Ramos de Jesus",
+          "approvers": [],
+          "approveType": []
+        },
+        {
+          "linkId": "6961650801bb2c730a478361",
+          "taskId": "60b61ec51da6830006323533",
+          "taskName": "CONSULTAR EXTRATOR DIRF",
+          "companyUserId": "60da0e2fe03dfd000742f690",
+          "companyUserName": "Tasso Nata Ramos de Jesus",
+          "approvers": [],
+          "approveType": []
+        },
+        {
+          "linkId": "6961650cf1bccf24a13df727",
+          "taskId": "60b61ec51da683000632355f",
+          "taskName": "PLR - PARTICIPAÇÃO NOS LUCROS",
+          "companyUserId": "60da0e2fe03dfd000742f690",
+          "companyUserName": "Tasso Nata Ramos de Jesus",
+          "approvers": [],
+          "approveType": []
+        },
+        {
+          "linkId": "69616510d1effd8ebf355b93",
+          "taskId": "67646f7495dd8939078ccc21",
+          "taskName": "VERIFICAR PENDENCIAS - RECEITA FEDERAL (DP)",
+          "companyUserId": "60da0e2fe03dfd000742f690",
+          "companyUserName": "Tasso Nata Ramos de Jesus",
+          "approvers": [],
+          "approveType": []
+        }
+      ],
+      "addedTargets": [
+        {
+          "taskId": "6a84a5cfb622a707a3c7eb85",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - JAN",
+          "alreadyLinked": true,
+          "action": "skip"
+        },
+        {
+          "taskId": "6a84a5e0037f098cd1533f42",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - DEZ",
+          "alreadyLinked": true,
+          "action": "skip"
+        }
+      ],
+      "responsibleId": "60da0e2fe03dfd000742f690",
+      "responsibleName": "Tasso Nata Ramos de Jesus",
+      "applyStatus": "ok",
+      "applyDetail": "removidos=4; adicionados=0"
+    },
+    {
+      "codigoPlanilha": "143",
+      "nomePlanilha": "JOSE DIAS DE SOUZA NETO 06289811550",
+      "documento": "36207251000199",
+      "customerId": "60b67ae2d7f461000622d79f",
+      "codigoGestta": "143",
+      "nomeGestta": "JOSE DIAS DE SOUZA NETO 06289811550",
+      "resolveStatus": "ok",
+      "detalhe": "Resolvido por documento",
+      "removedPessoal": [
+        {
+          "linkId": "6961656db419c0fcc225619a",
+          "taskId": "6961362d8e1a570ed10e8bcf",
+          "taskName": "ANÁLISE DE EMPRESA SEM MOVIMENTO - DP",
+          "companyUserId": "60da0e2fe03dfd000742f690",
+          "companyUserName": "Tasso Nata Ramos de Jesus",
+          "approvers": [],
+          "approveType": []
+        },
+        {
+          "linkId": "69616563ecd47cbe96d30335",
+          "taskId": "60b61ec51da6830006323533",
+          "taskName": "CONSULTAR EXTRATOR DIRF",
+          "companyUserId": "60da0e2fe03dfd000742f690",
+          "companyUserName": "Tasso Nata Ramos de Jesus",
+          "approvers": [],
+          "approveType": []
+        },
+        {
+          "linkId": "69616566ecd47cbe96d3046b",
+          "taskId": "60b61ec51da683000632355f",
+          "taskName": "PLR - PARTICIPAÇÃO NOS LUCROS",
+          "companyUserId": "60da0e2fe03dfd000742f690",
+          "companyUserName": "Tasso Nata Ramos de Jesus",
+          "approvers": [],
+          "approveType": []
+        },
+        {
+          "linkId": "69616569b419c0fcc2256155",
+          "taskId": "67646f7495dd8939078ccc21",
+          "taskName": "VERIFICAR PENDENCIAS - RECEITA FEDERAL (DP)",
+          "companyUserId": "60da0e2fe03dfd000742f690",
+          "companyUserName": "Tasso Nata Ramos de Jesus",
+          "approvers": [],
+          "approveType": []
+        }
+      ],
+      "addedTargets": [
+        {
+          "taskId": "6a84a5cfb622a707a3c7eb85",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - JAN",
+          "alreadyLinked": true,
+          "action": "skip"
+        },
+        {
+          "taskId": "6a84a5e0037f098cd1533f42",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - DEZ",
+          "alreadyLinked": false,
+          "action": "add",
+          "newLinkId": "6a84bb6b817ad023a399e328"
+        }
+      ],
+      "responsibleId": "60da0e2fe03dfd000742f690",
+      "responsibleName": "Tasso Nata Ramos de Jesus",
+      "applyStatus": "ok",
+      "applyDetail": "removidos=4; adicionados=1"
+    },
+    {
+      "codigoPlanilha": "194",
+      "nomePlanilha": "START PLAY LTDA",
+      "documento": "30018375000140",
+      "customerId": "60e45cae8fa9cd00060bff29",
+      "codigoGestta": "194",
+      "nomeGestta": "START PLAY LTDA",
+      "resolveStatus": "ok",
+      "detalhe": "Resolvido por documento",
+      "removedPessoal": [
+        {
+          "linkId": "63ef6a2b81a50f0007f7c4d2",
+          "taskId": "60b61ec51da6830006323533",
+          "taskName": "CONSULTAR EXTRATOR DIRF",
+          "companyUserId": "60da0e2fe03dfd000742f690",
+          "companyUserName": "Tasso Nata Ramos de Jesus",
+          "approvers": [],
+          "approveType": [
+            "DONE",
+            "DISCONSIDERED"
+          ]
+        }
+      ],
+      "addedTargets": [
+        {
+          "taskId": "6a84a5cfb622a707a3c7eb85",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - JAN",
+          "alreadyLinked": true,
+          "action": "skip"
+        },
+        {
+          "taskId": "6a84a5e0037f098cd1533f42",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - DEZ",
+          "alreadyLinked": true,
+          "action": "skip"
+        }
+      ],
+      "responsibleId": "60da0e2fe03dfd000742f690",
+      "responsibleName": "Tasso Nata Ramos de Jesus",
+      "applyStatus": "ok",
+      "applyDetail": "removidos=1; adicionados=0"
+    },
+    {
+      "codigoPlanilha": "229",
+      "nomePlanilha": "EMPORIO BRUMAR PRODUTOS NATURAIS LTDA",
+      "documento": "10485182000272",
+      "customerId": "61b254975222b700067c75ed",
+      "codigoGestta": "229",
+      "nomeGestta": "EMPORIO BRUMAR PRODUTOS NATURAIS LTDA",
+      "resolveStatus": "ok",
+      "detalhe": "Resolvido por documento",
+      "removedPessoal": [
+        {
+          "linkId": "6a2c01cc8b739698dced3092",
+          "taskId": "6a2bff7e7f3923431594b613",
+          "taskName": "13° ADIANTAMENTO ANIVERSARIANTE - DIA 30",
+          "companyUserId": "68e9b206985258f6952ec237",
+          "companyUserName": "Alexcia Couto",
+          "approvers": [],
+          "approveType": []
+        },
+        {
+          "linkId": "64cc030e3bcd38000824d91e",
+          "taskId": "637f6291ad2a94000794d998",
+          "taskName": "13º DCTFWEB",
+          "companyUserId": "68e9b206985258f6952ec237",
+          "companyUserName": "Alexcia Couto",
+          "approvers": [],
+          "approveType": [
+            "DONE",
+            "DISCONSIDERED"
+          ]
+        },
+        {
+          "linkId": "64c41eeeb912d2000716ff49",
+          "taskId": "60b61ec51da6830006323519",
+          "taskName": "13º SALÁRIO ADIANTAMENTO",
+          "companyUserId": "68e9b206985258f6952ec237",
+          "companyUserName": "Alexcia Couto",
+          "approvers": [],
+          "approveType": [
+            "DONE",
+            "DISCONSIDERED"
+          ]
+        },
+        {
+          "linkId": "63bac45b2b882f0007f15e22",
+          "taskId": "63bac454c2323100077c473a",
+          "taskName": "ALTERACAO SALARIAL",
+          "companyUserId": "68e9b206985258f6952ec237",
+          "companyUserName": "Alexcia Couto",
+          "approvers": [],
+          "approveType": [
+            "DONE",
+            "DISCONSIDERED"
+          ]
+        },
+        {
+          "linkId": "63ba9c5ef469f8000658cd79",
+          "taskId": "63ba9c51580507000649c22f",
+          "taskName": "COMPROVANTE DE RENDIMENTO",
+          "companyUserId": "68e9b206985258f6952ec237",
+          "companyUserName": "Alexcia Couto",
+          "approvers": [],
+          "approveType": [
+            "DONE",
+            "DISCONSIDERED"
+          ]
+        },
+        {
+          "linkId": "6a7f1ca34b078767265b18d0",
+          "taskId": "6a7f1af956cce4c28f914034",
+          "taskName": "CONSULTAR DET",
+          "companyUserId": "68e9b206985258f6952ec237",
+          "companyUserName": "Alexcia Couto",
+          "approvers": [],
+          "approveType": [
+            "DONE",
+            "DISCONSIDERED"
+          ]
+        },
+        {
+          "linkId": "63ef6a2b81a50f0007f7c4ef",
+          "taskId": "60b61ec51da6830006323533",
+          "taskName": "CONSULTAR EXTRATOR DIRF",
+          "companyUserId": "68e9b206985258f6952ec237",
+          "companyUserName": "Alexcia Couto",
+          "approvers": [],
+          "approveType": [
+            "DONE",
+            "DISCONSIDERED"
+          ]
+        },
+        {
+          "linkId": "67c1c9af02b5e29853560d23",
+          "taskId": "65b00e53296a9100066c8684",
+          "taskName": "FGTS DIGITAL",
+          "companyUserId": "68e9b206985258f6952ec237",
+          "companyUserName": "Alexcia Couto",
+          "approvers": [],
+          "approveType": []
+        },
+        {
+          "linkId": "69b1de3b670bae89cad6f8f9",
+          "taskId": "69b1de3b670bae89cad6f88e",
+          "taskName": "FGTS DIGITAL CONSIGNADO",
+          "companyUserId": "68e9b206985258f6952ec237",
+          "companyUserName": "Alexcia Couto",
+          "approvers": [],
+          "approveType": []
+        },
+        {
+          "linkId": "6a635a204d8819abae314999",
+          "taskId": "6a635a204d8819abae314957",
+          "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+          "companyUserId": "68e9b206985258f6952ec237",
+          "companyUserName": "Alexcia Couto",
+          "approvers": [],
+          "approveType": [
+            "DONE",
+            "DISCONSIDERED"
+          ]
+        },
+        {
+          "linkId": "64c03dc79b03b70007ed3dcf",
+          "taskId": "62fe7db236c2e400064524b0",
+          "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 2",
+          "companyUserId": "68e9b206985258f6952ec237",
+          "companyUserName": "Alexcia Couto",
+          "approvers": [],
+          "approveType": [
+            "DONE",
+            "DISCONSIDERED"
+          ]
+        },
+        {
+          "linkId": "67a65296505e18c38096d400",
+          "taskId": "60b61ec51da683000632355f",
+          "taskName": "PLR - PARTICIPAÇÃO NOS LUCROS",
+          "companyUserId": "68e9b206985258f6952ec237",
+          "companyUserName": "Alexcia Couto",
+          "approvers": [],
+          "approveType": []
+        },
+        {
+          "linkId": "676475ebbb5a8efa76f1ff02",
+          "taskId": "67646f7495dd8939078ccc21",
+          "taskName": "VERIFICAR PENDENCIAS - RECEITA FEDERAL (DP)",
+          "companyUserId": "68e9b206985258f6952ec237",
+          "companyUserName": "Alexcia Couto",
+          "approvers": [],
+          "approveType": []
+        }
+      ],
+      "addedTargets": [
+        {
+          "taskId": "6a84a5cfb622a707a3c7eb85",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - JAN",
+          "alreadyLinked": true,
+          "action": "skip"
+        },
+        {
+          "taskId": "6a84a5e0037f098cd1533f42",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - DEZ",
+          "alreadyLinked": false,
+          "action": "add",
+          "newLinkId": "6a84bb6d545ad8efc22846f1"
+        }
+      ],
+      "responsibleId": "68e9b206985258f6952ec237",
+      "responsibleName": "Alexcia Couto",
+      "applyStatus": "ok",
+      "applyDetail": "removidos=13; adicionados=1"
+    },
+    {
+      "codigoPlanilha": "230",
+      "nomePlanilha": "EMPORIO BRUMAR PRODUTOS NATURAIS LTDA",
+      "documento": "10485182000353",
+      "customerId": "61b255a90b888f000640e02b",
+      "codigoGestta": "230",
+      "nomeGestta": "EMPORIO BRUMAR PRODUTOS NATURAIS LTDA",
+      "resolveStatus": "ok",
+      "detalhe": "Resolvido por documento",
+      "removedPessoal": [
+        {
+          "linkId": "6a2c01d2cca538c2556ec406",
+          "taskId": "6a2bff7e7f3923431594b613",
+          "taskName": "13° ADIANTAMENTO ANIVERSARIANTE - DIA 30",
+          "companyUserId": "68e9b206985258f6952ec237",
+          "companyUserName": "Alexcia Couto",
+          "approvers": [],
+          "approveType": []
+        },
+        {
+          "linkId": "64cc03205036800007e57994",
+          "taskId": "637f6291ad2a94000794d998",
+          "taskName": "13º DCTFWEB",
+          "companyUserId": "68e9b206985258f6952ec237",
+          "companyUserName": "Alexcia Couto",
+          "approvers": [],
+          "approveType": [
+            "DONE",
+            "DISCONSIDERED"
+          ]
+        },
+        {
+          "linkId": "64c41eeeb912d2000716ff4a",
+          "taskId": "60b61ec51da6830006323519",
+          "taskName": "13º SALÁRIO ADIANTAMENTO",
+          "companyUserId": "68e9b206985258f6952ec237",
+          "companyUserName": "Alexcia Couto",
+          "approvers": [],
+          "approveType": [
+            "DONE",
+            "DISCONSIDERED"
+          ]
+        },
+        {
+          "linkId": "63bac45b2b882f0007f15e23",
+          "taskId": "63bac454c2323100077c473a",
+          "taskName": "ALTERACAO SALARIAL",
+          "companyUserId": "68e9b206985258f6952ec237",
+          "companyUserName": "Alexcia Couto",
+          "approvers": [],
+          "approveType": [
+            "DONE",
+            "DISCONSIDERED"
+          ]
+        },
+        {
+          "linkId": "63ba9c5ef469f8000658cd7a",
+          "taskId": "63ba9c51580507000649c22f",
+          "taskName": "COMPROVANTE DE RENDIMENTO",
+          "companyUserId": "68e9b206985258f6952ec237",
+          "companyUserName": "Alexcia Couto",
+          "approvers": [],
+          "approveType": [
+            "DONE",
+            "DISCONSIDERED"
+          ]
+        },
+        {
+          "linkId": "63ef6a2b81a50f0007f7c4f0",
+          "taskId": "60b61ec51da6830006323533",
+          "taskName": "CONSULTAR EXTRATOR DIRF",
+          "companyUserId": "68e9b206985258f6952ec237",
+          "companyUserName": "Alexcia Couto",
+          "approvers": [],
+          "approveType": [
+            "DONE",
+            "DISCONSIDERED"
+          ]
+        },
+        {
+          "linkId": "67c1c9af02b5e29853560d24",
+          "taskId": "65b00e53296a9100066c8684",
+          "taskName": "FGTS DIGITAL",
+          "companyUserId": "68e9b206985258f6952ec237",
+          "companyUserName": "Alexcia Couto",
+          "approvers": [],
+          "approveType": []
+        },
+        {
+          "linkId": "69b1de3b670bae89cad6f8fa",
+          "taskId": "69b1de3b670bae89cad6f88e",
+          "taskName": "FGTS DIGITAL CONSIGNADO",
+          "companyUserId": "68e9b206985258f6952ec237",
+          "companyUserName": "Alexcia Couto",
+          "approvers": [],
+          "approveType": []
+        },
+        {
+          "linkId": "67a65296505e18c38096d401",
+          "taskId": "60b61ec51da683000632355f",
+          "taskName": "PLR - PARTICIPAÇÃO NOS LUCROS",
+          "companyUserId": "68e9b206985258f6952ec237",
+          "companyUserName": "Alexcia Couto",
+          "approvers": [],
+          "approveType": []
+        },
+        {
+          "linkId": "676475ebbb5a8efa76f1ff03",
+          "taskId": "67646f7495dd8939078ccc21",
+          "taskName": "VERIFICAR PENDENCIAS - RECEITA FEDERAL (DP)",
+          "companyUserId": "68e9b206985258f6952ec237",
+          "companyUserName": "Alexcia Couto",
+          "approvers": [],
+          "approveType": []
+        }
+      ],
+      "addedTargets": [
+        {
+          "taskId": "6a84a5cfb622a707a3c7eb85",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - JAN",
+          "alreadyLinked": true,
+          "action": "skip"
+        },
+        {
+          "taskId": "6a84a5e0037f098cd1533f42",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - DEZ",
+          "alreadyLinked": false,
+          "action": "add",
+          "newLinkId": "6a84bb706b69f0f9bb9be4da"
+        }
+      ],
+      "responsibleId": "68e9b206985258f6952ec237",
+      "responsibleName": "Alexcia Couto",
+      "applyStatus": "ok",
+      "applyDetail": "removidos=10; adicionados=1"
+    },
+    {
+      "codigoPlanilha": "241",
+      "nomePlanilha": "IMPERATRIZ ENXOVAIS LTDA",
+      "documento": "44831305000110",
+      "customerId": "61e1bd80db86bc00075c36f6",
+      "codigoGestta": "241",
+      "nomeGestta": "IMPERATRIZ ENXOVAIS LTDA",
+      "resolveStatus": "ok",
+      "detalhe": "Resolvido por documento",
+      "removedPessoal": [
+        {
+          "linkId": "69616679648e52b6ad7feb1a",
+          "taskId": "6961362d8e1a570ed10e8bcf",
+          "taskName": "ANÁLISE DE EMPRESA SEM MOVIMENTO - DP",
+          "companyUserId": "60da0e2fe03dfd000742f690",
+          "companyUserName": "Tasso Nata Ramos de Jesus",
+          "approvers": [],
+          "approveType": []
+        },
+        {
+          "linkId": "6961666ed1effd8ebf357fa4",
+          "taskId": "60b61ec51da6830006323533",
+          "taskName": "CONSULTAR EXTRATOR DIRF",
+          "companyUserId": "60da0e2fe03dfd000742f690",
+          "companyUserName": "Tasso Nata Ramos de Jesus",
+          "approvers": [],
+          "approveType": []
+        },
+        {
+          "linkId": "6961667201bb2c730a47a775",
+          "taskId": "60b61ec51da683000632355f",
+          "taskName": "PLR - PARTICIPAÇÃO NOS LUCROS",
+          "companyUserId": "60da0e2fe03dfd000742f690",
+          "companyUserName": "Tasso Nata Ramos de Jesus",
+          "approvers": [],
+          "approveType": []
+        },
+        {
+          "linkId": "69616676d1effd8ebf358059",
+          "taskId": "67646f7495dd8939078ccc21",
+          "taskName": "VERIFICAR PENDENCIAS - RECEITA FEDERAL (DP)",
+          "companyUserId": "60da0e2fe03dfd000742f690",
+          "companyUserName": "Tasso Nata Ramos de Jesus",
+          "approvers": [],
+          "approveType": []
+        }
+      ],
+      "addedTargets": [
+        {
+          "taskId": "6a84a5cfb622a707a3c7eb85",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - JAN",
+          "alreadyLinked": true,
+          "action": "skip"
+        },
+        {
+          "taskId": "6a84a5e0037f098cd1533f42",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - DEZ",
+          "alreadyLinked": true,
+          "action": "skip"
+        }
+      ],
+      "responsibleId": "60da0e2fe03dfd000742f690",
+      "responsibleName": "Tasso Nata Ramos de Jesus",
+      "applyStatus": "ok",
+      "applyDetail": "removidos=4; adicionados=0"
+    },
+    {
+      "codigoPlanilha": "251",
+      "nomePlanilha": "AUSTREGESILO JUNIOR ARAGAO MELO",
+      "documento": "08492189000199",
+      "customerId": "61fc2e48c645140006fefc1f",
+      "codigoGestta": "251",
+      "nomeGestta": "AUSTREGESILO JUNIOR ARAGAO MELO",
+      "resolveStatus": "ok",
+      "detalhe": "Resolvido por documento",
+      "removedPessoal": [
+        {
+          "linkId": "696166a6648e52b6ad7fee9f",
+          "taskId": "6961362d8e1a570ed10e8bcf",
+          "taskName": "ANÁLISE DE EMPRESA SEM MOVIMENTO - DP",
+          "companyUserId": "60da0e2fe03dfd000742f690",
+          "companyUserName": "Tasso Nata Ramos de Jesus",
+          "approvers": [],
+          "approveType": []
+        },
+        {
+          "linkId": "6961669b648e52b6ad7fedbc",
+          "taskId": "60b61ec51da6830006323533",
+          "taskName": "CONSULTAR EXTRATOR DIRF",
+          "companyUserId": "60da0e2fe03dfd000742f690",
+          "companyUserName": "Tasso Nata Ramos de Jesus",
+          "approvers": [],
+          "approveType": []
+        },
+        {
+          "linkId": "6961669fb87f4b5024a8ec4f",
+          "taskId": "60b61ec51da683000632355f",
+          "taskName": "PLR - PARTICIPAÇÃO NOS LUCROS",
+          "companyUserId": "60da0e2fe03dfd000742f690",
+          "companyUserName": "Tasso Nata Ramos de Jesus",
+          "approvers": [],
+          "approveType": []
+        },
+        {
+          "linkId": "696166a31c60a19e62245362",
+          "taskId": "67646f7495dd8939078ccc21",
+          "taskName": "VERIFICAR PENDENCIAS - RECEITA FEDERAL (DP)",
+          "companyUserId": "60da0e2fe03dfd000742f690",
+          "companyUserName": "Tasso Nata Ramos de Jesus",
+          "approvers": [],
+          "approveType": []
+        }
+      ],
+      "addedTargets": [
+        {
+          "taskId": "6a84a5cfb622a707a3c7eb85",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - JAN",
+          "alreadyLinked": true,
+          "action": "skip"
+        },
+        {
+          "taskId": "6a84a5e0037f098cd1533f42",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - DEZ",
+          "alreadyLinked": false,
+          "action": "add",
+          "newLinkId": "6a84bb73817ad023a399e441"
+        }
+      ],
+      "responsibleId": "60da0e2fe03dfd000742f690",
+      "responsibleName": "Tasso Nata Ramos de Jesus",
+      "applyStatus": "ok",
+      "applyDetail": "removidos=4; adicionados=1"
+    },
+    {
+      "codigoPlanilha": "268",
+      "nomePlanilha": "SUPERMERCADO SUPERLAR LTDA",
+      "documento": "03932909000257",
+      "customerId": "623b5a2eea1ac20007c55cea",
+      "codigoGestta": "268",
+      "nomeGestta": "SUPERMERCADO SUPERLAR LTDA",
+      "resolveStatus": "ok",
+      "detalhe": "Resolvido por documento",
+      "removedPessoal": [
+        {
+          "linkId": "69616702f0bebb18f0e50678",
+          "taskId": "6961362d8e1a570ed10e8bcf",
+          "taskName": "ANÁLISE DE EMPRESA SEM MOVIMENTO - DP",
+          "companyUserId": "60da0e2fe03dfd000742f690",
+          "companyUserName": "Tasso Nata Ramos de Jesus",
+          "approvers": [],
+          "approveType": []
+        },
+        {
+          "linkId": "696166f6ecd47cbe96d323d7",
+          "taskId": "60b61ec51da6830006323533",
+          "taskName": "CONSULTAR EXTRATOR DIRF",
+          "companyUserId": "60da0e2fe03dfd000742f690",
+          "companyUserName": "Tasso Nata Ramos de Jesus",
+          "approvers": [],
+          "approveType": []
+        },
+        {
+          "linkId": "696166fad1effd8ebf358bdc",
+          "taskId": "60b61ec51da683000632355f",
+          "taskName": "PLR - PARTICIPAÇÃO NOS LUCROS",
+          "companyUserId": "60da0e2fe03dfd000742f690",
+          "companyUserName": "Tasso Nata Ramos de Jesus",
+          "approvers": [],
+          "approveType": []
+        },
+        {
+          "linkId": "696166fed1effd8ebf358c2f",
+          "taskId": "67646f7495dd8939078ccc21",
+          "taskName": "VERIFICAR PENDENCIAS - RECEITA FEDERAL (DP)",
+          "companyUserId": "60da0e2fe03dfd000742f690",
+          "companyUserName": "Tasso Nata Ramos de Jesus",
+          "approvers": [],
+          "approveType": []
+        }
+      ],
+      "addedTargets": [
+        {
+          "taskId": "6a84a5cfb622a707a3c7eb85",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - JAN",
+          "alreadyLinked": true,
+          "action": "skip"
+        },
+        {
+          "taskId": "6a84a5e0037f098cd1533f42",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - DEZ",
+          "alreadyLinked": false,
+          "action": "add",
+          "newLinkId": "6a84bb75545ad8efc2284ecf"
+        }
+      ],
+      "responsibleId": "60da0e2fe03dfd000742f690",
+      "responsibleName": "Tasso Nata Ramos de Jesus",
+      "applyStatus": "ok",
+      "applyDetail": "removidos=4; adicionados=1"
+    },
+    {
+      "codigoPlanilha": "277",
+      "nomePlanilha": "TMA CONSULTORIA TRIBUTARIA LTDA",
+      "documento": "45961871000100",
+      "customerId": "6255ba5c9497ad00065dd1ae",
+      "codigoGestta": "277",
+      "nomeGestta": "TMA CONSULTORIA TRIBUTARIA LTDA",
+      "resolveStatus": "ok",
+      "detalhe": "Resolvido por documento",
+      "removedPessoal": [
+        {
+          "linkId": "6377d6da1784920007dabe31",
+          "taskId": "60b61ec51da6830006323519",
+          "taskName": "13º SALÁRIO ADIANTAMENTO",
+          "companyUserId": "67b38cd5830a034bc59aecdb",
+          "companyUserName": "Juliana Barreto",
+          "approvers": [],
+          "approveType": [
+            "DONE",
+            "DISCONSIDERED"
+          ]
+        },
+        {
+          "linkId": "63bac45b2b882f0007f15e4b",
+          "taskId": "63bac454c2323100077c473a",
+          "taskName": "ALTERACAO SALARIAL",
+          "companyUserId": "67b38cd5830a034bc59aecdb",
+          "companyUserName": "Juliana Barreto",
+          "approvers": [],
+          "approveType": [
+            "DONE",
+            "DISCONSIDERED"
+          ]
+        },
+        {
+          "linkId": "63ba9c5ef469f8000658cda2",
+          "taskId": "63ba9c51580507000649c22f",
+          "taskName": "COMPROVANTE DE RENDIMENTO",
+          "companyUserId": "67b38cd5830a034bc59aecdb",
+          "companyUserName": "Juliana Barreto",
+          "approvers": [],
+          "approveType": [
+            "DONE",
+            "DISCONSIDERED"
+          ]
+        },
+        {
+          "linkId": "63ef6a2b81a50f0007f7c515",
+          "taskId": "60b61ec51da6830006323533",
+          "taskName": "CONSULTAR EXTRATOR DIRF",
+          "companyUserId": "67b38cd5830a034bc59aecdb",
+          "companyUserName": "Juliana Barreto",
+          "approvers": [],
+          "approveType": [
+            "DONE",
+            "DISCONSIDERED"
+          ]
+        },
+        {
+          "linkId": "67ec3cc5f2f9db887706a13e",
+          "taskId": "6252c6e82dbce400063d5fa1",
+          "taskName": "DCTFWEB - SETOR PESSOAL",
+          "companyUserId": "67b38cd5830a034bc59aecdb",
+          "companyUserName": "Juliana Barreto",
+          "approvers": [],
+          "approveType": []
+        },
+        {
+          "linkId": "67c1c9f59809bfacbcd36576",
+          "taskId": "65b00e53296a9100066c8684",
+          "taskName": "FGTS DIGITAL",
+          "companyUserId": "67b38cd5830a034bc59aecdb",
+          "companyUserName": "Juliana Barreto",
+          "approvers": [],
+          "approveType": []
+        },
+        {
+          "linkId": "69b1de3b670bae89cad6f904",
+          "taskId": "69b1de3b670bae89cad6f88e",
+          "taskName": "FGTS DIGITAL CONSIGNADO",
+          "companyUserId": "67b38cd5830a034bc59aecdb",
+          "companyUserName": "Juliana Barreto",
+          "approvers": [],
+          "approveType": []
+        },
+        {
+          "linkId": "676475ebbb5a8efa76f1ff13",
+          "taskId": "67646f7495dd8939078ccc21",
+          "taskName": "VERIFICAR PENDENCIAS - RECEITA FEDERAL (DP)",
+          "companyUserId": "67b38cd5830a034bc59aecdb",
+          "companyUserName": "Juliana Barreto",
+          "approvers": [],
+          "approveType": []
+        }
+      ],
+      "addedTargets": [
+        {
+          "taskId": "6a84a5cfb622a707a3c7eb85",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - JAN",
+          "alreadyLinked": true,
+          "action": "skip"
+        },
+        {
+          "taskId": "6a84a5e0037f098cd1533f42",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - DEZ",
+          "alreadyLinked": false,
+          "action": "add",
+          "newLinkId": "6a84bb77817ad023a399e48f"
+        }
+      ],
+      "responsibleId": "67b38cd5830a034bc59aecdb",
+      "responsibleName": "Juliana Barreto",
+      "applyStatus": "ok",
+      "applyDetail": "removidos=8; adicionados=1"
+    },
+    {
+      "codigoPlanilha": "307",
+      "nomePlanilha": "GIULLIAN CAEPF",
+      "documento": "03672686500135",
+      "customerId": "6317331aadd1ae0006ba7d8e",
+      "codigoGestta": "307",
+      "nomeGestta": "GIULLIAN CAEPF",
+      "resolveStatus": "ok",
+      "detalhe": "Resolvido por documento",
+      "removedPessoal": [
+        {
+          "linkId": "69616830f1bccf24a13e37e5",
+          "taskId": "60b61ec51da6830006323533",
+          "taskName": "CONSULTAR EXTRATOR DIRF",
+          "companyUserId": "60da0e2fe03dfd000742f690",
+          "companyUserName": "Tasso Nata Ramos de Jesus",
+          "approvers": [],
+          "approveType": []
+        },
+        {
+          "linkId": "69616834b87f4b5024a90b43",
+          "taskId": "60b61ec51da683000632355f",
+          "taskName": "PLR - PARTICIPAÇÃO NOS LUCROS",
+          "companyUserId": "60da0e2fe03dfd000742f690",
+          "companyUserName": "Tasso Nata Ramos de Jesus",
+          "approvers": [],
+          "approveType": []
+        },
+        {
+          "linkId": "69616837b419c0fcc22595e1",
+          "taskId": "67646f7495dd8939078ccc21",
+          "taskName": "VERIFICAR PENDENCIAS - RECEITA FEDERAL (DP)",
+          "companyUserId": "60da0e2fe03dfd000742f690",
+          "companyUserName": "Tasso Nata Ramos de Jesus",
+          "approvers": [],
+          "approveType": []
+        }
+      ],
+      "addedTargets": [
+        {
+          "taskId": "6a84a5cfb622a707a3c7eb85",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - JAN",
+          "alreadyLinked": true,
+          "action": "skip"
+        },
+        {
+          "taskId": "6a84a5e0037f098cd1533f42",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - DEZ",
+          "alreadyLinked": true,
+          "action": "skip"
+        }
+      ],
+      "responsibleId": "60da0e2fe03dfd000742f690",
+      "responsibleName": "Tasso Nata Ramos de Jesus",
+      "applyStatus": "ok",
+      "applyDetail": "removidos=3; adicionados=0"
+    },
+    {
+      "codigoPlanilha": "318",
+      "nomePlanilha": "INDUSTRIA ALAGOANA DE COLCHOES E ESPUMA",
+      "documento": "11188276000757",
+      "customerId": "642486274b18f10006e11a20",
+      "codigoGestta": "318",
+      "nomeGestta": "INDUSTRIA ALAGOANA DE COLCHOES E ESPUMA EIRELI",
+      "resolveStatus": "ok",
+      "detalhe": "Resolvido por documento",
+      "removedPessoal": [
+        {
+          "linkId": "69b1db9b46611993005a1462",
+          "taskId": "6961362d8e1a570ed10e8bcf",
+          "taskName": "ANÁLISE DE EMPRESA SEM MOVIMENTO - DP",
+          "companyUserId": "60da0e2fe03dfd000742f690",
+          "companyUserName": "Tasso Nata Ramos de Jesus",
+          "approvers": [],
+          "approveType": []
+        },
+        {
+          "linkId": "69b1db9b46611993005a145f",
+          "taskId": "60b61ec51da6830006323533",
+          "taskName": "CONSULTAR EXTRATOR DIRF",
+          "companyUserId": "60da0e2fe03dfd000742f690",
+          "companyUserName": "Tasso Nata Ramos de Jesus",
+          "approvers": [],
+          "approveType": []
+        },
+        {
+          "linkId": "69b1db9b46611993005a1460",
+          "taskId": "60b61ec51da683000632355f",
+          "taskName": "PLR - PARTICIPAÇÃO NOS LUCROS",
+          "companyUserId": "60da0e2fe03dfd000742f690",
+          "companyUserName": "Tasso Nata Ramos de Jesus",
+          "approvers": [],
+          "approveType": []
+        },
+        {
+          "linkId": "69b1db9b46611993005a1461",
+          "taskId": "67646f7495dd8939078ccc21",
+          "taskName": "VERIFICAR PENDENCIAS - RECEITA FEDERAL (DP)",
+          "companyUserId": "60da0e2fe03dfd000742f690",
+          "companyUserName": "Tasso Nata Ramos de Jesus",
+          "approvers": [],
+          "approveType": []
+        }
+      ],
+      "addedTargets": [
+        {
+          "taskId": "6a84a5cfb622a707a3c7eb85",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - JAN",
+          "alreadyLinked": true,
+          "action": "skip"
+        },
+        {
+          "taskId": "6a84a5e0037f098cd1533f42",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - DEZ",
+          "alreadyLinked": false,
+          "action": "add",
+          "newLinkId": "6a84bb7a2cae4908772be322"
+        }
+      ],
+      "responsibleId": "60da0e2fe03dfd000742f690",
+      "responsibleName": "Tasso Nata Ramos de Jesus",
+      "applyStatus": "ok",
+      "applyDetail": "removidos=4; adicionados=1"
+    },
+    {
+      "codigoPlanilha": "320",
+      "nomePlanilha": "INDUSTRIA ALAGOANA DE COLCHOES E ESPUMA",
+      "documento": "11188276000838",
+      "customerId": "6334b74e6206a80006159870",
+      "codigoGestta": "320",
+      "nomeGestta": "INDUSTRIA ALAGOANA DE COLCHOES E ESPUMA LTDA",
+      "resolveStatus": "ok",
+      "detalhe": "Resolvido por documento",
+      "removedPessoal": [
+        {
+          "linkId": "69b1dc19cd4aaedc9c42b9fd",
+          "taskId": "6961362d8e1a570ed10e8bcf",
+          "taskName": "ANÁLISE DE EMPRESA SEM MOVIMENTO - DP",
+          "companyUserId": "60da0e2fe03dfd000742f690",
+          "companyUserName": "Tasso Nata Ramos de Jesus",
+          "approvers": [],
+          "approveType": []
+        },
+        {
+          "linkId": "69b1dc19cd4aaedc9c42b9fa",
+          "taskId": "60b61ec51da6830006323533",
+          "taskName": "CONSULTAR EXTRATOR DIRF",
+          "companyUserId": "60da0e2fe03dfd000742f690",
+          "companyUserName": "Tasso Nata Ramos de Jesus",
+          "approvers": [],
+          "approveType": []
+        },
+        {
+          "linkId": "69b1dc19cd4aaedc9c42b9fb",
+          "taskId": "60b61ec51da683000632355f",
+          "taskName": "PLR - PARTICIPAÇÃO NOS LUCROS",
+          "companyUserId": "60da0e2fe03dfd000742f690",
+          "companyUserName": "Tasso Nata Ramos de Jesus",
+          "approvers": [],
+          "approveType": []
+        },
+        {
+          "linkId": "69b1dc19cd4aaedc9c42b9fc",
+          "taskId": "67646f7495dd8939078ccc21",
+          "taskName": "VERIFICAR PENDENCIAS - RECEITA FEDERAL (DP)",
+          "companyUserId": "60da0e2fe03dfd000742f690",
+          "companyUserName": "Tasso Nata Ramos de Jesus",
+          "approvers": [],
+          "approveType": []
+        }
+      ],
+      "addedTargets": [
+        {
+          "taskId": "6a84a5cfb622a707a3c7eb85",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - JAN",
+          "alreadyLinked": true,
+          "action": "skip"
+        },
+        {
+          "taskId": "6a84a5e0037f098cd1533f42",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - DEZ",
+          "alreadyLinked": false,
+          "action": "add",
+          "newLinkId": "6a84bb7d545ad8efc2284fdb"
+        }
+      ],
+      "responsibleId": "60da0e2fe03dfd000742f690",
+      "responsibleName": "Tasso Nata Ramos de Jesus",
+      "applyStatus": "ok",
+      "applyDetail": "removidos=4; adicionados=1"
+    },
+    {
+      "codigoPlanilha": "321",
+      "nomePlanilha": "INDUSTRIA ALAGOANA DE COLCHOES E ESPUMA",
+      "documento": "11188276000919",
+      "customerId": "6334b7c66206a8000615989a",
+      "codigoGestta": "321",
+      "nomeGestta": "INDUSTRIA ALAGOANA DE COLCHOES E ESPUMA LTDA",
+      "resolveStatus": "ok",
+      "detalhe": "Resolvido por documento",
+      "removedPessoal": [
+        {
+          "linkId": "69b1dc3cd76cf59ccb4cfc5c",
+          "taskId": "6961362d8e1a570ed10e8bcf",
+          "taskName": "ANÁLISE DE EMPRESA SEM MOVIMENTO - DP",
+          "companyUserId": "60da0e2fe03dfd000742f690",
+          "companyUserName": "Tasso Nata Ramos de Jesus",
+          "approvers": [],
+          "approveType": []
+        },
+        {
+          "linkId": "69b1dc3cd76cf59ccb4cfc59",
+          "taskId": "60b61ec51da6830006323533",
+          "taskName": "CONSULTAR EXTRATOR DIRF",
+          "companyUserId": "60da0e2fe03dfd000742f690",
+          "companyUserName": "Tasso Nata Ramos de Jesus",
+          "approvers": [],
+          "approveType": []
+        },
+        {
+          "linkId": "69b1dc3cd76cf59ccb4cfc5a",
+          "taskId": "60b61ec51da683000632355f",
+          "taskName": "PLR - PARTICIPAÇÃO NOS LUCROS",
+          "companyUserId": "60da0e2fe03dfd000742f690",
+          "companyUserName": "Tasso Nata Ramos de Jesus",
+          "approvers": [],
+          "approveType": []
+        },
+        {
+          "linkId": "69b1dc3cd76cf59ccb4cfc5b",
+          "taskId": "67646f7495dd8939078ccc21",
+          "taskName": "VERIFICAR PENDENCIAS - RECEITA FEDERAL (DP)",
+          "companyUserId": "60da0e2fe03dfd000742f690",
+          "companyUserName": "Tasso Nata Ramos de Jesus",
+          "approvers": [],
+          "approveType": []
+        }
+      ],
+      "addedTargets": [
+        {
+          "taskId": "6a84a5cfb622a707a3c7eb85",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - JAN",
+          "alreadyLinked": true,
+          "action": "skip"
+        },
+        {
+          "taskId": "6a84a5e0037f098cd1533f42",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - DEZ",
+          "alreadyLinked": true,
+          "action": "skip"
+        }
+      ],
+      "responsibleId": "60da0e2fe03dfd000742f690",
+      "responsibleName": "Tasso Nata Ramos de Jesus",
+      "applyStatus": "ok",
+      "applyDetail": "removidos=4; adicionados=0"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+Referencias sanitizadas de requisicoes Agape NFS-e.
+
+Base:
+https://agnfseprd.agapesistemas.com.br
+
+Listagem:
+POST /Admin/NotaFiscalAvulsaConsult.xhtml
+Content-Type: application/x-www-form-urlencoded; charset=UTF-8
+Accept: */*
+Referer: https://agnfseprd.agapesistemas.com.br/Admin/NotaFiscalAvulsaConsult.xhtml
+
+Campos principais:
+AJAXREQUEST=_viewRoot
+form_conteudo:pesquisa=
+form_conteudo:*InputDate=DD/MM/AAAA
+form_conteudo:*InputCurrentDate=MM/AAAA
+form_conteudo:*exercicio=AAAA
+form_conteudo:comboStatusNota=F
+form_conteudo=form_conteudo
+autoScroll=
+javax.faces.ViewState=<VIEW_STATE>
+form_conteudo:*lupa=form_conteudo:*lupa
+
+Download XML:
+POST /Admin/NotaFiscalAvulsaConsult.xhtml
+Content-Type: application/x-www-form-urlencoded
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+
+Campos principais:
+mesmos campos do filtro
+form_conteudo:<tabela>:<linha>:<acao_xml>=form_conteudo:<tabela>:<linha>:<acao_xml>
+
+Cookies, sessoes, CPFs, senhas e tokens reais foram removidos deste arquivo.

@@ -1,0 +1,82 @@
+{
+  "competencia": "2026-07",
+  "cnpj": "11222333000181",
+  "uf": "SE",
+  "status_esperado_conforme": "19 Fechamento concluido",
+  "status_esperado_bloqueio_gate1": "04 Pendencia documental",
+  "totais_ficticios": {
+    "entradas_valor": 150000.0,
+    "saidas_valor": 220000.0,
+    "creditos_icms": 18000.0,
+    "debitos_icms": 26400.0,
+    "saldo_credor_anterior": 1200.0,
+    "icms_a_recolher": 7200.0,
+    "icms_st": 0.0,
+    "difal": 850.0,
+    "fcp": 0.0
+  },
+  "apuracao_propria": {
+    "saldo_credor_anterior": 1200.0,
+    "creditos_periodo": 18000.0,
+    "outros_creditos": 0.0,
+    "estornos_debitos": 0.0,
+    "debitos_periodo": 26400.0,
+    "outros_debitos": 0.0,
+    "estornos_creditos": 0.0,
+    "deducoes": 0.0,
+    "icms_a_recolher": 7200.0
+  },
+  "guias": [
+    {
+      "tipo": "ICMS proprio",
+      "codigo_receita": "1001",
+      "valor_obrigacao": 7200.0,
+      "valor_guia": 7200.0,
+      "vencimento": "2026-08-20"
+    },
+    {
+      "tipo": "DIFAL",
+      "codigo_receita": "1002",
+      "valor_obrigacao": 850.0,
+      "valor_guia": 850.0,
+      "vencimento": "2026-08-20"
+    }
+  ],
+  "cruzamentos_conforme": [
+    {"id": 1, "nome": "XML x escrituracao", "fecha": true},
+    {"id": 2, "nome": "Total entradas x livro fiscal", "fecha": true},
+    {"id": 3, "nome": "Total saidas x livro fiscal", "fecha": true},
+    {"id": 4, "nome": "Debitos ICMS notas x apuracao", "fecha": true},
+    {"id": 5, "nome": "Creditos ICMS notas x apuracao", "fecha": true},
+    {"id": 6, "nome": "Ajustes x documentos comprobatorios", "fecha": true},
+    {"id": 7, "nome": "CIAP x credito lancado", "fecha": true},
+    {"id": 8, "nome": "ST x apuracao ST", "fecha": true},
+    {"id": 9, "nome": "DIFAL x apuracao DIFAL", "fecha": true},
+    {"id": 10, "nome": "FCP x apuracao FCP", "fecha": true},
+    {"id": 11, "nome": "Saldo anterior x mes anterior", "fecha": true},
+    {"id": 12, "nome": "Apuracao x EFD", "fecha": true},
+    {"id": 13, "nome": "EFD x guia", "fecha": true}
+  ],
+  "cruzamentos_bloqueio_gate1": [
+    {"id": 1, "nome": "XML x escrituracao", "fecha": false, "observacao": "1 NF recebida nao escriturada"},
+    {"id": 2, "nome": "Total entradas x livro fiscal", "fecha": false},
+    {"id": 3, "nome": "Total saidas x livro fiscal", "fecha": true},
+    {"id": 4, "nome": "Debitos ICMS notas x apuracao", "fecha": true},
+    {"id": 5, "nome": "Creditos ICMS notas x apuracao", "fecha": false},
+    {"id": 6, "nome": "Ajustes x documentos comprobatorios", "fecha": true},
+    {"id": 7, "nome": "CIAP x credito lancado", "fecha": true},
+    {"id": 8, "nome": "ST x apuracao ST", "fecha": true},
+    {"id": 9, "nome": "DIFAL x apuracao DIFAL", "fecha": true},
+    {"id": 10, "nome": "FCP x apuracao FCP", "fecha": true},
+    {"id": 11, "nome": "Saldo anterior x mes anterior", "fecha": true},
+    {"id": 12, "nome": "Apuracao x EFD", "fecha": false},
+    {"id": 13, "nome": "EFD x guia", "fecha": false}
+  ],
+  "pendencia_gate1": {
+    "tipo": "documento_faltante",
+    "descricao": "NF-e chave ficticia 35260711222333000181550010000012341000012345 recebida e nao escriturada",
+    "bloqueia_avancao": true,
+    "proxima_etapa_permitida": null,
+    "status": "04 Pendencia documental"
+  }
+}

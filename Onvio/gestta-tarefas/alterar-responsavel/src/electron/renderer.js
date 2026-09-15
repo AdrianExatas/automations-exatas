@@ -159,6 +159,25 @@ async function inspectSelectedSheet() {
   renderSheetStructure(result.structure);
 }
 
+async function restoreSelectedSheet() {
+  const saved = await api.loadSelectedSheet();
+  if (!saved.filePath) return;
+
+  sheetInput.value = saved.filePath;
+  if (saved.exists) {
+    await inspectSelectedSheet();
+    appendLog(`Planilha restaurada: ${saved.filePath}\n`);
+    return;
+  }
+
+  selectedSheetOk = false;
+  sheetPreview.hidden = false;
+  sheetSummary.textContent = "A ultima planilha selecionada nao foi encontrada. Selecione outro arquivo.";
+  sheetColumns.innerHTML = "";
+  sheetPreviewTable.innerHTML = "";
+  updateRunAvailability();
+}
+
 function updateResultSummary(ok) {
   const text = logOutput.textContent;
   const successMatch = text.match(/Sucesso:\s*(\d+)/i);
@@ -188,6 +207,9 @@ api.loadCredentials().then((credentials) => {
 });
 
 refreshAuthStatus();
+restoreSelectedSheet().catch((error) => {
+  appendLog(`Nao foi possivel restaurar a planilha: ${error instanceof Error ? error.message : String(error)}\n`);
+});
 
 loginButton.addEventListener("click", async () => {
   setBadge(authBadge, "Abrindo", "running");
@@ -232,7 +254,13 @@ inspectSheetButton.addEventListener("click", inspectSelectedSheet);
 downloadTemplateButton.addEventListener("click", async () => {
   const result = await api.downloadTemplate();
   if (!result.canceled && result.filePath) {
-    appendLog(`Planilha modelo criada: ${result.filePath}\n`);
+    sheetInput.value = result.filePath;
+    await inspectSelectedSheet();
+    appendLog(
+      result.existing
+        ? `Planilha existente selecionada: ${result.filePath}\n`
+        : `Planilha modelo criada: ${result.filePath}\n`
+    );
   }
 });
 

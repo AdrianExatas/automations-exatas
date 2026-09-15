@@ -1,6 +1,6 @@
 # baixar-e-solicitar-xml-sefaz
 
-Automacao em Python para consultar solicitacoes de XML na SEFAZ, baixar os arquivos disponibilizados e opcionalmente enviar os XMLs para o SIEG.
+Automacao TypeScript/Bun para consultar solicitacoes de XML na SEFAZ, baixar os arquivos disponibilizados e opcionalmente enviar os XMLs para o SIEG. A implementacao Python permanece apenas como legado.
 
 ## Objetivo
 
@@ -22,7 +22,9 @@ Automacao em Python para consultar solicitacoes de XML na SEFAZ, baixar os arqui
 ## Setup
 
 ```bash
-pip install -r requirements.txt
+cd TS
+bun install
+bunx playwright install chromium
 ```
 
 Crie um `.env` a partir de `.env.example`.
@@ -30,8 +32,8 @@ Crie um `.env` a partir de `.env.example`.
 ## Variaveis de ambiente
 
 ```env
-USUARIO_SEFAZ=seu_usuario
-SENHA_SEFAZ=sua_senha
+SEFAZ_CERT_PFX_PATH="certificado/arquivo.pfx"
+SEFAZ_CERT_PFX_PASSWORD=sua_senha_do_certificado
 SIEG_API_KEY=sua_api_key
 UPLOAD_NUM_WORKERS=3
 UPLOAD_DELAY_SECONDS=0.1
@@ -48,27 +50,17 @@ LIMPEZA_AUTOMATICA_XMLS_PRESOS=true
 
 ## Execucao
 
-### GUIs
-
-```bash
-python apps/consulta_gui.py
-python apps/download_gui.py
-```
-
 ### Fluxo principal
 
 ```bash
-python scripts/executar_consulta.py
-python scripts/executar_consulta.py --headless
-python scripts/executar_consulta.py --status
-
-python scripts/executar_download.py
-python scripts/executar_download.py --headless
-python scripts/executar_download.py --upload
-python scripts/executar_download.py --status
-
-python scripts/executar_upload.py --auto
+bun run TS/src-ts/cli/consulta.ts --transport auto
+bun run TS/src-ts/cli/download.ts --upload --transport auto
+bun run TS/src-ts/cli/solicitar.ts --inscricao 123 --tipo NFE --pesquisar-por Emitida --data-inicial 01/08/2026 --data-final 01/08/2026 --visible
 ```
+
+`auto` tenta HTTP primeiro e recorre ao Playwright somente quando o novo Portal
+Fazendario tornar a navegacao HTTP incompativel. O comando `solicitar` cria uma
+unica solicitacao controlada; use dados reais somente quando desejar envi-la.
 
 O upload automatico valida os XMLs locais e envia todos os arquivos validos diretamente para o SIEG. Nao ha consulta previa para verificar se a chave ja existe na API.
 
@@ -92,7 +84,9 @@ python scripts/diagnostico/limpar_cache.py
 ## Testes
 
 ```bash
-python -m pytest tests -q
+cd TS
+bun run typecheck
+bun test
 ```
 
 ## Documentacao complementar

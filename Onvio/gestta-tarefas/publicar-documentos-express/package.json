@@ -1,0 +1,64 @@
+{
+  "name": "@exatas/publicar-documentos-express",
+  "version": "1.2.0",
+  "private": true,
+  "author": "Exatas",
+  "description": "Aplicativo desktop para validar e publicar documentos externos pelo Express/Onvio",
+  "main": "dist/electron/bootstrap.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json && node scripts/copy-electron-assets.js",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "electron": "bun run build && electron dist/electron/bootstrap.js",
+    "electron:demo": "bun run build && cross-env EXPRESS_DOCUMENTS_DEMO=1 electron dist/electron/bootstrap.js",
+    "dist:win": "bun run build && node scripts/build-windows.js"
+  },
+  "dependencies": {
+    "@exatas/onvio-auth": "workspace:*",
+    "pdf-parse": "1.1.1",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/pdf-parse": "^1.1.5",
+    "cross-env": "^7.0.3",
+    "electron": "^37.2.0",
+    "electron-builder": "^26.0.12",
+    "typescript": "^5.9.0",
+    "vitest": "^4.0.0"
+  },
+  "build": {
+    "appId": "br.com.exatas.publicar-documentos-express",
+    "productName": "Publicar Documentos Express",
+    "asar": true,
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": ".build/ms-playwright",
+        "to": "ms-playwright",
+        "filter": ["**/*"]
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Publicar Documentos Express"
+    }
+  }
+}

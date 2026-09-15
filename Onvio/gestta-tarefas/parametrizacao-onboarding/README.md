@@ -1,6 +1,6 @@
 # parametrizacao-onboarding
 
-Aplicativo local em Electron/TypeScript para parametrizar tarefas de onboarding no Gestta a partir da matriz `PLANILHA GERAL TAREFAS POR REGIME.xlsx`.
+Aplicativo local em Electron/TypeScript para parametrizar tarefas de onboarding no Gestta a partir da matriz `PLANILHA GERAL DE TAREFAS POR REGIME E SETOR.xlsx`.
 
 ## Aplicativo instalavel
 
@@ -30,6 +30,8 @@ Fluxo principal:
 - selecione a planilha ou use a matriz padrao;
 - informe e-mail/senha Onvio e faca login pela janela aberta;
 - informe CNPJ, regime fiscal, areas e opcoes;
+- no DP, escolha o perfil Normal ou Sem movimento, o Grupo 1 ou 2 para a folha normal e os adicionais desejados;
+- as tarefas anuais sao sempre incluidas;
 - calcule a previa;
 - use `Simular sem alterar` para validar no Gestta sem aplicar;
 - use `Aplicar parametrizacao` para alterar as tarefas apos confirmacao.
@@ -58,6 +60,11 @@ Entrada JSON:
   "cnpj": "11222333000144",
   "areas": ["dp", "fiscal", "contabil"],
   "regimeFiscal": "fiscal_normal",
+  "dp": {
+    "perfil": "normal",
+    "adicionais": ["particularidade"],
+    "grupoFolha": "grupo_2"
+  },
   "incluirAnuais": true,
   "planoPremium": false,
   "supervisor": false,

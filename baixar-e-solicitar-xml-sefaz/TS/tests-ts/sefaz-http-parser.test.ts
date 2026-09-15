@@ -1,6 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import {
   parseDownloadListing,
+  parseEmpresasDoFormulario,
   parseErrorMessage,
   parseForm,
   parseJsRedirect,
@@ -69,7 +70,61 @@ describe("sefaz-http parser", () => {
     expect(listing.newRequestUrl).toContain("TransId=T10464");
   });
 
+  it("reconhece link novo sem texto e com redirectUrl", () => {
+    const listing = parseDownloadListing(
+      "https://security.sefaz.se.gov.br/internet/",
+      "https://security.sefaz.se.gov.br/internet/process.jsp?TransId=T10461",
+      `
+      <a href="/internet/process.jsp?RedirectUrl=/internet/process.jsp?AppName=SPED;TransId=T10461;Flag=42&AppName=SPED&TransId=T10464&token=abc"></a>
+      `,
+    );
+
+    expect(listing.linkCount).toBe(1);
+    expect(listing.newRequestUrl).toContain("TransId=T10464");
+  });
+
+  it("reconhece TransId do link novo ignorando caixa", () => {
+    const listing = parseDownloadListing(
+      "https://security.sefaz.se.gov.br/internet/",
+      "https://security.sefaz.se.gov.br/internet/process.jsp?TransId=T10461",
+      `<a href="process.jsp?appname=SPED&transid=t10464&token=abc"></a>`,
+    );
+
+    expect(listing.newRequestUrl).toContain("transid=t10464");
+  });
+
+  it("reconhece link novo por alt ou title", () => {
+    const listing = parseDownloadListing(
+      "https://security.sefaz.se.gov.br/internet/",
+      "https://security.sefaz.se.gov.br/internet/process.jsp?TransId=T10461",
+      `<a href="process.jsp?AppName=SPED&TransId=T99999"><img alt="Nova solicitacao" title="Novo"></a>`,
+    );
+
+    expect(listing.newRequestUrl).toContain("TransId=T99999");
+  });
+
   it("reconhece mensagem de arquivo nao localizado", () => {
     expect(parseErrorMessage("<html>O arquivo não foi localizado no servidor.</html>")).toContain("arquivo");
+  });
+
+  it("extrai empresas do select de contribuinte", () => {
+    const form = parseForm(
+      "https://security.sefaz.se.gov.br/internet/",
+      "https://security.sefaz.se.gov.br/internet/process.jsp",
+      `
+      <form method="post" action="next.jsp">
+        <select name="cdPessoaContribuinte">
+          <option value="">Selecione</option>
+          <option value="123">Empresa Teste</option>
+          <option value="456">Outra Empresa</option>
+        </select>
+      </form>
+      `,
+    );
+
+    expect(parseEmpresasDoFormulario(form)).toEqual([
+      { inscricao: "123", nome: "Empresa Teste" },
+      { inscricao: "456", nome: "Outra Empresa" },
+    ]);
   });
 });

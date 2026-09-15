@@ -1,0 +1,4 @@
+Acesse o portal da SEFAZ SE, clica na opção Acesso, em Certificado Digital, faz o acesso com Certificado de Macílio, na opção Descrição Estadual, dá o OK, em Contribuintes,
+na opção Desvincular Clientes, procura o cliente, seleciona a empresa, confere os dados, clica no OK, confirmar sua retirada do contabilista, contabilista retirado com sucesso, salva,
+exclusão do contabilista, eu vou deixar aqui só a opção CFAZ, feito isso já está desvinculado, depois disso é só encerrar aqui,
+e está finalizado a desvinculação, inclusão do contabilista.

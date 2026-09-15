@@ -1,10 +1,8 @@
 import { Eye, EyeOff, KeyRound } from "lucide-react";
 import { useEffect, useState } from "react";
 
-type StoreKey = "sefaz" | "agil";
-
 type Props = {
-  storeKey: StoreKey;
+  storeKey?: "sefaz";
   user: string;
   password: string;
   onUserChange: (v: string) => void;
@@ -24,8 +22,8 @@ export default function CredentialsCard({
   const [remembered, setRemembered] = useState(false);
 
   useEffect(() => {
-    const load = storeKey === "agil" ? window.api?.loadAgilCredentials : window.api?.loadSefazCredentials;
-    load?.()
+    window.api
+      ?.loadSefazCredentials()
       .then((creds) => {
         if (creds) {
           onUserChange(creds.user);
@@ -34,30 +32,26 @@ export default function CredentialsCard({
         }
       })
       .catch(() => undefined);
-  }, [storeKey]);
+  }, [storeKey, onUserChange, onPasswordChange]);
 
   function handleRememberChange(checked: boolean) {
     setRemembered(checked);
     if (checked) {
-      const save = storeKey === "agil" ? window.api?.saveAgilCredentials : window.api?.saveSefazCredentials;
-      save?.({ user, password }).catch(() => undefined);
+      window.api?.saveSefazCredentials({ user, password }).catch(() => undefined);
     } else {
-      const clear = storeKey === "agil" ? window.api?.clearAgilCredentials : window.api?.clearSefazCredentials;
-      clear?.().catch(() => undefined);
+      window.api?.clearSefazCredentials().catch(() => undefined);
     }
   }
 
   function handleUserBlur() {
     if (remembered && user && password) {
-      const save = storeKey === "agil" ? window.api?.saveAgilCredentials : window.api?.saveSefazCredentials;
-      save?.({ user, password }).catch(() => undefined);
+      window.api?.saveSefazCredentials({ user, password }).catch(() => undefined);
     }
   }
 
   function handlePasswordBlur() {
     if (remembered && user && password) {
-      const save = storeKey === "agil" ? window.api?.saveAgilCredentials : window.api?.saveSefazCredentials;
-      save?.({ user, password }).catch(() => undefined);
+      window.api?.saveSefazCredentials({ user, password }).catch(() => undefined);
     }
   }
 

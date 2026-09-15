@@ -41,6 +41,8 @@ export interface EnvConfig extends Config {
   onvioFirmCompanyId: string;
   onvioCookie: string;
   unecontEmpresasReportName: string;
+  bitrixCompetenciasUrl: string;
+  bitrixAccountingUrl: string;
 }
 
 function parseBoolean(value: string | undefined, defaultValue: boolean): boolean {
@@ -84,6 +86,8 @@ export function loadEnvConfig(env: NodeJS.ProcessEnv = process.env): EnvConfig {
       env.ONVIO_FIRM_COMPANY_ID ?? env.ONVIO_COMPANY_ID ?? DEFAULT_ONVIO_FIRM_COMPANY_ID,
     onvioCookie: env.ONVIO_COOKIE ?? "",
     unecontEmpresasReportName: env.UNECONT_EMPRESAS_REPORT_NAME ?? "",
+    bitrixCompetenciasUrl: env.BITRIX_COMPETENCIAS_URL ?? "",
+    bitrixAccountingUrl: env.BITRIX_CONTABIL_URL ?? "",
   };
 }
 

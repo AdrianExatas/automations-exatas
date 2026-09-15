@@ -43,8 +43,7 @@ let running = false;
 
 function chromiumLaunchOptionsForAgilBatch(dryRun: boolean) {
   const slowMo = Number(process.env.SLOW_MO ?? (dryRun ? 1200 : 0));
-  const browserChannel =
-    process.env.BROWSER_CHANNEL?.trim() || (app.isPackaged ? 'msedge' : undefined);
+  const browserChannel = process.env.BROWSER_CHANNEL?.trim() || 'msedge';
   const launchOptions: Parameters<typeof chromium.launch>[0] = {
     headless: false,
     slowMo,
@@ -282,18 +281,15 @@ ipcMain.handle('agil:start-batch', async (event, payload: StartBatchPayload) => 
     throw new Error('Informe ao menos uma chave de nota fiscal.');
   }
 
-  if (payload.auth.authMode === 'credentials') {
-    if (!payload.auth.username.trim() || !payload.auth.password.trim()) {
-      throw new Error('Informe login e senha para acessar o AGIL.');
-    }
-  }
-
   running = true;
   const dryRun = Boolean(payload.dryRun);
   const browser = await chromium.launch(chromiumLaunchOptionsForAgilBatch(dryRun));
 
   try {
-    const context = await browser.newContext({ acceptDownloads: true, viewport: null });
+    const context = await browser.newContext({
+      acceptDownloads: true,
+      viewport: null,
+    });
     const page = await context.newPage();
 
     const pdfDownloadDir = resolveAgilPdfDownloadBaseDir();

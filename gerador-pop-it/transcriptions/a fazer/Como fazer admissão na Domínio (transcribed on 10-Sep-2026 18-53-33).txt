@@ -1,0 +1,25 @@
+Olá pessoal, hoje eu vou ensinar a vocês como fazer uma admissão aqui no sistema Domínio.
+Aqui é sempre indicado que deixa essa opção ligada, porque aqui a gente consegue puxar a solicitação diretamente do ônibus.
+Aqui nesse bonequinho a gente puxa as solicitações de cadastro de empregado.
+Esse é o exemplo que vamos utilizar hoje. A gente aperta aqui no I, executa no sistema.
+Aqui ele puxa as informações que o cliente cadastrou na solicitação.
+A gente preenche as informações que não estão cadastradas, como o serviço, que é na fala de telecomunicações,
+o departamento, centro de custo, o sindicato.
+Aqui ele já puxou o contrato de experiência, que é 3060.
+E aqui a gente preenche com as informações do funcionário.
+O local de trabalho é sempre 5.
+A forma de pagamento vai ser no dinheiro, então essa informação a gente não altera.
+Aqui é o tipo da jornada, a deixada de exames não é uma opção que a gente preenche.
+Plano de saúde também não, treinamento também não.
+Pessoais, a gente preenche aquilo que o cliente nos enviar.
+Pronto, já é mais documentos, não é necessário preencher.
+Vamos para o endereço.
+Aqui a gente coloca no complemento casa, informações pessoais.
+É importante que coloque sempre o nome do pai e o da mãe.
+Pronto.
+Nesse caso o colabidor não tem independente, então as demais informações estão preenchidas.
+Então agora a gente grava.
+E espera o e-social validar.
+Pronto.
+A admissão validada, o e-social validou a admissão, então o nosso processo se encerra por aqui.
+Tchau.

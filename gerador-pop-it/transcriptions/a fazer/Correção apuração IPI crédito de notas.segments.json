@@ -1,0 +1,148 @@
+{
+  "media": "G:\\Meu Drive\\GESTÃO DE PROCESSOS\\03 - Fiscal\\VÍDEOS\\Correcao apuracao IPI credito de notas.mkv",
+  "transcript_path": "C:\\Users\\Exatas\\Documents\\GitHub\\automations-exatas\\gerador-pop-it\\transcriptions\\a fazer\\Correcao apuracao IPI credito de notas (transcribed on 10-Sep-2026 19-50-38).txt",
+  "language": "pt",
+  "duration_sec": 358.912,
+  "segments": [
+    {
+      "start": 0.08,
+      "end": 29.96,
+      "text": "Fala pessoal, gravando aqui mais uma instrução de treinamento, que a gente vai fazer aqui uma correção, uma apuração, onde ocorreu o seguinte, o IPI da competência 8 de 2025 foi declarado 9 mil, e aí posteriormente teve algumas inclusões de notas fiscais que tinha crédito de IPI e não foi apropriado, e aí com o apropriamento do crédito o débito saiu de 9 mil,"
+    },
+    {
+      "start": 30.08,
+      "end": 51.78,
+      "text": "e foi para 7 mil, 566,04. Então, com isso gerou um crédito de pagamento indevido ou a maior de 2.343. E com isso, fazendo análise da empresa, identifiquei que o crédito não está disponível por causa da seguinte situação."
+    },
+    {
+      "start": 51.78,
+      "end": 77.18,
+      "text": "Então, vamos lá. Eu cheguei aqui, né, vamos lá, vou começar do zero. Aqui vem declaração, aí eu vou aqui em extrato DCTFWeb, clico aqui em prosseguir, né, coloca a competência que eu quero examinar, né, vou até ela, verifico aqui, aí eu chego aqui na competência do mês 8, clico nessa bolinha que é o olho, clico aqui em mais, e aí eu vou identificar o seguinte, ó,"
+    },
+    {
+      "start": 77.18,
+      "end": 96.64,
+      "text": "foi declarado 9 mil e não foi corrigido. Então, com isso, pessoal, com esse valor aqui declarado de 9 mil, diferente daqui do valor que está no ESPED fiscal que foi declarado, eu não consigo habilitar o crédito e consequentemente usá-lo."
+    },
+    {
+      "start": 96.64,
+      "end": 110.66,
+      "text": "Então, aqui eu tenho que fazer o seguinte, eu tenho que voltar aqui e prosseguir e inclusar aqui no módulo de inclusão de tributos que é o MIT, né, então vou clicar aqui no MIT e vou entrar nele."
+    },
+    {
+      "start": 110.8,
+      "end": 122.38,
+      "text": "Então, já tenho ele aqui aberto, né, e aqui chegando nele, eu tenho identificado, vou voltar aqui novamente pra vocês verificarem, né, deixa eu sair dele,"
+    },
+    {
+      "start": 122.38,
+      "end": 132.46,
+      "text": "entrar nesse aqui novamente, escolhi um mês 8, né, e aqui, ó, tá vendo 9 mil reais, então, eu vou abrir aqui pra vocês visualizarem, né,"
+    },
+    {
+      "start": 132.64,
+      "end": 140.78,
+      "text": "aqui tem os dados iniciais da empresa, né, vai trazer os débitos que foram confessados, os débitos suspensos que é decorrente de ação, né,"
+    },
+    {
+      "start": 140.78,
+      "end": 147.74,
+      "text": "e coloca o número do processo, motivo, nesse caso aqui não é. Eu vou aqui, escolho qual tributo, né, e tá aqui ele."
+    },
+    {
+      "start": 147.74,
+      "end": 157.56,
+      "text": "Então, aqui eu já vou entrar no módulo de edição, então, vou ter que editar pra o valor efetivamente que foi esse daqui, 7.566,04, perfeito?"
+    },
+    {
+      "start": 158.1,
+      "end": 174.66,
+      "text": "Então, aqui eu incluí ele, incluí débito, né, pronto, já foi incluído, né, vou salvar, né, vou salvar o débito, pronto, já foi salvo, atualizado,"
+    },
+    {
+      "start": 174.66,
+      "end": 184.84,
+      "text": "aí eu vou fazer o que agora, verificar a pendência, se tem alguma pendência, pendências atualizadas, e vou fazer agora um encerramento, pronto,"
+    },
+    {
+      "start": 184.92,
+      "end": 192.52,
+      "text": "no encerramento, tá vendo, o débito apurado é esse, aí eu vou fazer o que, encerrar, que é declarar o MIT, após declarar o MIT, né,"
+    },
+    {
+      "start": 192.52,
+      "end": 203.28,
+      "text": "ele vai fazer o que, ele vai reabrir a minha DCTFWeb, né, que eu vou acessar ela aqui, né, então, aqui já vai estar ela,"
+    },
+    {
+      "start": 203.36,
+      "end": 212.78,
+      "text": "tá vendo, retificada, com o valor corrigido, tá vendo aqui, tá 2766067, se eu for aqui, é, nela aqui, ó, que era o valor anterior,"
+    },
+    {
+      "start": 212.78,
+      "end": 250.47,
+      "text": "aqui, ó, deixa eu pegar aqui, então, aqui eu vou fazer agora a sua transmissão, né, é, transmitir ela, ela já consigo, né,"
+    },
+    {
+      "start": 250.47,
+      "end": 259.89,
+      "text": "fazer com que esse crédito que exista, né, ele esteja disponível, pra que eu possa fazer, é, a utilização, eu vou demonstrar isso pra vocês,"
+    },
+    {
+      "start": 260.29,
+      "end": 270.74,
+      "text": "já foi, se eu quiser baixar o reciclo, ok, vamos lá, então, aqui eu já tô com o mês 8, aí eu vou aqui, ó,"
+    },
+    {
+      "start": 270.74,
+      "end": 279.82,
+      "text": "abater pagamentos anteriores, né, então, tipo, ó, tá vendo, aqui, ó, quando eu faço assim, eu clico em confirmar,"
+    },
+    {
+      "start": 280.34,
+      "end": 287.44,
+      "text": "ela vai fazer o que? Vai zerar, tá vendo, não tem nenhum débito, ah, senhores, e como é que eu evendecivo agora o crédito, né,"
+    },
+    {
+      "start": 287.44,
+      "end": 299.74,
+      "text": "isso é importante, eu vou aqui no relatório, é, resumo de crédito, é, aí eu download, e aqui vai me apresentar salário família, né,"
+    },
+    {
+      "start": 299.74,
+      "end": 308.46,
+      "text": "ele trouxe aqui, não tem nada disponível, né, só que esse crédito, porque se tratar de um crédito decorrente de pagamento a maior,"
+    },
+    {
+      "start": 308.96,
+      "end": 320.62,
+      "text": "a DCTFWeb, ela não evidencia que, ela, deixa eu ver aqui, pronto, se eu exibir todos, só se eles mudaram, mas até o momento não existia, tá vendo,"
+    },
+    {
+      "start": 320.62,
+      "end": 330.14,
+      "text": "é, é, débito declarado, então, ele não traz a parte de, os débitos que não são previdenciados, e aí eu vou evidenciar isso no,"
+    },
+    {
+      "start": 330.14,
+      "end": 337.28,
+      "text": "na hora que eu for fazer a perda de compra, mas aqui eu, como deve-se proceder, pra que a gente tenha a questão do ponto AIS fiscal,"
+    },
+    {
+      "start": 337.82,
+      "end": 344.82,
+      "text": "ou seja, as declarações, ela deve-se conversar, então, identifiquei que o valor do SPED fiscal estava um,"
+    },
+    {
+      "start": 345.28,
+      "end": 352.66,
+      "text": "onde a DCTFWeb estava outro, onde o MIT estava outro, e agora eu fiz as correções, e aí a gente encontrou que"
+    },
+    {
+      "start": 352.66,
+      "end": 357.94,
+      "text": "todos os valores estão em conformidade fiscal, perfeito? E aqui eu encerro essa gravação."
+    }
+  ]
+}

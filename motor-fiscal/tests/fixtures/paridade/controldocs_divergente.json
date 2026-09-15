@@ -1,0 +1,27 @@
+{
+  "fonte": "controldocs",
+  "legado": true,
+  "empresa_cnpj": "12345678000199",
+  "competencia": "2026-06",
+  "modulos": {
+    "documental": {
+      "ok": true,
+      "erros": 0,
+      "avisos": 1,
+      "total_achados": 1
+    },
+    "icms": {
+      "ok": true,
+      "erros": 0,
+      "avisos": 0,
+      "vl_icms_recolher": 999.0,
+      "cruzamentos_ok": 12
+    },
+    "estoque": {
+      "ok": true,
+      "erros": 0,
+      "avisos": 0,
+      "total_achados": 0
+    }
+  }
+}

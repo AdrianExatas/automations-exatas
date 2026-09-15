@@ -1,0 +1,123 @@
+{
+  "media": "G:\\Meu Drive\\GESTÃO DE PROCESSOS\\02 - Departamento Pessoal\\VÍDEOS\\POP DARF DO JSCP.mkv",
+  "transcript_path": "C:\\Users\\Exatas\\Documents\\GitHub\\automations-exatas\\gerador-pop-it\\transcriptions\\a fazer\\POP DARF DO JSCP (transcribed on 10-Sep-2026 18-50-19).txt",
+  "language": "pt",
+  "duration_sec": 241.4506875,
+  "segments": [
+    {
+      "start": 0.88,
+      "end": 14.86,
+      "text": "Hoje eu vou mostrar como emitir o DARF JCP. Para isso, iremos averiguar os valores, tanto na planilha da empresa, quanto no sistema domínio."
+    },
+    {
+      "start": 14.86,
+      "end": 37.32,
+      "text": "Para isso, iremos abrir o domínio, consulta de recibos, selecionar, seleciona os contribuintes, confere o período que você estiver apurando, dá um OK."
+    },
+    {
+      "start": 37.32,
+      "end": 45.32,
+      "text": "Vem em lançamento, e aqui nós iremos encontrar o valor, 6000 no caso, 88286."
+    },
+    {
+      "start": 45.32,
+      "end": 48.32,
+      "text": "Iremos conferir também na planilha."
+    },
+    {
+      "start": 48.32,
+      "end": 63.35,
+      "text": "Iremos na pasta Arquivos Exatas, Empresas, digita o nome da empresa, Pessoal,"
+    },
+    {
+      "start": 63.35,
+      "end": 89.4,
+      "text": "2000, a planilha JSCP, período, aguarda abrir, e aqui encontra o seu valor, 688286."
+    },
+    {
+      "start": 89.4,
+      "end": 97.4,
+      "text": "O valor bateu com o do sistema, 688286, e agora de fato iremos gerar o DAF."
+    },
+    {
+      "start": 97.4,
+      "end": 105.4,
+      "text": "Vamos abrir o navegador, digitar syscalc web."
+    },
+    {
+      "start": 105.4,
+      "end": 117.76,
+      "text": "Neste primeiro, selecionamos o contribuinte, sou humano."
+    },
+    {
+      "start": 117.76,
+      "end": 128.85,
+      "text": "No código, nós iremos digitar 5706."
+    },
+    {
+      "start": 128.85,
+      "end": 132.26,
+      "text": "Ele dará essas duas opções."
+    },
+    {
+      "start": 132.26,
+      "end": 139.26,
+      "text": "O correto é o 5706-02, a partir do 01 de 2006."
+    },
+    {
+      "start": 139.26,
+      "end": 150.94,
+      "text": "Iremos alterar a data de consolidação, colocando o primeiro dia do mês, que você estiver fazendo a apuração."
+    },
+    {
+      "start": 150.94,
+      "end": 157.05,
+      "text": "E iremos repetir a data no período de apuração também."
+    },
+    {
+      "start": 157.05,
+      "end": 164.98,
+      "text": "Ele puxou a data de vencimento correta, 15 do 10."
+    },
+    {
+      "start": 164.98,
+      "end": 175.97,
+      "text": "E aqui iremos preencher o valor, que é, neste caso, 688286."
+    },
+    {
+      "start": 175.97,
+      "end": 182.91,
+      "text": "Feito isso, iremos calcular."
+    },
+    {
+      "start": 182.91,
+      "end": 191.54,
+      "text": "Ele gerou a data de vencimento correta, consolidação também, e o valor também."
+    },
+    {
+      "start": 191.54,
+      "end": 197.54,
+      "text": "Vamos selecionar e emitir o DAF."
+    },
+    {
+      "start": 197.54,
+      "end": 205.26,
+      "text": "Feito isso, para finalizarmos, iremos salvar na pasta da empresa."
+    },
+    {
+      "start": 205.26,
+      "end": 228.18,
+      "text": "Arquivo exatas, empresas, nome da empresa, pessoal, planilha, JSCP, 2025, DAF."
+    },
+    {
+      "start": 228.18,
+      "end": 233.18,
+      "text": "E iremos renomear com o período que nós estivermos fazendo a apuração."
+    },
+    {
+      "start": 233.18,
+      "end": 240.85,
+      "text": "DAF emitida."
+    }
+  ]
+}

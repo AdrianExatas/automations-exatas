@@ -1,0 +1,91 @@
+{
+  "capturedAt": "2026-08-14",
+  "frontendVersions": {
+    "gesttaCore": "1.0.1209",
+    "gesttaAdmin": "1.0.2099",
+    "portal": "2025.09.18.1"
+  },
+  "contracts": [
+    {
+      "capability": "companyLookup.gestta",
+      "method": "GET",
+      "route": "/admin/customer",
+      "query": ["active", "limit", "page", "search"],
+      "fixture": "gestta-customer-search.json",
+      "verified": true
+    },
+    {
+      "capability": "companyLookup.onvioAccounts",
+      "method": "GET",
+      "route": "/api/profiles/v1/accounts",
+      "query": ["active", "hideNonOnvio"],
+      "fixture": "onvio-accounts.json",
+      "verified": true
+    },
+    {
+      "capability": "companyLookup.onvioClient",
+      "method": "POST",
+      "route": "/api/core/v3/companies/{firmId}/clients/search",
+      "requiredHeaders": ["x-company-id"],
+      "fixture": "onvio-client-search.json",
+      "verified": true
+    },
+    {
+      "capability": "taskLookup",
+      "method": "POST",
+      "route": "/core/customer/task/search",
+      "fixture": "express-task-search.json",
+      "verified": true
+    },
+    {
+      "capability": "taskLookup.details",
+      "method": "GET",
+      "route": "/core/customer/task/{taskId}",
+      "fixture": "express-task-details.json",
+      "additionalFixtures": ["express-task-details-fgts.json", "express-task-details-fgts-consignado.json"],
+      "verified": true
+    },
+    {
+      "capability": "taskCompletion.upload",
+      "method": "POST",
+      "route": "/es/file/upload/automatic",
+      "requiredHeaders": ["x-version: v2"],
+      "contentType": "multipart/form-data",
+      "fixture": "express-upload-complete.json",
+      "schema": "schemas/express-upload-complete.schema.json",
+      "verified": true
+    },
+    {
+      "capability": "taskCompletion.confirm",
+      "method": "POST",
+      "route": "/es/file/{attachmentId}/confirm",
+      "fixture": "express-upload-complete.json",
+      "schema": "schemas/express-upload-complete.schema.json",
+      "verified": true
+    },
+    {
+      "capability": "portalPublication",
+      "method": "POST",
+      "route": "/api/storage/v2/search/documents?fromIndex=0&pageSize=100",
+      "fixture": "portal-publication-search.json",
+      "schema": "schemas/portal-publication-search.schema.json",
+      "verified": true
+    },
+    {
+      "capability": "dueDateUpdate.metadata",
+      "method": "GET",
+      "route": "/api/storage/v1/Folders/{folderId}/documents/{documentId}/metadata?LoadItemMetadata=false",
+      "fixture": "onvio-due-date.json",
+      "schema": "schemas/onvio-due-date.schema.json",
+      "verified": true
+    },
+    {
+      "capability": "dueDateUpdate",
+      "method": "PUT",
+      "route": "/api/storage/v1/folders/{folderId}/documents/{documentId}",
+      "fixture": "onvio-due-date.json",
+      "schema": "schemas/onvio-due-date.schema.json",
+      "verified": true
+    }
+  ]
+}

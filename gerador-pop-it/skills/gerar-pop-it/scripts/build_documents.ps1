@@ -2,7 +2,13 @@
   [Parameter(Mandatory=$true)][string]$ContentJson,
   [Parameter(Mandatory=$true)][string]$OutputDir,
   [string]$ListaMestraPath = '',
-  [switch]$PreferOpenpyxl
+  [string[]]$DocumentTypes = @(),
+  [switch]$UpdateListaMestra,
+  [switch]$SkipListaMestra,
+  [switch]$PreferOpenpyxl,
+  [switch]$UseExcelCom,
+  [switch]$SkipMpFidelity,
+  [switch]$SkipFormFidelity
 )
 
 $ErrorActionPreference = 'Stop'
@@ -32,12 +38,67 @@ function Write-PendingReport {
   [System.IO.File]::WriteAllLines($Target, $lines.ToArray(), (New-Object System.Text.UTF8Encoding($true)))
 }
 
+function Resolve-RequestedDocumentTypes {
+  param($Content, [string[]]$ExplicitTypes)
+  $source = @($ExplicitTypes)
+  if ($source.Count -eq 0) {
+    $source = @($Content.documentos_solicitados)
+  }
+  $resolved = New-Object System.Collections.Generic.List[string]
+  foreach ($token in $source) {
+    # Evita [string]$array -> "System.String[]"
+    if ($token -is [System.Array] -and $token -isnot [string]) {
+      foreach ($inner in @($token)) {
+        if ($null -eq $inner) { continue }
+        foreach ($part in (([string]$inner) -split '[,;|\s]+')) {
+          $kind = $part.Trim().ToLowerInvariant()
+          if ([string]::IsNullOrWhiteSpace($kind)) { continue }
+          switch -Regex ($kind) {
+            '^(pop|pr)$' { if (-not $resolved.Contains('pop')) { [void]$resolved.Add('pop') }; break }
+            '^(it|in)$' { if (-not $resolved.Contains('it')) { [void]$resolved.Add('it') }; break }
+            '^form$' { if (-not $resolved.Contains('form')) { [void]$resolved.Add('form') }; break }
+            '^mp$' { if (-not $resolved.Contains('mp')) { [void]$resolved.Add('mp') }; break }
+            default { throw "Tipo de documento inválido em -DocumentTypes: $part" }
+          }
+        }
+      }
+      continue
+    }
+    foreach ($part in (([string]$token) -split '[,;|\s]+')) {
+      $kind = $part.Trim().ToLowerInvariant()
+      if ([string]::IsNullOrWhiteSpace($kind)) { continue }
+      switch -Regex ($kind) {
+        '^(pop|pr)$' { if (-not $resolved.Contains('pop')) { [void]$resolved.Add('pop') }; break }
+        '^(it|in)$' { if (-not $resolved.Contains('it')) { [void]$resolved.Add('it') }; break }
+        '^form$' { if (-not $resolved.Contains('form')) { [void]$resolved.Add('form') }; break }
+        '^mp$' { if (-not $resolved.Contains('mp')) { [void]$resolved.Add('mp') }; break }
+        default { throw "Tipo de documento inválido em -DocumentTypes: $part" }
+      }
+    }
+  }
+  if ($resolved.Count -eq 0) {
+    throw 'Nenhum tipo de documento solicitado para geração.'
+  }
+  # Vírgula evita desembrulhar a List no pipeline do PowerShell.
+  return ,$resolved
+}
+
 $sourcePath = Get-FullPath $ContentJson
 $targetPath = Get-FullPath $OutputDir
 $content = Read-NormalizedContent $sourcePath
-$types = @($content.documentos_solicitados)
+$typesList = Resolve-RequestedDocumentTypes -Content $content -ExplicitTypes $DocumentTypes
+$types = New-Object System.Collections.Generic.List[string]
+foreach ($t in $typesList) {
+  if ($t -is [string] -and -not [string]::IsNullOrWhiteSpace($t)) {
+    [void]$types.Add($t)
+  }
+}
+$types = @($types)
+Write-Output ("Tipos desta execucao: " + ($types -join ','))
 if (@($types | Where-Object { $_ -in @('pop', 'it') }).Count -gt 0) { Test-OfficeCom 'Word.Application' 'Microsoft Word' }
-if (@($types | Where-Object { $_ -in @('form', 'mp') }).Count -gt 0 -and -not $PreferOpenpyxl) {
+# FORM/MP são gerados por Python (openpyxl) por padrão: o Excel desktop sem ativação
+# entra em funcionalidade reduzida e descarta mesclagens/formas ao salvar.
+if (@($types | Where-Object { $_ -in @('form', 'mp') }).Count -gt 0 -and $UseExcelCom) {
   Test-OfficeCom 'Excel.Application' 'Microsoft Excel'
 }
 
@@ -87,16 +148,16 @@ try {
   $excelTypes = @($types | Where-Object { $_ -in @('form', 'mp') })
   if ($excelTypes.Count -gt 0) {
     $excelScript = Join-Path $PSScriptRoot 'build_excel_documents.ps1'
-    $excelFallback = Join-Path $PSScriptRoot 'build_excel_openpyxl.py'
+    $excelBuilder = Join-Path $PSScriptRoot 'build_excel_openpyxl.py'
     $python = Get-Command python -ErrorAction SilentlyContinue
     if ($null -eq $python) { $python = Get-Command py -ErrorAction SilentlyContinue }
 
     function Invoke-OpenpyxlExcelBuild {
-      if ($null -eq $python -or -not (Test-Path -LiteralPath $excelFallback)) {
-        throw "Gerador Excel openpyxl indisponível: $excelFallback"
+      if ($null -eq $python -or -not (Test-Path -LiteralPath $excelBuilder)) {
+        throw "Gerador Excel openpyxl indisponível: $excelBuilder"
       }
       & $python.Source @(
-        $excelFallback,
+        $excelBuilder,
         '--content-json', $normalizedPath,
         '--output-dir', $staging,
         '--document-types', ($excelTypes -join ',')
@@ -104,10 +165,7 @@ try {
       if ($LASTEXITCODE -ne 0) { throw "Geração Excel via openpyxl falhou." }
     }
 
-    if ($PreferOpenpyxl) {
-      Write-Output 'Gerando FORM/MP via openpyxl (sem abrir Excel).'
-      Invoke-OpenpyxlExcelBuild
-    } else {
+    if ($UseExcelCom -and -not $PreferOpenpyxl) {
       if (-not (Test-Path -LiteralPath $excelScript)) { throw "Gerador Excel não encontrado: $excelScript" }
       try {
         & $excelScript -ContentJson $normalizedPath -OutputDir $staging -DocumentTypes $excelTypes
@@ -115,6 +173,9 @@ try {
         Write-Warning ("Geração Excel via COM falhou; usando openpyxl. Detalhe: " + $_.Exception.Message)
         Invoke-OpenpyxlExcelBuild
       }
+    } else {
+      Write-Output 'Gerando FORM/MP via openpyxl (sem abrir Excel).'
+      Invoke-OpenpyxlExcelBuild
     }
   }
 
@@ -135,6 +196,66 @@ try {
   )
   & powershell.exe @validatorArguments
   if ($LASTEXITCODE -ne 0) { throw 'A validação dos documentos falhou.' }
+
+  # Fidelidade estrutural do MP (âncora MP.FIS.001) — obrigatória salvo -SkipMpFidelity.
+  if ('mp' -in $types -and -not $SkipMpFidelity) {
+    $compareScript = Join-Path $PSScriptRoot 'compare_mp_fidelity.py'
+    $repoRoot = (Resolve-Path (Join-Path $PSScriptRoot '..\..\..')).Path
+    $referenceMp = Get-ChildItem -LiteralPath (Join-Path $repoRoot 'referencias') -Filter '01.3 MP.FIS.001*.xlsx' -File |
+      Select-Object -First 1
+    $mpFileName = [string]$content.saida.arquivo_mp
+    $generatedMp = Join-Path $staging $mpFileName
+    if ($null -eq $python) {
+      $python = Get-Command python -ErrorAction SilentlyContinue
+      if ($null -eq $python) { $python = Get-Command py -ErrorAction SilentlyContinue }
+    }
+    if ($null -eq $python -or -not (Test-Path -LiteralPath $compareScript)) {
+      throw "Gate de fidelidade MP indisponível (python/compare_mp_fidelity.py)."
+    }
+    if ($null -eq $referenceMp) {
+      throw "Referência MP.FIS.001 não encontrada em $repoRoot\referencias."
+    }
+    if (-not (Test-Path -LiteralPath $generatedMp -PathType Leaf)) {
+      throw "MP gerado não encontrado para fidelidade: $generatedMp"
+    }
+    Write-Output 'Validando fidelidade estrutural do MP…'
+    & $python.Source @(
+      $compareScript,
+      '--generated', $generatedMp,
+      '--reference', $referenceMp.FullName
+    )
+    if ($LASTEXITCODE -ne 0) { throw 'A fidelidade estrutural do MP falhou. Veja compare_mp_fidelity.py.' }
+  }
+
+  # Fidelidade estrutural do FORM (âncora FORM.QUA.002) — obrigatória salvo -SkipFormFidelity.
+  if ('form' -in $types -and -not $SkipFormFidelity) {
+    $compareFormScript = Join-Path $PSScriptRoot 'compare_form_fidelity.py'
+    $repoRoot = (Resolve-Path (Join-Path $PSScriptRoot '..\..\..')).Path
+    $referenceForm = Get-ChildItem -LiteralPath (Join-Path $repoRoot 'referencias') -Filter 'FORM.QUA.002*.xlsx' -File |
+      Select-Object -First 1
+    $formFileName = [string]$content.saida.arquivo_form
+    $generatedForm = Join-Path $staging $formFileName
+    if ($null -eq $python) {
+      $python = Get-Command python -ErrorAction SilentlyContinue
+      if ($null -eq $python) { $python = Get-Command py -ErrorAction SilentlyContinue }
+    }
+    if ($null -eq $python -or -not (Test-Path -LiteralPath $compareFormScript)) {
+      throw "Gate de fidelidade FORM indisponível (python/compare_form_fidelity.py)."
+    }
+    if ($null -eq $referenceForm) {
+      throw "Referência FORM.QUA.002 não encontrada em $repoRoot\referencias."
+    }
+    if (-not (Test-Path -LiteralPath $generatedForm -PathType Leaf)) {
+      throw "FORM gerado não encontrado para fidelidade: $generatedForm"
+    }
+    Write-Output 'Validando fidelidade estrutural do FORM…'
+    & $python.Source @(
+      $compareFormScript,
+      '--generated', $generatedForm,
+      '--reference', $referenceForm.FullName
+    )
+    if ($LASTEXITCODE -ne 0) { throw 'A fidelidade estrutural do FORM falhou. Veja compare_form_fidelity.py.' }
+  }
 
   if (-not (Test-Path -LiteralPath $targetPath)) { [System.IO.Directory]::CreateDirectory($targetPath) | Out-Null }
   $docsDir = Join-Path $targetPath 'documentos'
@@ -159,22 +280,29 @@ try {
     Copy-Item -LiteralPath $source -Destination (Join-Path $docsDir $fileName) -Force
   }
 
-  # Lista Documental Mestra (FORM.QUA.003) — upsert por código.
-  $listaScript = Join-Path $PSScriptRoot 'update_lista_mestra.py'
-  if ($null -ne $python -and (Test-Path -LiteralPath $listaScript)) {
-    $listaArgs = @(
-      $listaScript,
-      '--content-json', $normalizedPath,
-      '--output-dir', $targetPath,
-      '--entries-json', (Join-Path $geracaoDir 'lista-mestra-entradas.json')
-    )
-    if (-not [string]::IsNullOrWhiteSpace($ListaMestraPath)) {
-      $listaArgs += @('--lista-mestra-path', (Get-FullPath $ListaMestraPath))
+  # Lista Documental Mestra (FORM.QUA.003) — opt-in (não roda por padrão).
+  $wantListaMestra = -not $SkipListaMestra -and (
+    $UpdateListaMestra -or -not [string]::IsNullOrWhiteSpace($ListaMestraPath)
+  )
+  if ($wantListaMestra) {
+    $listaScript = Join-Path $PSScriptRoot 'update_lista_mestra.py'
+    if ($null -ne $python -and (Test-Path -LiteralPath $listaScript)) {
+      $listaArgs = @(
+        $listaScript,
+        '--content-json', $normalizedPath,
+        '--output-dir', $targetPath,
+        '--entries-json', (Join-Path $geracaoDir 'lista-mestra-entradas.json')
+      )
+      if (-not [string]::IsNullOrWhiteSpace($ListaMestraPath)) {
+        $listaArgs += @('--lista-mestra-path', (Get-FullPath $ListaMestraPath))
+      }
+      & $python.Source $listaArgs
+      if ($LASTEXITCODE -ne 0) { throw 'A atualização da Lista Documental Mestra falhou.' }
+    } else {
+      Write-Warning 'Python/update_lista_mestra.py indisponível; lista mestra não foi gerada.'
     }
-    & $python.Source $listaArgs
-    if ($LASTEXITCODE -ne 0) { throw 'A atualização da Lista Documental Mestra falhou.' }
-  } else {
-    Write-Warning 'Python/update_lista_mestra.py indisponível; lista mestra não foi gerada.'
+  } elseif ($SkipListaMestra -and ($UpdateListaMestra -or -not [string]::IsNullOrWhiteSpace($ListaMestraPath))) {
+    Write-Warning 'SkipListaMestra ativo: FORM.QUA.003 não foi gerado/atualizado.'
   }
 
   # Artefatos de geração (JSON de conteúdo, relatório e pendências).

@@ -50,6 +50,18 @@ describe("upload-onvio helpers", () => {
     expect(filenameHasExactCodeToken("Empresa 543 - LINK INFORMATICA.pdf", "543")).toBe(true);
     expect(filenameHasExactCodeToken("543 - Relatorio.xlsx", "543")).toBe(true);
     expect(filenameHasExactCodeToken("Empresa 1543 - LINK INFORMATICA.pdf", "543")).toBe(false);
+    expect(
+      filenameHasExactCodeToken(
+        "569 - UneCont - Tomados - 38.635.853 AMANDA - 01_08_2026_a_31_08_2026.xlsx",
+        "635",
+      ),
+    ).toBe(false);
+    expect(
+      filenameHasExactCodeToken(
+        "569 - UneCont - Tomados - 38.635.853 AMANDA - 01_08_2026_a_31_08_2026.xlsx",
+        "569",
+      ),
+    ).toBe(true);
   });
 
   it("resolve anexos pela lista explicita da planilha", () => {
@@ -204,5 +216,42 @@ describe("upload-onvio helpers", () => {
     expect(buildUploadDescription(empresa, 2)).toBe(
       "Upload automático do relatório Unecont para Link Informatica com 2 arquivo(s).",
     );
+  });
+
+  it("recusa xlsx cujo nome Unecont nao bate com a empresa", () => {
+    expect(() =>
+      resolveAttachmentsForEmpresa(
+        makeEmpresa({
+          codigo: "427",
+          nome: "MAX CONFECCOES TEXTIL LTDA",
+          arquivos: [],
+        }),
+        [
+          {
+            filePath: "C:/tmp/427 - UneCont - Tomados - ACHEI COMERCIO E SERVICOS.xlsx",
+            fileName: "427 - UneCont - Tomados - ACHEI COMERCIO E SERVICOS.xlsx",
+            extension: ".xlsx",
+          },
+        ],
+      ),
+    ).toThrow(UploadResolutionError);
+  });
+
+  it("aceita xlsx coerente com a razao social", () => {
+    const files = resolveAttachmentsForEmpresa(
+      makeEmpresa({
+        codigo: "427",
+        nome: "MAX CONFECCOES TEXTIL LTDA",
+        arquivos: [],
+      }),
+      [
+        {
+          filePath: "C:/tmp/427 - UneCont - Tomados - MAX CONFECCOES TEXTIL.xlsx",
+          fileName: "427 - UneCont - Tomados - MAX CONFECCOES TEXTIL.xlsx",
+          extension: ".xlsx",
+        },
+      ],
+    );
+    expect(files).toHaveLength(1);
   });
 });

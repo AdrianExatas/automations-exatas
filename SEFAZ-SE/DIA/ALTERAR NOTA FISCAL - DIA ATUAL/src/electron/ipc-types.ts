@@ -7,13 +7,15 @@ export type AppDefaults = {
 
 export type StoredCredentials = {
   user: string;
-  password: string;
+  certPath: string;
+  certPassword: string;
   remembered: boolean;
 };
 
 export type StartRunRequest = {
   user: string;
-  password: string;
+  certPath: string;
+  certPassword: string;
   rememberCredentials: boolean;
   spreadsheetPath: string;
   outDir: string;
@@ -23,10 +25,11 @@ export type StartRunRequest = {
 export type SefazDiaApi = {
   getDefaults(): Promise<AppDefaults>;
   getCredentials(): Promise<StoredCredentials>;
-  saveCredentials(credentials: { user: string; password: string }): Promise<void>;
+  saveCredentials(credentials: { user: string; certPath: string; certPassword: string }): Promise<void>;
   clearCredentials(): Promise<void>;
   selectSpreadsheet(): Promise<string | undefined>;
   selectOutDir(): Promise<string | undefined>;
+  selectCert(): Promise<string | undefined>;
   startRun(request: StartRunRequest): Promise<RunResult>;
   cancelRun(): Promise<void>;
   openPath(targetPath: string): Promise<void>;

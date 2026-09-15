@@ -69,6 +69,8 @@ export interface RunAutomationOptions {
   transport?: AutomationTransport;
   mapDir?: string;
   log?: (message: string) => void;
+  shouldCancel?: () => boolean;
+  onProgress?: (progress: { current: number; total: number; label: string }) => void;
 }
 
 export interface RunAutomationResult {
@@ -76,6 +78,8 @@ export interface RunAutomationResult {
   successCount: number;
   errorCount: number;
   ignoredCount: number;
+  cancelled?: boolean;
+  results?: RunResult[];
 }
 
 export interface GeneratedInputRow {

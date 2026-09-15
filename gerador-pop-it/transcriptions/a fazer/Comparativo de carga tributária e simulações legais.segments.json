@@ -1,0 +1,23 @@
+{
+  "media": "G:\\Meu Drive\\GESTÃO DE PROCESSOS\\13 - Auditoria\\VÍDEOS\\5-min.mp4",
+  "transcript_path": "C:\\Users\\Exatas\\Documents\\GitHub\\automations-exatas\\gerador-pop-it\\transcriptions\\a fazer\\5-min (transcribed on 10-Sep-2026 20-32-42).txt",
+  "language": "pt",
+  "duration_sec": 87.616,
+  "segments": [
+    {
+      "start": 0.3,
+      "end": 28.3,
+      "text": "Agora iremos fazer um comparativo entre a carga atual dele e simulações para tentar achar e diminuir a carga de maneiras legais, como a revisão fiscal, a pós geração da planilha, seguir alguns novos tributos, como ICMS, COFINS, IRPJ, CSLL."
+    },
+    {
+      "start": 28.3,
+      "end": 78.41,
+      "text": "Essa empresa, como é Sergipe, seria 19%, mas como é varejista, vai a 20% do FECOID, FIS, COFINS, IRPJ, CSLL, ICMS, 3,75%, só pelo ICMS, você percebe que a carga atual dele é 20 mil, e a migração se torna,"
+    },
+    {
+      "start": 78.43,
+      "end": 84.65,
+      "text": "algo falhou em comparável com a carga atual, que aqui aumentaria, então não valeria pena."
+    }
+  ]
+}

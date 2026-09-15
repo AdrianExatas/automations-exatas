@@ -29,7 +29,7 @@ function printUsage(): void {
       "  --token <token>",
       "  --excel <arquivo>",
       "  --attachments-dir <pasta>",
-      "  --mode attachments|no-attachments",
+      "  --mode attachments|no-attachments|optional-attachments",
       "  --attachment-strategy explicit|code-fallback",
       "  --dry-run",
       "  --bd-api-base-url <url>",
@@ -52,11 +52,13 @@ function readFlagValue(argv: string[], index: number, flag: string): string {
 }
 
 function parseMode(value: string): ServiceRequestMode {
-  if (value === "attachments" || value === "no-attachments") {
+  if (value === "attachments" || value === "no-attachments" || value === "optional-attachments") {
     return value;
   }
 
-  throw new Error(`Modo invalido: ${value}. Use attachments ou no-attachments.`);
+  throw new Error(
+    `Modo invalido: ${value}. Use attachments, no-attachments ou optional-attachments.`,
+  );
 }
 
 function parseAttachmentStrategy(value: string): ServiceRequestAttachmentStrategy {

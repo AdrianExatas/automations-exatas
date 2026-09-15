@@ -1,0 +1,97 @@
+- generic [ref=f3e6]:
+  - generic [ref=f3e7]:
+    - generic [ref=f3e8]:
+      - link [ref=f3e9] [cursor=pointer]:
+        - /url: https://bitrix24.com
+      - generic [ref=f3e10]: Visualizar
+    - generic [ref=f3e12]:
+      - generic "Permissão insuficiente para editar o item" [ref=f3e13]: Editar
+      - link "Baixar" [ref=f3e15] [cursor=pointer]:
+        - /url: /docs/pub/a2ddb7767959d348da3d180eb9921d0d/download?token=ufjiayj1ttyr
+      - generic [ref=f3e17]:
+        - generic [ref=f3e18]: Online
+        - generic [ref=f3e23]:
+          - generic "Convidado" [ref=f3e24]
+          - generic "Adrian Haelisson" [ref=f3e28]
+          - generic "Amanda Ali" [ref=f3e30]
+  - iframe [active] [ref=f3e27]:
+    - application [ref=f4e1]:
+      - main [ref=f4e12]:
+        - generic [ref=f4e14]:
+          - toolbar [ref=f4e16]:
+            - generic [ref=f4e74]:
+              - generic [ref=f4e75]:
+                - tablist [ref=f4e81]:
+                  - listitem [ref=f4e82]:
+                    - tab "Arquivo" [ref=f4e83]
+                  - listitem [ref=f4e84]:
+                    - tab "Visualizar" [ref=f4e85]
+                - generic [ref=f4e87]:
+                  - textbox [disabled] [ref=f4e89]: CONTROLE_MIGRAÇÃO_EMPRESAS.xlsx
+                  - generic [ref=f4e90]:
+                    - button "Imprimir arquivo (Ctrl+P)" [ref=f4e94] [cursor=pointer]
+                    - button "Pesquisar (Ctrl+F)" [ref=f4e98] [cursor=pointer]
+                    - generic [ref=f4e100]: C
+              - tabpanel "Visualizar" [ref=f4e106]:
+                - generic [ref=f4e107]:
+                  - generic [ref=f4e110]:
+                    - combobox [ref=f4e111]: 100%
+                    - button [ref=f4e112] [cursor=pointer]
+                  - generic [ref=f4e114]: Zoom
+                - button "Tema de interface" [ref=f4e120] [cursor=pointer]:
+                  - generic [ref=f4e123]: Tema deinterface
+                - generic [ref=f4e130]:
+                  - checkbox "Barra de fórmula" [checked] [ref=f4e131]
+                  - generic [ref=f4e132]: Barra de fórmula
+                - generic [ref=f4e135]:
+                  - generic [ref=f4e138]:
+                    - checkbox "Sempre mostrar a barra de ferramentas" [checked] [ref=f4e139]
+                    - generic [ref=f4e140]: Sempre mostrar a barra de ferramentas
+                  - generic [ref=f4e143]:
+                    - checkbox "Ocultar barra de status" [checked] [ref=f4e144]
+                    - generic [ref=f4e145]: Ocultar barra de status
+                - generic [ref=f4e149]:
+                  - checkbox "Painel esquerdo" [checked] [ref=f4e150]
+                  - generic [ref=f4e151]: Painel esquerdo
+          - generic [ref=f4e18]:
+            - menubar "Menu esquerdo" [ref=f4e21]:
+              - button "Pesquisar" [ref=f4e22] [cursor=pointer]
+              - button "Comentários (Ctrl+Shift+H)" [ref=f4e153] [cursor=pointer]
+              - button "Sobre" [ref=f4e26] [cursor=pointer]
+            - generic [ref=f4e30]:
+              - generic [ref=f4e31]:
+                - generic [ref=f4e32]:
+                  - textbox [ref=f4e33]: A1
+                  - button [ref=f4e34]
+                - button [ref=f4e37] [cursor=pointer]
+                - textbox [ref=f4e40]: CÓD
+              - generic [ref=f4e42]:
+                - generic:
+                  - generic:
+                    - textbox [active]
+          - generic [ref=f4e47]:
+            - generic [ref=f4e48]:
+              - button "Deslizar lista de folha esquerda" [disabled] [ref=f4e49]
+              - button "Deslizar lista de folha direita" [disabled] [ref=f4e51]
+            - generic [ref=f4e59]:
+              - button "Reduzir (Ctrl+-)" [ref=f4e61] [cursor=pointer]
+              - generic "Zoom" [ref=f4e63]:
+                - button "Zoom 100%" [ref=f4e64] [cursor=pointer]
+              - button "Ampliar (Ctrl++)" [ref=f4e66] [cursor=pointer]
+            - list [ref=f4e70]:
+              - listitem [ref=f4e166]:
+                - generic [ref=f4e167]: 01 01
+              - listitem [ref=f4e168]:
+                - generic [ref=f4e169]: 02 02
+              - listitem [ref=f4e170]:
+                - generic [ref=f4e171]: 03 03
+              - listitem [ref=f4e172]:
+                - generic [ref=f4e173]: 04 04
+              - listitem [ref=f4e174]:
+                - generic [ref=f4e175]: 05 05
+              - listitem [ref=f4e176]:
+                - generic [ref=f4e177]: 06 06
+              - listitem [ref=f4e178]:
+                - generic [ref=f4e179] [cursor=pointer]: 07 07
+              - listitem [ref=f4e180]:
+                - generic [ref=f4e181]: 08 08

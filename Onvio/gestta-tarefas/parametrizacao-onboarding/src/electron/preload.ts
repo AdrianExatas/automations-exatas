@@ -9,6 +9,7 @@ contextBridge.exposeInMainWorld("onboardingApp", {
   resetMatrix: () => ipcRenderer.invoke("matrix:reset"),
   calculatePreview: (payload: { input: ParametrizacaoInput }) =>
     ipcRenderer.invoke("preview:calculate", payload),
+  lookupCompany: (cnpj: string) => ipcRenderer.invoke("company:lookup", cnpj),
   captureAuth: (payload: { email: string; password: string; saveCredentials: boolean }) =>
     ipcRenderer.invoke("auth:capture", payload),
   clearCredentials: () => ipcRenderer.invoke("credentials:clear"),

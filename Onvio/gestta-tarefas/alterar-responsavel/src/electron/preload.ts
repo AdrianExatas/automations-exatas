@@ -9,6 +9,7 @@ contextBridge.exposeInMainWorld("gesttaApp", {
     ipcRenderer.invoke("auth:capture", payload),
   clearAuth: () => ipcRenderer.invoke("auth:clear"),
   selectSheet: () => ipcRenderer.invoke("sheet:select"),
+  loadSelectedSheet: () => ipcRenderer.invoke("sheet:load-selected"),
   inspectSheet: (payload: { filePath: string }) => ipcRenderer.invoke("sheet:inspect", payload),
   downloadTemplate: () => ipcRenderer.invoke("template:download"),
   openReports: () => ipcRenderer.invoke("reports:open"),

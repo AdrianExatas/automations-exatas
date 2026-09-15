@@ -1,0 +1,77 @@
+Esse é um vídeo para ensinar como fazer a retirada de críticas lá na solicitação, quando a gente for pedir habilitação da situação fiscal na SEFAZ, Rio Grande do Norte.
+Primeiro a gente vai lá digitar no Google SEFAZ, Rio Grande do Norte, digita, vai cair nesse site aqui, beleza?
+A partir do momento que a gente cai, a gente clica aqui nessa informação, Unidade Virtual de Tributação.
+Clicando nessa informação, a gente vai cair para cá, nessa página, certo?
+Caso o e-mail cadastrado lá no CNPJ não for o e-mail da contabilidade, for o e-mail do nosso cliente,
+a gente vai precisar trocar esse e-mail solicitando aqui, nessa unidade de tributação, Unidade Virtual de Tributação.
+E aí a gente vai ter que solicitar aqui, digitar o CNPJ e fazer essa alteração da senha junto com o e-mail,
+porque a senha da SEFAZ vai cair justamente no e-mail que tiver cadastrado lá no CNPJ, certo?
+Fazendo esse procedimento, a gente vai ter que depois vir aqui novamente e acessar
+essa área restrita através do CNPJ, onde está aqui, ECPF ou CNPJ.
+E aqui a gente acessa pelo certificado digital, certo?
+Não sei se vocês observaram que carregou uma informação aqui, que é um softwarezinho que precisa ser baixado,
+que é da própria, da própria SEFAZ Rio Grande do Norte, que é esse UVT aqui, que está escrito aqui em cima,
+que é o módulo de segurança de lá da própria SEFAZ.
+A gente baixa, a própria SEFAZ disponibiliza e a gente instala ele na nossa máquina,
+para que ele possa reconhecer os certificados digitais que estão instalados na máquina.
+A exemplo aqui, a gente vai aqui em selecionar a empresa, selecionou a empresa,
+a gente vai agora fazer o procedimento e o pedido dessa habilitação e retirada de críticas
+para poder emitir as notas fiscais.
+Aí a partir do momento que a gente chegou naquela página, a gente vai vir para aqui.
+Com isso, a gente vai acessar essa informação aqui.
+Aqui a gente pode fazer vários pedidos e solicitações.
+No nosso caso, o que a gente vai querer é esse aqui, pedidos virtuais.
+A gente vai clicar aqui, vai cair nessa página e a gente vai vir aqui em retirada de críticas.
+Clicou em retirada de críticas, ele vai dar informação.
+Aqui, a gente vai abrir esses campos aqui, certo?
+Onde a gente vai preencher com algumas informações.
+Como eu acessei já essa empresa aqui, que ela já está habilitada,
+consequentemente essa informação aqui vai estar fechada, certo?
+Então, caso a empresa não esteja habilitada,
+aqui essa opção vai estar aberta, onde a gente vai colocar solicitação de pedidos de críticas.
+Aqui vai ter uma informação aqui, habilitação de críticas.
+E embaixo, outra informação que é para a gente anexar o processo, certo?
+Eu solicitei a informação que ele vai pedir uma justificativa
+por que a gente está pedindo essa habilitação.
+Eu peguei essa informação aqui, que está no decreto.
+Eu coloquei isso na pasta paralegal, certo?
+Renomeei, está lá com a informação pendências Rio Grande do Norte.
+Joguei isso aqui na IA e pedi a ela para elaborar a justificativa conforme esse artigo.
+Ele me deu a justificativa, eu colei, porque quando chegar aqui, nessa informação,
+ele vai pedir a justificativa e a gente vai abaixo colocar que é pedido de habilitação das críticas.
+Que ele informa, certo?
+Após isso, a gente vai ter que anexar alguns documentos.
+Quais são esses documentos?
+A gente vai ter que anexar o contrato social assinado.
+No caso, se tiver as alterações, só a última alteração.
+Certidão dos sócios.
+Se tiver mais de um sócio, todas as certidões, a gente vai ter que vir no site aqui da SEFAZ
+e procurar certidão.
+Se a gente digita aqui, certidão negativa Rio Grande do Norte.
+A gente vai lá, cai na página e baixa a certidão conforme cada sócio, certo?
+Digita o CPF e tal.
+CNH ou então algum documento com foto dos sócios, vai precisar.
+Vai precisar do CRC do contador com foto, certo?
+Vai precisar da foto da fachada do local com o número, com o número da fachada lá do local.
+E vai precisar também do endereço, o link, certo?
+O link.
+Isso aí a gente vai ter que ir no Google Maps ou alguma coisa do endereço lá do local
+e anexar também no documento, certo?
+Após a gente achar todas essas informações, a gente vai precisar fazer o seguinte.
+Juntar toda essa documentação e anexar em um único PDF.
+Que nem está aqui, ó.
+Deixa eu ver.
+E anexar em um único PDF.
+Aqui está o contrato social, certo?
+Aí vem a certidão negativa dos dois sócios, os documentos com foto,
+a fachada do local lá com o número do estabelecimento
+e também um comprovante aí do, pode ser do IPTU ou algum comprovante de endereço de lá do estabelecimento.
+E aqui fotos do Google Maps do local do estabelecimento
+lá para que possa comprovar, certo?
+Tendo toda essa documentação, é só anexar aqui,
+onde a gente vai clicar no botão selecionar e após isso gravar.
+Essas informações aqui, elas vão estar habilitadas.
+Essa daqui não está habilitada porque essa empresa aqui já está regularizada perante ao fisco estadual.
+Caso a empresa não esteja, ela vai abrir esses campos aqui para a gente poder preencher
+e consequentemente fazer o pedido de habilitação de críticas para poder emitir as notas fiscais.
+E aí

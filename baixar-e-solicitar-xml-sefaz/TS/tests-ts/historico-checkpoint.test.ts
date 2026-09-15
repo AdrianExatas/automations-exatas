@@ -58,6 +58,7 @@ describe("checkpoint download", () => {
     expect(loaded?.pagina_atual).toBe(3);
     expect(loaded?.total_baixados).toBe(1);
     expect(loaded?.arquivos_baixados.has("https://example.test/download.zip")).toBe(true);
+    expect(loaded?.arquivos_baixados.has("02012026090000")).toBe(false);
 
     mkdirSync(config.PATHS.checkpointsBackupDir, { recursive: true });
     copyFileSync(checkpoint.CHECKPOINT_FILE, join(config.PATHS.checkpointsBackupDir, "download_checkpoint_manual.json"));
@@ -70,5 +71,36 @@ describe("checkpoint download", () => {
     expect(existsSync(checkpoint.CURSOR_CHECKPOINT_FILE)).toBe(false);
     expect(readdirSync(config.PATHS.checkpointsBackupDir).filter((name) => /^download_checkpoint_.*\.json$/.test(name))).toEqual([]);
     expect(readdirSync(config.PATHS.checkpointsDir).filter((name) => /^download_(?:cursor_)?checkpoint\.json\..*\.tmp$/.test(name))).toEqual([]);
+  });
+
+  it("nao trata dtSolicitacao como id unico entre zips irmaos", async () => {
+    await useTempPaths();
+    const checkpoint = await import("../src-ts/download/checkpoint.js");
+
+    const nfe = {
+      url: "https://example.test/nfe.zip",
+      nmArquivo: "271_EMPRESA_01012026_01012026_01012026000000",
+      dtSolicitacao: "02012026090000",
+      tipoDownload: "NFE",
+    };
+    const nfc = {
+      url: "https://example.test/nfc.zip",
+      nmArquivo: "272_EMPRESA_01012026_01012026_01012026000000",
+      dtSolicitacao: "02012026090000",
+      tipoDownload: "NFC",
+    };
+
+    const arquivos = new Set<string>();
+    checkpoint.registrarArquivoBaixado(nfe, arquivos);
+
+    expect(checkpoint.jaBaixado(nfe, arquivos)).toBe(true);
+    expect(checkpoint.jaBaixado(nfc, arquivos)).toBe(false);
+    expect(arquivos.has("02012026090000")).toBe(false);
+
+    expect(checkpoint.salvarCheckpoint(1, arquivos, 1)).toBe(true);
+    const loaded = checkpoint.carregarCheckpoint();
+    expect(checkpoint.jaBaixado(nfe, loaded?.arquivos_baixados ?? new Set())).toBe(true);
+    expect(checkpoint.jaBaixado(nfc, loaded?.arquivos_baixados ?? new Set())).toBe(false);
+    expect(loaded?.arquivos_baixados.has("02012026090000")).toBe(false);
   });
 });

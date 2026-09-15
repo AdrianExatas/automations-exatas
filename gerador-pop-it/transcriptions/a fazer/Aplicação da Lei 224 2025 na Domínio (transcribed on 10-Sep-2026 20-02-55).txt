@@ -1,0 +1,20 @@
+Pessoal, eu estou aqui com o Tati, né? Nós estamos gravando aqui um vídeo para disponibilizar para vocês uma melhoria que é referente à exceção da tributação da Lei nº 2.4.
+Então, vamos lá. O primeiro passo é o seguinte, a gente tem a opção aqui dentro de utilitários, alterar produto, cadastro, né? Eu venho aqui, coloco o NCN do produto,
+consequentemente, eu gosto de deixar habilitada essa aba aqui, porque a gente vai consultar. Aí eu venho aqui em alterar não, em criar nova vigência,
+e essa nova vigência a partir do mês 4 de 2026, aí eu coloco aqui, regime não formulativo, exceção.
+E exceção, porque esses produtos, eles são da cesta básica, e aí não se aplica a majoração do PIS e confins.
+Então, eu vou colocar aqui, vou colocar o CST-03, aí eu vou nessa opção aqui, produto não sujeito à redução,
+porque todos os produtos que tem o CST-06, ele vai sofrer a majoração, exceto se tiver marcado isso daqui.
+E cria a exceção, automaticamente ele vai pedir o quê? Para reapurar novamente.
+Sempre que eles querem a categoria nova, vai ter que configurar.
+Perfeito, aqui as alterações que não foram, não serão aplicadas, ou não, também que os lançamentos já gravados.
+Somente os novos para atualizar os lançamentos gravados do interior, é preciso executar o utilitário.
+Então, depois que a gente faz essa alteração, vamos pegar aqui, ok, aí eu vou ter que vir novamente aqui em utilitários,
+em movimentação de produtos, e fazer a correta, vamos dizer assim, o processo novamente.
+Deixa eu pegar aqui, 4 de 2026, aí eu vou colocar, vai servir tanto para a entrada como para a saída, né?
+Então, eu coloco todos, vou colocar o NCN, porque eu só quero trabalhar nesses produtos, listo eles, alterar,
+isso daqui eu deixo eles marcados, coloco aqui todos, e atualizar, gravar, pronto.
+Aqui já vai fazer todo o processo de atualização, ou seja, a tributação que ele estava gerando desses produtos,
+não vai gerar mais, então a gente vai ter que fazer em todos os produtos da cesta básica,
+esse processo para que ele não seja tributado, né, consequentemente sobre as saídas que seria dos produtos da cesta básica.
+Então, o processo é esse, e aí a gente tem a correta tributação.

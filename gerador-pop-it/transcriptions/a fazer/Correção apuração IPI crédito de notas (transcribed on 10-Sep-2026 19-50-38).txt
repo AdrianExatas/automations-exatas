@@ -1,0 +1,28 @@
+Fala pessoal, gravando aqui mais uma instrução de treinamento, que a gente vai fazer aqui uma correção, uma apuração, onde ocorreu o seguinte, o IPI da competência 8 de 2025 foi declarado 9 mil, e aí posteriormente teve algumas inclusões de notas fiscais que tinha crédito de IPI e não foi apropriado, e aí com o apropriamento do crédito o débito saiu de 9 mil,
+e foi para 7 mil, 566,04. Então, com isso gerou um crédito de pagamento indevido ou a maior de 2.343. E com isso, fazendo análise da empresa, identifiquei que o crédito não está disponível por causa da seguinte situação.
+Então, vamos lá. Eu cheguei aqui, né, vamos lá, vou começar do zero. Aqui vem declaração, aí eu vou aqui em extrato DCTFWeb, clico aqui em prosseguir, né, coloca a competência que eu quero examinar, né, vou até ela, verifico aqui, aí eu chego aqui na competência do mês 8, clico nessa bolinha que é o olho, clico aqui em mais, e aí eu vou identificar o seguinte, ó,
+foi declarado 9 mil e não foi corrigido. Então, com isso, pessoal, com esse valor aqui declarado de 9 mil, diferente daqui do valor que está no ESPED fiscal que foi declarado, eu não consigo habilitar o crédito e consequentemente usá-lo.
+Então, aqui eu tenho que fazer o seguinte, eu tenho que voltar aqui e prosseguir e inclusar aqui no módulo de inclusão de tributos que é o MIT, né, então vou clicar aqui no MIT e vou entrar nele.
+Então, já tenho ele aqui aberto, né, e aqui chegando nele, eu tenho identificado, vou voltar aqui novamente pra vocês verificarem, né, deixa eu sair dele,
+entrar nesse aqui novamente, escolhi um mês 8, né, e aqui, ó, tá vendo 9 mil reais, então, eu vou abrir aqui pra vocês visualizarem, né,
+aqui tem os dados iniciais da empresa, né, vai trazer os débitos que foram confessados, os débitos suspensos que é decorrente de ação, né,
+e coloca o número do processo, motivo, nesse caso aqui não é. Eu vou aqui, escolho qual tributo, né, e tá aqui ele.
+Então, aqui eu já vou entrar no módulo de edição, então, vou ter que editar pra o valor efetivamente que foi esse daqui, 7.566,04, perfeito?
+Então, aqui eu incluí ele, incluí débito, né, pronto, já foi incluído, né, vou salvar, né, vou salvar o débito, pronto, já foi salvo, atualizado,
+aí eu vou fazer o que agora, verificar a pendência, se tem alguma pendência, pendências atualizadas, e vou fazer agora um encerramento, pronto,
+no encerramento, tá vendo, o débito apurado é esse, aí eu vou fazer o que, encerrar, que é declarar o MIT, após declarar o MIT, né,
+ele vai fazer o que, ele vai reabrir a minha DCTFWeb, né, que eu vou acessar ela aqui, né, então, aqui já vai estar ela,
+tá vendo, retificada, com o valor corrigido, tá vendo aqui, tá 2766067, se eu for aqui, é, nela aqui, ó, que era o valor anterior,
+aqui, ó, deixa eu pegar aqui, então, aqui eu vou fazer agora a sua transmissão, né, é, transmitir ela, ela já consigo, né,
+fazer com que esse crédito que exista, né, ele esteja disponível, pra que eu possa fazer, é, a utilização, eu vou demonstrar isso pra vocês,
+já foi, se eu quiser baixar o reciclo, ok, vamos lá, então, aqui eu já tô com o mês 8, aí eu vou aqui, ó,
+abater pagamentos anteriores, né, então, tipo, ó, tá vendo, aqui, ó, quando eu faço assim, eu clico em confirmar,
+ela vai fazer o que? Vai zerar, tá vendo, não tem nenhum débito, ah, senhores, e como é que eu evendecivo agora o crédito, né,
+isso é importante, eu vou aqui no relatório, é, resumo de crédito, é, aí eu download, e aqui vai me apresentar salário família, né,
+ele trouxe aqui, não tem nada disponível, né, só que esse crédito, porque se tratar de um crédito decorrente de pagamento a maior,
+a DCTFWeb, ela não evidencia que, ela, deixa eu ver aqui, pronto, se eu exibir todos, só se eles mudaram, mas até o momento não existia, tá vendo,
+é, é, débito declarado, então, ele não traz a parte de, os débitos que não são previdenciados, e aí eu vou evidenciar isso no,
+na hora que eu for fazer a perda de compra, mas aqui eu, como deve-se proceder, pra que a gente tenha a questão do ponto AIS fiscal,
+ou seja, as declarações, ela deve-se conversar, então, identifiquei que o valor do SPED fiscal estava um,
+onde a DCTFWeb estava outro, onde o MIT estava outro, e agora eu fiz as correções, e aí a gente encontrou que
+todos os valores estão em conformidade fiscal, perfeito? E aqui eu encerro essa gravação.

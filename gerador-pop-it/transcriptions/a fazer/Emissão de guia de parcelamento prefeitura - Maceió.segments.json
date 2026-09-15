@@ -1,0 +1,28 @@
+{
+  "media": "G:\\Meu Drive\\GESTÃO DE PROCESSOS\\05 - Paralegal\\VÍDEOS\\EMISSÃO DE GUIA DE PARCELAMENTO PREFEITURA - MACEIO.mkv",
+  "transcript_path": "C:\\Users\\Exatas\\Documents\\GitHub\\automations-exatas\\gerador-pop-it\\transcriptions\\a fazer\\EMISSÃO DE GUIA DE PARCELAMENTO PREFEITURA - MACEIO (transcribed on 10-Sep-2026 19-29-34).txt",
+  "language": "pt",
+  "duration_sec": 77.7386875,
+  "segments": [
+    {
+      "start": 1.01,
+      "end": 44.54,
+      "text": "Para fazer a emissão da guia do parcelamento da Max Filial, junto à Prefeitura de Maceió, acessa a página, Prefeitura de Maceió, clica na opção aqui, Empresário, Guias de Pagamento, aqui em Cadastro, seleciona a pessoa jurídica, informa o CNPJ da empresa, nesse caso aqui da Max Filial, pesquisar, pronto."
+    },
+    {
+      "start": 44.54,
+      "end": 66.54,
+      "text": "Aqui ele traz os débitos, certo? Verifique que aqui no cadastro a numeração é a mesma, então aqui é os valores que foi parcelado, e logo abaixo tem a parcela 4, 5, 6, que deve ser emitida para cada mês, o próximo será dezembro, janeiro e fevereiro."
+    },
+    {
+      "start": 66.54,
+      "end": 72.89,
+      "text": "Seleciona a parcela que deseja emitir, e clica na opção de emissão de guias."
+    },
+    {
+      "start": 73.91,
+      "end": 76.29,
+      "text": "É isso, depois disso salva na pasta e manda para o cliente."
+    }
+  ]
+}

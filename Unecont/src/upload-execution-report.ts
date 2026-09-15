@@ -74,6 +74,8 @@ function buildItemRow(item: UploadBatchItemResult): SheetRow {
     CODIGO: item.empresa.codigo,
     EMPRESA: item.empresa.nome,
     CNPJ: item.empresa.cnpj,
+    ONVIO_CLIENT_ID: item.empresa.onvioClientId ?? "",
+    ONVIO_CLIENT_SOURCE: item.empresa.onvioClientSource ?? "",
     STATUS: item.status,
     MENSAGEM: item.message ?? "",
     TICKET_ID: item.ticketId ?? "",

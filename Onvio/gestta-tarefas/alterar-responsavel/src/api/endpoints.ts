@@ -16,7 +16,8 @@ const LIMIT = 500;
  */
 export async function listarClientes(
   client: AxiosInstance,
-  search?: string
+  search?: string,
+  active = true
 ): Promise<RespostaClientes["docs"]> {
   const todos: RespostaClientes["docs"] = [];
   let page = 1;
@@ -24,7 +25,7 @@ export async function listarClientes(
 
   while (hasMore) {
     const params: Record<string, string | number | boolean> = {
-      active: true,
+      active,
       limit: LIMIT,
       page,
       search: search ?? "",
@@ -44,14 +45,21 @@ export async function listarClientes(
  * Lista funcionários ativos (GET admin/company/user?active=true).
  */
 export async function listarFuncionarios(
-  client: AxiosInstance
+  client: AxiosInstance,
+  active = true
 ): Promise<UsuarioGestta[]> {
-  const { data } = await client.get<UsuarioGestta[] | { docs?: UsuarioGestta[] }>(
-    "/admin/company/user",
-    { params: { active: true } }
-  );
-  if (Array.isArray(data)) return data;
-  return data.docs ?? [];
+  const usuarios: UsuarioGestta[] = [];
+  let page = 1;
+  for (;;) {
+    const { data } = await client.get<
+      UsuarioGestta[] | { docs?: UsuarioGestta[]; hasNextPage?: boolean }
+    >("/admin/company/user", { params: { active, limit: LIMIT, page } });
+    if (Array.isArray(data)) return data;
+    const docs = data.docs ?? [];
+    usuarios.push(...docs);
+    if (!data.hasNextPage || docs.length === 0) return usuarios;
+    page++;
+  }
 }
 
 /** Item retornado por GET /admin/customer/:id/company/task. */
@@ -65,6 +73,34 @@ export interface CompanyTaskItem {
   company_user?: string | UsuarioGestta | null;
   approve_type?: unknown[];
   active?: boolean;
+}
+
+/** Modelo de tarefa usado para localizar a variante VIA WHATSAPP. */
+export interface ModeloTarefaGestta {
+  _id: string;
+  name: string;
+  active?: boolean;
+  type?: string;
+  company_department?: string | { _id?: string; name?: string };
+}
+
+export interface DepartamentoGestta {
+  _id: string;
+  name: string;
+}
+
+/** Instância de tarefa já gerada para um cliente. */
+export interface TarefaGeradaGestta {
+  _id: string;
+  name?: string;
+  status?: string;
+  competence_date?: string | Date | null;
+  company_task?: string | { _id?: string; name?: string };
+  company_user?: string | UsuarioGestta | null;
+  /** A busca e o detalhe das instancias atuais expõem o responsavel neste campo. */
+  owner?: string | UsuarioGestta | null;
+  customer?: string | { _id?: string; name?: string };
+  [key: string]: unknown;
 }
 
 /** Normaliza nome para comparação (trim, minúsculo, sem acentos). */
@@ -185,4 +221,128 @@ export async function patchResponsavel(
   body: PatchResponsavelBody
 ): Promise<void> {
   await client.patch("/admin/group/customer/config", body);
+}
+
+/** Remove o dono de vinculos cuja configuracao anterior nao tinha responsavel. */
+export async function removerResponsavel(
+  client: AxiosInstance,
+  ids: string[]
+): Promise<void> {
+  if (ids.length === 0) return;
+  await client.delete("/admin/group/customer/config", {
+    data: { ids, company_user: true },
+  });
+}
+
+export async function obterModeloTarefa(
+  client: AxiosInstance,
+  taskId: string
+): Promise<ModeloTarefaGestta> {
+  const { data } = await client.get<ModeloTarefaGestta>(`/admin/company/task/${taskId}`);
+  return data;
+}
+
+export async function listarModelosTarefa(
+  client: AxiosInstance,
+  type: "RECURRENT" | "SERVICE_ORDER" = "RECURRENT"
+): Promise<ModeloTarefaGestta[]> {
+  const modelos: ModeloTarefaGestta[] = [];
+  let page = 1;
+  for (;;) {
+    const { data } = await client.get<{ docs?: ModeloTarefaGestta[]; hasNextPage?: boolean }>(
+      "/admin/company/task",
+      { params: { type, limit: LIMIT, page } }
+    );
+    modelos.push(...(data.docs ?? []));
+    if (!data.hasNextPage) return modelos;
+    page++;
+  }
+}
+
+export async function listarDepartamentos(
+  client: AxiosInstance
+): Promise<DepartamentoGestta[]> {
+  const departamentos: DepartamentoGestta[] = [];
+  let page = 1;
+  for (;;) {
+    const { data } = await client.get<
+      DepartamentoGestta[] | { docs?: DepartamentoGestta[]; hasNextPage?: boolean }
+    >("/admin/company/department", { params: { limit: LIMIT, page } });
+    if (Array.isArray(data)) return data;
+    const docs = data.docs ?? [];
+    departamentos.push(...docs);
+    if (!data.hasNextPage || docs.length === 0) return departamentos;
+    page++;
+  }
+}
+
+function recordsOfUnknown(data: unknown): TarefaGeradaGestta[] {
+  if (Array.isArray(data)) return data as TarefaGeradaGestta[];
+  if (!data || typeof data !== "object") return [];
+  const record = data as Record<string, unknown>;
+  for (const key of ["docs", "data", "items", "results"]) {
+    if (Array.isArray(record[key])) return record[key] as TarefaGeradaGestta[];
+  }
+  return [];
+}
+
+/** Lista instancias de um cliente nos status informados. */
+export async function listarTarefasGeradasPorStatus(
+  client: AxiosInstance,
+  customerId: string,
+  statuses: readonly string[]
+): Promise<TarefaGeradaGestta[]> {
+  const tarefas: TarefaGeradaGestta[] = [];
+  const seen = new Set<string>();
+  let page = 1;
+  for (;;) {
+    const { data } = await client.post<unknown>("/core/customer/task/search", {
+      page,
+      limit: LIMIT,
+      customer: [customerId],
+      status: [...statuses],
+    });
+    const batch = recordsOfUnknown(data);
+    let added = 0;
+    for (const tarefa of batch) {
+      if (!tarefa._id || seen.has(tarefa._id)) continue;
+      seen.add(tarefa._id);
+      tarefas.push(tarefa);
+      added++;
+    }
+    const response = data as { hasNextPage?: boolean; pages?: number; totalPages?: number } | null;
+    const totalPages = Number(response?.pages ?? response?.totalPages ?? 0);
+    if (added === 0 || (!response?.hasNextPage && (totalPages === 0 || page >= totalPages))) {
+      return tarefas;
+    }
+    page++;
+  }
+}
+
+/** Lista instancias OPEN de um cliente. A competencia e filtrada pelo chamador. */
+export async function listarTarefasGeradasAbertas(
+  client: AxiosInstance,
+  customerId: string
+): Promise<TarefaGeradaGestta[]> {
+  return listarTarefasGeradasPorStatus(client, customerId, ["OPEN"]);
+}
+
+export async function obterTarefaGerada(
+  client: AxiosInstance,
+  taskId: string
+): Promise<TarefaGeradaGestta> {
+  const { data } = await client.get<TarefaGeradaGestta>(`/core/customer/task/${taskId}`);
+  return data;
+}
+
+/** Contrato confirmado no front-end Gestta para transferir uma instancia ja gerada. */
+export async function transferirTarefaGerada(
+  client: AxiosInstance,
+  customerTaskId: string,
+  newOwnerId: string
+): Promise<void> {
+  await client.put("/core/customer/task/transfer", {
+    customer_task: customerTaskId,
+    new_owner: newOwnerId,
+  });
 }

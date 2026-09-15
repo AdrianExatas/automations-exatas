@@ -1,0 +1,1078 @@
+{
+  "media": "G:\\Meu Drive\\GESTÃO DE PROCESSOS\\13 - Auditoria\\VÍDEOS\\2026-08-08 15-04-03 (1) (1).mkv",
+  "transcript_path": "C:\\Users\\Exatas\\Documents\\GitHub\\automations-exatas\\gerador-pop-it\\transcriptions\\a fazer\\2026-08-08 15-04-03 (1) (1) (transcribed on 10-Sep-2026 20-39-46).txt",
+  "language": "pt",
+  "duration_sec": 936.4053125,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 28.6,
+      "text": "Fala pessoal, este vídeo aqui é para demonstrar a utilização de uma ferramenta, que o nome dela é SVA Pro, onde a gente inclui os SVA's que vão ser adicionados aos planos e ela vai sugerir os valores de uma maneira que a gente consiga incluir todos os SVA's com o valor idêntico, independente do plano que o cliente tenha."
+    },
+    {
+      "start": 28.6,
+      "end": 56.1,
+      "text": "Então vamos lá para a execução, como é que funciona. Primeiro passo é, a gente primeiro vai abrir a cartela de planos que o cliente tem, que no caso é essa daqui, e nesse caso específico vai ser interessante porque esse cliente, ele já foi feito uma parametrização dos seus planos e consequentemente vai ter que se fazer novamente."
+    },
+    {
+      "start": 56.1,
+      "end": 71.88,
+      "text": "Então, essa parametrização inicial foi essa daqui, onde a gente tinha esses livros aqui que foram indicados a ele, e aí teve que fazer a remodelagem diante do cenário que ele se encontrava hoje."
+    },
+    {
+      "start": 71.88,
+      "end": 79.36,
+      "text": "Então, a gente vai fazer aqui novamente uma classificação e para isso, essa ferramenta funciona da seguinte maneira."
+    },
+    {
+      "start": 80.04,
+      "end": 86.2,
+      "text": "Ela tem aqui uma planilha, um modelo que você vai baixar e aqui eu vou mostrar para vocês."
+    },
+    {
+      "start": 86.2,
+      "end": 102.64,
+      "text": "Então, aqui está a pasta, onde estão as planilhas, eu vou mostrar aqui para vocês, aí eu vou baixar o modelo em Excel, pronto, baixei o modelo, eu vou pegar esse modelo aqui, recortar e colocar na pasta da empresa."
+    },
+    {
+      "start": 102.64,
+      "end": 140.09,
+      "text": "Vou abrir aqui, vou abrir aqui o modelo e vou incluir aqui nesse modelo, pegar o que o cliente tem, que seriam as descrições do cliente, esse daqui, baixar essa daqui."
+    },
+    {
+      "start": 140.43,
+      "end": 149.13,
+      "text": "Essa daqui é dos SVA's, eu tenho que baixar a planilha dos combos, não dos SVA's, dos combos."
+    },
+    {
+      "start": 149.13,
+      "end": 164.89,
+      "text": "Esse modelo aqui, deixa eu excluir aquela outra, modelo de SVA, porque eu quero chegar no valor sugerido de SVA, para encaixar dentro do cenário que eu almejo e não o inverso."
+    },
+    {
+      "start": 165.15,
+      "end": 175.82,
+      "text": "Então, vamos lá, pega aqui, foi até bom acontecer isso, porque se vocês se deparassem com essa situação, então vocês já sabem o que deve ser feito."
+    },
+    {
+      "start": 175.82,
+      "end": 182.82,
+      "text": "Então, eu quero incluir os SVA's dentro dos planos que eu já tenho, que é dos planos já existentes."
+    },
+    {
+      "start": 183.48,
+      "end": 192.18,
+      "text": "Aí, interessante aqui, pessoal, o que acontece? Eu baixei ela no modelo Excel, e aí ela não viu segregada, isso daqui também é para vocês entenderem."
+    },
+    {
+      "start": 192.68,
+      "end": 198.96,
+      "text": "E aí, eu vou baixar ela agora no modelo SSV."
+    },
+    {
+      "start": 198.96,
+      "end": 215.2,
+      "text": "Pronto, vamos lá, pode abrir, porque já tem uma aberta."
+    },
+    {
+      "start": 216.02,
+      "end": 218.64,
+      "text": "Perfeito, deixa eu fechar essa, não, salvar."
+    },
+    {
+      "start": 219.34,
+      "end": 228.32,
+      "text": "Dá, tá dando no mesmo."
+    },
+    {
+      "start": 229.56,
+      "end": 241.34,
+      "text": "Eu vou depois entender o porquê ele tá salvando, ele tá gerando essa forma, e não de forma, conforme os arquivos, separados por aba, né?"
+    },
+    {
+      "start": 241.34,
+      "end": 243.34,
+      "text": "Mas aqui a gente consegue, vamos lá."
+    },
+    {
+      "start": 244.72,
+      "end": 246.34,
+      "text": "Aqui eu consegui fazer o..."
+    },
+    {
+      "start": 247.62,
+      "end": 249.04,
+      "text": "Aí eu vou usar só um pouquinho."
+    },
+    {
+      "start": 251.07,
+      "end": 253.75,
+      "text": "A gente vem aqui em dados..."
+    },
+    {
+      "start": 253.75,
+      "end": 284.3,
+      "text": "Nesse caso aqui tá separado por vírgula."
+    },
+    {
+      "start": 285.42,
+      "end": 286.44,
+      "text": "Tá vendo aí, vai quebrar."
+    },
+    {
+      "start": 287.34,
+      "end": 288.36,
+      "text": "Ok, continuar."
+    },
+    {
+      "start": 288.58,
+      "end": 289.3,
+      "text": "Pronto, tá vendo?"
+    },
+    {
+      "start": 289.58,
+      "end": 290.52,
+      "text": "Então, já fiz aqui."
+    },
+    {
+      "start": 291.26,
+      "end": 291.7,
+      "text": "Perfeito?"
+    },
+    {
+      "start": 291.7,
+      "end": 294.04,
+      "text": "Então, eu vou copiar, né?"
+    },
+    {
+      "start": 294.3,
+      "end": 295.6,
+      "text": "Ah, senhora, você tá copiando de quem?"
+    },
+    {
+      "start": 295.68,
+      "end": 296.98,
+      "text": "Da planinha do próprio cliente."
+    },
+    {
+      "start": 297.1,
+      "end": 299.44,
+      "text": "Então, eu vou copiar as informações que eu quero."
+    },
+    {
+      "start": 302.92,
+      "end": 305.12,
+      "text": "Aí ele pede mais duas outras informações."
+    },
+    {
+      "start": 305.3,
+      "end": 307.36,
+      "text": "O preço de venda e quantidade de clientes."
+    },
+    {
+      "start": 307.52,
+      "end": 307.92,
+      "text": "Então, vamos lá."
+    },
+    {
+      "start": 308.38,
+      "end": 336.01,
+      "text": "O que é que acontece, pessoal?"
+    },
+    {
+      "start": 336.13,
+      "end": 337.95,
+      "text": "O que é interessante é que eu trazer para vocês."
+    },
+    {
+      "start": 338.79,
+      "end": 343.37,
+      "text": "Esse cliente teve uma formatação recente, né?"
+    },
+    {
+      "start": 344.25,
+      "end": 346.37,
+      "text": "Dela, dos planos dele."
+    },
+    {
+      "start": 347.01,
+      "end": 349.55,
+      "text": "Que eu vou até compartilhar aqui com vocês."
+    },
+    {
+      "start": 349.55,
+      "end": 366.38,
+      "text": "Um dia a gente reestruturou, né?"
+    },
+    {
+      "start": 366.6,
+      "end": 367.44,
+      "text": "Deixa eu abrir aqui."
+    },
+    {
+      "start": 367.94,
+      "end": 378.33,
+      "text": "Então, o que foi feito para ele."
+    },
+    {
+      "start": 380.03,
+      "end": 382.07,
+      "text": "E aqui a gente já existia aí."
+    },
+    {
+      "start": 382.25,
+      "end": 383.91,
+      "text": "Então, por que eu tô pegando esse daqui?"
+    },
+    {
+      "start": 384.17,
+      "end": 386.01,
+      "text": "Já é reestruturado para vocês entenderem."
+    },
+    {
+      "start": 386.51,
+      "end": 390.29,
+      "text": "Porque pra ficar no percentual que foi desenvolvido para o cliente."
+    },
+    {
+      "start": 390.29,
+      "end": 404.31,
+      "text": "Que é um percentual em torno de 41 a 43, 45% no máximo de SVA e 55% de SCI barra SCM, né?"
+    },
+    {
+      "start": 404.55,
+      "end": 407.45,
+      "text": "SCM até o momento que ela não tem nenhuma decisão judicial."
+    },
+    {
+      "start": 408.13,
+      "end": 412.71,
+      "text": "E quando ela passa a ter decisão judicial, ela passa a ser SCI."
+    },
+    {
+      "start": 412.71,
+      "end": 413.15,
+      "text": "Perfeito?"
+    },
+    {
+      "start": 413.31,
+      "end": 414.53,
+      "text": "Mas vamos lá, para a fundidade aqui."
+    },
+    {
+      "start": 415.05,
+      "end": 416.73,
+      "text": "Então, a gente volta para a ferramenta."
+    },
+    {
+      "start": 417.03,
+      "end": 418.03,
+      "text": "A gente vai fazer o quê?"
+    },
+    {
+      "start": 418.13,
+      "end": 419.31,
+      "text": "Importar os planos."
+    },
+    {
+      "start": 420.05,
+      "end": 420.43,
+      "text": "Beleza?"
+    },
+    {
+      "start": 420.73,
+      "end": 421.99,
+      "text": "Vamos lá, importar os planos, né?"
+    },
+    {
+      "start": 422.77,
+      "end": 423.79,
+      "text": "Os planos."
+    },
+    {
+      "start": 424.25,
+      "end": 453.52,
+      "text": "E só pegou para tudo, né?"
+    },
+    {
+      "start": 453.78,
+      "end": 455.2,
+      "text": "Só para..."
+    },
+    {
+      "start": 455.2,
+      "end": 456.2,
+      "text": "Porque você tem que ter..."
+    },
+    {
+      "start": 458.44,
+      "end": 460.0,
+      "text": "Pode estar zerado, né?"
+    },
+    {
+      "start": 460.42,
+      "end": 463.01,
+      "text": "É devido a isso."
+    },
+    {
+      "start": 463.21,
+      "end": 463.79,
+      "text": "Então, bora lá."
+    },
+    {
+      "start": 464.49,
+      "end": 466.03,
+      "text": "Vamos fazer uma importação nova, né?"
+    },
+    {
+      "start": 467.69,
+      "end": 468.17,
+      "text": "Importar."
+    },
+    {
+      "start": 472.79,
+      "end": 473.59,
+      "text": "Pronto, foi isso mesmo."
+    },
+    {
+      "start": 473.81,
+      "end": 475.05,
+      "text": "Tem que estar com um, pelo menos."
+    },
+    {
+      "start": 475.05,
+      "end": 476.09,
+      "text": "Beleza?"
+    },
+    {
+      "start": 476.99,
+      "end": 478.05,
+      "text": "Preço de venda..."
+    },
+    {
+      "start": 478.71,
+      "end": 480.07,
+      "text": "Preço de venda está errado."
+    },
+    {
+      "start": 481.01,
+      "end": 482.07,
+      "text": "Vamos lá, corrigir também."
+    },
+    {
+      "start": 482.59,
+      "end": 505.42,
+      "text": "Tente deixar em reais, está vendo?"
+    },
+    {
+      "start": 506.04,
+      "end": 507.0,
+      "text": "Beleza, beleza."
+    },
+    {
+      "start": 507.28,
+      "end": 508.72,
+      "text": "Pronto, agora a gente vai para onde?"
+    },
+    {
+      "start": 508.82,
+      "end": 512.44,
+      "text": "Agora a gente vai para a questão dos SVA's, né?"
+    },
+    {
+      "start": 513.46,
+      "end": 515.84,
+      "text": "E quais os SVA's que esse cliente tem, né?"
+    },
+    {
+      "start": 515.84,
+      "end": 516.8,
+      "text": "São esses aqui, ó."
+    },
+    {
+      "start": 517.24,
+      "end": 518.18,
+      "text": "Os modelos são esses."
+    },
+    {
+      "start": 518.28,
+      "end": 521.34,
+      "text": "Então, a gente vai importar esses daqui também dentro do sistema."
+    },
+    {
+      "start": 522.08,
+      "end": 526.16,
+      "text": "Então, a gente tem a possibilidade de importar com a planilha modelo,"
+    },
+    {
+      "start": 526.16,
+      "end": 527.8,
+      "text": "que é aquela planilha, entendeu?"
+    },
+    {
+      "start": 527.88,
+      "end": 532.06,
+      "text": "Aí eu vou fazer aqui, para ser mais rápido o modelo, né?"
+    },
+    {
+      "start": 532.12,
+      "end": 532.8,
+      "text": "Então, vamos lá."
+    },
+    {
+      "start": 533.44,
+      "end": 534.92,
+      "text": "E aí é onde entra ela aqui."
+    },
+    {
+      "start": 536.04,
+      "end": 545.54,
+      "text": "É cortar, fechar, vou abrir, eu vou importar, né?"
+    },
+    {
+      "start": 545.54,
+      "end": 548.08,
+      "text": "Os modelos."
+    },
+    {
+      "start": 549.08,
+      "end": 551.92,
+      "text": "Pronto, então eu tenho esses três modelos."
+    },
+    {
+      "start": 551.92,
+      "end": 556.28,
+      "text": "Esses modelos, esses três modelos, são cinco modelos."
+    },
+    {
+      "start": 557.5,
+      "end": 559.9,
+      "text": "Cinco modelos, né?"
+    },
+    {
+      "start": 559.9,
+      "end": 597.66,
+      "text": "Onde o valor tem que ser, ele se botei, né?"
+    },
+    {
+      "start": 597.78,
+      "end": 599.44,
+      "text": "Aí eu vou aqui para a seguinte situação."
+    },
+    {
+      "start": 600.4,
+      "end": 604.24,
+      "text": "Aí eu vou para o calibrador, né?"
+    },
+    {
+      "start": 604.24,
+      "end": 607.4,
+      "text": "Onde ele vai trazer essa situação e vou para a configuração."
+    },
+    {
+      "start": 607.74,
+      "end": 608.0,
+      "text": "Pronto."
+    },
+    {
+      "start": 608.0,
+      "end": 617.88,
+      "text": "Nesse cenário aqui, o cliente, ele quer, no máximo, vou botar aqui, vou botar aqui 50,8%."
+    },
+    {
+      "start": 617.88,
+      "end": 619.96,
+      "text": "Os 45 vai ser DSVA."
+    },
+    {
+      "start": 620.22,
+      "end": 620.42,
+      "text": "Pronto."
+    },
+    {
+      "start": 620.56,
+      "end": 623.22,
+      "text": "Aí eu vou calibrado, ele reprocessou."
+    },
+    {
+      "start": 623.86,
+      "end": 627.2,
+      "text": "Eu vou no calibrador, vou calibrar também a sensação decimal."
+    },
+    {
+      "start": 628.24,
+      "end": 631.8,
+      "text": "E aí, consequentemente, eu vou ter aqui a formação, né?"
+    },
+    {
+      "start": 631.8,
+      "end": 633.86,
+      "text": "Aqui são todos os que foram gerados."
+    },
+    {
+      "start": 633.86,
+      "end": 635.52,
+      "text": "Então, ele ficou, tá vendo?"
+    },
+    {
+      "start": 636.4,
+      "end": 642.7,
+      "text": "Nesse plano aqui, que era de 140 reais e incluiu quatro opções, né?"
+    },
+    {
+      "start": 642.82,
+      "end": 646.2,
+      "text": "Book Lite, Stunt, Premium e a Book Premium."
+    },
+    {
+      "start": 646.42,
+      "end": 652.44,
+      "text": "Ou seja, trouxe quatro opções para que chegue no percentual que foi o percentual que eu sugeri, né?"
+    },
+    {
+      "start": 653.08,
+      "end": 653.52,
+      "text": "Entendeu?"
+    },
+    {
+      "start": 653.62,
+      "end": 654.64,
+      "text": "Com a margenzinha."
+    },
+    {
+      "start": 656.24,
+      "end": 657.86,
+      "text": "Então, onde os SBAs..."
+    },
+    {
+      "start": 657.86,
+      "end": 664.24,
+      "text": "Ah, perdão, deixa eu ver aqui, esse aqui, tá equivocado."
+    },
+    {
+      "start": 664.56,
+      "end": 669.06,
+      "text": "O calibradão dele, que eu preciso, é o seguinte, ele quer o inverso."
+    },
+    {
+      "start": 669.64,
+      "end": 672.28,
+      "text": "Ele quer, no máximo, até 45%."
+    },
+    {
+      "start": 672.28,
+      "end": 673.22,
+      "text": "Pronto."
+    },
+    {
+      "start": 673.5,
+      "end": 674.24,
+      "text": "Aí, agora sim."
+    },
+    {
+      "start": 674.82,
+      "end": 675.02,
+      "text": "Pronto."
+    },
+    {
+      "start": 675.1,
+      "end": 675.76,
+      "text": "Calibrei."
+    },
+    {
+      "start": 676.48,
+      "end": 676.7,
+      "text": "Né?"
+    },
+    {
+      "start": 676.7,
+      "end": 677.64,
+      "text": "Vamos executar."
+    },
+    {
+      "start": 678.2,
+      "end": 678.6,
+      "text": "Pronto."
+    },
+    {
+      "start": 678.96,
+      "end": 679.48,
+      "text": "Otimizador."
+    },
+    {
+      "start": 679.6,
+      "end": 680.16,
+      "text": "Recalcular."
+    },
+    {
+      "start": 680.5,
+      "end": 680.72,
+      "text": "Pronto."
+    },
+    {
+      "start": 680.78,
+      "end": 681.38,
+      "text": "Recalculei."
+    },
+    {
+      "start": 681.46,
+      "end": 682.36,
+      "text": "Aí, ele já me entregou."
+    },
+    {
+      "start": 682.84,
+      "end": 683.0,
+      "text": "Né?"
+    },
+    {
+      "start": 683.0,
+      "end": 685.12,
+      "text": "Ele me entregou aqui esse plano de 160 reais."
+    },
+    {
+      "start": 685.12,
+      "end": 687.94,
+      "text": "Internet ficou 87, né?"
+    },
+    {
+      "start": 688.02,
+      "end": 691.72,
+      "text": "E aí, ele fez a inclusão aqui, ó, nesses livros, tá vendo?"
+    },
+    {
+      "start": 692.2,
+      "end": 696.85,
+      "text": "Então, aqui, a gente tá com ele tudo pronto."
+    },
+    {
+      "start": 697.23,
+      "end": 698.07,
+      "text": "O que é que a gente faz?"
+    },
+    {
+      "start": 698.49,
+      "end": 699.85,
+      "text": "Já tá montado, né?"
+    },
+    {
+      "start": 699.89,
+      "end": 700.89,
+      "text": "Aí, eu vou gerar o combo."
+    },
+    {
+      "start": 701.01,
+      "end": 703.07,
+      "text": "Então, exportar relatório de produtos."
+    },
+    {
+      "start": 703.51,
+      "end": 703.83,
+      "text": "Beleza?"
+    },
+    {
+      "start": 704.41,
+      "end": 705.51,
+      "text": "Teve algum inviável?"
+    },
+    {
+      "start": 705.65,
+      "end": 705.81,
+      "text": "Não."
+    },
+    {
+      "start": 705.91,
+      "end": 706.69,
+      "text": "Tudo ok, tá vendo?"
+    },
+    {
+      "start": 707.01,
+      "end": 707.65,
+      "text": "Todos ok."
+    },
+    {
+      "start": 708.31,
+      "end": 713.03,
+      "text": "Então, aqui, ele também traz, se tivesse algum planejamento que foi montado que é inviável,"
+    },
+    {
+      "start": 713.37,
+      "end": 715.77,
+      "text": "ele traria pra mim também a situação."
+    },
+    {
+      "start": 715.77,
+      "end": 718.53,
+      "text": "Então, eu vou aqui, exportar o relatório."
+    },
+    {
+      "start": 718.97,
+      "end": 719.61,
+      "text": "Exportei."
+    },
+    {
+      "start": 720.15,
+      "end": 721.11,
+      "text": "Vamos abrir, né?"
+    },
+    {
+      "start": 722.29,
+      "end": 723.97,
+      "text": "Vamos abrir ele, só pra ver."
+    },
+    {
+      "start": 724.51,
+      "end": 727.21,
+      "text": "Aqui, lá."
+    },
+    {
+      "start": 727.79,
+      "end": 728.47,
+      "text": "Como ele tá."
+    },
+    {
+      "start": 729.05,
+      "end": 733.7,
+      "text": "Os montados aqui."
+    },
+    {
+      "start": 734.72,
+      "end": 735.16,
+      "text": "Perfeito?"
+    },
+    {
+      "start": 736.16,
+      "end": 737.62,
+      "text": "Então, aqui, o consumo de dados."
+    },
+    {
+      "start": 743.35,
+      "end": 744.07,
+      "text": "A gente tem aqui."
+    },
+    {
+      "start": 744.55,
+      "end": 750.59,
+      "text": "Esse plano aqui, de 160 reais, ele vai trazer, né?"
+    },
+    {
+      "start": 751.05,
+      "end": 752.19,
+      "text": "Preço unitário."
+    },
+    {
+      "start": 752.49,
+      "end": 755.33,
+      "text": "E aqui, ele vai trazer tudo de forma segregada."
+    },
+    {
+      "start": 755.33,
+      "end": 760.53,
+      "text": "Então, a gente tem aqui todas as montagens, pra gente entender como é que funciona."
+    },
+    {
+      "start": 763.44,
+      "end": 764.1,
+      "text": "O combo."
+    },
+    {
+      "start": 768.13,
+      "end": 769.07,
+      "text": "Ah, não tô entendendo."
+    },
+    {
+      "start": 769.17,
+      "end": 769.49,
+      "text": "Vamos lá."
+    },
+    {
+      "start": 769.61,
+      "end": 771.03,
+      "text": "Só pra ficar mais claro."
+    },
+    {
+      "start": 771.97,
+      "end": 773.95,
+      "text": "Eu vou filtrar aqui o primeiro."
+    },
+    {
+      "start": 774.79,
+      "end": 775.19,
+      "text": "Pronto."
+    },
+    {
+      "start": 775.31,
+      "end": 779.43,
+      "text": "O primeiro, ele contempla todos esses SVA, tá vendo?"
+    },
+    {
+      "start": 779.43,
+      "end": 781.57,
+      "text": "Que são quatro."
+    },
+    {
+      "start": 781.95,
+      "end": 783.85,
+      "text": "Que totaliza 72,96."
+    },
+    {
+      "start": 784.59,
+      "end": 787.79,
+      "text": "Ah, Soares, tem algum desalinhado do inicial?"
+    },
+    {
+      "start": 788.19,
+      "end": 788.51,
+      "text": "Vamos lá."
+    },
+    {
+      "start": 788.67,
+      "end": 789.39,
+      "text": "Só pra gente entender."
+    },
+    {
+      "start": 789.49,
+      "end": 790.03,
+      "text": "Por quê, pessoal?"
+    },
+    {
+      "start": 790.59,
+      "end": 791.83,
+      "text": "Eu não posso..."
+    },
+    {
+      "start": 791.83,
+      "end": 793.45,
+      "text": "Esse daqui é o primeiro."
+    },
+    {
+      "start": 794.23,
+      "end": 796.05,
+      "text": "Formação de plano, rapidamente."
+    },
+    {
+      "start": 796.71,
+      "end": 812.61,
+      "text": "O combo que já foi montado."
+    },
+    {
+      "start": 813.27,
+      "end": 814.83,
+      "text": "Eu tenho que trazer o segundo, então."
+    },
+    {
+      "start": 815.01,
+      "end": 816.43,
+      "text": "Eu tenho que trazer um comparativo."
+    },
+    {
+      "start": 817.31,
+      "end": 818.35,
+      "text": "Tempo esse plano aqui."
+    },
+    {
+      "start": 819.25,
+      "end": 821.85,
+      "text": "Esse plano, ele é de 50 reais."
+    },
+    {
+      "start": 822.11,
+      "end": 823.49,
+      "text": "E ele tem um e-book prime."
+    },
+    {
+      "start": 824.23,
+      "end": 825.67,
+      "text": "De 20 reais e 99."
+    },
+    {
+      "start": 826.39,
+      "end": 826.79,
+      "text": "Pronto."
+    },
+    {
+      "start": 827.79,
+      "end": 829.13,
+      "text": "20 reais e 99."
+    },
+    {
+      "start": 829.29,
+      "end": 830.75,
+      "text": "Tá vendo aqui, ele é um e-book prime."
+    },
+    {
+      "start": 831.07,
+      "end": 832.27,
+      "text": "Então, é um e-book prime."
+    },
+    {
+      "start": 832.27,
+      "end": 835.09,
+      "text": "Ele tem que ter o mesmo valor desse daqui."
+    },
+    {
+      "start": 835.27,
+      "end": 836.35,
+      "text": "Não pode estar diferente."
+    },
+    {
+      "start": 836.93,
+      "end": 841.15,
+      "text": "Porque em todos os planos, os livros, ele não pode variar."
+    },
+    {
+      "start": 841.67,
+      "end": 843.23,
+      "text": "Tem que ser o mesmo valor pra tudo."
+    },
+    {
+      "start": 843.67,
+      "end": 844.93,
+      "text": "Ele não pode ter mudança."
+    },
+    {
+      "start": 845.75,
+      "end": 846.03,
+      "text": "Entende?"
+    },
+    {
+      "start": 846.73,
+      "end": 848.57,
+      "text": "Então, isso é extremamente relevante."
+    },
+    {
+      "start": 848.69,
+      "end": 851.19,
+      "text": "Então, eu vou fazer só um comparativo aqui pra gente ver de preço."
+    },
+    {
+      "start": 851.59,
+      "end": 855.19,
+      "text": "E-book essencial, tá 26,99."
+    },
+    {
+      "start": 855.91,
+      "end": 862.19,
+      "text": "E quando eu vou pra aqui com a tabela, eu tenho aqui o e-book essencial 26,99."
+    },
+    {
+      "start": 862.27,
+      "end": 869.31,
+      "text": "Quando eu vou pra o e-book light, eu tenho aqui 10,99, perfeito."
+    },
+    {
+      "start": 869.49,
+      "end": 870.03,
+      "text": "Tá batendo."
+    },
+    {
+      "start": 870.23,
+      "end": 870.53,
+      "text": "Ah, só."
+    },
+    {
+      "start": 870.61,
+      "end": 871.39,
+      "text": "Você tá vendo a onda?"
+    },
+    {
+      "start": 871.57,
+      "end": 871.85,
+      "text": "Aqui, ó."
+    },
+    {
+      "start": 872.23,
+      "end": 875.84,
+      "text": "Quer dizer que foi inicial."
+    },
+    {
+      "start": 877.1,
+      "end": 879.9,
+      "text": "Que o alimento de lá em cima, que é aquela linha moderna."
+    },
+    {
+      "start": 880.02,
+      "end": 882.86,
+      "text": "Então, se você verificar, todos estão batendo."
+    },
+    {
+      "start": 883.34,
+      "end": 885.92,
+      "text": "O e-book premium, que é o principal, né?"
+    },
+    {
+      "start": 886.36,
+      "end": 892.1,
+      "text": "Esse daqui é 35,99."
+    },
+    {
+      "start": 892.1,
+      "end": 894.26,
+      "text": "Então, tá tudo semelhante."
+    },
+    {
+      "start": 894.42,
+      "end": 898.06,
+      "text": "Então, não vai ter nenhuma questão de divergência."
+    },
+    {
+      "start": 898.54,
+      "end": 898.88,
+      "text": "Beleza?"
+    },
+    {
+      "start": 899.36,
+      "end": 899.74,
+      "text": "Ah, só."
+    },
+    {
+      "start": 899.82,
+      "end": 902.3,
+      "text": "Mas você trouxe aqui um modelo que é diferente."
+    },
+    {
+      "start": 902.52,
+      "end": 903.3,
+      "text": "Não, não que é diferente."
+    },
+    {
+      "start": 903.46,
+      "end": 903.74,
+      "text": "Eu posso."
+    },
+    {
+      "start": 903.86,
+      "end": 910.12,
+      "text": "Eu vou pegar daquela planilha que foi gerada pelo sistema e incluir nesse cenário aqui,"
+    },
+    {
+      "start": 910.56,
+      "end": 913.72,
+      "text": "que é o cenário que a gente criou de modelo de planilha padrão."
+    },
+    {
+      "start": 913.72,
+      "end": 919.1,
+      "text": "Então, eu vou pegar os dados que eu já formulei lá e jogar nesse modelo aqui e deixar tudo"
+    },
+    {
+      "start": 919.1,
+      "end": 923.58,
+      "text": "organizadinho dessa forma pra que o cliente entenda e, consequentemente, fique de fácil"
+    },
+    {
+      "start": 923.58,
+      "end": 926.3,
+      "text": "compreensão e de fácil execução por parte dele."
+    },
+    {
+      "start": 926.42,
+      "end": 930.92,
+      "text": "Então, esse vídeo é justamente pra mostrar a vocês como é que funciona o processo de"
+    },
+    {
+      "start": 930.92,
+      "end": 935.0,
+      "text": "montagem de plano dentro da estrutura dos SBAs."
+    }
+  ]
+}

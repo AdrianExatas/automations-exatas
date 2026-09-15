@@ -106,6 +106,7 @@ describe("compareEmpresasPlanilhas", () => {
 
     expect(result.summary).toEqual({
       atualizadas: 2,
+      excluidasPorCompetencia: 0,
       operacionais: 2,
       final: 2,
       novas: 1,
@@ -183,6 +184,7 @@ describe("compareEmpresasPlanilhas", () => {
     const resumo = readSheet(result.reportPath, "Resumo");
     expect(resumo).toEqual([
       { CAMPO: "ATUALIZADAS_ATIVAS", VALOR: "2" },
+      { CAMPO: "EXCLUIDAS_POR_COMPETENCIA", VALOR: "0" },
       { CAMPO: "OPERACIONAIS", VALOR: "2" },
       { CAMPO: "PLANILHA_FINAL", VALOR: "2" },
       { CAMPO: "NOVAS", VALOR: "1" },
@@ -196,6 +198,52 @@ describe("compareEmpresasPlanilhas", () => {
       { CAMPO: "USUARIOS_COM_ERRO", VALOR: "0" },
     ]);
     expect(readSheet(result.reportPath, "Planilha Final")).toHaveLength(2);
+  });
+
+  it("filtra a planilha final excluindo codigos de onboarding do mes vigente", async () => {
+    const atualizadaPath = path.join(tempDir, "atualizada-competencia.xlsx");
+    const operacionalPath = path.join(tempDir, "operacional-competencia.xlsx");
+    const outputDir = path.join(tempDir, "saida-competencia");
+
+    writeWorkbook(atualizadaPath, "Empresas", [
+      { CNPJ: "11.111.111/0001-11", Codigo: "100", Empresa: "Empresa 07", "Ativo?": "Sim" },
+      { CNPJ: "22.222.222/0001-22", Codigo: "200", Empresa: "Empresa 09", "Ativo?": "Sim" },
+    ]);
+    writeWorkbook(operacionalPath, "Planilha1", [
+      { CODIGO: "100", "CNPJ EMPRESA": "11111111000111", EMPRESA: "Empresa 07", Departamento: "SETOR FISCAL" },
+      { CODIGO: "300", "CNPJ EMPRESA": "33333333000133", EMPRESA: "Empresa Removida", Departamento: "SETOR FISCAL" },
+    ]);
+
+    const consultedCodes: string[] = [];
+    const result = await compareEmpresasPlanilhas({
+      atualizadaPath,
+      operacionalPath,
+      outputDir,
+      excludedCodes: ["200"],
+      clientUsersProvider: {
+        async lookupUsers(request) {
+          consultedCodes.push(request.codigo);
+          return [];
+        },
+      },
+    });
+
+    expect(result.summary).toMatchObject({
+      atualizadas: 2,
+      excluidasPorCompetencia: 1,
+      final: 1,
+      removidas: 1,
+      usuariosConsultados: 1,
+    });
+    expect(result.excluidasPorCompetencia).toEqual([
+      { cnpj: "22222222000122", codigo: "200", nome: "Empresa 09" },
+    ]);
+    expect(result.removidas).toEqual([
+      { cnpj: "33333333000133", codigo: "300", nome: "Empresa Removida" },
+    ]);
+    expect(consultedCodes).toEqual(["100"]);
+    expect(readSheet(result.finalPlanilhaPath, "Planilha1")).toHaveLength(1);
+    expect(readSheet(result.reportPath, "Excluidas Competencia")).toEqual(result.excluidasPorCompetencia);
   });
 
   it("enriquece novas e linhas sem responsavel com usuarios do cliente", async () => {

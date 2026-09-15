@@ -1,6 +1,10 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { parseArgs } from "../src/automation";
+import {
+  deveGerarBackupPreflight,
+  deveInterromperAposBackup,
+  parseArgs,
+} from "../src/automation";
 
 test("parseArgs reconhece --sem-checkpoint sem tratar como caminho de planilha", () => {
   const args = parseArgs(["--sem-checkpoint", "entrada.xlsx"]);
@@ -23,4 +27,20 @@ test("parseArgs reconhece --backup-only sem tratar como caminho de planilha", ()
 
   assert.equal(args.backupOnly, true);
   assert.equal(args.planilhaArg, "entrada.xlsx");
+});
+
+test("backup-only gera preflight mesmo sem coluna TAREFA e interrompe o PATCH", () => {
+  const linhasSetor = [{ tarefa: undefined }, { tarefa: "" }];
+
+  assert.equal(deveGerarBackupPreflight(true, linhasSetor), true);
+  assert.equal(deveGerarBackupPreflight(false, linhasSetor), false);
+  assert.equal(deveInterromperAposBackup(true), true);
+  assert.equal(deveInterromperAposBackup(false), false);
+});
+
+test("planilha com TAREFA continua gerando backup automaticamente sem --backup-only", () => {
+  const linhasTarefa = [{ tarefa: "DAS MEI" }];
+
+  assert.equal(deveGerarBackupPreflight(false, linhasTarefa), true);
+  assert.equal(deveInterromperAposBackup(false), false);
 });

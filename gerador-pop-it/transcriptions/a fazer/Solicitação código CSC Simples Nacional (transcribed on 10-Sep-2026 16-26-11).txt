@@ -1,0 +1,57 @@
+Bom dia, hoje eu vou gravar um vídeo aqui que o Soli solicitou, onde eu vou estar demonstrando como é que faz a solicitação do código de acesso para transmissão do Simples Nacional, certo?
+Vou digitar aqui Simples Nacional, certo?
+Simples Nacional, e como não tem, a gente vai solicitar alterar código.
+Aqui a gente vai colocar o CNPJ da empresa, nesse caso vai ser a link informática, certo?
+00543242.000 contra 21.
+E o CPF do sócio?
+O CPF do sócio a gente pode estar pegando aqui na domínio.
+E nesse caso, como é um cliente que já declarou o imposto de renda, está sendo solicitado o número do recebo, certo?
+Mas caso esse cliente não tenha declarado o número do imposto de renda, ao invés de ter solicitado o número do recebo, será solicitado o número do título de eleitor, beleza?
+Então, são essas duas situações que podem acontecer.
+Caso tenha declarado o imposto de renda, vai ser solicitado o número do recebo.
+Se não tiver declarado o imposto de renda, vai ser o número do título de eleitor.
+Nessa situação, como eu expliquei, vai ser o número do recebo do imposto de renda.
+E onde a gente pode estar solicitando, onde a gente pode estar conseguindo esse número do recebo.
+Aqui na pasta da nossa empresa, a gente tem algumas informações, que é referente à declaração do ano passado.
+Então, a gente vai vir aqui em arquivos úteis, arquivos úteis aqui, arquivos úteis não, arquivos para IRPF, ano de 2025, clientes.
+E a gente vai estar buscando pelo número da empresa, aqui está, Marcos, e o número do recebo da empresa dele está aqui, beleza?
+Aí, esse número aqui, que a gente vai estar preenchendo, para solicitar a informação lá do código de acesso.
+A gente vai colocar 2799956348.
+Continuar.
+Pronto, o número do código de acesso está aqui em cima, beleza?
+Aí, o que a gente vai fazer com essa informação, que é o principal e o que a gente mais necessita, acho.
+E vai ser destinado a alguém que vai fazer essa solicitação.
+A gente necessita que seja feita, colocado aqui em parâmetros.
+Você vai clicar aqui em federal.
+Parâmetros.
+Como eu não tenho autorização, eu não consigo criar uma nova vigência, está vendo?
+Mas, quem for fazer, vai criar em nova vigência, vai colocar aqui a informação, que é o código, e vai gravar.
+Mas, como o meu usuário não está autorizado, eu não consigo salvar essa informação.
+Porém, quem for fazer, certamente vai ter a liberação, beleza?
+Aí, depois que tiver colocado o número aqui, vai vir em empresas, nas observações, vai colocar a informação, que é o símbolo iracional, né?
+Aí vai ter CNPJ.
+E aí, a gente vai, basicamente, copiar a informação inicial, que a gente colocou lá na página do símbolo iracional, aqui na verdade.
+E o código.
+Prontinho.
+Prontinho.
+Prontinho.
+Prontinho.
+Prontinho.
+Prontinho.
+Prontinho.
+Prontinho.
+Prontinho.
+Prontinho.
+Prontinho.
+Prontinho.
+Prontinho.
+Prontinho.
+Prontinho.
+Prontinho.
+Prontinho.
+Prontinho.
+Prontinho.
+Prontinho.
+Prontinho.
+Prontinho.
+Prontinho.

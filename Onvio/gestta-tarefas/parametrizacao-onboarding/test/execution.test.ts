@@ -17,6 +17,7 @@ const ambiguousFiscalNormalMatrixPath = path.join(__dirname, "tmp-ambiguous-fisc
 const dirbiFiscalMatrixPath = path.join(__dirname, "tmp-dirbi-fiscal-matrix.xlsx");
 const dirbiContabilMatrixPath = path.join(__dirname, "tmp-dirbi-contabil-matrix.xlsx");
 const parcelamentosMatrixPath = path.join(__dirname, "tmp-parcelamentos-matrix.xlsx");
+const folhaGrupoMatrixPath = path.join(__dirname, "tmp-folha-grupo-matrix.xlsx");
 
 afterAll(() => {
   for (const filePath of [
@@ -26,6 +27,7 @@ afterAll(() => {
     dirbiFiscalMatrixPath,
     dirbiContabilMatrixPath,
     parcelamentosMatrixPath,
+    folhaGrupoMatrixPath,
   ]) {
     if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
   }
@@ -54,7 +56,7 @@ function criarMatriz(filePath: string, taskName: string): string {
     XLSX.utils.aoa_to_sheet([
       ["TAREFAS DE PARAMETRIZACAO GESTTA"],
       ["Tarefas", "Departamento Pessoal", "Anual?"],
-      [taskName, "Sim", "Sim"],
+      [taskName, "Normal", "Sim"],
     ]),
     "DP",
   );
@@ -75,6 +77,48 @@ function criarMatriz(filePath: string, taskName: string): string {
 
 function ensureMatrix(): string {
   return criarMatriz(matrixPath, "13 DCTFWEB");
+}
+
+function ensureFolhaGrupoMatrix(): string {
+  if (fs.existsSync(folhaGrupoMatrixPath)) return folhaGrupoMatrixPath;
+
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(
+    workbook,
+    XLSX.utils.aoa_to_sheet([
+      ["TAREFAS DE PARAMETRIZACAO GESTTA"],
+      ["Departamento", "", "Colaborador"],
+      ["DP", "", "Tasso Nata Ramos de Jesus"],
+      ["FISCAL NORMAL", "", "Emilly Adrielle"],
+      ["FISCAL SN", "", "Emilly Adrielle"],
+      ["FINANCEIRO", "", "Financeiro Exatas"],
+      ["CONTABIL", "", "Thais Dantas"],
+      ["SUCESSO DO CLIENTE", "", "Amanda Xavier"],
+    ]),
+    "CONTROLE",
+  );
+  XLSX.utils.book_append_sheet(
+    workbook,
+    XLSX.utils.aoa_to_sheet([
+      ["TAREFAS DE PARAMETRIZACAO GESTTA"],
+      ["Tarefas", "Departamento Pessoal", "Anual?"],
+      ["FOLHA DE PAGAMENTO GERAL GRUPO 1", "Normal", "-"],
+      ["FOLHA DE PAGAMENTO GERAL GRUPO 2", "Normal", "-"],
+    ]),
+    "DP",
+  );
+  for (const sheetName of ["SIMPLES NACIONAL", "FISCAL - NORMAL", "FINANCEIRO", "CONTABIL", "SUCESSO DO CLIENTE"]) {
+    XLSX.utils.book_append_sheet(
+      workbook,
+      XLSX.utils.aoa_to_sheet([
+        ["TAREFAS DE PARAMETRIZACAO GESTTA"],
+        ["Tarefas", sheetName, "Anual?"],
+      ]),
+      sheetName,
+    );
+  }
+  XLSX.writeFile(workbook, folhaGrupoMatrixPath);
+  return folhaGrupoMatrixPath;
 }
 
 function ensureAmbiguousMatrix(): string {
@@ -223,6 +267,7 @@ describe("execucao parametrizacao", () => {
         cnpj: "11.222.333/0001-44",
         areas: ["dp"],
         regimeFiscal: "simples_nacional",
+        dp: { perfil: "normal", adicionais: [], grupoFolha: "grupo_1" },
         incluirAnuais: true,
         planoPremium: false,
         supervisor: false,
@@ -231,6 +276,37 @@ describe("execucao parametrizacao", () => {
     });
 
     expect(relatorio.resultados.find((item) => item.taskId === "task-1")?.inclusaoSolicitada).toBe(true);
+    expect(api.calls.add).toBe(0);
+    expect(api.calls.patch).toBe(0);
+  });
+
+  test("dry-run resolve somente a tarefa de folha do grupo selecionado", async () => {
+    const api = createApiMock({
+      tasks: [
+        { _id: "task-grupo-1", name: "FOLHA DE PAGAMENTO GERAL GRUPO 1", active: true, type: "RECURRENT" },
+        { _id: "task-grupo-2", name: "FOLHA DE PAGAMENTO GERAL GRUPO 2", active: true, type: "RECURRENT" },
+      ],
+    });
+
+    const relatorio = await executarParametrizacao({
+      matrixPath: ensureFolhaGrupoMatrix(),
+      api,
+      dryRun: true,
+      input: {
+        cnpj: "11.222.333/0001-44",
+        areas: ["dp"],
+        regimeFiscal: "simples_nacional",
+        dp: { perfil: "normal", adicionais: [], grupoFolha: "grupo_2" },
+        incluirAnuais: true,
+        planoPremium: false,
+        supervisor: false,
+        adicionarAnaliseParcelamentos: false,
+      },
+    });
+
+    expect(relatorio.resultados.map((item) => item.tarefaGestta)).toEqual([
+      "FOLHA DE PAGAMENTO GERAL GRUPO 2",
+    ]);
     expect(api.calls.add).toBe(0);
     expect(api.calls.patch).toBe(0);
   });
@@ -246,6 +322,7 @@ describe("execucao parametrizacao", () => {
         cnpj: "11222333000144",
         areas: ["dp"],
         regimeFiscal: "simples_nacional",
+        dp: { perfil: "normal", adicionais: [], grupoFolha: "grupo_1" },
         incluirAnuais: true,
         planoPremium: false,
         supervisor: false,
@@ -270,6 +347,7 @@ describe("execucao parametrizacao", () => {
         cnpj: "11222333000144",
         areas: ["dp"],
         regimeFiscal: "simples_nacional",
+        dp: { perfil: "normal", adicionais: [], grupoFolha: "grupo_1" },
         incluirAnuais: true,
         planoPremium: false,
         supervisor: false,
@@ -297,6 +375,7 @@ describe("execucao parametrizacao", () => {
         cnpj: "11222333000144",
         areas: ["dp"],
         regimeFiscal: "simples_nacional",
+        dp: { perfil: "normal", adicionais: [], grupoFolha: "grupo_1" },
         incluirAnuais: true,
         planoPremium: false,
         supervisor: false,
@@ -321,6 +400,7 @@ describe("execucao parametrizacao", () => {
         cnpj: "11222333000144",
         areas: ["dp"],
         regimeFiscal: "simples_nacional",
+        dp: { perfil: "normal", adicionais: [], grupoFolha: "grupo_1" },
         incluirAnuais: true,
         planoPremium: false,
         supervisor: false,
@@ -449,6 +529,7 @@ describe("execucao parametrizacao", () => {
         cnpj: "11222333000144",
         areas: ["dp"],
         regimeFiscal: "simples_nacional",
+        dp: { perfil: "normal", adicionais: [], grupoFolha: "grupo_1" },
         incluirAnuais: true,
         planoPremium: false,
         supervisor: false,
@@ -489,6 +570,7 @@ describe("execucao parametrizacao", () => {
         cnpj: "11222333000144",
         areas: ["dp"],
         regimeFiscal: "simples_nacional",
+        dp: { perfil: "normal", adicionais: [], grupoFolha: "grupo_1" },
         incluirAnuais: true,
         planoPremium: false,
         supervisor: false,

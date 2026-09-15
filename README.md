@@ -26,6 +26,9 @@ Detalhes em [docs/REPOSITORY_CONVENTIONS.md](docs/REPOSITORY_CONVENTIONS.md).
 | --- | --- | --- | --- | --- |
 | `Pops/` | Bun/TypeScript + Elysia + BullMQ | Ativo | Geracao automatica de POPs a partir de transcricoes | `bun run dev` |
 | `mvp-pop/` | Bun/TypeScript + Elysia + BullMQ + Office COM | Ativo | Linha de producao video → POP/IT/FORM com validacao e Indice Mestre | `bun run dev` |
+| `apuracao-ICMS/` | Documentacao + Cursor Skill (Python) | Ativo | POP/IT/FORM/MP e skill de fechamento mensal da apuracao de ICMS (humano no loop); Gates via `motor-fiscal/` | conforme `README.md` |
+| `motor-fiscal/` | Python (SQLite + openpyxl + Streamlit) | Ativo | Motor de ingestao XML/EFD, auditorias/apuracoes, relatorios XLSX, lote e paridade (substituto do ControlDocs) | `pip install -e ".[dev]"`; `python -m motor_fiscal ...` |
+
 
 
 ### Dominio

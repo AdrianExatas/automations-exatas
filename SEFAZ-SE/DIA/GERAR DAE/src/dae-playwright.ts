@@ -8,6 +8,7 @@ import {
   type Page,
 } from "playwright";
 import {
+  ensurePortalHome,
   loginSefazContabilista,
   openDiaModule,
 } from "../../shared/sefaz-playwright-login";
@@ -16,7 +17,6 @@ import { nomeMesPt } from "./referencia";
 import type { Contribuinte, DaeReferencia, GerarDaeConfig } from "./types";
 
 const LAUNCH_TIMEOUT_MS = 90_000;
-const PORTAL_URL = "https://security.sefaz.se.gov.br/internet/portal.jsp";
 
 function chromiumLaunchArgs(): string[] {
   const args = [
@@ -51,7 +51,7 @@ export class GerarDaePlaywrightClient {
       await this.page.bringToFront().catch(() => undefined);
     }
 
-    await loginSefazContabilista(this.page, this.config);
+    this.page = await loginSefazContabilista(this.page, this.config);
     await openDiaModule(this.page, this.config.timeoutMs);
   }
 
@@ -108,7 +108,7 @@ export class GerarDaePlaywrightClient {
 
   private async garantirMenuDia(): Promise<void> {
     const page = this.requirePage();
-    await page.goto(PORTAL_URL, { waitUntil: "domcontentloaded" }).catch(() => undefined);
+    await ensurePortalHome(page, this.config.timeoutMs);
     await openDiaModule(page, this.config.timeoutMs);
   }
 

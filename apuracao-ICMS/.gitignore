@@ -1,0 +1,28 @@
+# Dados de cliente (SPED, XML, guias) — nunca versionar
+empresas/
+
+# Outputs e artefatos locais (dossiês mensais de cliente, caches)
+_local/
+output/
+runtime/
+logs/
+*.log
+*.tmp
+*.temp
+*.bak
+
+# Ambiente e segredos
+.env
+.env.*
+!.env.example
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

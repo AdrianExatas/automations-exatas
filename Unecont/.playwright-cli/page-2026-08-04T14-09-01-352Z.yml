@@ -1,0 +1,19 @@
+- generic [ref=f5e6]:
+  - generic [ref=f5e7]:
+    - generic [ref=f5e8]:
+      - link [ref=f5e9] [cursor=pointer]:
+        - /url: https://bitrix24.com
+      - generic [ref=f5e10]: Visualizar
+    - generic [ref=f5e12]:
+      - generic "Permissão insuficiente para editar o item" [ref=f5e13]: Editar
+      - link "Baixar" [ref=f5e15] [cursor=pointer]:
+        - /url: /docs/pub/c82b9ff7f66f67a369e426b49ce59618/download?token=7k8omqe6bpg8
+      - generic [ref=f5e17]:
+        - generic [ref=f5e18]: Online
+        - generic "Convidado" [ref=f5e24]
+  - iframe [ref=f5e27]:
+    - application [ref=f6e1]:
+      - list [ref=f6e6]:
+        - listitem [ref=f6e7]
+        - listitem [ref=f6e8]
+      - main [ref=f6e12]

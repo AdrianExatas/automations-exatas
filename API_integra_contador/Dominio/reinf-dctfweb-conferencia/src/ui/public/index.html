@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conferência REINF × DCTFWeb × Domínio — Integra Contador 360°</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Top Header -->
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>Conferência Fiscal 360°</h1>
+          <div class="brand-sub">
+            <span class="badge-tag">EFD-REINF × DCTFWEB × DOMÍNIO</span>
+            <span class="db-badge" id="dbStatusBadge">
+              <span class="status-indicator-dot"></span>
+              <span id="dbStatusText">Domínio: Contabil Oficial (Conectado)</span>
+            </span>
+            <span class="db-badge" id="lanBadge" style="cursor: pointer; background: rgba(56, 189, 248, 0.1); border-color: rgba(56, 189, 248, 0.3);" title="Clique para copiar o link para compartilhamento na rede interna">
+              <span class="status-indicator-dot" style="background: #38BDF8;"></span>
+              <span id="lanStatusText" style="color: #38BDF8;">Rede: Detectando...</span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="header-actions" id="headerActionsDctfweb">
+        <div class="comp-selector-wrap">
+          <label for="compSelect">Competência:</label>
+          <select id="compSelect" class="input-field comp-select">
+            <option value="2026-08" selected>2026-08 (Agosto/2026)</option>
+            <option value="2026-07">2026-07 (Julho/2026)</option>
+            <option value="2026-06">2026-06 (Junho/2026)</option>
+            <option value="2026-05">2026-05 (Maio/2026)</option>
+            <option value="2026-04">2026-04 (Abril/2026)</option>
+            <option value="2026-03">2026-03 (Março/2026)</option>
+            <option value="2026-02">2026-02 (Fevereiro/2026)</option>
+            <option value="2026-01">2026-01 (Janeiro/2026)</option>
+          </select>
+        </div>
+        <button id="btnLoadDominio" class="btn btn-dominio" title="Captura as informações de fechamento e totalizadores direto do banco Domínio">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6c0 1.66 3.58 3 8 3s8-1.34 8-3-3.58-3-8-3-8 1.34-8 3z"/><path d="M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3"/><path d="M4 18c0 1.66 3.58 3 8 3s8-1.34 8-3"/><polyline points="16 19 19 22 22 19"/></svg>
+          Capturar da Domínio
+        </button>
+        <button id="btnEstimate" class="btn btn-secondary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          Estimar Lote
+        </button>
+        <button id="btnRunBatch" class="btn btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Conciliar com DCTFWeb
+        </button>
+        <button id="btnExportExcel" class="btn btn-success" disabled>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Exportar Excel
+        </button>
+      </div>
+    </header>
+
+    <!-- Navigation Tabs Bar -->
+    <nav class="app-tabs-nav">
+      <div class="tabs-container">
+        <button class="nav-tab active" data-tab="dctfweb" id="tabBtnDctfweb">
+          <span class="tab-icon">📊</span>
+          <span class="tab-title">Conferência DCTFWeb</span>
+        </button>
+        <button class="nav-tab" data-tab="sitfis" id="tabBtnSitfis">
+          <span class="tab-icon">🛡️</span>
+          <span class="tab-title">Situação Fiscal (CND)</span>
+          <span class="nav-tab-badge" id="badgeSitfisCount">0</span>
+        </button>
+        <button class="nav-tab" data-tab="caixapostal" id="tabBtnCaixapostal">
+          <span class="tab-icon">📬</span>
+          <span class="tab-title">Caixa Postal Fiscal & DTE</span>
+          <span class="nav-tab-badge badge-unread" id="badgeCaixaPostalNovas">0 novas</span>
+        </button>
+        <button class="nav-tab" data-tab="pagamentos" id="tabBtnPagamentos">
+          <span class="tab-icon">💳</span>
+          <span class="tab-title">Pagamentos Arrecadados</span>
+          <span class="nav-tab-badge" id="badgePagamentosCount">0</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="main-content">
+      <!-- ========================================================================= -->
+      <!-- ABA 1: CONFERÊNCIA REINF X DCTFWEB X DOMÍNIO                             -->
+      <!-- ========================================================================= -->
+      <div id="viewDctfweb" class="tab-view active">
+        <!-- Executive KPI Cards -->
+        <section class="kpi-grid">
+          <div class="kpi-card" id="cardTotal">
+            <div class="kpi-header">
+              <span class="kpi-label">Empresas no Domínio</span>
+              <span class="kpi-icon icon-neutral">🏢</span>
+            </div>
+            <div class="kpi-value" id="valTotalEmpresas">0</div>
+            <div class="kpi-sub" id="subTotalEmpresas">841 cadastradas na base</div>
+          </div>
+
+          <div class="kpi-card card-blue" id="cardMovimento">
+            <div class="kpi-header">
+              <span class="kpi-label">Com Movimento (Domínio)</span>
+              <span class="kpi-icon icon-blue">📊</span>
+            </div>
+            <div class="kpi-value" id="valComMovimento">0</div>
+            <div class="kpi-sub">Apuração ativa (Débitos > R$ 0)</div>
+          </div>
+
+          <div class="kpi-card card-success" id="cardConformes">
+            <div class="kpi-header">
+              <span class="kpi-label">Conformes (DCTFWeb)</span>
+              <span class="kpi-icon icon-success">✓</span>
+            </div>
+            <div class="kpi-value" id="valConformes">0</div>
+            <div class="kpi-sub">100% coincidentes em centavos</div>
+          </div>
+
+          <div class="kpi-card card-danger" id="cardDivergentes">
+            <div class="kpi-header">
+              <span class="kpi-label">Divergentes</span>
+              <span class="kpi-icon icon-danger">✕</span>
+            </div>
+            <div class="kpi-value" id="valDivergentes">0</div>
+            <div class="kpi-sub">Diferença ≥ R$ 0,01</div>
+          </div>
+
+          <div class="kpi-card card-warning" id="cardPendentes">
+            <div class="kpi-header">
+              <span class="kpi-label">Pendentes na Domínio</span>
+              <span class="kpi-icon icon-warning">⚠</span>
+            </div>
+            <div class="kpi-value" id="valPendentes">0</div>
+            <div class="kpi-sub">Reaberto ou sem recibo</div>
+          </div>
+
+          <div class="kpi-card card-purple" id="cardSemDctf">
+            <div class="kpi-header">
+              <span class="kpi-label">Sem DCTFWeb</span>
+              <span class="kpi-icon icon-purple">📄</span>
+            </div>
+            <div class="kpi-value" id="valSemDctf">0</div>
+            <div class="kpi-sub">Não transmitida no SERPRO</div>
+          </div>
+        </section>
+
+        <!-- Financial Totals Banner -->
+        <section class="financial-banner">
+          <div class="fin-item">
+            <span class="fin-label">Total EFD-Reinf (Domínio)</span>
+            <span class="fin-value" id="finTotalDominio">R$ 0,00</span>
+          </div>
+          <div class="fin-divider">×</div>
+          <div class="fin-item">
+            <span class="fin-label">Total DCTFWeb (SERPRO)</span>
+            <span class="fin-value" id="finTotalDctfweb">R$ 0,00</span>
+          </div>
+          <div class="fin-divider">=</div>
+          <div class="fin-item">
+            <span class="fin-label">Diferença Líquida</span>
+            <span class="fin-value fin-diff" id="finTotalDiferenca">R$ 0,00</span>
+          </div>
+        </section>
+
+        <!-- Filter and Search Bar -->
+        <section class="filter-bar">
+          <div class="search-box">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="searchInput" placeholder="Filtrar por Razão Social, CNPJ ou Código..." />
+          </div>
+
+          <div class="status-filters">
+            <button class="filter-pill active pill-blue" data-status="COM_MOVIMENTO">Com Movimento (<span id="countComMov">0</span>)</button>
+            <button class="filter-pill" data-status="SEM_MOVIMENTO">Sem Movimento (<span id="countSemMov">0</span>)</button>
+            <button class="filter-pill" data-status="ALL">Todas (<span id="countAll">0</span>)</button>
+            <button class="filter-pill pill-success" data-status="CONFORME">Conformes (<span id="countConf">0</span>)</button>
+            <button class="filter-pill pill-danger" data-status="DIVERGENTE">Divergentes (<span id="countDiv">0</span>)</button>
+            <button class="filter-pill pill-warning" data-status="PENDENTE">Pendentes Domínio (<span id="countPend">0</span>)</button>
+            <button class="filter-pill pill-purple" data-status="SEM_DCTFWEB">Sem DCTFWeb (<span id="countSemDctf">0</span>)</button>
+          </div>
+
+          <div class="inactive-toggle-container">
+            <label class="toggle-inactive-label" for="chkShowInactive" title="Exibir empresas com situação Inativa no cadastro do Domínio">
+              <input type="checkbox" id="chkShowInactive" />
+              <span class="toggle-switch-track">
+                <span class="toggle-switch-thumb"></span>
+              </span>
+              <span class="toggle-text">Exibir Inativas (<span id="countInativas">0</span>)</span>
+            </label>
+          </div>
+        </section>
+
+        <!-- Results Table -->
+        <section class="table-section">
+          <div class="table-container">
+            <table class="data-table" id="companiesTable">
+              <thead>
+                <tr>
+                  <th width="40"></th>
+                  <th>Código</th>
+                  <th>CNPJ</th>
+                  <th>Razão Social</th>
+                  <th>Fechamentos Domínio</th>
+                  <th>Total Domínio</th>
+                  <th>Total DCTFWeb</th>
+                  <th>Diferença</th>
+                  <th>Situação Geral</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="tableBody">
+                <tr>
+                  <td colspan="10" class="empty-state">
+                    Carregando dados da Domínio...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+
+      <!-- ========================================================================= -->
+      <!-- ABA 2: SITUAÇÃO FISCAL & CND (RFB / PGFN)                                -->
+      <!-- ========================================================================= -->
+      <div id="viewSitfis" class="tab-view" style="display: none;">
+        <!-- KPI Cards Situação Fiscal -->
+        <section class="kpi-grid">
+          <div class="kpi-card" id="cardSitfisTotal">
+            <div class="kpi-header">
+              <span class="kpi-label">Total Empresas</span>
+              <span class="kpi-icon icon-neutral">🏢</span>
+            </div>
+            <div class="kpi-value" id="valSitfisTotal">0</div>
+            <div class="kpi-sub">Empresas ativas cadastradas</div>
+          </div>
+          <div class="kpi-card card-success" id="cardSitfisRegular">
+            <div class="kpi-header">
+              <span class="kpi-label">CND Regular (Negativa)</span>
+              <span class="kpi-icon icon-success">🛡️</span>
+            </div>
+            <div class="kpi-value" id="valSitfisRegular">0</div>
+            <div class="kpi-sub">Sem pendências na Receita/PGFN</div>
+          </div>
+          <div class="kpi-card card-danger" id="cardSitfisPendencias">
+            <div class="kpi-header">
+              <span class="kpi-label">Com Pendências Fiscais</span>
+              <span class="kpi-icon icon-danger">✕</span>
+            </div>
+            <div class="kpi-value" id="valSitfisPendencias">0</div>
+            <div class="kpi-sub">Débitos, omissões ou dívida ativa</div>
+          </div>
+          <div class="kpi-card card-warning" id="cardSitfisProcessando">
+            <div class="kpi-header">
+              <span class="kpi-label">Em Processamento / Protocolo</span>
+              <span class="kpi-icon icon-warning">⏳</span>
+            </div>
+            <div class="kpi-value" id="valSitfisProcessando">0</div>
+            <div class="kpi-sub">Aguardando geração do relatório</div>
+          </div>
+          <div class="kpi-card" id="cardSitfisNaoConsultadas">
+            <div class="kpi-header">
+              <span class="kpi-label">Não Consultadas</span>
+              <span class="kpi-icon icon-neutral">⚪</span>
+            </div>
+            <div class="kpi-value" id="valSitfisNaoConsultadas">0</div>
+            <div class="kpi-sub">Sem solicitação recente</div>
+          </div>
+        </section>
+
+        <!-- Toolbar Situação Fiscal -->
+        <section class="filter-bar">
+          <div class="search-box">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="searchSitfisInput" placeholder="Buscar por Razão Social, CNPJ ou Código..." />
+          </div>
+          <div class="status-filters">
+            <button class="filter-pill active pill-blue" data-sitfis-filter="ALL">Todas (<span id="countSitfisAll">0</span>)</button>
+            <button class="filter-pill pill-success" data-sitfis-filter="REGULAR">Regulares (<span id="countSitfisReg">0</span>)</button>
+            <button class="filter-pill pill-danger" data-sitfis-filter="PENDENCIAS">Com Pendências (<span id="countSitfisPend">0</span>)</button>
+            <button class="filter-pill pill-warning" data-sitfis-filter="PROCESSANDO">Processando (<span id="countSitfisProc">0</span>)</button>
+            <button class="filter-pill" data-sitfis-filter="NAO_CONSULTADA">Não Consultadas (<span id="countSitfisNaoCons">0</span>)</button>
+          </div>
+        </section>
+
+        <!-- Table Situação Fiscal -->
+        <section class="table-section">
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Código</th>
+                  <th>CNPJ</th>
+                  <th>Razão Social</th>
+                  <th>Situação CND</th>
+                  <th>Protocolo SERPRO</th>
+                  <th>Última Consulta</th>
+                  <th>Origem</th>
+                  <th>Diagnóstico</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="tableSitfisBody">
+                <tr>
+                  <td colspan="9" class="empty-state">Carregando Situação Fiscal...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+
+      <!-- ========================================================================= -->
+      <!-- ABA 3: CAIXA POSTAL FISCAL & DTE (RFB / SIMPLES)                         -->
+      <!-- ========================================================================= -->
+      <div id="viewCaixapostal" class="tab-view" style="display: none;">
+        <!-- KPI Cards Caixa Postal -->
+        <section class="kpi-grid">
+          <div class="kpi-card" id="cardCaixaTotal">
+            <div class="kpi-header">
+              <span class="kpi-label">Empresas Monitoradas</span>
+              <span class="kpi-icon icon-neutral">🏢</span>
+            </div>
+            <div class="kpi-value" id="valCaixaTotal">0</div>
+            <div class="kpi-sub">Com CNPJ na base Domínio</div>
+          </div>
+          <div class="kpi-card card-danger" id="cardCaixaNovas">
+            <div class="kpi-header">
+              <span class="kpi-label">Com Novas Mensagens</span>
+              <span class="kpi-icon icon-danger">📬</span>
+            </div>
+            <div class="kpi-value" id="valCaixaNovas">0</div>
+            <div class="kpi-sub">Mensagens não lidas na RFB</div>
+          </div>
+          <div class="kpi-card card-blue" id="cardCaixaTotalMsg">
+            <div class="kpi-header">
+              <span class="kpi-label">Mensagens Carregadas</span>
+              <span class="kpi-icon icon-blue">💬</span>
+            </div>
+            <div class="kpi-value" id="valCaixaTotalMsg">0</div>
+            <div class="kpi-sub">Notificações e avisos oficiais</div>
+          </div>
+          <div class="kpi-card card-success" id="cardCaixaEmDia">
+            <div class="kpi-header">
+              <span class="kpi-label">Caixa Postal Em Dia</span>
+              <span class="kpi-icon icon-success">✓</span>
+            </div>
+            <div class="kpi-value" id="valCaixaEmDia">0</div>
+            <div class="kpi-sub">Sem mensagens pendentes</div>
+          </div>
+        </section>
+
+        <!-- Toolbar Caixa Postal -->
+        <section class="filter-bar">
+          <div class="search-box">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="searchCaixaInput" placeholder="Buscar por Razão Social, CNPJ ou Código..." />
+          </div>
+          <div class="status-filters">
+            <button class="filter-pill active pill-blue" data-caixa-filter="ALL">Todas (<span id="countCaixaAll">0</span>)</button>
+            <button class="filter-pill pill-danger" data-caixa-filter="NOVAS">Com Novas Mensagens (<span id="countCaixaNovas">0</span>)</button>
+            <button class="filter-pill pill-success" data-caixa-filter="EM_DIA">Em Dia (<span id="countCaixaEmDia">0</span>)</button>
+            <button class="filter-pill" data-caixa-filter="NAO_CONSULTADA">Não Verificadas (<span id="countCaixaNaoCons">0</span>)</button>
+          </div>
+        </section>
+
+        <!-- Table Caixa Postal -->
+        <section class="table-section">
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Código</th>
+                  <th>CNPJ</th>
+                  <th>Razão Social</th>
+                  <th>Status de Mensagens</th>
+                  <th>Qtd. Mensagens</th>
+                  <th>Última Notificação</th>
+                  <th>Última Consulta</th>
+                  <th>Origem</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="tableCaixaBody">
+                <tr>
+                  <td colspan="9" class="empty-state">Carregando Caixa Postal...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+
+      <!-- ========================================================================= -->
+      <!-- ABA 4: PAGAMENTOS ARRECADADOS (DARF / DAS / COMPROVANTES)                -->
+      <!-- ========================================================================= -->
+      <div id="viewPagamentos" class="tab-view" style="display: none;">
+        <!-- KPI Cards Pagamentos -->
+        <section class="kpi-grid">
+          <div class="kpi-card" id="cardPagTotalEmpresas">
+            <div class="kpi-header">
+              <span class="kpi-label">Empresas Monitoradas</span>
+              <span class="kpi-icon icon-neutral">🏢</span>
+            </div>
+            <div class="kpi-value" id="valPagTotalEmpresas">0</div>
+            <div class="kpi-sub">Total da carteira</div>
+          </div>
+          <div class="kpi-card card-success" id="cardPagComPagamentos">
+            <div class="kpi-header">
+              <span class="kpi-label">Com Pagamentos Identificados</span>
+              <span class="kpi-icon icon-success">💰</span>
+            </div>
+            <div class="kpi-value" id="valPagComPagamentos">0</div>
+            <div class="kpi-sub">Guias pagas na rede bancária</div>
+          </div>
+          <div class="kpi-card card-blue" id="cardPagTotalValor">
+            <div class="kpi-header">
+              <span class="kpi-label">Total Arrecadado</span>
+              <span class="kpi-icon icon-blue">💳</span>
+            </div>
+            <div class="kpi-value" id="valPagTotalValor">R$ 0,00</div>
+            <div class="kpi-sub">Soma de tributos liquidados</div>
+          </div>
+          <div class="kpi-card card-purple" id="cardPagTotalGuias">
+            <div class="kpi-header">
+              <span class="kpi-label">Guias Arrecadadas</span>
+              <span class="kpi-icon icon-purple">📄</span>
+            </div>
+            <div class="kpi-value" id="valPagTotalGuias">0</div>
+            <div class="kpi-sub">DARFs, DAS e comprovantes</div>
+          </div>
+        </section>
+
+        <!-- Toolbar Pagamentos -->
+        <section class="filter-bar">
+          <div class="search-box">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="searchPagInput" placeholder="Buscar por Razão Social, CNPJ ou Código..." />
+          </div>
+          <div class="status-filters">
+            <button class="filter-pill active pill-blue" data-pag-filter="ALL">Todas (<span id="countPagAll">0</span>)</button>
+            <button class="filter-pill pill-success" data-pag-filter="COM_PAGAMENTO">Com Pagamentos (<span id="countPagCom">0</span>)</button>
+            <button class="filter-pill" data-pag-filter="SEM_PAGAMENTO">Sem Pagamentos (<span id="countPagSem">0</span>)</button>
+            <button class="filter-pill" data-pag-filter="NAO_CONSULTADA">Não Consultadas (<span id="countPagNaoCons">0</span>)</button>
+          </div>
+        </section>
+
+        <!-- Table Pagamentos -->
+        <section class="table-section">
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Código</th>
+                  <th>CNPJ</th>
+                  <th>Razão Social</th>
+                  <th>Qtd. Guias</th>
+                  <th>Total Arrecadado</th>
+                  <th>Último Pagamento</th>
+                  <th>Última Consulta</th>
+                  <th>Origem</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="tablePagBody">
+                <tr>
+                  <td colspan="9" class="empty-state">Carregando Pagamentos Arrecadados...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal Estimativa de Chamadas SERPRO (DCTFWeb) -->
+  <div class="modal-overlay" id="estimateModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Estimativa de Tarifação SERPRO</h3>
+        <button class="modal-close" id="btnCloseModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="alert-box alert-warning">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <div>
+            <strong>Controle de Custo:</strong> Você pode optar por consultar apenas as empresas com apuração ativa no Domínio nesta competência, economizando suas cotas SERPRO!
+          </div>
+        </div>
+
+        <div class="estimate-stats">
+          <div class="est-row">
+            <span>Competência selecionada:</span>
+            <strong id="estCompetencia">2026-08</strong>
+          </div>
+          <div class="est-row">
+            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+              <input type="radio" name="scopeChoice" id="scopeMovimento" value="MOVIMENTO" checked />
+              <span>Apenas com apuração ativa / débitos no Domínio (Recomendado):</span>
+            </label>
+            <strong id="estMovimentoEmpresas">0 empresas</strong>
+          </div>
+          <div class="est-row">
+            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+              <input type="radio" name="scopeChoice" id="scopeFechamento" value="FECHAMENTO" />
+              <span>Todas com fechamento transmitido (Com e Sem Movimento):</span>
+            </label>
+            <strong id="estFechamentoEmpresas">0 empresas</strong>
+          </div>
+          <div class="est-row">
+            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+              <input type="radio" name="scopeChoice" id="scopeTodas" value="TODAS" />
+              <span>Todas as empresas cadastradas no Domínio:</span>
+            </label>
+            <strong id="estTotalEmpresas">0 empresas</strong>
+          </div>
+          <div class="est-row">
+            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; color: #94A3B8; font-size: 0.85rem;">
+              <input type="checkbox" id="chkForceRefresh" />
+              <span>Forçar reconsulta no SERPRO (ignora dados salvos em cache)</span>
+            </label>
+          </div>
+          <div class="est-row highlighted">
+            <span>Consultas estimadas ao SERPRO:</span>
+            <strong id="estTotalChamadas">0 consulta(s) tarifada(s)</strong>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="btnCancelEstimate">Cancelar</button>
+        <button class="btn btn-primary" id="btnConfirmBatch">Confirmar e Processar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Detalhes Caixa Postal -->
+  <div class="modal-overlay" id="caixaPostalModal">
+    <div class="modal-card" style="max-width: 800px;">
+      <div class="modal-header">
+        <h3 id="caixaModalTitle">Mensagens da Caixa Postal RFB</h3>
+        <button class="modal-close" id="btnCloseCaixaModal">&times;</button>
+      </div>
+      <div class="modal-body" id="caixaModalBody">
+        <div class="loading-state">Carregando mensagens...</div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="btnCloseCaixaBtn">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Detalhes Pagamentos -->
+  <div class="modal-overlay" id="pagamentosModal">
+    <div class="modal-card" style="max-width: 900px;">
+      <div class="modal-header">
+        <h3 id="pagamentosModalTitle">Guias e Tributos Arrecadados</h3>
+        <button class="modal-close" id="btnClosePagamentosModal">&times;</button>
+      </div>
+      <div class="modal-body" id="pagamentosModalBody">
+        <div class="loading-state">Carregando guias pagas...</div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="btnClosePagamentosBtn">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading Overlay -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-spinner"></div>
+    <div class="loading-text" id="loadingText">Capturando dados do banco Domínio...</div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

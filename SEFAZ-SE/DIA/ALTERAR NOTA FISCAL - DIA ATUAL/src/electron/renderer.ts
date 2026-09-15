@@ -10,13 +10,15 @@ declare global {
 
 const form = byId<HTMLFormElement>("run-form");
 const userInput = byId<HTMLInputElement>("user");
-const passwordInput = byId<HTMLInputElement>("password");
+const certPathInput = byId<HTMLInputElement>("cert-path");
+const certPasswordInput = byId<HTMLInputElement>("cert-password");
 const rememberInput = byId<HTMLInputElement>("remember");
 const spreadsheetInput = byId<HTMLInputElement>("spreadsheet");
 const outDirInput = byId<HTMLInputElement>("out-dir");
 const headlessInput = byId<HTMLInputElement>("headless");
 const selectSpreadsheetButton = byId<HTMLButtonElement>("select-spreadsheet");
 const selectOutDirButton = byId<HTMLButtonElement>("select-out-dir");
+const selectCertButton = byId<HTMLButtonElement>("select-cert");
 const forgetButton = byId<HTMLButtonElement>("forget");
 const startButton = byId<HTMLButtonElement>("start");
 const cancelButton = byId<HTMLButtonElement>("cancel");
@@ -73,12 +75,25 @@ selectOutDirButton.addEventListener("click", async () => {
   }
 });
 
+selectCertButton.addEventListener("click", async () => {
+  try {
+    const selected = await window.sefazDia.selectCert();
+    if (selected) {
+      certPathInput.value = selected;
+      setStatus("Certificado selecionado.");
+    }
+  } catch (error) {
+    setStatus(`Nao foi possivel selecionar o certificado: ${messageOf(error)}`);
+  }
+});
+
 forgetButton.addEventListener("click", async () => {
   await window.sefazDia.clearCredentials();
   userInput.value = "";
-  passwordInput.value = "";
+  certPathInput.value = "";
+  certPasswordInput.value = "";
   rememberInput.checked = false;
-  setStatus("Credenciais esquecidas.");
+  setStatus("Vinculo e certificado esquecidos.");
 });
 
 cancelButton.addEventListener("click", async () => {
@@ -108,7 +123,8 @@ async function initialize(): Promise<void> {
   outDirInput.value = defaults.outDir;
   headlessInput.checked = defaults.headless;
   userInput.value = credentials.user;
-  passwordInput.value = credentials.password;
+  certPathInput.value = credentials.certPath;
+  certPasswordInput.value = credentials.certPassword;
   rememberInput.checked = credentials.remembered;
   setStatus("Pronto para executar.");
 }
@@ -123,7 +139,8 @@ async function startRun(): Promise<void> {
   try {
     state.lastResult = await window.sefazDia.startRun({
       user: userInput.value,
-      password: passwordInput.value,
+      certPath: certPathInput.value,
+      certPassword: certPasswordInput.value,
       rememberCredentials: rememberInput.checked,
       spreadsheetPath: spreadsheetInput.value,
       outDir: outDirInput.value,
@@ -196,6 +213,7 @@ function disableUnavailableInterface(): void {
   cancelButton.disabled = true;
   selectSpreadsheetButton.disabled = true;
   selectOutDirButton.disabled = true;
+  selectCertButton.disabled = true;
   forgetButton.disabled = true;
   openFolderButton.disabled = true;
   openReportButton.disabled = true;

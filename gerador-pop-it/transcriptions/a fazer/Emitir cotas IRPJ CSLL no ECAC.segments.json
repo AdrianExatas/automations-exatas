@@ -1,0 +1,363 @@
+{
+  "media": "G:\\Meu Drive\\GESTÃO DE PROCESSOS\\03 - Fiscal\\VÍDEOS\\Emitir cotas IRPJ CSLL no ECAC.mp4",
+  "transcript_path": "C:\\Users\\Exatas\\Documents\\GitHub\\automations-exatas\\gerador-pop-it\\transcriptions\\a fazer\\Emitir cotas IRPJ CSLL no ECAC (transcribed on 10-Sep-2026 19-55-42).txt",
+  "language": "pt",
+  "duration_sec": 402.3466875,
+  "segments": [
+    {
+      "start": 0.5,
+      "end": 23.45,
+      "text": "Pronto, para a gente poder emitir as cotas, a gente vai acessar o ECAC, certo? A gente acessa o ECAC aqui com o certificado digital da Exatas, porque as empresas já tem procuração, então a gente vai vir aqui, acessa com o certificado da Exatas, e a gente vai colocando o CNPJ da empresa."
+    },
+    {
+      "start": 23.45,
+      "end": 48.16,
+      "text": "Eu vou demonstrar, a empresa que tem cotas, é a empresa que não tem cotas, que dá para perceber a diferença. Esse primeiro exemplo aqui, de uma empresa que não tem cotas, a gente vai vir aqui, alterar perfil, colocar o CNPJ da empresa, 479, 534, pronto."
+    },
+    {
+      "start": 48.16,
+      "end": 59.89,
+      "text": "A gente vai vir aqui em declarações e demonstrativos, assinar e transmitir DCTFWeb, vai marcar aqui, né? E prosseguir."
+    },
+    {
+      "start": 61.11,
+      "end": 72.99,
+      "text": "Após marcar aqui, vamos colocar a data de agosto para cá, porque se a gente colocar uma data muito longa, a DCTF vai dar um errozinho, certo?"
+    },
+    {
+      "start": 72.99,
+      "end": 88.94,
+      "text": "Marca essas duas opções, ó. Marcou, a gente vai vir aqui em pesquisar e vai na competência que foi calculado o último trimestre."
+    },
+    {
+      "start": 89.06,
+      "end": 99.82,
+      "text": "Qual foi o último trimestre calculado? E no caso do ano passado, que é 2025, foi no mês 9, porque o do mês 12 ainda vai ser calculado agora em janeiro,"
+    },
+    {
+      "start": 99.82,
+      "end": 111.34,
+      "text": "que é o último trimestre de 2025. Se a gente vier aqui, ó, certo? Vamos clicar nesse olhinho que está aqui, ó, visualizar."
+    },
+    {
+      "start": 112.0,
+      "end": 119.44,
+      "text": "Clicando em visualizar, vai ter aqui a palavra cotas. Clica nessa palavra cotas e vai abrir essa informação."
+    },
+    {
+      "start": 120.58,
+      "end": 126.08,
+      "text": "Aqui de imediato a gente vai perceber que não está dividindo em cotas."
+    },
+    {
+      "start": 126.08,
+      "end": 131.02,
+      "text": "Essa pessoa aqui já pegou o valor todo e pagou. Não dividiu."
+    },
+    {
+      "start": 131.62,
+      "end": 135.5,
+      "text": "Porque se dividisse, teria aqui o númerozinho, número em cotas."
+    },
+    {
+      "start": 135.8,
+      "end": 138.86,
+      "text": "E abrir uma opção aqui da gente gerar DAF."
+    },
+    {
+      "start": 141.58,
+      "end": 144.64,
+      "text": "Vamos ver essa diferença agora para uma empresa que tem cotas."
+    },
+    {
+      "start": 147.6,
+      "end": 149.74,
+      "text": "Pronto, na empresa que tem cotas. O que a gente vai fazer?"
+    },
+    {
+      "start": 149.86,
+      "end": 159.7,
+      "text": "Vamos aqui acessar a página principal, alterar o CNPJ de novo, que eu gosto de fazer sempre dentro já do usuário da Exatas."
+    },
+    {
+      "start": 159.7,
+      "end": 161.86,
+      "text": "Então, eu venho aqui e vou acessar o CNPJ."
+    },
+    {
+      "start": 170.37,
+      "end": 172.71,
+      "text": "Aqui a gente vai de novo naquele mesmo lugar."
+    },
+    {
+      "start": 172.83,
+      "end": 175.57,
+      "text": "Declarações de demonstrativo, assinar DCTFWeb."
+    },
+    {
+      "start": 176.33,
+      "end": 179.71,
+      "text": "Clica aqui na informaçãozinha da Capture e prosseguir."
+    },
+    {
+      "start": 180.21,
+      "end": 185.25,
+      "text": "Vamos colocar a mesma data, como a gente colocou neste instante, porque aí fica melhor."
+    },
+    {
+      "start": 185.37,
+      "end": 186.55,
+      "text": "Eu gosto de digitar, viu?"
+    },
+    {
+      "start": 187.21,
+      "end": 188.71,
+      "text": "Mas aí fica por opção."
+    },
+    {
+      "start": 189.85,
+      "end": 191.63,
+      "text": "Se você quiser preencher aqui também."
+    },
+    {
+      "start": 191.83,
+      "end": 194.69,
+      "text": "Eu gosto de digitar aqui porque anda mais ligeiro."
+    },
+    {
+      "start": 199.53,
+      "end": 201.97,
+      "text": "Pronto, vamos em pesquisar."
+    },
+    {
+      "start": 202.19,
+      "end": 204.93,
+      "text": "Pronto, vamos olhar o mês 9, que foi o último trimestre."
+    },
+    {
+      "start": 205.85,
+      "end": 206.21,
+      "text": "Certo?"
+    },
+    {
+      "start": 206.29,
+      "end": 209.13,
+      "text": "Que vai ser a cota que a gente precisa imprimir."
+    },
+    {
+      "start": 209.21,
+      "end": 217.3,
+      "text": "Se a gente vier aqui no olhozinho, você vai ver que teve IRPJ, CSLL e vamos aqui em cotas."
+    },
+    {
+      "start": 217.84,
+      "end": 220.24,
+      "text": "Olha aqui onde está o IRPJ e a CSLL."
+    },
+    {
+      "start": 220.24,
+      "end": 224.94,
+      "text": "Inclusive, a gente nesse mais um aqui pode consultar se teve imposto a pagar, né?"
+    },
+    {
+      "start": 225.04,
+      "end": 227.32,
+      "text": "Porque às vezes teve um abatimento, teve alguma coisa."
+    },
+    {
+      "start": 227.84,
+      "end": 229.64,
+      "text": "Mas nesse caso aqui teve, aí."
+    },
+    {
+      "start": 230.04,
+      "end": 231.44,
+      "text": "A gente vai vir aqui em cotas."
+    },
+    {
+      "start": 232.34,
+      "end": 235.0,
+      "text": "Olha a diferença que está aqui, aí."
+    },
+    {
+      "start": 235.38,
+      "end": 236.52,
+      "text": "O número de cotas."
+    },
+    {
+      "start": 237.96,
+      "end": 240.44,
+      "text": "A gente vai clicar nesses quadradozinhos aqui."
+    },
+    {
+      "start": 240.44,
+      "end": 243.18,
+      "text": "Que eu falei, está vendo que ele abre."
+    },
+    {
+      "start": 243.26,
+      "end": 247.36,
+      "text": "E aqui vai abrir a opção, é gerar geração de guias."
+    },
+    {
+      "start": 247.84,
+      "end": 250.46,
+      "text": "A gente clica nele e ele vai abrir as cotas."
+    },
+    {
+      "start": 251.1,
+      "end": 253.76,
+      "text": "Tem a cota 1, 2, 3, 1, 2, 3."
+    },
+    {
+      "start": 253.84,
+      "end": 258.44,
+      "text": "Veja que até esse 3 aqui é o IRPJ, até esse 3 aqui é o CSLL."
+    },
+    {
+      "start": 259.14,
+      "end": 263.6,
+      "text": "Mesma coisa seria 1, 2, 3 de CSLL, 1, 2, 3 de IRPJ."
+    },
+    {
+      "start": 263.72,
+      "end": 263.94,
+      "text": "Certo?"
+    },
+    {
+      "start": 265.26,
+      "end": 266.86,
+      "text": "E a gente vai ver aqui a data."
+    },
+    {
+      "start": 266.86,
+      "end": 278.82,
+      "text": "A última cota é essa agora, porque a gente quer o vencimento em 30 do 12."
+    },
+    {
+      "start": 286.78,
+      "end": 292.1,
+      "text": "E essa 30 do 12, ela já foi enviada para o cliente."
+    },
+    {
+      "start": 292.16,
+      "end": 292.38,
+      "text": "Por quê?"
+    },
+    {
+      "start": 292.42,
+      "end": 294.94,
+      "text": "O vencimento dela foi em 30 do 12 de 2025."
+    },
+    {
+      "start": 295.5,
+      "end": 296.16,
+      "text": "Aí o que é que a gente vai?"
+    },
+    {
+      "start": 296.26,
+      "end": 299.76,
+      "text": "A gente vem aqui no óbvio e só consulta se essa cota foi enviada."
+    },
+    {
+      "start": 299.96,
+      "end": 300.74,
+      "text": "Eu vim aqui, ó."
+    },
+    {
+      "start": 301.98,
+      "end": 303.06,
+      "text": "Impostos federais."
+    },
+    {
+      "start": 306.92,
+      "end": 307.72,
+      "text": "E verifico."
+    },
+    {
+      "start": 308.08,
+      "end": 308.72,
+      "text": "Olha ela aqui, ó."
+    },
+    {
+      "start": 309.1,
+      "end": 310.06,
+      "text": "Cota 3."
+    },
+    {
+      "start": 310.06,
+      "end": 317.48,
+      "text": "Porque se a gente contar é a cota do último trimestre, né?"
+    },
+    {
+      "start": 317.98,
+      "end": 321.8,
+      "text": "E aí cota 3, 3T que é o trimestre, 9."
+    },
+    {
+      "start": 321.9,
+      "end": 322.86,
+      "text": "Está vendo aqui a competência?"
+    },
+    {
+      "start": 323.14,
+      "end": 329.62,
+      "text": "Se a gente abrir aqui e verificar, você vai ver que são os valores que estão aqui, ó."
+    },
+    {
+      "start": 330.12,
+      "end": 331.04,
+      "text": "Que é o valor principal."
+    },
+    {
+      "start": 332.34,
+      "end": 332.82,
+      "text": "Certo?"
+    },
+    {
+      "start": 332.82,
+      "end": 342.16,
+      "text": "Então, essa daqui já está enviada e não precisa mais enviar uma nova cota, porque dia 30 do 12 foi a última cota enviada."
+    },
+    {
+      "start": 342.78,
+      "end": 347.7,
+      "text": "Essa tarefa é só para a gente verificar se todas as cotas já foram enviadas ou não, certo?"
+    },
+    {
+      "start": 348.42,
+      "end": 352.34,
+      "text": "Para que não haja nenhuma pendência com as empresas, certo?"
+    },
+    {
+      "start": 352.34,
+      "end": 361.14,
+      "text": "Verificou, vai lá na tarefa e dá baixa, pode tirar um print aqui do envio dessa cota e anexa na tarefa."
+    },
+    {
+      "start": 361.14,
+      "end": 376.88,
+      "text": "Então, caso não tivesse enviado, a gente teria que recalcular essa guia, verificar o motivo que não foi enviada essa cota, certo?"
+    },
+    {
+      "start": 376.88,
+      "end": 381.88,
+      "text": "Se fosse uma cota dentro do prazo, já enviaria também, certo?"
+    },
+    {
+      "start": 382.22,
+      "end": 388.7,
+      "text": "Caso a cota esteja fora do prazo, verificar o motivo com o pessoal, porque que não foi enviado."
+    },
+    {
+      "start": 389.18,
+      "end": 393.76,
+      "text": "Mas a tarefa é só ter esse intuito de verificação se foi enviado ou não."
+    },
+    {
+      "start": 394.56,
+      "end": 399.48,
+      "text": "E caso não for enviado, a gente enviar dentro do prazo a cota referente."
+    }
+  ]
+}

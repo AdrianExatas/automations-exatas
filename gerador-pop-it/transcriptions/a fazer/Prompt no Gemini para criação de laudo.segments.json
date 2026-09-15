@@ -1,0 +1,33 @@
+{
+  "media": "G:\\Meu Drive\\GESTÃO DE PROCESSOS\\13 - Auditoria\\VÍDEOS\\6-min.mp4",
+  "transcript_path": "C:\\Users\\Exatas\\Documents\\GitHub\\automations-exatas\\gerador-pop-it\\transcriptions\\a fazer\\6-min (transcribed on 10-Sep-2026 20-35-13).txt",
+  "language": "pt",
+  "duration_sec": 580.8213125,
+  "segments": [
+    {
+      "start": 0.66,
+      "end": 19.16,
+      "text": "Bom dia, agora vamos fazer o prompt do Gemini, do Gemini para criação de laudo, aqui teremos, iremos jogar, o PDF do CNPJ, e, cria o prompt, pode crie..."
+    },
+    {
+      "start": 19.16,
+      "end": 197.36,
+      "text": "Aí faz, eu já venho."
+    },
+    {
+      "start": 197.36,
+      "end": 243.11,
+      "text": "Vou seguir a página de logo, vou abrir aqui o logo pronto."
+    },
+    {
+      "start": 245.11,
+      "end": 249.11,
+      "text": "Opia, só vai pegar o modelo, e o fundo, a capa."
+    },
+    {
+      "start": 249.11,
+      "end": 331.66,
+      "text": "Você vai personalizando ele, para ficar, no desenho padrão."
+    }
+  ]
+}

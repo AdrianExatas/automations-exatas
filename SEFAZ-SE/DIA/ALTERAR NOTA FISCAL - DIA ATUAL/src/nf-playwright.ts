@@ -40,7 +40,7 @@ export class NotaFiscalPlaywrightClient {
     if (!this.config.headless) {
       await this.page.bringToFront().catch(() => undefined);
     }
-    await loginSefazContabilista(this.page, this.config);
+    this.page = (await loginSefazContabilista(this.page, this.config)) as Page;
   }
 
   private async launchBrowser(): Promise<Browser> {

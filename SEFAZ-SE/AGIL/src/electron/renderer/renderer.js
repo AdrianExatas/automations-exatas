@@ -14,23 +14,19 @@ const state = {
 
 const elements = {
   addManualButton: document.querySelector('#addManualButton'),
-  certificateNotice: document.querySelector('#certificateNotice'),
   clearButton: document.querySelector('#clearButton'),
-  credentialsFields: document.querySelector('#credentialsFields'),
   dryRunInput: document.querySelector('#dryRunInput'),
   exportPdfsZipButton: document.querySelector('#exportPdfsZipButton'),
   exportReportButton: document.querySelector('#exportReportButton'),
   importButton: document.querySelector('#importButton'),
   keysTableBody: document.querySelector('#keysTableBody'),
   manualKeysInput: document.querySelector('#manualKeysInput'),
-  passwordInput: document.querySelector('#passwordInput'),
   startButton: document.querySelector('#startButton'),
   statusText: document.querySelector('#statusText'),
   summaryError: document.querySelector('#summaryError'),
   summaryPending: document.querySelector('#summaryPending'),
   summarySuccess: document.querySelector('#summarySuccess'),
   summaryTotal: document.querySelector('#summaryTotal'),
-  usernameInput: document.querySelector('#usernameInput'),
 };
 
 function extractKeys(text) {
@@ -74,10 +70,6 @@ function addExecutionEvent(event) {
     timestamp: nowIso(),
     ...event,
   });
-}
-
-function getAuthMode() {
-  return document.querySelector('input[name="authMode"]:checked').value;
 }
 
 function setRunning(running) {
@@ -209,14 +201,6 @@ function render() {
   elements.exportPdfsZipButton.disabled = state.running || !hasPdfPathsForZip();
 }
 
-function syncAuthMode() {
-  const authMode = getAuthMode();
-  const certificateMode = authMode === 'certificate';
-
-  elements.credentialsFields.classList.toggle('hidden', certificateMode);
-  elements.certificateNotice.classList.toggle('hidden', !certificateMode);
-}
-
 function switchTab(tabName) {
   for (const button of document.querySelectorAll('.tab-button')) {
     button.classList.toggle('active', button.dataset.tab === tabName);
@@ -227,22 +211,8 @@ function switchTab(tabName) {
 }
 
 function buildPayload() {
-  const authMode = getAuthMode();
-
-  if (authMode === 'credentials') {
-    return {
-      auth: {
-        authMode,
-        username: elements.usernameInput.value.trim(),
-        password: elements.passwordInput.value,
-      },
-      danfes: state.keys.map((item) => item.key),
-      dryRun: elements.dryRunInput.checked,
-    };
-  }
-
   return {
-    auth: { authMode },
+    auth: {},
     danfes: state.keys.map((item) => item.key),
     dryRun: elements.dryRunInput.checked,
   };
@@ -264,10 +234,6 @@ function buildReportPayload() {
 
 for (const button of document.querySelectorAll('.tab-button')) {
   button.addEventListener('click', () => switchTab(button.dataset.tab));
-}
-
-for (const input of document.querySelectorAll('input[name="authMode"]')) {
-  input.addEventListener('change', syncAuthMode);
 }
 
 elements.manualKeysInput.addEventListener('paste', (event) => {
@@ -384,7 +350,7 @@ elements.startButton.addEventListener('click', async () => {
 
   setRunning(true);
   render();
-  setStatus('Execucao iniciada.');
+  setStatus('Execucao iniciada. Selecione o certificado e o vinculo Empresa Inscrita no navegador.');
   addExecutionEvent({
     message: `Execucao iniciada com ${state.keys.length} chave(s).`,
     type: 'inicio-execucao',
@@ -417,5 +383,4 @@ window.agilApi.onProgress((progress) => {
   updateKeyStatus(progress);
 });
 
-syncAuthMode();
 render();

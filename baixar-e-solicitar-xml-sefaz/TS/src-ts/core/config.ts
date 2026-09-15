@@ -1,6 +1,6 @@
 import { existsSync, mkdirSync } from "node:fs";
 import { homedir } from "node:os";
-import { dirname, join, resolve } from "node:path";
+import { dirname, isAbsolute, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import dotenv from "dotenv";
 
@@ -73,10 +73,16 @@ dotenv.config({ path: join(PATHS.projectRoot, ".env") });
 export const USUARIO_SEFAZ = process.env.USUARIO_SEFAZ ?? "";
 export const SENHA_SEFAZ = process.env.SENHA_SEFAZ ?? "";
 export const SIEG_API_KEY = process.env.SIEG_API_KEY ?? "";
+const SEFAZ_CERT_PFX_PATH_RAW = process.env.SEFAZ_CERT_PFX_PATH ?? "";
+export const SEFAZ_CERT_PFX_PATH = SEFAZ_CERT_PFX_PATH_RAW
+  ? (isAbsolute(SEFAZ_CERT_PFX_PATH_RAW) ? SEFAZ_CERT_PFX_PATH_RAW : resolve(PATHS.projectRoot, SEFAZ_CERT_PFX_PATH_RAW))
+  : "";
+export const SEFAZ_CERT_PFX_PASSWORD = process.env.SEFAZ_CERT_PFX_PASSWORD ?? "";
 export const UPLOAD_NUM_WORKERS = parseInteger(process.env.UPLOAD_NUM_WORKERS, 3);
 export const UPLOAD_DELAY_SECONDS = parseFloatEnv(process.env.UPLOAD_DELAY_SECONDS, 0.1);
 export const SEFAZ_HTTP_TIMEOUT_MS = parseInteger(process.env.SEFAZ_HTTP_TIMEOUT_MS, 120_000);
 export const SEFAZ_HTTP_RETRY_ATTEMPTS = parseInteger(process.env.SEFAZ_HTTP_RETRY_ATTEMPTS, 3);
+export const SEFAZ_PLAYWRIGHT_HEADLESS = parseBoolean(process.env.SEFAZ_PLAYWRIGHT_HEADLESS, true);
 export const LIMPEZA_AUTOMATICA_XMLS_PRESOS = parseBoolean(
   process.env.LIMPEZA_AUTOMATICA_XMLS_PRESOS,
   true,
@@ -84,11 +90,14 @@ export const LIMPEZA_AUTOMATICA_XMLS_PRESOS = parseBoolean(
 
 export function validarConfiguracoes(): [boolean, string] {
   const erros: string[] = [];
-  if (!USUARIO_SEFAZ) {
-    erros.push("USUARIO_SEFAZ nao configurado no .env");
+  if (!SEFAZ_CERT_PFX_PATH) {
+    erros.push("SEFAZ_CERT_PFX_PATH nao configurado no .env");
   }
-  if (!SENHA_SEFAZ) {
-    erros.push("SENHA_SEFAZ nao configurado no .env");
+  if (SEFAZ_CERT_PFX_PATH && !existsSync(SEFAZ_CERT_PFX_PATH)) {
+    erros.push(`Certificado PFX nao encontrado: ${SEFAZ_CERT_PFX_PATH}`);
+  }
+  if (!SEFAZ_CERT_PFX_PASSWORD) {
+    erros.push("SEFAZ_CERT_PFX_PASSWORD nao configurado no .env");
   }
   return erros.length ? [false, erros.join("; ")] : [true, "Configuracoes validas"];
 }

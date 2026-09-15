@@ -1,0 +1,44 @@
+Vamos lá pessoal, hoje a gente vai fazer um vídeo, um IT de treinamento de algo que é simples
+mas que pode acometer para cada um, então aí vai vir uma instituição de treinamento
+que pode ajudar na devida solicitação que vocês venham a necessitar, beleza?
+Então, que solicitação é essa?
+É quando a gente tem restituição de pagamentos indevidos por parte da empresa, do contribuinte
+e aí eu vou ensinar vocês como é que faz, como é que procede para que você altere os dados bancários
+para que esse recurso que está para ser liberado pela Receita Federal caia na conta do contribuinte
+Então vamos lá, o primeiro passo é a gente identificar que isso aconteceu
+Então vamos lá, aqui essa empresa especificamente ela recebeu essa notificação dizendo
+regularização de dados bancários para fins de restituição
+Pronto, o que a gente faz agora?
+A gente vai aqui no próprio CAC e coloca essa opção, então alteração
+Quando você clica aqui você vai cair nessa aba
+E aqui tem a restituição, aí você vai clicar em editar, beleza?
+Quando chega aqui em editar você vai escolher a qual conta você vai substituir
+Então aqui essa empresa ela vai querer que caia no Banco do Bradesco, né?
+Conseguentemente ele passa a agência da conta, né?
+Passa o número da conta
+Juntamente com o... você já coloca tudo junto aqui, perdão
+E aí atualiza
+Código de agência indesistente
+Deixa eu ver aqui
+Contigo do Bradesco
+Código
+Agência indesistente
+Agência 35
+7 e 8
+35
+7 e 8
+Código de agência indesistente
+É, perdão
+Existe o erro
+Conta por conta
+Código de agência indesistente
+Falha no pré
+Cadastro
+Deixa eu verificar aqui
+O Bradesco
+Errado
+Então aqui foi bom que a gente verificou os erros que podem acometer
+E aí a gente vai lá e corrige
+Então agora é só aguardar o dinheiro cair na conta da empresa
+E aí eu concluo mais um IT aqui de treinamento
+Sobre como proceder nesse tipo de erro que vem a acometer

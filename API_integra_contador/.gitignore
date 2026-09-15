@@ -1,0 +1,11 @@
+.env
+.env.local
+*.p12
+*.pfx
+*.pem
+*.key
+*.cer
+*.crt
+*.pdf
+output/
+*.db

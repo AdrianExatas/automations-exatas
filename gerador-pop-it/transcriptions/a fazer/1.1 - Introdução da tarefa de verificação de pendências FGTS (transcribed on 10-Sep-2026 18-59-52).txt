@@ -1,0 +1,15 @@
+Neste vídeo eu vou ensinar a você como você deverá entender o procedimento a ser executado nessa tarefa de verificação de pendências de FGTS. Iremos pegar este cliente como exemplo e faremos uma leitura da seguinte maneira. É uma tarefa recorrente onde deveremos fazer uma consulta de pendências e abaixo vocês terão um checklist.
+O primeiro é consultar e validar no sistema domínio, folha, a importação das informações realizadas via API, verificando se os dados foram integrados corretamente e identificando eventuais inconsistências.
+O segundo é consultar a existência de possíveis parcelamentos de FGTS em aberto para a empresa e, quando identificados, disponibilizar as informações em documentos correspondentes no portal Onvio e comunicar ao cliente sobre a pendência.
+Terceiro é consultar a existência de guias de FGTS em aberto e, quando identificadas, disponibilizar a respectiva guia do portal do Onvio e comunicar ao cliente o conhecimento para a regularização.
+Por fim, quarto item, registrar na tarefa o resultado das consultas realizadas, anexando, quando aplicável, os documentos comprobatórios e completividade.
+Então, vamos lá. No segundo vídeo, eu vou ensinar você como executar o checklist.
+Nessa parte intradutória, o que ele quer dizer?
+Fazer uma consulta entre domínio e e-social, no primeiro item.
+No segundo, consultar se a empresa tem alguma parcela de FGTS e se está em aberto.
+No terceiro, se tem alguma pendência de FGTS em aberto.
+Caso ambos tenham alguma guia, deverá encaminhar para o Onvio e falar ao cliente.
+Ou, ao contrário, comunicar ao cliente, caso ele solicite, encaminhe no Onvio.
+E, por fim, para concluir a tarefa, não necessariamente apenas vai ser obrigatório marcar.
+Vocês deverão comprovar se, de fato, a sua consulta teve validação.
+Então, no próximo vídeo, eu irei executar com você como deverá ser feito.

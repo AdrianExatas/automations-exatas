@@ -7,6 +7,8 @@ import { incluirNotasFiscaisAgil } from '../src/agil-flow';
 
 const key = '35260343648971000155550090001065091392607031';
 
+const dummyAuth = {};
+
 type FakePageOptions = {
   attentionMessage?: string;
   attentionVisibleAfterIsVisibleCalls?: number;
@@ -34,13 +36,13 @@ type FakePageOptions = {
   overlayBlockBeforeSalvar?: { message: string };
   /**
    * Apos `button:Enviar`, faz `#danfe.isVisible` retornar `false` ate que um novo
-   * `link:Incluir Nota Fiscal` seja registrado. Simula a tela mudar pos-PDF e
+   * `treeitem:Incluir Nota Fiscal` seja registrado. Simula a tela mudar pos-PDF e
    * obriga `abrirTelaInclusaoNotaFiscal` a passar pelo caminho de reabertura.
    */
   danfeHiddenUntilReopen?: boolean;
   /**
-   * O link "Incluir Nota Fiscal" so se torna visivel apos `text:AGIL:main` (simula
-   * menu lateral colapsado). Se `'never'`, o link nunca fica visivel — testa o erro
+   * O item "Incluir Nota Fiscal" so se torna visivel apos `treeitem:AGIL` (simula
+   * arvore SIT colapsada). Se `'never'`, o item nunca fica visivel — testa o erro
    * "Nao foi possivel abrir a tela ...".
    */
   incluirLinkRequiresAgilClick?: boolean | 'never';
@@ -97,7 +99,9 @@ function createFakePage(actions: string[], options: FakePageOptions = {}) {
   function inserirAtivoSemReset(): boolean {
     const ultimoReset = Math.max(
       actions.lastIndexOf('text:AGIL:main'),
+      actions.lastIndexOf('treeitem:AGIL'),
       actions.lastIndexOf('link:Incluir Nota Fiscal'),
+      actions.lastIndexOf('treeitem:Incluir Nota Fiscal'),
     );
     const ultimoInserir = actions.lastIndexOf('button:Inserir');
 
@@ -174,7 +178,10 @@ function createFakePage(actions: string[], options: FakePageOptions = {}) {
       return true;
     }
 
-    const ultimoReopen = actions.lastIndexOf('link:Incluir Nota Fiscal');
+    const ultimoReopen = Math.max(
+      actions.lastIndexOf('link:Incluir Nota Fiscal'),
+      actions.lastIndexOf('treeitem:Incluir Nota Fiscal'),
+    );
 
     return ultimoReopen > ultimoEnviar;
   }
@@ -188,8 +195,14 @@ function createFakePage(actions: string[], options: FakePageOptions = {}) {
       return true;
     }
 
-    const ultimoAgil = actions.lastIndexOf('text:AGIL:main');
-    const ultimoReopen = actions.lastIndexOf('link:Incluir Nota Fiscal');
+    const ultimoAgil = Math.max(
+      actions.lastIndexOf('text:AGIL:main'),
+      actions.lastIndexOf('treeitem:AGIL'),
+    );
+    const ultimoReopen = Math.max(
+      actions.lastIndexOf('link:Incluir Nota Fiscal'),
+      actions.lastIndexOf('treeitem:Incluir Nota Fiscal'),
+    );
 
     // Visivel apos um click em AGIL que ainda nao foi "consumido" por um click no link.
     return ultimoAgil > ultimoReopen;
@@ -372,13 +385,19 @@ function createFakePage(actions: string[], options: FakePageOptions = {}) {
     return {
       isDetached: () => false,
       getByRole: (role: string, roleOptions: { name: string | RegExp }) => {
-        const isIncluirLink =
-          scope === 'main' &&
-          role === 'link' &&
-          typeof roleOptions.name === 'string' &&
-          roleOptions.name === 'Incluir Nota Fiscal';
+        const nameMatches = (candidate: string) =>
+          typeof roleOptions.name === 'string'
+            ? roleOptions.name === candidate
+            : roleOptions.name instanceof RegExp
+              ? roleOptions.name.test(candidate)
+              : false;
 
-        const linkVisible = () => incluirLinkVisible();
+        const isIncluirTree =
+          scope === 'main' && role === 'treeitem' && nameMatches('Incluir Nota Fiscal');
+        const isAgilTree = scope === 'main' && role === 'treeitem' && nameMatches('AGIL');
+        const isIncluirLink =
+          scope === 'main' && role === 'link' && nameMatches('Incluir Nota Fiscal');
+        const incluirVisible = () => incluirLinkVisible();
 
         return {
           click: async () => {
@@ -392,8 +411,8 @@ function createFakePage(actions: string[], options: FakePageOptions = {}) {
               return new Promise<void>(() => undefined);
             }
 
-            if (isIncluirLink && !linkVisible()) {
-              throw new Error('Timeout waiting for link:Incluir Nota Fiscal');
+            if ((isIncluirTree || isIncluirLink) && !incluirVisible()) {
+              throw new Error('Timeout waiting for treeitem:Incluir Nota Fiscal');
             }
 
             if (
@@ -404,15 +423,42 @@ function createFakePage(actions: string[], options: FakePageOptions = {}) {
               attentionDismissed = false;
             }
 
-            actions.push(`${role}:${roleOptions.name}`);
+            if (isAgilTree) {
+              actions.push('treeitem:AGIL');
+              return;
+            }
+
+            if (isIncluirTree) {
+              actions.push('treeitem:Incluir Nota Fiscal');
+              return;
+            }
+
+            actions.push(
+              `${role}:${typeof roleOptions.name === 'string' ? roleOptions.name : String(roleOptions.name)}`,
+            );
           },
           first: () => ({
             textContent: async () =>
               canScopeSeeAttention(scope) ? options.attentionMessage : undefined,
           }),
+          getByRole: (innerRole: string) => ({
+            click: async () => {
+              if (isAgilTree && innerRole === 'button') {
+                actions.push('treeitem:AGIL');
+                return;
+              }
+
+              actions.push(`${innerRole}:nested`);
+            },
+            isVisible: async () => (isAgilTree && innerRole === 'button') || incluirVisible(),
+          }),
           isVisible: async () => {
-            if (isIncluirLink) {
-              return linkVisible();
+            if (isIncluirTree || isIncluirLink) {
+              return incluirVisible();
+            }
+
+            if (isAgilTree) {
+              return true;
             }
 
             return options.okMode === 'role' && canScopeSeeAttention(scope);
@@ -426,13 +472,9 @@ function createFakePage(actions: string[], options: FakePageOptions = {}) {
           waitFor: async ({ state, timeout }: { state?: string; timeout?: number } = {}) => {
             actions.push(`wait:${role}:${String(roleOptions.name)}`);
 
-            if (
-              isIncluirLink &&
-              state === 'visible' &&
-              !linkVisible()
-            ) {
+            if ((isIncluirTree || isIncluirLink) && state === 'visible' && !incluirVisible()) {
               await new Promise((resolve) => setTimeout(resolve, Math.min(timeout ?? 100, 100)));
-              throw new Error('Timeout waiting for link');
+              throw new Error('Timeout waiting for Incluir Nota Fiscal');
             }
           },
         };
@@ -575,14 +617,32 @@ function createFakePage(actions: string[], options: FakePageOptions = {}) {
 
   const mainFrameSentinel = { __id: 'main-frame' };
 
+  const pageLocator = (
+    selector: string,
+    locatorOptions?: { has?: unknown; hasText?: string | RegExp },
+  ) => {
+    if (selector === '#servico') {
+      return {
+        contentFrame: () => childFrameLike,
+        isVisible: async () => true,
+      };
+    }
+
+    return mainFrameLike.locator(selector, locatorOptions);
+  };
+
   return {
     frameLocator: () => acessoFrameLocator,
     mainFrame: () => mainFrameSentinel,
     frames: () => [mainFrameSentinel, childFrameLike],
     getByRole: mainFrameLike.getByRole,
     getByText: mainFrameLike.getByText,
-    locator: mainFrameLike.locator,
+    locator: pageLocator,
     goto: async (url: string) => actions.push(`goto:${url}`),
+    url: () =>
+      'https://portais-fazendario.apps.sefaz.se.gov.br/private/portal-fazendario/modulo?sistema=SIT',
+    waitForLoadState: async () => undefined,
+    waitForTimeout: async () => undefined,
     keyboard: {
       press: async (keyName: string) => actions.push(`keyboard:${keyName}`),
     },
@@ -625,9 +685,7 @@ test('dry-run preenche a chave e para antes de Salvar e Enviar', async () => {
   const page = createFakePage(actions);
 
   const results = await incluirNotasFiscaisAgil(page, {
-    authMode: 'credentials',
-    username: 'usuario',
-    password: 'senha',
+    ...dummyAuth,
     danfes: [key],
     dryRun: true,
   });
@@ -650,9 +708,7 @@ test('captura alerta de erro depois de Inserir e para antes de Salvar e Enviar',
   const page = createFakePage(actions, { attentionMessage: message });
 
   const results = await incluirNotasFiscaisAgil(page, {
-    authMode: 'credentials',
-    username: 'usuario',
-    password: 'senha',
+    ...dummyAuth,
     danfes: [key],
     dryRun: false,
   });
@@ -680,9 +736,7 @@ test('captura alerta quando modal de atencao demora a ficar visivel', async () =
   });
 
   const results = await incluirNotasFiscaisAgil(page, {
-    authMode: 'credentials',
-    username: 'usuario',
-    password: 'senha',
+    ...dummyAuth,
     danfes: [key],
     dryRun: false,
   });
@@ -705,9 +759,7 @@ test('fecha alerta usando input OK do container quando role nao fica visivel', a
   const page = createFakePage(actions, { attentionMessage: message, okMode: 'input' });
 
   const results = await incluirNotasFiscaisAgil(page, {
-    authMode: 'credentials',
-    username: 'usuario',
-    password: 'senha',
+    ...dummyAuth,
     danfes: [key],
     dryRun: false,
   });
@@ -735,9 +787,7 @@ test('registra erro e segue mesmo se alerta nao sumir apos OK', async () => {
   });
 
   const results = await incluirNotasFiscaisAgil(page, {
-    authMode: 'credentials',
-    username: 'usuario',
-    password: 'senha',
+    ...dummyAuth,
     danfes: [key],
     dryRun: false,
   });
@@ -767,9 +817,7 @@ test('conclui Salvar e Enviar quando a grelha so aparece na segunda fase apos In
 
   try {
     const results = await incluirNotasFiscaisAgil(page, {
-      authMode: 'credentials',
-      username: 'usuario',
-      password: 'senha',
+      ...dummyAuth,
       danfes: [key],
       dryRun: false,
       pdfDownloadDir,
@@ -800,9 +848,7 @@ test('detecta chave dentro de iframe e conclui Salvar/Enviar', async () => {
 
   try {
     const results = await incluirNotasFiscaisAgil(page, {
-      authMode: 'credentials',
-      username: 'usuario',
-      password: 'senha',
+      ...dummyAuth,
       danfes: [key],
       dryRun: false,
       pdfDownloadDir,
@@ -830,9 +876,7 @@ test('detecta alerta de atencao dentro de iframe e nao avanca para Salvar', asyn
   });
 
   const results = await incluirNotasFiscaisAgil(page, {
-    authMode: 'credentials',
-    username: 'usuario',
-    password: 'senha',
+    ...dummyAuth,
     danfes: [key],
     dryRun: false,
   });
@@ -859,9 +903,7 @@ test('detecta erro inline dentro de iframe e nao avanca para Salvar', async () =
   });
 
   const results = await incluirNotasFiscaisAgil(page, {
-    authMode: 'credentials',
-    username: 'usuario',
-    password: 'senha',
+    ...dummyAuth,
     danfes: [key],
     dryRun: false,
   });
@@ -889,9 +931,7 @@ test('salva PDF e fecha popup depois de Enviar', async () => {
 
   try {
     const results = await incluirNotasFiscaisAgil(page, {
-      authMode: 'credentials',
-      username: 'usuario',
-      password: 'senha',
+      ...dummyAuth,
       danfes: [key],
       dryRun: false,
       pdfDownloadDir,
@@ -945,9 +985,7 @@ test('captura erro inline depois de Inserir e para antes de Salvar e Enviar', as
   const page = createFakePage(actions, { inlineErrorMessage: message });
 
   const results = await incluirNotasFiscaisAgil(page, {
-    authMode: 'credentials',
-    username: 'usuario',
-    password: 'senha',
+    ...dummyAuth,
     danfes: [key],
     dryRun: false,
   });
@@ -974,9 +1012,7 @@ test('captura erro inline depois de Enviar quando PDF nao abre', async () => {
   });
 
   const results = await incluirNotasFiscaisAgil(page, {
-    authMode: 'credentials',
-    username: 'usuario',
-    password: 'senha',
+    ...dummyAuth,
     danfes: [key],
     dryRun: false,
   });
@@ -999,9 +1035,7 @@ test('aborta chave por deadline absoluto se a Page travar apos Inserir', async (
 
   const start = Date.now();
   const results = await incluirNotasFiscaisAgil(page, {
-    authMode: 'credentials',
-    username: 'usuario',
-    password: 'senha',
+    ...dummyAuth,
     danfes: [key],
     dryRun: false,
     inserirOutcomeTimeoutMs: 60_000,
@@ -1027,9 +1061,7 @@ test('aborta click em Salvar quando <div id=alert> persiste (overlay residual)',
 
   const start = Date.now();
   const results = await incluirNotasFiscaisAgil(page, {
-    authMode: 'credentials',
-    username: 'usuario',
-    password: 'senha',
+    ...dummyAuth,
     danfes: [key],
     dryRun: false,
     inserirOutcomeTimeoutMs: 500,
@@ -1051,9 +1083,7 @@ test('nao reabre tela preventivamente entre chaves apos erro previo quando opcao
   const page = createFakePage(actions, { attentionMessage: message });
 
   const results = await incluirNotasFiscaisAgil(page, {
-    authMode: 'credentials',
-    username: 'usuario',
-    password: 'senha',
+    ...dummyAuth,
     danfes: [key, key],
     dryRun: false,
     onProgress: (event) => {
@@ -1073,8 +1103,8 @@ test('nao reabre tela preventivamente entre chaves apos erro previo quando opcao
   expect(inserirIndices).toHaveLength(2);
 
   const between = actions.slice(inserirIndices[0] + 1, inserirIndices[1]);
-  expect(between).not.toContain('text:AGIL:main');
-  expect(between).not.toContain('link:Incluir Nota Fiscal');
+  expect(between).not.toContain('treeitem:AGIL');
+  expect(between).not.toContain('treeitem:Incluir Nota Fiscal');
   expect(
     progressMessages.some((progressMessage) =>
       progressMessage.includes('Preparacao da proxima nota apos erro anterior inativa'),
@@ -1095,9 +1125,7 @@ test('reabre tela apos sucesso quando #danfe nao fica visivel pos-Enviar', async
   try {
     const start = Date.now();
     const results = await incluirNotasFiscaisAgil(page, {
-      authMode: 'credentials',
-      username: 'usuario',
-      password: 'senha',
+      ...dummyAuth,
       danfes: [key, key],
       dryRun: false,
       pdfDownloadDir,
@@ -1114,8 +1142,8 @@ test('reabre tela apos sucesso quando #danfe nao fica visivel pos-Enviar', async
     expect(inserirIndices).toHaveLength(2);
 
     const between = actions.slice(inserirIndices[0] + 1, inserirIndices[1]);
-    expect(between).toContain('text:AGIL:main');
-    expect(between).toContain('link:Incluir Nota Fiscal');
+    expect(between).toContain('treeitem:AGIL');
+    expect(between).toContain('treeitem:Incluir Nota Fiscal');
     expect(elapsed).toBeLessThan(20_000);
   } finally {
     rmSync(pdfDownloadDir, { force: true, recursive: true });
@@ -1135,9 +1163,7 @@ test('aborta com mensagem clara quando link Incluir Nota Fiscal nao aparece', as
   try {
     const start = Date.now();
     const results = await incluirNotasFiscaisAgil(page, {
-      authMode: 'credentials',
-      username: 'usuario',
-      password: 'senha',
+      ...dummyAuth,
       danfes: [key, key],
       dryRun: false,
       pdfDownloadDir,
@@ -1160,9 +1186,7 @@ test('erro de timeout apos Inserir menciona limite total em ms (duas fases)', as
 
   const inserirOutcomeTimeoutMs = 300;
   const results = await incluirNotasFiscaisAgil(page, {
-    authMode: 'credentials',
-    username: 'usuario',
-    password: 'senha',
+    ...dummyAuth,
     danfes: [key],
     dryRun: false,
     inserirOutcomeTimeoutMs,

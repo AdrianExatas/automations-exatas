@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Publicar Documentos Express</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="./renderer.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <span class="brand-mark">EX</span>
+          <div><strong>Publicar documentos</strong><span>Express + Onvio</span></div>
+        </div>
+        <nav aria-label="Etapas do envio">
+          <button class="step-link active" data-step="login"><span>1</span>Login</button>
+          <button class="step-link" data-step="documents" disabled><span>2</span>Documentos</button>
+          <button class="step-link" data-step="validation" disabled><span>3</span>Validacao</button>
+          <button class="step-link" data-step="review" disabled><span>4</span>Revisao</button>
+          <button class="step-link" data-step="result" disabled><span>5</span>Resultado</button>
+        </nav>
+        <div class="sidebar-footer">
+          <button id="openReports" class="secondary full" type="button">Abrir relatorios</button>
+          <span id="reportsDir" class="path"></span>
+        </div>
+      </aside>
+
+      <main class="workspace">
+        <header class="topbar">
+          <div><h1 id="pageTitle">Acesso</h1><p id="statusText" aria-live="polite">Carregando...</p></div>
+          <div class="badges"><button id="integrationBadge" class="badge muted" type="button">Integracao</button><span id="authBadge" class="badge muted">Login</span></div>
+        </header>
+
+        <section class="step-view active" data-view="login">
+          <div class="section-heading"><div><h2>Conta Onvio</h2><p>Use a conta com acesso ao Express, Processos e Portal do Cliente.</p></div></div>
+          <form id="loginForm" class="login-form">
+            <label>E-mail<input id="email" type="email" autocomplete="username" required /></label>
+            <label>Senha<input id="password" type="password" autocomplete="current-password" required /></label>
+            <label class="check"><input id="savePassword" type="checkbox" />Salvar neste computador</label>
+            <div class="actions"><button id="clearAuth" class="secondary" type="button">Limpar acesso</button><button id="loginButton" class="primary" type="submit">Fazer login</button></div>
+          </form>
+        </section>
+
+        <section class="step-view" data-view="documents">
+          <div class="section-heading"><div><h2>Guias em PDF</h2><p id="selectionSummary">Nenhum documento selecionado.</p></div><button id="selectFiles" class="primary" type="button">Selecionar PDFs</button></div>
+          <div id="dropZone" class="drop-zone" tabindex="0"><strong>Arraste os PDFs para esta area</strong><span>ou use o seletor de arquivos</span></div>
+          <div id="fileSelectionActions" class="selection-actions hidden" aria-label="Acoes para arquivos selecionados">
+            <label class="inline-check"><input id="selectAllFiles" type="checkbox" />Selecionar todos</label>
+            <strong id="selectedFilesCount">0 selecionado(s)</strong>
+            <button id="removeSelectedFiles" class="danger" type="button" disabled>Remover do lote</button>
+          </div>
+          <div id="selectedFiles" class="selected-files"></div>
+          <div class="footer-actions"><button id="validateButton" class="primary" type="button" disabled>Validar documentos</button></div>
+        </section>
+
+        <section class="step-view wide" data-view="validation">
+          <div class="section-heading"><div><h2>Validacao do lote</h2><p id="validationSummary"></p></div><button id="addMoreFiles" class="secondary" type="button">Adicionar arquivos</button></div>
+          <div class="selection-actions" aria-label="Acoes para documentos selecionados">
+            <strong id="validationSelectionCount">0 selecionado(s)</strong>
+            <button id="confirmSelectedRows" class="secondary" type="button" disabled>Confirmar selecionados</button>
+            <button id="removeSelectedRows" class="danger" type="button" disabled>Remover do lote</button>
+          </div>
+          <div id="bulkDateBar" class="bulk-date-bar" aria-label="Alteracao coletiva de vencimentos">
+            <strong id="bulkSelectionCount">0 selecionados</strong>
+            <label>Vencimento em lote<input id="bulkDueDate" type="date" /></label>
+            <button id="undoBulkDate" class="secondary" type="button" disabled>Desfazer</button>
+            <button id="applyBulkDate" class="primary" type="button" disabled>Aplicar e confirmar data</button>
+          </div>
+          <div class="table-wrap">
+            <table class="validation-table">
+              <thead><tr><th class="selection-column"><input id="selectAllRows" type="checkbox" aria-label="Selecionar todos os documentos" /></th><th>Documento</th><th>Empresa</th><th>Tarefa</th><th>Competencia</th><th>Vencimento</th><th>Confirmacoes</th><th>Validacao</th></tr></thead>
+              <tbody id="validationRows"></tbody>
+            </table>
+          </div>
+          <div class="footer-actions"><button id="reviewButton" class="primary" type="button" disabled>Revisar envios validos</button></div>
+        </section>
+
+        <section class="step-view" data-view="review">
+          <div class="section-heading"><div><h2>Revisao final</h2><p>Confira o lote antes de concluir as tarefas.</p></div></div>
+          <div id="reviewMetrics" class="metrics"></div>
+          <div id="reviewList" class="review-list"></div>
+          <label class="final-confirm"><input id="finalConfirmation" type="checkbox" />Confirmo as empresas, tarefas, documentos e vencimentos acima.</label>
+          <div class="footer-actions"><button id="backToValidation" class="secondary" type="button">Voltar</button><button id="executeButton" class="primary" type="button" disabled>Concluir tarefas e publicar</button></div>
+        </section>
+
+        <section class="step-view wide" data-view="result">
+          <div class="section-heading"><div><h2>Resultado</h2><p id="resultSummary" aria-live="polite"></p></div><button id="cancelButton" class="danger" type="button">Cancelar apos o atual</button></div>
+          <div id="progressBar" class="progress"><span></span></div>
+          <div class="table-wrap">
+            <table><thead><tr><th>Documento</th><th>Empresa</th><th>Tarefa</th><th>Vencimento</th><th>Status</th><th>Detalhe</th></tr></thead><tbody id="resultRows"></tbody></table>
+          </div>
+          <div class="footer-actions"><button id="newBatch" class="secondary" type="button" disabled>Novo lote</button><button id="resultReports" class="primary" type="button" disabled>Abrir relatorios</button></div>
+        </section>
+      </main>
+    </div>
+    <div id="bulkDateModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="bulkDateModalTitle">
+      <div class="modal-panel">
+        <h2 id="bulkDateModalTitle">Aplicar vencimento em lote</h2>
+        <p id="bulkModalSummary"></p>
+        <div id="bulkModalChanges" class="bulk-modal-changes"></div>
+        <label id="pastDateAcknowledgement" class="past-date-check hidden"><input id="confirmPastBulkDate" type="checkbox" />Confirmo que a data selecionada ja venceu.</label>
+        <div class="modal-actions"><button id="cancelBulkDate" class="secondary" type="button">Cancelar</button><button id="confirmBulkDate" class="primary" type="button">Aplicar e confirmar</button></div>
+      </div>
+    </div>
+
+    <div id="batchConfirmModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="batchConfirmModalTitle">
+      <div class="modal-panel">
+        <h2 id="batchConfirmModalTitle">Confirmar documentos selecionados</h2>
+        <p id="batchConfirmSummary"></p>
+        <div id="batchConfirmChanges" class="bulk-modal-changes"></div>
+        <label id="batchConfirmPastAcknowledgement" class="past-date-check hidden"><input id="confirmPastBatch" type="checkbox" />Confirmo conscientemente os vencimentos ja passados.</label>
+        <div class="modal-actions"><button id="cancelBatchConfirm" class="secondary" type="button">Cancelar</button><button id="confirmBatchSelection" class="primary" type="button">Confirmar selecionados</button></div>
+      </div>
+    </div>
+    <div id="integrationModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="integrationModalTitle">
+      <div class="modal-panel diagnostic-panel">
+        <h2 id="integrationModalTitle">Diagnostico da integracao</h2>
+        <p id="integrationReason"></p>
+        <div id="integrationCapabilities" class="capability-list"></div>
+        <div class="modal-actions"><button id="closeIntegrationModal" class="primary" type="button">Fechar</button></div>
+      </div>
+    </div>
+    <script src="./bulk-date.js"></script>
+    <script src="./batch-selection.js"></script>
+    <script src="./renderer.js"></script>
+  </body>
+</html>

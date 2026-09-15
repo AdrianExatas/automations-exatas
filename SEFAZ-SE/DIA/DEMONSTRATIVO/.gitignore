@@ -1,7 +1,12 @@
 node_modules/
 downloads/
 .tmp-playwright/
+.tmp-probe-out/
+.tmp-http-test-out/
+.pw-browsers/
 .verify-output/
 dist/
 release/
 src/generated/sieg-key.ts
+scripts/har/*.har
+scripts/har/*-summary.json

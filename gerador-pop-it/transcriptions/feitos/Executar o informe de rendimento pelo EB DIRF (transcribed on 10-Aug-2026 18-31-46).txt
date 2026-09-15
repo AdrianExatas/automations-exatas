@@ -1,0 +1,81 @@
+Dando continuidade neste vídeo vou apresentar você agora a fazer a execução do processo utilizando o sistema da EBDIF onde iremos fazer a execução do comprovante do informe de rendimento no primeiro vídeo eu apresentei a você como solicitar os arquivos do XML e agora vai ser o processo de execução então nós já estamos no portal do E -Social já efetuamos dando continuidade aqui a empresa modelo, empresa teste nós já estamos com a procuração junto com o da exata contabilidade o sistema domínio já está aqui aberto também porque a gente precisa das informações e vamos dar procedimento agora nós vamos dentro do portal do E -Social na opção downloads nós vamos em consulta 
+
+abaixo vai clicar na opção consultar 
+
+e perceba que até então a situação que não estava apto passaram agora a ter a opção de disponível para baixar e como nós o que nós iremos fazer é clicar aqui no botão no campo aqui no direcionamento ações na seta onde tem baixar arquivo eu vou clicar aqui em competência por competência eu vou criar uma pasta tá uma pasta padrão 
+
+com o nome da empresa 
+
+e vou salvar aqui por competência então essa primeira pasta que tá sendo de janeiro de 2026 a pasta ela é zirpada 
+
+perceba aqui uma informação que na competência do mês 6 de 2025 nada foi baixado então nós não iremos usar essa competência eu já salvei eu já salvei cria aqui na pasta os arquivos zirpados já estão aqui tá certo é necessário ter duas pastas até então zeradas que é extrator do xml vou demonstrar vocês e uma de informe de rendimento tá certo essas acabei também de criar então é por fim estão aqui as competências tá certo e nós vamos agora entrar no processo de execução 
+
+tendo baixado os arquivos e organizado as pastas nós vamos entrar agora no sistema ebdiff tá 
+
+aqui é o sistema 
+
+vocês terão acesso ao link usuário e meio também e a senha todas essas informações do sistema vocês terão acesso então ao entrar na página você vai clicar na opção depois do usuário e senha entrar 
+
+aqui ele trata irá trazer algumas pequenas informações caso você queira ler é só clicar na opção próximo ou pular no meu caso eu vou pular para quem adianta o processo porque eu já conheço a informação mas é interessante que você leia pelo menos no primeiro acesso 
+
+e aqui logo na página seguinte o que é que ele vai nos trazer clique para selecionar ou arraste os arquivos xml esse sistema ele vai fazer o processo de reconhecimento das informações que consta o 5002 ou o 2501 que são os eventos do e -social então aqui ele já está apto a trazer os informes para fazer o processo do documento e aí é vou demonstrar vocês aqui que cada pasta de competência zerpada ela apresenta aqui vários xml e várias vários eventos então por exemplo o 50 01 50 02 50 03 12 10 12 00 e por aí vai todas as movimentações e ela traz também por funcionário cada xml desse aqui representam um cpf então isso faz sucessivamente em cada xml é o que nós criou o que foi criado para acelerar nossos processos porque senão teria que pegar xml por xml separar o 50 02 jogar lá no no no no evento nós vamos usar um sistema chamado organizador s 50 02 que foi criado esse sistema ele vai fazer o que ele vai pegar ele vai pegar ele vai filtrar todos os colaboradores por cpf separar por cpf entrar competência por competência buscar o 50 02 e deixar organizado para que a gente apenas lance no sistema colaborador por colaborador então quando você vou dividir aqui para ficar mais produtivo é na opção do organizador s 50 02 tem opção que pasta com zirps que você vai fazer aqui eu vou lá aqui na no documento na pasta que eu gravei tá vou copiar e vou colar essa é o diretório na pasta seguinte tem pasta de saída isso lá no organizador s 50 02 eu vou pegar agora o diretório na pasta criada chamada extrato xml vou até renomear aqui que é tratado de xml pronto eu vou clicar nele por isso a criação da pasta e vazio para vocês entenderem 
+
+e vou colocar o que eu vou colocar aqui na pasta e vou colocar o diretório e após copiar o diretório 
+
+direciona aqui no organizador e após fazer isso eu vejo na opção iniciar do organizador e olha o que ele vai fazer tá gente 
+
+pronto ele identificou 50 lançamento de 50 02 descartou os demais que não precise e ainda veio aqui na pasta e criou por cpf isso quer dizer que 367 
+
+funcionários estão aptos a informe do rendimento nós vamos agora retornar ao sistema ebdiff 
+
+vou iniciar com essa pasta do colaborador 048 aqui é o número do cpf tá então vou pegar vou entrar na pasta aqui seleciono xml e lanço todos no ebdiff 
+
+agora no ebdiff eu vou aqui aumentar você vai clicar na opção converter todos os arquivos 
+
+logo em seguida na opção planeira de conversão você vai clicar não continuar sim essas informações necessárias são as informações da empresa por isso a necessidade do domínio sempre está aberto agora vou copiar e colar o cnpj o número depois 
+
+a razão social 
+
+a razão social caso não tenha a informação do contato pode deixar esse mesmo número aqui é isso não vai impactar depois em responsável legal no domínio busco o nome do responsável voto no ebdiff preencho e o cpf do responsável da empresa vou lá no domínio retorno ao ebdiff copio e colo e clique na opção continuar aqui ele vai agora pedir a informação do ano de referência então nós estamos fazendo o processo de 2025 o informe pego lá das informações pela social selecionou o ano clique em aceito termos e depois vou em processar 
+
+aqui ele identificou o que que existe um arquivo do ano anterior de 2024 então a gente vai na opção remover inválidos 
+
+a gente vai no nome do nome do completo do colaborador o cpf 048 tá se eu não tivesse informação como é que eu descubro agora você vai aqui empregados lá na página do e -social gestão de empregados 
+
+na opção informe a seguir o cpf você digita o número do cpf conforme estou fazendo aqui por isso que eu dividi a tela para ser produtivo e ele traz duas opções aqui e esses funcionários já foram até desligado esse funcionário vamos ver aqui o mais recente esse aqui 
+
+pronto esse funcionário já foi desligado porém foi desligado no mês de maio 2025 então teve movimentação para devido sim de imposto de renda então já sei que é o nome do colaborador vou no e -social copio e colo no programa ebdiff no nome completo e agora é só finalizar 
+
+aguarda o processo de conclusão 
+
+o informe de rendimento o que é feito 
+
+e aí o que é que eu faço geralmente fecho vou lá na pasta downloads 
+
+aqui em download clico com botão esquerdo no mouse com direito renomear e coloco o nome completo do funcionário e funcionar e eu coloco a opção assim desligado quando foi em casa de desligado depois eu vou mostrar você quando concluir agora todo o processo como faço na parte da da organização essa empresa a gente é concluir três colaboradores que foi a solicitada de uma forma de uma forma de desligar a gente é concluir três pessoas que foram esses três percebam que dos três dois estão ativos e um desligado aí o que eu faço como organização recorto vou na pasta venho na que eu criei informe de rendimento colo crio uma pasta 
+
+desligados e uma pasta desligados e uma pasta ativos 
+
+aqui olha eu pego o desligado 
+
+pronto processo de solicitação processo de execução ok o que nós vamos fazer agora o de conclusão que é enviar ao sistema onvio então na pasta onvio do cliente na opção pessoal aqui no arquivo de versos nós criaremos uma pasta aqui de informes de rendimento de rendimento e rendimentos salvar eu vou excluir essa que essas duas porque foi encaminhar de forma sem a pasta tá marco a pasta vem gerenciar compartilhar qualquer pasta que é criada ela precisa fazer esse processo de compartilhamento senão a proprietária não terá que é criada ela precisa ser um dos seus amigos e não terá acesso e aguardo conclusão entro agora na pasta vou lá no arquivo 
+
+clica aqui em novo pasta o ano dois mil e vinte e cinco temos que criar compartilha novamente gerenciar compartilhar pasta salvar 
+
+e entramos no ano vamos em novo pasta 
+
+desligados e novo ativos 
+
+compartilhamos aqui a gerenciar as pastas tem que ser um por um 
+
+e aí e aí e aí e aí e aí e aí e aí e aí 
+
+e aí né todo o processo nós vamos enviar encaminhar os ativos 
+
+e aí e aí eu tenho uma ordem tá gente 
+
+e aí e aí e aí fazendo o envio dentro do o processo da da cliente e aí 
+
+e aí e aí e aí e aí e agora o desligado 
+
+está aí o processo de execução e de envio para o cliente do e aí e aí E aí e aí 

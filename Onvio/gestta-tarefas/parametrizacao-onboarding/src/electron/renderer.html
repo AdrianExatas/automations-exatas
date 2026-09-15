@@ -110,6 +110,10 @@
                   </select>
                 </label>
               </div>
+              <div id="companyInfo" class="company-info muted" aria-live="polite">
+                <span class="company-info-label">Empresa no Gestta</span>
+                <span id="companyInfoValue">Informe o CNPJ para consultar a empresa.</span>
+              </div>
               <fieldset class="area-group">
                 <legend>Areas</legend>
                 <label class="check"><input type="checkbox" name="area" value="dp" checked /> DP</label>
@@ -117,6 +121,27 @@
                 <label class="check"><input type="checkbox" name="area" value="financeiro" /> Financeiro</label>
                 <label class="check"><input type="checkbox" name="area" value="contabil" checked /> Contabil</label>
                 <label class="check"><input type="checkbox" name="area" value="sucesso_cliente" /> Sucesso do Cliente</label>
+              </fieldset>
+              <fieldset id="dpConfig" class="dp-config">
+                <legend>Configuração DP</legend>
+                <p class="field-help">Escolha o perfil principal da empresa. Os adicionais podem ser combinados.</p>
+                <div class="dp-profile-grid">
+                  <label class="check"><input type="radio" name="dpProfile" value="normal" /> Normal</label>
+                  <label class="check"><input type="radio" name="dpProfile" value="sem_movimento" /> Sem movimento</label>
+                </div>
+                <fieldset id="dpFolhaGroup" class="dp-folha-group">
+                  <legend>Grupo da folha</legend>
+                  <div class="dp-profile-grid">
+                    <label class="check"><input type="radio" name="dpGroup" value="grupo_1" /> Grupo 1</label>
+                    <label class="check"><input type="radio" name="dpGroup" value="grupo_2" /> Grupo 2</label>
+                  </div>
+                </fieldset>
+                <div class="dp-additional-grid">
+                  <label class="check"><input type="checkbox" name="dpAdditional" value="particularidade" /> Particularidades</label>
+                  <label class="check"><input type="checkbox" name="dpAdditional" value="normal_domestica" /> Normal doméstica</label>
+                  <label class="check"><input type="checkbox" name="dpAdditional" value="normal_mei" /> Normal MEI</label>
+                  <label class="check"><input type="checkbox" name="dpAdditional" value="exatas" /> Exatas</label>
+                </div>
               </fieldset>
             </section>
 
@@ -127,7 +152,7 @@
               </div>
               <fieldset>
                 <legend>Inclusoes</legend>
-                <label class="check"><input id="incluirAnuais" type="checkbox" /> Incluir anuais</label>
+                <label class="check"><input id="incluirAnuais" type="checkbox" checked disabled /> Incluir anuais (sempre ativo)</label>
                 <label class="check"><input id="planoPremium" type="checkbox" /> Plano premium</label>
                 <label class="check"><input id="supervisor" type="checkbox" /> Supervisor</label>
                 <label class="check"><input id="adicionarAnaliseParcelamentos" type="checkbox" /> Análise de parcelamentos</label>
@@ -193,6 +218,7 @@
                 <thead>
                   <tr>
                     <th>Aba</th>
+                    <th>Categoria</th>
                     <th>Tarefa</th>
                     <th>Responsavel</th>
                   </tr>
@@ -213,10 +239,15 @@
     <div id="confirmModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
       <div class="modal-panel">
         <h2 id="confirmTitle">Aplicar parametrizacao</h2>
-        <p>Esta execucao vai alterar tarefas no Gestta para o CNPJ informado.</p>
+        <p>Confirme a empresa antes de criar ou atualizar as tarefas no Gestta.</p>
+        <div class="confirmation-company">
+          <span id="confirmCompanyName"></span>
+          <span id="confirmCompanyCnpj"></span>
+          <span id="confirmTaskCount"></span>
+        </div>
         <div class="actions">
           <button id="confirmCancel" type="button" class="ghost">Voltar</button>
-          <button id="confirmApply" type="button" class="primary">Confirmar aplicacao</button>
+          <button id="confirmApply" type="button" class="primary">Criar tarefas para esta empresa</button>
         </div>
       </div>
     </div>

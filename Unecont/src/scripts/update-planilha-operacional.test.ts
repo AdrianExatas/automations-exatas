@@ -44,6 +44,8 @@ describe("update planilha operacional CLI", () => {
       loginUrl: "https://app.unecont.com/_login/Login.aspx",
       empresasUrl: "https://app.unecont.com/Contador/Empresas/Default.aspx",
       unecontEmpresasReportName: "",
+      bitrixCompetenciasUrl: "https://bitrix.example/sheet/competencias",
+      bitrixAccountingUrl: "https://bitrix.example/sheet/contabil",
       onvioUdsToken: "token",
       onvioBaseUrl: "https://onvio.com.br",
       onvioFirmCompanyId: "firm-id",
@@ -62,6 +64,7 @@ describe("update planilha operacional CLI", () => {
       referenceMonth: "06/2026",
       summary: {
         atualizadas: 2,
+        excluidasPorCompetencia: 0,
         operacionais: 2,
         final: 2,
         novas: 1,
@@ -121,6 +124,8 @@ describe("update planilha operacional CLI", () => {
         referenceMonth: "06/2026",
         force: true,
         empresasUrl: "https://app.unecont.com/Contador/Empresas/Default.aspx",
+        bitrixCompetenciasUrl: "https://bitrix.example/sheet/competencias",
+        bitrixAccountingUrl: "https://bitrix.example/sheet/contabil",
         clientUsersProvider: providerInstance,
       }),
     );
@@ -137,6 +142,7 @@ describe("update planilha operacional CLI", () => {
       loginUrl: "https://app.unecont.com/_login/Login.aspx",
       empresasUrl: "https://app.unecont.com/Contador/Empresas/Default.aspx",
       unecontEmpresasReportName: "",
+      bitrixCompetenciasUrl: "https://bitrix.example/sheet/competencias",
       onvioUdsToken: "",
       onvioBaseUrl: "https://onvio.com.br",
       onvioFirmCompanyId: "firm-id",

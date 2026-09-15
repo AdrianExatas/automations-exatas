@@ -1,0 +1,21 @@
+Neste vídeo vou ensinar a vocês como deverá consultar o relatório de transferência de empregados para aquelas solicitações cujo a empresa faz transferências de funcionários para grupos econômicos ou de matriz e filial. E neste processo em si trata -se do relatório de um documento que é necessário encaminhar para a empresa quando o funcionário sair de um CNPJ para outro. Então após a abertura do domínio sistema com seu usuário e senha nós estaremos como exemplo esta empresa que recentemente fez um processo e o primeiro passo é pegar os relatórios dos funcionários que foram transferidos. Neste relatório ele vai constar os códigos das empresas, nome do colaborador e a data de transferência. E essa data que nós iremos utilizarmos depois para fazer a consulta do documento que será encaminhado. Então você deverá vir aqui acima em relatórios, 
+
+gerenciador de relatórios, 
+
+abrirá algumas pastas, dentre elas você vai em relação de empregados e busca a opção relação de empregados transferidos e período. Abaixo ele já traz o código da empresa como asterisco, esses dois, tanto o código de empresa como o código de empregados, perceba que ele já está para todos, não precisa mudar. O que é que ele vai exigir como obrigação? O período inicial e o período final. Então você se faz necessário saber qual foi o período dessa transferência. No nosso caso foi em janeiro de março de 2023, então eu digito aqui. 
+
+E após inserir o período, 
+
+vou fazer até o teste com o período maior, vou botar aqui para ver se ele disponibiliza. Pronto. Da data inicial até a data presente de exemplo. E vou clicar em executar. 
+
+Ótimo. Perceba que ele já nos traz aqui a relação de empregados transferidos, tá? Se você deixar aqui a barra, foram quantos? 68 funcionários transferidos. 
+
+Aqui ele vai trazer a empresa atual, 
+
+precisaremos dessa informação e a data da transferência. que ele vai trazer a empresa atual. Então, geralmente só apenas a última que foi agora, ou foi em janeiro de 2026. Temos aqui até... Não, todas elas, perdão. De março. Então, beleza. Então, você já tem aqui as informações. Eu vou salvar em uma pasta aí de controle. Está aqui a relação. Essa relação, traz as informações necessárias. Só que o objetivo agora, central dessa tarefa é o documento. Então, onde é que nós iremos pegar? Ainda no gerenciador de relatórios, eu fecho aqui essa pasta e vou em diversos. Aqui é diversos. Clico nela e procuro o documento comunicação de transferência. Na opção número um, empregado vazio, deixo em branco. Então, utilizar o nome do e -social, deixe como está, número zero. Agora ele vai precisar da empresa de destino. Qual é a empresa de destino aqui em nosso relatório? 708. Empresa atual. Então, vem aqui. 708. Qual foi a data de transferência? Então, nós já temos ali a data. Você pode conferir aqui aí. Lembrando, se tiver datas de funcionários diferentes, aqui essa outra aí. 1º do 4. Então, é necessário fazer a consulta aí. 1º do 5. Está vendo? Vamos utilizar como exemplo os que foram em dia 1º de março. 
+
+Após a digitar, a gente clica em executar. 
+
+Está aí os documentos. Essa comunicação aqui deverá ser entregue a cliente. E se você for passando aqui abaixo, perceba que nós estamos aqui na colaboradora Conceição. Então, ela já traz as informações ali do empregador que estava e para onde foi transferido. E aqui abaixo na seta, vai passando. Aí vai ter a documentação. Cristiane, Josemara. Basta você agora ir aqui na pasta. Diversos. Aqui eu vou demonstrar a você. Você vem em pessoal. Ao clicar aqui nesses três pontos. Você vem em pessoal. Diversos. Deixa eu ver se tem algum campo de informação de transferência. Não tem. Podemos colocar aqui em outros. 
+
+E digita aí. Comunicação de transferência. E você bota a data. E período. E clica em gravar. Depois de um certo tempo. Se dirija ao Onvio. E confira lá. Na pasta pessoal. Arquivos. Diversos outros. Se o documento. Se o documento. Ela foi encaminhado. Tá. Então, está aí esse processo. De documento. De comunicação. De transferência. É. Lembrando. Que. É. Se faz necessário em todos. Outra coisa é. Sempre. Se alerte. Se atente. A essa aqui. O agente. É necessário. Está dessa forma. Verde e amarelo. Para que possa ser. Enviado. Pela pasta que foi. Processo final. Senão ela não será executada. Então, fica aí. Mais um vídeo. Mais um vídeo. De processo. 

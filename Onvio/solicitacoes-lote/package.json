@@ -1,0 +1,55 @@
+{
+  "name": "@exatas/solicitacoes-lote",
+  "version": "1.0.0",
+  "private": true,
+  "author": "Exatas",
+  "description": "Aplicativo desktop para abrir solicitacoes de servico em lote no Onvio",
+  "main": "dist/electron/main.js",
+  "scripts": {
+    "prebuild": "bun run --cwd ../../shared/onvio-solicitacoes-servico build",
+    "build": "tsc -p tsconfig.json && node scripts/copy-electron-assets.js",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "smoke:one": "bun run build && bun run scripts/smoke-one-company.cjs",
+    "electron": "bun run build && electron dist/electron/main.js",
+    "dist:win": "bun run build && electron-builder --win nsis --x64"
+  },
+  "dependencies": {
+    "@exatas/onvio-solicitacoes-servico": "workspace:*",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "electron": "^37.2.0",
+    "electron-builder": "^26.0.12",
+    "typescript": "^5.9.0",
+    "vitest": "^4.0.0"
+  },
+  "build": {
+    "appId": "br.com.exatas.solicitacoes-lote-onvio",
+    "productName": "Solicitacoes Onvio",
+    "asar": true,
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Solicitacoes Onvio"
+    }
+  }
+}

@@ -26,6 +26,7 @@ export interface DownloadListingPage {
   pageLinks: Record<number, string>;
   nextPageUrl?: string;
   newRequestUrl?: string;
+  linkCount?: number;
 }
 
 export interface SolicitacaoResultado {
@@ -40,5 +41,9 @@ export interface UploadResult {
   enviados: number;
   existentes: number;
   erros: number;
+  confirmadosSieg?: number;
+  eventosConfirmadosSieg?: number;
+  semValidacaoFinalSieg?: number;
+  naoConfirmadosSieg?: number;
   erro?: string;
 }

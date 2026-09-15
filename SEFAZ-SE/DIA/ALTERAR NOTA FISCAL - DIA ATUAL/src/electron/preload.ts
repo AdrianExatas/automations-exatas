@@ -5,10 +5,11 @@ import type { SefazDiaApi, StartRunRequest } from "./ipc-types";
 const api: SefazDiaApi = {
   getDefaults: () => ipcRenderer.invoke("app:getDefaults") as ReturnType<SefazDiaApi["getDefaults"]>,
   getCredentials: () => ipcRenderer.invoke("credentials:get") as ReturnType<SefazDiaApi["getCredentials"]>,
-  saveCredentials: (credentials: { user: string; password: string }) => ipcRenderer.invoke("credentials:save", credentials) as Promise<void>,
+  saveCredentials: (credentials) => ipcRenderer.invoke("credentials:save", credentials) as Promise<void>,
   clearCredentials: () => ipcRenderer.invoke("credentials:clear") as Promise<void>,
   selectSpreadsheet: () => ipcRenderer.invoke("dialog:selectSpreadsheet") as Promise<string | undefined>,
   selectOutDir: () => ipcRenderer.invoke("dialog:selectOutDir") as Promise<string | undefined>,
+  selectCert: () => ipcRenderer.invoke("dialog:selectCert") as Promise<string | undefined>,
   startRun: (request: StartRunRequest) => ipcRenderer.invoke("run:start", request) as ReturnType<SefazDiaApi["startRun"]>,
   cancelRun: () => ipcRenderer.invoke("run:cancel") as Promise<void>,
   openPath: (targetPath: string) => ipcRenderer.invoke("shell:openPath", targetPath) as Promise<void>,

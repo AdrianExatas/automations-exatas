@@ -113,16 +113,18 @@ function Test-BooleanValue($Value) {
 }
 
 function ConvertTo-StringItems($Value) {
+  # A vírgula impede o PowerShell de desembrulhar listas de 0 ou 1 item,
+  # que sob Set-StrictMode perderiam .Count no chamador.
   $items = New-Object System.Collections.Generic.List[string]
   if ($null -eq $Value) {
-    return $items.ToArray()
+    return ,$items.ToArray()
   }
 
   if ($Value -is [string]) {
     if (-not [string]::IsNullOrWhiteSpace($Value)) {
       $items.Add($Value.Trim())
     }
-    return $items.ToArray()
+    return ,$items.ToArray()
   }
 
   foreach ($item in @($Value)) {
@@ -130,15 +132,15 @@ function ConvertTo-StringItems($Value) {
       $items.Add(([string]$item).Trim())
     }
   }
-  return $items.ToArray()
+  return ,$items.ToArray()
 }
 
 function ConvertTo-ObjectArray($Value) {
   # @($null) vira Count=1 em PowerShell; isso mascara listas ausentes.
   if ($null -eq $Value) {
-    return @()
+    return ,@()
   }
-  return @($Value | Where-Object { $null -ne $_ })
+  return ,@($Value | Where-Object { $null -ne $_ })
 }
 
 function Get-SelectedWordTypes($Content, [string[]]$ExplicitTypes) {
@@ -258,12 +260,111 @@ function Set-RowFill($Row, [int]$Color) {
   }
 }
 
-function Join-DisplayLines($Value) {
-  $items = @(ConvertTo-StringItems $Value)
+function Join-DisplayLines {
+  param($Value)
+  # Sempre devolve [string]. Arrays passados por posição no PS desembrulham e,
+  # se caírem em concatenação string+array, viram o literal "System.String[]".
+  $items = New-Object System.Collections.Generic.List[string]
+  if ($Value -is [string]) {
+    if (-not [string]::IsNullOrWhiteSpace($Value)) {
+      [void]$items.Add($Value.Trim())
+    }
+  } elseif ($null -ne $Value) {
+    foreach ($entry in @($Value)) {
+      if ($entry -is [string]) {
+        if (-not [string]::IsNullOrWhiteSpace($entry)) {
+          [void]$items.Add($entry.Trim())
+        }
+        continue
+      }
+      if ($null -eq $entry) { continue }
+      foreach ($inner in @($entry)) {
+        if ($inner -is [string] -and -not [string]::IsNullOrWhiteSpace($inner)) {
+          [void]$items.Add($inner.Trim())
+        }
+      }
+    }
+  }
   if ($items.Count -eq 0) {
+    return [string]""
+  }
+  return [string]([string]::Join([string][char]13, $items.ToArray()))
+}
+
+function Get-ComplementaryDocumentationLines($Content, $Metadata, [string]$Kind) {
+  # Formato institucional: "CODIGO - Titulo;" (âncora PR.FIS.001), sem o documento atual.
+  $title = Get-TextValue $Metadata @("titulo")
+  $currentCode = (Get-DocumentCode $Content $Metadata $Kind).Trim()
+
+  $requestedRaw = @(Get-PropertyValue $Content "documentos_solicitados")
+  $requested = New-Object System.Collections.Generic.HashSet[string] ([StringComparer]::OrdinalIgnoreCase)
+  foreach ($token in $requestedRaw) {
+    foreach ($part in (([string]$token) -split '[,;|]')) {
+      $kindToken = $part.Trim().ToLowerInvariant()
+      if ($kindToken -in @("pop", "pr")) { [void]$requested.Add("pop") }
+      elseif ($kindToken -in @("it", "in")) { [void]$requested.Add("it") }
+      elseif ($kindToken -eq "form") { [void]$requested.Add("form") }
+      elseif ($kindToken -eq "mp") { [void]$requested.Add("mp") }
+    }
+  }
+
+  # Preferir títulos já informados em documentacao_complementar (CODIGO - título).
+  $titleByCode = @{}
+  $compRaw = Get-PropertyValue $Content "documentacao_complementar"
+  $compItems = New-Object System.Collections.Generic.List[string]
+  if ($compRaw -is [string]) {
+    if (-not [string]::IsNullOrWhiteSpace($compRaw)) { [void]$compItems.Add($compRaw.Trim()) }
+  } elseif ($null -ne $compRaw) {
+    foreach ($entry in @($compRaw)) {
+      if ($entry -is [string] -and -not [string]::IsNullOrWhiteSpace($entry)) {
+        [void]$compItems.Add($entry.Trim())
+      }
+    }
+  }
+  foreach ($itemText in $compItems) {
+    if ($itemText -match '(?i)^((?:PR|IN|FORM|MP)\.[A-Z0-9.]+)\s+-\s+(.+)$') {
+      $codeKey = ([string]$Matches[1]).Trim()
+      $titleVal = ([string]$Matches[2]).Trim().TrimEnd(';').Trim()
+      if (-not [string]::IsNullOrWhiteSpace($codeKey) -and -not [string]::IsNullOrWhiteSpace($titleVal)) {
+        $titleByCode[$codeKey] = $titleVal
+      }
+    }
+  }
+
+  $package = [ordered]@{
+    pop = Get-TextValue $Metadata @("codigo_pop", "codigo_pr")
+    it = Get-TextValue $Metadata @("codigo_it", "codigo_in")
+    form = Get-TextValue $Metadata @("codigo_form")
+    mp = Get-TextValue $Metadata @("codigo_mp")
+  }
+
+  $lines = New-Object System.Collections.Generic.List[string]
+  foreach ($key in @("pop", "it", "form", "mp")) {
+    $code = ([string]$package[$key]).Trim()
+    if ([string]::IsNullOrWhiteSpace($code)) {
+      continue
+    }
+    if ($requested.Count -gt 0 -and -not $requested.Contains($key)) {
+      continue
+    }
+    if (-not [string]::IsNullOrWhiteSpace($currentCode) -and ($code -ieq $currentCode)) {
+      continue
+    }
+    $lineTitle = $title
+    if ($titleByCode.ContainsKey($code)) {
+      $lineTitle = [string]$titleByCode[$code]
+    }
+    if ([string]::IsNullOrWhiteSpace($lineTitle)) {
+      [void]$lines.Add("$code;")
+    } else {
+      [void]$lines.Add("$code - $lineTitle;")
+    }
+  }
+
+  if ($lines.Count -eq 0) {
     return ""
   }
-  return ($items -join "`r")
+  return [string]::Join([string][char]13, $lines.ToArray())
 }
 
 function Replace-AllStories($Doc, [string]$FindText, [string]$ReplaceText) {
@@ -419,15 +520,17 @@ function Apply-HeaderFooter($Doc, $Content, $Metadata, [string]$Kind, [string]$L
   Set-HeaderLogo $Doc $LogoFile
 }
 
-function Set-OpeningTables($Doc, $Content, $Metadata) {
+function Set-OpeningTables($Doc, $Content, $Metadata, [string]$Kind) {
   if ($Doc.Tables.Count -lt 6) {
     throw "O modelo Word nao contem as seis tabelas obrigatorias."
   }
 
   Set-CellText $Doc.Tables.Item(1).Cell(1, 1) ($Labels.TituloDocumento + "`r" + (Get-TextValue $Metadata @("titulo")))
   Set-CellText $Doc.Tables.Item(2).Cell(1, 1) ($Labels.ObjetivoDocumento + "`r" + (Get-TextValue $Metadata @("objetivo")))
-  Set-CellText $Doc.Tables.Item(3).Cell(1, 1) ($Labels.Definicoes + "`r" + (Join-DisplayLines (Get-PropertyValue $Content "abreviaturas")))
-  Set-CellText $Doc.Tables.Item(4).Cell(1, 1) ($Labels.Documentacao + "`r" + (Join-DisplayLines (Get-PropertyValue $Content "documentacao_complementar")))
+  $abreviaturas = Join-DisplayLines -Value (Get-PropertyValue $Content "abreviaturas")
+  Set-CellText $Doc.Tables.Item(3).Cell(1, 1) ($Labels.Definicoes + "`r" + $abreviaturas)
+  $complementar = [string](Get-ComplementaryDocumentationLines $Content $Metadata $Kind)
+  Set-CellText $Doc.Tables.Item(4).Cell(1, 1) ($Labels.Documentacao + "`r" + $complementar)
 }
 
 function Close-WordDocument($Doc) {
@@ -453,7 +556,7 @@ function Build-PopDocument($Word, $Content, $Metadata, [string]$TemplatePath, [s
   try {
     $doc = $Word.Documents.Open($OutputPath, $false, $false)
     Apply-HeaderFooter $doc $Content $Metadata "POP" $LogoFile
-    Set-OpeningTables $doc $Content $Metadata
+    Set-OpeningTables $doc $Content $Metadata "POP"
 
     $procedureTable = $doc.Tables.Item(5)
     $revisionTable = $doc.Tables.Item(6)
@@ -731,7 +834,7 @@ function Build-ItDocument($Word, $Content, $Metadata, [string]$TemplatePath, [st
   try {
     $doc = $Word.Documents.Open($OutputPath, $false, $false)
     Apply-HeaderFooter $doc $Content $Metadata "IT" $LogoFile
-    Set-OpeningTables $doc $Content $Metadata
+    Set-OpeningTables $doc $Content $Metadata "IT"
     $revisionTable = $doc.Tables.Item(6)
     Build-ItBody $Word $doc $Content
     Write-Revisions $revisionTable (Get-PropertyValue $Content "revisoes")

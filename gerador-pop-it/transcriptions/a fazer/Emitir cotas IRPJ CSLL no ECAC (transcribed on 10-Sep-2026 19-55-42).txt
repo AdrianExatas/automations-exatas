@@ -1,0 +1,71 @@
+Pronto, para a gente poder emitir as cotas, a gente vai acessar o ECAC, certo? A gente acessa o ECAC aqui com o certificado digital da Exatas, porque as empresas já tem procuração, então a gente vai vir aqui, acessa com o certificado da Exatas, e a gente vai colocando o CNPJ da empresa.
+Eu vou demonstrar, a empresa que tem cotas, é a empresa que não tem cotas, que dá para perceber a diferença. Esse primeiro exemplo aqui, de uma empresa que não tem cotas, a gente vai vir aqui, alterar perfil, colocar o CNPJ da empresa, 479, 534, pronto.
+A gente vai vir aqui em declarações e demonstrativos, assinar e transmitir DCTFWeb, vai marcar aqui, né? E prosseguir.
+Após marcar aqui, vamos colocar a data de agosto para cá, porque se a gente colocar uma data muito longa, a DCTF vai dar um errozinho, certo?
+Marca essas duas opções, ó. Marcou, a gente vai vir aqui em pesquisar e vai na competência que foi calculado o último trimestre.
+Qual foi o último trimestre calculado? E no caso do ano passado, que é 2025, foi no mês 9, porque o do mês 12 ainda vai ser calculado agora em janeiro,
+que é o último trimestre de 2025. Se a gente vier aqui, ó, certo? Vamos clicar nesse olhinho que está aqui, ó, visualizar.
+Clicando em visualizar, vai ter aqui a palavra cotas. Clica nessa palavra cotas e vai abrir essa informação.
+Aqui de imediato a gente vai perceber que não está dividindo em cotas.
+Essa pessoa aqui já pegou o valor todo e pagou. Não dividiu.
+Porque se dividisse, teria aqui o númerozinho, número em cotas.
+E abrir uma opção aqui da gente gerar DAF.
+Vamos ver essa diferença agora para uma empresa que tem cotas.
+Pronto, na empresa que tem cotas. O que a gente vai fazer?
+Vamos aqui acessar a página principal, alterar o CNPJ de novo, que eu gosto de fazer sempre dentro já do usuário da Exatas.
+Então, eu venho aqui e vou acessar o CNPJ.
+Aqui a gente vai de novo naquele mesmo lugar.
+Declarações de demonstrativo, assinar DCTFWeb.
+Clica aqui na informaçãozinha da Capture e prosseguir.
+Vamos colocar a mesma data, como a gente colocou neste instante, porque aí fica melhor.
+Eu gosto de digitar, viu?
+Mas aí fica por opção.
+Se você quiser preencher aqui também.
+Eu gosto de digitar aqui porque anda mais ligeiro.
+Pronto, vamos em pesquisar.
+Pronto, vamos olhar o mês 9, que foi o último trimestre.
+Certo?
+Que vai ser a cota que a gente precisa imprimir.
+Se a gente vier aqui no olhozinho, você vai ver que teve IRPJ, CSLL e vamos aqui em cotas.
+Olha aqui onde está o IRPJ e a CSLL.
+Inclusive, a gente nesse mais um aqui pode consultar se teve imposto a pagar, né?
+Porque às vezes teve um abatimento, teve alguma coisa.
+Mas nesse caso aqui teve, aí.
+A gente vai vir aqui em cotas.
+Olha a diferença que está aqui, aí.
+O número de cotas.
+A gente vai clicar nesses quadradozinhos aqui.
+Que eu falei, está vendo que ele abre.
+E aqui vai abrir a opção, é gerar geração de guias.
+A gente clica nele e ele vai abrir as cotas.
+Tem a cota 1, 2, 3, 1, 2, 3.
+Veja que até esse 3 aqui é o IRPJ, até esse 3 aqui é o CSLL.
+Mesma coisa seria 1, 2, 3 de CSLL, 1, 2, 3 de IRPJ.
+Certo?
+E a gente vai ver aqui a data.
+A última cota é essa agora, porque a gente quer o vencimento em 30 do 12.
+E essa 30 do 12, ela já foi enviada para o cliente.
+Por quê?
+O vencimento dela foi em 30 do 12 de 2025.
+Aí o que é que a gente vai?
+A gente vem aqui no óbvio e só consulta se essa cota foi enviada.
+Eu vim aqui, ó.
+Impostos federais.
+E verifico.
+Olha ela aqui, ó.
+Cota 3.
+Porque se a gente contar é a cota do último trimestre, né?
+E aí cota 3, 3T que é o trimestre, 9.
+Está vendo aqui a competência?
+Se a gente abrir aqui e verificar, você vai ver que são os valores que estão aqui, ó.
+Que é o valor principal.
+Certo?
+Então, essa daqui já está enviada e não precisa mais enviar uma nova cota, porque dia 30 do 12 foi a última cota enviada.
+Essa tarefa é só para a gente verificar se todas as cotas já foram enviadas ou não, certo?
+Para que não haja nenhuma pendência com as empresas, certo?
+Verificou, vai lá na tarefa e dá baixa, pode tirar um print aqui do envio dessa cota e anexa na tarefa.
+Então, caso não tivesse enviado, a gente teria que recalcular essa guia, verificar o motivo que não foi enviada essa cota, certo?
+Se fosse uma cota dentro do prazo, já enviaria também, certo?
+Caso a cota esteja fora do prazo, verificar o motivo com o pessoal, porque que não foi enviado.
+Mas a tarefa é só ter esse intuito de verificação se foi enviado ou não.
+E caso não for enviado, a gente enviar dentro do prazo a cota referente.

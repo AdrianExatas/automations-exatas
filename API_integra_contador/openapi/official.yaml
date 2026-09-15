@@ -1,0 +1,516 @@
+openapi: 3.0.1
+info:
+  title: "API Integra Contador"
+  description: "O Integra Contador é uma plataforma de serviços, que fornece um conjunto de API´s, para escritórios de contabilidade e demais empresas do ramo contábil, otimizando a prestação de serviços aos contribuintes."
+  
+  version: v1
+servers:
+  - url: "https://gateway.apiserpro.serpro.gov.br/integra-contador/v1"
+    description: "Produção"
+paths:
+  /Apoiar:
+    post:
+      tags:
+      - Apoiar
+      summary: Serviço do tipo Apoiar. Acionado por serviços auxiliares de suporte
+        à solução.
+      parameters:
+      - name: jwt_token
+        in: header
+        description: Token obrigatório a ser informado em todas as requisições. Esse
+          token é obtido do serviço /Authenticate do SAPI.
+        schema:
+          type: string
+      requestBody:
+        description: Objeto com a estrutura de dados de entrada no formato JSON.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DadosEntrada'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/DadosEntrada'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/DadosEntrada'
+        required: false
+      responses:
+        200:
+          description: Success
+          content: {}
+        400:
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        401:
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        403:
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        404:
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        500:
+          description: Server Error
+          content: {}
+      x-codegen-request-body-name: body
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  /Consultar:
+    post:
+      tags:
+      - Consultar
+      summary: Serviço do tipo Consultar. Executa um envio de pedido de dados do tipo
+        consulta.
+      parameters:
+      - name: jwt_token
+        in: header
+        description: Token obrigatório a ser informado em todas as requisições. Esse
+          token é obtido do serviço /Authenticate do SAPI.
+        schema:
+          type: string
+      - name: autenticar_procurador_token
+        in: header
+        description: Token opcional. Deve ser informado quando um procurador assinou
+          um XML autorizando o contratante a utilizar em seu nome. Vide serviço ENVIOXMLASSINADO81
+          deste produto.
+        schema:
+          type: string
+      requestBody:
+        description: Objeto com a estrutura de dados de entrada no formato JSON.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DadosEntrada'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/DadosEntrada'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/DadosEntrada'
+        required: false
+      responses:
+        200:
+          description: Success
+          content: {}
+        400:
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        401:
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        403:
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        404:
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        500:
+          description: Server Error
+          content: {}
+      x-codegen-request-body-name: body
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  /Declarar:
+    post:
+      tags:
+      - Declarar
+      summary: Serviço do tipo Declarar. Executa um envio de pedido de dados do tipo
+        entrega ou transmissão de declaração.
+      parameters:
+      - name: jwt_token
+        in: header
+        description: Token obrigatório a ser informado em todas as requisições. Esse
+          token é obtido do serviço /Authenticate do SAPI.
+        schema:
+          type: string
+      - name: autenticar_procurador_token
+        in: header
+        description: Token opcional. Deve ser informado quando um procurador assinou
+          um XML autorizando o contratante a utilizar em seu nome. Vide serviço ENVIOXMLASSINADO81
+          deste produto.
+        schema:
+          type: string
+      requestBody:
+        description: Objeto com a estrutura de dados de entrada no formato JSON.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DadosEntrada'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/DadosEntrada'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/DadosEntrada'
+        required: false
+      responses:
+        200:
+          description: Success
+          content: {}
+        400:
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        401:
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        403:
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        404:
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        500:
+          description: Server Error
+          content: {}
+      x-codegen-request-body-name: body
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  /Emitir:
+    post:
+      tags:
+      - Emitir
+      summary: Serviço do tipo Emitir. Executa um envio de pedido de dados do tipo
+        emissão ou geração de documento de arrecadação.
+      parameters:
+      - name: jwt_token
+        in: header
+        description: Token obrigatório a ser informado em todas as requisições. Esse
+          token é obtido do serviço /Authenticate do SAPI.
+        schema:
+          type: string
+      - name: autenticar_procurador_token
+        in: header
+        description: Token opcional. Deve ser informado quando um procurador assinou
+          um XML autorizando o contratante a utilizar em seu nome. Vide serviço ENVIOXMLASSINADO81
+          deste produto.
+        schema:
+          type: string
+      requestBody:
+        description: Objeto com a estrutura de dados de entrada no formato JSON.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DadosEntrada'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/DadosEntrada'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/DadosEntrada'
+        required: false
+      responses:
+        200:
+          description: Success
+          content: {}
+        400:
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        401:
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        403:
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        404:
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        500:
+          description: Server Error
+          content: {}
+      x-codegen-request-body-name: body
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  /Monitorar:
+    post:
+      tags:
+      - Monitorar
+      summary: Serviço do tipo Monitorar. Acionado por serviços auxiliares de monitoração de eventos.
+      parameters:
+      - name: jwt_token
+        in: header
+        description: Token obrigatório a ser informado em todas as requisições. Esse
+          token é obtido do serviço /Authenticate do SAPI.
+        schema:
+          type: string
+      - name: autenticar_procurador_token
+        in: header
+        description: Token opcional. Deve ser informado quando um procurador assinou
+          um XML autorizando o contratante a utilizar em seu nome. Vide serviço ENVIOXMLASSINADO81
+          deste produto.
+        schema:
+          type: string
+      requestBody:
+        description: Objeto com a estrutura de dados de entrada no formato JSON.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DadosEntrada'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/DadosEntrada'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/DadosEntrada'
+        required: false
+      responses:
+        200:
+          description: Success
+          content: {}
+        400:
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        401:
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        403:
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        404:
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        500:
+          description: Server Error
+          content: {}
+      x-codegen-request-body-name: body
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    DadosEntrada:
+      type: object
+      properties:
+        contratante:
+          $ref: '#/components/schemas/Identificacao'
+        autorPedidoDados:
+          $ref: '#/components/schemas/Identificacao'
+        contribuinte:
+          $ref: '#/components/schemas/Identificacao'
+        pedidoDados:
+          $ref: '#/components/schemas/PedidoDados'
+    Identificacao:
+      type: object
+      properties:
+        numero:
+          type: string
+        tipo:
+          $ref: '#/components/schemas/TipoNi'
+    PedidoDados:
+      type: object
+      properties:
+        idSistema:
+          type: string
+        idServico:
+          type: string
+        versaoSistema:
+          type: string
+        dados:
+          type: string
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type: string
+        title:
+          type: string
+        status:
+          type: integer
+          format: int32
+        detail:
+          type: string
+        instance:
+          type: string
+      additionalProperties:
+        type: object
+    TipoNi:
+      type: integer
+      format: int32
+      enum:
+      - 1
+      - 2
+security:
+  - bearerAuth: []

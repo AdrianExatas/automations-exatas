@@ -2,6 +2,8 @@ export {
   addAttachment,
   addTopic,
   createTicket,
+  deleteTicket,
+  normalizeTicketIdForDelete,
   openServiceRequest,
   openTicket,
   OnvioApiError,

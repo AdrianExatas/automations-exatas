@@ -9,6 +9,7 @@ export interface EmpresaBatchItem {
   qtdArquivos?: number;
   arquivos: string[];
   onvioClientId?: string;
+  onvioClientSource?: string;
   onvioRequesterId?: string;
   onvioDepartmentId?: string;
 }
@@ -175,6 +176,8 @@ export interface CompareEmpresasPlanilhasOptions {
   atualizadaPath: string;
   operacionalPath: string;
   outputDir?: string;
+  /** Codigos de onboarding do mes vigente (Bitrix); ficam fora da planilha final. */
+  excludedCodes?: readonly string[];
   clientUsersProvider?: ClientUsersProvider;
   logger?: Pick<Console, "info" | "warn" | "error">;
 }
@@ -226,6 +229,26 @@ export interface ClientUsersProvider {
   lookupUsers(request: ClientUserLookupRequest): Promise<ClientUser[] | ClientUserLookupResult>;
 }
 
+export type OnvioCompanyStatus = "ATIVO" | "INATIVO" | "LOCALIZADO_SEM_STATUS" | "NAO_LOCALIZADO";
+
+export interface OnvioCompanyLookupRequest {
+  codigo: string;
+  cnpj: string;
+  nome: string;
+}
+
+export interface OnvioCompanyLookupResult {
+  codigo: string;
+  clientId?: string;
+  status: OnvioCompanyStatus;
+  fonte?: "client-core-ativo" | "client-core" | "core-v3";
+  mensagem?: string;
+}
+
+export interface OnvioCompaniesProvider {
+  lookupCompany(request: OnvioCompanyLookupRequest): Promise<OnvioCompanyLookupResult>;
+}
+
 export type ClientUserLookupStatus =
   | "preenchido_unico"
   | "multipla_escolha"
@@ -250,6 +273,7 @@ export interface CompareEmpresasPlanilhasResult {
   finalPlanilhaPath: string;
   summary: {
     atualizadas: number;
+    excluidasPorCompetencia: number;
     operacionais: number;
     final: number;
     novas: number;
@@ -263,6 +287,7 @@ export interface CompareEmpresasPlanilhasResult {
     usuariosComErro: number;
   };
   novas: EmpresaComparisonRow[];
+  excluidasPorCompetencia: EmpresaComparisonRow[];
   removidas: EmpresaComparisonRow[];
   alteradas: EmpresaChangedRow[];
   conflitosCodigo: EmpresaCodigoConflict[];
@@ -284,8 +309,11 @@ export interface UpdatePlanilhaOperacionalOptions {
   force?: boolean;
   empresasUrl?: string;
   empresasReportName?: string;
+  bitrixCompetenciasUrl?: string;
+  bitrixAccountingUrl?: string;
   accountingCompaniesPath?: string;
   clientUsersProvider?: ClientUsersProvider;
+  onvioCompaniesProvider?: OnvioCompaniesProvider;
   logger?: Pick<Console, "info" | "warn" | "error">;
   timeouts?: {
     defaultTimeoutSeconds?: number;
@@ -299,6 +327,9 @@ export interface UpdatePlanilhaOperacionalOptions {
 export interface UpdatePlanilhaOperacionalResult {
   outputDir: string;
   baseUnecontPath: string;
+  bitrixCompetenciasPath?: string;
+  bitrixAccountingPath?: string;
+  onvioCompaniesReportPath?: string;
   operacionalPath: string;
   reportPath: string;
   runtimePlanilhaPath: string;

@@ -1,0 +1,45 @@
+Neste vídeo eu vou ensinar como você deverá baixar o programa Cefip, fazer o cadastro do responsável e atualização da incidência. Trata -se de um processo onde deverá fazer os recálculos de guias que necessitem do programa Cefip antes da implementação do FGTS Digital. Primeiro passo você deverá abrir em seu sistema o Google e você vai digitar a palavra Download Caixa. 
+
+Após a abertura você vai clicar no programa da caixa em Downloads, ele vai abrir aqui dezenas de informações para Downloads e você deverá para seu objetivo no campo de pesquisa digitar FGTS. 
+
+Perdão aqui, você vai botar aqui. Você deverá digitar a palavra Cefip, tá? E não FGTS. 
+
+Logo em seguida o programa está logo abaixo. 
+
+O mais atual neste campo aqui, olha. FGTS Cefip barra GRF. Instalador. Instalador da Cefip 8 .4. Essa foi a última atualização. E você deverá clicar no instalador. 
+
+Abaixo ele vai direcionar você a um campo de download e você vai clicar em salvar. 
+
+Clica na opção. 
+
+Vem nesse campo e vai fazer a instalação dele. 
+
+Aguarda o sistema. Ele vai trazer aqui algumas informações. Continuar com a instalação sim. 
+
+No meu caso ele identificou que já existia um programa. Eu vou continuar em sim. Bem -vindo a instalação Cefip. Você só vai clicar em próximo, próximo, próximo, próximo e clica sim. É só fazer o procedimento, né? Seguindo. Após a conclusão, você clica em terminar. 
+
+Feito isso, você vem no campo pesquisa. Aqui no Windows. O programa já vai aparecer recente. Então você poderia digitar Cefip, que é o programa. Aqui está o aplicativo. Você vai clicar nele, tá? 
+
+Neste campo, ele tem a opção de cadastrar por importação de folha. Ou por algumas outras informações. Porém, é mais prático, 
+
+digamos assim, não tão ágil, mas é mais seguro. Irmos de forma pela opção cadastrar responsável. Anteriormente, quando se usava, a gente utilizava muito em portafolha. Mas vamos em cadastrar responsável. Você vai deixar a opção aí. Clica em próximo. E aqui é um cadastro do responsável das atas contabilidade. Porque ela tem procuração, tá? Então você deverá ter acesso às informações das atas. Porém, estarei providenciando também um documento já preenchido. 
+
+Para que possa facilitar o seu preenchimento. Então você vai clicar aqui em inscrição tipo CNPJ. Digitar o CNPJ das atas contabilidade. 
+
+Eu vou preencher todos os campos para adiantar aqui o processo. Pronto. Fiz uma pausa aqui para preencher as informações. Mas está aí. As informações totais do responsável das atas. Endereço. Aqui também fornecedor da folha. E continua sendo também das atas. E após o cadastro executado. Você vem em finalizar. Pronto. Aqui está o processo de baixa. E de cadastro de responsáveis. Para essa etapa vamos agora para a atualização do índice de FGTS. Quando você clica aqui em ajuda. Ele vai abrir esses dois campos. A ajuda do CFIP. Ou sobre a CFIP. Você pode clicar aqui. E você vai perceber que. A tabela de índice de FGTS. Da vigência. Está antiga. Para a competência atual. Porque como se trata de um recalculo. É necessário que a competência seja atual. Então como a gente deve. Então como a gente deve. Atualizar isso. Então nós vamos clicar aqui em OK. Vou minimizar o programa. E vou retornar. Para a página lá. Da caixa econômica. Em downloads. Tá. E aí a gente pode colocar. FGTS. Deixa eu ver se ela. Tem uma pesquisa mais rápida. Não. Deixa eu ver aqui incidência. 
+
+Pronto. Não tem nenhum. Então a gente pode fazer da seguinte forma. 
+
+Não tem nenhum. Então a gente pode fazer da seguinte forma. Não vou usar nesse campo agora. E downloads. Então a gente pode descer aqui. Ele tem um monte de informações de ordem alfabética. Você pode passar aqui rápido. Pronto. E na opção aqui. Na sigla. F. Logo. Deixa eu ver. E vejamos. Pronto. Aqui está. 
+
+FGTS CFIP. GRF. Tabela de coeficientes. FGTS sem atraso. É essa a informação necessária. Então você vai clicar nele. E ele vai trazer a TF. 6 de 2026. Atual. Todo mês isso tem atualização. Então você deve fazer. É. Sempre. O. A competência. Isso aqui ele. Ele está vigente do dia 21. Que é o vencimento da guerra até dia 20 do set. Então você vai clicar na opção do TF. Atual. É. Vou salvar aqui. Na área de trabalho. Clico. Numa página criada já. Como recálculo de FGTS. Vou. Utilizar. Essa empresa aqui. Que nós iremos calcular 2022. Eu crio o ano. Né. A competência. 
+
+É a que já se encontra. Mas eu vou. Substituir. Pronto. E você salva. Tá. No seu controle. 
+
+Vou abrir agora aqui. A página. Vou abrir agora aqui. A página. De onde eu salvei. O documento da. Do coeficiente. O que se faz necessário. É. Fazer a extração. 
+
+Do TXT. Certo. Quando você clica aqui no zirpado. Você vai clicar com o mouse direito. 
+
+Vim em. E. Rá. E clicar aqui. A extração. Dessa forma. Para TFE. Ele vai extrair. Vou colocar sim. Que vai substituir. Pronto. Então ele abriu aqui agora. Vou retirar essa informação. Um minutinho. Pronto. Vou clicar aqui. 
+
+Vou clicar aqui. Esse é o índice. Que devemos. Inserir lá no programa. Então retorno agora na Cfip. Tá. Vou aqui. Em ferramentas. Carga manual de tabelas. Índice de FGTS. Eu vou até a parte. Tá. Que eu salvei. E fiz a instalação. Então vou botar aqui. 22. 38. TFE. Pronto. Inserir. TXT. TXT. Clica em abrir. Espero. Concluída. Ok. Se eu vim aqui para conferir. Ajuda sobre Cfip. Perceba que a vigência agora mudou. E aqui está apto para o recalco. No outro vídeo. Eu vou. ensinar como fazer. A importação. E. As configurações corretas da empresa. 

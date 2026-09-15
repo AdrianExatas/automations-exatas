@@ -1,0 +1,56 @@
+Dando continuidade ao processo de execução da verificação de pendências de FGTS, neste vídeo complementar, iria apresentar a você a forma de execução e conclusão da tarefa. No vídeo anterior, foi a explicação. Dando continuidade, o que ocorre? Vamos lá, essa tarefa ainda irá vencer, nós iremos pegar como modelo teste, para apresentar o que vai ser necessário, já a partir desse mês.
+A competência é atual, mas sempre iremos consultar, principalmente, no item 1, a competência anterior, e vamos dar início agora mesmo. No item 1, onde ele trata, consultar e validar no sistema Folha, a importação, o que será necessário para comprovação dessa tarefa.
+Você deverá abrir o sistema Domínio Folha, clica em Relatórios, E-Social, Demonstrativo de FGTS Folha e FGTS E-Social.
+Na competência, sempre uma anterior, porque estamos na folha ainda de envio das informações de agosto, então sempre vai ser o mês anterior, se estamos em setembro, será agosto, quando for outubro, será setembro, e por aí segue esse padrão.
+Você deverá marcar essas opções abaixo, em Destacar a Linha, e emitir apenas colaboradores com diligência.
+Você vem após isso, clica em OK, aqui ele vai trazer as informações que eu preciso, que esteja na tarefa.
+Na coluna situação, perceba que não foi enviado, é justamente isso que você tem que se atentar, porque se tiver colaboradores com situação de E-Social não enviado, deverá ser feito o processo de envio, ou justificar na tarefa,
+porque possa haver empresas do grupo 2, que principalmente, creio eu, que o pagamento é só posterior, mas enfim, aqui estamos tratando de possivelmente remuneração, tá?
+Então, no mínimo, o que você deverá fazer? No mínimo não, o que vai ser necessário ser feito? Tirar o print, caso esteja não enviado, só tira o print, se tiver feito a correção e o envio,
+você deverá vir na tarefa, abaixo em Escreva uma imagem, você vai clicar, ele vai abrir essa tela, e você cola o print.
+Lembrando, como é teste, isso ainda não foi transmitido, mas o objetivo é que só transmita o print aqui, quando for corrigido.
+Tá, só ocorreu que a empresa tem alguma situação aí, e aí não demonstra o envio, você deverá, além do print, descrever o motivo.
+Esse é o processo do item 1. Feito isso, vamos para o item 2 e 3, eu não vou enviar aqui, tá?
+2 e 3, que é consultar os FGTS em aberto, e parcelamento da empresa.
+Então, você vai abrir uma página do Google, clica em uma nova janela anônima, geralmente eu utilizo esse,
+FGTS, você vai digitar aqui, digital, entrar com gov.br, seu certificado digital,
+seleciona o certificado da exata contabilidade, vai direcioná-lo na opção procurador, porque você vai acessar a empresa que você está consultando,
+aqui você retorna no domínio, eu vou dividir aqui a tela, para ficarmos produtivo,
+digito o CNPJ da empresa, clica em definir, retorna a página do FGTS digital, e a opção de consulta será a da seguinte forma,
+você deverá vir na opção consultas do empregador, consulta de competência de referência,
+abaixo em período, você vai marcar a opção completo, e vai clicar em filtrar,
+abaixo você poderá inserir, deverá, para ter uma visão mais clara, a opção 100,
+e perceba que ele já traz aqui, uma irregularidade,
+e para ser mais objetivo na tarefa, você poderá desmarcar a opção regular,
+clica em filtrar, e perceba aqui, que essa empresa,
+demonstra uma opção aqui, de pendência, o que deverá ser feito,
+tira-se o print, para comprovar,
+vai na tarefa, e faz o mesmo procedimento,
+que foi feito,
+no do domínio,
+clique em inscrever,
+abaixo,
+você vai clicar em enviar,
+eu não vou fazer isso nessa tarefa,
+neste momento,
+você vai clicar em enviar,
+e marcar as opções,
+tá,
+você vai marcar as opções,
+e aqui ele já conclui a tarefa,
+neste caso, como você identificou,
+que a empresa, ela tem alguma irregularidade,
+deverá entrar em contato primeiro,
+analisar,
+entrar em contato com o cliente,
+e posterior ao alinhamento com o cliente,
+enviar a guia,
+não deve fazer qualquer tipo de envio,
+antes de analisar,
+e antes,
+de entrar em contato com o cliente,
+essa,
+é uma demonstração,
+que precisamos executar,
+e aí,
+eu vou fazer qualquer tipo de envio,

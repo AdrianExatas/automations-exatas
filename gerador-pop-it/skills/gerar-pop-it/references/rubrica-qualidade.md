@@ -11,6 +11,7 @@ Use esta rubrica **antes** de fechar o JSON v2. Falhas viram correção no conte
 3. **Auditável**: o FORM verifica fatos observáveis e evidências, não intenções.
 4. **Rastreável**: IDs e barreiras do MP apontam para etapas/controles reais.
 5. **Honesto**: lacunas ficam em `pontos_validacao` (agrupadas), sem completar por suposição.
+6. **Universal**: o texto operacional não cita empresa/cliente do vídeo nem meta-frases (“na fonte”, “exemplo demonstrativo”, “no vídeo”); usa termos genéricos (“empresa da execução”).
 
 ## PR (POP)
 
@@ -19,9 +20,10 @@ Use esta rubrica **antes** de fechar o JSON v2. Falhas viram correção no conte
 | Objetivo | `documento.objetivo` descreve o propósito do processo |
 | Resultado | `documento.resultado_esperado` descreve a saída pretendida |
 | Etapas | `O QUE` com verbo de ação; ordem cronológica |
-| Como | `COMO` curto (orientação, não tutorial longo) |
+| Como | `COMO` curto (orientação, não tutorial longo); sem demo do vídeo |
 | Registro | `REGISTRO` nomeia sistema, documento ou evidência concreta |
 | Setor | Confirmado pelo brief ou uma única pendência de setor |
+| Universalidade | Sem razão social/nome do caso filmado nem “na fonte”/“exemplo demonstrativo” |
 
 ## IN (IT)
 
@@ -34,6 +36,7 @@ Use esta rubrica **antes** de fechar o JSON v2. Falhas viram correção no conte
 | Print | Campo 16:9 só em etapa visualmente crítica; legenda descreve a tela |
 | Perfil | Sem público-alvo, glossário didático, “quando usar” ou objetivos por etapa |
 | Privacidade | Orientação de print evita credenciais e dados de outro cliente |
+| Universalidade | Instruções sem empresa-demo do vídeo nem meta-frases da gravação |
 
 ## FORM
 
@@ -44,7 +47,7 @@ Use esta rubrica **antes** de fechar o JSON v2. Falhas viram correção no conte
 | Atomicidade | Evita perguntas compostas ambíguas (dois fatos em uma só) |
 | Cobertura | Pontos de decisão/evidência da IT têm critério (ou pendência justificada) |
 | Condicional | Critérios “quando aplicável” deixam a condição explícita no texto |
-| Evidência | Bloco com área de evidência quando o controle exige prova |
+| Evidência | Observação/assinatura no rodapé institucional; critérios auditam fatos observáveis |
 
 ## MP
 
@@ -53,7 +56,7 @@ Use esta rubrica **antes** de fechar o JSON v2. Falhas viram correção no conte
 | SIPOC | Fornecedores/entradas/clientes/saídas coerentes com o PR |
 | Riscos | Ligados a `etapa_id` existente; descrevem falha operacional real |
 | Barreira | Preferencialmente aponta bloco/critério FORM ou controle nomeado |
-| P/G | Riscos não confirmados ficam `sugerido: true` com P/G vazios |
+| P/G | Riscos não confirmados ficam `sugerido: true`; P/G ausentes recebem o padrão da normalização |
 | Mitigação | Só preenchida com evidência na fonte; senão vazia + pendência |
 | Pendência | Uma pendência agrupada para revisar P/G dos riscos sugeridos |
 
@@ -68,13 +71,15 @@ Quando os documentos existirem no pacote:
 
 ## Lista Documental Mestra
 
-Cada PR/IN/FORM/MP gerado deve gerar entrada na lista mestra (`lista_mestra.entradas[]`):
+Cada PR/IN/FORM/MP gerado pode ter entrada em `lista_mestra.entradas[]` no JSON:
 
 - `codigo_titulo`, `origem` (`INTERNO`), `tipo`, `setor`
 - elaborador / verificador / aprovador quando confirmados
 - `procedimento_raiz` = código PR do pacote (se houver)
 - `procedimentos_citados` = demais códigos do pacote + documentação complementar confirmada
 - localização do arquivo gerado ou pendência se ainda não houver diretório oficial
+
+A planilha `FORM.QUA.003` no build é opt-in (`-UpdateListaMestra` ou `-ListaMestraPath`).
 
 ## Checklist rápido (antes do build)
 

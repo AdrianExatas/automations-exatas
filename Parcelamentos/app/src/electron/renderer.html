@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Parcelamentos SEFAZ</title>
+    <link rel="stylesheet" href="./renderer.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="toolbar">
+        <div>
+          <h1>Parcelamentos SEFAZ</h1>
+          <p>Escolha o estado, use a planilha modelo e inicie o download.</p>
+        </div>
+      </header>
+
+      <div id="edgeWarning" class="banner warning" hidden>
+        Microsoft Edge nao foi encontrado. Instale o Edge antes de executar.
+      </div>
+
+      <nav class="tabs" role="tablist" aria-label="Estados">
+        <button class="tab active" type="button" data-uf="AL" role="tab" aria-selected="true">Alagoas</button>
+        <button class="tab" type="button" data-uf="PI" role="tab" aria-selected="false">Piaui</button>
+        <button class="tab" type="button" data-uf="SE" role="tab" aria-selected="false">Sergipe</button>
+      </nav>
+
+      <section class="panel">
+        <form id="automationForm">
+          <ol class="steps">
+            <li>
+              <div class="step-head">
+                <strong>1. Baixe o modelo</strong>
+                <button id="createTemplateButton" class="button secondary" type="button">Baixar modelo</button>
+              </div>
+              <p id="columnsHint" class="hint"></p>
+            </li>
+
+            <li>
+              <strong>2. Selecione a planilha preenchida</strong>
+              <div class="file-row">
+                <input id="sheetInput" type="text" readonly placeholder="Nenhuma planilha selecionada" />
+                <button id="selectSheetButton" class="button secondary" type="button">Selecionar</button>
+              </div>
+            </li>
+
+            <li>
+              <strong>3. Escolha onde salvar os downloads</strong>
+              <div class="file-row">
+                <input id="downloadDirInput" type="text" readonly required />
+                <button id="selectFolderButton" class="button secondary" type="button">Escolher pasta</button>
+              </div>
+            </li>
+          </ol>
+
+          <div id="sheetStatus" class="sheet-status" hidden></div>
+
+          <div class="actions">
+            <button id="inspectSheetButton" class="button secondary" type="button">Validar</button>
+            <button id="cancelButton" class="button danger" type="button" disabled>Cancelar</button>
+            <button id="runButton" class="button primary" type="submit">Iniciar Download</button>
+          </div>
+
+          <details class="advanced">
+            <summary>Opcoes avancadas</summary>
+            <label class="check-row">
+              <input id="headedInput" type="checkbox" />
+              <span>Mostrar navegador durante a execucao</span>
+            </label>
+          </details>
+        </form>
+      </section>
+
+      <section class="log-panel">
+        <div class="log-header">
+          <div>
+            <h2>Execucao</h2>
+            <p id="statusText" class="status-text">Pronto para iniciar</p>
+          </div>
+          <span id="statusBadge" class="badge idle">Pronto</span>
+        </div>
+
+        <div class="progress-wrap">
+          <div class="progress-meta">
+            <span id="progressLabel">Aguardando</span>
+            <span id="progressPercent">0%</span>
+          </div>
+          <div class="progress-bar" aria-hidden="true">
+            <div id="progressFill" class="progress-fill"></div>
+          </div>
+        </div>
+
+        <div id="summaryBox" class="summary" hidden></div>
+
+        <div class="result-actions">
+          <button id="openDownloadsButton" class="button secondary" type="button" disabled>Abrir Pasta dos Downloads</button>
+          <button id="openReportButton" class="button secondary" type="button" disabled>Abrir Relatorio</button>
+        </div>
+
+        <pre id="logOutput"></pre>
+      </section>
+    </main>
+    <script src="./renderer.js"></script>
+  </body>
+</html>

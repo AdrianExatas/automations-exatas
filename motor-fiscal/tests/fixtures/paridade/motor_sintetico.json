@@ -1,0 +1,53 @@
+{
+  "empresa_cnpj": "12345678000199",
+  "competencia": "2026-06",
+  "gerado_em": "2026-08-07T12:00:00+00:00",
+  "modulos": {
+    "documental": {
+      "modulo": "documental",
+      "ok": true,
+      "achados": [],
+      "resumo": {"erros": 0, "avisos": 1, "infos": 0, "total": 1}
+    },
+    "icms": {
+      "modulo": "icms",
+      "ok": true,
+      "e110": {
+        "recomputado": {
+          "VL_ICMS_RECOLHER": 150.0
+        }
+      },
+      "cruzamentos": [
+        {"id": 1, "fecha": true},
+        {"id": 2, "fecha": true},
+        {"id": 3, "fecha": true},
+        {"id": 4, "fecha": true},
+        {"id": 5, "fecha": true},
+        {"id": 6, "fecha": true},
+        {"id": 7, "fecha": true},
+        {"id": 8, "fecha": true},
+        {"id": 9, "fecha": true},
+        {"id": 10, "fecha": true},
+        {"id": 11, "fecha": true},
+        {"id": 12, "fecha": true},
+        {"id": 13, "fecha": true}
+      ],
+      "resumo": {"erros": 0, "avisos": 0, "total": 0}
+    },
+    "estoque": {
+      "modulo": "estoque",
+      "ok": true,
+      "resumo": {"erros": 0, "avisos": 0, "total": 0}
+    }
+  },
+  "resumo": {
+    "ok": true,
+    "erros": 0,
+    "avisos": 1,
+    "modulos": {
+      "documental": {"ok": true, "erros": 0, "avisos": 1, "total_achados": 1},
+      "icms": {"ok": true, "erros": 0, "avisos": 0, "total_achados": 0},
+      "estoque": {"ok": true, "erros": 0, "avisos": 0, "total_achados": 0}
+    }
+  }
+}

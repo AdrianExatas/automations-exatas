@@ -1,0 +1,11 @@
+Fala pessoal, neste vídeo vou ensinar como você emitir um relatório de requerimento do benefício do INSS em casos que é necessário o colaborador da entrada no seu afastamento perante o INSS eles precisam de um relatório do benefício do INSS e esse relatório pode ser emitido através do nosso sistema domínio vou demonstrar você aqui numa prática após acessar o nosso sistema domínio com usuário e senha você clique acima na opção relatórios abaixo você vai na opção gerenciador de relatórios aqui vai apresentar algumas subpastas e você deverá procurar a pasta diversos 
+
+dentro de cada pasta tem alguns documentos então você vai procurar para esse caso em especial a opção aqui requerimento benefício é esse que e segue para encaminhar o colaborador abaixo ele vai trazer aqui três opções obrigatórias quando se tem asterisco é obrigatório o código do colaborador e aqui você vai descrever o número o último dia do trabalho você precisa dessa informação da empresa e o número do CID provavelmente no atestado deverá constar tá nós vamos pegar aqui um exemplo de um dessa empresa de um colaborador que foi em 2022 só para vocês terem noção da execução então código dela é o 3 e como trata de uma situação antiga eu vou aqui em processos afastamentos só para mim pegar as outras informações tá então no colaborador que eu digito o código 3 foi lá na em 2022 então eu venho aqui último dia de trabalho como eu sei que foi dia 29 foi o afastamento então eu coloco aqui dia 28 e do 9 de 2022 e como eu sei o número do CID reforço você vai ter o documento quando em casos futuros isso for solicitado aqui eu vou em editar só para mim validar né outros dados código do CID 
+
+S923 pronto essas são as informações obrigatórias e eu venho aqui acima em executar 
+
+pronto está aí o documento do CID S923 pronto está aí o documento do CID S923 que deverá ser encaminhado ao colaborador quais são os meios de envios eu venho aqui em publicar no OVIO requerimento clica aqui nos três opções eu venho em pessoal arquivos diversos se não tiver uma subpasta de afastamento aqui ó requerimento do benefício já tem eu clicaria agora ao marcar ok venho aqui descrevo o nome do colaborador ou colaboradora né vou botar aqui se fosse o caso 
+
+e clique em gravar esse é o procedimento de solicitação do documento requerimento do INSS 
+
+eu não vou gravar aqui porque trata apenas de um teste 

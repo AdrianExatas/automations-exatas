@@ -1,0 +1,41 @@
+# API Integra Contador — base local para IA
+
+> Snapshot oficial SERPRO coletado em 2026-09-14T15:02:49.914Z. Consulte sources/manifest.json para proveniência e estado de cada fonte.
+
+## Comece aqui
+
+- [Visão geral e regras de uso](README.md)
+- [Resumo de uma página para a liderança](docs/guides/resumo-executivo.md)
+- [Visão executiva e oportunidades para a liderança](docs/guides/visao-executiva.md)
+- [Índice completo de serviços](docs/SERVICE_INDEX.md)
+- [Autenticação mTLS e OAuth2](docs/guides/autenticacao.md)
+- [Envelope e chamadas](docs/guides/envelope-e-chamadas.md)
+- [Erros, timeout e retentativas](docs/guides/erros-e-retentativas.md)
+- [Procurações](docs/guides/procuracoes.md)
+- [Rastreabilidade](docs/guides/rastreabilidade.md)
+- [Catálogo para máquinas](catalog/services.json)
+- [Catálogo NDJSON para RAG](catalog/services.ndjson)
+- [OpenAPI oficial](openapi/official.yaml)
+
+## Famílias cobertas
+
+- integra-caixapostal
+- integra-contador-gerenciador
+- integra-dctfweb
+- integra-e-processo
+- integra-mei
+- integra-pagamento
+- integra-parcelamento
+- integra-procuracoes
+- integra-redesim
+- integra-sicalc
+- integra-sitfis
+- integra-sn
+
+## Regras críticas para agentes
+
+- SERPRO é a única fonte normativa desta base.
+- O endpoint físico é escolhido por operationPath; idSistema e idServico ficam no envelope.
+- pedidoDados.dados é uma string contendo JSON escapado, não um objeto JSON direto.
+- Não invente campos quando issues ou source.status indicarem incerteza.
+- Não repita automaticamente operações mutáveis após HTTP 504; o backend pode ter concluído a operação.

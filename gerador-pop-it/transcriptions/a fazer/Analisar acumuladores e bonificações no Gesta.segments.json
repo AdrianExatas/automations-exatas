@@ -1,0 +1,4113 @@
+{
+  "media": "G:\\Meu Drive\\GESTÃO DE PROCESSOS\\03 - Fiscal\\VÍDEOS\\Grupo de trabalho-  Fiscal  - Chamada f7a77c17-1898-45c9-bb75-3ffca55391cf - 26.01.2026-min.mp4",
+  "transcript_path": "C:\\Users\\Exatas\\Documents\\GitHub\\automations-exatas\\gerador-pop-it\\transcriptions\\a fazer\\Grupo de trabalho-  Fiscal  - Chamada f7a77c17-1898-45c9-bb75-3ffca55391cf - 26.01.2026-min (transcribed on 10-Sep-2026 20-27-24).txt",
+  "language": "pt",
+  "duration_sec": 2812.1813125,
+  "segments": [
+    {
+      "start": 0.34,
+      "end": 28.94,
+      "text": "Eu gosto de iniciar sempre, qualquer pouco, pontuando para vocês a importância da ferramenta que seria o Gesta. Porque no Gesta, a gente sempre traz, pessoal, algo que é de fundamental importância, que é aqui, analisar a previsão de cada acumulador, verificar se as receitas financeiras foram lançadas, verificar se as bonificações recebidas também foram lançadas, saber quais as bonificações devem ser incluídas."
+    },
+    {
+      "start": 28.94,
+      "end": 45.52,
+      "text": "Por que, Suário? Vamos pegar um exemplo. A empresa, ela recebeu uma nota fiscal de compra, e dentro dessa compra tem bonificações. Essa bonificação, ela entra como receita? Não entra. Por quê? Porque ela entra como custo da mercadoria adquirida."
+    },
+    {
+      "start": 45.52,
+      "end": 55.52,
+      "text": "Agora, se eu receber uma nota fiscal somente de bonificação, aí eu tenho que levar isso como receita para ser ofertada lá no..."
+    },
+    {
+      "start": 55.52,
+      "end": 61.3,
+      "text": "Queria ter um acumulador próprio, onde você lança essa receita de bonificação. Me faça entender."
+    },
+    {
+      "start": 62.86,
+      "end": 72.34,
+      "text": "Questão também a gente tem de venda de imobilizado, né? E aí também tem que ser adicionado, né? Ou seja, o ganho que se teve, né?"
+    },
+    {
+      "start": 72.34,
+      "end": 79.52,
+      "text": "Entre o preço de aquisição e o preço de venda, pra gente ver se teve. E depois fazer a transmissão da guia, né? Via DCTFWeb."
+    },
+    {
+      "start": 79.52,
+      "end": 89.76,
+      "text": "Então, vamos lá. Só pra gente entender. Ah, tem algumas outras situações que não estão aqui, mas que vocês também vão nos fazer compreender."
+    },
+    {
+      "start": 89.76,
+      "end": 105.5,
+      "text": "É, pessoal, aqui está a Aquapruz, que eu trouxe ela como exemplo, porque é uma empresa que tem dois impostos que devem ser excluídos na hora da apuração."
+    },
+    {
+      "start": 106.0,
+      "end": 113.82,
+      "text": "E a gente já, nela, tinha cometido alguns erros bem lá atrás, porque o ICMSST, ele não compõe a receita."
+    },
+    {
+      "start": 113.82,
+      "end": 126.65,
+      "text": "Ele tem que ser extraído da sua receita. Exemplo aqui, ó. A empresa teve como valor de faturamento no trimestre de receita."
+    },
+    {
+      "start": 127.77,
+      "end": 142.85,
+      "text": "Vamos pegar aqui tudo que é acumulador de venda. A receita dela foi essa. Pronto."
+    },
+    {
+      "start": 142.97,
+      "end": 149.79,
+      "text": "Da receita dela, eu tenho aqui uma parte que é ICMSST, que é 65 mil, perfeito?"
+    },
+    {
+      "start": 149.79,
+      "end": 157.04,
+      "text": "E eu tenho também o IPI. Tá vendo o IPI aqui, pessoal?"
+    },
+    {
+      "start": 157.8,
+      "end": 160.24,
+      "text": "Vocês querem que eu aumente aqui ou tá de boa pra vocês?"
+    },
+    {
+      "start": 164.19,
+      "end": 166.23,
+      "text": "Dá pra ver, tá de boa aí. Tá de boa?"
+    },
+    {
+      "start": 167.21,
+      "end": 174.52,
+      "text": "Então, eu tenho aqui o IPI também, que eu tenho que retirar da minha base."
+    },
+    {
+      "start": 175.04,
+      "end": 188.34,
+      "text": "Então, minha receita seria essa."
+    },
+    {
+      "start": 189.2,
+      "end": 193.4,
+      "text": "Tem outra situação também, que vocês vão verificar, porque aqui eu tô na qual?"
+    },
+    {
+      "start": 193.4,
+      "end": 198.0,
+      "text": "Eu tô na matriz. E ela tem receita de matriz e filial."
+    },
+    {
+      "start": 198.16,
+      "end": 201.18,
+      "text": "Como é que eu sei isso? Vamos lá."
+    },
+    {
+      "start": 201.54,
+      "end": 205.18,
+      "text": "Como é que eu sei isso aqui, Naeli? Que eu tenho receita de matriz e filial?"
+    },
+    {
+      "start": 206.44,
+      "end": 209.24,
+      "text": "Como é que eu identifiquei que eu tenho receita de matriz e filial?"
+    },
+    {
+      "start": 217.36,
+      "end": 218.74,
+      "text": "Pode falar. Tá sem áudio."
+    },
+    {
+      "start": 222.03,
+      "end": 225.25,
+      "text": "Ela disse que tá sem áudio. Tá sem conseguir falar."
+    },
+    {
+      "start": 225.25,
+      "end": 232.38,
+      "text": "O áudio do áudio não tá abrindo lá, Naeli?"
+    },
+    {
+      "start": 233.68,
+      "end": 234.16,
+      "text": "Tá não."
+    },
+    {
+      "start": 238.36,
+      "end": 241.54,
+      "text": "Vini, você consegue transcrever aí o que..."
+    },
+    {
+      "start": 241.54,
+      "end": 242.88,
+      "text": "Falar o que Naeli tá dizendo?"
+    },
+    {
+      "start": 245.98,
+      "end": 247.06,
+      "text": "Ela tá pedindo que você perguntar."
+    },
+    {
+      "start": 247.66,
+      "end": 248.84,
+      "text": "Você fazia normalmente a pergunta."
+    },
+    {
+      "start": 249.08,
+      "end": 249.44,
+      "text": "Vamos lá."
+    },
+    {
+      "start": 249.98,
+      "end": 253.92,
+      "text": "Como é que eu consegui identificar, Naeli, pelas informações aqui de acumulador,"
+    },
+    {
+      "start": 254.04,
+      "end": 259.2,
+      "text": "que a empresa tem receita de filial?"
+    },
+    {
+      "start": 262.52,
+      "end": 266.18,
+      "text": "Ela disse que não sabe não pelos acumuladores, Sôres."
+    },
+    {
+      "start": 266.18,
+      "end": 267.26,
+      "text": "Pronto, vamos lá."
+    },
+    {
+      "start": 267.98,
+      "end": 269.52,
+      "text": "Por isso que é importante, pessoal."
+    },
+    {
+      "start": 269.64,
+      "end": 275.38,
+      "text": "A gente tem dois acumuladores aqui, que é o 1038 e o 1039, que é de transferência."
+    },
+    {
+      "start": 276.14,
+      "end": 283.42,
+      "text": "Então, só por esses aqui eu já consigo identificar que se teve receita aqui de quê?"
+    },
+    {
+      "start": 284.06,
+      "end": 284.72,
+      "text": "Na filial."
+    },
+    {
+      "start": 285.04,
+      "end": 285.68,
+      "text": "Na filial."
+    },
+    {
+      "start": 286.0,
+      "end": 291.16,
+      "text": "Então, tipo, eu vou ter que identificar qual é a filial e qual a receita que teve lá."
+    },
+    {
+      "start": 291.16,
+      "end": 296.84,
+      "text": "Porque na hora da apuração do IRPJ, ela é uma apuração centralizada, igual o PIS e COFINS."
+    },
+    {
+      "start": 297.24,
+      "end": 298.56,
+      "text": "É diferente do ICMS."
+    },
+    {
+      "start": 298.94,
+      "end": 302.76,
+      "text": "O ICMS é apurado em cada CNPJ, de forma individual."
+    },
+    {
+      "start": 302.96,
+      "end": 307.52,
+      "text": "Ou seja, teve inscrição estadual, teve venda, teve compra, teve transferência."
+    },
+    {
+      "start": 307.9,
+      "end": 310.6,
+      "text": "Apura-se o ICMS de forma descentralizada."
+    },
+    {
+      "start": 310.6,
+      "end": 314.24,
+      "text": "Já, e aí o IPJ e contribuição social sobre o lucro."
+    },
+    {
+      "start": 314.7,
+      "end": 317.84,
+      "text": "Você vai fazer a apuração centralizada."
+    },
+    {
+      "start": 318.6,
+      "end": 319.38,
+      "text": "Me faz compreender?"
+    },
+    {
+      "start": 320.28,
+      "end": 320.72,
+      "text": "Beleza."
+    },
+    {
+      "start": 321.3,
+      "end": 321.86,
+      "text": "Então, vamos lá."
+    },
+    {
+      "start": 322.42,
+      "end": 328.22,
+      "text": "Eu vou abrir aqui outro domínio, só para a gente ter a demonstração e depois a gente chegar no cálculo"
+    },
+    {
+      "start": 328.22,
+      "end": 332.32,
+      "text": "para ver se está batendo exatamente com o valor devido."
+    },
+    {
+      "start": 333.92,
+      "end": 336.5,
+      "text": "Mas aqui, enquanto está abrindo o domínio, eu vou fazer o seguinte."
+    },
+    {
+      "start": 336.66,
+      "end": 343.72,
+      "text": "Eu vou vir aqui, nesse daqui, e vou lançar, colocar aqui o imposto 7."
+    },
+    {
+      "start": 345.2,
+      "end": 346.44,
+      "text": "Que é o IRPJ."
+    },
+    {
+      "start": 347.2,
+      "end": 349.62,
+      "text": "Chegando no imposto 7, eu vou fazer o quê?"
+    },
+    {
+      "start": 349.7,
+      "end": 350.64,
+      "text": "Gerar um relatório."
+    },
+    {
+      "start": 351.34,
+      "end": 354.1,
+      "text": "Vou detalhar por acumulador, não vou detalhar por nota."
+    },
+    {
+      "start": 354.88,
+      "end": 355.28,
+      "text": "Beleza?"
+    },
+    {
+      "start": 356.18,
+      "end": 358.4,
+      "text": "Marca aqui os dois, só para vocês entenderem."
+    },
+    {
+      "start": 358.4,
+      "end": 367.4,
+      "text": "Lembrando que esse pop que a gente está gravando aqui, ele vai sofrer alteração no próximo mês."
+    },
+    {
+      "start": 367.48,
+      "end": 369.44,
+      "text": "Então, no próximo mês a gente vai ter que fazer outro pop."
+    },
+    {
+      "start": 370.08,
+      "end": 371.3,
+      "text": "Vocês já sabem por quê, né?"
+    },
+    {
+      "start": 373.22,
+      "end": 373.66,
+      "text": "Perfeito."
+    },
+    {
+      "start": 374.28,
+      "end": 375.66,
+      "text": "Todo mundo sabe, só o Tati."
+    },
+    {
+      "start": 375.74,
+      "end": 377.02,
+      "text": "Tati que bala a sua cabeça."
+    },
+    {
+      "start": 378.44,
+      "end": 379.16,
+      "text": "Vocês sabem, não é, Elê?"
+    },
+    {
+      "start": 384.64,
+      "end": 386.92,
+      "text": "Ela disse que passou um pouco para ela."
+    },
+    {
+      "start": 387.36,
+      "end": 388.8,
+      "text": "Ah, beleza. Pronto. Fechou."
+    },
+    {
+      "start": 389.54,
+      "end": 390.76,
+      "text": "Fechou. Pronto."
+    },
+    {
+      "start": 390.76,
+      "end": 394.74,
+      "text": "A gente está aqui, pessoal, na apuração da CSLL, né?"
+    },
+    {
+      "start": 394.74,
+      "end": 399.44,
+      "text": "Então, exemplo, vou fazer um questionamento aqui à Joyce agora."
+    },
+    {
+      "start": 400.14,
+      "end": 401.78,
+      "text": "Joyce está aí qual período?"
+    },
+    {
+      "start": 404.33,
+      "end": 405.33,
+      "text": "Estou sem ouvir."
+    },
+    {
+      "start": 405.47,
+      "end": 406.67,
+      "text": "Aí não tem como traduzir, não."
+    },
+    {
+      "start": 406.85,
+      "end": 407.85,
+      "text": "Porque aí só está..."
+    },
+    {
+      "start": 407.85,
+      "end": 408.65,
+      "text": "Está no sétimo."
+    },
+    {
+      "start": 408.91,
+      "end": 409.95,
+      "text": "Sétimo, né? Pronto."
+    },
+    {
+      "start": 410.09,
+      "end": 411.43,
+      "text": "Então, você já deve ter visto."
+    },
+    {
+      "start": 412.41,
+      "end": 417.07,
+      "text": "Como é que eu consigo identificar qual é a presunção aqui da CSLL?"
+    },
+    {
+      "start": 417.07,
+      "end": 419.43,
+      "text": "A CSLL, você sabe como é que eu consigo identificar?"
+    },
+    {
+      "start": 422.03,
+      "end": 422.31,
+      "text": "Sabe?"
+    },
+    {
+      "start": 423.19,
+      "end": 423.81,
+      "text": "Não lembro."
+    },
+    {
+      "start": 424.47,
+      "end": 425.21,
+      "text": "Pronto. Vamos lá."
+    },
+    {
+      "start": 425.49,
+      "end": 427.99,
+      "text": "Eu vou dizer a forma mais fácil, né?"
+    },
+    {
+      "start": 428.07,
+      "end": 430.11,
+      "text": "Depois a gente tem que aprender fazendo..."
+    },
+    {
+      "start": 430.11,
+      "end": 433.11,
+      "text": "Vou usar um pouco do método de Alan, que ela disse assim."
+    },
+    {
+      "start": 433.45,
+      "end": 437.63,
+      "text": "Ele ensina pela forma mais difícil, porque aí a pessoa não tem como desaprender."
+    },
+    {
+      "start": 437.63,
+      "end": 443.17,
+      "text": "Eu costumo dizer, eu prefiro ensinar a forma mais fácil e depois a pessoa vai na forma mais difícil."
+    },
+    {
+      "start": 443.85,
+      "end": 444.29,
+      "text": "Mas vamos lá."
+    },
+    {
+      "start": 444.41,
+      "end": 446.77,
+      "text": "A forma mais fácil, Joyce, é o seguinte."
+    },
+    {
+      "start": 447.29,
+      "end": 455.09,
+      "text": "Toda empresa, para se identificar o regime, vamos dizer assim, o enquadramento tributário,"
+    },
+    {
+      "start": 455.45,
+      "end": 456.75,
+      "text": "você tem que saber as atividades."
+    },
+    {
+      "start": 457.91,
+      "end": 459.55,
+      "text": "Quais atividades que essa empresa tem?"
+    },
+    {
+      "start": 459.67,
+      "end": 462.55,
+      "text": "Então, eu vou pegar aqui, ela tem atividade de fabricação."
+    },
+    {
+      "start": 462.55,
+      "end": 468.73,
+      "text": "Toda empresa que for fabricação e comércio, ela vai ter uma presunção de 8%."
+    },
+    {
+      "start": 468.73,
+      "end": 471.73,
+      "text": "No caso, para imposto de renda."
+    },
+    {
+      "start": 471.83,
+      "end": 473.63,
+      "text": "E 12% para CSLL."
+    },
+    {
+      "start": 474.11,
+      "end": 476.13,
+      "text": "Então, em cima disso, você vai."
+    },
+    {
+      "start": 476.53,
+      "end": 478.55,
+      "text": "Vou ainda deixar mais fácil a sua vida."
+    },
+    {
+      "start": 479.37,
+      "end": 480.11,
+      "text": "E a dos demais."
+    },
+    {
+      "start": 480.23,
+      "end": 482.69,
+      "text": "Eu pego aqui o código do KINAI, do cliente."
+    },
+    {
+      "start": 482.77,
+      "end": 484.53,
+      "text": "Eu copio, eu vou aqui, CTRL-C."
+    },
+    {
+      "start": 485.63,
+      "end": 491.85,
+      "text": "E vou aqui numa ferramenta, que aí eu acho que você já tem um acesso a ela."
+    },
+    {
+      "start": 491.85,
+      "end": 492.65,
+      "text": "Eu acredito, né?"
+    },
+    {
+      "start": 492.97,
+      "end": 495.17,
+      "text": "Se não tivesse, você já solicita a Adria."
+    },
+    {
+      "start": 495.43,
+      "end": 496.33,
+      "text": "Mas já era para ter."
+    },
+    {
+      "start": 496.77,
+      "end": 497.39,
+      "text": "Que é o e-connect."
+    },
+    {
+      "start": 498.13,
+      "end": 501.23,
+      "text": "No e-connect a gente tem aqui uma abazinha."
+    },
+    {
+      "start": 501.73,
+      "end": 503.65,
+      "text": "Deixa eu atualizar aqui."
+    },
+    {
+      "start": 504.27,
+      "end": 509.42,
+      "text": "A gente vem aqui, entra no e-connect."
+    },
+    {
+      "start": 510.54,
+      "end": 511.44,
+      "text": "Vamos ver se ele vai deixar."
+    },
+    {
+      "start": 511.6,
+      "end": 512.24,
+      "text": "Pediu senha."
+    },
+    {
+      "start": 512.36,
+      "end": 514.32,
+      "text": "É rapidinho, faz parte do treinamento."
+    },
+    {
+      "start": 516.32,
+      "end": 517.54,
+      "text": "Justamente para mostrar aqui."
+    },
+    {
+      "start": 531.22,
+      "end": 531.82,
+      "text": "Isso aqui, ó."
+    },
+    {
+      "start": 531.88,
+      "end": 532.04,
+      "text": "Viu?"
+    },
+    {
+      "start": 532.56,
+      "end": 536.98,
+      "text": "Pronto, chegou."
+    },
+    {
+      "start": 536.98,
+      "end": 540.24,
+      "text": "Eu copio aqui."
+    },
+    {
+      "start": 540.86,
+      "end": 541.78,
+      "text": "Volto para o e-connect."
+    },
+    {
+      "start": 549.55,
+      "end": 552.25,
+      "text": "Pronto, chegando aqui, eu vou nessa ferramenta aqui, ó."
+    },
+    {
+      "start": 554.87,
+      "end": 555.21,
+      "text": "Tá vendo?"
+    },
+    {
+      "start": 555.37,
+      "end": 556.09,
+      "text": "Eu fui aqui, ó."
+    },
+    {
+      "start": 556.51,
+      "end": 559.73,
+      "text": "Soluções, ferramentas, regime tributário."
+    },
+    {
+      "start": 560.67,
+      "end": 566.01,
+      "text": "Quando chegar aqui, Joyce e Naile, eu vou colocar, copiar."
+    },
+    {
+      "start": 572.0,
+      "end": 574.2,
+      "text": "Volto para ela e coloco aqui."
+    },
+    {
+      "start": 574.92,
+      "end": 577.34,
+      "text": "E aí ela vai me dizer o seguinte, as informações que eu quero."
+    },
+    {
+      "start": 577.34,
+      "end": 583.2,
+      "text": "No lucro presumido, até o final desse ano,"
+    },
+    {
+      "start": 584.42,
+      "end": 588.6,
+      "text": "que nunca a gente está apurando terceiro trimestre de 2025, 8%."
+    },
+    {
+      "start": 588.6,
+      "end": 591.7,
+      "text": "E CSLL 12."
+    },
+    {
+      "start": 591.84,
+      "end": 593.52,
+      "text": "Então, viu como ficou fácil?"
+    },
+    {
+      "start": 594.16,
+      "end": 597.14,
+      "text": "Aí a questão também, Pins e Coffins, ele já traz, entendeu?"
+    },
+    {
+      "start": 597.76,
+      "end": 598.6,
+      "text": "Ele já traz aqui."
+    },
+    {
+      "start": 599.96,
+      "end": 601.76,
+      "text": "Então, aqui eu validei."
+    },
+    {
+      "start": 602.02,
+      "end": 602.62,
+      "text": "Tá batendo?"
+    },
+    {
+      "start": 602.76,
+      "end": 603.6,
+      "text": "Tá 12%."
+    },
+    {
+      "start": 603.6,
+      "end": 604.14,
+      "text": "Concorda?"
+    },
+    {
+      "start": 605.14,
+      "end": 605.5,
+      "text": "Beleza?"
+    },
+    {
+      "start": 606.02,
+      "end": 609.18,
+      "text": "Aqui ele vai me trazer também uma situação que é importante, pessoal."
+    },
+    {
+      "start": 609.18,
+      "end": 613.5,
+      "text": "Ó, venda de produto dentro do Estado a prazo, que é produto sem ST."
+    },
+    {
+      "start": 614.0,
+      "end": 618.84,
+      "text": "Ele me trouxe o faturamento e ele me trouxe aqui já com a presunção."
+    },
+    {
+      "start": 619.48,
+      "end": 619.92,
+      "text": "Presumiu."
+    },
+    {
+      "start": 620.28,
+      "end": 621.38,
+      "text": "Esse valor deu esse."
+    },
+    {
+      "start": 621.78,
+      "end": 625.78,
+      "text": "E também ele presumiu a dedução do IPI, porque nesse caso aqui não tem ST."
+    },
+    {
+      "start": 626.22,
+      "end": 627.52,
+      "text": "E ele me trouxe aqui quanto?"
+    },
+    {
+      "start": 627.64,
+      "end": 628.14,
+      "text": "92."
+    },
+    {
+      "start": 628.38,
+      "end": 630.18,
+      "text": "Então, esse menos esse dá esse."
+    },
+    {
+      "start": 630.18,
+      "end": 631.32,
+      "text": "Perfeito."
+    },
+    {
+      "start": 631.7,
+      "end": 632.56,
+      "text": "Me faz compreender."
+    },
+    {
+      "start": 633.84,
+      "end": 634.54,
+      "text": "Tranquilo, então."
+    },
+    {
+      "start": 634.94,
+      "end": 636.86,
+      "text": "O ST, tá vendo que ele tá os dois?"
+    },
+    {
+      "start": 637.0,
+      "end": 639.82,
+      "text": "O IPI, o ICMS ST e a base reduzida."
+    },
+    {
+      "start": 640.72,
+      "end": 641.8,
+      "text": "Tá vendo como tá aqui?"
+    },
+    {
+      "start": 642.24,
+      "end": 644.08,
+      "text": "Então, eu tive essa redução."
+    },
+    {
+      "start": 645.18,
+      "end": 645.6,
+      "text": "Perfeito."
+    },
+    {
+      "start": 647.3,
+      "end": 647.98,
+      "text": "Tranquilo, então."
+    },
+    {
+      "start": 647.98,
+      "end": 653.08,
+      "text": "Nesse caso aqui, a mesma coisa, ele vai trazer as devoluções, que é algo importante também"
+    },
+    {
+      "start": 653.08,
+      "end": 657.84,
+      "text": "da gente se alentar, porque a devolução, ela é redutora da minha receita."
+    },
+    {
+      "start": 658.36,
+      "end": 664.0,
+      "text": "Então, exemplo, se eu tive uma receita, igual a que teve, de 1.655.000, eu tenho que deduzir"
+    },
+    {
+      "start": 664.0,
+      "end": 669.54,
+      "text": "minhas devoluções, que vai reduzir também o meu valor a pagar de imposto."
+    },
+    {
+      "start": 669.8,
+      "end": 671.0,
+      "text": "Então, tem que se atentar a isso."
+    },
+    {
+      "start": 671.36,
+      "end": 676.64,
+      "text": "Além de se atentar ao ICMS ST e ao IPI, que é redutor, eu tenho minhas devoluções"
+    },
+    {
+      "start": 676.64,
+      "end": 676.96,
+      "text": "também."
+    },
+    {
+      "start": 677.98,
+      "end": 680.2,
+      "text": "E como é que eu valido aqui se tá batendo, então?"
+    },
+    {
+      "start": 680.7,
+      "end": 682.32,
+      "text": "Que seria também lá no acumulador."
+    },
+    {
+      "start": 682.42,
+      "end": 686.86,
+      "text": "Por isso que eu digo que o acumulador, o relatório de acumulador, ele é muito importante,"
+    },
+    {
+      "start": 687.0,
+      "end": 693.48,
+      "text": "porque você tem que identificar se todas as receitas que estão sendo levadas pra tributação,"
+    },
+    {
+      "start": 693.84,
+      "end": 695.1,
+      "text": "se elas estão batendo."
+    },
+    {
+      "start": 695.48,
+      "end": 700.24,
+      "text": "Da mesma forma que aqui a devolução, a devolução de venda, eu tenho duas."
+    },
+    {
+      "start": 700.82,
+      "end": 705.42,
+      "text": "Uma que é 1.891, outra 5.410."
+    },
+    {
+      "start": 705.42,
+      "end": 707.92,
+      "text": "Então, todas estão aqui."
+    },
+    {
+      "start": 709.24,
+      "end": 709.72,
+      "text": "Vamos lá."
+    },
+    {
+      "start": 710.64,
+      "end": 711.72,
+      "text": "Aqui, ela aqui, olha."
+    },
+    {
+      "start": 711.88,
+      "end": 714.9,
+      "text": "Uma tá batendo e a segunda tá aqui."
+    },
+    {
+      "start": 715.02,
+      "end": 716.24,
+      "text": "Então, tá todas batendo, beleza?"
+    },
+    {
+      "start": 717.7,
+      "end": 718.1,
+      "text": "Fechou?"
+    },
+    {
+      "start": 720.14,
+      "end": 721.22,
+      "text": "Isso é da matriz."
+    },
+    {
+      "start": 721.32,
+      "end": 723.22,
+      "text": "Aí, tá vendo se o LPJ tá aqui da matriz, pessoal?"
+    },
+    {
+      "start": 724.28,
+      "end": 725.7,
+      "text": "Tão observando aqui é o da matriz."
+    },
+    {
+      "start": 725.82,
+      "end": 727.04,
+      "text": "Aqui é o da filial, olha."
+    },
+    {
+      "start": 727.04,
+      "end": 728.72,
+      "text": "Aqui embaixo, que é filial."
+    },
+    {
+      "start": 728.72,
+      "end": 731.48,
+      "text": "Então, aqui é a matriz e aqui é filial."
+    },
+    {
+      "start": 732.32,
+      "end": 732.72,
+      "text": "Perfeito?"
+    },
+    {
+      "start": 735.52,
+      "end": 736.34,
+      "text": "Posteriormente, pronto."
+    },
+    {
+      "start": 736.46,
+      "end": 738.7,
+      "text": "A gente identificou que tá batendo a devolução."
+    },
+    {
+      "start": 739.48,
+      "end": 743.1,
+      "text": "Agora, eu vou verificar se tá batendo a receita que a gente tinha calculada."
+    },
+    {
+      "start": 744.54,
+      "end": 744.78,
+      "text": "Olha."
+    },
+    {
+      "start": 745.44,
+      "end": 746.46,
+      "text": "Bateu certinho, não foi?"
+    },
+    {
+      "start": 747.42,
+      "end": 748.0,
+      "text": "Não bateu?"
+    },
+    {
+      "start": 749.6,
+      "end": 750.06,
+      "text": "Perfeito?"
+    },
+    {
+      "start": 750.06,
+      "end": 755.44,
+      "text": "Então, você viu quanto foi importante a gente identificar se tá realmente?"
+    },
+    {
+      "start": 755.94,
+      "end": 756.28,
+      "text": "Por quê?"
+    },
+    {
+      "start": 756.84,
+      "end": 764.52,
+      "text": "Eu já peguei situações de que for ser criado acumuladores, não colocar a parametrização"
+    },
+    {
+      "start": 764.52,
+      "end": 768.72,
+      "text": "no acumulador e aí, por causa disso, não levar pra apuração do IRPJ."
+    },
+    {
+      "start": 769.24,
+      "end": 770.24,
+      "text": "Só que como é que eu sei?"
+    },
+    {
+      "start": 770.24,
+      "end": 774.76,
+      "text": "Eu tenho que fazer esse batimento de contas aqui, verificar se os acumuladores que estão"
+    },
+    {
+      "start": 774.76,
+      "end": 780.12,
+      "text": "informados, que tiveram receita, se realmente eles estão dentro do meu cálculo."
+    },
+    {
+      "start": 780.78,
+      "end": 788.28,
+      "text": "Aí, eu vou trazer ainda mais, vamos dizer assim, pontos de vocês identificarem erros."
+    },
+    {
+      "start": 788.74,
+      "end": 793.62,
+      "text": "Porque assim, não adianta só eu fazer a apuração sem dizer da onde é que nasce a apuração."
+    },
+    {
+      "start": 794.02,
+      "end": 795.38,
+      "text": "A apuração nasce do acumulador."
+    },
+    {
+      "start": 795.38,
+      "end": 801.72,
+      "text": "Então, aonde é que eu identifico a correta, se o acumulador tá configurado correto?"
+    },
+    {
+      "start": 802.12,
+      "end": 803.1,
+      "text": "Então, eu venho aqui, ó."
+    },
+    {
+      "start": 803.86,
+      "end": 807.34,
+      "text": "Tá vendo, Naeli e Joyce, vocês que estão iniciando?"
+    },
+    {
+      "start": 807.92,
+      "end": 809.58,
+      "text": "O acumulador, ele que define."
+    },
+    {
+      "start": 809.7,
+      "end": 810.58,
+      "text": "Então, aqui, tá vendo aí?"
+    },
+    {
+      "start": 811.68,
+      "end": 813.68,
+      "text": "CSL12 e IRPJ8."
+    },
+    {
+      "start": 814.08,
+      "end": 815.54,
+      "text": "Então, é aqui que nasce tudo."
+    },
+    {
+      "start": 815.96,
+      "end": 820.92,
+      "text": "Se não tiver configurado aqui, tiver os impostos zerados, ele não vai trazer pra aqui."
+    },
+    {
+      "start": 821.52,
+      "end": 823.38,
+      "text": "Então, ele só vai trazer se estiver aqui."
+    },
+    {
+      "start": 824.38,
+      "end": 824.78,
+      "text": "Entende?"
+    },
+    {
+      "start": 826.0,
+      "end": 827.04,
+      "text": "Pronto, beleza."
+    },
+    {
+      "start": 827.62,
+      "end": 830.82,
+      "text": "Então, se eu passar as outras empresas que tem tudo aqui pra vocês, vocês conseguem?"
+    },
+    {
+      "start": 836.97,
+      "end": 838.35,
+      "text": "Eu brincando, eu vou se preocupar."
+    },
+    {
+      "start": 838.55,
+      "end": 839.49,
+      "text": "Não senta pressão, não."
+    },
+    {
+      "start": 840.45,
+      "end": 842.81,
+      "text": "Aqui é de boa."
+    },
+    {
+      "start": 843.49,
+      "end": 844.71,
+      "text": "Vocês não vão sentir pressão, não."
+    },
+    {
+      "start": 844.97,
+      "end": 845.61,
+      "text": "Né, Tati?"
+    },
+    {
+      "start": 847.15,
+      "end": 847.83,
+      "text": "Vamos lá."
+    },
+    {
+      "start": 848.79,
+      "end": 849.99,
+      "text": "Agora, a gente vai pra quem?"
+    },
+    {
+      "start": 850.19,
+      "end": 851.09,
+      "text": "Pra filial."
+    },
+    {
+      "start": 851.51,
+      "end": 853.45,
+      "text": "Pra validar a filial, se tá tudo correto."
+    },
+    {
+      "start": 853.45,
+      "end": 858.45,
+      "text": "A filial é a empresa, essa daqui, né?"
+    },
+    {
+      "start": 858.89,
+      "end": 859.45,
+      "text": "373."
+    },
+    {
+      "start": 859.89,
+      "end": 864.12,
+      "text": "Vamos validar a filial."
+    },
+    {
+      "start": 864.12,
+      "end": 866.68,
+      "text": "A mesma coisa, ó."
+    },
+    {
+      "start": 867.34,
+      "end": 868.56,
+      "text": "Relatório, novamente."
+    },
+    {
+      "start": 868.88,
+      "end": 871.78,
+      "text": "Relatório, acompanhamento, resumo por acumulador."
+    },
+    {
+      "start": 873.6,
+      "end": 874.54,
+      "text": "Coloco mês 10."
+    },
+    {
+      "start": 875.18,
+      "end": 876.12,
+      "text": "Três meses, pessoal."
+    },
+    {
+      "start": 876.12,
+      "end": 877.74,
+      "text": "10, 11, 12."
+    },
+    {
+      "start": 877.74,
+      "end": 882.54,
+      "text": "É 1, 2 e 3, 4, 5, 6, 7, 8, 9."
+    },
+    {
+      "start": 882.54,
+      "end": 892.54,
+      "text": "Então, evolução de venda que teve, ó."
+    },
+    {
+      "start": 892.54,
+      "end": 893.02,
+      "text": "2."
+    },
+    {
+      "start": 894.6,
+      "end": 896.14,
+      "text": "Vamos ver se teve aqui ele, ó."
+    },
+    {
+      "start": 896.14,
+      "end": 896.78,
+      "text": "7."
+    },
+    {
+      "start": 897.88,
+      "end": 899.2,
+      "text": "Então, tudo aqui, perfeito?"
+    },
+    {
+      "start": 899.74,
+      "end": 900.58,
+      "text": "Eles estão aqui, ó."
+    },
+    {
+      "start": 901.48,
+      "end": 902.98,
+      "text": "Agora, a gente vai ver a receita."
+    },
+    {
+      "start": 907.47,
+      "end": 907.87,
+      "text": "Venda."
+    },
+    {
+      "start": 909.65,
+      "end": 910.77,
+      "text": "Vamos lá, vamos ver o dele."
+    },
+    {
+      "start": 910.93,
+      "end": 911.19,
+      "text": "Venda."
+    },
+    {
+      "start": 912.81,
+      "end": 916.25,
+      "text": "Tem um acumulador 500, que dá 11, 3, 8, 2, 40."
+    },
+    {
+      "start": 916.43,
+      "end": 916.75,
+      "text": "Mais."
+    },
+    {
+      "start": 917.23,
+      "end": 918.19,
+      "text": "Um acumulador 600."
+    },
+    {
+      "start": 922.57,
+      "end": 922.97,
+      "text": "Mais."
+    },
+    {
+      "start": 923.49,
+      "end": 939.19,
+      "text": "Eu coloquei alguma coisa errada, você me diga, né?"
+    },
+    {
+      "start": 939.87,
+      "end": 948.51,
+      "text": "Aqui tá dando a diferença de 900 e..."
+    },
+    {
+      "start": 948.51,
+      "end": 949.53,
+      "text": "Ah, eu esqueci desse, ó."
+    },
+    {
+      "start": 951.03,
+      "end": 952.17,
+      "text": "Tá batendo, tá vendo?"
+    },
+    {
+      "start": 952.59,
+      "end": 953.71,
+      "text": "Eu tinha esquecido desse."
+    },
+    {
+      "start": 953.71,
+      "end": 955.29,
+      "text": "Então, fechou aqui."
+    },
+    {
+      "start": 955.67,
+      "end": 956.15,
+      "text": "Concorda?"
+    },
+    {
+      "start": 956.25,
+      "end": 958.57,
+      "text": "Batendo até as vírgulas."
+    },
+    {
+      "start": 958.71,
+      "end": 959.25,
+      "text": "Eu digo assim, ó."
+    },
+    {
+      "start": 959.25,
+      "end": 960.45,
+      "text": "Tem que bater até as vírgulas."
+    },
+    {
+      "start": 960.81,
+      "end": 964.27,
+      "text": "Que geralmente, às vezes, acontece no cálculo não bater."
+    },
+    {
+      "start": 964.81,
+      "end": 967.55,
+      "text": "E isso daqui, pessoal, é algo importante."
+    },
+    {
+      "start": 967.69,
+      "end": 970.47,
+      "text": "Porque na hora que o contábil for fazer o LALU,"
+    },
+    {
+      "start": 971.05,
+      "end": 972.33,
+      "text": "que é o LALU não, perdão."
+    },
+    {
+      "start": 972.45,
+      "end": 977.69,
+      "text": "A ECF, lá no contábil, essas deduções aqui,"
+    },
+    {
+      "start": 978.13,
+      "end": 980.89,
+      "text": "que é muito importante, que é o ICMSST e o IPI,"
+    },
+    {
+      "start": 980.89,
+      "end": 982.87,
+      "text": "ele tem que estar no campo correto."
+    },
+    {
+      "start": 982.87,
+      "end": 988.91,
+      "text": "Porque a ECF, ela faz a validação entre a parte contábil e fiscal"
+    },
+    {
+      "start": 988.91,
+      "end": 992.15,
+      "text": "pra ver se a dedução que tá sendo aplicada, ela bate."
+    },
+    {
+      "start": 992.29,
+      "end": 992.53,
+      "text": "Entendeu?"
+    },
+    {
+      "start": 992.61,
+      "end": 993.55,
+      "text": "Que são dois campos."
+    },
+    {
+      "start": 993.55,
+      "end": 1001.27,
+      "text": "O M110, se eu não tô enganado, e o M200 e alguma coisa da ECF."
+    },
+    {
+      "start": 1002.01,
+      "end": 1006.17,
+      "text": "Porque um é a apuração fiscal e o outro é a parte que é a DRE."
+    },
+    {
+      "start": 1006.55,
+      "end": 1010.29,
+      "text": "Se os dois não estiverem batendo, você não consegue enviar a ECF,"
+    },
+    {
+      "start": 1010.39,
+      "end": 1011.53,
+      "text": "porque vai dar incongruência."
+    },
+    {
+      "start": 1012.07,
+      "end": 1012.47,
+      "text": "Perfeito?"
+    },
+    {
+      "start": 1012.47,
+      "end": 1015.25,
+      "text": "Então, é muito importante a gente fazer essa validação."
+    },
+    {
+      "start": 1015.77,
+      "end": 1019.51,
+      "text": "Então, aqui a gente percebe que, pelas análises que a gente fez,"
+    },
+    {
+      "start": 1020.09,
+      "end": 1021.87,
+      "text": "tá batendo tudo certinho."
+    },
+    {
+      "start": 1022.55,
+      "end": 1027.45,
+      "text": "Eu costumo fazer uma análise meio que operacional minha,"
+    },
+    {
+      "start": 1027.77,
+      "end": 1031.13,
+      "text": "que é o seguinte, eu chego aqui só pra ver se a domínio tá calculando correto."
+    },
+    {
+      "start": 1031.69,
+      "end": 1035.65,
+      "text": "Ou seja, pegar esses valores aqui, somar ele,"
+    },
+    {
+      "start": 1036.75,
+      "end": 1039.63,
+      "text": "deduzindo esses, pra ver se esse valor aqui,"
+    },
+    {
+      "start": 1039.83,
+      "end": 1041.67,
+      "text": "aplicando a presunção, se tá tudo igual."
+    },
+    {
+      "start": 1041.67,
+      "end": 1045.83,
+      "text": "Eu percebo aqui, pessoal, que tá faltando uma situação."
+    },
+    {
+      "start": 1047.33,
+      "end": 1049.97,
+      "text": "Vocês sabem dizer qual é a situação aqui que tá faltando?"
+    },
+    {
+      "start": 1050.39,
+      "end": 1051.63,
+      "text": "Que eu não identifiquei aqui."
+    },
+    {
+      "start": 1054.34,
+      "end": 1056.5,
+      "text": "Vocês conseguem identificar o que é que tá faltando?"
+    },
+    {
+      "start": 1058.08,
+      "end": 1062.72,
+      "text": "Tem uma situação faltando, que lá do início do checklist eu pontuei."
+    },
+    {
+      "start": 1064.02,
+      "end": 1067.1,
+      "text": "Vamos lá, se vocês pegaram o fio da minhada."
+    },
+    {
+      "start": 1067.22,
+      "end": 1068.36,
+      "text": "As bonificações, por favor."
+    },
+    {
+      "start": 1068.66,
+      "end": 1070.44,
+      "text": "Isso mesmo, as bonificações."
+    },
+    {
+      "start": 1070.44,
+      "end": 1073.58,
+      "text": "Se você verificar aqui, não teve nenhum acumulador de bonificação."
+    },
+    {
+      "start": 1074.58,
+      "end": 1074.92,
+      "text": "Não é isso?"
+    },
+    {
+      "start": 1075.74,
+      "end": 1077.46,
+      "text": "Não teve nenhum acumulador de bonificação."
+    },
+    {
+      "start": 1077.6,
+      "end": 1078.62,
+      "text": "Então, como é que eu valido?"
+    },
+    {
+      "start": 1079.08,
+      "end": 1079.46,
+      "text": "Vamos lá."
+    },
+    {
+      "start": 1080.54,
+      "end": 1081.32,
+      "text": "Eu tive aqui, ó."
+    },
+    {
+      "start": 1081.32,
+      "end": 1085.8,
+      "text": "Apenas uma bonificação na filial, que foi essa de 188,91."
+    },
+    {
+      "start": 1086.8,
+      "end": 1088.62,
+      "text": "Aí, como é que eu identifico isso?"
+    },
+    {
+      "start": 1089.96,
+      "end": 1091.28,
+      "text": "Eu tenho que vir aqui, ó."
+    },
+    {
+      "start": 1091.62,
+      "end": 1091.98,
+      "text": "Vamos lá."
+    },
+    {
+      "start": 1092.92,
+      "end": 1093.86,
+      "text": "Aqui é a filial."
+    },
+    {
+      "start": 1094.88,
+      "end": 1095.86,
+      "text": "Não, aqui é a matriz."
+    },
+    {
+      "start": 1095.86,
+      "end": 1099.58,
+      "text": "Eu venho aqui, entradas."
+    },
+    {
+      "start": 1100.54,
+      "end": 1102.0,
+      "text": "Aí, eu vou fazer o seguinte, pessoal."
+    },
+    {
+      "start": 1102.28,
+      "end": 1103.14,
+      "text": "Olha como é importante."
+    },
+    {
+      "start": 1103.48,
+      "end": 1104.92,
+      "text": "Veja sempre os caminhos, né?"
+    },
+    {
+      "start": 1105.0,
+      "end": 1105.62,
+      "text": "Relatório, ó."
+    },
+    {
+      "start": 1105.86,
+      "end": 1106.34,
+      "text": "Relatório."
+    },
+    {
+      "start": 1106.84,
+      "end": 1108.12,
+      "text": "Aqui, entradas."
+    },
+    {
+      "start": 1108.42,
+      "end": 1108.76,
+      "text": "Beleza?"
+    },
+    {
+      "start": 1109.38,
+      "end": 1110.52,
+      "text": "Aí, eu vou fazer o seguinte."
+    },
+    {
+      "start": 1111.66,
+      "end": 1117.86,
+      "text": "Eu vou pegar o acumulador que tá me trazendo essa nota."
+    },
+    {
+      "start": 1118.86,
+      "end": 1119.9,
+      "text": "Ou esse valor aqui."
+    },
+    {
+      "start": 1120.78,
+      "end": 1122.6,
+      "text": "Eu expliquei o que é a vocês lá no início."
+    },
+    {
+      "start": 1122.74,
+      "end": 1124.62,
+      "text": "Quem é que consegue me..."
+    },
+    {
+      "start": 1124.62,
+      "end": 1128.54,
+      "text": "Me tirando João Vito e Vini e Tatiana."
+    },
+    {
+      "start": 1128.66,
+      "end": 1132.14,
+      "text": "Vou deixar isso para as meninas, porque é bom para elas, vamos dizer assim,"
+    },
+    {
+      "start": 1132.3,
+      "end": 1135.22,
+      "text": "enlarguecer a parte de compreensão."
+    },
+    {
+      "start": 1136.26,
+      "end": 1137.5,
+      "text": "O que foi que eu disse lá no início?"
+    },
+    {
+      "start": 1138.86,
+      "end": 1140.1,
+      "text": "Sobre a bonificação."
+    },
+    {
+      "start": 1140.9,
+      "end": 1141.86,
+      "text": "Eu disse alguma coisa."
+    },
+    {
+      "start": 1145.96,
+      "end": 1147.0,
+      "text": "Alguém se recorda?"
+    },
+    {
+      "start": 1149.79,
+      "end": 1150.35,
+      "text": "Em Naili."
+    },
+    {
+      "start": 1151.87,
+      "end": 1153.47,
+      "text": "O que foi que eu disse sobre a bonificação?"
+    },
+    {
+      "start": 1153.73,
+      "end": 1154.95,
+      "text": "Não lembro não, Soares."
+    },
+    {
+      "start": 1155.09,
+      "end": 1155.91,
+      "text": "Sendo sincera."
+    },
+    {
+      "start": 1156.47,
+      "end": 1157.45,
+      "text": "É importante, viu?"
+    },
+    {
+      "start": 1157.45,
+      "end": 1161.53,
+      "text": "Porque aí é onde a gente vai medir o nível de aprendizado de vocês."
+    },
+    {
+      "start": 1161.69,
+      "end": 1163.35,
+      "text": "Porque assim, vamos pensar o seguinte."
+    },
+    {
+      "start": 1163.55,
+      "end": 1165.11,
+      "text": "Tudo que a gente foca, expande."
+    },
+    {
+      "start": 1165.47,
+      "end": 1167.53,
+      "text": "Se você não foca, você não expande."
+    },
+    {
+      "start": 1167.89,
+      "end": 1168.89,
+      "text": "Então, eu disse o seguinte."
+    },
+    {
+      "start": 1169.13,
+      "end": 1174.59,
+      "text": "Que só entraria no cálculo as bonificações quando a nota fiscal fosse uma nota fiscal"
+    },
+    {
+      "start": 1174.59,
+      "end": 1176.49,
+      "text": "só de bonificação."
+    },
+    {
+      "start": 1177.23,
+      "end": 1178.39,
+      "text": "Não foi isso que eu disse no início?"
+    },
+    {
+      "start": 1179.11,
+      "end": 1180.09,
+      "text": "Então, preste atenção."
+    },
+    {
+      "start": 1180.09,
+      "end": 1185.97,
+      "text": "Sempre eu vou trazer no início de todas, vamos dizer, todo o pó que eu trago sempre algo"
+    },
+    {
+      "start": 1185.97,
+      "end": 1191.19,
+      "text": "que vocês têm que focar que é importante, que é o que deve ser tratado durante as apurações."
+    },
+    {
+      "start": 1191.97,
+      "end": 1192.59,
+      "text": "Então, vamos lá."
+    },
+    {
+      "start": 1192.65,
+      "end": 1194.45,
+      "text": "Eu vou pegar as notas fiscais que eu já identifiquei."
+    },
+    {
+      "start": 1194.45,
+      "end": 1201.57,
+      "text": "Deixa eu ver aqui se ele consegue me dar o filtro por nota fiscal."
+    },
+    {
+      "start": 1201.57,
+      "end": 1206.09,
+      "text": "Acho que ele não vai me dar."
+    },
+    {
+      "start": 1207.61,
+      "end": 1208.81,
+      "text": "Deixa eu ver se eu vou dar o 2."
+    },
+    {
+      "start": 1211.01,
+      "end": 1212.67,
+      "text": "Fornecedor, pá, pá, pá."
+    },
+    {
+      "start": 1212.99,
+      "end": 1213.87,
+      "text": "Qual fornecedor?"
+    },
+    {
+      "start": 1214.03,
+      "end": 1214.43,
+      "text": "Só pronto."
+    },
+    {
+      "start": 1218.57,
+      "end": 1219.67,
+      "text": "Acho que eu não vou conseguir, não."
+    },
+    {
+      "start": 1220.71,
+      "end": 1222.31,
+      "text": "Mas eu tenho o número da nota aqui."
+    },
+    {
+      "start": 1223.77,
+      "end": 1224.79,
+      "text": "São essas notas aqui."
+    },
+    {
+      "start": 1224.87,
+      "end": 1226.61,
+      "text": "É 43198."
+    },
+    {
+      "start": 1227.27,
+      "end": 1228.19,
+      "text": "É melhor fazer aqui."
+    },
+    {
+      "start": 1232.11,
+      "end": 1234.33,
+      "text": "43198 e a 73135."
+    },
+    {
+      "start": 1234.55,
+      "end": 1234.87,
+      "text": "Vamos lá."
+    },
+    {
+      "start": 1234.87,
+      "end": 1239.47,
+      "text": "Então, eu estou abrindo aqui a nota fiscal de entrada para a gente identificar se essa"
+    },
+    {
+      "start": 1239.47,
+      "end": 1246.87,
+      "text": "nota fiscal, ela foi uma que a gente chama de segmento."
+    },
+    {
+      "start": 1246.95,
+      "end": 1252.63,
+      "text": "Quando é segmentada a nota, pessoal, significa dizer que essa nota, vamos dizer assim, ela"
+    },
+    {
+      "start": 1252.63,
+      "end": 1254.29,
+      "text": "teve dois CFOPS."
+    },
+    {
+      "start": 1255.17,
+      "end": 1255.51,
+      "text": "Entendeu?"
+    },
+    {
+      "start": 1255.51,
+      "end": 1262.21,
+      "text": "Ô, Soares, o Sandril me ensinou um método que a gente faz aqui uma consulta."
+    },
+    {
+      "start": 1262.35,
+      "end": 1262.65,
+      "text": "Sim."
+    },
+    {
+      "start": 1262.89,
+      "end": 1266.77,
+      "text": "Que é mais fácil de gerar um relatório para ver se a nota é pura ou não."
+    },
+    {
+      "start": 1266.87,
+      "end": 1267.67,
+      "text": "É, entendi."
+    },
+    {
+      "start": 1267.81,
+      "end": 1269.55,
+      "text": "Eu sei que é lá em relatório, né?"
+    },
+    {
+      "start": 1269.57,
+      "end": 1273.61,
+      "text": "Mas eu estou mostrando aqui o passo a passo, porque é como aquela situação que,"
+    },
+    {
+      "start": 1273.73,
+      "end": 1275.07,
+      "text": "Alan, você lembra que eu disse lá no início?"
+    },
+    {
+      "start": 1275.15,
+      "end": 1276.31,
+      "text": "O ensinamento é muito mais difícil."
+    },
+    {
+      "start": 1276.31,
+      "end": 1279.83,
+      "text": "É, para você saber como é que chegou nele, entendeu?"
+    },
+    {
+      "start": 1280.41,
+      "end": 1280.67,
+      "text": "Beleza."
+    },
+    {
+      "start": 1280.69,
+      "end": 1285.95,
+      "text": "Mas aqui, nesse caso, pessoal, está vendo que a bonificação, ela foi, não teve segmento?"
+    },
+    {
+      "start": 1286.25,
+      "end": 1290.99,
+      "text": "Quando ela tem segmento, está vendo esse campo aqui, ele vem com 1 ou 0 e 1."
+    },
+    {
+      "start": 1291.49,
+      "end": 1293.01,
+      "text": "Então, nesse caso, todas foram 0."
+    },
+    {
+      "start": 1293.09,
+      "end": 1294.21,
+      "text": "Então, eu vou ter que fazer o quê?"
+    },
+    {
+      "start": 1295.01,
+      "end": 1295.41,
+      "text": "Adicionar."
+    },
+    {
+      "start": 1295.83,
+      "end": 1297.33,
+      "text": "Eu vou ter que adicionar essa receita."
+    },
+    {
+      "start": 1297.87,
+      "end": 1298.17,
+      "text": "Beleza?"
+    },
+    {
+      "start": 1298.31,
+      "end": 1298.67,
+      "text": "Por quê?"
+    },
+    {
+      "start": 1299.13,
+      "end": 1300.13,
+      "text": "Alguém sabe por quê?"
+    },
+    {
+      "start": 1300.31,
+      "end": 1301.99,
+      "text": "Se eu não adicionar, qual o problema que eu tenho?"
+    },
+    {
+      "start": 1304.43,
+      "end": 1305.59,
+      "text": "Vamos lá, vamos ver se vocês..."
+    },
+    {
+      "start": 1305.59,
+      "end": 1309.39,
+      "text": "Eu falei, eu já dei um macete a vocês disso daí."
+    },
+    {
+      "start": 1309.47,
+      "end": 1310.59,
+      "text": "Agora eu vou abrir para todos, viu?"
+    },
+    {
+      "start": 1310.89,
+      "end": 1311.83,
+      "text": "Não vou deixar nelas, não."
+    },
+    {
+      "start": 1311.89,
+      "end": 1314.47,
+      "text": "Vamos ver se vocês todos já estão sabendo por quê."
+    },
+    {
+      "start": 1314.79,
+      "end": 1318.13,
+      "text": "Eu expliquei o motivo do problema que pode acontecer."
+    },
+    {
+      "start": 1321.63,
+      "end": 1322.03,
+      "text": "Vamos lá?"
+    },
+    {
+      "start": 1324.7,
+      "end": 1327.86,
+      "text": "A questão lá do contábil que vai influenciar no..."
+    },
+    {
+      "start": 1327.86,
+      "end": 1329.2,
+      "text": "Isso mesmo, na DRE."
+    },
+    {
+      "start": 1329.66,
+      "end": 1330.46,
+      "text": "Na DRE, é isso."
+    },
+    {
+      "start": 1330.46,
+      "end": 1334.18,
+      "text": "Porque quando as meninas do contábil lançarem isso aqui, isso daqui vai como receita."
+    },
+    {
+      "start": 1334.66,
+      "end": 1340.26,
+      "text": "Então, exemplo, a receita que vai estar na DRE vai estar maior do que a receita fiscal."
+    },
+    {
+      "start": 1340.82,
+      "end": 1346.0,
+      "text": "Então, se eu não lançar esse ajuste, a apuração que está aí, o setor contábil calcular,"
+    },
+    {
+      "start": 1346.12,
+      "end": 1347.62,
+      "text": "vai estar maior do que a receita fiscal."
+    },
+    {
+      "start": 1348.14,
+      "end": 1349.84,
+      "text": "Então, na hora da ICF não vai fechar."
+    },
+    {
+      "start": 1351.54,
+      "end": 1352.38,
+      "text": "Me faço compreender?"
+    },
+    {
+      "start": 1353.74,
+      "end": 1354.62,
+      "text": "Pronto, beleza."
+    },
+    {
+      "start": 1355.72,
+      "end": 1356.12,
+      "text": "Massa."
+    },
+    {
+      "start": 1356.88,
+      "end": 1357.52,
+      "text": "Vamos lá, então."
+    },
+    {
+      "start": 1357.52,
+      "end": 1361.76,
+      "text": "Então, eu tenho aqui na matriz, quanto de receita para avançar?"
+    },
+    {
+      "start": 1364.1,
+      "end": 1365.16,
+      "text": "188 reais, né?"
+    },
+    {
+      "start": 1366.0,
+      "end": 1366.82,
+      "text": "91, não é isso?"
+    },
+    {
+      "start": 1369.16,
+      "end": 1370.32,
+      "text": "188,91."
+    },
+    {
+      "start": 1370.9,
+      "end": 1374.22,
+      "text": "Agora vamos para a filial, para a gente identificar se na filial teve também."
+    },
+    {
+      "start": 1374.22,
+      "end": 1382.58,
+      "text": "Bonificação teve na filial."
+    },
+    {
+      "start": 1382.94,
+      "end": 1388.36,
+      "text": "Vamos agora identificar se as bonificações foram."
+    },
+    {
+      "start": 1388.8,
+      "end": 1390.8,
+      "text": "Agora vamos usar o método mais fácil, né, João?"
+    },
+    {
+      "start": 1390.9,
+      "end": 1392.18,
+      "text": "Tu já foi no método FIS, né?"
+    },
+    {
+      "start": 1392.18,
+      "end": 1396.16,
+      "text": "Eu só não me lembro qual o caminho, viu?"
+    },
+    {
+      "start": 1396.3,
+      "end": 1398.04,
+      "text": "Se você quiser me ajudar aqui, eu agradeço."
+    },
+    {
+      "start": 1398.38,
+      "end": 1401.46,
+      "text": "Mas eu tinha validado com o Sandro esse caminho."
+    },
+    {
+      "start": 1402.46,
+      "end": 1403.72,
+      "text": "Eu sei que é em relatórios."
+    },
+    {
+      "start": 1403.72,
+      "end": 1406.1,
+      "text": "Não, você vai em..."
+    },
+    {
+      "start": 1406.1,
+      "end": 1407.94,
+      "text": "Como se fosse uma nota de entrada mesmo lá."
+    },
+    {
+      "start": 1408.18,
+      "end": 1408.98,
+      "text": "É arquivos."
+    },
+    {
+      "start": 1410.18,
+      "end": 1412.22,
+      "text": "Dá uma nota de entrada mesmo, aqui na setinha do lado."
+    },
+    {
+      "start": 1412.84,
+      "end": 1413.72,
+      "text": "Dá uma nota de entrada aqui."
+    },
+    {
+      "start": 1414.08,
+      "end": 1414.54,
+      "text": "Oh, sim."
+    },
+    {
+      "start": 1414.82,
+      "end": 1415.46,
+      "text": "Aí, isso."
+    },
+    {
+      "start": 1416.2,
+      "end": 1416.36,
+      "text": "Aí."
+    },
+    {
+      "start": 1424.84,
+      "end": 1425.2,
+      "text": "Aí."
+    },
+    {
+      "start": 1425.8,
+      "end": 1426.3,
+      "text": "Ah, diga."
+    },
+    {
+      "start": 1426.96,
+      "end": 1428.42,
+      "text": "Aí você vai em listagem."
+    },
+    {
+      "start": 1430.92,
+      "end": 1431.88,
+      "text": "Aí relatório aqui agora."
+    },
+    {
+      "start": 1434.75,
+      "end": 1435.61,
+      "text": "Aí você vai colocar os filtros."
+    },
+    {
+      "start": 1436.23,
+      "end": 1436.85,
+      "text": "Ah, já..."
+    },
+    {
+      "start": 1436.85,
+      "end": 1437.25,
+      "text": "Já aqui."
+    },
+    {
+      "start": 1437.97,
+      "end": 1439.25,
+      "text": "Tributação..."
+    },
+    {
+      "start": 1439.25,
+      "end": 1440.59,
+      "text": "Análise e bonificação, né?"
+    },
+    {
+      "start": 1440.59,
+      "end": 1441.37,
+      "text": "Que já tem criado."
+    },
+    {
+      "start": 1442.05,
+      "end": 1442.69,
+      "text": "Ah, pronto."
+    },
+    {
+      "start": 1443.47,
+      "end": 1444.41,
+      "text": "Entendeu, Ormira?"
+    },
+    {
+      "start": 1444.63,
+      "end": 1446.91,
+      "text": "Tipo, aqui é um relatório que já foi criado"
+    },
+    {
+      "start": 1446.91,
+      "end": 1448.61,
+      "text": "pra justamente identificar."
+    },
+    {
+      "start": 1450.47,
+      "end": 1450.83,
+      "text": "É..."
+    },
+    {
+      "start": 1450.83,
+      "end": 1453.21,
+      "text": "Só que não coloca a data, não?"
+    },
+    {
+      "start": 1453.75,
+      "end": 1454.27,
+      "text": "Aqui, é."
+    },
+    {
+      "start": 1454.35,
+      "end": 1454.73,
+      "text": "Aqui dentro."
+    },
+    {
+      "start": 1455.69,
+      "end": 1456.05,
+      "text": "Aonde?"
+    },
+    {
+      "start": 1456.15,
+      "end": 1456.59,
+      "text": "É a entrada."
+    },
+    {
+      "start": 1456.77,
+      "end": 1457.11,
+      "text": "Entrada."
+    },
+    {
+      "start": 1458.11,
+      "end": 1458.35,
+      "text": "Ah."
+    },
+    {
+      "start": 1462.26,
+      "end": 1477.22,
+      "text": "Agora..."
+    },
+    {
+      "start": 1477.22,
+      "end": 1479.34,
+      "text": "Veja os outros filtros, como tá."
+    },
+    {
+      "start": 1482.48,
+      "end": 1483.14,
+      "text": "Se tá só aí."
+    },
+    {
+      "start": 1483.9,
+      "end": 1484.62,
+      "text": "Não tá não marcado."
+    },
+    {
+      "start": 1487.18,
+      "end": 1488.24,
+      "text": "É porque eu coloco..."
+    },
+    {
+      "start": 1488.24,
+      "end": 1489.16,
+      "text": "Eu não coloco acumulador, não."
+    },
+    {
+      "start": 1489.22,
+      "end": 1490.46,
+      "text": "Eu coloco..."
+    },
+    {
+      "start": 1490.46,
+      "end": 1491.28,
+      "text": "CFOB só."
+    },
+    {
+      "start": 1492.58,
+      "end": 1493.98,
+      "text": "Eu vi..."
+    },
+    {
+      "start": 1493.98,
+      "end": 1495.28,
+      "text": "Vou ver se vai."
+    },
+    {
+      "start": 1498.41,
+      "end": 1498.81,
+      "text": "Não."
+    },
+    {
+      "start": 1498.99,
+      "end": 1499.41,
+      "text": "Não é assim, não."
+    },
+    {
+      "start": 1499.79,
+      "end": 1500.55,
+      "text": "É melhor tirar o..."
+    },
+    {
+      "start": 1500.55,
+      "end": 1502.51,
+      "text": "É melhor tirar o acumulador e deixar o CFOB."
+    },
+    {
+      "start": 1502.57,
+      "end": 1503.79,
+      "text": "C9 e 10 e 29 e 10."
+    },
+    {
+      "start": 1504.15,
+      "end": 1508.6,
+      "text": "Eu vou trazer ele, né?"
+    },
+    {
+      "start": 1509.3,
+      "end": 1509.54,
+      "text": "É."
+    },
+    {
+      "start": 1510.78,
+      "end": 1511.14,
+      "text": "E aí, Ju?"
+    },
+    {
+      "start": 1511.14,
+      "end": 1514.03,
+      "text": "Tirou já."
+    },
+    {
+      "start": 1514.03,
+      "end": 1514.11,
+      "text": "Tirou já."
+    },
+    {
+      "start": 1514.45,
+      "end": 1514.69,
+      "text": "Tirou."
+    },
+    {
+      "start": 1514.77,
+      "end": 1515.55,
+      "text": "Oh, não é acumulador, né?"
+    },
+    {
+      "start": 1516.69,
+      "end": 1517.51,
+      "text": "Isso é só."
+    },
+    {
+      "start": 1517.77,
+      "end": 1530.4,
+      "text": "Acho que ele já..."
+    },
+    {
+      "start": 1530.4,
+      "end": 1530.8,
+      "text": "C9 e 10."
+    },
+    {
+      "start": 1531.8,
+      "end": 1532.84,
+      "text": "É porque isso..."
+    },
+    {
+      "start": 1532.84,
+      "end": 1535.77,
+      "text": "O lado do outro em cima."
+    },
+    {
+      "start": 1535.99,
+      "end": 1536.09,
+      "text": "Aí."
+    },
+    {
+      "start": 1539.55,
+      "end": 1539.83,
+      "text": "Ok."
+    },
+    {
+      "start": 1544.54,
+      "end": 1546.08,
+      "text": "Não teve segmento, não."
+    },
+    {
+      "start": 1546.74,
+      "end": 1549.08,
+      "text": "Ah, mas eu acho que o do segmento eu tirei, não foi?"
+    },
+    {
+      "start": 1549.6,
+      "end": 1550.66,
+      "text": "Foi do segmento."
+    },
+    {
+      "start": 1553.59,
+      "end": 1554.47,
+      "text": "Aí, embaixo."
+    },
+    {
+      "start": 1558.82,
+      "end": 1559.16,
+      "text": "Zero."
+    },
+    {
+      "start": 1559.16,
+      "end": 1559.58,
+      "text": "Ok."
+    },
+    {
+      "start": 1560.12,
+      "end": 1566.83,
+      "text": "Todos é segmento zero, esse daqui."
+    },
+    {
+      "start": 1567.97,
+      "end": 1568.99,
+      "text": "Totalizando da quanta?"
+    },
+    {
+      "start": 1570.23,
+      "end": 1571.91,
+      "text": "Agora, lá eu tava dando..."
+    },
+    {
+      "start": 1571.91,
+      "end": 1574.13,
+      "text": "É porque eu acho que você pegou só um time, um milho de ferrão ali."
+    },
+    {
+      "start": 1574.47,
+      "end": 1575.29,
+      "text": "Você fez ou fez um?"
+    },
+    {
+      "start": 1575.51,
+      "end": 1576.75,
+      "text": "Porque ela deu 188?"
+    },
+    {
+      "start": 1576.75,
+      "end": 1580.43,
+      "text": "Não, acho que 188 era do outro."
+    },
+    {
+      "start": 1581.15,
+      "end": 1581.53,
+      "text": "Ou da matriz."
+    },
+    {
+      "start": 1581.53,
+      "end": 1582.23,
+      "text": "Era a matriz."
+    },
+    {
+      "start": 1582.31,
+      "end": 1582.51,
+      "text": "É."
+    },
+    {
+      "start": 1582.79,
+      "end": 1583.19,
+      "text": "Ah, tá."
+    },
+    {
+      "start": 1583.31,
+      "end": 1583.83,
+      "text": "É filial."
+    },
+    {
+      "start": 1584.23,
+      "end": 1584.41,
+      "text": "É."
+    },
+    {
+      "start": 1586.03,
+      "end": 1586.47,
+      "text": "Aqui."
+    },
+    {
+      "start": 1588.53,
+      "end": 1588.97,
+      "text": "Bonificação."
+    },
+    {
+      "start": 1590.35,
+      "end": 1590.75,
+      "text": "108."
+    },
+    {
+      "start": 1592.75,
+      "end": 1593.73,
+      "text": "Cadê a outra aqui?"
+    },
+    {
+      "start": 1594.03,
+      "end": 1594.75,
+      "text": "Mais do..."
+    },
+    {
+      "start": 1594.75,
+      "end": 1595.83,
+      "text": "É, 1294."
+    },
+    {
+      "start": 1596.13,
+      "end": 1596.77,
+      "text": "Ah, tá certo."
+    },
+    {
+      "start": 1599.91,
+      "end": 1601.21,
+      "text": "Vamos só validar aqui."
+    },
+    {
+      "start": 1602.05,
+      "end": 1603.09,
+      "text": "36, já foi."
+    },
+    {
+      "start": 1603.33,
+      "end": 1604.91,
+      "text": "862, 24."
+    },
+    {
+      "start": 1605.33,
+      "end": 1607.73,
+      "text": "Mais 36, mais 33."
+    },
+    {
+      "start": 1607.73,
+      "end": 1609.67,
+      "text": "Mas não necessariamente vai bater, né, Suárez?"
+    },
+    {
+      "start": 1609.73,
+      "end": 1612.29,
+      "text": "Porque pode ser que tenha uma bonificação ali que seja segmentado."
+    },
+    {
+      "start": 1612.51,
+      "end": 1612.85,
+      "text": "Isso."
+    },
+    {
+      "start": 1613.59,
+      "end": 1615.15,
+      "text": "Não, vai ser só daqui mesmo."
+    },
+    {
+      "start": 1616.11,
+      "end": 1617.53,
+      "text": "Dá 1.402."
+    },
+    {
+      "start": 1617.75,
+      "end": 1619.91,
+      "text": "Vamos só verificar se realmente..."
+    },
+    {
+      "start": 1619.91,
+      "end": 1622.51,
+      "text": "Se bate aqui, só pra ter uma..."
+    },
+    {
+      "start": 1622.51,
+      "end": 1623.87,
+      "text": "Se realmente é 100%."
+    },
+    {
+      "start": 1623.87,
+      "end": 1626.79,
+      "text": "Bateu."
+    },
+    {
+      "start": 1626.91,
+      "end": 1627.69,
+      "text": "É esse o valor mesmo."
+    },
+    {
+      "start": 1631.2,
+      "end": 1632.04,
+      "text": "Aí a gente..."
+    },
+    {
+      "start": 1632.04,
+      "end": 1633.44,
+      "text": "Geralmente, pessoal..."
+    },
+    {
+      "start": 1633.44,
+      "end": 1634.02,
+      "text": "Geralmente não."
+    },
+    {
+      "start": 1634.24,
+      "end": 1637.76,
+      "text": "Eu indico que se lance aqui, entendeu?"
+    },
+    {
+      "start": 1639.2,
+      "end": 1642.1,
+      "text": "Você vai lançar, ou seja, o valor..."
+    },
+    {
+      "start": 1642.1,
+      "end": 1643.42,
+      "text": "Correspondente a cada empresa."
+    },
+    {
+      "start": 1643.7,
+      "end": 1645.46,
+      "text": "Porque o sistema já leva, entendeu?"
+    },
+    {
+      "start": 1645.62,
+      "end": 1650.4,
+      "text": "Tipo, eu lanço na filial, o valor que seria 1.402 de bonificação."
+    },
+    {
+      "start": 1650.84,
+      "end": 1654.6,
+      "text": "E eu lanço o valor na matriz também, que é referente ao valor dela."
+    },
+    {
+      "start": 1654.78,
+      "end": 1655.1,
+      "text": "Beleza?"
+    },
+    {
+      "start": 1655.18,
+      "end": 1658.64,
+      "text": "Aí o sistema da Domini, ela se encarrega de levar isso daí."
+    },
+    {
+      "start": 1659.64,
+      "end": 1661.54,
+      "text": "Aí, outra pergunta que eu faço a você."
+    },
+    {
+      "start": 1662.2,
+      "end": 1662.82,
+      "text": "A vocês."
+    },
+    {
+      "start": 1663.7,
+      "end": 1665.42,
+      "text": "Qual a presunção aqui?"
+    },
+    {
+      "start": 1666.7,
+      "end": 1667.2,
+      "text": "Alguém sabe?"
+    },
+    {
+      "start": 1667.22,
+      "end": 1667.7,
+      "text": "100%."
+    },
+    {
+      "start": 1667.7,
+      "end": 1669.26,
+      "text": "Pronto."
+    },
+    {
+      "start": 1671.14,
+      "end": 1673.38,
+      "text": "Você sabe por que é 100% na Eli e em Joyce?"
+    },
+    {
+      "start": 1677.49,
+      "end": 1680.69,
+      "text": "Já ouvi de qual me passa aí qual a espécie?"
+    },
+    {
+      "start": 1680.73,
+      "end": 1680.93,
+      "text": "Eita."
+    },
+    {
+      "start": 1681.95,
+      "end": 1683.49,
+      "text": "Deixa eu pegar uma padrão, já."
+    },
+    {
+      "start": 1683.49,
+      "end": 1684.41,
+      "text": "Eu não lembro não, sem cabeça."
+    },
+    {
+      "start": 1684.67,
+      "end": 1686.47,
+      "text": "Só eu olho sempre a do mês anterior."
+    },
+    {
+      "start": 1687.75,
+      "end": 1691.11,
+      "text": "Seria aquela questão do por que passa de 60 mil, Suárez?"
+    },
+    {
+      "start": 1692.49,
+      "end": 1692.93,
+      "text": "Não."
+    },
+    {
+      "start": 1695.68,
+      "end": 1696.22,
+      "text": "Vamos dizer."
+    },
+    {
+      "start": 1696.32,
+      "end": 1696.76,
+      "text": "Vamos lá."
+    },
+    {
+      "start": 1702.72,
+      "end": 1707.39,
+      "text": "Deixa eu pegar aqui um..."
+    },
+    {
+      "start": 1707.39,
+      "end": 1708.19,
+      "text": "Qual o mês que teve."
+    },
+    {
+      "start": 1708.19,
+      "end": 1714.17,
+      "text": "Alguém quer chutar ou..."
+    },
+    {
+      "start": 1714.17,
+      "end": 1715.11,
+      "text": "Eu já sabe por que."
+    },
+    {
+      "start": 1717.5,
+      "end": 1719.22,
+      "text": "Aqui, acumulador 10.28."
+    },
+    {
+      "start": 1727.49,
+      "end": 1729.67,
+      "text": "Pessoal, aqui eu estou ensinando a forma mais fácil, né?"
+    },
+    {
+      "start": 1730.71,
+      "end": 1732.47,
+      "text": "Ou seja, eu vou na última nota."
+    },
+    {
+      "start": 1734.05,
+      "end": 1734.97,
+      "text": "Ou saída."
+    },
+    {
+      "start": 1741.34,
+      "end": 1742.26,
+      "text": "Só para vocês entenderem."
+    },
+    {
+      "start": 1742.34,
+      "end": 1744.3,
+      "text": "Eu estou indo na última nota, pessoal."
+    },
+    {
+      "start": 1745.02,
+      "end": 1747.02,
+      "text": "Porque quando eu vou gerar..."
+    },
+    {
+      "start": 1747.02,
+      "end": 1749.72,
+      "text": "Quando eu chegar aqui nela, ela vai apresentar aqui para mim."
+    },
+    {
+      "start": 1750.54,
+      "end": 1751.98,
+      "text": "A última nota que teve."
+    },
+    {
+      "start": 1752.78,
+      "end": 1753.28,
+      "text": "Aqui é."
+    },
+    {
+      "start": 1754.28,
+      "end": 1755.28,
+      "text": "Meio de nove, está vendo?"
+    },
+    {
+      "start": 1755.28,
+      "end": 1758.58,
+      "text": "Aí eu vou aqui e clico em novo."
+    },
+    {
+      "start": 1758.92,
+      "end": 1759.92,
+      "text": "Foi até o João Vitor que fez."
+    },
+    {
+      "start": 1762.23,
+      "end": 1763.33,
+      "text": "Aqui é a nota 7."
+    },
+    {
+      "start": 1763.43,
+      "end": 1763.71,
+      "text": "Está vendo?"
+    },
+    {
+      "start": 1763.79,
+      "end": 1765.25,
+      "text": "Ele já sai para a nota 7."
+    },
+    {
+      "start": 1765.37,
+      "end": 1766.11,
+      "text": "Coloca a data."
+    },
+    {
+      "start": 1766.77,
+      "end": 1767.13,
+      "text": "31."
+    },
+    {
+      "start": 1769.29,
+      "end": 1770.47,
+      "text": "Aqui já está o CFOB."
+    },
+    {
+      "start": 1770.53,
+      "end": 1771.09,
+      "text": "Já está tudo."
+    },
+    {
+      "start": 1771.25,
+      "end": 1771.87,
+      "text": "Coloca o valor."
+    },
+    {
+      "start": 1772.11,
+      "end": 1773.45,
+      "text": "1.402.52."
+    },
+    {
+      "start": 1775.97,
+      "end": 1776.33,
+      "text": "Beleza?"
+    },
+    {
+      "start": 1785.91,
+      "end": 1786.25,
+      "text": "Fechou."
+    },
+    {
+      "start": 1786.33,
+      "end": 1787.15,
+      "text": "Aí eu gravo aqui."
+    },
+    {
+      "start": 1789.3,
+      "end": 1790.52,
+      "text": "O postulador vai colocar."
+    },
+    {
+      "start": 1790.92,
+      "end": 1792.6,
+      "text": "Mas aqui eu só para..."
+    },
+    {
+      "start": 1792.6,
+      "end": 1793.54,
+      "text": "Aqui é importante."
+    },
+    {
+      "start": 1794.94,
+      "end": 1795.8,
+      "text": "Eu vou colocar até..."
+    },
+    {
+      "start": 1795.8,
+      "end": 1797.92,
+      "text": "Vou colocar nesse acumulador aqui para vocês entenderem."
+    },
+    {
+      "start": 1797.92,
+      "end": 1799.58,
+      "text": "Então, vocês têm que entender a parte contábil."
+    },
+    {
+      "start": 1800.72,
+      "end": 1802.34,
+      "text": "Não sei se as meninas estão lançando."
+    },
+    {
+      "start": 1802.84,
+      "end": 1804.02,
+      "text": "Eu acho que elas já estão lançando."
+    },
+    {
+      "start": 1804.12,
+      "end": 1804.3,
+      "text": "Ah!"
+    },
+    {
+      "start": 1804.74,
+      "end": 1805.48,
+      "text": "Tem uma situação."
+    },
+    {
+      "start": 1806.06,
+      "end": 1808.52,
+      "text": "Sabe por que não lança aqui, pessoal?"
+    },
+    {
+      "start": 1808.78,
+      "end": 1810.44,
+      "text": "Não lança a parte contábil nessa nota."
+    },
+    {
+      "start": 1811.06,
+      "end": 1811.82,
+      "text": "Você sabe por quê?"
+    },
+    {
+      "start": 1813.66,
+      "end": 1814.86,
+      "text": "Para não duplicar."
+    },
+    {
+      "start": 1814.86,
+      "end": 1818.86,
+      "text": "Porque já está lançada a receita pela nota de entrada."
+    },
+    {
+      "start": 1819.4,
+      "end": 1821.3,
+      "text": "Então, se eu lanço novamente, eu duplico."
+    },
+    {
+      "start": 1822.18,
+      "end": 1822.5,
+      "text": "Entendeu?"
+    },
+    {
+      "start": 1822.82,
+      "end": 1825.64,
+      "text": "Então, por isso que é importante também vocês saberem isso daí."
+    },
+    {
+      "start": 1825.72,
+      "end": 1825.9,
+      "text": "Entendeu?"
+    },
+    {
+      "start": 1826.22,
+      "end": 1827.74,
+      "text": "Tudo por trás tem uma lógica."
+    },
+    {
+      "start": 1827.86,
+      "end": 1829.38,
+      "text": "Nada aqui é feito por acaso."
+    },
+    {
+      "start": 1830.04,
+      "end": 1831.8,
+      "text": "Tudo tem uma lógica contábil por trás."
+    },
+    {
+      "start": 1832.14,
+      "end": 1834.54,
+      "text": "Ou seja, isso daí é teste."
+    },
+    {
+      "start": 1835.34,
+      "end": 1836.48,
+      "text": "Teste, opera."
+    },
+    {
+      "start": 1836.62,
+      "end": 1837.2,
+      "text": "Teste, opera."
+    },
+    {
+      "start": 1837.32,
+      "end": 1837.86,
+      "text": "Teste, opera."
+    },
+    {
+      "start": 1837.86,
+      "end": 1840.08,
+      "text": "Então, tudo para não ter nenhum erro."
+    },
+    {
+      "start": 1840.18,
+      "end": 1843.34,
+      "text": "Então, tipo, não se lança aqui a parte contábil que é aqui."
+    },
+    {
+      "start": 1843.68,
+      "end": 1845.84,
+      "text": "Porque na nota de entrada já é feito o lançamento."
+    },
+    {
+      "start": 1846.48,
+      "end": 1847.68,
+      "text": "Então, por isso que a gente faz."
+    },
+    {
+      "start": 1848.74,
+      "end": 1849.86,
+      "text": "Então, aqui eu já lancei."
+    },
+    {
+      "start": 1849.92,
+      "end": 1851.8,
+      "text": "Agora eu vou lançar o da matriz, né?"
+    },
+    {
+      "start": 1851.8,
+      "end": 1852.56,
+      "text": "Que eu lancei o da filial."
+    },
+    {
+      "start": 1852.7,
+      "end": 1852.98,
+      "text": "Beleza?"
+    },
+    {
+      "start": 1853.7,
+      "end": 1856.96,
+      "text": "Você lançou o imposto dentro do item?"
+    },
+    {
+      "start": 1858.0,
+      "end": 1859.16,
+      "text": "Você lançou o item para cuidar?"
+    },
+    {
+      "start": 1859.84,
+      "end": 1860.58,
+      "text": "Deixa eu ver, veja."
+    },
+    {
+      "start": 1860.7,
+      "end": 1861.24,
+      "text": "Deixa eu ver, rapidinho."
+    },
+    {
+      "start": 1861.86,
+      "end": 1863.82,
+      "text": "Deixa eu ver aqui, rapidinho."
+    },
+    {
+      "start": 1864.18,
+      "end": 1864.72,
+      "text": "Boa ideia."
+    },
+    {
+      "start": 1864.72,
+      "end": 1868.4,
+      "text": "Geralmente, eu acho que ele pega pelo acumulador, não é não?"
+    },
+    {
+      "start": 1869.22,
+      "end": 1870.62,
+      "text": "Ele não vai pegar pelo item, não."
+    },
+    {
+      "start": 1870.66,
+      "end": 1871.26,
+      "text": "Esse daqui, eu acho."
+    },
+    {
+      "start": 1871.3,
+      "end": 1874.48,
+      "text": "É, eu acho que isso é quando é algo real que tem que lançar para o PIS e COFINS, né?"
+    },
+    {
+      "start": 1874.58,
+      "end": 1874.86,
+      "text": "É."
+    },
+    {
+      "start": 1874.96,
+      "end": 1875.48,
+      "text": "Acho que é mesmo."
+    },
+    {
+      "start": 1875.5,
+      "end": 1875.86,
+      "text": "Isso."
+    },
+    {
+      "start": 1876.56,
+      "end": 1879.52,
+      "text": "Eu presumir não precisa porque não tem interferência no PIS e COFINS."
+    },
+    {
+      "start": 1880.66,
+      "end": 1885.22,
+      "text": "É, só para validar, vamos pegar o do mês passado."
+    },
+    {
+      "start": 1887.86,
+      "end": 1891.64,
+      "text": "Acumulador 10, 28."
+    },
+    {
+      "start": 1892.02,
+      "end": 1908.97,
+      "text": "É, mas tem aqui, ó."
+    },
+    {
+      "start": 1932.06,
+      "end": 1932.44,
+      "text": "Zero."
+    },
+    {
+      "start": 1963.02,
+      "end": 1965.16,
+      "text": "Nesse, na filial a gente conclui."
+    },
+    {
+      "start": 1965.16,
+      "end": 1968.28,
+      "text": "É, deixa eu ver quantos minutos."
+    },
+    {
+      "start": 1969.06,
+      "end": 1971.22,
+      "text": "Pronto, a gente está a 32 minutos, pessoal."
+    },
+    {
+      "start": 1971.64,
+      "end": 1975.98,
+      "text": "É, vocês estão vendo que eu estou sendo detalhista em cada situação com vocês, né?"
+    },
+    {
+      "start": 1976.42,
+      "end": 1977.54,
+      "text": "E a gente está tirando dúvida."
+    },
+    {
+      "start": 1977.88,
+      "end": 1980.76,
+      "text": "Então, a gente vai terminar a apuração em 32 minutos."
+    },
+    {
+      "start": 1980.94,
+      "end": 1985.84,
+      "text": "Por isso que eu disse a vocês que duas pessoas ficando no IRPJ e fazendo dessa forma aqui,"
+    },
+    {
+      "start": 1986.18,
+      "end": 1990.6,
+      "text": "indo nos mínimos detalhes, a gente consegue concluir todos os IRPJ-CSLL."
+    },
+    {
+      "start": 1990.6,
+      "end": 1993.58,
+      "text": "Porque é um, poxa, vamos dizer assim, menos complexo."
+    },
+    {
+      "start": 1993.7,
+      "end": 1995.46,
+      "text": "Claro, tem suas particularidades, tem."
+    },
+    {
+      "start": 1995.86,
+      "end": 1996.78,
+      "text": "Mas a gente consegue."
+    },
+    {
+      "start": 1996.92,
+      "end": 2004.58,
+      "text": "Então, a gente está a 33 minutos aqui fechando dúvidas, fechando a questão de um POP."
+    },
+    {
+      "start": 2005.0,
+      "end": 2005.96,
+      "text": "E a gente vai concluir."
+    },
+    {
+      "start": 2006.04,
+      "end": 2008.18,
+      "text": "Só falta agora lançar o da matriz."
+    },
+    {
+      "start": 2008.88,
+      "end": 2009.5,
+      "text": "Então, para a matriz."
+    },
+    {
+      "start": 2009.5,
+      "end": 2019.57,
+      "text": "Aí eu vou ter que regerar novamente, né?"
+    },
+    {
+      "start": 2019.57,
+      "end": 2021.33,
+      "text": "Depois que lançar aqui, só para vocês entenderem."
+    },
+    {
+      "start": 2021.59,
+      "end": 2026.77,
+      "text": "Porque ele vai pegar a receita de bonificação da filial e vai pegar a receita de bonificação da matriz."
+    },
+    {
+      "start": 2028.69,
+      "end": 2030.93,
+      "text": "Ah, eu estou aguardando a resposta de vocês, né?"
+    },
+    {
+      "start": 2036.04,
+      "end": 2036.76,
+      "text": "De por quê?"
+    },
+    {
+      "start": 2038.52,
+      "end": 2039.46,
+      "text": "Qual o percentual?"
+    },
+    {
+      "start": 2042.57,
+      "end": 2043.51,
+      "text": "Eu não sei não, sabe por quê."
+    },
+    {
+      "start": 2044.67,
+      "end": 2045.49,
+      "text": "Ninguém sabe?"
+    },
+    {
+      "start": 2045.71,
+      "end": 2046.15,
+      "text": "Tato sabe?"
+    },
+    {
+      "start": 2048.25,
+      "end": 2048.65,
+      "text": "Pronto."
+    },
+    {
+      "start": 2048.65,
+      "end": 2054.83,
+      "text": "A gente está falando, aqui é considerado que tipo de receita, que tipo de receita é essa?"
+    },
+    {
+      "start": 2057.29,
+      "end": 2058.31,
+      "text": "Receita financeira?"
+    },
+    {
+      "start": 2058.97,
+      "end": 2059.53,
+      "text": "Isso mesmo."
+    },
+    {
+      "start": 2059.59,
+      "end": 2062.11,
+      "text": "É uma receita financeira."
+    },
+    {
+      "start": 2062.63,
+      "end": 2063.65,
+      "text": "Por isso que é 100%."
+    },
+    {
+      "start": 2064.47,
+      "end": 2078.94,
+      "text": "Me ajude aqui, seu receita."
+    },
+    {
+      "start": 2083.89,
+      "end": 2086.93,
+      "text": "Tem uma situação que a gente ia esquecendo."
+    },
+    {
+      "start": 2087.41,
+      "end": 2091.07,
+      "text": "Perguntar ao pessoal do contábil aí se já foi lançado a receita financeira."
+    },
+    {
+      "start": 2091.07,
+      "end": 2096.07,
+      "text": "Porque está faltando ela também, para não esquecer."
+    },
+    {
+      "start": 2098.21,
+      "end": 2099.69,
+      "text": "Aqui, tributação, 1029."
+    },
+    {
+      "start": 2100.87,
+      "end": 2102.05,
+      "text": "Então, vamos lá, pega o 1029."
+    },
+    {
+      "start": 2102.11,
+      "end": 2103.09,
+      "text": "Foi lançado não ainda, Suárez?"
+    },
+    {
+      "start": 2103.15,
+      "end": 2105.95,
+      "text": "Que o responsável da empresa não mandou ainda."
+    },
+    {
+      "start": 2106.55,
+      "end": 2107.45,
+      "text": "Pronto, beleza."
+    },
+    {
+      "start": 2107.61,
+      "end": 2108.37,
+      "text": "Esqueci o nome dele."
+    },
+    {
+      "start": 2110.11,
+      "end": 2110.63,
+      "text": "Marcelo, né?"
+    },
+    {
+      "start": 2110.83,
+      "end": 2111.79,
+      "text": "Marcelo não mandou não ainda."
+    },
+    {
+      "start": 2112.73,
+      "end": 2113.83,
+      "text": "Beleza, eu vou cobrar ele."
+    },
+    {
+      "start": 2114.19,
+      "end": 2137.92,
+      "text": "Qual o valor daqui, vocês sabem?"
+    },
+    {
+      "start": 2138.06,
+      "end": 2138.54,
+      "text": "Vocês recordam?"
+    },
+    {
+      "start": 2143.42,
+      "end": 2144.14,
+      "text": "188, né?"
+    },
+    {
+      "start": 2144.4,
+      "end": 2145.26,
+      "text": "De alguma coisa."
+    },
+    {
+      "start": 2145.52,
+      "end": 2145.96,
+      "text": "Isso."
+    },
+    {
+      "start": 2145.96,
+      "end": 2168.87,
+      "text": "Aqui ela, só para ligar."
+    },
+    {
+      "start": 2172.6,
+      "end": 2178.04,
+      "text": "Enquanto eu estou preenchendo aqui, eu queria uma análise de Nayeli e de Joyce."
+    },
+    {
+      "start": 2178.86,
+      "end": 2179.8,
+      "text": "Para vocês."
+    },
+    {
+      "start": 2180.28,
+      "end": 2181.18,
+      "text": "Do que eu fiz aqui."
+    },
+    {
+      "start": 2182.66,
+      "end": 2186.04,
+      "text": "O que é que eu preciso ainda, vamos dizer assim, fortalecer."
+    },
+    {
+      "start": 2186.04,
+      "end": 2192.7,
+      "text": "Claro, pessoal, toda a parte operacional, que é o que eu estou fazendo aqui, é necessário."
+    },
+    {
+      "start": 2192.78,
+      "end": 2199.1,
+      "text": "Eu sempre digo que você tem que ter, no mínimo, uma base inicial."
+    },
+    {
+      "start": 2200.1,
+      "end": 2200.46,
+      "text": "Entendeu?"
+    },
+    {
+      "start": 2200.46,
+      "end": 2205.56,
+      "text": "Porque se a gente for fazer tudo no automático, fica meio que engessado."
+    },
+    {
+      "start": 2206.04,
+      "end": 2207.14,
+      "text": "Você tem que saber o porquê."
+    },
+    {
+      "start": 2207.26,
+      "end": 2213.18,
+      "text": "Então, tipo, eu tentei mostrar aqui para vocês tudo o que está por volta de cada cálculo, de cada situação,"
+    },
+    {
+      "start": 2213.82,
+      "end": 2216.28,
+      "text": "para que vocês tenham o máximo de fundamento."
+    },
+    {
+      "start": 2216.6,
+      "end": 2218.56,
+      "text": "Porque, por exemplo, eu faço isso."
+    },
+    {
+      "start": 2218.56,
+      "end": 2221.1,
+      "text": "Beleza, aí eu vejo o questionamento de um cliente."
+    },
+    {
+      "start": 2221.18,
+      "end": 2224.18,
+      "text": "Ah, Suárez, e por que foi lançado isso, isso e isso?"
+    },
+    {
+      "start": 2225.46,
+      "end": 2226.88,
+      "text": "Então, vocês têm que saber, entendeu?"
+    },
+    {
+      "start": 2227.18,
+      "end": 2229.0,
+      "text": "Qual é a base, por que se lança."
+    },
+    {
+      "start": 2229.54,
+      "end": 2229.86,
+      "text": "Entendeu?"
+    },
+    {
+      "start": 2229.94,
+      "end": 2230.92,
+      "text": "Isso daí é fundamental."
+    },
+    {
+      "start": 2231.1,
+      "end": 2236.1,
+      "text": "Porque nenhum questionamento futuro, você tem fundamento para chegar e dizer para o cliente o porquê de cada situação."
+    },
+    {
+      "start": 2241.98,
+      "end": 2243.38,
+      "text": "Aqui a gente conclui."
+    },
+    {
+      "start": 2243.38,
+      "end": 2247.84,
+      "text": "Agora eu vou recalcular aqui, só para vocês entenderem."
+    },
+    {
+      "start": 2248.16,
+      "end": 2249.1,
+      "text": "E vou mostrar a vocês."
+    },
+    {
+      "start": 2251.93,
+      "end": 2252.37,
+      "text": "Reprocessar."
+    },
+    {
+      "start": 2253.05,
+      "end": 2255.73,
+      "text": "Bom, aí quando terminar aqui, ele vai apresentar todos os impostos."
+    },
+    {
+      "start": 2255.81,
+      "end": 2257.55,
+      "text": "A gente só vai conferir se está tudo puxando."
+    },
+    {
+      "start": 2258.41,
+      "end": 2259.59,
+      "text": "E fechou a apuração, pessoal."
+    },
+    {
+      "start": 2260.01,
+      "end": 2260.75,
+      "text": "Vocês acharam o quê?"
+    },
+    {
+      "start": 2260.85,
+      "end": 2261.71,
+      "text": "Foi complexo?"
+    },
+    {
+      "start": 2264.7,
+      "end": 2265.84,
+      "text": "Como é a análise de vocês?"
+    },
+    {
+      "start": 2267.22,
+      "end": 2267.88,
+      "text": "Aberta aí."
+    },
+    {
+      "start": 2269.02,
+      "end": 2269.24,
+      "text": "É."
+    },
+    {
+      "start": 2270.24,
+      "end": 2273.42,
+      "text": "Para mim, ainda fica um pouco complexo."
+    },
+    {
+      "start": 2273.42,
+      "end": 2277.22,
+      "text": "Porque eu não usei muito ainda o domínio, né?"
+    },
+    {
+      "start": 2278.2,
+      "end": 2280.62,
+      "text": "Aí, assim, ainda está um pouco complexo, sim, para mim."
+    },
+    {
+      "start": 2286.97,
+      "end": 2287.53,
+      "text": "Está muito, Sônia."
+    },
+    {
+      "start": 2289.97,
+      "end": 2290.41,
+      "text": "Ah, perdão."
+    },
+    {
+      "start": 2290.51,
+      "end": 2294.97,
+      "text": "Quais pontos que você acha que para você é complexo para a gente tentar trabalhar em cima deles?"
+    },
+    {
+      "start": 2299.04,
+      "end": 2305.06,
+      "text": "Não, assim, é porque, na verdade, eu fico um pouco perdida na questão de mexer mesmo."
+    },
+    {
+      "start": 2305.72,
+      "end": 2306.3,
+      "text": "Na domínio?"
+    },
+    {
+      "start": 2306.86,
+      "end": 2307.98,
+      "text": "Na domínio, é."
+    },
+    {
+      "start": 2308.0,
+      "end": 2308.28,
+      "text": "Pronto."
+    },
+    {
+      "start": 2308.28,
+      "end": 2309.64,
+      "text": "Então, aí o que eu vou pedir?"
+    },
+    {
+      "start": 2309.64,
+      "end": 2316.84,
+      "text": "Enfim, você como líder, pegar um, como é que chama?"
+    },
+    {
+      "start": 2317.08,
+      "end": 2318.44,
+      "text": "Lá dentro da plataforma."
+    },
+    {
+      "start": 2318.88,
+      "end": 2321.36,
+      "text": "Porque a gente tem o módulo de treinamento, né?"
+    },
+    {
+      "start": 2321.36,
+      "end": 2321.92,
+      "text": "Da domínio."
+    },
+    {
+      "start": 2322.26,
+      "end": 2327.0,
+      "text": "E aí você criar um ciclo para ela de trabalhar só isso daí."
+    },
+    {
+      "start": 2327.1,
+      "end": 2329.08,
+      "text": "Por exemplo, a domínio lança vários cursos."
+    },
+    {
+      "start": 2329.16,
+      "end": 2334.58,
+      "text": "Por exemplo, está lançando agora, pessoal, já pensando na alteração do cálculo do IRPJ-CSLL."
+    },
+    {
+      "start": 2334.58,
+      "end": 2337.9,
+      "text": "Então, na Eli e Joyce e também os demais."
+    },
+    {
+      "start": 2338.54,
+      "end": 2342.34,
+      "text": "Para vocês se anteciparem, porque quando eu vi o módulo, por exemplo, eu já assisti."
+    },
+    {
+      "start": 2342.9,
+      "end": 2349.62,
+      "text": "Então, quando eu vi o cálculo do IRPJ já com a atualização da nova norma, que aumentou, né?"
+    },
+    {
+      "start": 2349.62,
+      "end": 2350.88,
+      "text": "E aumentou em 10%."
+    },
+    {
+      "start": 2350.88,
+      "end": 2353.86,
+      "text": "Eu já sei como é que o sistema da domínio vai se comportar."
+    },
+    {
+      "start": 2354.3,
+      "end": 2360.08,
+      "text": "Então, é importante vocês não só se abastecer do conhecimento na hora de operacionalizar, mas é antes."
+    },
+    {
+      "start": 2360.08,
+      "end": 2365.64,
+      "text": "Então, a domínio já lançou um treinamento voltado a essa parte dos 10%."
+    },
+    {
+      "start": 2365.64,
+      "end": 2367.66,
+      "text": "Como é que o sistema vai se comportar."
+    },
+    {
+      "start": 2368.14,
+      "end": 2370.4,
+      "text": "Até Sandro foi que mandou para mim, se eu não estou enganado."
+    },
+    {
+      "start": 2371.24,
+      "end": 2372.52,
+      "text": "Esse..."
+    },
+    {
+      "start": 2372.52,
+      "end": 2375.36,
+      "text": "De como fazer parametrização na domínio, né?"
+    },
+    {
+      "start": 2375.36,
+      "end": 2376.24,
+      "text": "De tudo isso daí."
+    },
+    {
+      "start": 2376.72,
+      "end": 2379.52,
+      "text": "Para que vocês, na hora de executar, vocês já saibam."
+    },
+    {
+      "start": 2380.02,
+      "end": 2380.34,
+      "text": "Entendeu?"
+    },
+    {
+      "start": 2380.88,
+      "end": 2404.52,
+      "text": "Pronto."
+    },
+    {
+      "start": 2404.62,
+      "end": 2405.56,
+      "text": "Então, aqui vamos lá."
+    },
+    {
+      "start": 2405.56,
+      "end": 2412.56,
+      "text": "A gente já fez análise de cada acumulador, a gente já lançou as bonificações, a gente"
+    },
+    {
+      "start": 2412.56,
+      "end": 2415.68,
+      "text": "verificou, não tinha venda de imobilizado, né?"
+    },
+    {
+      "start": 2416.28,
+      "end": 2418.06,
+      "text": "E aí, ficou esses dois pendentes."
+    },
+    {
+      "start": 2418.84,
+      "end": 2423.32,
+      "text": "Vim, eu vou direcionar para você, porque eu não sei se Sibeli vai vir, que se é hoje"
+    },
+    {
+      "start": 2423.32,
+      "end": 2423.74,
+      "text": "ou amanhã."
+    },
+    {
+      "start": 2424.2,
+      "end": 2427.66,
+      "text": "Então, você só fica aguardando lançar a receita financeira."
+    },
+    {
+      "start": 2427.66,
+      "end": 2429.64,
+      "text": "O contábil lançou, pronto."
+    },
+    {
+      "start": 2429.72,
+      "end": 2432.18,
+      "text": "Você já gera a guia, transmita a DCTFWeb."
+    },
+    {
+      "start": 2432.8,
+      "end": 2433.2,
+      "text": "Entendeu?"
+    },
+    {
+      "start": 2434.4,
+      "end": 2435.2,
+      "text": "E tranquilo."
+    },
+    {
+      "start": 2435.56,
+      "end": 2437.06,
+      "text": "Vamos lá, só validar aqui."
+    },
+    {
+      "start": 2440.4,
+      "end": 2441.34,
+      "text": "Ô, Soares."
+    },
+    {
+      "start": 2441.54,
+      "end": 2441.84,
+      "text": "Oi."
+    },
+    {
+      "start": 2442.44,
+      "end": 2445.48,
+      "text": "Como você estava relatando aí, os pontos, né?"
+    },
+    {
+      "start": 2445.74,
+      "end": 2446.02,
+      "text": "Sim."
+    },
+    {
+      "start": 2446.02,
+      "end": 2449.08,
+      "text": "Aí no Gesta, sobre o cálculo."
+    },
+    {
+      "start": 2449.7,
+      "end": 2456.04,
+      "text": "Mas você vê que aí ele não cita essas informações da água referente ao IPI e o IST."
+    },
+    {
+      "start": 2456.36,
+      "end": 2456.8,
+      "text": "Sim."
+    },
+    {
+      "start": 2457.16,
+      "end": 2459.04,
+      "text": "Se, caso, vamos supor, eu, né?"
+    },
+    {
+      "start": 2459.08,
+      "end": 2463.5,
+      "text": "Como não tinha apurado dessa forma, talvez eu me perderia nessa situação."
+    },
+    {
+      "start": 2463.94,
+      "end": 2464.38,
+      "text": "Entendi."
+    },
+    {
+      "start": 2464.52,
+      "end": 2464.72,
+      "text": "Pronto."
+    },
+    {
+      "start": 2465.04,
+      "end": 2466.04,
+      "text": "O IST e o IPI."
+    },
+    {
+      "start": 2466.36,
+      "end": 2466.7,
+      "text": "Pronto."
+    },
+    {
+      "start": 2466.7,
+      "end": 2469.56,
+      "text": "Vini, você coloca o seguinte."
+    },
+    {
+      "start": 2469.7,
+      "end": 2470.6,
+      "text": "Eu vou pedir para você."
+    },
+    {
+      "start": 2471.6,
+      "end": 2474.44,
+      "text": "Pedi a Tawani para..."
+    },
+    {
+      "start": 2474.44,
+      "end": 2481.76,
+      "text": "Na verdade, era algo que eu queria já fazer há um tempo, só que devido às demandas, a gente acabou não executando."
+    },
+    {
+      "start": 2481.76,
+      "end": 2489.16,
+      "text": "Mas a intenção era que cada tipo de empresa, segmento, tenha um checklist diferente."
+    },
+    {
+      "start": 2489.3,
+      "end": 2497.4,
+      "text": "Porque meio que você se deixar isso para as empresas de serviço, porque as empresas de serviço têm, vamos dizer assim, particularidade também diferente."
+    },
+    {
+      "start": 2497.4,
+      "end": 2503.8,
+      "text": "Então, seria criar um checklist e uma tarefa própria para esse segmento."
+    },
+    {
+      "start": 2503.8,
+      "end": 2511.78,
+      "text": "E no caso da Água Plus, a Cibela ainda chegou a colocar algumas particularidades dela na aba observação da domínio, no campo fiscal lá."
+    },
+    {
+      "start": 2511.84,
+      "end": 2512.12,
+      "text": "Sim."
+    },
+    {
+      "start": 2512.26,
+      "end": 2512.84,
+      "text": "Ela colocou."
+    },
+    {
+      "start": 2513.64,
+      "end": 2517.4,
+      "text": "Aluguel PF, ICMSST, FCAVST, ela colocou algumas coisas aqui."
+    },
+    {
+      "start": 2517.54,
+      "end": 2523.48,
+      "text": "Seria criar o hábito também de a gente começar a alimentar isso aqui, como a gente já tem até pontuado algumas reuniões, não foi?"
+    },
+    {
+      "start": 2523.48,
+      "end": 2534.46,
+      "text": "Isso. Então, pessoal, só para constar aqui, vocês estão vendo a bonificação, está vendo 100%, aqui essa da matriz e aqui a bonificação da filial, 100%, está vendo?"
+    },
+    {
+      "start": 2535.24,
+      "end": 2540.6,
+      "text": "Então, já está trazendo, então aqui eu já tenho toda a memória de cálculo."
+    },
+    {
+      "start": 2541.18,
+      "end": 2545.88,
+      "text": "Então, aqui só para vocês entenderem, já vou ensinar ali que vocês ainda estão no início."
+    },
+    {
+      "start": 2545.88,
+      "end": 2571.24,
+      "text": "Aqui seria a presunção, ou seja, de toda essa receita, tirando as devoluções, tirando tudo, a presunção do IRPJ, que é 8%, tem algumas receitas que é 100%, vai entrar agora, falta a receita financeira, que é do banco, que também é 100%, então vai aumentar um pouquinho aqui também, só que vai ficar, vamos dizer assim,"
+    },
+    {
+      "start": 2571.24,
+      "end": 2584.0,
+      "text": "quando aumentar a receita, ela vai impactar diretamente aqui, exemplo, se a receita financeira do banco foi 3 mil reais, então aqui vai para, diretamente para 262 mil e alguma coisa, beleza?"
+    },
+    {
+      "start": 2584.6,
+      "end": 2592.24,
+      "text": "Por quê? Porque é 100%, só a receita operacional que vai seguir a presunção, conforme eu ensinei lá no início, que é com base no CNAE."
+    },
+    {
+      "start": 2592.24,
+      "end": 2607.7,
+      "text": "Aí a gente tem aqui, 259, a gente tem aqui a redução, que é para encontrar o adicional, o adicional de 10%, ou seja, esse adicional de 10% é diferente do adicional que a nova lei vai trazer,"
+    },
+    {
+      "start": 2608.32,
+      "end": 2611.62,
+      "text": "porque o adicional que a nova lei vai trazer é decorrente de quê?"
+    },
+    {
+      "start": 2618.26,
+      "end": 2624.22,
+      "text": "O adicional que a nova lei vai trazer, que é a 256, é decorrente de quê?"
+    },
+    {
+      "start": 2624.22,
+      "end": 2637.1,
+      "text": "É quando a empresa ultrapassar 5 milhões, isso, anual, ou, só que vai ser via trimestre, então já saiu até uma instituição normativa,"
+    },
+    {
+      "start": 2637.24,
+      "end": 2647.76,
+      "text": "então vai ser assim, 5 milhões dividido por 4, então em cada mês que a empresa ultrapassar isso daqui, já vai aplicar os 10%, entendeu?"
+    },
+    {
+      "start": 2647.76,
+      "end": 2656.32,
+      "text": "Ah, Suárez, no primeiro mês eu não ultrapasso, não aplica, e aí você também vai acumular gordura, mas se ultrapassar já foi, beleza?"
+    },
+    {
+      "start": 2657.56,
+      "end": 2659.76,
+      "text": "Aí no caso é sobre serviço, né?"
+    },
+    {
+      "start": 2660.38,
+      "end": 2660.64,
+      "text": "Foi?"
+    },
+    {
+      "start": 2661.38,
+      "end": 2664.76,
+      "text": "Sobre serviço, né? Esses 10%, comércio..."
+    },
+    {
+      "start": 2665.58,
+      "end": 2666.68,
+      "text": "Não, todas as empresas."
+    },
+    {
+      "start": 2667.28,
+      "end": 2667.82,
+      "text": "Todas as empresas?"
+    },
+    {
+      "start": 2667.82,
+      "end": 2668.74,
+      "text": "É, todas."
+    },
+    {
+      "start": 2668.74,
+      "end": 2673.1,
+      "text": "Então a gente vai ter essa situação aqui, que é para achar o adicional."
+    },
+    {
+      "start": 2673.22,
+      "end": 2682.58,
+      "text": "O adicional, Joyce e Nayeli, é o seguinte, quando ultrapassar, vamos pensar, eu tenho um mito que a legislação me coloca,"
+    },
+    {
+      "start": 2682.98,
+      "end": 2685.46,
+      "text": "que é de 20 mil ao mês, né?"
+    },
+    {
+      "start": 2685.52,
+      "end": 2686.76,
+      "text": "Ou seja, 20 mil de quê?"
+    },
+    {
+      "start": 2687.5,
+      "end": 2692.68,
+      "text": "Quando eu calcular a presunção, se ultrapassar 20 mil ao mês, que no trimestre dá 60,"
+    },
+    {
+      "start": 2692.68,
+      "end": 2700.68,
+      "text": "eu vou ter que fazer esse cálculo aqui, que é pegar esses 259 mil menos 60, que é o limite que eles colocam,"
+    },
+    {
+      "start": 2700.72,
+      "end": 2706.36,
+      "text": "para você não pagar adicional, o que ultrapassou vai dar 199, sobre esse valor eu aplico 10%."
+    },
+    {
+      "start": 2706.36,
+      "end": 2711.42,
+      "text": "Então eu tenho de adicional de IRPJ, 19.954."
+    },
+    {
+      "start": 2712.0,
+      "end": 2715.86,
+      "text": "Ah, Suárez, só vai tendo IRPJ, a lei só prevê com IRPJ."
+    },
+    {
+      "start": 2715.86,
+      "end": 2723.08,
+      "text": "Então eu tenho 19 mil de adicional, mais 38 mil, que é do imposto, que é sobre isso daqui,"
+    },
+    {
+      "start": 2723.2,
+      "end": 2729.48,
+      "text": "ou seja, sobre os 259.545, vezes 15%, que é a lei, tá?"
+    },
+    {
+      "start": 2730.34,
+      "end": 2736.78,
+      "text": "Me deu aqui 38.931, mais o adicional, que é 19.954.590."
+    },
+    {
+      "start": 2737.42,
+      "end": 2743.0,
+      "text": "Ou seja, eu tenho 58 mil aqui de imposto a recolher de IRPJ."
+    },
+    {
+      "start": 2743.0,
+      "end": 2748.88,
+      "text": "A CSLL é mais tranquilo, porque não tem adicional, é só aplicar sobre a presunção,"
+    },
+    {
+      "start": 2749.06,
+      "end": 2751.16,
+      "text": "ou seja, sobre os 12%, eu aplico 9."
+    },
+    {
+      "start": 2751.8,
+      "end": 2752.7,
+      "text": "Me faço compreender?"
+    },
+    {
+      "start": 2753.84,
+      "end": 2754.8,
+      "text": "Pronto, então beleza."
+    },
+    {
+      "start": 2755.36,
+      "end": 2756.56,
+      "text": "O que é que a gente vai fazer?"
+    },
+    {
+      "start": 2757.0,
+      "end": 2764.16,
+      "text": "João, Fito e Tato, vocês dois vão ficar encarregados para executar o IRPJ de todas as empresas que estão."
+    },
+    {
+      "start": 2764.48,
+      "end": 2765.88,
+      "text": "Vini vai transferir para vocês."
+    },
+    {
+      "start": 2765.88,
+      "end": 2776.16,
+      "text": "E Vini, aí você veja com Naeli e Joyce as demandas que você pode passar para a gente tentar zerar as pendências que a gente tem do setor fiscal."
+    },
+    {
+      "start": 2777.02,
+      "end": 2777.54,
+      "text": "Beleza?"
+    },
+    {
+      "start": 2778.04,
+      "end": 2778.66,
+      "text": "Tranquilo aqui?"
+    },
+    {
+      "start": 2779.3,
+      "end": 2779.78,
+      "text": "Fechou."
+    },
+    {
+      "start": 2780.08,
+      "end": 2781.98,
+      "text": "Tati e João Vítio, tem alguma dúvida?"
+    },
+    {
+      "start": 2783.96,
+      "end": 2784.34,
+      "text": "Beleza."
+    },
+    {
+      "start": 2784.88,
+      "end": 2788.54,
+      "text": "Jogue duro aqui, aplique o que a gente contextualizou aqui."
+    },
+    {
+      "start": 2788.54,
+      "end": 2792.66,
+      "text": "E qualquer dúvida também, pode me acionar para a gente alinhar."
+    },
+    {
+      "start": 2793.46,
+      "end": 2797.46,
+      "text": "Verifica com o contábil quais as empresas que já enviaram a receita financeira."
+    },
+    {
+      "start": 2797.96,
+      "end": 2800.62,
+      "text": "Os que já enviaram, vocês já adiantam."
+    },
+    {
+      "start": 2800.82,
+      "end": 2802.0,
+      "text": "Tá, e já me mandar a lista aqui."
+    },
+    {
+      "start": 2802.14,
+      "end": 2802.56,
+      "text": "Ela já mandou."
+    },
+    {
+      "start": 2803.56,
+      "end": 2807.2,
+      "text": "O que está faltando, vocês me avisam para o cobrar dos clientes."
+    },
+    {
+      "start": 2807.3,
+      "end": 2807.58,
+      "text": "Beleza?"
+    },
+    {
+      "start": 2809.0,
+      "end": 2809.74,
+      "text": "Fechou, pessoal."
+    },
+    {
+      "start": 2809.94,
+      "end": 2810.36,
+      "text": "Obrigado."
+    },
+    {
+      "start": 2810.48,
+      "end": 2812.1,
+      "text": "Que tenhamos um ótimo início de semana."
+    },
+    {
+      "start": 2812.1,
+      "end": 2813.1,
+      "text": "Obrigado."
+    }
+  ]
+}

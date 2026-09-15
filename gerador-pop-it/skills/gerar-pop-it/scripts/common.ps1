@@ -320,9 +320,22 @@ function ConvertTo-NormalizedContent {
         $items.Add([PSCustomObject][ordered]@{ id = $itemId; pergunta = $question; resposta_conforme = $conform })
       }
     }
+    $etapaIdsRaw = @(ConvertTo-ItemArray (Get-PropertyValue $block 'etapa_ids' @()))
+    $etapaIds = New-Object System.Collections.Generic.List[string]
+    $primaryEtapa = [string](Get-PropertyValue $block 'etapa_id' ('E{0:d2}' -f $index))
+    if (-not [string]::IsNullOrWhiteSpace($primaryEtapa)) {
+      [void]$etapaIds.Add($primaryEtapa)
+    }
+    foreach ($extraEtapa in $etapaIdsRaw) {
+      $extra = [string]$extraEtapa
+      if (-not [string]::IsNullOrWhiteSpace($extra) -and -not $etapaIds.Contains($extra)) {
+        [void]$etapaIds.Add($extra)
+      }
+    }
     $formBlocks.Add([PSCustomObject][ordered]@{
       id = $blockId
-      etapa_id = [string](Get-PropertyValue $block 'etapa_id' ('E{0:d2}' -f $index))
+      etapa_id = $primaryEtapa
+      etapa_ids = @($etapaIds.ToArray())
       titulo = [string](Get-PropertyValue $block 'titulo' ("$index. ETAPA"))
       setor = [string](Get-FirstValue @((Get-PropertyValue $block 'setor' $null), (Get-PropertyValue $document 'setor' $null), 'Ponto para validação'))
       itens = @($items.ToArray())
@@ -366,15 +379,24 @@ function ConvertTo-NormalizedContent {
     if ($knownRiskIds.ContainsKey($riskId)) { throw "ID de risco duplicado no MP: $riskId" }
     $knownRiskIds[$riskId] = $true
     $suggested = [bool](Get-PropertyValue $risk 'sugerido' $true)
-    # P e G são sempre campos de entrada do responsável/Qualidade. Valores
-    # recebidos de conteúdo ou JSON legado nunca pré-preenchem o arquivo.
-    $probability = $null
-    $severity = $null
+    # P/G: valores do JSON quando informados; senao padrao automatico para classificacao visual.
+    $rawP = Get-PropertyValue $risk 'probabilidade' $null
+    $rawG = Get-PropertyValue $risk 'gravidade' $null
+    if ($null -eq $rawP -or [string]::IsNullOrWhiteSpace([string]$rawP)) {
+      $probability = $(if ($suggested) { 3 } else { 2 })
+    } else {
+      $probability = [int]$rawP
+    }
+    if ($null -eq $rawG -or [string]::IsNullOrWhiteSpace([string]$rawG)) {
+      $gravity = 3
+    } else {
+      $gravity = [int]$rawG
+    }
     $mitigation = [string](Get-PropertyValue $risk 'mitigacao' '')
     $indicator = [string](Get-PropertyValue $risk 'resultado_indicador' '')
     if ($suggested) {
-      $mitigation = ''
-      $indicator = ''
+      if ([string]::IsNullOrWhiteSpace($mitigation)) { $mitigation = '' }
+      if ([string]::IsNullOrWhiteSpace($indicator)) { $indicator = '' }
     }
     $risks.Add([PSCustomObject][ordered]@{
       id = $riskId
@@ -385,7 +407,7 @@ function ConvertTo-NormalizedContent {
       risco = [string](Get-PropertyValue $risk 'risco' '')
       barreira = [string](Get-PropertyValue $risk 'barreira' '')
       probabilidade = $probability
-      gravidade = $severity
+      gravidade = $gravity
       mitigacao = $mitigation
       resultado_indicador = $indicator
       sugerido = $suggested
@@ -425,7 +447,7 @@ function ConvertTo-NormalizedContent {
   }
   if ($requested.Contains('mp')) {
     foreach ($chainName in @('fornecedores', 'entradas', 'clientes', 'saidas')) {
-      if ((ConvertTo-StringArray (Get-PropertyValue $chainRaw $chainName @())).Count -eq 0) {
+      if (@(ConvertTo-StringArray (Get-PropertyValue $chainRaw $chainName @())).Count -eq 0) {
         throw "O MP solicitado não possui dados em cadeia.$chainName."
       }
     }

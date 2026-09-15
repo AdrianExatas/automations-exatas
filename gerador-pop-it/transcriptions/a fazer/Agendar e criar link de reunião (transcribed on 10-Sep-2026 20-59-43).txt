@@ -1,0 +1,3 @@
+Eu queria mostrar como fazer o agendamento para criar link de reunião para cliente. Vem com o calendário, em horário disponíveis, copie a link, acesse o Google, cola esse link, clica na opção selecionar o horário disponível, o dia será hoje, às 16 horas.
+seleciono o horário, reunião, informo esse e-mail e clico na opção de criar uma reunião. Volto lá para o Bitrix, na opção reunião, iniciar a videoconferência.
+No horário, irei copiar o link, enviar para cliente fazer o acesso e iniciar a reunião.

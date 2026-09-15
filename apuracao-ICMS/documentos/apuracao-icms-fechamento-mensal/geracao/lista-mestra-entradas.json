@@ -1,0 +1,111 @@
+{
+  "arquivo": "C:\\Users\\Exatas\\Documents\\GitHub\\automations-exatas\\apuracao-ICMS\\documentos\\apuracao-icms-fechamento-mensal\\documentos\\FORM.QUA.003 - Lista Documental Mestra Aplicada.xlsx",
+  "entradas": [
+    {
+      "codigo_titulo": "PR.FIS.001 - Apuracao de ICMS Fechamento Mensal",
+      "origem": "INTERNO",
+      "tipo": "PR",
+      "setor": "Fiscal",
+      "revisao_numero": "00",
+      "ultima_revisao": "07/08/2026",
+      "elaborador": "Ponto para validacao",
+      "verificador": "Ponto para validacao",
+      "aprovador": "Ponto para validacao",
+      "data_aprovacao": "07/08/2026",
+      "localizacao": "apuracao-ICMS/documentos/apuracao-icms-fechamento-mensal/documentos/",
+      "procedimento_raiz": "PR.FIS.001",
+      "procedimentos_citados": [
+        "IN.FIS.001",
+        "FORM.FIS.001",
+        "MP.FIS.001"
+      ],
+      "observacoes": "Codigos e responsaveis provisórios ate validacao institucional."
+    },
+    {
+      "codigo_titulo": "IN.FIS.001 - Apuracao de ICMS Fechamento Mensal",
+      "origem": "INTERNO",
+      "tipo": "IN",
+      "setor": "Fiscal",
+      "revisao_numero": "00",
+      "ultima_revisao": "07/08/2026",
+      "elaborador": "Ponto para validacao",
+      "verificador": "Ponto para validacao",
+      "aprovador": "Ponto para validacao",
+      "data_aprovacao": "07/08/2026",
+      "localizacao": "apuracao-ICMS/documentos/apuracao-icms-fechamento-mensal/documentos/",
+      "procedimento_raiz": "PR.FIS.001",
+      "procedimentos_citados": [
+        "PR.FIS.001",
+        "FORM.FIS.001",
+        "MP.FIS.001"
+      ],
+      "observacoes": ""
+    },
+    {
+      "codigo_titulo": "FORM.FIS.001 - Apuracao de ICMS Fechamento Mensal",
+      "origem": "INTERNO",
+      "tipo": "FORM",
+      "setor": "Fiscal",
+      "revisao_numero": "00",
+      "ultima_revisao": "07/08/2026",
+      "elaborador": "Ponto para validacao",
+      "verificador": "Ponto para validacao",
+      "aprovador": "Ponto para validacao",
+      "data_aprovacao": "07/08/2026",
+      "localizacao": "apuracao-ICMS/documentos/apuracao-icms-fechamento-mensal/documentos/",
+      "procedimento_raiz": "PR.FIS.001",
+      "procedimentos_citados": [
+        "PR.FIS.001",
+        "IN.FIS.001",
+        "MP.FIS.001"
+      ],
+      "observacoes": ""
+    },
+    {
+      "codigo_titulo": "MP.FIS.001 - Apuracao de ICMS Fechamento Mensal",
+      "origem": "INTERNO",
+      "tipo": "MP",
+      "setor": "Fiscal",
+      "revisao_numero": "00",
+      "ultima_revisao": "07/08/2026",
+      "elaborador": "Ponto para validacao",
+      "verificador": "Ponto para validacao",
+      "aprovador": "Ponto para validacao",
+      "data_aprovacao": "07/08/2026",
+      "localizacao": "apuracao-ICMS/documentos/apuracao-icms-fechamento-mensal/documentos/",
+      "procedimento_raiz": "PR.FIS.001",
+      "procedimentos_citados": [
+        "PR.FIS.001",
+        "IN.FIS.001",
+        "FORM.FIS.001"
+      ],
+      "observacoes": ""
+    }
+  ],
+  "aplicadas": [
+    {
+      "codigo": "PR.FIS.001",
+      "row": 7,
+      "created": true,
+      "codigo_titulo": "PR.FIS.001 - Apuracao de ICMS Fechamento Mensal"
+    },
+    {
+      "codigo": "IN.FIS.001",
+      "row": 8,
+      "created": true,
+      "codigo_titulo": "IN.FIS.001 - Apuracao de ICMS Fechamento Mensal"
+    },
+    {
+      "codigo": "FORM.FIS.001",
+      "row": 9,
+      "created": true,
+      "codigo_titulo": "FORM.FIS.001 - Apuracao de ICMS Fechamento Mensal"
+    },
+    {
+      "codigo": "MP.FIS.001",
+      "row": 10,
+      "created": true,
+      "codigo_titulo": "MP.FIS.001 - Apuracao de ICMS Fechamento Mensal"
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "media": "G:\\Meu Drive\\GESTÃO DE PROCESSOS\\03 - Fiscal\\VÍDEOS\\Alteracao dados bancarios restituicao indevidos.mkv",
+  "transcript_path": "C:\\Users\\Exatas\\Documents\\GitHub\\automations-exatas\\gerador-pop-it\\transcriptions\\a fazer\\Alteracao dados bancarios restituicao indevidos (transcribed on 10-Sep-2026 20-04-10).txt",
+  "language": "pt",
+  "duration_sec": 190.1866875,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 29.98,
+      "text": "Vamos lá, pessoal, hoje a gente vai fazer um vídeo, um IT de treinamento de algo que é simples, mas que pode acometer para cada um, então aí vai vir uma instituição de treinamento que pode ajudar em uma devida solicitação que vocês venham a necessitar, beleza? Então, que solicitação é essa? É quando a gente tem restituição de pagamentos indevidos por parte da empresa, do contribuinte,"
+    },
+    {
+      "start": 29.98,
+      "end": 59.96,
+      "text": "E aí, eu vou ensinar vocês como é que faz, como é que procede para que você altere os dados bancários para que esse recurso que está para ser liberado pela Receita Federal caia na conta do contribuinte. Então, vamos lá. Primeiro passo é a gente identificar que isso aconteceu. Então, vamos lá. Aqui, essa empresa especificamente, ela recebeu essa notificação dizendo regularização de dados bancários para fins de restituição. Pronto. O que é que a gente faz agora?"
+    },
+    {
+      "start": 59.96,
+      "end": 75.52,
+      "text": "A gente vai aqui, né? No próprio CAC e coloca essa opção, né? Então, alteração, pá. Quando você clica aqui, você vai cair nessa, nessa aba. E aqui tem, ó, a restituição. Aí você vai clicar em editar, beleza?"
+    },
+    {
+      "start": 75.52,
+      "end": 84.86,
+      "text": "Quando chega aqui em editar, você vai escolher a qual conta você vai substituir. Então, aqui, essa empresa, ela vai querer que caia no Banco do Bradesco, né?"
+    },
+    {
+      "start": 84.86,
+      "end": 102.7,
+      "text": "Conseguentemente, ele passa a agência da conta, né? Passa o número da conta juntamente com o... Você já coloca tudo junto aqui, perdão."
+    },
+    {
+      "start": 102.7,
+      "end": 108.38,
+      "text": "E aí, atualiza. E aí, atualiza. Código de agência indesistente. Deixa eu ver aqui."
+    },
+    {
+      "start": 109.18,
+      "end": 118.78,
+      "text": "Contigo do Bradesco. Código. Agência indesistente. Agência 3578."
+    },
+    {
+      "start": 118.78,
+      "end": 129.91,
+      "text": "Código de agência indesistente. Perdão."
+    },
+    {
+      "start": 130.23,
+      "end": 147.58,
+      "text": "Código de agência indesistente. Código de agência indesistente. Falha no pré. Cadastro."
+    },
+    {
+      "start": 148.66,
+      "end": 153.45,
+      "text": "Deixa eu verificar aqui. O Bradesco."
+    },
+    {
+      "start": 153.77,
+      "end": 173.06,
+      "text": "Errado. Então, aqui foi bom que a gente verificou os erros que podem acometer."
+    },
+    {
+      "start": 173.06,
+      "end": 175.22,
+      "text": "E aí, a gente vai lá e corrige."
+    },
+    {
+      "start": 175.66,
+      "end": 178.5,
+      "text": "Então, agora, é só aguardar o dinheiro cair na conta da empresa."
+    },
+    {
+      "start": 179.14,
+      "end": 179.48,
+      "text": "Feito?"
+    },
+    {
+      "start": 180.16,
+      "end": 189.2,
+      "text": "E aí, eu concluo mais um IT aqui de treinamento sobre como proceder nesse tipo de erro que venha a cometer."
+    }
+  ]
+}

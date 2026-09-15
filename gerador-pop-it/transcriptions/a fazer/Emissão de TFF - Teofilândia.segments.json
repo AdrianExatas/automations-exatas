@@ -1,0 +1,23 @@
+{
+  "media": "G:\\Meu Drive\\GESTÃO DE PROCESSOS\\_SEM_SETOR\\VÍDEOS\\EMISSÃO DE TFF - TEOFILANDIA.mkv",
+  "transcript_path": "C:\\Users\\Exatas\\Documents\\GitHub\\automations-exatas\\gerador-pop-it\\transcriptions\\a fazer\\EMISSÃO DE TFF - TEOFILANDIA (transcribed on 10-Sep-2026 21-03-24).txt",
+  "language": "pt",
+  "duration_sec": 92.1813125,
+  "segments": [
+    {
+      "start": 0.98,
+      "end": 49.57,
+      "text": "Irei mostrar como fazer a emissão da guia da TFF na Prefeitura de Teofilândia. Acessa o site da Prefeitura, na opção Tributos, seleciona a opção TLL, TFF, seleciona a opção CNPJ, pesquisar, informa o CNPJ,"
+    },
+    {
+      "start": 49.57,
+      "end": 76.57,
+      "text": "que funciona na pasta da empresa, lá no setor do paralegal. Pesquisa, seleciona a opção MT, gerou a guia, confere o vencimento, seleciona,"
+    },
+    {
+      "start": 79.57,
+      "end": 89.57,
+      "text": "a empresa, TFF, pronto, e salva na pasta. Feito isso, envia para o cliente."
+    }
+  ]
+}

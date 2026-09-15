@@ -1,0 +1,26 @@
+# Dados locais de cliente e bancos gerados — nunca versionar
+_local/
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Outputs gerados
+output/
+outputs/
+*.xlsx
+!tests/fixtures/**/*.xlsx
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.pytest_cache/
+.venv/
+venv/
+
+# Segredos e config local
+.env

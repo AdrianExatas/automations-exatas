@@ -1,0 +1,69 @@
+Fala pessoal, vamos aqui fazer o passo a passo de como a gente calcular o PIS e COFINS de uma empresa transportadora
+que ela tem umas particularidades diferentes de uma empresa do segmento de comércio
+Então vamos lá, o que a gente vai fazer?
+O primeiro passo que eu costumo dizer que é importante você saber o regime tributário da empresa
+e aí você entender isso dentro do parâmetro da empresa para que você faça as corretas adequações
+para que no momento da apuração esteja tudo em consonância
+Então vamos lá, a parte fiscal está no presumido, o regime de competência, perfeito
+Aí aqui estão as marcações, deduzir CMS desonerado, não precisa, essa parte aqui não
+deduzir CMS, aqui é importante, nota de saída, isso é importante, está simplificado por nota
+beleza, porque não vai ter produto
+Então beleza, tranquilo
+Então vamos lá, só salvar aqui, para a gente ter a correta
+Vamos voltar, para estar tudo equalizado
+E aí eu vou reprocessar aqui, só para vocês enxergar aqui uma situação de erro
+E vocês entenderem um pouquinho o que a gente vai fazer aqui para que faça a correta tributação
+Feito? Então vamos lá
+Está processando aqui, estou colocando mês 1 até o mês 4
+Então aqui a gente vai verificar, terminou a apuração
+Vamos verificar como é que o sistema se comporta
+Um cafezinho, né?
+Vamos lá para as apurações de PIS e COFINS
+Entendendo se o comportamento está adequado
+Completo
+E a gente tem o valor contábil e o valor da base de cálculo
+Com isso daqui a gente percebe que o ICMS não foi deduzido
+Então qual o procedimento aqui para corrigir?
+Vocês vêm aqui, em notas fiscais, saída
+Aí vocês vão selecionar todas as notas
+Eu vou fazer já do mês 1 e do mês 4
+Porque eu já antecipo o mesmo problema que aconteceu no mês 1
+Aconteceu no mês 4
+Então vamos lá
+Eu vou me alterar
+Cliquei aqui em alterar
+Chegando em alterar eu vou aqui em PIS e COFINS
+Marca essa opção
+Por acumulador
+Se fosse por produto seria se tivesse o produto dentro do CTE
+Nesse caso a gente não fez por produto, né?
+Ficou simplificado, eu coloco aqui deduzir
+E eu vou alterar
+Pronto
+Vai voltar o período novamente, né?
+Sim
+Com isso a gente vai ter a reapuração novamente
+Das notas fiscais e consequentemente, né?
+Os impostos, os impostos de alteração
+E eu vou demonstrar para vocês
+Só terminar o processo aqui
+E aí, né?
+Terminou aqui de reprocessar
+Já com todas as alterações que nós fizemos
+E aí a gente vai ver aqui, né?
+O resultado desse
+Então, as que foram feitas
+Aí aqui a gente já percebe, ó
+33 mil
+As exclusões que é o ICMS
+A base tá essa
+Então a gente percebe que agora a gente teve
+Todo aquele ajuste que era necessário
+Para ter uma correta
+Vamos dizer assim
+Uma correta apuração do PIS e COFINS
+E aí eu encerro
+Mais um POP
+Que trabalha a parte da apuração do PIS e COFINS
+E aí
+E aí

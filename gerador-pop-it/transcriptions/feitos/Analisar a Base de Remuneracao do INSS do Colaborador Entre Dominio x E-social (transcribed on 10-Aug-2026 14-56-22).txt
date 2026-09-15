@@ -1,0 +1,33 @@
+Neste vídeo eu vou ensinar a você como você deverá fazer a execução dessa demanda e através dessa demanda foi solicitado por um dos nossos clientes também irá aprender a como consultar de forma incisiva 
+
+dentro do portal do E -Social a base de cálculo para efeito de INSS. Então casos parecidos como esse que vierem a ter questionamentos onde a carteira de trabalho conforme se printa aqui no canto esquerdo o colaborador alegou que encontra -se diferente das informações do seu contra -cheque vamos demonstrar aqui claramente onde isso resolve e enviar o documento para o cliente. Então primeiro de tudo você deverá abrir o E -Social 
+
+Aqui a página do Google você digita esocial .gov .br depois você irá clicar em entrar com gov .br aqui você busca abaixo a opção seu certificado digital 
+
+busca a opção do certificado da exata contabilidade e clique em ok 
+
+após estar na página você vai trocar perfil módulo acima clica em procurador de pessoa jurídica CNPJ e deverá nesse campo abaixo no informe do CNPJ representado digital CNPJ da empresa você abrirá também o sistema domínio folha 
+
+você abrirá também o sistema domínio folha entrará na empresa de exercício da demanda você poderá também trocar de empresas caso necessite tanto por código como por apelido neste caso a empresa teste já está direcionado eu clico em controle empresas verifico aqui o CNPJ clico nele copio eu vou minimizar nesse momento retorna a página do E -Social colo e clica em verificar e abaixo seleciona o módulo você clica em geral 
+
+e neste momento você deverá clicar na opção folha clicar não né se passa o mouse na opção folha de pagamento abaixo em totalizadores perdão e na opção trabalhador contribuições previdenciárias na hora da vez que estamos analisando o impacto ocasionada e supostamente no PIS caso fosse em relação a FGTS ou IRRF você deveria clicar em um desses dois então voltamos aqui você clica em contribuição previdenciária e aqui você vai digitar o período e o CPF qual a demanda que o cliente sugeriu aqui como dúvida que as competências de junho julho agosto até dezembro de 2024 não estão condizente com as informações do nosso sistema domínio dentre elas sua folha de pagamento então primeiramente o que devemos fazer retorno aqui no domínio clico em arquivo empregados vai ser necessário o CPF do colaborador 
+
+vai em busca do colaborador você pode clicar aqui em editar abaixo 
+
+clica em F2 e digita o nome do colaborador no nosso caso é este Matheus Santos de Brito aí está o CPF dele vou dividir aqui a tela para ser mais produtivo 
+
+então digita aqui 030 435 125 37 e vamos para a competência inicial que seria junho 
+
+aqui ele alega que na carteira digital alega não o print demonstra que está com 953 ,60 então vamos para a competência junho de 2024 clica em pesquisar 
+
+agora não vou expandir aqui a tela e o que acontece abaixo na opção período de referência abaixo na opção período de referência você vê a competência quando você clica nele ele já traz aqui olha a base de cálculo de contribuição previdenciária de 453 ,60 e não de 953 ,60 se o e -social ele é o sistema que acaba captando as informações para envios da carteira digital da raiz então aqui subentendemos que neste momento há uma diferença e como eu sei que essa informação está correta eu volto no meu sistema domínio 
+
+clico na opção relatórios encargos INSS 
+
+e aqui eu coloco o período né vou colocar só um período 
+
+tipo da folha folha mensal clica em seleção para inserir apenas o colaborador em análise aqui no meu já se encontra caso você precise trocar você clicaria aqui e aí você procuraria por código ou em ordem alfabética então vou fechar aqui e clique em ok 
+
+no domínio ele vai trazer o relatório da competência do salário que inserir INSS do colaborador que é a base de cálculo da sua remuneração então que estamos observando aqui base de cálculo 453 ,60 463 ,60 até o INSS aqui é 34 34 então subentendemos que houve um erro do órgão que analisa essas informações porque provavelmente ele esteja fazendo somatórias de rúbricas indevidas mas conforme as nossas análises e dentro do portal do e -social que é a segurança que nós temos para esses casos ambos estão condizentes então assim você deverá fazer nas outras demais competências 
+
+dentro do e -social quando validar você vai em contra o P salvo em PDF que é uma segurança legal e depois encaminhará para cliente esse é o processo e fica dica e sugestão para possíveis análises aí de problemas correlacionadas como esse 

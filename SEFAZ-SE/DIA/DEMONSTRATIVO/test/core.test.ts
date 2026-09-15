@@ -1,4 +1,5 @@
 import { describe, expect, test } from "bun:test";
+import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { mkdir, mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
@@ -16,6 +17,7 @@ import {
   parseCompanies,
 } from "../src/parser";
 import { isCheckpointEnabled as isRunCheckpointEnabled, isPlaywrightFallbackEnabled, shouldSaveCheckpoint } from "../src/runner";
+import { jasperUrlFromPopup } from "../src/sefaz-demonstrativo-api";
 import { isPdf, isXls } from "../src/signatures";
 import { inferXmlType, parseSiegXmlResponse, SiegXmlClient } from "../src/sieg-client";
 import {
@@ -43,6 +45,16 @@ describe("competencia", () => {
       value: "2026-03",
       monthSelectValue: "03",
     });
+  });
+});
+
+describe("jasperUrlFromPopup", () => {
+  test("extrai JasperPDF do hash do keycloak/popup.jsp", () => {
+    const input =
+      "https://security.sefaz.se.gov.br/keycloak/popup.jsp#/iBusinessPortal/jsp/templates/Pdf/JasperPDF.jsp?AppName=SIT&TransId=T34693";
+    expect(jasperUrlFromPopup(input)).toBe(
+      "https://security.sefaz.se.gov.br/iBusinessPortal/jsp/templates/Pdf/JasperPDF.jsp?AppName=SIT&TransId=T34693",
+    );
   });
 });
 
@@ -218,20 +230,32 @@ describe("relatorio excel", () => {
 
 describe("electron request builders", () => {
   test("valida e normaliza request de DIA", () => {
-    const config = buildRunConfig({
-      user: " usuario ",
-      password: "senha",
-      rememberCredentials: false,
-      competencia: "2026-03",
-      formats: ["pdf", "xls", "zip" as never],
-      outDir: " saida ",
-    });
+    const dir = mkdtempSync(path.join(tmpdir(), "sefaz-cert-"));
+    const pfxPath = path.join(dir, "certificado.pfx");
+    writeFileSync(pfxPath, "fake-pfx");
+    try {
+      const config = buildRunConfig({
+        user: " usuario ",
+        certPath: pfxPath,
+        certPassword: "senha-cert",
+        rememberCredentials: false,
+        competencia: "2026-03",
+        formats: ["pdf", "xls", "zip" as never],
+        outDir: " saida ",
+      });
 
-    expect(config.user).toBe("usuario");
-    expect(config.formats).toEqual(["pdf", "xls"]);
-    expect(config.outDir).toBe("saida");
-    expect(config.competencia.value).toBe("2026-03");
-    expect(config.checkpointEnabled).toBe(true);
+      expect(config.user).toBe("usuario");
+      expect(config.formats).toEqual(["pdf", "xls"]);
+      expect(config.outDir).toBe("saida");
+      expect(config.competencia.value).toBe("2026-03");
+      expect(config.checkpointEnabled).toBe(true);
+      expect(config.authMode).toBe("certificate");
+      expect(config.certificate?.pfxPath).toBe(path.resolve(pfxPath));
+      expect(config.certificate?.passphrase).toBe("senha-cert");
+      expect(config.headless).toBe(false);
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
   });
 
   test("valida request de XML e aceita chave SIEG explicita", () => {
@@ -251,23 +275,31 @@ describe("electron request builders", () => {
   });
 
   test("permite desativar checkpoint nos requests", () => {
-    const runConfig = buildRunConfig({
-      user: "usuario",
-      password: "senha",
-      rememberCredentials: false,
-      competencia: "2026-03",
-      formats: ["pdf"],
-      outDir: "saida",
-      checkpointEnabled: false,
-    });
-    const xmlConfig = buildXmlDownloadConfig({
-      competencia: "2026-03",
-      outDir: "saida",
-      checkpointEnabled: false,
-    });
+    const dir = mkdtempSync(path.join(tmpdir(), "sefaz-cert-"));
+    const pfxPath = path.join(dir, "certificado.pfx");
+    writeFileSync(pfxPath, "fake-pfx");
+    try {
+      const runConfig = buildRunConfig({
+        user: "usuario",
+        certPath: pfxPath,
+        certPassword: "",
+        rememberCredentials: false,
+        competencia: "2026-03",
+        formats: ["pdf"],
+        outDir: "saida",
+        checkpointEnabled: false,
+      });
+      const xmlConfig = buildXmlDownloadConfig({
+        competencia: "2026-03",
+        outDir: "saida",
+        checkpointEnabled: false,
+      });
 
-    expect(runConfig.checkpointEnabled).toBe(false);
-    expect(xmlConfig.checkpointEnabled).toBe(false);
+      expect(runConfig.checkpointEnabled).toBe(false);
+      expect(xmlConfig.checkpointEnabled).toBe(false);
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
   });
 
   test("request de XML permite sobrescrever threads", () => {
@@ -324,7 +356,19 @@ describe("login SEFAZ Playwright compartilhado", () => {
     );
   });
 
-  test("confirma login por URL do portal ou menu DIA", () => {
+  test("confirma login no Portal Fazendario ou menu DIA", () => {
+    expect(
+      isSefazLoginConfirmed(
+        "https://portais-fazendario.apps.sefaz.se.gov.br/private/portal-fazendario",
+        "Informações de Trânsito",
+      ),
+    ).toBe(true);
+    expect(
+      isSefazLoginConfirmed(
+        "https://portais-fazendario.apps.sefaz.se.gov.br/private/portal-fazendario/vinculos",
+        "",
+      ),
+    ).toBe(true);
     expect(isSefazLoginConfirmed("https://security.sefaz.se.gov.br/internet/portal.jsp", "")).toBe(true);
     expect(isSefazLoginConfirmed("https://security.sefaz.se.gov.br/internet/home.jsp", "Menu DIA")).toBe(true);
     expect(isSefazLoginConfirmed("https://security.sefaz.se.gov.br/internet/login/login.jsp", "Login")).toBe(false);

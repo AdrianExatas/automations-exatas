@@ -1,0 +1,23 @@
+e hoje eu vou fazer um pop sobre a mudança de cargo inicialmente a gente verifica a solicitação que o cliente fez no cliente do Onvil ele fala a função nesse caso específico ela não falou mas eu validei pelo WhatsApp o cliente ele vai falar a função e vai falar se terá também alteração salarial no caso dessa cliente vai ter porque a função que ela vai passar a ser vai ser maior aí inicialmente a gente entra aqui no sistema domínio cadastro de funcionários 
+
+clica em editar e dá um F2 do código para poder pesquisar o funcionário que a empresa solicitou no caso desse realmente a Daniela Maria Daniela Maria 
+
+e aqui a gente vai primeiro fazer a mudança do cargo que vai ser o operador de máquina 2 
+
+clica em gravar 
+
+e clica como alteração 
+
+a partir do primeiro do 5 de 2026 que foi a data que a cliente solicitou a alteração 
+
+E aí e dá uma olhada no social para ver se a informação já tá subindo E aí 
+
+e 
+
+depois a gente vai se for só alteração de cargo a gente vai em relatórios depois que envia e valida no social relatórios cadastrais ficha de empregado e selecionar o colaborador 
+
+Oi e a gente vai imprimir esse documento enviar para o cliente aqui ele vai constar o cargo o primeiro cargo que ela ocupou na empresa e aqui na parte de alteração ele vai contar a data que foi feita a alteração e a nova função a gente salva esse documento 
+
+e a gente salva esse documento e envia para o cliente através do Onvil 
+
+e esse é o processo da alteração de cargo 

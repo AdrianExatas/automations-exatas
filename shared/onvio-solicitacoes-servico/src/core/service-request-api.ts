@@ -80,8 +80,28 @@ async function handleResponse<T>(response: Response): Promise<T> {
 
 function extractTicketIdFromLocation(location: string | null): string | null {
   if (!location) return null;
-  const match = location.match(/\/tickets\/generic\/([A-Za-z0-9]+)/);
+  const match = location.match(/\/tickets\/generic\/([A-Fa-f0-9-]+)/i);
   return match?.[1] ?? null;
+}
+
+/** Portal DELETE exige UUID com hifens; a criacao costuma devolver hex de 32 chars. */
+export function normalizeTicketIdForDelete(ticketId: string): string {
+  const trimmed = ticketId.trim();
+  if (!trimmed) return trimmed;
+
+  const uuidWithDashes =
+    /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+  if (uuidWithDashes.test(trimmed)) {
+    return trimmed.toLowerCase();
+  }
+
+  const hex32 = trimmed.replace(/-/g, "");
+  if (/^[0-9a-f]{32}$/i.test(hex32)) {
+    const lower = hex32.toLowerCase();
+    return `${lower.slice(0, 8)}-${lower.slice(8, 12)}-${lower.slice(12, 16)}-${lower.slice(16, 20)}-${lower.slice(20)}`;
+  }
+
+  return trimmed;
 }
 
 function resolveAttachmentContentType(fileName: string): string {
@@ -89,6 +109,9 @@ function resolveAttachmentContentType(fileName: string): string {
   if (lower.endsWith(".pdf")) return "application/pdf";
   if (lower.endsWith(".xlsx")) {
     return "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+  }
+  if (lower.endsWith(".xls")) {
+    return "application/vnd.ms-excel";
   }
   if (lower.endsWith(".mp4")) return "video/mp4";
   if (lower.endsWith(".webm")) return "video/webm";
@@ -164,6 +187,61 @@ export async function addAttachment(
   );
 
   return handleResponse(response);
+}
+
+export async function deleteTicket(token: string, ticketId: string): Promise<void> {
+  const rawId = ticketId.trim();
+  if (!rawId) throw new OnvioApiError("Ticket ID vazio para exclusao.");
+
+  const id = normalizeTicketIdForDelete(rawId);
+  const url = `${ONVIO_BASE}/service-requesting/v1/tickets/generic/${id}`;
+  const response = await fetch(url, {
+    method: "DELETE",
+    headers: buildHeaders(token.trim()),
+  });
+
+  if (response.ok || response.status === 204) {
+    return;
+  }
+
+  const text = await response.text();
+  let body: unknown = text;
+  try {
+    body = text ? JSON.parse(text) : null;
+  } catch {
+    /* keep raw */
+  }
+
+  const detail = extractApiErrorMessage(body);
+  throw new OnvioApiError(
+    `Falha ao apagar ticket ${id}: ${response.status} ${response.statusText}${
+      detail ? ` — ${detail}` : ""
+    }`,
+    response.status,
+    body,
+  );
+}
+
+function extractApiErrorMessage(body: unknown): string {
+  if (!body) return "";
+  if (typeof body === "string") return body.trim().slice(0, 300);
+  const asObj = body as {
+    message?: unknown;
+    Message?: unknown;
+    error?: { message?: unknown };
+  };
+  const candidates = [asObj.error?.message, asObj.message, asObj.Message];
+  for (const candidate of candidates) {
+    if (typeof candidate === "string" && candidate.trim()) return candidate.trim().slice(0, 300);
+    if (Array.isArray(candidate) && typeof candidate[0] === "string") {
+      return candidate[0].trim().slice(0, 300);
+    }
+  }
+  try {
+    return JSON.stringify(body).slice(0, 300);
+  } catch {
+    return "";
+  }
 }
 
 function extractTicketId(ticket: CreateTicketResponse): string | null {

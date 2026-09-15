@@ -1,0 +1,214 @@
+Fala pessoal, este vídeo aqui é para demonstrar a utilização de uma ferramenta, que o nome dela é SVA Pro, onde a gente inclui os SVA's que vão ser adicionados aos planos e ela vai sugerir os valores de uma maneira que a gente consiga incluir todos os SVA's com o valor idêntico, independente do plano que o cliente tenha.
+Então vamos lá para a execução, como é que funciona. Primeiro passo é, a gente primeiro vai abrir a cartela de planos que o cliente tem, que no caso é essa daqui, e nesse caso específico vai ser interessante porque esse cliente, ele já foi feito uma parametrização dos seus planos e consequentemente vai ter que se fazer novamente.
+Então, essa parametrização inicial foi essa daqui, onde a gente tinha esses livros aqui que foram indicados a ele, e aí teve que fazer a remodelagem diante do cenário que ele se encontrava hoje.
+Então, a gente vai fazer aqui novamente uma classificação e para isso, essa ferramenta funciona da seguinte maneira.
+Ela tem aqui uma planilha, um modelo que você vai baixar e aqui eu vou mostrar para vocês.
+Então, aqui está a pasta, onde estão as planilhas, eu vou mostrar aqui para vocês, aí eu vou baixar o modelo em Excel, pronto, baixei o modelo, eu vou pegar esse modelo aqui, recortar e colocar na pasta da empresa.
+Vou abrir aqui, vou abrir aqui o modelo e vou incluir aqui nesse modelo, pegar o que o cliente tem, que seriam as descrições do cliente, esse daqui, baixar essa daqui.
+Essa daqui é dos SVA's, eu tenho que baixar a planilha dos combos, não dos SVA's, dos combos.
+Esse modelo aqui, deixa eu excluir aquela outra, modelo de SVA, porque eu quero chegar no valor sugerido de SVA, para encaixar dentro do cenário que eu almejo e não o inverso.
+Então, vamos lá, pega aqui, foi até bom acontecer isso, porque se vocês se deparassem com essa situação, então vocês já sabem o que deve ser feito.
+Então, eu quero incluir os SVA's dentro dos planos que eu já tenho, que é dos planos já existentes.
+Aí, interessante aqui, pessoal, o que acontece? Eu baixei ela no modelo Excel, e aí ela não viu segregada, isso daqui também é para vocês entenderem.
+E aí, eu vou baixar ela agora no modelo SSV.
+Pronto, vamos lá, pode abrir, porque já tem uma aberta.
+Perfeito, deixa eu fechar essa, não, salvar.
+Dá, tá dando no mesmo.
+Eu vou depois entender o porquê ele tá salvando, ele tá gerando essa forma, e não de forma, conforme os arquivos, separados por aba, né?
+Mas aqui a gente consegue, vamos lá.
+Aqui eu consegui fazer o...
+Aí eu vou usar só um pouquinho.
+A gente vem aqui em dados...
+Nesse caso aqui tá separado por vírgula.
+Tá vendo aí, vai quebrar.
+Ok, continuar.
+Pronto, tá vendo?
+Então, já fiz aqui.
+Perfeito?
+Então, eu vou copiar, né?
+Ah, senhora, você tá copiando de quem?
+Da planinha do próprio cliente.
+Então, eu vou copiar as informações que eu quero.
+Aí ele pede mais duas outras informações.
+O preço de venda e quantidade de clientes.
+Então, vamos lá.
+O que é que acontece, pessoal?
+O que é interessante é que eu trazer para vocês.
+Esse cliente teve uma formatação recente, né?
+Dela, dos planos dele.
+Que eu vou até compartilhar aqui com vocês.
+Um dia a gente reestruturou, né?
+Deixa eu abrir aqui.
+Então, o que foi feito para ele.
+E aqui a gente já existia aí.
+Então, por que eu tô pegando esse daqui?
+Já é reestruturado para vocês entenderem.
+Porque pra ficar no percentual que foi desenvolvido para o cliente.
+Que é um percentual em torno de 41 a 43, 45% no máximo de SVA e 55% de SCI barra SCM, né?
+SCM até o momento que ela não tem nenhuma decisão judicial.
+E quando ela passa a ter decisão judicial, ela passa a ser SCI.
+Perfeito?
+Mas vamos lá, para a fundidade aqui.
+Então, a gente volta para a ferramenta.
+A gente vai fazer o quê?
+Importar os planos.
+Beleza?
+Vamos lá, importar os planos, né?
+Os planos.
+E só pegou para tudo, né?
+Só para...
+Porque você tem que ter...
+Pode estar zerado, né?
+É devido a isso.
+Então, bora lá.
+Vamos fazer uma importação nova, né?
+Importar.
+Pronto, foi isso mesmo.
+Tem que estar com um, pelo menos.
+Beleza?
+Preço de venda...
+Preço de venda está errado.
+Vamos lá, corrigir também.
+Tente deixar em reais, está vendo?
+Beleza, beleza.
+Pronto, agora a gente vai para onde?
+Agora a gente vai para a questão dos SVA's, né?
+E quais os SVA's que esse cliente tem, né?
+São esses aqui, ó.
+Os modelos são esses.
+Então, a gente vai importar esses daqui também dentro do sistema.
+Então, a gente tem a possibilidade de importar com a planilha modelo,
+que é aquela planilha, entendeu?
+Aí eu vou fazer aqui, para ser mais rápido o modelo, né?
+Então, vamos lá.
+E aí é onde entra ela aqui.
+É cortar, fechar, vou abrir, eu vou importar, né?
+Os modelos.
+Pronto, então eu tenho esses três modelos.
+Esses modelos, esses três modelos, são cinco modelos.
+Cinco modelos, né?
+Onde o valor tem que ser, ele se botei, né?
+Aí eu vou aqui para a seguinte situação.
+Aí eu vou para o calibrador, né?
+Onde ele vai trazer essa situação e vou para a configuração.
+Pronto.
+Nesse cenário aqui, o cliente, ele quer, no máximo, vou botar aqui, vou botar aqui 50,8%.
+Os 45 vai ser DSVA.
+Pronto.
+Aí eu vou calibrado, ele reprocessou.
+Eu vou no calibrador, vou calibrar também a sensação decimal.
+E aí, consequentemente, eu vou ter aqui a formação, né?
+Aqui são todos os que foram gerados.
+Então, ele ficou, tá vendo?
+Nesse plano aqui, que era de 140 reais e incluiu quatro opções, né?
+Book Lite, Stunt, Premium e a Book Premium.
+Ou seja, trouxe quatro opções para que chegue no percentual que foi o percentual que eu sugeri, né?
+Entendeu?
+Com a margenzinha.
+Então, onde os SBAs...
+Ah, perdão, deixa eu ver aqui, esse aqui, tá equivocado.
+O calibradão dele, que eu preciso, é o seguinte, ele quer o inverso.
+Ele quer, no máximo, até 45%.
+Pronto.
+Aí, agora sim.
+Pronto.
+Calibrei.
+Né?
+Vamos executar.
+Pronto.
+Otimizador.
+Recalcular.
+Pronto.
+Recalculei.
+Aí, ele já me entregou.
+Né?
+Ele me entregou aqui esse plano de 160 reais.
+Internet ficou 87, né?
+E aí, ele fez a inclusão aqui, ó, nesses livros, tá vendo?
+Então, aqui, a gente tá com ele tudo pronto.
+O que é que a gente faz?
+Já tá montado, né?
+Aí, eu vou gerar o combo.
+Então, exportar relatório de produtos.
+Beleza?
+Teve algum inviável?
+Não.
+Tudo ok, tá vendo?
+Todos ok.
+Então, aqui, ele também traz, se tivesse algum planejamento que foi montado que é inviável,
+ele traria pra mim também a situação.
+Então, eu vou aqui, exportar o relatório.
+Exportei.
+Vamos abrir, né?
+Vamos abrir ele, só pra ver.
+Aqui, lá.
+Como ele tá.
+Os montados aqui.
+Perfeito?
+Então, aqui, o consumo de dados.
+A gente tem aqui.
+Esse plano aqui, de 160 reais, ele vai trazer, né?
+Preço unitário.
+E aqui, ele vai trazer tudo de forma segregada.
+Então, a gente tem aqui todas as montagens, pra gente entender como é que funciona.
+O combo.
+Ah, não tô entendendo.
+Vamos lá.
+Só pra ficar mais claro.
+Eu vou filtrar aqui o primeiro.
+Pronto.
+O primeiro, ele contempla todos esses SVA, tá vendo?
+Que são quatro.
+Que totaliza 72,96.
+Ah, Soares, tem algum desalinhado do inicial?
+Vamos lá.
+Só pra gente entender.
+Por quê, pessoal?
+Eu não posso...
+Esse daqui é o primeiro.
+Formação de plano, rapidamente.
+O combo que já foi montado.
+Eu tenho que trazer o segundo, então.
+Eu tenho que trazer um comparativo.
+Tempo esse plano aqui.
+Esse plano, ele é de 50 reais.
+E ele tem um e-book prime.
+De 20 reais e 99.
+Pronto.
+20 reais e 99.
+Tá vendo aqui, ele é um e-book prime.
+Então, é um e-book prime.
+Ele tem que ter o mesmo valor desse daqui.
+Não pode estar diferente.
+Porque em todos os planos, os livros, ele não pode variar.
+Tem que ser o mesmo valor pra tudo.
+Ele não pode ter mudança.
+Entende?
+Então, isso é extremamente relevante.
+Então, eu vou fazer só um comparativo aqui pra gente ver de preço.
+E-book essencial, tá 26,99.
+E quando eu vou pra aqui com a tabela, eu tenho aqui o e-book essencial 26,99.
+Quando eu vou pra o e-book light, eu tenho aqui 10,99, perfeito.
+Tá batendo.
+Ah, só.
+Você tá vendo a onda?
+Aqui, ó.
+Quer dizer que foi inicial.
+Que o alimento de lá em cima, que é aquela linha moderna.
+Então, se você verificar, todos estão batendo.
+O e-book premium, que é o principal, né?
+Esse daqui é 35,99.
+Então, tá tudo semelhante.
+Então, não vai ter nenhuma questão de divergência.
+Beleza?
+Ah, só.
+Mas você trouxe aqui um modelo que é diferente.
+Não, não que é diferente.
+Eu posso.
+Eu vou pegar daquela planilha que foi gerada pelo sistema e incluir nesse cenário aqui,
+que é o cenário que a gente criou de modelo de planilha padrão.
+Então, eu vou pegar os dados que eu já formulei lá e jogar nesse modelo aqui e deixar tudo
+organizadinho dessa forma pra que o cliente entenda e, consequentemente, fique de fácil
+compreensão e de fácil execução por parte dele.
+Então, esse vídeo é justamente pra mostrar a vocês como é que funciona o processo de
+montagem de plano dentro da estrutura dos SBAs.

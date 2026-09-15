@@ -1,0 +1,15 @@
+nesta tarefa eu vou apresentar você como você deverá executar quando chegar em sua responsabilidade trata -se de uma tarefa de controle de férias de provisão de férias perdão 
+
+vamos usar como exemplo a empresa 15 comercial de gás então você vai estar na domínio na empresa primeiramente que você deverá saber que competência é quando tratamos de competência de abril é a da tarefa mas o que ele precisa que eu sei tô contábil é a do mês anterior então na execução é feita de março certo então retornaremos ao domínio primeiro você deverá consultar segundo perdão consultar se já foi provisionado já foi calculado então você vem relatórios provisões férias 
+
+inicial e final a competência deixe destacar a linha emitir código da empresa e basta clicar em ok 
+
+sem dados para emitir então essa empresa não foi calculado ainda e por terceiro como a tarefa é o objetivo da tarefa calcular então você vem processos 
+
+provisões de férias de décimo terceiro 
+
+deixa a competência de cálculo marca apenas férias para essa tarefa e clica em calcular 
+
+aguarda o momento do cálculo 
+
+provisão calculada com sucesso agora você retorna e faz uma nova conferência cada vez que efetuamos conferência menos erros teremos então tá aí o processo da tarefa controle de férias provisão 

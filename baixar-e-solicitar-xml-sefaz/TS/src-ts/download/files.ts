@@ -131,13 +131,13 @@ export function organizedZipPath(info: DownloadInfo): string {
 
 export function caminhoZipOrganizadoExistente(info: DownloadInfo): string | undefined {
   const destinoComTipo = organizedZipPath(info);
-  if (existsSync(destinoComTipo)) {
+  if (existsSync(destinoComTipo) && verificarZipValido(destinoComTipo)) {
     return destinoComTipo;
   }
   const [empresa, ano, mes] = parseNomeEmpresaEAnoMes(info.nmArquivo, info.dtSolicitacao);
   const nomeBase = info.nmArquivo || info.dtSolicitacao || "arquivo";
   const destinoSemTipo = join(PATHS.downloadsDir, ano, mes, empresa, "zips", `${nomeBase}.zip`);
-  return existsSync(destinoSemTipo) ? destinoSemTipo : undefined;
+  return existsSync(destinoSemTipo) && verificarZipValido(destinoSemTipo) ? destinoSemTipo : undefined;
 }
 
 export function arquivoJaOrganizado(info: DownloadInfo): boolean {
@@ -162,6 +162,9 @@ export function organizeDownloadedZip(sourceZip: string, info: DownloadInfo, ext
   ensureDir(pastaXmls);
 
   const destinoFinal = organizedZipPath(info);
+  if (existsSync(destinoFinal) && !verificarZipValido(destinoFinal)) {
+    rmSync(destinoFinal, { force: true });
+  }
   if (!existsSync(destinoFinal)) {
     renameSync(sourceZip, destinoFinal);
   } else if (existsSync(sourceZip)) {

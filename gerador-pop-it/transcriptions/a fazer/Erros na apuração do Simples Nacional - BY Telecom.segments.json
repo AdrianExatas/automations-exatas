@@ -1,0 +1,88 @@
+{
+  "media": "G:\\Meu Drive\\GESTÃO DE PROCESSOS\\03 - Fiscal\\VÍDEOS\\ERRO RECORRENTE BY TELECOM.mp4",
+  "transcript_path": "C:\\Users\\Exatas\\Documents\\GitHub\\automations-exatas\\gerador-pop-it\\transcriptions\\a fazer\\ERRO RECORRENTE BY TELECOM (transcribed on 10-Sep-2026 20-32-14).txt",
+  "language": "pt",
+  "duration_sec": 155.6906875,
+  "segments": [
+    {
+      "start": 0.34,
+      "end": 21.34,
+      "text": "Apresentando o relatório de erros na apuração do Simples Nacional da Baitelecom. Aqui nós podemos ver a ZNFCOM, espécie 43. Aqui no quadro provida e aqui espécie 42 é o documento não fiscal, que seriam as faturas."
+    },
+    {
+      "start": 21.34,
+      "end": 45.34,
+      "text": "Jogando as informações também no NFCROSS, se formos filtrar somente essa nota 282, nós podemos observar aqui que há somente a ZNFCOM, que aqui é o plano, que está com o CFOP e a locação."
+    },
+    {
+      "start": 45.34,
+      "end": 55.86,
+      "text": "A diferença é que, como a locação está sendo destaque de ICMS, aqui ela ficou dessa forma também."
+    },
+    {
+      "start": 56.7,
+      "end": 61.52,
+      "text": "Porém, não há incidência das faturas nesse caso."
+    },
+    {
+      "start": 62.2,
+      "end": 70.56,
+      "text": "Como nós podemos ver aqui, irei colocar na próxima nota aqui, no NFCROSS."
+    },
+    {
+      "start": 70.56,
+      "end": 82.99,
+      "text": "290, colocando na 290, podemos ver o mesmo caso."
+    },
+    {
+      "start": 85.5,
+      "end": 94.42,
+      "text": "Duas NFCROSS, só que uma está sem o destaque de ICMS, assim como também aqui na Domínio."
+    },
+    {
+      "start": 95.08,
+      "end": 100.36,
+      "text": "Mas já fizemos os ajustes necessários, porém, entrou as faturas."
+    },
+    {
+      "start": 100.36,
+      "end": 113.82,
+      "text": "E, trazendo agora um exemplo de uma nota que tenha as faturas, iremos pegar aqui a próxima, que é a 234."
+    },
+    {
+      "start": 114.0,
+      "end": 128.84,
+      "text": "Nós podemos observar aqui os planos 234 e o valor total 1.200, que seria..."
+    },
+    {
+      "start": 128.84,
+      "end": 135.06,
+      "text": "Aqui, nós já conseguimos visualizar o valor total, que é os 1.200."
+    },
+    {
+      "start": 135.6,
+      "end": 137.68,
+      "text": "Então, não há necessidade das faturas."
+    },
+    {
+      "start": 138.24,
+      "end": 143.26,
+      "text": "Ou seja, terá que ser feita a exclusão de todas essas faturas,"
+    },
+    {
+      "start": 143.64,
+      "end": 149.72,
+      "text": "porque o que está incidindo somente é a NFCROSS, e não as faturas dentro dessa nota,"
+    },
+    {
+      "start": 150.44,
+      "end": 153.44,
+      "text": "como nós podemos observar aqui, o valor de 1.200."
+    },
+    {
+      "start": 153.44,
+      "end": 183.42,
+      "text": "Então, nós podemos observar aqui, o valor de 1.200, que é o valor total de 1.200, que é o valor total de 1.200, que é o valor total de 1.200."
+    }
+  ]
+}

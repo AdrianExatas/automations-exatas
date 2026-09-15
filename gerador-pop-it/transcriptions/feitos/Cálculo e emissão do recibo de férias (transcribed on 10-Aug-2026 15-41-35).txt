@@ -1,0 +1,21 @@
+Olá pessoal, hoje eu vou ensinar vocês como calcular férias e emitir o recibo de férias. Antes disso, a gente vai começar entrando na Domínio 
+
+com seu login e senha. 
+
+Pronto, é essa empresa mesmo que eu vou calcular as férias. 
+
+Pronto, processos, férias, individual. 
+
+Aqui eu dou F2 e seleciono qual é a colaboradora. Nesse caso, é a colaboradora de código número 11. Nova. Pronto. Aqui puxa as informações que foram lançadas no aviso de férias. Calcular. E aqui a gente espera que a Domínio calcule as férias. 
+
+Pronto, o sistema calculou as férias e agora a gente vai conferir o valor. 
+
+Como pode ver, é uma férias simples, então só vem o valor das férias, que no caso é o valor do salário integral mesmo de 30 dias, e o texto das férias. Pronto. Pronto. Feito isso, a gente vai emitir o recibo agora. 
+
+Pronto. Esse é o recibo padrão que utilizamos aqui. E agora a gente vai enviar esse recibo para o cliente diretamente da Domínio para o Unveon. 
+
+E agora a gente vai enviar esse recibo. Aqui a gente vai selecionar a pastinha para qual vai esse recibo. No caso, férias 2006, que é referente ao mês das férias. A gente coloca o nome da colaboradora 
+
+e envia. 
+
+Feito isso, é só conferir se o documento foi enviado para o Unveon. E é isso, pessoal. 

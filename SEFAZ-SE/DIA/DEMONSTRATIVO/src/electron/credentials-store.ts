@@ -5,32 +5,44 @@ import type { StoredCredentials } from "./ipc-types";
 
 type CredentialsFile = {
   user: string;
-  encryptedPassword: string;
+  certPath?: string;
+  encryptedCertPassword?: string;
+  /** @deprecated legado login/senha SEFAZ */
+  encryptedPassword?: string;
 };
 
 export async function readCredentials(filePath: string): Promise<StoredCredentials> {
   try {
     const text = await readFile(filePath, "utf8");
     const data = JSON.parse(text) as CredentialsFile;
-    const encrypted = Buffer.from(data.encryptedPassword, "base64");
+    const encrypted = data.encryptedCertPassword
+      ? Buffer.from(data.encryptedCertPassword, "base64")
+      : undefined;
     return {
-      user: data.user,
-      password: safeStorage.decryptString(encrypted),
+      user: data.user ?? "",
+      certPath: data.certPath ?? "",
+      certPassword: encrypted && safeStorage.isEncryptionAvailable()
+        ? safeStorage.decryptString(encrypted)
+        : "",
       remembered: true,
     };
   } catch {
-    return { user: "", password: "", remembered: false };
+    return { user: "", certPath: "", certPassword: "", remembered: false };
   }
 }
 
-export async function saveCredentials(filePath: string, credentials: { user: string; password: string }): Promise<void> {
+export async function saveCredentials(
+  filePath: string,
+  credentials: { user: string; certPath: string; certPassword: string },
+): Promise<void> {
   if (!safeStorage.isEncryptionAvailable()) {
     throw new Error("A criptografia local do Electron nao esta disponivel neste Windows.");
   }
 
   const file: CredentialsFile = {
     user: credentials.user.trim(),
-    encryptedPassword: safeStorage.encryptString(credentials.password).toString("base64"),
+    certPath: credentials.certPath.trim(),
+    encryptedCertPassword: safeStorage.encryptString(credentials.certPassword).toString("base64"),
   };
   await mkdir(path.dirname(filePath), { recursive: true });
   await writeFile(filePath, `${JSON.stringify(file, null, 2)}\n`, "utf8");

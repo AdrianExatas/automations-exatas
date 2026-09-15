@@ -192,7 +192,7 @@ function Invoke-OfficeCase {
   Write-Output "`nCASO OFFICE: $Name"
   $outputDir = Join-Path $CaseRoot 'saida'
   [System.IO.Directory]::CreateDirectory($outputDir) | Out-Null
-  Invoke-PowerShellScript $BuildScript @('-ContentJson', $InputJson, '-OutputDir', $outputDir)
+  Invoke-PowerShellScript $BuildScript @('-ContentJson', $InputJson, '-OutputDir', $outputDir, '-UpdateListaMestra')
 
   $normalizedPath = Join-Path $CaseRoot 'normalizado.json'
   Invoke-PowerShellScript $NormalizeScript @('-ContentJson', $InputJson, '-OutputJson', $normalizedPath)
@@ -230,7 +230,7 @@ try {
   Assert-CanonicalContract $normalizedV2
   Assert-True (@($normalizedV2.documentos_solicitados).Count -eq 4) 'fixture v2 preserva a selecao dos quatro documentos'
   Assert-True ([string]$normalizedV2.pop.etapas[0].id -eq 'E01') 'fixture v2 preserva o ID estavel da etapa'
-  Assert-True ($null -eq $normalizedV2.mp.riscos[0].probabilidade -and $null -eq $normalizedV2.mp.riscos[0].gravidade) 'risco sugerido permanece com P e G vazios'
+  Assert-True ([int]$normalizedV2.mp.riscos[0].probabilidade -eq 3 -and [int]$normalizedV2.mp.riscos[0].gravidade -eq 3) 'risco sugerido recebe P e G padrao para classificacao visual'
 
   $normalizedLegacyPath = Join-Path $testRoot 'legado-normalizado.json'
   Invoke-PowerShellScript $normalizeScript @('-ContentJson', $legacyFixture, '-OutputJson', $normalizedLegacyPath)
@@ -286,11 +286,46 @@ try {
   $secondDump = Get-Content -Raw -Encoding UTF8 -LiteralPath $entriesJson | ConvertFrom-Json
   Assert-True ((@($secondDump.aplicadas | Where-Object { $_.created }).Count) -eq 0) 'segunda execucao atualiza sem duplicar'
 
+  Write-Output "`nFIDELIDADE MP (template institucional)"
+  $mpFidelityRoot = Join-Path $testRoot 'mp-fidelity'
+  [System.IO.Directory]::CreateDirectory($mpFidelityRoot) | Out-Null
+  $mpFidelityJson = Join-Path $mpFidelityRoot 'entrada.json'
+  $null = New-SelectionContent $v2Fixture @('mp') $mpFidelityJson
+  $openpyxlScript = Join-Path $skillRoot 'scripts\build_excel_openpyxl.py'
+  $compareScript = Join-Path $skillRoot 'scripts\compare_mp_fidelity.py'
+  $normalizedMpPath = Join-Path $mpFidelityRoot 'normalizado.json'
+  Invoke-PowerShellScript $normalizeScript @('-ContentJson', $mpFidelityJson, '-OutputJson', $normalizedMpPath)
+  & $python.Source @($openpyxlScript, '--content-json', $normalizedMpPath, '--output-dir', $mpFidelityRoot, '--document-types', 'mp')
+  Assert-True ($LASTEXITCODE -eq 0) 'geracao openpyxl do MP concluiu'
+  $generatedMp = Get-ChildItem -LiteralPath $mpFidelityRoot -Filter 'MP*.xlsx' | Select-Object -First 1
+  Assert-True ($null -ne $generatedMp) 'MP gerado para teste de fidelidade'
+  $referenceMp = Get-ChildItem -LiteralPath (Join-Path $repoRoot 'referencias') -Filter '01.3 MP.FIS.001*.xlsx' | Select-Object -First 1
+  Assert-True ($null -ne $referenceMp) 'referencia MP.FIS.001 disponivel'
+  & $python.Source @($compareScript, '--generated', $generatedMp.FullName, '--reference', $referenceMp.FullName)
+  Assert-True ($LASTEXITCODE -eq 0) 'comparacao de fidelidade MP aprovada'
+
+  Write-Output "`nFIDELIDADE FORM (template institucional)"
+  $formFidelityRoot = Join-Path $testRoot 'form-fidelity'
+  [System.IO.Directory]::CreateDirectory($formFidelityRoot) | Out-Null
+  $formFidelityJson = Join-Path $formFidelityRoot 'entrada.json'
+  $null = New-SelectionContent $v2Fixture @('form') $formFidelityJson
+  $compareFormScript = Join-Path $skillRoot 'scripts\compare_form_fidelity.py'
+  $normalizedFormPath = Join-Path $formFidelityRoot 'normalizado.json'
+  Invoke-PowerShellScript $normalizeScript @('-ContentJson', $formFidelityJson, '-OutputJson', $normalizedFormPath)
+  & $python.Source @($openpyxlScript, '--content-json', $normalizedFormPath, '--output-dir', $formFidelityRoot, '--document-types', 'form')
+  Assert-True ($LASTEXITCODE -eq 0) 'geracao openpyxl do FORM concluiu'
+  $generatedForm = Get-ChildItem -LiteralPath $formFidelityRoot -Filter 'FORM*.xlsx' | Select-Object -First 1
+  Assert-True ($null -ne $generatedForm) 'FORM gerado para teste de fidelidade'
+  $referenceForm = Get-ChildItem -LiteralPath (Join-Path $repoRoot 'referencias') -Filter 'FORM.QUA.002*.xlsx' | Select-Object -First 1
+  Assert-True ($null -ne $referenceForm) 'referencia FORM.QUA.002 disponivel'
+  & $python.Source @($compareFormScript, '--generated', $generatedForm.FullName, '--reference', $referenceForm.FullName)
+  Assert-True ($LASTEXITCODE -eq 0) 'comparacao de fidelidade FORM aprovada'
+
   if ($SkipOffice) {
     Write-Output "`nTestes Office ignorados por -SkipOffice."
   } else {
+    # Somente POP/IT dependem de COM; FORM/MP saem por openpyxl, sem Excel.
     Assert-True ($null -ne [type]::GetTypeFromProgID('Word.Application')) 'Microsoft Word COM esta disponivel'
-    Assert-True ($null -ne [type]::GetTypeFromProgID('Excel.Application')) 'Microsoft Excel COM esta disponivel'
 
     $popItRoot = Join-Path $testRoot 'pop-it'
     [System.IO.Directory]::CreateDirectory($popItRoot) | Out-Null

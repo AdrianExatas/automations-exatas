@@ -1,0 +1,34 @@
+Irei mostrar como fazer o protocolo do processo de alteração somente na Receita Federal. Acesse o portal do ECAC, vem em alterar perfil, informa o CNPJ da empresa, clica aqui em alterar, confere se foi feito o acesso, em seguida vem na parte de processos, processo digital,
+como procurador, a empresa que você informou o CNPJ. Aqui, em processo, você vê que não tem nada relacionado, protocolado a essa empresa. Solicitar, serviço via, seleciona a opção do cadastro, CNPJ, atualizar ou baixar o cadastro da pessoa jurídica. Ele vai direcionar para essa outra página. Aqui, você vai informar o número do telefone,
+número. Aqui, ele vai pedir o número do DBE, certo? O DBE que já foi gerado para esse protocolo. Em caso de dúvida, também pode colocar aqui, ele vai mostrar o exemplo. Informa o código que vem lá no DBE. Inicialmente, sempre será duas letras e posterior será o número do recibo e sempre a segunda opção do campo é o CNPJ da empresa. Pronto. Feito isso, aqui ele pergunta, informa o tipo
+de tipo de solicitação. Será uma alteração. Ele pergunta se será substituído o protocolo de DBE por requerimento. Não. Aqui será a parte do anexo. Pode observar que tem a descrição de DBE. Selecionar um arquivo. Vai na pasta da empresa. Eu vou considerar que não pode ter nenhum símbolo nem acento nas palavras.
+A data é a data informada. No caso da procuração é a data de hoje do protocolo. Informa aqui, anexar. Pronto. Aqui ele diz que o DBE
+foi anexado com sucesso. Sai. Mostra aqui, certo? Logo abaixo, ele pergunta documento necessário para análise.
+Se seleciona aqui, você seleciona aqui, vem e vai selecionar a alteração que você informou a data de registro anteriormente. Nesse caso, eu vou colocar a primeira porque, como se trata de uma alteração somente de mudança entre atividade principal e atividade secundária, vou considerar a alteração anterior.
+aqui será primeiro alteração sem acento. A data também será de hoje. 30.
+Anexar. Anexar. Aqui ele diz que o nome do arquivo possui caracteres.
+Então, eu vou fazer o seguinte. Vou tirar o número 1 e vou colocar a alteração contratual.
+Pronto. Anexar.
+Na parte de selecionar aqui, a descrição possui acento. Dessa forma, eu vou editar aqui.
+Seleciona, abrir, anexar.
+Pronto. Agora ele foi anexado com sucesso.
+Saí.
+Aqui, era só se tivesse algum erro que estivesse impossibilitando a gerar o protocolo do DBE.
+Como não tem, eu só vou selecionar isso daqui.
+E aqui, ele tem várias opções. Voltar, limpar, alteração, desanexar todos os arquivos, salvar como rascunho e enviar requerimento.
+Vamos clicar na opção de enviar requerimento.
+Ele diz que o processamento do envio deste requerimento compreende várias etapas e pode demorar.
+Confirmar.
+E nesse meio termo, aguarda carregar todas as seis etapas.
+Logo após, ele vai trazer aqui a possibilidade de fazer a assinatura.
+Vou colocar que vai ser assinado com certificado digital, selecionar e vou clicar na opção de assinar.
+Já vou fazer logo também a abertura da CERPRO, que é o assinador.
+Aqui eu vou selecionar as atas contabilidade, que foi o que eu fiz o login, titulado certificado com a procuração da empresa.
+Então, vou poder fazer a assinatura com das atas.
+Demora um pouco.
+Pronto, após carregar, mostra aqui a opção de visualizar documento.
+Ele diz aqui que o requerimento gerou o número do processo e deve ser acompanhado através do sistema e processo.
+Imprima e salve o documento aqui, que é o número do protocolo.
+Seleciona lá para salvar, vai até a empresa, confirmação, só que na frente eu coloco como recibo.
+Salvo na pasta.
+Nesse caso aqui, foi protocolado.

@@ -2,7 +2,7 @@
 
 param(
     [string]$HoraDownload = "09:00",
-    [string]$HoraConsulta = "10:00",
+    [string]$HoraConsulta = "08:30",
     [switch]$SkipRegister
 )
 
@@ -62,7 +62,7 @@ New-Item -ItemType Directory -Force -Path `$logDir | Out-Null
 `$logFile = Join-Path `$logDir ('download_upload_' + (Get-Date -Format 'yyyyMMdd_HHmmss') + '.log')
 Set-Location `$tsRoot
 Write-Output ('Iniciando Download/Upload SEFAZ TS - ' + (Get-Date -Format 'yyyy-MM-dd HH:mm:ss')) | Tee-Object -FilePath `$logFile -Append
-& `$bun run 'src-ts\cli\download.ts' '--upload' 2>&1 | Tee-Object -FilePath `$logFile -Append
+& `$bun run 'src-ts\cli\task.ts' 'download-upload' 2>&1 | Tee-Object -FilePath `$logFile -Append
 `$exitCode = `$LASTEXITCODE
 Write-Output ('Finalizado com codigo ' + `$exitCode + ' - ' + (Get-Date -Format 'yyyy-MM-dd HH:mm:ss')) | Tee-Object -FilePath `$logFile -Append
 exit `$exitCode
@@ -80,7 +80,7 @@ New-Item -ItemType Directory -Force -Path `$logDir | Out-Null
 `$logFile = Join-Path `$logDir ('consulta_' + (Get-Date -Format 'yyyyMMdd_HHmmss') + '.log')
 Set-Location `$tsRoot
 Write-Output ('Iniciando Consulta SEFAZ TS - ' + (Get-Date -Format 'yyyy-MM-dd HH:mm:ss')) | Tee-Object -FilePath `$logFile -Append
-& `$bun run 'src-ts\cli\consulta.ts' 2>&1 | Tee-Object -FilePath `$logFile -Append
+& `$bun run 'src-ts\cli\task.ts' 'consulta' 2>&1 | Tee-Object -FilePath `$logFile -Append
 `$exitCode = `$LASTEXITCODE
 Write-Output ('Finalizado com codigo ' + `$exitCode + ' - ' + (Get-Date -Format 'yyyy-MM-dd HH:mm:ss')) | Tee-Object -FilePath `$logFile -Append
 exit `$exitCode
@@ -97,8 +97,8 @@ if ($SkipRegister) {
     exit 0
 }
 
-$taskNameDownload = "SEFAZ_TS_Download_Upload_XML"
-$taskNameConsulta = "SEFAZ_TS_Consulta_XML"
+$taskNameDownload = "SEFAZ XML - Download Upload"
+$taskNameConsulta = "SEFAZ XML - Consulta"
 
 $settings = New-ScheduledTaskSettingsSet `
     -AllowStartIfOnBatteries `

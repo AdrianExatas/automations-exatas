@@ -1,0 +1,7 @@
+Nesse vídeo eu vou ensinar como que faz a emissão do relatório de funcionários admitidos e demitidos dentro da competência. Primeiro a gente vai logar no domínio, seleciona a empresa, relatórios, gerenciador de relatórios, procura pelo item personalizadas, clica nesse mais, relatório de empregados admitidos e demitidos. Aqui a gente vai selecionar o código da empresa, no caso é a 206 e o período que você vai querer que apareça, no meu caso é a competência 5 inteira. Aí vai do dia 1º de maio até o dia 31 de maio. Esse aqui você deixa em branco e a situação você vai deixar todos. Clica em executar. 
+
+Aqui ele traz o resumo dos funcionários que foram admitidos, traz a data de admissão, o cargo e aqui o pessoal que foi demitido. Esse relatório a gente sempre vai salvar em Excel e vai disponibilizar para o cliente. 
+
+Coloca a competência. 
+
+E envia no Onfile. 

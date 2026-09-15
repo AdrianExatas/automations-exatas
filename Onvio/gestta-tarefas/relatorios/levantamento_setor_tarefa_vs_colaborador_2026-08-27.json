@@ -1,0 +1,3119 @@
+{
+  "generatedAt": "2026-08-27T14:13:40.918Z",
+  "criterio": "Setor canônico da tarefa (company_department do modelo) não está entre os setores canônicos do colaborador (company_departments no Gestta; fallback API 3001 ou setor mais frequente dos vínculos). Fiscal - Simples Nacional conta como Fiscal. Competências das instâncias: 2026-08 e 2026-09.",
+  "competences": [
+    "2026-08",
+    "2026-09"
+  ],
+  "resumo": [
+    {
+      "Item": "Modelos recorrentes consultados",
+      "Qtd": 778
+    },
+    {
+      "Item": "Vínculos totais",
+      "Qtd": 10124
+    },
+    {
+      "Item": "Vínculos divergentes",
+      "Qtd": 7
+    },
+    {
+      "Item": "Empresas com vínculo divergente",
+      "Qtd": 6
+    },
+    {
+      "Item": "Instâncias geradas ago/set com divergência",
+      "Qtd": 0
+    },
+    {
+      "Item": "Instâncias geradas listadas",
+      "Qtd": 0
+    },
+    {
+      "Item": "Vínculos divergentes sem instância ago/set",
+      "Qtd": 7
+    },
+    {
+      "Item": "Vínculos sem responsável",
+      "Qtd": 6
+    },
+    {
+      "Item": "Vínculos com setor do colaborador indefinido",
+      "Qtd": 0
+    },
+    {
+      "Item": "Falhas ao buscar instâncias",
+      "Qtd": 0
+    },
+    {
+      "Item": "Par Contábil → Fiscal",
+      "Qtd": 4
+    },
+    {
+      "Item": "Par Pessoal → Fiscal",
+      "Qtd": 2
+    },
+    {
+      "Item": "Par Financeiro → Fiscal",
+      "Qtd": 1
+    }
+  ],
+  "totais": {
+    "modelos": 778,
+    "vinculos": 10124,
+    "divergentes": 7,
+    "empresasDivergentes": 6,
+    "instancias": 0,
+    "instanciasAindaDivergem": 0,
+    "semResponsavel": 6,
+    "setorIndefinido": 0
+  },
+  "pares": [
+    {
+      "par": "Contábil → Fiscal",
+      "qtd": 4
+    },
+    {
+      "par": "Pessoal → Fiscal",
+      "qtd": 2
+    },
+    {
+      "par": "Financeiro → Fiscal",
+      "qtd": 1
+    }
+  ],
+  "falhasGeradas": [],
+  "divergentes": [
+    {
+      "linkId": "66fefb3aa2b18a0007e3ec5e",
+      "taskId": "60b61ec51da683000632353e",
+      "taskName": "EMISSÃO DO LIVRO DIÁRIO",
+      "modeloAtivo": true,
+      "setorTarefaBruto": "Contábil",
+      "setorTarefa": "Contábil",
+      "customerId": "66f31024e5dcda000775830c",
+      "codigoGestta": "534",
+      "nomeGestta": "AGROPECUARIA FERTIL LTDA",
+      "cnpj": "03983099000420",
+      "ativoGestta": true,
+      "companyUserId": "68a602ab850e9ab5c69ba485",
+      "companyUserName": "Naely Matos",
+      "userActive": true,
+      "setoresColaboradorBrutos": [
+        "Fiscal",
+        "Fiscal - Simples Nacional"
+      ],
+      "setoresColaborador": [
+        "Fiscal"
+      ],
+      "setorColaborador": "Fiscal",
+      "origemSetor": "cadastro Gestta"
+    },
+    {
+      "linkId": "679b945277af7a2b6503cfea",
+      "taskId": "65c27bff41e1eb00066fd40d",
+      "taskName": "ENCERRAMENTO DE EXERCÍCIO (ANUAL)",
+      "modeloAtivo": true,
+      "setorTarefaBruto": "Contábil",
+      "setorTarefa": "Contábil",
+      "customerId": "64d4c7bbf8fefe0007e875c7",
+      "codigoGestta": "424",
+      "nomeGestta": "ACHEI COMERCIO E SERVICOS LTDA",
+      "cnpj": "51753053000114",
+      "ativoGestta": true,
+      "companyUserId": "6914eaf095abf820838c3820",
+      "companyUserName": "Emilly Adrielle",
+      "userActive": true,
+      "setoresColaboradorBrutos": [
+        "Fiscal",
+        "Fiscal - Simples Nacional"
+      ],
+      "setoresColaborador": [
+        "Fiscal"
+      ],
+      "setorColaborador": "Fiscal",
+      "origemSetor": "cadastro Gestta"
+    },
+    {
+      "linkId": "66fefb3aa2b18a0007e3ec81",
+      "taskId": "65c27bff41e1eb00066fd40d",
+      "taskName": "ENCERRAMENTO DE EXERCÍCIO (ANUAL)",
+      "modeloAtivo": true,
+      "setorTarefaBruto": "Contábil",
+      "setorTarefa": "Contábil",
+      "customerId": "66f31024e5dcda000775830c",
+      "codigoGestta": "534",
+      "nomeGestta": "AGROPECUARIA FERTIL LTDA",
+      "cnpj": "03983099000420",
+      "ativoGestta": true,
+      "companyUserId": "68a602ab850e9ab5c69ba485",
+      "companyUserName": "Naely Matos",
+      "userActive": true,
+      "setoresColaboradorBrutos": [
+        "Fiscal",
+        "Fiscal - Simples Nacional"
+      ],
+      "setoresColaborador": [
+        "Fiscal"
+      ],
+      "setorColaborador": "Fiscal",
+      "origemSetor": "cadastro Gestta"
+    },
+    {
+      "linkId": "67602375bb5a8efa76ac07f3",
+      "taskId": "65c27bff41e1eb00066fd40d",
+      "taskName": "ENCERRAMENTO DE EXERCÍCIO (ANUAL)",
+      "modeloAtivo": true,
+      "setorTarefaBruto": "Contábil",
+      "setorTarefa": "Contábil",
+      "customerId": "6748e0accd5e01842c0c04ac",
+      "codigoGestta": "552",
+      "nomeGestta": "BORDADOS DE TOBIAS LTDA",
+      "cnpj": "37125022000198",
+      "ativoGestta": true,
+      "companyUserId": "689270f2331aad0c06091ebb",
+      "companyUserName": "Weslly Carlos",
+      "userActive": true,
+      "setoresColaboradorBrutos": [
+        "Fiscal",
+        "Fiscal - Simples Nacional"
+      ],
+      "setoresColaborador": [
+        "Fiscal"
+      ],
+      "setorColaborador": "Fiscal",
+      "origemSetor": "cadastro Gestta"
+    },
+    {
+      "linkId": "6778415609750487b32bdd74",
+      "taskId": "677840770805679eb0756ade",
+      "taskName": "Lançamentos de Rubricas de Premiação",
+      "modeloAtivo": false,
+      "setorTarefaBruto": "Financeiro",
+      "setorTarefa": "Financeiro",
+      "customerId": "60b6797d9fda5800070dbe7c",
+      "codigoGestta": "45",
+      "nomeGestta": "EXATAS CONTABILIDADE LTDA",
+      "cnpj": "27939154000108",
+      "ativoGestta": true,
+      "companyUserId": "673c92d0fa79fbd2d3649155",
+      "companyUserName": "Wenderson Maia Dias",
+      "userActive": true,
+      "setoresColaboradorBrutos": [
+        "Fiscal - Simples Nacional",
+        "Fiscal"
+      ],
+      "setoresColaborador": [
+        "Fiscal"
+      ],
+      "setorColaborador": "Fiscal",
+      "origemSetor": "cadastro Gestta"
+    },
+    {
+      "linkId": "68306a26e9544d8c57ab2a69",
+      "taskId": "60b61ec51da6830006323533",
+      "taskName": "CONSULTAR EXTRATOR DIRF",
+      "modeloAtivo": true,
+      "setorTarefaBruto": "Pessoal",
+      "setorTarefa": "Pessoal",
+      "customerId": "61200b430b39d70006ffc8db",
+      "codigoGestta": "200",
+      "nomeGestta": "MOSQUITEIRO RENOVO LTDA",
+      "cnpj": "19281530000183",
+      "ativoGestta": false,
+      "companyUserId": "67782a6fb33c1429c0a31516",
+      "companyUserName": "Vinni Fontes",
+      "userActive": true,
+      "setoresColaboradorBrutos": [
+        "Fiscal",
+        "Fiscal - Simples Nacional"
+      ],
+      "setoresColaborador": [
+        "Fiscal"
+      ],
+      "setorColaborador": "Fiscal",
+      "origemSetor": "cadastro Gestta"
+    },
+    {
+      "linkId": "683068c3b2a4c966fe92ee19",
+      "taskId": "60b61ec51da6830006323533",
+      "taskName": "CONSULTAR EXTRATOR DIRF",
+      "modeloAtivo": true,
+      "setorTarefaBruto": "Pessoal",
+      "setorTarefa": "Pessoal",
+      "customerId": "6372490b23bea90007607ae1",
+      "codigoGestta": "357",
+      "nomeGestta": "MOSQUITEIRO RENOVO LTDA",
+      "cnpj": "19281530000264",
+      "ativoGestta": false,
+      "companyUserId": "67782a6fb33c1429c0a31516",
+      "companyUserName": "Vinni Fontes",
+      "userActive": true,
+      "setoresColaboradorBrutos": [
+        "Fiscal",
+        "Fiscal - Simples Nacional"
+      ],
+      "setoresColaborador": [
+        "Fiscal"
+      ],
+      "setorColaborador": "Fiscal",
+      "origemSetor": "cadastro Gestta"
+    }
+  ],
+  "instancias": [],
+  "semResponsavel": [
+    {
+      "linkId": "6a837ee1d14a03dd562f3ebd",
+      "taskId": "66cf593e4be3bb0007e877a7",
+      "taskName": "PESQUISA E LEVANTAMENTO DE DADOS ESTATÍSTICOS (IBGE)",
+      "modeloAtivo": true,
+      "setorTarefaBruto": "Contábil",
+      "setorTarefa": "Contábil",
+      "customerId": "68838fceba139f69023e6c73",
+      "codigoGestta": "619",
+      "nomeGestta": "W. E. R DE JESUS COMERCIO E SERVICOS LTDA",
+      "cnpj": "01884967000146",
+      "ativoGestta": true,
+      "companyUserId": "",
+      "companyUserName": "",
+      "setoresColaboradorBrutos": [],
+      "setoresColaborador": [],
+      "setorColaborador": "",
+      "origemSetor": ""
+    },
+    {
+      "linkId": "6a837954848a39bf9801bf31",
+      "taskId": "66cf593e4be3bb0007e877a7",
+      "taskName": "PESQUISA E LEVANTAMENTO DE DADOS ESTATÍSTICOS (IBGE)",
+      "modeloAtivo": true,
+      "setorTarefaBruto": "Contábil",
+      "setorTarefa": "Contábil",
+      "customerId": "68dad2bdfd78ee0fdfc98bd3",
+      "codigoGestta": "643",
+      "nomeGestta": "VIRTUALNET PROVEDORES LTDA.",
+      "cnpj": "17529667000189",
+      "ativoGestta": true,
+      "companyUserId": "",
+      "companyUserName": "",
+      "setoresColaboradorBrutos": [],
+      "setoresColaborador": [],
+      "setorColaborador": "",
+      "origemSetor": ""
+    },
+    {
+      "linkId": "6a6a6658222e39a55db0ed38",
+      "taskId": "60b61ec51da6830006323553",
+      "taskName": "HONORÁRIOS EXATAS",
+      "modeloAtivo": true,
+      "setorTarefaBruto": "Financeiro",
+      "setorTarefa": "Financeiro",
+      "customerId": "64c2d86253255000077d3479",
+      "codigoGestta": "421",
+      "nomeGestta": "PANO FORTE INDUSTRIA E COMERCIO DE CONFECCOES LTDA",
+      "cnpj": "04245250000142",
+      "ativoGestta": true,
+      "companyUserId": "",
+      "companyUserName": "",
+      "setoresColaboradorBrutos": [],
+      "setoresColaborador": [],
+      "setorColaborador": "",
+      "origemSetor": ""
+    },
+    {
+      "linkId": "6a7a412c1388da4ca8d7cf58",
+      "taskId": "69d6be4e0643af2f7b09fd7a",
+      "taskName": "HONORÁRIOS EXATAS - 2",
+      "modeloAtivo": true,
+      "setorTarefaBruto": "Financeiro",
+      "setorTarefa": "Financeiro",
+      "customerId": "69c2f98a1b9758ba8b82a1d0",
+      "codigoGestta": "731",
+      "nomeGestta": "ACS CONECTION LTDA",
+      "cnpj": "50919642000167",
+      "ativoGestta": true,
+      "companyUserId": "",
+      "companyUserName": "",
+      "setoresColaboradorBrutos": [],
+      "setoresColaborador": [],
+      "setorColaborador": "",
+      "origemSetor": ""
+    },
+    {
+      "linkId": "6a6a665e2b4930829a9e34e5",
+      "taskId": "614dd0d4718a6d0006d0a86d",
+      "taskName": "ALVARA FUNCIONAMENTO",
+      "modeloAtivo": true,
+      "setorTarefaBruto": "Legal",
+      "setorTarefa": "Legal",
+      "customerId": "64c2d86253255000077d3479",
+      "codigoGestta": "421",
+      "nomeGestta": "PANO FORTE INDUSTRIA E COMERCIO DE CONFECCOES LTDA",
+      "cnpj": "04245250000142",
+      "ativoGestta": true,
+      "companyUserId": "",
+      "companyUserName": "",
+      "setoresColaboradorBrutos": [],
+      "setoresColaborador": [],
+      "setorColaborador": "",
+      "origemSetor": ""
+    },
+    {
+      "linkId": "676475ebbb5a8efa76f1fecf",
+      "taskId": "67646f7495dd8939078ccc21",
+      "taskName": "VERIFICAR PENDENCIAS - RECEITA FEDERAL (DP)",
+      "modeloAtivo": true,
+      "setorTarefaBruto": "Pessoal",
+      "setorTarefa": "Pessoal",
+      "customerId": "60b679fb9c73af0006504e04",
+      "codigoGestta": "61",
+      "nomeGestta": "THORBET INCORPORACOES LTDA",
+      "cnpj": "32755642000197",
+      "ativoGestta": false,
+      "companyUserId": "",
+      "companyUserName": "",
+      "setoresColaboradorBrutos": [],
+      "setoresColaborador": [],
+      "setorColaborador": "",
+      "origemSetor": ""
+    }
+  ],
+  "setorIndefinido": [],
+  "colaboradores": [
+    {
+      "userId": "68a602ab850e9ab5c69ba485",
+      "nome": "Naely Matos",
+      "email": "naely@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [
+        "Fiscal",
+        "Fiscal - Simples Nacional"
+      ],
+      "setoresCanonicos": [
+        "Fiscal"
+      ],
+      "setorDisplay": "Fiscal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 567,
+      "qtdDivergentes": 2,
+      "setorInferido": "Fiscal"
+    },
+    {
+      "userId": "67782a6fb33c1429c0a31516",
+      "nome": "Vinni Fontes",
+      "email": "vinni@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [
+        "Fiscal",
+        "Fiscal - Simples Nacional"
+      ],
+      "setoresCanonicos": [
+        "Fiscal"
+      ],
+      "setorDisplay": "Fiscal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 327,
+      "qtdDivergentes": 2,
+      "setorInferido": "Fiscal"
+    },
+    {
+      "userId": "6914eaf095abf820838c3820",
+      "nome": "Emilly Adrielle",
+      "email": "emilly@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [
+        "Fiscal",
+        "Fiscal - Simples Nacional"
+      ],
+      "setoresCanonicos": [
+        "Fiscal"
+      ],
+      "setorDisplay": "Fiscal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 853,
+      "qtdDivergentes": 1,
+      "setorInferido": "Fiscal"
+    },
+    {
+      "userId": "673c92d0fa79fbd2d3649155",
+      "nome": "Wenderson Maia Dias",
+      "email": "wenderson@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [
+        "Fiscal - Simples Nacional",
+        "Fiscal"
+      ],
+      "setoresCanonicos": [
+        "Fiscal"
+      ],
+      "setorDisplay": "Fiscal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 768,
+      "qtdDivergentes": 1,
+      "setorInferido": "Fiscal"
+    },
+    {
+      "userId": "689270f2331aad0c06091ebb",
+      "nome": "Weslly Carlos",
+      "email": "weslly@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [
+        "Fiscal",
+        "Fiscal - Simples Nacional"
+      ],
+      "setoresCanonicos": [
+        "Fiscal"
+      ],
+      "setorDisplay": "Fiscal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 371,
+      "qtdDivergentes": 1,
+      "setorInferido": "Fiscal"
+    },
+    {
+      "userId": "680badfd9346aa517f6256f1",
+      "nome": "Adailton Fiscal Normal",
+      "email": "adailton@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [],
+      "setoresCanonicos": [],
+      "setorDisplay": "Sem setor",
+      "origemSetor": "",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "62e7296e8f21bd0006663c38",
+      "nome": "Administrativo Exatas",
+      "email": "administrativo@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [],
+      "setoresCanonicos": [],
+      "setorDisplay": "Sem setor",
+      "origemSetor": "",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "6777cdb3ddddd4734ccc7161",
+      "nome": "Adrian Erro",
+      "email": "jakelineriosdesousa0@gmail.com",
+      "ativo": false,
+      "setoresBrutos": [
+        "TI"
+      ],
+      "setoresCanonicos": [
+        "TI"
+      ],
+      "setorDisplay": "TI",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "68911030de585369758f49b2",
+      "nome": "Adrian Haelisson",
+      "email": "adrian@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [
+        "Certificado Digital",
+        "Sucesso do Cliente",
+        "RH",
+        "Comercial",
+        "TI",
+        "Processos",
+        "Pessoal",
+        "Contábil",
+        "Financeiro",
+        "Fiscal",
+        "Legal",
+        "Treinamento",
+        "Auditoria",
+        "Fiscal - Simples Nacional",
+        "Paralegal",
+        "Administrativo"
+      ],
+      "setoresCanonicos": [
+        "Administrativo",
+        "Auditoria",
+        "Certificado Digital",
+        "Comercial",
+        "Contábil",
+        "Financeiro",
+        "Fiscal",
+        "Legal",
+        "Paralegal",
+        "Pessoal",
+        "Processos",
+        "RH",
+        "Sucesso do Cliente",
+        "TI",
+        "Treinamento"
+      ],
+      "setorDisplay": "Administrativo + Auditoria + Certificado Digital + Comercial + Contábil + Financeiro + Fiscal + Legal + Paralegal + Pessoal + Processos + RH + Sucesso do Cliente + TI + Treinamento",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 3,
+      "qtdDivergentes": 0,
+      "setorInferido": "Processos"
+    },
+    {
+      "userId": "6537ba26798c730007d32a2d",
+      "nome": "Alaine Santos Mendonça",
+      "email": "alaine.mendonca@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [],
+      "setoresCanonicos": [],
+      "setorDisplay": "Sem setor",
+      "origemSetor": "",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "6176c42d02e52a00063b87d9",
+      "nome": "Alan Santos",
+      "email": "alan@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [
+        "Pessoal"
+      ],
+      "setoresCanonicos": [
+        "Pessoal"
+      ],
+      "setorDisplay": "Pessoal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "69ced3f483490b203c63d44a",
+      "nome": "Alana Martins",
+      "email": "alana.martins@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [],
+      "setoresCanonicos": [],
+      "setorDisplay": "Sem setor",
+      "origemSetor": "",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "68e9b206985258f6952ec237",
+      "nome": "Alexcia Couto",
+      "email": "alexcia@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [
+        "Pessoal"
+      ],
+      "setoresCanonicos": [
+        "Pessoal"
+      ],
+      "setorDisplay": "Pessoal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 534,
+      "qtdDivergentes": 0,
+      "setorInferido": "Pessoal"
+    },
+    {
+      "userId": "62c6c74f8d10c800075536ff",
+      "nome": "Amanda Xavier",
+      "email": "amanda@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [
+        "TI",
+        "Certificado Digital",
+        "Administrativo",
+        "Auditoria",
+        "Fiscal - Simples Nacional",
+        "Paralegal",
+        "Pessoal",
+        "Contábil",
+        "Financeiro",
+        "Fiscal",
+        "Legal",
+        "Treinamento",
+        "RH",
+        "Sucesso do Cliente",
+        "Processos",
+        "Comercial"
+      ],
+      "setoresCanonicos": [
+        "Administrativo",
+        "Auditoria",
+        "Certificado Digital",
+        "Comercial",
+        "Contábil",
+        "Financeiro",
+        "Fiscal",
+        "Legal",
+        "Paralegal",
+        "Pessoal",
+        "Processos",
+        "RH",
+        "Sucesso do Cliente",
+        "TI",
+        "Treinamento"
+      ],
+      "setorDisplay": "Administrativo + Auditoria + Certificado Digital + Comercial + Contábil + Financeiro + Fiscal + Legal + Paralegal + Pessoal + Processos + RH + Sucesso do Cliente + TI + Treinamento",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 386,
+      "qtdDivergentes": 0,
+      "setorInferido": "Administrativo"
+    },
+    {
+      "userId": "644685fbd7863800065eaea6",
+      "nome": "ANA KARINA",
+      "email": "ana.karina@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [
+        "Pessoal"
+      ],
+      "setoresCanonicos": [
+        "Pessoal"
+      ],
+      "setorDisplay": "Pessoal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "63af2d317371280007ca88fb",
+      "nome": "Ana Paula Dos Santos Silva Alves",
+      "email": "anapaula@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [],
+      "setoresCanonicos": [],
+      "setorDisplay": "Sem setor",
+      "origemSetor": "",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "66dee7ee28687800063c0e33",
+      "nome": "Ana Souza",
+      "email": "anamarcia@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [
+        "Pessoal"
+      ],
+      "setoresCanonicos": [
+        "Pessoal"
+      ],
+      "setorDisplay": "Pessoal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "62d70240d51a430006588461",
+      "nome": "Andre Silva",
+      "email": "andre@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [],
+      "setoresCanonicos": [],
+      "setorDisplay": "Sem setor",
+      "origemSetor": "",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "661d2183c3dade000652fedf",
+      "nome": "Angel Yasmin",
+      "email": "angelyasmin@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [],
+      "setoresCanonicos": [],
+      "setorDisplay": "Sem setor",
+      "origemSetor": "",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "60b6233483d4610006650dd5",
+      "nome": "Antonio Soares da Silva Neto",
+      "email": "soaresneto.0706@gmail.com",
+      "ativo": true,
+      "setoresBrutos": [
+        "Processos",
+        "Administrativo",
+        "Certificado Digital",
+        "Auditoria",
+        "Fiscal - Simples Nacional",
+        "Treinamento",
+        "Pessoal",
+        "Fiscal",
+        "Contábil",
+        "Financeiro",
+        "Legal",
+        "Paralegal",
+        "Sucesso do Cliente",
+        "RH",
+        "TI",
+        "Comercial"
+      ],
+      "setoresCanonicos": [
+        "Administrativo",
+        "Auditoria",
+        "Certificado Digital",
+        "Comercial",
+        "Contábil",
+        "Financeiro",
+        "Fiscal",
+        "Legal",
+        "Paralegal",
+        "Pessoal",
+        "Processos",
+        "RH",
+        "Sucesso do Cliente",
+        "TI",
+        "Treinamento"
+      ],
+      "setorDisplay": "Administrativo + Auditoria + Certificado Digital + Comercial + Contábil + Financeiro + Fiscal + Legal + Paralegal + Pessoal + Processos + RH + Sucesso do Cliente + TI + Treinamento",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 5,
+      "qtdDivergentes": 0,
+      "setorInferido": "Fiscal"
+    },
+    {
+      "userId": "695ed1063bdd5ef14486778e",
+      "nome": "AP DATA",
+      "email": "exatas@apdataexperience.com.br",
+      "ativo": true,
+      "setoresBrutos": [
+        "TI",
+        "Certificado Digital",
+        "Administrativo",
+        "Auditoria",
+        "Fiscal - Simples Nacional",
+        "Paralegal",
+        "Pessoal",
+        "Financeiro",
+        "Contábil",
+        "Fiscal",
+        "Legal",
+        "Treinamento",
+        "RH",
+        "Sucesso do Cliente",
+        "Processos",
+        "Comercial"
+      ],
+      "setoresCanonicos": [
+        "Administrativo",
+        "Auditoria",
+        "Certificado Digital",
+        "Comercial",
+        "Contábil",
+        "Financeiro",
+        "Fiscal",
+        "Legal",
+        "Paralegal",
+        "Pessoal",
+        "Processos",
+        "RH",
+        "Sucesso do Cliente",
+        "TI",
+        "Treinamento"
+      ],
+      "setorDisplay": "Administrativo + Auditoria + Certificado Digital + Comercial + Contábil + Financeiro + Fiscal + Legal + Paralegal + Pessoal + Processos + RH + Sucesso do Cliente + TI + Treinamento",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "67101d3d4dfa6aa71b277378",
+      "nome": "Arlana Wanne",
+      "email": "arlana@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [],
+      "setoresCanonicos": [],
+      "setorDisplay": "Sem setor",
+      "origemSetor": "",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "6924b9c06efaf4c031e972fc",
+      "nome": "Aryane Karine",
+      "email": "aryane@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [
+        "Pessoal"
+      ],
+      "setoresCanonicos": [
+        "Pessoal"
+      ],
+      "setorDisplay": "Pessoal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "686543668a376cefc969b95e",
+      "nome": "AUTOMAÇÂO - TESTE",
+      "email": "automacao.gestta@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [
+        "Certificado Digital",
+        "Sucesso do Cliente",
+        "RH",
+        "Comercial",
+        "TI",
+        "Processos",
+        "Legal",
+        "Pessoal",
+        "Contábil",
+        "Financeiro",
+        "Fiscal",
+        "Treinamento",
+        "Auditoria",
+        "Fiscal - Simples Nacional",
+        "Paralegal",
+        "Administrativo"
+      ],
+      "setoresCanonicos": [
+        "Administrativo",
+        "Auditoria",
+        "Certificado Digital",
+        "Comercial",
+        "Contábil",
+        "Financeiro",
+        "Fiscal",
+        "Legal",
+        "Paralegal",
+        "Pessoal",
+        "Processos",
+        "RH",
+        "Sucesso do Cliente",
+        "TI",
+        "Treinamento"
+      ],
+      "setorDisplay": "Administrativo + Auditoria + Certificado Digital + Comercial + Contábil + Financeiro + Fiscal + Legal + Paralegal + Pessoal + Processos + RH + Sucesso do Cliente + TI + Treinamento",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "64cad0750f19c8000632a51b",
+      "nome": "Automação Meliuz",
+      "email": "automacao@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [
+        "Pessoal"
+      ],
+      "setoresCanonicos": [
+        "Pessoal"
+      ],
+      "setorDisplay": "Pessoal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "695833b2098c9ad6efc9b8aa",
+      "nome": "Camila Lima de Souza",
+      "email": "camila.lima@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [],
+      "setoresCanonicos": [],
+      "setorDisplay": "Sem setor",
+      "origemSetor": "",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "68d2f0fa0e5fc535f645937e",
+      "nome": "Camilla Andrade",
+      "email": "camilla@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [
+        "Pessoal"
+      ],
+      "setoresCanonicos": [
+        "Pessoal"
+      ],
+      "setorDisplay": "Pessoal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 814,
+      "qtdDivergentes": 0,
+      "setorInferido": "Pessoal"
+    },
+    {
+      "userId": "6348525cd1e36d00069ae5a0",
+      "nome": "Candida Aparecida Costa de Oliveira",
+      "email": "candida@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [],
+      "setoresCanonicos": [],
+      "setorDisplay": "Sem setor",
+      "origemSetor": "",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "6968ef9412c96219cc1de5d0",
+      "nome": "Carlos Rodrigo",
+      "email": "carlos@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [
+        "Pessoal"
+      ],
+      "setoresCanonicos": [
+        "Pessoal"
+      ],
+      "setorDisplay": "Pessoal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "68d2e6a4cb0c1058f99e671e",
+      "nome": "Caynan Lemos",
+      "email": "caynan@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [
+        "Contábil"
+      ],
+      "setoresCanonicos": [
+        "Contábil"
+      ],
+      "setorDisplay": "Contábil",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "62e7da87c9790c000644dbca",
+      "nome": "Cibelle Cristina",
+      "email": "cibelle@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [
+        "Fiscal",
+        "Fiscal - Simples Nacional",
+        "Pessoal"
+      ],
+      "setoresCanonicos": [
+        "Fiscal",
+        "Pessoal"
+      ],
+      "setorDisplay": "Fiscal + Pessoal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "64a2b7117ef0690007dc00e8",
+      "nome": "Cintia Marielle",
+      "email": "cintia@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [
+        "Financeiro",
+        "Fiscal",
+        "Paralegal",
+        "Fiscal - Simples Nacional",
+        "Auditoria",
+        "Legal",
+        "Administrativo",
+        "Certificado Digital",
+        "Comercial",
+        "TI",
+        "Processos",
+        "Sucesso do Cliente",
+        "RH",
+        "Pessoal",
+        "Treinamento",
+        "Contábil"
+      ],
+      "setoresCanonicos": [
+        "Administrativo",
+        "Auditoria",
+        "Certificado Digital",
+        "Comercial",
+        "Contábil",
+        "Financeiro",
+        "Fiscal",
+        "Legal",
+        "Paralegal",
+        "Pessoal",
+        "Processos",
+        "RH",
+        "Sucesso do Cliente",
+        "TI",
+        "Treinamento"
+      ],
+      "setorDisplay": "Administrativo + Auditoria + Certificado Digital + Comercial + Contábil + Financeiro + Fiscal + Legal + Paralegal + Pessoal + Processos + RH + Sucesso do Cliente + TI + Treinamento",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "61e94b415e10f1000668b65f",
+      "nome": "Colchões Bonsono",
+      "email": "bonsono@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [],
+      "setoresCanonicos": [],
+      "setorDisplay": "Sem setor",
+      "origemSetor": "",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "63360373de91df0007877374",
+      "nome": "Comercial Exatas",
+      "email": "comercial@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [
+        "Comercial"
+      ],
+      "setoresCanonicos": [
+        "Comercial"
+      ],
+      "setorDisplay": "Comercial",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "69ac354f0daa2217ee281901",
+      "nome": "Daniela Carla de Jesus",
+      "email": "daniela@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [
+        "Pessoal"
+      ],
+      "setoresCanonicos": [
+        "Pessoal"
+      ],
+      "setorDisplay": "Pessoal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "6595645c45560e00063983f3",
+      "nome": "Dayane Santos",
+      "email": "dayane@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [],
+      "setoresCanonicos": [],
+      "setorDisplay": "Sem setor",
+      "origemSetor": "",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "6329d4cbde7a4100065b8182",
+      "nome": "Departamento Paralegal",
+      "email": "paralegal@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [
+        "Legal"
+      ],
+      "setoresCanonicos": [
+        "Legal"
+      ],
+      "setorDisplay": "Legal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 223,
+      "qtdDivergentes": 0,
+      "setorInferido": "Legal"
+    },
+    {
+      "userId": "67cb48f36210ee183a7bfa4f",
+      "nome": "Dianne da Silva",
+      "email": "dianne@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [
+        "Fiscal",
+        "Fiscal - Simples Nacional"
+      ],
+      "setoresCanonicos": [
+        "Fiscal"
+      ],
+      "setorDisplay": "Fiscal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "65328de66874d50006cd5f09",
+      "nome": "Diego Espinilo da Silva",
+      "email": "diego.espinilo@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [
+        "Fiscal"
+      ],
+      "setoresCanonicos": [
+        "Fiscal"
+      ],
+      "setorDisplay": "Fiscal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "65e875c5b3b81f000621b1c3",
+      "nome": "Drielle Esteves",
+      "email": "drielle@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [
+        "Certificado Digital",
+        "Sucesso do Cliente",
+        "Administrativo"
+      ],
+      "setoresCanonicos": [
+        "Administrativo",
+        "Certificado Digital",
+        "Sucesso do Cliente"
+      ],
+      "setorDisplay": "Administrativo + Certificado Digital + Sucesso do Cliente",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "67572ec291a5e01eb11c6e4d",
+      "nome": "Eduardo Rodrigues",
+      "email": "eduardo@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [
+        "Processos"
+      ],
+      "setoresCanonicos": [
+        "Processos"
+      ],
+      "setorDisplay": "Processos",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "64be6f07fbef640007611022",
+      "nome": "Elissandra Milena",
+      "email": "elissandra.milena@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [],
+      "setoresCanonicos": [],
+      "setorDisplay": "Sem setor",
+      "origemSetor": "",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "632dab7f3c596b0007fd7f40",
+      "nome": "Estagio Contabil",
+      "email": "estagio.contabil@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [
+        "Contábil"
+      ],
+      "setoresCanonicos": [
+        "Contábil"
+      ],
+      "setorDisplay": "Contábil",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "631a83644413330006daf500",
+      "nome": "Estagio DP",
+      "email": "estagio.dp@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [
+        "Pessoal"
+      ],
+      "setoresCanonicos": [
+        "Pessoal"
+      ],
+      "setorDisplay": "Pessoal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "632dac05a85b0f00060e1015",
+      "nome": "Estagio Fiscal",
+      "email": "estagio.fiscal@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [
+        "Fiscal - Simples Nacional",
+        "Fiscal"
+      ],
+      "setoresCanonicos": [
+        "Fiscal"
+      ],
+      "setorDisplay": "Fiscal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "67002fcc714bb20007a9edf3",
+      "nome": "Estagio RH",
+      "email": "estagio.rh@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [],
+      "setoresCanonicos": [],
+      "setorDisplay": "Sem setor",
+      "origemSetor": "",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "69dea516a3696647ab66f584",
+      "nome": "Evelyn Mirelle",
+      "email": "evelyn.mirelle@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [
+        "Fiscal",
+        "Fiscal - Simples Nacional"
+      ],
+      "setoresCanonicos": [
+        "Fiscal"
+      ],
+      "setorDisplay": "Fiscal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "60b61ec61da68300063236ec",
+      "nome": "EXATAS CONTABILIDADE",
+      "email": "exatas.contabilidade136@gmail.com",
+      "ativo": true,
+      "setoresBrutos": [
+        "Processos",
+        "Administrativo",
+        "Certificado Digital",
+        "Auditoria",
+        "Paralegal",
+        "Fiscal - Simples Nacional",
+        "Treinamento",
+        "Pessoal",
+        "Fiscal",
+        "Contábil",
+        "Financeiro",
+        "Legal",
+        "Sucesso do Cliente",
+        "RH",
+        "TI",
+        "Comercial"
+      ],
+      "setoresCanonicos": [
+        "Administrativo",
+        "Auditoria",
+        "Certificado Digital",
+        "Comercial",
+        "Contábil",
+        "Financeiro",
+        "Fiscal",
+        "Legal",
+        "Paralegal",
+        "Pessoal",
+        "Processos",
+        "RH",
+        "Sucesso do Cliente",
+        "TI",
+        "Treinamento"
+      ],
+      "setorDisplay": "Administrativo + Auditoria + Certificado Digital + Comercial + Contábil + Financeiro + Fiscal + Legal + Paralegal + Pessoal + Processos + RH + Sucesso do Cliente + TI + Treinamento",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "6176c38602e52a00063b81d9",
+      "nome": "FABIANA DA SILVA ALMEIDA",
+      "email": "fabiana@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [
+        "Pessoal"
+      ],
+      "setoresCanonicos": [
+        "Pessoal"
+      ],
+      "setorDisplay": "Pessoal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "60b62334d6f4f80006072498",
+      "nome": "Financeiro exatas",
+      "email": "financeiro@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [
+        "Financeiro"
+      ],
+      "setoresCanonicos": [
+        "Financeiro"
+      ],
+      "setorDisplay": "Financeiro",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 495,
+      "qtdDivergentes": 0,
+      "setorInferido": "Financeiro"
+    },
+    {
+      "userId": "68ba0082fecde6bb2b3d6dc6",
+      "nome": "Franciele Alves de França",
+      "email": "franciele@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [
+        "Pessoal"
+      ],
+      "setoresCanonicos": [
+        "Pessoal"
+      ],
+      "setorDisplay": "Pessoal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "66f154dc36c9c100065e3263",
+      "nome": "Francielle Machado",
+      "email": "francielle@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [
+        "Contábil"
+      ],
+      "setoresCanonicos": [
+        "Contábil"
+      ],
+      "setorDisplay": "Contábil",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "64b94957871ec300064a9109",
+      "nome": "Gabriel Vilela",
+      "email": "exataseleve@gmail.com",
+      "ativo": false,
+      "setoresBrutos": [
+        "Contábil",
+        "Auditoria",
+        "Fiscal - Simples Nacional",
+        "Paralegal",
+        "Certificado Digital",
+        "Administrativo",
+        "RH",
+        "Processos",
+        "Comercial",
+        "TI",
+        "Treinamento",
+        "Fiscal",
+        "Legal",
+        "Pessoal",
+        "Financeiro"
+      ],
+      "setoresCanonicos": [
+        "Administrativo",
+        "Auditoria",
+        "Certificado Digital",
+        "Comercial",
+        "Contábil",
+        "Financeiro",
+        "Fiscal",
+        "Legal",
+        "Paralegal",
+        "Pessoal",
+        "Processos",
+        "RH",
+        "TI",
+        "Treinamento"
+      ],
+      "setorDisplay": "Administrativo + Auditoria + Certificado Digital + Comercial + Contábil + Financeiro + Fiscal + Legal + Paralegal + Pessoal + Processos + RH + TI + Treinamento",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "68cdd1c540f623e5827cc1cb",
+      "nome": "Gabriela Aquino",
+      "email": "gabriela@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [
+        "Contábil"
+      ],
+      "setoresCanonicos": [
+        "Contábil"
+      ],
+      "setorDisplay": "Contábil",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 109,
+      "qtdDivergentes": 0,
+      "setorInferido": "Contábil"
+    },
+    {
+      "userId": "6a10a650e0796810c388b72b",
+      "nome": "Gabrielle Santana",
+      "email": "gabrielle.santana@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [],
+      "setoresCanonicos": [],
+      "setorDisplay": "Sem setor",
+      "origemSetor": "",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "63bc2d408138810006474410",
+      "nome": "Gerencia Operacional",
+      "email": "gerencia.op@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [
+        "Pessoal",
+        "Fiscal",
+        "Contábil"
+      ],
+      "setoresCanonicos": [
+        "Contábil",
+        "Fiscal",
+        "Pessoal"
+      ],
+      "setorDisplay": "Contábil + Fiscal + Pessoal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "64c00cef7a480100076bc79e",
+      "nome": "Glecia Virginia",
+      "email": "glecia@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [],
+      "setoresCanonicos": [],
+      "setorDisplay": "Sem setor",
+      "origemSetor": "",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "69de9500963d45a232784314",
+      "nome": "Gleice Santos Santana",
+      "email": "gleice.santos@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [],
+      "setoresCanonicos": [
+        "Contábil"
+      ],
+      "setorDisplay": "Contábil",
+      "origemSetor": "inferido pelos vínculos",
+      "qtdVinculos": 180,
+      "qtdDivergentes": 0,
+      "setorInferido": "Contábil"
+    },
+    {
+      "userId": "64c7ee9b2988e00006d1e69d",
+      "nome": "Gleiciane Dias de Jesus",
+      "email": "gleicianedias@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [],
+      "setoresCanonicos": [],
+      "setorDisplay": "Sem setor",
+      "origemSetor": "",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "68717cea5b24cc5962e3f0e6",
+      "nome": "Hebert Marley",
+      "email": "hebert@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [
+        "Pessoal"
+      ],
+      "setoresCanonicos": [
+        "Pessoal"
+      ],
+      "setorDisplay": "Pessoal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "6756dffbdadf388d13e472df",
+      "nome": "Helena Caroline",
+      "email": "helena@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [
+        "Fiscal - Simples Nacional"
+      ],
+      "setoresCanonicos": [
+        "Fiscal"
+      ],
+      "setorDisplay": "Fiscal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "64aebb13ab38300006f5c25c",
+      "nome": "Igor George",
+      "email": "igor@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [],
+      "setoresCanonicos": [],
+      "setorDisplay": "Sem setor",
+      "origemSetor": "",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "69b083f8ad04225fc1a320c1",
+      "nome": "Ingrid Grazielly",
+      "email": "ingrid@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [
+        "Contábil"
+      ],
+      "setoresCanonicos": [
+        "Contábil"
+      ],
+      "setorDisplay": "Contábil",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 58,
+      "qtdDivergentes": 0,
+      "setorInferido": "Contábil"
+    },
+    {
+      "userId": "60b6233683d4610006650dda",
+      "nome": "Ingrid Stephane de Jesus Santos",
+      "email": "stephaneingrid@hotmail.com",
+      "ativo": true,
+      "setoresBrutos": [],
+      "setoresCanonicos": [],
+      "setorDisplay": "Sem setor",
+      "origemSetor": "",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "68b21a24ae758f5e036ed585",
+      "nome": "Jackelline de Jesus",
+      "email": "jackelline@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [
+        "Pessoal"
+      ],
+      "setoresCanonicos": [
+        "Pessoal"
+      ],
+      "setorDisplay": "Pessoal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "6491aca114d071000799b03a",
+      "nome": "Jailza dos Santos Araújo",
+      "email": "jailza@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [],
+      "setoresCanonicos": [],
+      "setorDisplay": "Sem setor",
+      "origemSetor": "",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "63515711e523ca0006ccaecf",
+      "nome": "João Felipe Dos S. Ávila",
+      "email": "joao@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [
+        "TI",
+        "Certificado Digital",
+        "Processos",
+        "Treinamento",
+        "Paralegal"
+      ],
+      "setoresCanonicos": [
+        "Certificado Digital",
+        "Paralegal",
+        "Processos",
+        "TI",
+        "Treinamento"
+      ],
+      "setorDisplay": "Certificado Digital + Paralegal + Processos + TI + Treinamento",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "6a280098dff9c670dc47d275",
+      "nome": "Joao Flavio",
+      "email": "joao.flavio@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [
+        "Fiscal - Simples Nacional",
+        "Fiscal"
+      ],
+      "setoresCanonicos": [
+        "Fiscal"
+      ],
+      "setorDisplay": "Fiscal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 131,
+      "qtdDivergentes": 0,
+      "setorInferido": "Fiscal"
+    },
+    {
+      "userId": "610157ec1987b8000706204a",
+      "nome": "Joao Victor Santana",
+      "email": "joaovictor.santana123@hotmail.com",
+      "ativo": false,
+      "setoresBrutos": [],
+      "setoresCanonicos": [],
+      "setorDisplay": "Sem setor",
+      "origemSetor": "",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "6493681629d32500063b4a90",
+      "nome": "Jose Leandro Nascimento",
+      "email": "joseleandro@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [
+        "Contábil"
+      ],
+      "setoresCanonicos": [
+        "Contábil"
+      ],
+      "setorDisplay": "Contábil",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 111,
+      "qtdDivergentes": 0,
+      "setorInferido": "Contábil"
+    },
+    {
+      "userId": "695837c7facb8093cf44484f",
+      "nome": "Joyce Alves de Andrade",
+      "email": "joyce.alves@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [
+        "Fiscal",
+        "Fiscal - Simples Nacional"
+      ],
+      "setoresCanonicos": [
+        "Fiscal"
+      ],
+      "setorDisplay": "Fiscal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 556,
+      "qtdDivergentes": 0,
+      "setorInferido": "Fiscal"
+    },
+    {
+      "userId": "667067672b4a7c0006706b45",
+      "nome": "Joyce Silva",
+      "email": "joyce@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [
+        "Pessoal"
+      ],
+      "setoresCanonicos": [
+        "Pessoal"
+      ],
+      "setorDisplay": "Pessoal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "67002ba2d5aa150007321d48",
+      "nome": "Juceli de Jesus",
+      "email": "juceli@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [],
+      "setoresCanonicos": [],
+      "setorDisplay": "Sem setor",
+      "origemSetor": "",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "66fff5eba2b18a0007f111b0",
+      "nome": "Julia Graziela",
+      "email": "julia@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [
+        "Paralegal",
+        "Legal"
+      ],
+      "setoresCanonicos": [
+        "Legal",
+        "Paralegal"
+      ],
+      "setorDisplay": "Legal + Paralegal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "69fdf452d2c280a2c6e8e22c",
+      "nome": "Julia Maria",
+      "email": "julia.maria@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [
+        "Contábil"
+      ],
+      "setoresCanonicos": [
+        "Contábil"
+      ],
+      "setorDisplay": "Contábil",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 39,
+      "qtdDivergentes": 0,
+      "setorInferido": "Contábil"
+    },
+    {
+      "userId": "67b38cd5830a034bc59aecdb",
+      "nome": "Juliana Barreto",
+      "email": "juliana@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [
+        "RH",
+        "Pessoal"
+      ],
+      "setoresCanonicos": [
+        "Pessoal",
+        "RH"
+      ],
+      "setorDisplay": "Pessoal + RH",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 27,
+      "qtdDivergentes": 0,
+      "setorInferido": "Pessoal"
+    },
+    {
+      "userId": "698dee53bc20742b0be40912",
+      "nome": "Juliana Pereira",
+      "email": "juliana.pereira@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [
+        "Pessoal"
+      ],
+      "setoresCanonicos": [
+        "Pessoal"
+      ],
+      "setorDisplay": "Pessoal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 568,
+      "qtdDivergentes": 0,
+      "setorInferido": "Pessoal"
+    },
+    {
+      "userId": "62d80e400d0ade00061c8e24",
+      "nome": "Juridico Exatas",
+      "email": "juridico@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [],
+      "setoresCanonicos": [],
+      "setorDisplay": "Sem setor",
+      "origemSetor": "",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "65ce04e6722858000613440c",
+      "nome": "Kaio Victor Lopes dos Santos",
+      "email": "kaio@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [],
+      "setoresCanonicos": [],
+      "setorDisplay": "Sem setor",
+      "origemSetor": "",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "6a109a7068f46978705ac891",
+      "nome": "Kamilly Vitoria",
+      "email": "kamilly.vitoria@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [
+        "Pessoal"
+      ],
+      "setoresCanonicos": [
+        "Pessoal"
+      ],
+      "setorDisplay": "Pessoal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 591,
+      "qtdDivergentes": 0,
+      "setorInferido": "Pessoal"
+    },
+    {
+      "userId": "60b6233583d4610006650dd8",
+      "nome": "Karine G.",
+      "email": "karine@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [
+        "Fiscal"
+      ],
+      "setoresCanonicos": [
+        "Fiscal"
+      ],
+      "setorDisplay": "Fiscal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "6814dd524770a6aa378c6413",
+      "nome": "Karla Katiuscia",
+      "email": "karla@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [],
+      "setoresCanonicos": [],
+      "setorDisplay": "Sem setor",
+      "origemSetor": "",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "692a0f8798643091fcbcecbd",
+      "nome": "Kelly Fabiana",
+      "email": "kelly@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [],
+      "setoresCanonicos": [],
+      "setorDisplay": "Sem setor",
+      "origemSetor": "",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "6838c4fc08c3be800992e07c",
+      "nome": "Keyla Menezes dos Santos",
+      "email": "keyla@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [
+        "Contábil"
+      ],
+      "setoresCanonicos": [
+        "Contábil"
+      ],
+      "setorDisplay": "Contábil",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "69ac61580daa2217ee2a926e",
+      "nome": "Larissa Souza Porto",
+      "email": "larissa@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [
+        "Fiscal",
+        "Fiscal - Simples Nacional"
+      ],
+      "setoresCanonicos": [
+        "Fiscal"
+      ],
+      "setorDisplay": "Fiscal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 326,
+      "qtdDivergentes": 0,
+      "setorInferido": "Fiscal"
+    },
+    {
+      "userId": "65297fe0e8ba020006a369a9",
+      "nome": "Larissa Tito do Nascimento Santos",
+      "email": "larissa.tito@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [
+        "Paralegal"
+      ],
+      "setoresCanonicos": [
+        "Paralegal"
+      ],
+      "setorDisplay": "Paralegal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "6666f3118090d40006d88bf8",
+      "nome": "Lidia Graciela",
+      "email": "lidia@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [],
+      "setoresCanonicos": [],
+      "setorDisplay": "Sem setor",
+      "origemSetor": "",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "62d6efcbb925dd0006af8c0e",
+      "nome": "Loena de Jesus",
+      "email": "loena@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [],
+      "setoresCanonicos": [],
+      "setorDisplay": "Sem setor",
+      "origemSetor": "",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "66c4891722be02000799443a",
+      "nome": "LOURDES ALMEIDA (PJ)",
+      "email": "lourdesalmeidadp@gmail.com",
+      "ativo": false,
+      "setoresBrutos": [
+        "Pessoal"
+      ],
+      "setoresCanonicos": [
+        "Pessoal"
+      ],
+      "setorDisplay": "Pessoal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "69b9699c59a0c82210a0c483",
+      "nome": "Lucas Gabriel",
+      "email": "lucas.gabriel@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [
+        "Sucesso do Cliente",
+        "RH",
+        "TI",
+        "Processos",
+        "Comercial",
+        "Treinamento",
+        "Pessoal",
+        "Contábil",
+        "Financeiro",
+        "Fiscal",
+        "Legal",
+        "Auditoria",
+        "Fiscal - Simples Nacional",
+        "Paralegal",
+        "Administrativo",
+        "Certificado Digital"
+      ],
+      "setoresCanonicos": [
+        "Administrativo",
+        "Auditoria",
+        "Certificado Digital",
+        "Comercial",
+        "Contábil",
+        "Financeiro",
+        "Fiscal",
+        "Legal",
+        "Paralegal",
+        "Pessoal",
+        "Processos",
+        "RH",
+        "Sucesso do Cliente",
+        "TI",
+        "Treinamento"
+      ],
+      "setorDisplay": "Administrativo + Auditoria + Certificado Digital + Comercial + Contábil + Financeiro + Fiscal + Legal + Paralegal + Pessoal + Processos + RH + Sucesso do Cliente + TI + Treinamento",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 3,
+      "qtdDivergentes": 0,
+      "setorInferido": "TI"
+    },
+    {
+      "userId": "68e9b4b9985258f6952ee438",
+      "nome": "Lucas Ravelli",
+      "email": "lucas@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [
+        "Pessoal"
+      ],
+      "setoresCanonicos": [
+        "Pessoal"
+      ],
+      "setorDisplay": "Pessoal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "681e4c0c59a34cafeeea0649",
+      "nome": "Luisa Fernanda",
+      "email": "luisa@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [
+        "Administrativo",
+        "Certificado Digital",
+        "Paralegal",
+        "Sucesso do Cliente",
+        "Legal"
+      ],
+      "setoresCanonicos": [
+        "Administrativo",
+        "Certificado Digital",
+        "Legal",
+        "Paralegal",
+        "Sucesso do Cliente"
+      ],
+      "setorDisplay": "Administrativo + Certificado Digital + Legal + Paralegal + Sucesso do Cliente",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "67a36fd96b60611991d3ef76",
+      "nome": "Maraisa Alves dos Santos",
+      "email": "maraisa@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [],
+      "setoresCanonicos": [],
+      "setorDisplay": "Sem setor",
+      "origemSetor": "",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "60bd625ad678f40006e46019",
+      "nome": "Marcilio Alves Andrade",
+      "email": "marcilio@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [
+        "TI",
+        "Certificado Digital",
+        "Administrativo",
+        "Auditoria",
+        "Paralegal",
+        "Fiscal - Simples Nacional",
+        "Fiscal",
+        "Treinamento",
+        "Financeiro",
+        "Legal",
+        "Pessoal",
+        "Contábil",
+        "RH",
+        "Sucesso do Cliente",
+        "Processos",
+        "Comercial"
+      ],
+      "setoresCanonicos": [
+        "Administrativo",
+        "Auditoria",
+        "Certificado Digital",
+        "Comercial",
+        "Contábil",
+        "Financeiro",
+        "Fiscal",
+        "Legal",
+        "Paralegal",
+        "Pessoal",
+        "Processos",
+        "RH",
+        "Sucesso do Cliente",
+        "TI",
+        "Treinamento"
+      ],
+      "setorDisplay": "Administrativo + Auditoria + Certificado Digital + Comercial + Contábil + Financeiro + Fiscal + Legal + Paralegal + Pessoal + Processos + RH + Sucesso do Cliente + TI + Treinamento",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "625ffb73e4dcda0006fdff87",
+      "nome": "Marcos Soares Calisto",
+      "email": "marcos@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [
+        "Fiscal"
+      ],
+      "setoresCanonicos": [
+        "Fiscal"
+      ],
+      "setorDisplay": "Fiscal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "6345bf5e03b02700081fda6d",
+      "nome": "Maria Alice",
+      "email": "alice@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [],
+      "setoresCanonicos": [],
+      "setorDisplay": "Sem setor",
+      "origemSetor": "",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "66829a6c5eb3660006f9d716",
+      "nome": "Maria Francisca",
+      "email": "francisca@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [],
+      "setoresCanonicos": [],
+      "setorDisplay": "Sem setor",
+      "origemSetor": "",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "69a7186895d2e84fe1685341",
+      "nome": "Maria Julia",
+      "email": "maria.julia@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [
+        "Paralegal"
+      ],
+      "setoresCanonicos": [
+        "Paralegal"
+      ],
+      "setorDisplay": "Paralegal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "6838c45b83472ab9ce1ff0b4",
+      "nome": "Maria Tatiane dos Santos",
+      "email": "maria.tatiane@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [
+        "Fiscal",
+        "Fiscal - Simples Nacional"
+      ],
+      "setoresCanonicos": [
+        "Fiscal"
+      ],
+      "setorDisplay": "Fiscal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 268,
+      "qtdDivergentes": 0,
+      "setorInferido": "Fiscal"
+    },
+    {
+      "userId": "6411bcfb10a61e000630625b",
+      "nome": "Marília Araújo dos Santos",
+      "email": "irpf@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [],
+      "setoresCanonicos": [],
+      "setorDisplay": "Sem setor",
+      "origemSetor": "",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "68cb2db813f61b8878622b6d",
+      "nome": "Marta Graziely",
+      "email": "marta.graziely@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [
+        "Contábil"
+      ],
+      "setoresCanonicos": [
+        "Contábil"
+      ],
+      "setorDisplay": "Contábil",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 134,
+      "qtdDivergentes": 0,
+      "setorInferido": "Contábil"
+    },
+    {
+      "userId": "6838c588618f35879cba9ffa",
+      "nome": "Marta Nunes de Sousa",
+      "email": "marta@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [
+        "Pessoal"
+      ],
+      "setoresCanonicos": [
+        "Pessoal"
+      ],
+      "setorDisplay": "Pessoal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "623325bf104f4800062bad47",
+      "nome": "Micaelly Moraes Santos",
+      "email": "micaelly@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [],
+      "setoresCanonicos": [],
+      "setorDisplay": "Sem setor",
+      "origemSetor": "",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "64dfa777a9a18300078d43c0",
+      "nome": "Michele Mendonça Carvalho",
+      "email": "michele.mendonca@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [],
+      "setoresCanonicos": [],
+      "setorDisplay": "Sem setor",
+      "origemSetor": "",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "60b623359fda5800070cabf2",
+      "nome": "MIKAEL DOS SANTOS",
+      "email": "mikael.santos@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [],
+      "setoresCanonicos": [],
+      "setorDisplay": "Sem setor",
+      "origemSetor": "",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "659d2d5a39ce5e00076acfc1",
+      "nome": "Mylena Santos Teles",
+      "email": "mylenateles@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [],
+      "setoresCanonicos": [],
+      "setorDisplay": "Sem setor",
+      "origemSetor": "",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "663a29dad27dcf00072f81af",
+      "nome": "Nicole Kesley",
+      "email": "nicole@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [],
+      "setoresCanonicos": [],
+      "setorDisplay": "Sem setor",
+      "origemSetor": "",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "65f824d6e238c000076ae611",
+      "nome": "Pamela Rafaela",
+      "email": "pamela@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [
+        "Pessoal"
+      ],
+      "setoresCanonicos": [
+        "Pessoal"
+      ],
+      "setorDisplay": "Pessoal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "6977b3feb6ea4da0301067af",
+      "nome": "Pamila Crislle",
+      "email": "pamila@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [
+        "Paralegal"
+      ],
+      "setoresCanonicos": [
+        "Paralegal"
+      ],
+      "setorDisplay": "Paralegal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "67ae563cbf0644899f3aff06",
+      "nome": "Pedro Henrique",
+      "email": "pedro_henrique@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [
+        "Fiscal",
+        "Fiscal - Simples Nacional"
+      ],
+      "setoresCanonicos": [
+        "Fiscal"
+      ],
+      "setorDisplay": "Fiscal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "631b917d37a42c0006f8a8b5",
+      "nome": "Poliana Alves Pimentel",
+      "email": "poliana@revisaconsult.com",
+      "ativo": false,
+      "setoresBrutos": [],
+      "setoresCanonicos": [],
+      "setorDisplay": "Sem setor",
+      "origemSetor": "",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "69d80ceecf5bd17439459bd4",
+      "nome": "Rafael Silva",
+      "email": "rafaelssilva@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [],
+      "setoresCanonicos": [],
+      "setorDisplay": "Sem setor",
+      "origemSetor": "",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "67c898c15183a85b4c5de736",
+      "nome": "Ramires Jesus",
+      "email": "ramires@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [],
+      "setoresCanonicos": [],
+      "setorDisplay": "Sem setor",
+      "origemSetor": "",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "6584512230f9fe0006dee107",
+      "nome": "Reginaldo Farias",
+      "email": "reginaldo@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [
+        "Fiscal - Simples Nacional",
+        "Paralegal",
+        "Administrativo",
+        "Certificado Digital",
+        "Sucesso do Cliente",
+        "RH",
+        "Comercial",
+        "Processos",
+        "TI",
+        "Treinamento",
+        "Fiscal",
+        "Legal",
+        "Pessoal",
+        "Contábil",
+        "Financeiro"
+      ],
+      "setoresCanonicos": [
+        "Administrativo",
+        "Certificado Digital",
+        "Comercial",
+        "Contábil",
+        "Financeiro",
+        "Fiscal",
+        "Legal",
+        "Paralegal",
+        "Pessoal",
+        "Processos",
+        "RH",
+        "Sucesso do Cliente",
+        "TI",
+        "Treinamento"
+      ],
+      "setorDisplay": "Administrativo + Certificado Digital + Comercial + Contábil + Financeiro + Fiscal + Legal + Paralegal + Pessoal + Processos + RH + Sucesso do Cliente + TI + Treinamento",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "68078dfc303d454d05a0f9f9",
+      "nome": "Reinan Souza",
+      "email": "reinan@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [
+        "Fiscal",
+        "Fiscal - Simples Nacional"
+      ],
+      "setoresCanonicos": [
+        "Fiscal"
+      ],
+      "setorDisplay": "Fiscal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 215,
+      "qtdDivergentes": 0,
+      "setorInferido": "Fiscal"
+    },
+    {
+      "userId": "62389e0f263b8b00061e74df",
+      "nome": "Renata Dias",
+      "email": "renata@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [
+        "Contábil"
+      ],
+      "setoresCanonicos": [
+        "Contábil"
+      ],
+      "setorDisplay": "Contábil",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "61769dc5f39ce300067e3bae",
+      "nome": "RH Exatas",
+      "email": "rh@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [],
+      "setoresCanonicos": [],
+      "setorDisplay": "Sem setor",
+      "origemSetor": "",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "68b2113dcb01fdc29c558c4c",
+      "nome": "Ricardo Ribeiro",
+      "email": "ricardo@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [
+        "Pessoal"
+      ],
+      "setoresCanonicos": [
+        "Pessoal"
+      ],
+      "setorDisplay": "Pessoal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "61f7d23986f3670006fd9148",
+      "nome": "Ronaldo Bispo Guabiraba",
+      "email": "ronaldoguabiraba@gmail.com",
+      "ativo": false,
+      "setoresBrutos": [],
+      "setoresCanonicos": [],
+      "setorDisplay": "Sem setor",
+      "origemSetor": "",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "60b6233583d4610006650dd7",
+      "nome": "Ronaldo Franscisco",
+      "email": "ronaldofrancisco752@gmail.com",
+      "ativo": false,
+      "setoresBrutos": [
+        "Fiscal",
+        "Fiscal - Simples Nacional"
+      ],
+      "setoresCanonicos": [
+        "Fiscal"
+      ],
+      "setorDisplay": "Fiscal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "66b608f944a54000063bef2f",
+      "nome": "Rotina Geral",
+      "email": "rotinageral@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [
+        "Pessoal"
+      ],
+      "setoresCanonicos": [
+        "Pessoal"
+      ],
+      "setorDisplay": "Pessoal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "6a707b8a22f421b314444a76",
+      "nome": "Samara Lima",
+      "email": "samara@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [
+        "Pessoal"
+      ],
+      "setoresCanonicos": [
+        "Pessoal"
+      ],
+      "setorDisplay": "Pessoal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 482,
+      "qtdDivergentes": 0,
+      "setorInferido": "Pessoal"
+    },
+    {
+      "userId": "67f3e6b15e508e94a60babfa",
+      "nome": "Samira Costa - Marketing",
+      "email": "samira@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [],
+      "setoresCanonicos": [],
+      "setorDisplay": "Sem setor",
+      "origemSetor": "",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "60b62334d6f4f80006072495",
+      "nome": "Sandro Conceição do Carmo",
+      "email": "sandro@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [
+        "Administrativo",
+        "Certificado Digital",
+        "Fiscal - Simples Nacional",
+        "Paralegal",
+        "Auditoria",
+        "Treinamento",
+        "Financeiro",
+        "Legal",
+        "Pessoal",
+        "Fiscal",
+        "Comercial",
+        "Processos",
+        "Contábil",
+        "Sucesso do Cliente",
+        "TI",
+        "RH"
+      ],
+      "setoresCanonicos": [
+        "Administrativo",
+        "Auditoria",
+        "Certificado Digital",
+        "Comercial",
+        "Contábil",
+        "Financeiro",
+        "Fiscal",
+        "Legal",
+        "Paralegal",
+        "Pessoal",
+        "Processos",
+        "RH",
+        "Sucesso do Cliente",
+        "TI",
+        "Treinamento"
+      ],
+      "setorDisplay": "Administrativo + Auditoria + Certificado Digital + Comercial + Contábil + Financeiro + Fiscal + Legal + Paralegal + Pessoal + Processos + RH + Sucesso do Cliente + TI + Treinamento",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "64a321d01df2d6000615178a",
+      "nome": "Shauan Farias",
+      "email": "shauan@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [],
+      "setoresCanonicos": [],
+      "setorDisplay": "Sem setor",
+      "origemSetor": "",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "67365e0075a181dd0a4c46d6",
+      "nome": "Shayanne do Amor",
+      "email": "shayanne@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [
+        "Pessoal"
+      ],
+      "setoresCanonicos": [
+        "Pessoal"
+      ],
+      "setorDisplay": "Pessoal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 208,
+      "qtdDivergentes": 0,
+      "setorInferido": "Pessoal"
+    },
+    {
+      "userId": "66e81e3f61a5d30006161ce0",
+      "nome": "Silvia Leticia",
+      "email": "silvia@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [
+        "Contábil"
+      ],
+      "setoresCanonicos": [
+        "Contábil"
+      ],
+      "setorDisplay": "Contábil",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "667dc98bacedb000071be284",
+      "nome": "Silvia Rodrigues",
+      "email": "silviamaria@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [],
+      "setoresCanonicos": [],
+      "setorDisplay": "Sem setor",
+      "origemSetor": "",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "6a75df509ec74a94cb6fdad1",
+      "nome": "Sineide Leticia",
+      "email": "sineide@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [
+        "Fiscal",
+        "Fiscal - Simples Nacional"
+      ],
+      "setoresCanonicos": [
+        "Fiscal"
+      ],
+      "setorDisplay": "Fiscal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "68b20c515b563f59a9822455",
+      "nome": "Sophia Silva",
+      "email": "sophia@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [
+        "Fiscal"
+      ],
+      "setoresCanonicos": [
+        "Fiscal"
+      ],
+      "setorDisplay": "Fiscal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "669671456584c60006a68317",
+      "nome": "Stefani Lima",
+      "email": "stefani@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [
+        "Legal",
+        "Paralegal"
+      ],
+      "setoresCanonicos": [
+        "Legal",
+        "Paralegal"
+      ],
+      "setorDisplay": "Legal + Paralegal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "68cb2b44a10d4454aa51a99d",
+      "nome": "Tamara Dantas",
+      "email": "tamara@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [
+        "Contábil"
+      ],
+      "setoresCanonicos": [
+        "Contábil"
+      ],
+      "setorDisplay": "Contábil",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "60b62334d7f461000621ca67",
+      "nome": "TASSO NATA RAMOS",
+      "email": "tassoramos.ducatti@gmail.com",
+      "ativo": false,
+      "setoresBrutos": [],
+      "setoresCanonicos": [],
+      "setorDisplay": "Sem setor",
+      "origemSetor": "",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "60da0e2fe03dfd000742f690",
+      "nome": "Tasso Nata Ramos de Jesus",
+      "email": "tasso@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [
+        "Legal",
+        "Auditoria",
+        "RH",
+        "Comercial",
+        "Processos",
+        "TI",
+        "Treinamento",
+        "Contábil",
+        "Pessoal",
+        "Financeiro",
+        "Administrativo",
+        "Fiscal",
+        "Certificado Digital"
+      ],
+      "setoresCanonicos": [
+        "Administrativo",
+        "Auditoria",
+        "Certificado Digital",
+        "Comercial",
+        "Contábil",
+        "Financeiro",
+        "Fiscal",
+        "Legal",
+        "Pessoal",
+        "Processos",
+        "RH",
+        "TI",
+        "Treinamento"
+      ],
+      "setorDisplay": "Administrativo + Auditoria + Certificado Digital + Comercial + Contábil + Financeiro + Fiscal + Legal + Pessoal + Processos + RH + TI + Treinamento",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 189,
+      "qtdDivergentes": 0,
+      "setorInferido": "Pessoal"
+    },
+    {
+      "userId": "6214d2128e23e900066f56bd",
+      "nome": "Tércia Maria Araújo Góes",
+      "email": "tercia@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [],
+      "setoresCanonicos": [],
+      "setorDisplay": "Sem setor",
+      "origemSetor": "",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "60b623355e12720006df2ef7",
+      "nome": "Thais Dantas Santos",
+      "email": "thaisdantas@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [
+        "Contábil"
+      ],
+      "setoresCanonicos": [
+        "Contábil"
+      ],
+      "setorDisplay": "Contábil",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 575,
+      "qtdDivergentes": 0,
+      "setorInferido": "Contábil"
+    },
+    {
+      "userId": "61125e4a960dc90006d13b20",
+      "nome": "Thauana Souza Simoes",
+      "email": "thauanasouza1212@gmail.com",
+      "ativo": true,
+      "setoresBrutos": [],
+      "setoresCanonicos": [],
+      "setorDisplay": "Sem setor",
+      "origemSetor": "",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "67f3ad0361ecfd8787627e7d",
+      "nome": "Thauane Vidal dos Santos",
+      "email": "thauane@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [
+        "Legal",
+        "Certificado Digital",
+        "Administrativo",
+        "TI",
+        "Fiscal - Simples Nacional",
+        "Paralegal",
+        "Auditoria",
+        "Treinamento",
+        "Pessoal",
+        "Processos",
+        "Contábil",
+        "Financeiro",
+        "Comercial",
+        "RH",
+        "Fiscal",
+        "Sucesso do Cliente"
+      ],
+      "setoresCanonicos": [
+        "Administrativo",
+        "Auditoria",
+        "Certificado Digital",
+        "Comercial",
+        "Contábil",
+        "Financeiro",
+        "Fiscal",
+        "Legal",
+        "Paralegal",
+        "Pessoal",
+        "Processos",
+        "RH",
+        "Sucesso do Cliente",
+        "TI",
+        "Treinamento"
+      ],
+      "setorDisplay": "Administrativo + Auditoria + Certificado Digital + Comercial + Contábil + Financeiro + Fiscal + Legal + Paralegal + Pessoal + Processos + RH + Sucesso do Cliente + TI + Treinamento",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 2,
+      "qtdDivergentes": 0,
+      "setorInferido": "Administrativo"
+    },
+    {
+      "userId": "69cad3530162d9c07a193e06",
+      "nome": "Vancelio Serra",
+      "email": "vancelio@exatascontabilidade.com.br",
+      "ativo": true,
+      "setoresBrutos": [],
+      "setoresCanonicos": [],
+      "setorDisplay": "Sem setor",
+      "origemSetor": "",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "60b6233583d4610006650dd9",
+      "nome": "Vinicius Silveira",
+      "email": "viniciusjcs0206@gmail.com",
+      "ativo": false,
+      "setoresBrutos": [
+        "Certificado Digital",
+        "Sucesso do Cliente",
+        "RH",
+        "TI",
+        "Comercial",
+        "Processos",
+        "Financeiro",
+        "Legal",
+        "Pessoal",
+        "Treinamento",
+        "Fiscal",
+        "Contábil",
+        "Auditoria",
+        "Paralegal",
+        "Fiscal - Simples Nacional",
+        "Administrativo"
+      ],
+      "setoresCanonicos": [
+        "Administrativo",
+        "Auditoria",
+        "Certificado Digital",
+        "Comercial",
+        "Contábil",
+        "Financeiro",
+        "Fiscal",
+        "Legal",
+        "Paralegal",
+        "Pessoal",
+        "Processos",
+        "RH",
+        "Sucesso do Cliente",
+        "TI",
+        "Treinamento"
+      ],
+      "setorDisplay": "Administrativo + Auditoria + Certificado Digital + Comercial + Contábil + Financeiro + Fiscal + Legal + Paralegal + Pessoal + Processos + RH + Sucesso do Cliente + TI + Treinamento",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "63cee8045ce2730006bed70b",
+      "nome": "Viviana Martins",
+      "email": "viviana@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [],
+      "setoresCanonicos": [],
+      "setorDisplay": "Sem setor",
+      "origemSetor": "",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "67a9f7468f5ad02095a3e440",
+      "nome": "Viviana Silva",
+      "email": "vivianasilva@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [
+        "Fiscal",
+        "Fiscal - Simples Nacional"
+      ],
+      "setoresCanonicos": [
+        "Fiscal"
+      ],
+      "setorDisplay": "Fiscal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "67a9ef66eb02a996b68a2067",
+      "nome": "Viviana Silva",
+      "email": "viviane@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [],
+      "setoresCanonicos": [],
+      "setorDisplay": "Sem setor",
+      "origemSetor": "",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "68ba05173177b6b87b13109d",
+      "nome": "Weslan Oliveira dos Santos",
+      "email": "weslan@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [
+        "Contábil"
+      ],
+      "setoresCanonicos": [
+        "Contábil"
+      ],
+      "setorDisplay": "Contábil",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    },
+    {
+      "userId": "6a108de2e0796810c385d7f4",
+      "nome": "Yasmin Silva",
+      "email": "yasmin.silva@exatascontabilidade.com.br",
+      "ativo": false,
+      "setoresBrutos": [
+        "Pessoal"
+      ],
+      "setoresCanonicos": [
+        "Pessoal"
+      ],
+      "setorDisplay": "Pessoal",
+      "origemSetor": "cadastro Gestta",
+      "qtdVinculos": 0,
+      "qtdDivergentes": 0,
+      "setorInferido": "Sem setor"
+    }
+  ]
+}

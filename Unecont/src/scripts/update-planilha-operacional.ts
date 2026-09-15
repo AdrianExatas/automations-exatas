@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { type EnvConfig, loadEnvConfig } from "../config";
 import { OnvioHttpClientUsersProvider } from "../onvio-http-client-users-provider";
+import { OnvioHttpCompaniesProvider } from "../onvio-companies-provider";
 import { updatePlanilhaOperacional } from "../update-planilha-operacional";
 import { loadDotenvFromProjectRoot } from "./cli-helpers";
 
@@ -138,6 +139,20 @@ export async function main(argv: string[] = process.argv.slice(2)): Promise<numb
     return 1;
   }
 
+  if (!env.bitrixCompetenciasUrl.trim()) {
+    console.error(
+      "BITRIX_COMPETENCIAS_URL e obrigatoria para filtrar as empresas pela competencia de envio.",
+    );
+    return 1;
+  }
+
+  if (!env.bitrixAccountingUrl.trim()) {
+    console.error(
+      "BITRIX_CONTABIL_URL e obrigatoria para sincronizar os departamentos pelo Setor Contabil.",
+    );
+    return 1;
+  }
+
   const clientUsersProvider = new OnvioHttpClientUsersProvider({
     token: onvioToken,
     baseUrl: env.onvioBaseUrl,
@@ -147,6 +162,18 @@ export async function main(argv: string[] = process.argv.slice(2)): Promise<numb
     onUnauthorized: canRefreshOnvioToken(env)
       ? async () => {
           console.log("[Onvio] Resposta 401 na consulta de usuarios; renovando UDSLongToken.");
+          return refreshOnvioTokenForUpdate();
+        }
+      : undefined,
+  });
+  const onvioCompaniesProvider = new OnvioHttpCompaniesProvider({
+    token: onvioToken,
+    baseUrl: env.onvioBaseUrl,
+    firmCompanyId: env.onvioFirmCompanyId,
+    cookie: env.onvioCookie,
+    onUnauthorized: canRefreshOnvioToken(env)
+      ? async () => {
+          console.log("[Onvio] Resposta 401 na consulta de empresas; renovando UDSLongToken.");
           return refreshOnvioTokenForUpdate();
         }
       : undefined,
@@ -167,7 +194,10 @@ export async function main(argv: string[] = process.argv.slice(2)): Promise<numb
       force: flags.force,
       empresasUrl: env.empresasUrl,
       empresasReportName: env.unecontEmpresasReportName,
+      bitrixCompetenciasUrl: env.bitrixCompetenciasUrl,
+      bitrixAccountingUrl: env.bitrixAccountingUrl,
       clientUsersProvider,
+      onvioCompaniesProvider,
       logger: console,
       timeouts: {
         defaultTimeoutSeconds: env.defaultTimeout,
@@ -179,11 +209,14 @@ export async function main(argv: string[] = process.argv.slice(2)): Promise<numb
 
     console.log(`Saida: ${result.outputDir}`);
     console.log(`Base Unecont: ${result.baseUnecontPath}`);
+    console.log(`Planilha Bitrix: ${result.bitrixCompetenciasPath}`);
+    console.log(`Planilha Bitrix Contabil: ${result.bitrixAccountingPath}`);
+    console.log(`Relatorio empresas Onvio: ${result.onvioCompaniesReportPath}`);
     console.log(`Relatorio: ${result.reportPath}`);
     console.log(`Planilha runtime: ${result.runtimePlanilhaPath}`);
     console.log(`Planilha publicada: ${result.publishedPlanilhaPath}`);
     console.log(
-      `Resumo: ${result.summary.novas} novas, ${result.summary.removidas} removidas, ${result.summary.alteradas} alteradas, ${result.summary.conflitosCodigo} conflitos de codigo.`,
+      `Resumo: ${result.summary.novas} novas, ${result.summary.removidas} removidas, ${result.summary.alteradas} alteradas, ${result.summary.excluidasPorCompetencia} excluidas (onboarding mes vigente), ${result.summary.conflitosCodigo} conflitos de codigo.`,
     );
 
     return 0;

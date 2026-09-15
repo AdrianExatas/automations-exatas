@@ -1,12 +1,13 @@
-import { buildJsonReportPath, buildOutputPath, saveFile, saveReport } from "./downloads";
+import { buildJsonReportPath, buildOutputPath, saveReport } from "./downloads";
+import { DemonstrativoPortalSession } from "./demonstrativo-portal";
 import { isNonRetriablePortalError, messageOf } from "./errors";
 import { buildExcelReportPath, saveExcelReport } from "./excel-report";
 import { isSefazCertificateAuthEnabled } from "../../shared/sefaz-auth";
-import { SefazHttpClient } from "./sefaz-http";
+import { saveFallbackResult } from "./playwright-fallback";
+import { isPortalBusinessError } from "./sefaz-demonstrativo-mtls";
 import type { Company, ReportEntry, ReportFormat, RunConfig } from "./types";
 
 const REPORT_CHECKPOINT_INTERVAL = 5;
-const PLAYWRIGHT_FALLBACK_MODULE = "./playwright-fallback";
 
 export type RunProgress = {
   phase: "starting" | "login" | "companies" | "download" | "report" | "done";
@@ -39,8 +40,14 @@ export type RunCallbacks = {
 };
 
 export async function runSefazDia(config: RunConfig, callbacks: RunCallbacks = {}): Promise<RunResult> {
-  const useCertificate = isSefazCertificateAuthEnabled(config);
-  const http = useCertificate ? undefined : new SefazHttpClient(config.timeoutMs, callbacks.signal);
+  if (!isSefazCertificateAuthEnabled(config)) {
+    throw new Error("Certificado digital A1 e obrigatorio para o Demonstrativo SEFAZ-SE.");
+  }
+
+  if (!isPlaywrightFallbackEnabled(config)) {
+    throw new Error("Playwright e obrigatorio para o Demonstrativo com certificado digital.");
+  }
+
   const entries: ReportEntry[] = [];
   const reportPaths = buildReportPaths(config);
 
@@ -48,60 +55,132 @@ export async function runSefazDia(config: RunConfig, callbacks: RunCallbacks = {
   log(callbacks, `Formatos: ${config.formats.join(", ")}`);
   throwIfAborted(callbacks.signal);
 
-  emit(callbacks, config, reportPaths, entries, "login", 0, 0, "Entrando no portal SEFAZ-SE...");
-  if (http) {
-    await http.login(config.user, config.password);
-  }
+  emit(callbacks, config, reportPaths, entries, "login", 0, 0, "Entrando no Portal SEFAZ-SE (certificado A1)...");
   throwIfAborted(callbacks.signal);
 
-  emit(callbacks, config, reportPaths, entries, "companies", 0, 0, "Listando empresas disponiveis...");
-  const companies = useCertificate ? await listCompaniesWithCertificate(config) : await http!.listCompanies();
-  log(callbacks, `Empresas encontradas por ${useCertificate ? "Playwright/certificado" : "HTTP"}: ${companies.length}`);
+  const session = await DemonstrativoPortalSession.start(config, {
+    transport: "playwright",
+    onLog: (message) => log(callbacks, message),
+  });
+  try {
+    emit(callbacks, config, reportPaths, entries, "companies", 0, 0, "Listando empresas disponiveis...");
+    const companies = await session.listCompanies();
+    log(callbacks, `Empresas encontradas: ${companies.length}`);
 
-  const selectedCompanies = config.limit ? companies.slice(0, config.limit) : companies;
-  const total = selectedCompanies.length * config.formats.length;
-  let current = 0;
+    const selectedCompanies = config.limit ? companies.slice(0, config.limit) : companies;
+    const total = selectedCompanies.length * config.formats.length;
+    let current = 0;
 
-  for (let index = 0; index < selectedCompanies.length; index += 1) {
-    const company = selectedCompanies[index]!;
-    log(callbacks, `[${index + 1}/${selectedCompanies.length}] ${company.inscricao} - ${company.nome}`);
+    for (let index = 0; index < selectedCompanies.length; index += 1) {
+      const company = selectedCompanies[index]!;
+      log(callbacks, `[${index + 1}/${selectedCompanies.length}] ${company.inscricao} - ${company.nome}`);
 
-    for (const format of config.formats) {
-      throwIfAborted(callbacks.signal);
-      emit(callbacks, config, reportPaths, entries, "download", current, total, `Baixando ${format.toUpperCase()} de ${company.nome}`, company, format);
-      const entry = useCertificate
-        ? await processPlaywrightItem(config, company, format, callbacks.signal)
-        : await processItem(http!, config, company, format, callbacks.signal);
-      entries.push(entry);
-      current += 1;
+      for (const format of config.formats) {
+        throwIfAborted(callbacks.signal);
+        emit(
+          callbacks,
+          config,
+          reportPaths,
+          entries,
+          "download",
+          current,
+          total,
+          `Baixando ${format.toUpperCase()} de ${company.nome}`,
+          company,
+          format,
+        );
 
-      if (entry.status === "sucesso") {
-        log(callbacks, `  ${format}: salvo em ${entry.path}`);
-      } else {
-        log(callbacks, `  ${format}: ${entry.mensagem}`);
-      }
+        const entry = await downloadWithSession(session, config, company, format, callbacks.signal);
+        entries.push(entry);
+        current += 1;
 
-      emit(callbacks, config, reportPaths, entries, "download", current, total, `${current}/${total} itens processados`, company, format);
-      if (isCheckpointEnabled(config) && shouldSaveCheckpoint(current, total)) {
-        await saveExecutionReports(config, entries);
+        if (entry.status === "sucesso") {
+          log(callbacks, `  ${format}: salvo em ${entry.path} (${entry.via})`);
+        } else if (isNonRetriablePortalError(entry.mensagem ?? "")) {
+          log(callbacks, `  ${format}: sem dados — proximo`);
+        } else {
+          log(callbacks, `  ${format}: ${entry.mensagem}`);
+        }
+
+        emit(
+          callbacks,
+          config,
+          reportPaths,
+          entries,
+          "download",
+          current,
+          total,
+          `${current}/${total} itens processados`,
+          company,
+          format,
+        );
+        if (isCheckpointEnabled(config) && shouldSaveCheckpoint(current, total)) {
+          await saveExecutionReports(config, entries);
+        }
       }
     }
+
+    emit(callbacks, config, reportPaths, entries, "report", current, total, "Gerando relatorios de execucao...");
+    const { jsonPath, excelPath } = await saveExecutionReports(config, entries);
+    const successCount = entries.filter((entry) => entry.status === "sucesso").length;
+    const errorCount = entries.length - successCount;
+    const result = { entries, successCount, errorCount, jsonPath, excelPath, outDir: config.outDir };
+
+    emit(callbacks, config, reportPaths, entries, "done", total, total, `Concluido. Sucessos: ${successCount}. Erros: ${errorCount}.`);
+    log(callbacks, `Relatorios: ${jsonPath} | ${excelPath}`);
+    return result;
+  } finally {
+    await session.close();
   }
-
-  emit(callbacks, config, reportPaths, entries, "report", current, total, "Gerando relatorios de execucao...");
-  const { jsonPath, excelPath } = await saveExecutionReports(config, entries);
-  const successCount = entries.filter((entry) => entry.status === "sucesso").length;
-  const errorCount = entries.length - successCount;
-  const result = { entries, successCount, errorCount, jsonPath, excelPath, outDir: config.outDir };
-
-  emit(callbacks, config, reportPaths, entries, "done", total, total, `Concluido. Sucessos: ${successCount}. Erros: ${errorCount}.`);
-  log(callbacks, `Relatorios: ${jsonPath} | ${excelPath}`);
-  return result;
 }
 
-async function listCompaniesWithCertificate(config: RunConfig): Promise<Company[]> {
-  const { listCompaniesViaPlaywright } = await import(PLAYWRIGHT_FALLBACK_MODULE);
-  return listCompaniesViaPlaywright(config);
+async function downloadWithSession(
+  session: DemonstrativoPortalSession,
+  config: RunConfig,
+  company: Company,
+  format: ReportFormat,
+  signal: AbortSignal | undefined,
+): Promise<ReportEntry> {
+  const filePath = buildOutputPath(config, company, format);
+  try {
+    throwIfAborted(signal);
+    const result = await session.download(company, config.competencia, format);
+    throwIfAborted(signal);
+    await saveFallbackResult(filePath, result);
+    const via = result.via === "http" ? "http" : "playwright";
+    return {
+      inscricao: company.inscricao,
+      empresa: company.nome,
+      competencia: config.competencia.value,
+      formato: format,
+      status: "sucesso",
+      path: filePath,
+      via,
+    };
+  } catch (error) {
+    throwIfAborted(signal);
+    const raw = messageOf(error);
+    if (isNonRetriablePortalError(error) || isPortalBusinessError(error)) {
+      return {
+        inscricao: company.inscricao,
+        empresa: company.nome,
+        competencia: config.competencia.value,
+        formato: format,
+        status: "erro",
+        mensagem: raw,
+        via: "http",
+      };
+    }
+    return {
+      inscricao: company.inscricao,
+      empresa: company.nome,
+      competencia: config.competencia.value,
+      formato: format,
+      status: "erro",
+      mensagem: `Falha: ${raw}`,
+      via: "playwright",
+    };
+  }
 }
 
 function buildReportPaths(config: RunConfig): { jsonPath: string; excelPath: string } {
@@ -115,117 +194,6 @@ async function saveExecutionReports(config: RunConfig, entries: ReportEntry[]): 
   const jsonPath = await saveReport(config, entries);
   const excelPath = await saveExcelReport(config, entries);
   return { jsonPath, excelPath };
-}
-
-async function processItem(
-  http: SefazHttpClient,
-  config: RunConfig,
-  company: Company,
-  format: ReportFormat,
-  signal: AbortSignal | undefined,
-): Promise<ReportEntry> {
-  const filePath = buildOutputPath(config, company, format);
-  try {
-    const result = await http.download(company, config.competencia, format);
-    await saveFile(filePath, result.bytes);
-    return {
-      inscricao: company.inscricao,
-      empresa: company.nome,
-      competencia: config.competencia.value,
-      formato: format,
-      status: "sucesso",
-      path: filePath,
-      via: "http",
-    };
-  } catch (error) {
-    if (isNonRetriablePortalError(error)) {
-      return {
-        inscricao: company.inscricao,
-        empresa: company.nome,
-        competencia: config.competencia.value,
-        formato: format,
-        status: "erro",
-        mensagem: messageOf(error),
-        via: "http",
-      };
-    }
-
-    throwIfAborted(signal);
-    const httpMessage = messageOf(error);
-    const fallbackEntry = await tryPlaywrightFallback(config, company, format, filePath, signal);
-    if (fallbackEntry) {
-      return fallbackEntry;
-    }
-
-    return {
-      inscricao: company.inscricao,
-      empresa: company.nome,
-      competencia: config.competencia.value,
-      formato: format,
-      status: "erro",
-      mensagem: `Falha HTTP e fallback de navegador indisponivel: ${httpMessage}`,
-      via: "http",
-    };
-  }
-}
-
-async function processPlaywrightItem(
-  config: RunConfig,
-  company: Company,
-  format: ReportFormat,
-  signal: AbortSignal | undefined,
-): Promise<ReportEntry> {
-  const filePath = buildOutputPath(config, company, format);
-  const entry = await tryPlaywrightFallback(config, company, format, filePath, signal);
-  return entry ?? {
-    inscricao: company.inscricao,
-    empresa: company.nome,
-    competencia: config.competencia.value,
-    formato: format,
-    status: "erro",
-    mensagem: "Fallback Playwright indisponivel para login por certificado digital.",
-    via: "playwright",
-  };
-}
-
-async function tryPlaywrightFallback(
-  config: RunConfig,
-  company: Company,
-  format: ReportFormat,
-  filePath: string,
-  signal: AbortSignal | undefined,
-): Promise<ReportEntry | undefined> {
-  if (!isPlaywrightFallbackEnabled(config)) {
-    return undefined;
-  }
-
-  try {
-    throwIfAborted(signal);
-    const { downloadViaPlaywright, saveFallbackResult } = await import(PLAYWRIGHT_FALLBACK_MODULE);
-    const result = await downloadViaPlaywright(config, company, config.competencia, format);
-    throwIfAborted(signal);
-    await saveFallbackResult(filePath, result);
-    return {
-      inscricao: company.inscricao,
-      empresa: company.nome,
-      competencia: config.competencia.value,
-      formato: format,
-      status: "sucesso",
-      path: filePath,
-      via: "playwright",
-    };
-  } catch (fallbackError) {
-    throwIfAborted(signal);
-    return {
-      inscricao: company.inscricao,
-      empresa: company.nome,
-      competencia: config.competencia.value,
-      formato: format,
-      status: "erro",
-      mensagem: `Falha HTTP e fallback Playwright falhou: ${messageOf(fallbackError)}`,
-      via: "playwright",
-    };
-  }
 }
 
 function emit(

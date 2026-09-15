@@ -1,0 +1,123 @@
+{
+  "media": "G:\\Meu Drive\\GESTÃO DE PROCESSOS\\03 - Fiscal\\VÍDEOS\\Calcular PIS COFINS transportadora.mkv",
+  "transcript_path": "C:\\Users\\Exatas\\Documents\\GitHub\\automations-exatas\\gerador-pop-it\\transcriptions\\a fazer\\Calcular PIS COFINS transportadora (transcribed on 10-Sep-2026 20-01-51).txt",
+  "language": "pt",
+  "duration_sec": 284.224,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 29.4,
+      "text": "Fala pessoal, nós vamos aqui fazer um passo a passo de como a gente calcular o PIS e COFINS de uma empresa transportadora, que ela tem umas particularidades diferentes de uma empresa do segmento de comércio. Então vamos lá, o que a gente vai fazer? Primeiro passo que eu costumo dizer que é importante você saber o regime tributário da empresa e aí você entender isso dentro do parâmetro da empresa para que você faça as corretas adequações para que"
+    },
+    {
+      "start": 29.4,
+      "end": 54.4,
+      "text": "no momento da apuração esteja tudo em consonância, né? Então vamos lá. Parte fiscal está no presumido, regime de competência, né? Perfeito. Aí aqui está as marcações. Deduzir CMS desonerado, não precisa. Essa parte aqui não. Deduzir CMS, aqui é importante, né?"
+    },
+    {
+      "start": 54.4,
+      "end": 79.47,
+      "text": "Nota de saída. Isso é importante, é estar simplificado por nota, beleza, porque não vai ter produto, né? Então beleza, tranquilo. Então vamos salvar aqui, né? Pra gente ter a correta. Vamos voltar pra tá tudo equalizado. E aí eu vou reprocessar aqui só pra vocês enxergar aqui uma situação"
+    },
+    {
+      "start": 79.47,
+      "end": 91.59,
+      "text": "de erro, né? De erro, né? E vocês entenderem um pouquinho o que a gente vai fazer aqui pra que faça a correta tributação. Feito? Então vamos lá. Tá processando aqui."
+    },
+    {
+      "start": 91.75,
+      "end": 100.85,
+      "text": "Tô colocando mês 1 até o mês 4. Vamos lá. Então aqui a gente vai verificar, né? Terminou a apuração. Vamos verificar como é que o sistema se comporta."
+    },
+    {
+      "start": 100.85,
+      "end": 126.32,
+      "text": "Um cafezinho, né? Um cafezinho, né? Vamos lá para as apurações de PIS e COFINS. Entender, né? Se o comportamento tá adequado."
+    },
+    {
+      "start": 126.84,
+      "end": 155.8,
+      "text": "Completo. E a gente tem o valor contábil e o valor da base de cálculo. Com isso daqui a gente percebe que o..."
+    },
+    {
+      "start": 155.8,
+      "end": 164.74,
+      "text": "o ICMS não foi deduzido. Então qual o procedimento aqui pra corrigir? Vocês vêm aqui em notas fiscais, né?"
+    },
+    {
+      "start": 165.4,
+      "end": 173.58,
+      "text": "É saída. Aí vocês vão selecionar, né? Todas as notas. Eu vou fazer já do mês 1 e do mês 4, porque eu já antecipo"
+    },
+    {
+      "start": 173.58,
+      "end": 179.86,
+      "text": "o mesmo problema que aconteceu no mês 1, aconteceu no mês 4, né? Então vamos lá. Eu vou me alterar."
+    },
+    {
+      "start": 179.86,
+      "end": 186.96,
+      "text": "Cliquei aqui em alterar. Chegando em alterar, eu vou aqui em PIS e COFINS. Marca essa opção."
+    },
+    {
+      "start": 187.76,
+      "end": 195.14,
+      "text": "Por acumulador, se fosse por produto, seria se tivesse o produto dentro do CTE. Nesse caso a gente não fez por produto, né?"
+    },
+    {
+      "start": 195.44,
+      "end": 202.0,
+      "text": "Ficou simplificado, eu coloco aqui deduzir e eu vou alterar. Pronto. Vai voltar o período novamente, né?"
+    },
+    {
+      "start": 202.0,
+      "end": 214.95,
+      "text": "Sim. Com isso a gente vai ter a reapuração novamente, né? Das notas fiscais e consequentemente, né?"
+    },
+    {
+      "start": 215.35,
+      "end": 219.89,
+      "text": "Os impostos, os impostos de alteração. E eu vou demonstrar pra vocês. Só terminar o processo aqui."
+    },
+    {
+      "start": 221.23,
+      "end": 226.93,
+      "text": "E aí, né? Terminou aqui de reprocessar. Já com todas as alterações que nós fizemos."
+    },
+    {
+      "start": 227.43,
+      "end": 229.77,
+      "text": "E aí a gente vai ver aqui, né? O resultado disso."
+    },
+    {
+      "start": 229.77,
+      "end": 261.33,
+      "text": "Então, as alterações que foram feitas. Aí aqui a gente já percebe, ó."
+    },
+    {
+      "start": 262.21,
+      "end": 268.05,
+      "text": "33 mil, as exclusões que é o ICMS, a base tá essa. Então a gente percebe que agora a gente teve"
+    },
+    {
+      "start": 268.05,
+      "end": 273.39,
+      "text": "todo aquele ajuste que era necessário pra ter uma correta, né? Vamos dizer assim,"
+    },
+    {
+      "start": 273.97,
+      "end": 279.53,
+      "text": "uma correta apuração do PIS e COFINS. E aí eu encerro. Mais um POP, né?"
+    },
+    {
+      "start": 279.63,
+      "end": 283.63,
+      "text": "Que trabalha a parte da apuração do PIS e COFINS."
+    },
+    {
+      "start": 283.63,
+      "end": 313.61,
+      "text": "Que trabalha a parte da apuração do PIS."
+    }
+  ]
+}

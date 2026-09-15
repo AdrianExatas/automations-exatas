@@ -1,0 +1,352 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.exatas/api-integra-contador/service-record.schema.json",
+  "title": "ServiceRecord da API Integra Contador",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "key",
+    "title",
+    "summary",
+    "family",
+    "systemId",
+    "serviceId",
+    "version",
+    "operationPath",
+    "status",
+    "billable",
+    "procuration",
+    "request",
+    "response",
+    "examples",
+    "messages",
+    "limits",
+    "domains",
+    "source",
+    "issues"
+  ],
+  "properties": {
+    "key": {
+      "type": "string",
+      "pattern": "^[A-Z0-9_-]+\\.[A-Z0-9_-]+$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "summary": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "family": {
+      "type": "string",
+      "minLength": 1
+    },
+    "systemId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "serviceId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "version": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "operationPath": {
+      "enum": [
+        "Apoiar",
+        "Consultar",
+        "Declarar",
+        "Emitir",
+        "Monitorar",
+        null
+      ]
+    },
+    "status": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "billable": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "procuration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "required",
+        "codes",
+        "name"
+      ],
+      "properties": {
+        "required": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "codes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "request": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/field"
+      }
+    },
+    "response": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/field"
+      }
+    },
+    "examples": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/example"
+      }
+    },
+    "messages": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/reference"
+      }
+    },
+    "limits": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/reference"
+      }
+    },
+    "domains": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/reference"
+      }
+    },
+    "source": {
+      "$ref": "#/$defs/source"
+    },
+    "issues": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/issue"
+      }
+    }
+  },
+  "$defs": {
+    "field": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "section",
+        "name",
+        "description",
+        "typeRaw",
+        "requiredRaw",
+        "domainRaw"
+      ],
+      "properties": {
+        "section": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "typeRaw": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "requiredRaw": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "domainRaw": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "example": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "official",
+        "normalized",
+        "validJson",
+        "sourceUrl"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "request",
+            "response",
+            "curl",
+            "other"
+          ]
+        },
+        "official": {
+          "type": "string"
+        },
+        "normalized": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "validJson": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "sourceUrl": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    },
+    "reference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "sourceUrl",
+        "localPath"
+      ],
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "sourceUrl": {
+          "type": "string",
+          "format": "uri"
+        },
+        "localPath": {
+          "type": "string"
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "url",
+        "relatedUrls",
+        "updatedAt",
+        "retrievedAt",
+        "hash",
+        "status"
+      ],
+      "properties": {
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "relatedUrls": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "updatedAt": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "retrievedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "hash": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "status": {
+          "enum": [
+            "fetched",
+            "stale",
+            "missing",
+            "removed"
+          ]
+        }
+      }
+    },
+    "issue": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "severity",
+        "field",
+        "officialValue",
+        "normalizedValue",
+        "note",
+        "sourceUrl"
+      ],
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "severity": {
+          "enum": [
+            "info",
+            "warning",
+            "error"
+          ]
+        },
+        "field": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "officialValue": {},
+        "normalizedValue": {},
+        "note": {
+          "type": "string"
+        },
+        "sourceUrl": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    }
+  }
+}

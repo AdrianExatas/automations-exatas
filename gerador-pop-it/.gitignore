@@ -5,3 +5,5 @@ dist/
 tmp/
 *.mp4
 *.wav
+controle_videos_revisao.xlsx
+controle_backfill_aprovacao.xlsx

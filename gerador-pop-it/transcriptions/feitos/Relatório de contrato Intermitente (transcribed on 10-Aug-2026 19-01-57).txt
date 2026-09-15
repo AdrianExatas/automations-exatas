@@ -1,0 +1,17 @@
+Nesse vídeo eu vou ensinar como emitir os relatórios ou contrato do intermitente. Aqui no sistema domínio a gente vai em relatórios, gerenciador de relatórios, 
+
+vai procurar admissão e 
+
+vai procurar o contrato do intermitente. Pronto, 
+
+contrato de trabalho intermitente. A gente vai colocar o código do colaborador, ou seja, o código que ele está registrado, que no caso aqui é o 5, e vai colocar a data de emissão, certo? A data que ele vai de fato estar registrado na empresa. Nesse caso aqui foi dia 23 de 1 de 2025, que é uma colaboradora já antiga, a gente só está fazendo vídeo para validação mesmo. 
+
+E aqui vai ser o contrato do intermitente. 
+
+Basicamente é somente isso mesmo. Você vai salvar ou mandar diretamente para o on -view. 
+
+Nesse caso aqui eu vou salvar. 
+
+O contrato se consiste nessas informações. 
+
+E é isso. 

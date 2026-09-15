@@ -1,0 +1,9 @@
+{
+  "descricao": "Matriz tributaria IPI (CFOP x CST IPI x aliquota esperada)",
+  "regras": [
+    {"cfop": "1102", "cst_ipi": "00", "aliq_esperada": 5.0, "natureza": "entrada_com_credito"},
+    {"cfop": "5102", "cst_ipi": "50", "aliq_esperada": 5.0, "natureza": "saida_tributada"},
+    {"cfop": "1656", "cst_ipi": "00", "aliq_esperada": 0.0, "natureza": "entrada_combustivel"},
+    {"cfop": "5656", "cst_ipi": "50", "aliq_esperada": 0.0, "natureza": "saida_combustivel"}
+  ]
+}

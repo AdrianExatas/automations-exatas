@@ -1,0 +1,53 @@
+{
+  "media": "G:\\Meu Drive\\GESTÃO DE PROCESSOS\\03 - Fiscal\\VÍDEOS\\Gravação de Tela 2026-08-27 092003.mp4",
+  "transcript_path": "C:\\Users\\Exatas\\Documents\\GitHub\\automations-exatas\\gerador-pop-it\\transcriptions\\a fazer\\Gravação de Tela 2026-08-27 092003 (transcribed on 10-Sep-2026 19-47-12).txt",
+  "language": "pt",
+  "duration_sec": 158.016,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 32.41,
+      "text": "Hoje eu vou mostrar como a gente faz para baixar planilha de nota de serviço, serviço tomado dentro do portal do contribuinte. A gente faz acesso com certificado digital, eu vou utilizar a empresa Léo, mas seria a empresa que você vai realizar, né? Deixa eu procurar o certificado dela, ok? Tem que ser pelo Google, porque a gente vai utilizar a extinção."
+    },
+    {
+      "start": 32.41,
+      "end": 64.21,
+      "text": "No meu caso, eu já tenho aqui baixado, mas se não tiver, é só pesquisar a extensão Portal Nacional no Google e baixar e instalar no computador. A gente vem aqui, tem emitidas e recebidas, pode ser as duas, a gente pode utilizar, né? Depende daquilo que a gente vai precisar, qual vai ser esse tomado, vou colocar recebidas, data inicial, data final, e pode ser geração simples ou completa. Eu gosto da geração completa, aqui vem mais dados."
+    },
+    {
+      "start": 64.23,
+      "end": 89.94,
+      "text": "Pronto, agora a gente vai na pasta, né? Pronto, agora a gente vai na pasta, né? Da empresa, fiscal, 2026, 2007, tomado, vou colocar aqui."
+    },
+    {
+      "start": 89.94,
+      "end": 120.85,
+      "text": "Aqui a gente tem o número da nota, data, a competência, CNPJ, nome, a quantidade de notas, se a empresa, ela é optante pelo CNPJ Nacional, se é regime normal, se é MEI,"
+    },
+    {
+      "start": 120.85,
+      "end": 129.95,
+      "text": "a gente consegue ver local, valor, base de cálculo, alíquota, se o ISS é retido ou não."
+    },
+    {
+      "start": 131.75,
+      "end": 138.22,
+      "text": "Tem o código de tributação, que vai auxiliar quando a gente for efetuar, né?"
+    },
+    {
+      "start": 138.22,
+      "end": 145.66,
+      "text": "Qualquer tipo de apuração referente ao serviço tomado, e também para a gente conseguir comparar, né?"
+    },
+    {
+      "start": 145.78,
+      "end": 153.44,
+      "text": "Um depara das notas que a gente baixar pelo portal dos serviços do município."
+    },
+    {
+      "start": 154.36,
+      "end": 156.14,
+      "text": "E também do Uniconte."
+    }
+  ]
+}

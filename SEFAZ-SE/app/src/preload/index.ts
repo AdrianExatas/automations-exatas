@@ -5,6 +5,12 @@ export type SavedCredentials = {
   password: string;
 };
 
+export type SavedAgilCredentials = {
+  user: string;
+  certPath: string;
+  certPassword: string;
+};
+
 export type OpenDialogResult = {
   canceled: boolean;
   filePaths: string[];
@@ -24,9 +30,9 @@ const api = {
   clearSefazCredentials: (): Promise<void> =>
     ipcRenderer.invoke("store:clear-sefaz-credentials"),
 
-  loadAgilCredentials: (): Promise<SavedCredentials | null> =>
+  loadAgilCredentials: (): Promise<SavedAgilCredentials | null> =>
     ipcRenderer.invoke("store:load-agil-credentials"),
-  saveAgilCredentials: (creds: SavedCredentials): Promise<void> =>
+  saveAgilCredentials: (creds: SavedAgilCredentials): Promise<void> =>
     ipcRenderer.invoke("store:save-agil-credentials", creds),
   clearAgilCredentials: (): Promise<void> =>
     ipcRenderer.invoke("store:clear-agil-credentials"),
@@ -47,7 +53,7 @@ const api = {
   agilImportFiles: (): Promise<{ filePaths: string[]; keys: string[] }> =>
     ipcRenderer.invoke("agil:import-files"),
   agilStartBatch: (payload: {
-    auth: { authMode: "credentials"; username: string; password: string } | { authMode: "certificate" };
+    auth?: { timeoutMs?: number };
     danfes: string[];
     dryRun?: boolean;
   }): Promise<unknown[]> =>

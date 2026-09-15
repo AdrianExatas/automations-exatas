@@ -7,45 +7,63 @@ import { loadConfig } from "../src/config";
 import { parseSheetName, parseTitulo } from "../src/model-loader";
 import { competenciaAnterior, formatReferencia, nomeMesPt } from "../src/referencia";
 
+function withTempCert(argv: string[], env: NodeJS.ProcessEnv = {}): ReturnType<typeof loadConfig> {
+  const dir = mkdtempSync(path.join(tmpdir(), "sefaz-cert-"));
+  const pfxPath = path.join(dir, "certificado.pfx");
+  writeFileSync(pfxPath, "fake-pfx");
+  try {
+    return loadConfig(["--cert-path", pfxPath, "--user", "SE007829", ...argv], env);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+}
+
 describe("config", () => {
   test("normaliza credenciais e opcoes do CLI", () => {
-    const config = loadConfig(
-      [
-        "--user",
-        " usuario ",
-        "--password",
-        "senha",
-        "--headed",
-        "--timeout-ms",
-        "1000",
-        "--channel",
-        "chrome",
-        "--model-dir",
-        "model",
-        "--out-dir",
-        "downloads",
-      ],
-      {} as NodeJS.ProcessEnv,
-    );
+    const dir = mkdtempSync(path.join(tmpdir(), "sefaz-cert-"));
+    try {
+      const pfxPath = path.join(dir, "certificado.pfx");
+      writeFileSync(pfxPath, "fake-pfx");
+      const config = loadConfig(
+        [
+          "--user",
+          " usuario ",
+          "--cert-path",
+          pfxPath,
+          "--headed",
+          "--timeout-ms",
+          "1000",
+          "--channel",
+          "chrome",
+          "--model-dir",
+          "model",
+          "--out-dir",
+          "downloads",
+        ],
+        {} as NodeJS.ProcessEnv,
+      );
 
-    expect(config.user).toBe("usuario");
-    expect(config.password).toBe("senha");
-    expect(config.headless).toBe(false);
-    expect(config.timeoutMs).toBe(1000);
-    expect(config.browserChannel).toBe("chrome");
-    expect(config.modelDir).toBe(path.resolve(process.cwd(), "model"));
-    expect(config.outDir).toBe(path.resolve(process.cwd(), "downloads"));
-    expect(config.referencia).toBeUndefined();
+      expect(config.user).toBe("usuario");
+      expect(config.authMode).toBe("certificate");
+      expect(config.headless).toBe(false);
+      expect(config.timeoutMs).toBe(1000);
+      expect(config.browserChannel).toBe("chrome");
+      expect(config.modelDir).toBe(path.resolve(process.cwd(), "model"));
+      expect(config.outDir).toBe(path.resolve(process.cwd(), "downloads"));
+      expect(config.referencia).toBeUndefined();
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
   });
 
   test("aplica defaults para model-dir e out-dir quando ausentes", () => {
-    const config = loadConfig(["--user", "u", "--password", "s"], {} as NodeJS.ProcessEnv);
+    const config = withTempCert([]);
     expect(config.modelDir).toBe(path.resolve(process.cwd(), "model"));
     expect(config.outDir).toBe(path.resolve(process.cwd(), "downloads"));
   });
 
   test("usa env MODEL_DIR e DAE_OUTPUT_DIR como defaults", () => {
-    const config = loadConfig(["--user", "u", "--password", "s"], {
+    const config = withTempCert([], {
       MODEL_DIR: "custom-model",
       DAE_OUTPUT_DIR: "custom-out",
     } as unknown as NodeJS.ProcessEnv);
@@ -54,30 +72,23 @@ describe("config", () => {
   });
 
   test("aceita --ano e --mes em conjunto", () => {
-    const config = loadConfig(
-      ["--user", "u", "--password", "s", "--ano", "2026", "--mes", "3"],
-      {} as NodeJS.ProcessEnv,
-    );
+    const config = withTempCert(["--ano", "2026", "--mes", "3"]);
     expect(config.referencia).toEqual({ ano: 2026, mes: 3 });
   });
 
   test("rejeita --ano sem --mes", () => {
-    expect(() =>
-      loadConfig(["--user", "u", "--password", "s", "--ano", "2026"], {} as NodeJS.ProcessEnv),
-    ).toThrow("Informe ambos --ano e --mes");
+    expect(() => withTempCert(["--ano", "2026"])).toThrow("Informe ambos --ano e --mes");
   });
 
   test("rejeita --mes invalido", () => {
-    expect(() =>
-      loadConfig(
-        ["--user", "u", "--password", "s", "--ano", "2026", "--mes", "13"],
-        {} as NodeJS.ProcessEnv,
-      ),
-    ).toThrow("Mes invalido");
+    expect(() => withTempCert(["--ano", "2026", "--mes", "13"])).toThrow("Mes invalido");
   });
 
-  test("exige credenciais", () => {
-    expect(() => loadConfig([], { SEFAZ_AUTH_MODE: "password" } as NodeJS.ProcessEnv)).toThrow("Informe o login da SEFAZ.");
+  test("exige usuario do vinculo e certificado", () => {
+    expect(() =>
+      loadConfig([], { SEFAZ_CERT_PATH: path.join(tmpdir(), "certificado-inexistente.pfx") } as NodeJS.ProcessEnv),
+    ).toThrow(/Certificado digital A1 nao encontrado/);
+    expect(() => loadConfig([], {} as NodeJS.ProcessEnv)).toThrow(/vinculo Contador|Certificado digital/);
   });
 });
 
@@ -95,10 +106,12 @@ describe("auth certificado SEFAZ", () => {
         defaultPasswordFile: passwordFile,
       });
 
-      expect(auth.authMode).toBe("auto");
+      expect(auth.authMode).toBe("certificate");
       expect(auth.certificate?.pfxPath).toBe(pfxPath);
       expect(auth.certificate?.passphrase).toBe("segredo");
       expect(auth.certificate?.origins).toContain("https://security.sefaz.se.gov.br");
+      expect(auth.certificate?.origins).toContain("https://portais-fazendario.apps.sefaz.se.gov.br");
+      expect(auth.certificate?.origins).toContain("https://portal-cert.apps.sefaz.se.gov.br");
     } finally {
       rmSync(dir, { recursive: true, force: true });
     }
@@ -123,7 +136,7 @@ describe("auth certificado SEFAZ", () => {
     }
   });
 
-  test("modo certificate dispensa usuario e senha", () => {
+  test("modo certificate exige usuario do vinculo", () => {
     const dir = mkdtempSync(path.join(tmpdir(), "sefaz-cert-"));
     try {
       const pfxPath = path.join(dir, "certificado.pfx");
@@ -131,31 +144,30 @@ describe("auth certificado SEFAZ", () => {
       writeFileSync(pfxPath, "fake-pfx");
       writeFileSync(passwordFile, "segredo\n");
 
-      const config = loadConfig(["--auth-mode", "certificate", "--cert-path", pfxPath, "--cert-password-file", passwordFile], {} as NodeJS.ProcessEnv);
-      expect(config.user).toBe("");
-      expect(config.password).toBe("");
-      expect(config.authMode).toBe("certificate");
-      expect(config.certificate?.pfxPath).toBe(pfxPath);
+      expect(() =>
+        loadConfig(["--auth-mode", "certificate", "--cert-path", pfxPath, "--cert-password-file", passwordFile], {} as NodeJS.ProcessEnv),
+      ).toThrow(/vinculo Contador/);
     } finally {
       rmSync(dir, { recursive: true, force: true });
     }
   });
 
-  test("modo password continua exigindo credenciais", () => {
-    expect(() => loadConfig(["--auth-mode", "password"], {} as NodeJS.ProcessEnv)).toThrow("Informe o login da SEFAZ.");
+  test("modo password nao e mais suportado", () => {
+    expect(() => loadConfig(["--auth-mode", "password"], {} as NodeJS.ProcessEnv)).toThrow(
+      "Login por senha nao e mais suportado",
+    );
   });
 
-  test("modo auto usa certificado quando disponivel e mantem fallback", () => {
+  test("modo certificate usa pfx e usuario do vinculo", () => {
     const dir = mkdtempSync(path.join(tmpdir(), "sefaz-cert-"));
     try {
       const pfxPath = path.join(dir, "certificado.pfx");
       writeFileSync(pfxPath, "fake-pfx");
 
-      const config = loadConfig(["--cert-path", pfxPath, "--user", "u", "--password", "s"], {} as NodeJS.ProcessEnv);
-      expect(config.authMode).toBe("auto");
+      const config = loadConfig(["--cert-path", pfxPath, "--user", "u"], {} as NodeJS.ProcessEnv);
+      expect(config.authMode).toBe("certificate");
       expect(config.certificate?.pfxPath).toBe(pfxPath);
       expect(config.user).toBe("u");
-      expect(config.password).toBe("s");
     } finally {
       rmSync(dir, { recursive: true, force: true });
     }

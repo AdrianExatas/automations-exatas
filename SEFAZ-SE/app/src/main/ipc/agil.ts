@@ -15,7 +15,7 @@ import archiver from "archiver";
 import { chromium } from "playwright";
 
 type StartBatchPayload = {
-  auth: AgilAuthOptions;
+  auth?: AgilAuthOptions;
   danfes: string[];
   dryRun?: boolean;
 };
@@ -157,26 +157,30 @@ export function registerAgilHandlers(mainWindow: BrowserWindow | null): void {
   ipcMain.handle("agil:start-batch", async (event, payload: StartBatchPayload) => {
     if (running) throw new Error("Ja existe uma execucao em andamento.");
 
-    const danfes = [...new Set(payload.danfes.map((d) => d.trim()).filter(Boolean))];
-    if (danfes.length === 0) throw new Error("Informe ao menos uma chave de nota fiscal.");
-
-    if (payload.auth.authMode === "credentials") {
-      if (!payload.auth.username.trim() || !payload.auth.password.trim()) {
-        throw new Error("Informe login e senha para acessar o AGIL.");
-      }
+    if (!Array.isArray(payload?.danfes)) {
+      throw new Error("Payload do lote AGIL invalido: lista de chaves ausente. Reinicie o aplicativo.");
     }
+
+    const danfes = [
+      ...new Set(payload.danfes.map((d) => d.trim()).filter(Boolean)),
+    ];
+    if (danfes.length === 0) throw new Error("Informe ao menos uma chave de nota fiscal.");
 
     running = true;
     const dryRun = Boolean(payload.dryRun);
+    const browserChannel = process.env.BROWSER_CHANNEL?.trim() || "msedge";
     const browser = await chromium.launch({
       headless: false,
       slowMo: dryRun ? 1200 : 0,
       args: ["--start-maximized"],
-      ...(app.isPackaged ? { channel: "msedge" } : {}),
+      channel: browserChannel,
     });
 
     try {
-      const context = await browser.newContext({ acceptDownloads: true, viewport: null });
+      const context = await browser.newContext({
+        acceptDownloads: true,
+        viewport: null,
+      });
       const page = await context.newPage();
       const pdfDownloadDir = resolveAgilPdfDownloadDir();
 

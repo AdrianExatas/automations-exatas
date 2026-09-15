@@ -1,9 +1,22 @@
 import fs from "node:fs";
 import path from "node:path";
 import ExcelJS from "exceljs";
+import {
+  downloadBitrixAccountingCompanies,
+  downloadBitrixCompetencias,
+  readBitrixCompetenciaCodes,
+  resolveCurrentMonthReference,
+} from "./bitrix-competencias";
 import { compareEmpresasPlanilhas } from "./compare-empresas";
 import { downloadEmpresasUnecont } from "./download-empresas-unecont";
-import { normalizeCnpj, normalizeCodigo, normalizeHeader } from "./domain/empresa-normalization";
+import { enrichPlanilhaWithOnvioCompanies } from "./onvio-company-enrichment";
+import { rebuildResponsavelUserOptions } from "./rebuild-responsavel-user-options";
+import {
+  findColumn,
+  normalizeCnpj,
+  normalizeCodigo,
+  normalizeHeader,
+} from "./domain/empresa-normalization";
 import { resolveAssetPath, resolveFromProject, resolveRuntimePath } from "./project-paths";
 import type { UpdatePlanilhaOperacionalOptions, UpdatePlanilhaOperacionalResult } from "./types";
 
@@ -172,24 +185,41 @@ function getCellText(value: ExcelJS.CellValue | undefined): string {
 }
 
 function readAccountingCompanyKeys(accountingCompaniesPath: string): Set<string> {
-  if (!fs.existsSync(accountingCompaniesPath)) return new Set();
+  if (!fs.existsSync(accountingCompaniesPath)) {
+    throw new Error(`Planilha de empresas contabeis nao encontrada: ${accountingCompaniesPath}`);
+  }
 
   // eslint-disable-next-line @typescript-eslint/no-require-imports
   const XLSX = require("xlsx");
   const accountingWorkbook = XLSX.readFile(accountingCompaniesPath);
-  const firstSheet = accountingWorkbook.SheetNames[0];
-  if (!firstSheet) return new Set();
+  const accountingSheet = accountingWorkbook.Sheets.Empresas;
+  if (!accountingSheet) {
+    throw new Error(
+      `Aba "Empresas" nao encontrada na planilha de empresas contabeis: ${accountingCompaniesPath}`,
+    );
+  }
 
-  const rows = XLSX.utils.sheet_to_json(accountingWorkbook.Sheets[firstSheet], {
+  const rows = XLSX.utils.sheet_to_json(accountingSheet, {
     header: 1,
     defval: "",
     raw: false,
   }) as unknown[][];
 
+  const headers = (rows[0] ?? []).map((value) => String(value ?? ""));
+  const codigoHeader = findColumn(headers, ["codigo", "cod"], "exact");
+  const cnpjHeader = findColumn(headers, ["cnpj"], "exact");
+  const codigoColumn = codigoHeader ? headers.indexOf(codigoHeader) : -1;
+  const cnpjColumn = cnpjHeader ? headers.indexOf(cnpjHeader) : -1;
+  if (codigoColumn < 0 || cnpjColumn < 0) {
+    throw new Error(
+      'Aba "Empresas" da planilha de empresas contabeis precisa conter as colunas CÓD. e CNPJ.',
+    );
+  }
+
   const keys = new Set<string>();
-  for (const row of rows) {
-    const codigo = normalizeCodigo(row[0]);
-    const cnpj = normalizeCnpj(row[1]);
+  for (const row of rows.slice(1)) {
+    const codigo = normalizeCodigo(row[codigoColumn]);
+    const cnpj = normalizeCnpj(row[cnpjColumn]);
     if (codigo && cnpj) keys.add(`${codigo}|${cnpj}`);
   }
   return keys;
@@ -298,86 +328,9 @@ function findFiscalDescriptionTemplate(
   return "";
 }
 
-function buildCompanyKey(codigo: string, cnpj: string): string {
-  return `${normalizeCodigo(codigo)}|${normalizeCnpj(cnpj)}`;
-}
-
 export async function restoreResponsavelDropdowns(workbookPath: string): Promise<number> {
-  const workbook = new ExcelJS.Workbook();
-  await workbook.xlsx.readFile(workbookPath);
-  const worksheet = workbook.getWorksheet("Planilha1") ?? workbook.worksheets[0];
-  const optionsSheet = workbook.getWorksheet("Opcoes Usuarios");
-  if (!worksheet || !optionsSheet) return 0;
-
-  const codigoColumn = getColumnByNormalizedHeader(worksheet, "codigo");
-  const cnpjColumn =
-    getColumnByNormalizedHeader(worksheet, "cnpjempresa") ||
-    getColumnByNormalizedHeader(worksheet, "cnpj");
-  const responsavelColumn = getColumnByNormalizedHeader(worksheet, "responsavel");
-  const optionCodigoColumn = getColumnByNormalizedHeader(optionsSheet, "codigo");
-  const optionCnpjColumn = getColumnByNormalizedHeader(optionsSheet, "cnpj");
-  const optionUsuarioColumn = getColumnByNormalizedHeader(optionsSheet, "usuario");
-  if (
-    !codigoColumn ||
-    !cnpjColumn ||
-    !responsavelColumn ||
-    !optionCodigoColumn ||
-    !optionCnpjColumn ||
-    !optionUsuarioColumn
-  ) {
-    return 0;
-  }
-
-  const rangesByCompany = new Map<string, { startRow: number; endRow: number }>();
-  for (let rowNumber = 2; rowNumber <= optionsSheet.rowCount; rowNumber++) {
-    const row = optionsSheet.getRow(rowNumber);
-    const usuario = getCellText(row.getCell(optionUsuarioColumn).value);
-    if (!usuario) continue;
-
-    const key = buildCompanyKey(
-      getCellText(row.getCell(optionCodigoColumn).value),
-      getCellText(row.getCell(optionCnpjColumn).value),
-    );
-    if (key === "|") continue;
-
-    const existing = rangesByCompany.get(key);
-    rangesByCompany.set(key, {
-      startRow: existing ? Math.min(existing.startRow, rowNumber) : rowNumber,
-      endRow: existing ? Math.max(existing.endRow, rowNumber) : rowNumber,
-    });
-  }
-
-  let updated = 0;
-  for (let rowNumber = 2; rowNumber <= worksheet.rowCount; rowNumber++) {
-    const row = worksheet.getRow(rowNumber);
-    const key = buildCompanyKey(
-      getCellText(row.getCell(codigoColumn).value),
-      getCellText(row.getCell(cnpjColumn).value),
-    );
-    const range = rangesByCompany.get(key);
-    const cell = row.getCell(responsavelColumn);
-    if (!range) {
-      if (cell.dataValidation) {
-        delete (cell as { dataValidation?: ExcelJS.DataValidation }).dataValidation;
-        updated++;
-      }
-      continue;
-    }
-
-    cell.dataValidation = {
-      type: "list",
-      allowBlank: true,
-      showErrorMessage: true,
-      errorTitle: "Usuario invalido",
-      error: "Selecione um usuario da lista.",
-      formulae: [`'Opcoes Usuarios'!$D$${range.startRow}:$D$${range.endRow}`],
-    };
-    updated++;
-  }
-
-  optionsSheet.state = "hidden";
-  await workbook.xlsx.writeFile(workbookPath);
-  return updated;
+  const result = await rebuildResponsavelUserOptions(workbookPath);
+  return result.dropdownsApplied + result.dropdownsCleared;
 }
 
 async function updateDescricaoReferenceMonthByDepartment(
@@ -492,6 +445,36 @@ export async function updatePlanilhaOperacional(
   options.logger?.info?.(`Referencia da planilha operacional: ${referenceMonth}`);
   options.logger?.info?.(`Planilha operacional base: ${operacionalPath}`);
 
+  let bitrixCompetenciasPath: string | undefined;
+  let excludedCodes: string[] | undefined;
+  if (options.bitrixCompetenciasUrl?.trim()) {
+    const bitrixDownload = await downloadBitrixCompetencias({
+      url: options.bitrixCompetenciasUrl,
+      outputDir,
+      browser: options.browser,
+      logger: options.logger,
+    });
+    bitrixCompetenciasPath = bitrixDownload.filePath;
+    const currentMonth = resolveCurrentMonthReference(options.now);
+    excludedCodes = readBitrixCompetenciaCodes(bitrixCompetenciasPath, currentMonth);
+    options.logger?.info?.(
+      `Onboarding do mes vigente ${currentMonth} excluido da planilha: ${excludedCodes.length} codigo(s).`,
+    );
+  }
+
+  let bitrixAccountingPath: string | undefined;
+  let accountingCompaniesPath = options.accountingCompaniesPath;
+  if (options.bitrixAccountingUrl?.trim()) {
+    const bitrixDownload = await downloadBitrixAccountingCompanies({
+      url: options.bitrixAccountingUrl,
+      outputDir,
+      browser: options.browser,
+      logger: options.logger,
+    });
+    bitrixAccountingPath = bitrixDownload.filePath;
+    accountingCompaniesPath = bitrixAccountingPath;
+  }
+
   const baseDownload = await downloadEmpresasUnecont({
     credentials: options.credentials,
     browser: options.browser,
@@ -507,13 +490,32 @@ export async function updatePlanilhaOperacional(
     atualizadaPath: baseDownload.filePath,
     operacionalPath,
     outputDir,
+    excludedCodes,
     clientUsersProvider: options.clientUsersProvider,
     logger: options.logger,
   });
 
+  let onvioCompaniesReportPath: string | undefined;
+  if (options.onvioCompaniesProvider) {
+    const onvioCompanies = await enrichPlanilhaWithOnvioCompanies({
+      planilhaPath: comparison.finalPlanilhaPath,
+      outputDir,
+      provider: options.onvioCompaniesProvider,
+      logger: options.logger,
+    });
+    onvioCompaniesReportPath = onvioCompanies.reportPath;
+    options.logger?.info?.(
+      `Empresas Onvio: ${onvioCompanies.kept}/${onvioCompanies.total} mantidas na planilha, ${onvioCompanies.removed} removidas (inativas/nao localizadas).`,
+    );
+  } else {
+    options.logger?.warn?.(
+      "Consulta direta de empresas Onvio nao configurada; ONVIO_CLIENT_ID nao sera atualizado.",
+    );
+  }
+
   const departmentSync = await updateDepartamentosFromAccountingCompanies(
     comparison.finalPlanilhaPath,
-    options.accountingCompaniesPath,
+    accountingCompaniesPath,
   );
   options.logger?.info?.(
     `Departamentos sincronizados: ${departmentSync.updated} alterados (${departmentSync.accountingRows} contabeis, ${departmentSync.fiscalRows} fiscais).`,
@@ -537,6 +539,9 @@ export async function updatePlanilhaOperacional(
   return {
     outputDir,
     baseUnecontPath: baseDownload.filePath,
+    bitrixCompetenciasPath,
+    bitrixAccountingPath,
+    onvioCompaniesReportPath,
     operacionalPath,
     reportPath: comparison.reportPath,
     runtimePlanilhaPath: comparison.finalPlanilhaPath,

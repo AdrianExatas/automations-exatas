@@ -1,0 +1,23 @@
+{
+  "request": {
+    "method": "GET",
+    "route": "/core/customer/task/{taskId}"
+  },
+  "response": {
+    "_id": "fgts-task-id",
+    "name": "FGTS DIGITAL - VIA E-MAIL",
+    "status": "OPEN",
+    "competence_date": "2026-07-01T03:00:00.000Z",
+    "customer": {
+      "_id": "gestta-customer-id"
+    },
+    "company_documents": [
+      {
+        "_id": "fgts-company-document-id",
+        "name": "FGTS DIGITAL",
+        "validation_required": true,
+        "has_documents_integration": true
+      }
+    ]
+  }
+}

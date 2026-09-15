@@ -1,0 +1,258 @@
+Olá pessoal, tudo bem? Vamos lá. Eu tenho que ensinar a vocês como contabilizar um parcelamento de CMS, certo? Eu vou usar esse aqui da Jamel como exemplo, sabe? Aí vamos supor que aqui seja 1 de 11 de 2025 como exemplo, tá? Aí vamos lá. Primeiro passo, o que que eu vou pegar aqui de dados no começo? Vimos que ela foi solicitada 1 de 11 de 2025 no caso, né? Como exemplo. E o valor que eu vou contabilizar é esse valor aqui, ó.
+O valor parcelado, 143.937,27. Vou fazer o lançamento deles. A minha domínio, a minha média. Aí como eu falei, vamos supor que seja 25, esse parcelamento. Aí vou botar aqui vários débitos. Vou botar um crédito para vários débitos, certo? Vamos lá.
+O minha conta crédito vai ser no passivo não circulante. Por quê? Porque como vocês viram aqui, foi parcelado para 84 vezes.
+Entendeu? Então, como nós sabemos, né? 12 parcelas, acima de 12 parcelas, é no passivo não circulante, certo?
+Mas vamos lá. Mas vamos lá. Procurar a conta. Passivo não circulante. Aqui está ela, certo?
+Aí eu vou fazer o quê? Vou... O valor que eu vou colocar aqui, é o valor que tem que cair nessa conta aqui.
+Que é o valor de 143.937,27. Vamos lá. 143.937,27.
+Certo? Aí eu vou botar o histórico.
+Parcelamento. Simples. Parcelamento. ICMS. Protocolo. Número. 2023.01.02.3810.
+Eu sempre uso esse histórico, para identificar qual parcelamento que foi feito, para mim conseguir acompanhar.
+E aí eu vou incluir. Aqui eu vou botar a conta de ICMS antecipada, certo?
+Aí eu vou botar a conta ICMS antecipada, não está originária da minha conta, certo?
+Aí note, o valor que vai ser aqui, vai ser esse valor aqui, 123.927,30.
+Aí aqui temos mais dados. Temos valor de atualização, juros e multa, certo?
+Então, atualização. Vai ser o valor de 15.4249.
+Bota aqui, atualização. Sobre, parcelamento, tal.
+Aí os juros. Temos a multa também.
+Aí temos também, aí temos também aqui, ó, essa parte aqui é do normal, imposto normal.
+E essa aqui é a parte da multa fiscal, certo?
+Que essa multa fiscal aqui, ela não dedutiva, de imposto de renda nesse CLL.
+Eu gosto de colocar ela nas despesas não dedutivas, lá, ou nas despesas não operacionais, certo?
+Vamos botar nas despesas não dedutíveis.
+Dedutíveis.
+Finas financeiras.
+Não dedutíveis. Multa fiscal.
+Aí aqui no caso, como vocês podem ver, a multa fiscal temos o quê?
+Temos o valor da multa, atualização, juros, sobre o detalhe.
+Ele vai botar tudo em um só, porque tantos juros como a atualização,
+elas também não são dedutíveis de imposto de renda nesse CLL.
+Aí ficaria isso aqui.
+Deixa eu colocar mais aqui, o histórico, multa, juros.
+Aqui é a multa fiscal, certo?
+Aí é só, viu que bateu o débito do crédito, gravou, certo?
+Aí, vamos colocar eles, jogar eles para a curto prazo.
+Como que eu vou fazer isso?
+Coloca aqui, novo.
+A data, né, que foi feito o parcelamento.
+Aí vou fazer o quê?
+Vou debitar o meu passivo não circulante.
+E vou acreditar o meu passivo circulante.
+E vai ocorrer o pagamento nas 12 primeiras parcelas, né?
+Aí, o que eu vou fazer aqui?
+Vou fazer como?
+Vou vir aqui, ó, botar o 143,937,27, dividido por 12.
+Tá certo?
+Não.
+Não tá certo.
+Por quê?
+Você vir aqui, ó, temos que contabilizar o valor da entrada,
+mais 11 parcelas de 273,15.
+Aí sim, vai ser correto.
+Mas, vamos lá.
+Vamos lá, 173,15,
+vezes 11 parcelas,
+mais 1745, dá em 82, dá em cara.
+Então, o valor que não circulante vai passar,
+no meu passivo circulante vai ser esse valor aqui,
+de 20.590,47 centavos.
+Aí, vamos lá.
+Vai ser 20.590,47 centavos.
+Aí, vamos fazer assim, ó, transferência, parcelamento, curto prazo, certo?
+Curto prazo.
+E, então, eu vou clavar.
+Pronto.
+Já fiz a minha provisão, curto prazo, com a longo prazo.
+Pronto.
+Agora, vamos fazer aqui, o pagamento da entrada, certo?
+Entrada de novo, pronto.
+Como você pode ver, aqui no parcelamento da entrada, tem vários itens compondo a parcela.
+Você viu, que você já fez, né?
+Já fizemos, a apropriação total dela.
+Então, vamos colocar a primeira parcela aqui.
+1 do 11, que vai ser a parcela de entrada.
+Agora, vou pegar aqui, vou pegar o outro caixa, ou banco, certo?
+Aí, vou pagar.
+Pagamento, parcelamento, parcelamento.
+Aí, bota aqui, eu continuo com as parcelas.
+Parcela 1,84.
+Pronto.
+Feito isso, a minha parcela tá ok.
+Agora, vamos pegar um exemplo de uma parcela.
+Que o cliente pagou, certo?
+Aí, pra isso, eu vou trabalhar com uma planilha, de acompanhamento.
+Essa daqui, ó.
+Eu vou usar essa planilha, pra mim, ainda acompanhando.
+Como que você faz isso, Leandro?
+Vou explicar como que eu faço.
+Eu acho mais fácil, entendeu?
+De a pessoa, ainda acompanhar mês a mês.
+Porque, assim, você sabe que o valor mensal, mês, ela atualiza, né?
+Aí, pra isso, eu vou passar essa planilha, de acompanhamento.
+Eu vou vir aqui, ó.
+Dividir, pra ficar mais fácil explicar pra vocês.
+Vamos lá.
+O valor, da entrada, vai ficar aquele mesmo.
+A gente já contabilizou, certo?
+Porém, as parcelas, seguintes, elas se atualizam todo mês.
+Aqui, ó.
+Aí, eu vou usar ela como base.
+O principal, vai ser, os principais, vai ser isso aqui, ó.
+O principal é esse.
+Aí, tem a atualização, juros e multa.
+E aqui, pra cá, já, a, é a multa fiscal de ICMS.
+Eu expliquei, que ela é não dedutível.
+Vamos lá.
+O valor do imposto, vai ser o principal.
+Então, aqui, vai ser 1.425,24.
+Aí, dá uma atualização.
+183,54.
+Juros, 8,92.
+Aí, vem a multa.
+De 29,08.
+Se você olhar aqui, o sub-total, vai ficar o sub-total o meu.
+Vamos pra multa fiscal.
+12,26, 3,80, 0,31 centavos.
+Também barato.
+Então, quando a minha parcela tá, ok.
+Nós vamos puxar um pagamento aqui.
+Pra explicar pra vocês como que faz a baixa de um pagamento.
+Vou vir aqui, né.
+Você faz.
+Esse pagamento aqui, ó.
+Passar lá, 28.
+Um exemplo, tá.
+Aí, vamos lá.
+Vamos preencher a planilha, certo.
+Aqui, eu vou pegar os normais.
+Deixar, por último, esse é multa fiscal.
+Amal, normal.
+É composto pelo principal, 158,86.
+Atualização, 109,98.
+Amal, multa, 8,56.
+Juros, 2,87.
+Certo?
+Então, o próximo item.
+Vou pular a multa fiscal, né.
+Aqui, vai ser, 505,3,94, 0,29, 0,14.
+Bateu, pânico no final.
+Vamos pro próximo.
+1,311,23.
+5,58,63.
+Multa fiscal, 7,91, 27,77.
+Aqui, bateu.
+Próximo.
+Vamos pra multa fiscal.
+Multa fiscal, a mesma esqueminha.
+12,26.
+Atualização.
+Multa não tem.
+E só juros.
+Pronto.
+Aí, veja.
+E aqui, vai fazer um cruzamento.
+Do valor base, da minha parcela.
+Com o valor que eu paguei, certo.
+Como vocês podem ver, ele dá uma diferença.
+E atualiza todo mês, né.
+Atualiza todo mês, a dívida.
+Aí, esse aqui, vai ser uma atualização.
+Da parcela em si.
+Original, entendeu.
+Aí, como que eu vou contabilizar isso aqui, Leandro.
+Vamos lá.
+Vou mostrar pra vocês.
+Como que vai proceder agora, certo.
+Tá, vamos lá.
+Novo.
+Pagamento aqui.
+Vai ser dia 18 do 3.
+18 do 3, 2026.
+Vai ser um crédito.
+E vários zeros.
+Vou botar pelo caixa mesmo.
+O valor.
+O valor total da parcela paga.
+Foi 2.281.
+2.199, 21.
+2.199, 21.
+A parcela foi a 28 de 84.
+Pode copiar aqui o álbum histórico.
+Aqui.
+Aqui, adepto.
+Vai ser a conta do meu passivo.
+O passivo circulante.
+O passivo circulante.
+O valor total aqui.
+Vai ser o valor que eu vou botar aqui.
+Vai ser o valor original.
+Originária.
+Originária da parcela.
+Que vai ser 1.713.15.
+Por que esse valor?
+Porque você já fez a provisão.
+Lá no ato do que foi feito o parcelamento.
+Entendeu?
+Então, tem que ser ele todo esse valor.
+Vou botar aqui.
+1.713.15.
+Contra c.
+Contra c.
+Contra v.
+Aí, vamos lá.
+Agora é aqui.
+Atenção é aqui.
+Você viu que o valor base da atualização foi 6.33.
+só que ele pagou 600 de atualização do imposto
+então eu vou mostrar esses aqui
+esses que excederam o valor da parcela base
+atualização
+atualização do imposto
+atualização do parcelamento
+o valor que eu vou colocar
+vai ser de 489,01
+atualização
+sobre parcelamento
+próximo item é minha multa
+multa mora
+fica lá na minha despesa financeira
+o valor vai ser 59,68
+aí vem os juros
+21,86
+pronto
+como vocês podem ver
+já lançamos esse
+está ok
+está ok
+lembra que eu te falei que a multa fiscal
+pode lançar tudo junto
+esses dois itens
+por que?
+por causa que ele é indedutível
+certo?
+então você pode juntar tudo aqui
+aqui no lado
+15,51
+vou vir aqui
+incluir
+tudo na minha multa
+não dedutível
+está vendo?
+vou vir aqui
+15,51
+aí bota aqui
+multa fiscal
+sobre parcelamento
+e
+viu que bateu aqui
+não tem uma diferença nada
+só gravar
+então pessoal
+isso ai
+o que eu queria ensinar a vocês
+o que eu queria
+fazer a provisão
+e fazer abaixo
+tá bom?
+muito obrigado
+até o próximo vídeo

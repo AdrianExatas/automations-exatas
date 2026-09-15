@@ -51,7 +51,11 @@ function registerIpcHandlers(): void {
   }));
 
   ipcMain.handle("credentials:get", () => readCredentials(credentialsPath()));
-  ipcMain.handle("credentials:save", (_event, credentials: { user: string; password: string }) => saveCredentials(credentialsPath(), credentials));
+  ipcMain.handle(
+    "credentials:save",
+    (_event, credentials: { user: string; certPath: string; certPassword: string }) =>
+      saveCredentials(credentialsPath(), credentials),
+  );
   ipcMain.handle("credentials:clear", () => clearCredentials(credentialsPath()));
 
   ipcMain.handle("dialog:selectSpreadsheet", async () => {
@@ -71,6 +75,15 @@ function registerIpcHandlers(): void {
     return result.canceled ? undefined : result.filePaths[0];
   });
 
+  ipcMain.handle("dialog:selectCert", async () => {
+    const result = await dialog.showOpenDialog(mainWindow!, {
+      title: "Selecionar certificado digital A1",
+      properties: ["openFile"],
+      filters: [{ name: "Certificado PFX", extensions: ["pfx", "p12"] }],
+    });
+    return result.canceled ? undefined : result.filePaths[0];
+  });
+
   ipcMain.handle("run:start", async (event, request: StartRunRequest) => {
     if (currentRun) {
       throw new Error("Ja existe uma execucao em andamento.");
@@ -81,7 +94,11 @@ function registerIpcHandlers(): void {
 
     try {
       if (request.rememberCredentials) {
-        await saveCredentials(credentialsPath(), { user: request.user, password: request.password });
+        await saveCredentials(credentialsPath(), {
+          user: request.user,
+          certPath: request.certPath,
+          certPassword: request.certPassword,
+        });
       } else {
         await clearCredentials(credentialsPath());
       }

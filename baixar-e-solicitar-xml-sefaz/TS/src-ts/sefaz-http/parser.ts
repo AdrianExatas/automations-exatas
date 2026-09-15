@@ -20,6 +20,67 @@ function textOf($: CheerioAPI, element: Element): string {
   return $(element).text().replace(/\s+/g, " ").trim();
 }
 
+function normalizeSearchText(value: string): string {
+  return value
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/\s+/g, " ")
+    .trim()
+    .toLowerCase();
+}
+
+function decodedUrlVariants(value: string): string[] {
+  const variants = [value.replace(/&amp;/gi, "&")];
+  for (let index = 0; index < 2; index += 1) {
+    const current = variants[variants.length - 1];
+    if (current == null) {
+      break;
+    }
+    try {
+      const decoded = decodeURIComponent(current);
+      if (decoded === current) {
+        break;
+      }
+      variants.push(decoded);
+    } catch {
+      break;
+    }
+  }
+  return variants;
+}
+
+function isNewRequestUrl(href: string): boolean {
+  return decodedUrlVariants(href).some((variant) =>
+    /(?:^|[?&;])transid\s*=\s*t10464(?:$|[&#;])/i.test(variant),
+  );
+}
+
+function elementLabel($: CheerioAPI, element: Element): string {
+  const root = $(element);
+  const parts = [textOf($, element)];
+  for (const attr of ["title", "alt", "value", "aria-label"]) {
+    const value = root.attr(attr);
+    if (value) {
+      parts.push(value);
+    }
+  }
+  root.find("[title],[alt],[value],[aria-label]").each((_, child) => {
+    const childNode = $(child);
+    for (const attr of ["title", "alt", "value", "aria-label"]) {
+      const value = childNode.attr(attr);
+      if (value) {
+        parts.push(value);
+      }
+    }
+  });
+  return parts.join(" ");
+}
+
+function isNewRequestLabel(label: string): boolean {
+  const normalized = normalizeSearchText(label);
+  return /\bnov[oa]\b/.test(normalized) || normalized.includes("nova solicitacao");
+}
+
 export function parseJsRedirect(baseUrl: string, htmlText: string): string | undefined {
   for (const pattern of redirectPatterns) {
     const match = pattern.exec(htmlText);
@@ -222,6 +283,7 @@ export function parseDownloadListing(
   let currentPage: number | undefined;
   let nextPageUrl: string | undefined;
   let newRequestUrl: string | undefined;
+  const linkCount = $("a[href]").length;
 
   const currentText = $("td.pgAtualNav b, font.fontPgAtualNav b").first().text().trim();
   if (/^\d+$/.test(currentText)) {
@@ -237,7 +299,7 @@ export function parseDownloadListing(
     } else if (text.includes("Próximo") || text.includes("Prximo") || absoluteUrl.includes("Próximo")) {
       nextPageUrl = absoluteUrl;
     }
-    if (href.includes("TransId=T10464")) {
+    if (isNewRequestUrl(href) || isNewRequestLabel(elementLabel($, element))) {
       newRequestUrl = absoluteUrl;
     }
   }
@@ -247,12 +309,25 @@ export function parseDownloadListing(
       baseUrl,
       htmlText,
       ($api, element) =>
-        ($api(element).attr("href") ?? "").includes("TransId=T10464") ||
-        $api(element).text().replace(/\s+/g, " ").trim().toLowerCase().includes("novo"),
+        isNewRequestUrl($api(element).attr("href") ?? "") ||
+        isNewRequestLabel(elementLabel($api, element)),
     );
   }
 
-  return { url: pageUrl, currentPage, downloads, pageLinks, nextPageUrl, newRequestUrl };
+  return { url: pageUrl, currentPage, downloads, pageLinks, nextPageUrl, newRequestUrl, linkCount };
+}
+
+export function parseEmpresasDoFormulario(form: HtmlForm): Array<{ inscricao: string; nome: string }> {
+  const empresas: Array<{ inscricao: string; nome: string }> = [];
+  for (const [texto, valor] of Object.entries(form.selectOptions.cdPessoaContribuinte ?? {})) {
+    const inscricao = valor.trim();
+    const nome = texto.trim();
+    if (!inscricao || !nome || nome.toLowerCase().startsWith("selecione")) {
+      continue;
+    }
+    empresas.push({ inscricao, nome });
+  }
+  return empresas;
 }
 
 export function simplifyFormPayload(

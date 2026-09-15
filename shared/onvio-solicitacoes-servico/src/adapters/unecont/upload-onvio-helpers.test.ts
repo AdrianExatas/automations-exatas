@@ -50,6 +50,12 @@ describe("upload-onvio helpers", () => {
     expect(filenameHasExactCodeToken("Empresa 543 - LINK INFORMATICA.pdf", "543")).toBe(true);
     expect(filenameHasExactCodeToken("543 - Relatorio.xlsx", "543")).toBe(true);
     expect(filenameHasExactCodeToken("Empresa 1543 - LINK INFORMATICA.pdf", "543")).toBe(false);
+    expect(
+      filenameHasExactCodeToken(
+        "569 - UneCont - Tomados - 38.635.853 AMANDA - 01_08_2026_a_31_08_2026.xlsx",
+        "635",
+      ),
+    ).toBe(false);
   });
 
   it("resolve anexos pela lista explicita da planilha", () => {
@@ -76,6 +82,25 @@ describe("upload-onvio helpers", () => {
     expect(() => resolveAttachmentsForEmpresa(empresa, makeFiles())).toThrow(
       "Extensao nao suportada para upload",
     );
+  });
+
+  it("recusa xlsx cujo nome Unecont nao bate com a empresa", () => {
+    expect(() =>
+      resolveAttachmentsForEmpresa(
+        makeEmpresa({
+          codigo: "427",
+          nome: "MAX CONFECCOES TEXTIL LTDA",
+          arquivos: [],
+        }),
+        [
+          {
+            filePath: "C:/tmp/427 - UneCont - Tomados - ACHEI COMERCIO.xlsx",
+            fileName: "427 - UneCont - Tomados - ACHEI COMERCIO.xlsx",
+            extension: ".xlsx",
+          },
+        ],
+      ),
+    ).toThrow(/Anexo incompativel|Anexo incompatível/);
   });
 
   it("prioriza override por linha ao resolver ids do upload", () => {

@@ -84,12 +84,35 @@ function expandirArquivosBaixados(arquivosInfo: ArquivoInfoCheckpoint[]): Set<st
     if (normalizado.nome) {
       result.add(normalizado.nome);
     }
-    if (normalizado.dt_solicitacao) {
-      result.add(normalizado.dt_solicitacao);
-    }
     result.add(JSON.stringify(normalizado, Object.keys(normalizado).sort()));
   }
   return result;
+}
+
+export function chaveArquivoBaixado(info: {
+  url: string;
+  nmArquivo?: string;
+  dtSolicitacao?: string;
+  tipoDownload?: string;
+}): string {
+  const payload = {
+    url: info.url,
+    nome: info.nmArquivo ?? "",
+    dt_solicitacao: info.dtSolicitacao ?? "",
+    tipo_download: info.tipoDownload ?? "DESCONHECIDO",
+  };
+  return JSON.stringify(payload, Object.keys(payload).sort());
+}
+
+export function jaBaixado(
+  info: { url: string; nmArquivo?: string; dtSolicitacao?: string; tipoDownload?: string },
+  arquivosBaixados: Set<string>,
+): boolean {
+  return (
+    arquivosBaixados.has(info.url) ||
+    Boolean(info.nmArquivo && arquivosBaixados.has(info.nmArquivo)) ||
+    arquivosBaixados.has(chaveArquivoBaixado(info))
+  );
 }
 
 function timestampMaisRecente(candidate?: RawCheckpoint, baseline?: RawCheckpoint): boolean {
@@ -321,18 +344,9 @@ export function registrarArquivoBaixado(info: {
   dtSolicitacao?: string;
   tipoDownload?: string;
 }, arquivosBaixados: Set<string>): void {
-  const payload = {
-    url: info.url,
-    nome: info.nmArquivo ?? "",
-    dt_solicitacao: info.dtSolicitacao ?? "",
-    tipo_download: info.tipoDownload ?? "DESCONHECIDO",
-  };
   arquivosBaixados.add(info.url);
   if (info.nmArquivo) {
     arquivosBaixados.add(info.nmArquivo);
   }
-  if (info.dtSolicitacao) {
-    arquivosBaixados.add(info.dtSolicitacao);
-  }
-  arquivosBaixados.add(JSON.stringify(payload, Object.keys(payload).sort()));
+  arquivosBaixados.add(chaveArquivoBaixado(info));
 }

@@ -1,0 +1,8 @@
+{
+  "request": { "active": true, "limit": 500, "page": 1, "search": "" },
+  "response": {
+    "docs": [{ "_id": "gestta-customer-id", "external_id": "onvio-client-id", "name": "EMPRESA EXEMPLO LTDA", "code": "1001", "cnpj": "12.345.678/0001-95", "active": true }],
+    "page": 1,
+    "pages": 1
+  }
+}

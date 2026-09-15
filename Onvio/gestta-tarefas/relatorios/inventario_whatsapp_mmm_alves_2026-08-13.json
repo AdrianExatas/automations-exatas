@@ -1,0 +1,1976 @@
+[
+  {
+    "code": "604",
+    "empresa": "MMM UTILIDADES DO LAR LTDA",
+    "cnpj": "05230649000112",
+    "customerId": "685c13175c930038c7bcc9f3",
+    "linkId": "6a7e3921bc939138a3e32fd6",
+    "sourceTaskId": "6a4e9e2f5f94b8ebcf012c58",
+    "sourceTaskName": "13º DCTFWEB - VIA WHATSAPP",
+    "deptName": "Pessoal",
+    "responsibleId": "68d2f0fa0e5fc535f645937e",
+    "responsibleName": "Camilla Andrade",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "62ea6a2d3003270007ccea26"
+    ],
+    "documentNames": [
+      "DARF DCTFWEB"
+    ],
+    "enviaCliente": "documentos=1; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "13º DCTFWEB - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "604",
+    "empresa": "MMM UTILIDADES DO LAR LTDA",
+    "cnpj": "05230649000112",
+    "customerId": "685c13175c930038c7bcc9f3",
+    "linkId": "69a1f1d5a54ef61d44a1a53f",
+    "sourceTaskId": "60b61ec51da6830006323519",
+    "sourceTaskName": "13º SALÁRIO ADIANTAMENTO",
+    "deptName": "Pessoal",
+    "responsibleId": "68d2f0fa0e5fc535f645937e",
+    "responsibleName": "Camilla Andrade",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [],
+    "documentNames": [],
+    "enviaCliente": "não envia (interno)",
+    "action": "keep",
+    "targetTaskName": "13º SALÁRIO ADIANTAMENTO",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "604",
+    "empresa": "MMM UTILIDADES DO LAR LTDA",
+    "cnpj": "05230649000112",
+    "customerId": "685c13175c930038c7bcc9f3",
+    "linkId": "69a1f1d5a54ef61d44a1a540",
+    "sourceTaskId": "60b61ec51da683000632351a",
+    "sourceTaskName": "13º SALÁRIO INTEGRAL",
+    "deptName": "Pessoal",
+    "responsibleId": "68d2f0fa0e5fc535f645937e",
+    "responsibleName": "Camilla Andrade",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [],
+    "documentNames": [],
+    "enviaCliente": "não envia (interno)",
+    "action": "keep",
+    "targetTaskName": "13º SALÁRIO INTEGRAL",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "604",
+    "empresa": "MMM UTILIDADES DO LAR LTDA",
+    "cnpj": "05230649000112",
+    "customerId": "685c13175c930038c7bcc9f3",
+    "linkId": "6a7e399fbcb168fce38966a5",
+    "sourceTaskId": "6a7e3811bc939138a3e2e1e7",
+    "sourceTaskName": "COMPROVANTE DE RENDIMENTO - VIA WHATSAPP",
+    "deptName": "Pessoal",
+    "responsibleId": "68d2f0fa0e5fc535f645937e",
+    "responsibleName": "Camilla Andrade",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "69b47051bba3e87a1f7c5b40"
+    ],
+    "documentNames": [
+      "COMPROVANTE DE RENDIMENTOS"
+    ],
+    "enviaCliente": "documentos=1; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "COMPROVANTE DE RENDIMENTO - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "604",
+    "empresa": "MMM UTILIDADES DO LAR LTDA",
+    "cnpj": "05230649000112",
+    "customerId": "685c13175c930038c7bcc9f3",
+    "linkId": "6a7e39a0bcb168fce38966c6",
+    "sourceTaskId": "6a7e38241e8f47528c435359",
+    "sourceTaskName": "CONSULTAR EXTRATOR DIRF - VIA WHATSAPP",
+    "deptName": "Pessoal",
+    "responsibleId": "68d2f0fa0e5fc535f645937e",
+    "responsibleName": "Camilla Andrade",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "60b61ebf1da68300063234be"
+    ],
+    "documentNames": [
+      "DIRF Recibo"
+    ],
+    "enviaCliente": "documentos=1; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "CONSULTAR EXTRATOR DIRF - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "604",
+    "empresa": "MMM UTILIDADES DO LAR LTDA",
+    "cnpj": "05230649000112",
+    "customerId": "685c13175c930038c7bcc9f3",
+    "linkId": "69a1f1d5a54ef61d44a1a545",
+    "sourceTaskId": "63bac7ed2b882f0007f162b0",
+    "sourceTaskName": "CONSULTAR FAP",
+    "deptName": "Pessoal",
+    "responsibleId": "68d2f0fa0e5fc535f645937e",
+    "responsibleName": "Camilla Andrade",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [],
+    "documentNames": [],
+    "enviaCliente": "não envia (interno)",
+    "action": "keep",
+    "targetTaskName": "CONSULTAR FAP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "604",
+    "empresa": "MMM UTILIDADES DO LAR LTDA",
+    "cnpj": "05230649000112",
+    "customerId": "685c13175c930038c7bcc9f3",
+    "linkId": "6a7e39a2bc939138a3e33284",
+    "sourceTaskId": "69efd4267b7bdd6de31db06b",
+    "sourceTaskName": "DARF PIS/COFINS (CUMULATIVO) - VIA WHATSAPP",
+    "deptName": "Fiscal",
+    "responsibleId": "67782a6fb33c1429c0a31516",
+    "responsibleName": "Vinni Fontes",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "67e2d13e8c6479f9fd2d4678"
+    ],
+    "documentNames": [
+      "DARF DCTF-WEB PIS/COFINS CUMULATIVO"
+    ],
+    "enviaCliente": "documentos=1; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "DARF PIS/COFINS (CUMULATIVO) - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "604",
+    "empresa": "MMM UTILIDADES DO LAR LTDA",
+    "cnpj": "05230649000112",
+    "customerId": "685c13175c930038c7bcc9f3",
+    "linkId": "6a7e39a357fa3b0c4a2b21e5",
+    "sourceTaskId": "6981fa22732b0b36c5d2d26d",
+    "sourceTaskName": "DCTFWEB - MIT - VIA WHATSAPP",
+    "deptName": "Fiscal",
+    "responsibleId": "67782a6fb33c1429c0a31516",
+    "responsibleName": "Vinni Fontes",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "60b61ebf1da68300063234b8"
+    ],
+    "documentNames": [
+      "RECIBO DCTF-WEB"
+    ],
+    "enviaCliente": "documentos=1; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "DCTFWEB - MIT - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "604",
+    "empresa": "MMM UTILIDADES DO LAR LTDA",
+    "cnpj": "05230649000112",
+    "customerId": "685c13175c930038c7bcc9f3",
+    "linkId": "6a7e39a5690fac807b466fd1",
+    "sourceTaskId": "6841e2ebd66cc2c040cfc9ab",
+    "sourceTaskName": "DCTFWEB - SETOR PESSOAL - VIA WHATSAPP",
+    "deptName": "Pessoal",
+    "responsibleId": "68d2f0fa0e5fc535f645937e",
+    "responsibleName": "Camilla Andrade",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": true,
+    "notifyWhatsapp": false,
+    "documents": [
+      "62ea6a2d3003270007ccea26"
+    ],
+    "documentNames": [
+      "DARF DCTFWEB"
+    ],
+    "enviaCliente": "notify_customer; documentos=1; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "DCTFWEB - SETOR PESSOAL - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "604",
+    "empresa": "MMM UTILIDADES DO LAR LTDA",
+    "cnpj": "05230649000112",
+    "customerId": "685c13175c930038c7bcc9f3",
+    "linkId": "6a7e39a657fa3b0c4a2b2208",
+    "sourceTaskId": "6a7e3844bcb168fce3892fb9",
+    "sourceTaskName": "ECF - ESCRITURAÇÃO CONTÁBIL FISCAL - VIA WHATSAPP",
+    "deptName": "Contábil",
+    "responsibleId": "60b623355e12720006df2ef7",
+    "responsibleName": "Thais Dantas Santos",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "60b61ebf1da68300063234cd"
+    ],
+    "documentNames": [
+      "ECF - Recibo de Entrega"
+    ],
+    "enviaCliente": "documentos=1; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "ECF - ESCRITURAÇÃO CONTÁBIL FISCAL - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "604",
+    "empresa": "MMM UTILIDADES DO LAR LTDA",
+    "cnpj": "05230649000112",
+    "customerId": "685c13175c930038c7bcc9f3",
+    "linkId": "6a7e39a881133249f88e810f",
+    "sourceTaskId": "6981fa52054baaee1f2ee48d",
+    "sourceTaskName": "EFD CONTRIBUIÇÕES - VIA WHATSAPP",
+    "deptName": "Fiscal",
+    "responsibleId": "67782a6fb33c1429c0a31516",
+    "responsibleName": "Vinni Fontes",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "60b61ebf1da68300063234ce"
+    ],
+    "documentNames": [
+      "EFD Recibo"
+    ],
+    "enviaCliente": "documentos=1; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "EFD CONTRIBUIÇÕES - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "604",
+    "empresa": "MMM UTILIDADES DO LAR LTDA",
+    "cnpj": "05230649000112",
+    "customerId": "685c13175c930038c7bcc9f3",
+    "linkId": "6a7e39a914938c09fc4e760e",
+    "sourceTaskId": "6a7e384d1e8f47528c436c17",
+    "sourceTaskName": "EFD ICMS IPI - NORMAL (SERGIPE) - VIA WHATSAPP",
+    "deptName": "Fiscal",
+    "responsibleId": "67782a6fb33c1429c0a31516",
+    "responsibleName": "Vinni Fontes",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "60b61ebf1da6830006323514"
+    ],
+    "documentNames": [
+      "RECIBO SPED FISCAL"
+    ],
+    "enviaCliente": "documentos=1; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "EFD ICMS IPI - NORMAL (SERGIPE) - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "604",
+    "empresa": "MMM UTILIDADES DO LAR LTDA",
+    "cnpj": "05230649000112",
+    "customerId": "685c13175c930038c7bcc9f3",
+    "linkId": "6a7e39ab81133249f88e8138",
+    "sourceTaskId": "6a4e9c30e52cb6fae6796fc7",
+    "sourceTaskName": "FGTS DIGITAL - VIA WHATSAPP",
+    "deptName": "Pessoal",
+    "responsibleId": "68d2f0fa0e5fc535f645937e",
+    "responsibleName": "Camilla Andrade",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "661937f491848b0007588a74"
+    ],
+    "documentNames": [
+      "FGTS DIGITAL"
+    ],
+    "enviaCliente": "documentos=1; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "FGTS DIGITAL - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "604",
+    "empresa": "MMM UTILIDADES DO LAR LTDA",
+    "cnpj": "05230649000112",
+    "customerId": "685c13175c930038c7bcc9f3",
+    "linkId": "6a7e39acc79c478535383302",
+    "sourceTaskId": "6a4e9b50def200ff5f4b0ed5",
+    "sourceTaskName": "FGTS DIGITAL CONSIGNADO - VIA WHATSAPP",
+    "deptName": "Pessoal",
+    "responsibleId": "68d2f0fa0e5fc535f645937e",
+    "responsibleName": "Camilla Andrade",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "69b3170eb11ae896c371a61d"
+    ],
+    "documentNames": [
+      "FGTS DIGITAL CONSIGNADO"
+    ],
+    "enviaCliente": "documentos=1; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "FGTS DIGITAL CONSIGNADO - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "604",
+    "empresa": "MMM UTILIDADES DO LAR LTDA",
+    "cnpj": "05230649000112",
+    "customerId": "685c13175c930038c7bcc9f3",
+    "linkId": "6a7e39aebc939138a3e33325",
+    "sourceTaskId": "6a7e385157fa3b0c4a2afdec",
+    "sourceTaskName": "FOLHA (ADIANTAMENTO 40%) - 2 - VIA WHATSAPP",
+    "deptName": "Pessoal",
+    "responsibleId": "68d2f0fa0e5fc535f645937e",
+    "responsibleName": "Camilla Andrade",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "69b315e1e97c1c94e265a67e"
+    ],
+    "documentNames": [
+      "ADIANTAMENTO SALARIALL"
+    ],
+    "enviaCliente": "documentos=1; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "FOLHA (ADIANTAMENTO 40%) - 2 - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "604",
+    "empresa": "MMM UTILIDADES DO LAR LTDA",
+    "cnpj": "05230649000112",
+    "customerId": "685c13175c930038c7bcc9f3",
+    "linkId": "6a7e39af1e8f47528c4387c6",
+    "sourceTaskId": "6a7e3854c79c47853537c356",
+    "sourceTaskName": "FOLHA (ADIANTAMENTO 50%) - VIA WHATSAPP",
+    "deptName": "Pessoal",
+    "responsibleId": "68d2f0fa0e5fc535f645937e",
+    "responsibleName": "Camilla Andrade",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "69b315e1e97c1c94e265a67e"
+    ],
+    "documentNames": [
+      "ADIANTAMENTO SALARIALL"
+    ],
+    "enviaCliente": "documentos=1; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "FOLHA (ADIANTAMENTO 50%) - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "604",
+    "empresa": "MMM UTILIDADES DO LAR LTDA",
+    "cnpj": "05230649000112",
+    "customerId": "685c13175c930038c7bcc9f3",
+    "linkId": "6a7e39b11e8f47528c4387e0",
+    "sourceTaskId": "6a7e3858bcb168fce3893a23",
+    "sourceTaskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1 - VIA WHATSAPP",
+    "deptName": "Pessoal",
+    "responsibleId": "68d2f0fa0e5fc535f645937e",
+    "responsibleName": "Camilla Andrade",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "62224b4dffbc960006c33f8e",
+      "62224bfef169d60006d1cb30",
+      "60b61ebf1da68300063234fb",
+      "60b61ebf1da6830006323511"
+    ],
+    "documentNames": [
+      "Extrato da Folha",
+      "Relatorio Liquidos",
+      "Recibo de Pagamento",
+      "Resumo da Folha de Pagamento"
+    ],
+    "enviaCliente": "documentos=4; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1 - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "604",
+    "empresa": "MMM UTILIDADES DO LAR LTDA",
+    "cnpj": "05230649000112",
+    "customerId": "685c13175c930038c7bcc9f3",
+    "linkId": "6a7e39b414938c09fc4e7679",
+    "sourceTaskId": "6a7e3868bcb168fce3894502",
+    "sourceTaskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 2 - VIA WHATSAPP",
+    "deptName": "Pessoal",
+    "responsibleId": "68d2f0fa0e5fc535f645937e",
+    "responsibleName": "Camilla Andrade",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "60b61ebf1da6830006323511",
+      "60b61ebf1da68300063234fb",
+      "62224bfef169d60006d1cb30",
+      "62224b4dffbc960006c33f8e"
+    ],
+    "documentNames": [
+      "Resumo da Folha de Pagamento",
+      "Recibo de Pagamento",
+      "Relatorio Liquidos",
+      "Extrato da Folha"
+    ],
+    "enviaCliente": "documentos=4; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 2 - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "604",
+    "empresa": "MMM UTILIDADES DO LAR LTDA",
+    "cnpj": "05230649000112",
+    "customerId": "685c13175c930038c7bcc9f3",
+    "linkId": "6a7e39b657fa3b0c4a2b22a4",
+    "sourceTaskId": "6a7e387881133249f88e61a4",
+    "sourceTaskName": "GUIA DIFERENCIAL DE ALÍQUOTAS (SERGIPE) - VIA WHATSAPP",
+    "deptName": "Fiscal",
+    "responsibleId": "67782a6fb33c1429c0a31516",
+    "responsibleName": "Vinni Fontes",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "60b61ebf1da68300063234e5",
+      "647b5321bb59890007125d1b",
+      "69a9ba51560d91dca2e90ef5"
+    ],
+    "documentNames": [
+      "DAE ICMS DIFERENCIAL ALIQUOTA SERGIPE (USO E CONSUMO)",
+      "DAE ICMS FECOMP SERGIPE",
+      "DAE ICMS DIFERENCIAL ALIQUOTA SERGIPE (IMOBILIZADO)"
+    ],
+    "enviaCliente": "documentos=3; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "GUIA DIFERENCIAL DE ALÍQUOTAS (SERGIPE) - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "604",
+    "empresa": "MMM UTILIDADES DO LAR LTDA",
+    "cnpj": "05230649000112",
+    "customerId": "685c13175c930038c7bcc9f3",
+    "linkId": "6a7e39b7bc939138a3e33388",
+    "sourceTaskId": "6981fac14bfd71d5b41eb3d9",
+    "sourceTaskName": "GUIA IR E CSLL - LUCRO PRESUMIDO (TRIMESTRAL) - VIA WHATSAPP",
+    "deptName": "Fiscal",
+    "responsibleId": "67782a6fb33c1429c0a31516",
+    "responsibleName": "Vinni Fontes",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "67e2d99e0092fd62cb327b5e"
+    ],
+    "documentNames": [
+      "DARF DCTF-WEB IRPJ/CSLL PRESUMIDO"
+    ],
+    "enviaCliente": "documentos=1; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "GUIA IR E CSLL - LUCRO PRESUMIDO (TRIMESTRAL) - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "604",
+    "empresa": "MMM UTILIDADES DO LAR LTDA",
+    "cnpj": "05230649000112",
+    "customerId": "685c13175c930038c7bcc9f3",
+    "linkId": "6a7e39b957fa3b0c4a2b231c",
+    "sourceTaskId": "6846c4b905c6b61f4e4c3563",
+    "sourceTaskName": "HONORÁRIOS EXATAS - VIA WHATSAPP",
+    "deptName": "Financeiro",
+    "responsibleId": "60b62334d6f4f80006072498",
+    "responsibleName": "Financeiro exatas",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [],
+    "documentNames": [],
+    "enviaCliente": "checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "HONORÁRIOS EXATAS - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "604",
+    "empresa": "MMM UTILIDADES DO LAR LTDA",
+    "cnpj": "05230649000112",
+    "customerId": "685c13175c930038c7bcc9f3",
+    "linkId": "6a7e39bb57fa3b0c4a2b233c",
+    "sourceTaskId": "6a7e387d1870a688225da17a",
+    "sourceTaskName": "ICMS ANTECIPADO - NORMAL (SERGIPE) - VIA WHATSAPP",
+    "deptName": "Fiscal",
+    "responsibleId": "67782a6fb33c1429c0a31516",
+    "responsibleName": "Vinni Fontes",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "60cc8262798d2c00060c20c8",
+      "6493662d02f4920006e662f1",
+      "64948f83e133f400073bbc6a",
+      "6a5fab452bbc1bbf023ba3b3",
+      "6a5fac04e97e705233d136e4"
+    ],
+    "documentNames": [
+      "DAE ICMS ANTECIPADO",
+      "FCP ANTECIPADO",
+      "FCP COMPLEMENTAÇÂO",
+      "MAPA ANTECIPADO - SEM INTEGRAÇÃO",
+      "MEMÓRIA DE CALCULO ANTECIPADO"
+    ],
+    "enviaCliente": "documentos=5; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "ICMS ANTECIPADO - NORMAL (SERGIPE) - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "604",
+    "empresa": "MMM UTILIDADES DO LAR LTDA",
+    "cnpj": "05230649000112",
+    "customerId": "685c13175c930038c7bcc9f3",
+    "linkId": "6a7e39bcbc939138a3e333de",
+    "sourceTaskId": "6a7e38821870a688225da244",
+    "sourceTaskName": "ICMS NORMAL (SERGIPE) - VIA WHATSAPP",
+    "deptName": "Fiscal",
+    "responsibleId": "67782a6fb33c1429c0a31516",
+    "responsibleName": "Vinni Fontes",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "60b61ebf1da68300063234e7",
+      "647b5321bb59890007125d1b"
+    ],
+    "documentNames": [
+      "DAE ICMS SERGIPE",
+      "DAE ICMS FECOMP SERGIPE"
+    ],
+    "enviaCliente": "documentos=2; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "ICMS NORMAL (SERGIPE) - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "604",
+    "empresa": "MMM UTILIDADES DO LAR LTDA",
+    "cnpj": "05230649000112",
+    "customerId": "685c13175c930038c7bcc9f3",
+    "linkId": "6a7e39bdbcb168fce389687f",
+    "sourceTaskId": "6a7e3889bc939138a3e30e8a",
+    "sourceTaskName": "INCLUSÃO NOTAS AGÍL SEFAZ ( LUCRO REL / PRESUMIDO ) - VIA WHATSAPP",
+    "deptName": "Fiscal",
+    "responsibleId": "67782a6fb33c1429c0a31516",
+    "responsibleName": "Vinni Fontes",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "6834ae6de7c9be39dfb2ca7a",
+      "6834c802843886a7ce75092c"
+    ],
+    "documentNames": [
+      "COMPROVAÇÃO NOTA VINCULADA SEFAZ - RELATÓRIO",
+      "COMPROVAÇÃO NOTA VÍNCULADA SEFAZ - SISTEMA"
+    ],
+    "enviaCliente": "documentos=2; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "INCLUSÃO NOTAS AGÍL SEFAZ ( LUCRO REL / PRESUMIDO ) - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "604",
+    "empresa": "MMM UTILIDADES DO LAR LTDA",
+    "cnpj": "05230649000112",
+    "customerId": "685c13175c930038c7bcc9f3",
+    "linkId": "6a7e39bf57fa3b0c4a2b2361",
+    "sourceTaskId": "6981fb214bfd71d5b41ec2dd",
+    "sourceTaskName": "IRPJ e CSLL EM COTAS - VIA WHATSAPP",
+    "deptName": "Fiscal",
+    "responsibleId": "69ac61580daa2217ee2a926e",
+    "responsibleName": "Larissa Souza Porto",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "68829ce905813da4c4661c68"
+    ],
+    "documentNames": [
+      "COTA IRPJ E CSLL"
+    ],
+    "enviaCliente": "documentos=1; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "IRPJ e CSLL EM COTAS - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "604",
+    "empresa": "MMM UTILIDADES DO LAR LTDA",
+    "cnpj": "05230649000112",
+    "customerId": "685c13175c930038c7bcc9f3",
+    "linkId": "688bd99df79d195716b0900e",
+    "sourceTaskId": "67e54ca10a7bd787b45f9751",
+    "sourceTaskName": "LIGAÇÃO AO CLIENTE - ACOMPANHAMENTO CS",
+    "deptName": "Administrativo",
+    "responsibleId": "62c6c74f8d10c800075536ff",
+    "responsibleName": "Amanda Xavier",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [],
+    "documentNames": [],
+    "enviaCliente": "checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "LIGAÇÃO AO CLIENTE - ACOMPANHAMENTO CS",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "604",
+    "empresa": "MMM UTILIDADES DO LAR LTDA",
+    "cnpj": "05230649000112",
+    "customerId": "685c13175c930038c7bcc9f3",
+    "linkId": "6a7e39c0bcb168fce38968c1",
+    "sourceTaskId": "6a7e388fc79c47853537c560",
+    "sourceTaskName": "PLR - PARTICIPAÇÃO NOS LUCROS - VIA WHATSAPP",
+    "deptName": "Pessoal",
+    "responsibleId": "68d2f0fa0e5fc535f645937e",
+    "responsibleName": "Camilla Andrade",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "60b61ebf1da68300063234fa"
+    ],
+    "documentNames": [
+      "Recibo PLR"
+    ],
+    "enviaCliente": "documentos=1; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "PLR - PARTICIPAÇÃO NOS LUCROS - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "604",
+    "empresa": "MMM UTILIDADES DO LAR LTDA",
+    "cnpj": "05230649000112",
+    "customerId": "685c13175c930038c7bcc9f3",
+    "linkId": "6a7e39c2c79c47853538344e",
+    "sourceTaskId": "6981fb88fef65bf1cf03cc00",
+    "sourceTaskName": "REINF - SETOR FISCAL NORMAL - VIA WHATSAPP",
+    "deptName": "Fiscal",
+    "responsibleId": "67782a6fb33c1429c0a31516",
+    "responsibleName": "Vinni Fontes",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "66709c3ef3f4310007995bc9"
+    ],
+    "documentNames": [
+      "GUIA DCTFWEB"
+    ],
+    "enviaCliente": "documentos=1; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "REINF - SETOR FISCAL NORMAL - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "604",
+    "empresa": "MMM UTILIDADES DO LAR LTDA",
+    "cnpj": "05230649000112",
+    "customerId": "685c13175c930038c7bcc9f3",
+    "linkId": "6a7e39c3bcb168fce38968e2",
+    "sourceTaskId": "6a7e38a29dde0d499e5832e0",
+    "sourceTaskName": "VERIFICAÇÃO DE PENDENCIA FGTS - VIA WHATSAPP",
+    "deptName": "Pessoal",
+    "responsibleId": "68d2f0fa0e5fc535f645937e",
+    "responsibleName": "Camilla Andrade",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [],
+    "documentNames": [],
+    "enviaCliente": "checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "VERIFICAÇÃO DE PENDENCIA FGTS - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "604",
+    "empresa": "MMM UTILIDADES DO LAR LTDA",
+    "cnpj": "05230649000112",
+    "customerId": "685c13175c930038c7bcc9f3",
+    "linkId": "6a7e39c59dde0d499e583aa4",
+    "sourceTaskId": "6a7e38a6690fac807b46646f",
+    "sourceTaskName": "VERIFICAR PENDENCIAS - RECEITA FEDERAL (DP) - VIA WHATSAPP",
+    "deptName": "Pessoal",
+    "responsibleId": "68d2f0fa0e5fc535f645937e",
+    "responsibleName": "Camilla Andrade",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [],
+    "documentNames": [],
+    "enviaCliente": "checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "VERIFICAR PENDENCIAS - RECEITA FEDERAL (DP) - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "604",
+    "empresa": "MMM UTILIDADES DO LAR LTDA",
+    "cnpj": "05230649000112",
+    "customerId": "685c13175c930038c7bcc9f3",
+    "linkId": "6a7e39c6bc939138a3e3344f",
+    "sourceTaskId": "6a7e38c41870a688225dc05a",
+    "sourceTaskName": "VERIFICAR PENDÊNCIAS SEFAZ/RECEITA FEDERAL (NORMAL) - VIA WHATSAPP",
+    "deptName": "Fiscal",
+    "responsibleId": "67782a6fb33c1429c0a31516",
+    "responsibleName": "Vinni Fontes",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "67be2c613eb87add3177c2de",
+      "67be2cbbfad57d6fefd2f1b6"
+    ],
+    "documentNames": [
+      "PENDÊNCIA SEFAZ",
+      "SITUAÇÃO FISCAL RECEITA FEDERAL"
+    ],
+    "enviaCliente": "documentos=2; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "VERIFICAR PENDÊNCIAS SEFAZ/RECEITA FEDERAL (NORMAL) - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "607",
+    "empresa": "ALVES FRANCA COMERCIO DE MOVEIS LTDA",
+    "cnpj": "13800072000165",
+    "customerId": "685dbe49c8f21be1257d0939",
+    "linkId": "6a7e39c857fa3b0c4a2b23a5",
+    "sourceTaskId": "6a4e9e2f5f94b8ebcf012c58",
+    "sourceTaskName": "13º DCTFWEB - VIA WHATSAPP",
+    "deptName": "Pessoal",
+    "responsibleId": "6a109a7068f46978705ac891",
+    "responsibleName": "Kamilly Vitoria",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "62ea6a2d3003270007ccea26"
+    ],
+    "documentNames": [
+      "DARF DCTFWEB"
+    ],
+    "enviaCliente": "documentos=1; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "13º DCTFWEB - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "607",
+    "empresa": "ALVES FRANCA COMERCIO DE MOVEIS LTDA",
+    "cnpj": "13800072000165",
+    "customerId": "685dbe49c8f21be1257d0939",
+    "linkId": "69a1f1b7a54ef61d44a19f16",
+    "sourceTaskId": "60b61ec51da6830006323519",
+    "sourceTaskName": "13º SALÁRIO ADIANTAMENTO",
+    "deptName": "Pessoal",
+    "responsibleId": "6a109a7068f46978705ac891",
+    "responsibleName": "Kamilly Vitoria",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [],
+    "documentNames": [],
+    "enviaCliente": "não envia (interno)",
+    "action": "keep",
+    "targetTaskName": "13º SALÁRIO ADIANTAMENTO",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "607",
+    "empresa": "ALVES FRANCA COMERCIO DE MOVEIS LTDA",
+    "cnpj": "13800072000165",
+    "customerId": "685dbe49c8f21be1257d0939",
+    "linkId": "69a1f1b7a54ef61d44a19f17",
+    "sourceTaskId": "60b61ec51da683000632351a",
+    "sourceTaskName": "13º SALÁRIO INTEGRAL",
+    "deptName": "Pessoal",
+    "responsibleId": "6a109a7068f46978705ac891",
+    "responsibleName": "Kamilly Vitoria",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [],
+    "documentNames": [],
+    "enviaCliente": "não envia (interno)",
+    "action": "keep",
+    "targetTaskName": "13º SALÁRIO INTEGRAL",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "607",
+    "empresa": "ALVES FRANCA COMERCIO DE MOVEIS LTDA",
+    "cnpj": "13800072000165",
+    "customerId": "685dbe49c8f21be1257d0939",
+    "linkId": "6a7e39c9bcb168fce389692f",
+    "sourceTaskId": "6a7e3811bc939138a3e2e1e7",
+    "sourceTaskName": "COMPROVANTE DE RENDIMENTO - VIA WHATSAPP",
+    "deptName": "Pessoal",
+    "responsibleId": "6a109a7068f46978705ac891",
+    "responsibleName": "Kamilly Vitoria",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "69b47051bba3e87a1f7c5b40"
+    ],
+    "documentNames": [
+      "COMPROVANTE DE RENDIMENTOS"
+    ],
+    "enviaCliente": "documentos=1; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "COMPROVANTE DE RENDIMENTO - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "607",
+    "empresa": "ALVES FRANCA COMERCIO DE MOVEIS LTDA",
+    "cnpj": "13800072000165",
+    "customerId": "685dbe49c8f21be1257d0939",
+    "linkId": "6a7e39cb1e8f47528c4388e7",
+    "sourceTaskId": "6a7e38241e8f47528c435359",
+    "sourceTaskName": "CONSULTAR EXTRATOR DIRF - VIA WHATSAPP",
+    "deptName": "Pessoal",
+    "responsibleId": "6a109a7068f46978705ac891",
+    "responsibleName": "Kamilly Vitoria",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "60b61ebf1da68300063234be"
+    ],
+    "documentNames": [
+      "DIRF Recibo"
+    ],
+    "enviaCliente": "documentos=1; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "CONSULTAR EXTRATOR DIRF - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "607",
+    "empresa": "ALVES FRANCA COMERCIO DE MOVEIS LTDA",
+    "cnpj": "13800072000165",
+    "customerId": "685dbe49c8f21be1257d0939",
+    "linkId": "69a1f1b7a54ef61d44a19f1c",
+    "sourceTaskId": "63bac7ed2b882f0007f162b0",
+    "sourceTaskName": "CONSULTAR FAP",
+    "deptName": "Pessoal",
+    "responsibleId": "6a109a7068f46978705ac891",
+    "responsibleName": "Kamilly Vitoria",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [],
+    "documentNames": [],
+    "enviaCliente": "não envia (interno)",
+    "action": "keep",
+    "targetTaskName": "CONSULTAR FAP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "607",
+    "empresa": "ALVES FRANCA COMERCIO DE MOVEIS LTDA",
+    "cnpj": "13800072000165",
+    "customerId": "685dbe49c8f21be1257d0939",
+    "linkId": "6a7e39cc9dde0d499e583b09",
+    "sourceTaskId": "69efd4267b7bdd6de31db06b",
+    "sourceTaskName": "DARF PIS/COFINS (CUMULATIVO) - VIA WHATSAPP",
+    "deptName": "Fiscal",
+    "responsibleId": "6838c45b83472ab9ce1ff0b4",
+    "responsibleName": "Maria Tatiane dos Santos",
+    "approvers": [],
+    "approveType": [
+      "DONE",
+      "DISCONSIDERED"
+    ],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "67e2d13e8c6479f9fd2d4678"
+    ],
+    "documentNames": [
+      "DARF DCTF-WEB PIS/COFINS CUMULATIVO"
+    ],
+    "enviaCliente": "documentos=1; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "DARF PIS/COFINS (CUMULATIVO) - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "607",
+    "empresa": "ALVES FRANCA COMERCIO DE MOVEIS LTDA",
+    "cnpj": "13800072000165",
+    "customerId": "685dbe49c8f21be1257d0939",
+    "linkId": "6a7e39fe690fac807b4672d8",
+    "sourceTaskId": "6981fa22732b0b36c5d2d26d",
+    "sourceTaskName": "DCTFWEB - MIT - VIA WHATSAPP",
+    "deptName": "Fiscal",
+    "responsibleId": "6838c45b83472ab9ce1ff0b4",
+    "responsibleName": "Maria Tatiane dos Santos",
+    "approvers": [],
+    "approveType": [
+      "DONE",
+      "DISCONSIDERED"
+    ],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "60b61ebf1da68300063234b8"
+    ],
+    "documentNames": [
+      "RECIBO DCTF-WEB"
+    ],
+    "enviaCliente": "documentos=1; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "DCTFWEB - MIT - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "607",
+    "empresa": "ALVES FRANCA COMERCIO DE MOVEIS LTDA",
+    "cnpj": "13800072000165",
+    "customerId": "685dbe49c8f21be1257d0939",
+    "linkId": "6a7e3a00bc939138a3e335ef",
+    "sourceTaskId": "6841e2ebd66cc2c040cfc9ab",
+    "sourceTaskName": "DCTFWEB - SETOR PESSOAL - VIA WHATSAPP",
+    "deptName": "Pessoal",
+    "responsibleId": "6a109a7068f46978705ac891",
+    "responsibleName": "Kamilly Vitoria",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": true,
+    "notifyWhatsapp": false,
+    "documents": [
+      "62ea6a2d3003270007ccea26"
+    ],
+    "documentNames": [
+      "DARF DCTFWEB"
+    ],
+    "enviaCliente": "notify_customer; documentos=1; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "DCTFWEB - SETOR PESSOAL - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "607",
+    "empresa": "ALVES FRANCA COMERCIO DE MOVEIS LTDA",
+    "cnpj": "13800072000165",
+    "customerId": "685dbe49c8f21be1257d0939",
+    "linkId": "6a7e3a0157fa3b0c4a2b2535",
+    "sourceTaskId": "6a7e3844bcb168fce3892fb9",
+    "sourceTaskName": "ECF - ESCRITURAÇÃO CONTÁBIL FISCAL - VIA WHATSAPP",
+    "deptName": "Contábil",
+    "responsibleId": "60b623355e12720006df2ef7",
+    "responsibleName": "Thais Dantas Santos",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "60b61ebf1da68300063234cd"
+    ],
+    "documentNames": [
+      "ECF - Recibo de Entrega"
+    ],
+    "enviaCliente": "documentos=1; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "ECF - ESCRITURAÇÃO CONTÁBIL FISCAL - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "607",
+    "empresa": "ALVES FRANCA COMERCIO DE MOVEIS LTDA",
+    "cnpj": "13800072000165",
+    "customerId": "685dbe49c8f21be1257d0939",
+    "linkId": "6a7e3a03bc939138a3e3362f",
+    "sourceTaskId": "6981fa52054baaee1f2ee48d",
+    "sourceTaskName": "EFD CONTRIBUIÇÕES - VIA WHATSAPP",
+    "deptName": "Fiscal",
+    "responsibleId": "6838c45b83472ab9ce1ff0b4",
+    "responsibleName": "Maria Tatiane dos Santos",
+    "approvers": [],
+    "approveType": [
+      "DONE",
+      "DISCONSIDERED"
+    ],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "60b61ebf1da68300063234ce"
+    ],
+    "documentNames": [
+      "EFD Recibo"
+    ],
+    "enviaCliente": "documentos=1; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "EFD CONTRIBUIÇÕES - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "607",
+    "empresa": "ALVES FRANCA COMERCIO DE MOVEIS LTDA",
+    "cnpj": "13800072000165",
+    "customerId": "685dbe49c8f21be1257d0939",
+    "linkId": "6a7e3a0414938c09fc4e78e2",
+    "sourceTaskId": "6a7e384d1e8f47528c436c17",
+    "sourceTaskName": "EFD ICMS IPI - NORMAL (SERGIPE) - VIA WHATSAPP",
+    "deptName": "Fiscal",
+    "responsibleId": "6838c45b83472ab9ce1ff0b4",
+    "responsibleName": "Maria Tatiane dos Santos",
+    "approvers": [],
+    "approveType": [
+      "DONE",
+      "DISCONSIDERED"
+    ],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "60b61ebf1da6830006323514"
+    ],
+    "documentNames": [
+      "RECIBO SPED FISCAL"
+    ],
+    "enviaCliente": "documentos=1; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "EFD ICMS IPI - NORMAL (SERGIPE) - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "607",
+    "empresa": "ALVES FRANCA COMERCIO DE MOVEIS LTDA",
+    "cnpj": "13800072000165",
+    "customerId": "685dbe49c8f21be1257d0939",
+    "linkId": "6a7e3a069dde0d499e583c35",
+    "sourceTaskId": "6a4e9c30e52cb6fae6796fc7",
+    "sourceTaskName": "FGTS DIGITAL - VIA WHATSAPP",
+    "deptName": "Pessoal",
+    "responsibleId": "6a109a7068f46978705ac891",
+    "responsibleName": "Kamilly Vitoria",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "661937f491848b0007588a74"
+    ],
+    "documentNames": [
+      "FGTS DIGITAL"
+    ],
+    "enviaCliente": "documentos=1; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "FGTS DIGITAL - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "607",
+    "empresa": "ALVES FRANCA COMERCIO DE MOVEIS LTDA",
+    "cnpj": "13800072000165",
+    "customerId": "685dbe49c8f21be1257d0939",
+    "linkId": "6a7e3a08bcb168fce3896ad6",
+    "sourceTaskId": "6a4e9b50def200ff5f4b0ed5",
+    "sourceTaskName": "FGTS DIGITAL CONSIGNADO - VIA WHATSAPP",
+    "deptName": "Pessoal",
+    "responsibleId": "6a109a7068f46978705ac891",
+    "responsibleName": "Kamilly Vitoria",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "69b3170eb11ae896c371a61d"
+    ],
+    "documentNames": [
+      "FGTS DIGITAL CONSIGNADO"
+    ],
+    "enviaCliente": "documentos=1; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "FGTS DIGITAL CONSIGNADO - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "607",
+    "empresa": "ALVES FRANCA COMERCIO DE MOVEIS LTDA",
+    "cnpj": "13800072000165",
+    "customerId": "685dbe49c8f21be1257d0939",
+    "linkId": "6a7e3a09690fac807b46735e",
+    "sourceTaskId": "6a7e385157fa3b0c4a2afdec",
+    "sourceTaskName": "FOLHA (ADIANTAMENTO 40%) - 2 - VIA WHATSAPP",
+    "deptName": "Pessoal",
+    "responsibleId": "6a109a7068f46978705ac891",
+    "responsibleName": "Kamilly Vitoria",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "69b315e1e97c1c94e265a67e"
+    ],
+    "documentNames": [
+      "ADIANTAMENTO SALARIALL"
+    ],
+    "enviaCliente": "documentos=1; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "FOLHA (ADIANTAMENTO 40%) - 2 - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "607",
+    "empresa": "ALVES FRANCA COMERCIO DE MOVEIS LTDA",
+    "cnpj": "13800072000165",
+    "customerId": "685dbe49c8f21be1257d0939",
+    "linkId": "6a7e3a0a1870a688225dcb49",
+    "sourceTaskId": "6a7e3858bcb168fce3893a23",
+    "sourceTaskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1 - VIA WHATSAPP",
+    "deptName": "Pessoal",
+    "responsibleId": "6a109a7068f46978705ac891",
+    "responsibleName": "Kamilly Vitoria",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "62224b4dffbc960006c33f8e",
+      "62224bfef169d60006d1cb30",
+      "60b61ebf1da68300063234fb",
+      "60b61ebf1da6830006323511"
+    ],
+    "documentNames": [
+      "Extrato da Folha",
+      "Relatorio Liquidos",
+      "Recibo de Pagamento",
+      "Resumo da Folha de Pagamento"
+    ],
+    "enviaCliente": "documentos=4; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1 - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "607",
+    "empresa": "ALVES FRANCA COMERCIO DE MOVEIS LTDA",
+    "cnpj": "13800072000165",
+    "customerId": "685dbe49c8f21be1257d0939",
+    "linkId": "6a7e3a0c1e8f47528c438a7b",
+    "sourceTaskId": "6a7e3868bcb168fce3894502",
+    "sourceTaskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 2 - VIA WHATSAPP",
+    "deptName": "Pessoal",
+    "responsibleId": "6a109a7068f46978705ac891",
+    "responsibleName": "Kamilly Vitoria",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "60b61ebf1da6830006323511",
+      "60b61ebf1da68300063234fb",
+      "62224bfef169d60006d1cb30",
+      "62224b4dffbc960006c33f8e"
+    ],
+    "documentNames": [
+      "Resumo da Folha de Pagamento",
+      "Recibo de Pagamento",
+      "Relatorio Liquidos",
+      "Extrato da Folha"
+    ],
+    "enviaCliente": "documentos=4; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 2 - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "607",
+    "empresa": "ALVES FRANCA COMERCIO DE MOVEIS LTDA",
+    "cnpj": "13800072000165",
+    "customerId": "685dbe49c8f21be1257d0939",
+    "linkId": "6a7e3a0dc79c478535383688",
+    "sourceTaskId": "6a7e387881133249f88e61a4",
+    "sourceTaskName": "GUIA DIFERENCIAL DE ALÍQUOTAS (SERGIPE) - VIA WHATSAPP",
+    "deptName": "Fiscal",
+    "responsibleId": "6838c45b83472ab9ce1ff0b4",
+    "responsibleName": "Maria Tatiane dos Santos",
+    "approvers": [],
+    "approveType": [
+      "DONE",
+      "DISCONSIDERED"
+    ],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "60b61ebf1da68300063234e5",
+      "647b5321bb59890007125d1b",
+      "69a9ba51560d91dca2e90ef5"
+    ],
+    "documentNames": [
+      "DAE ICMS DIFERENCIAL ALIQUOTA SERGIPE (USO E CONSUMO)",
+      "DAE ICMS FECOMP SERGIPE",
+      "DAE ICMS DIFERENCIAL ALIQUOTA SERGIPE (IMOBILIZADO)"
+    ],
+    "enviaCliente": "documentos=3; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "GUIA DIFERENCIAL DE ALÍQUOTAS (SERGIPE) - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "607",
+    "empresa": "ALVES FRANCA COMERCIO DE MOVEIS LTDA",
+    "cnpj": "13800072000165",
+    "customerId": "685dbe49c8f21be1257d0939",
+    "linkId": "6a7e3a0f9dde0d499e583cc2",
+    "sourceTaskId": "6981fac14bfd71d5b41eb3d9",
+    "sourceTaskName": "GUIA IR E CSLL - LUCRO PRESUMIDO (TRIMESTRAL) - VIA WHATSAPP",
+    "deptName": "Fiscal",
+    "responsibleId": "6838c45b83472ab9ce1ff0b4",
+    "responsibleName": "Maria Tatiane dos Santos",
+    "approvers": [],
+    "approveType": [
+      "DONE",
+      "DISCONSIDERED"
+    ],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "67e2d99e0092fd62cb327b5e"
+    ],
+    "documentNames": [
+      "DARF DCTF-WEB IRPJ/CSLL PRESUMIDO"
+    ],
+    "enviaCliente": "documentos=1; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "GUIA IR E CSLL - LUCRO PRESUMIDO (TRIMESTRAL) - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "607",
+    "empresa": "ALVES FRANCA COMERCIO DE MOVEIS LTDA",
+    "cnpj": "13800072000165",
+    "customerId": "685dbe49c8f21be1257d0939",
+    "linkId": "6a7e3a109dde0d499e583cdc",
+    "sourceTaskId": "6a7e387d1870a688225da17a",
+    "sourceTaskName": "ICMS ANTECIPADO - NORMAL (SERGIPE) - VIA WHATSAPP",
+    "deptName": "Fiscal",
+    "responsibleId": "6838c45b83472ab9ce1ff0b4",
+    "responsibleName": "Maria Tatiane dos Santos",
+    "approvers": [],
+    "approveType": [
+      "DONE",
+      "DISCONSIDERED"
+    ],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "60cc8262798d2c00060c20c8",
+      "6493662d02f4920006e662f1",
+      "64948f83e133f400073bbc6a",
+      "6a5fab452bbc1bbf023ba3b3",
+      "6a5fac04e97e705233d136e4"
+    ],
+    "documentNames": [
+      "DAE ICMS ANTECIPADO",
+      "FCP ANTECIPADO",
+      "FCP COMPLEMENTAÇÂO",
+      "MAPA ANTECIPADO - SEM INTEGRAÇÃO",
+      "MEMÓRIA DE CALCULO ANTECIPADO"
+    ],
+    "enviaCliente": "documentos=5; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "ICMS ANTECIPADO - NORMAL (SERGIPE) - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "607",
+    "empresa": "ALVES FRANCA COMERCIO DE MOVEIS LTDA",
+    "cnpj": "13800072000165",
+    "customerId": "685dbe49c8f21be1257d0939",
+    "linkId": "6a7e3a1214938c09fc4e795c",
+    "sourceTaskId": "6a7e38821870a688225da244",
+    "sourceTaskName": "ICMS NORMAL (SERGIPE) - VIA WHATSAPP",
+    "deptName": "Fiscal",
+    "responsibleId": "6838c45b83472ab9ce1ff0b4",
+    "responsibleName": "Maria Tatiane dos Santos",
+    "approvers": [],
+    "approveType": [
+      "DONE",
+      "DISCONSIDERED"
+    ],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "60b61ebf1da68300063234e7",
+      "647b5321bb59890007125d1b"
+    ],
+    "documentNames": [
+      "DAE ICMS SERGIPE",
+      "DAE ICMS FECOMP SERGIPE"
+    ],
+    "enviaCliente": "documentos=2; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "ICMS NORMAL (SERGIPE) - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "607",
+    "empresa": "ALVES FRANCA COMERCIO DE MOVEIS LTDA",
+    "cnpj": "13800072000165",
+    "customerId": "685dbe49c8f21be1257d0939",
+    "linkId": "6a7e3a13bc939138a3e336d2",
+    "sourceTaskId": "6a7e3889bc939138a3e30e8a",
+    "sourceTaskName": "INCLUSÃO NOTAS AGÍL SEFAZ ( LUCRO REL / PRESUMIDO ) - VIA WHATSAPP",
+    "deptName": "Fiscal",
+    "responsibleId": "6838c45b83472ab9ce1ff0b4",
+    "responsibleName": "Maria Tatiane dos Santos",
+    "approvers": [],
+    "approveType": [
+      "DONE",
+      "DISCONSIDERED"
+    ],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "6834ae6de7c9be39dfb2ca7a",
+      "6834c802843886a7ce75092c"
+    ],
+    "documentNames": [
+      "COMPROVAÇÃO NOTA VINCULADA SEFAZ - RELATÓRIO",
+      "COMPROVAÇÃO NOTA VÍNCULADA SEFAZ - SISTEMA"
+    ],
+    "enviaCliente": "documentos=2; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "INCLUSÃO NOTAS AGÍL SEFAZ ( LUCRO REL / PRESUMIDO ) - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "607",
+    "empresa": "ALVES FRANCA COMERCIO DE MOVEIS LTDA",
+    "cnpj": "13800072000165",
+    "customerId": "685dbe49c8f21be1257d0939",
+    "linkId": "6a7e3a15bc939138a3e336ed",
+    "sourceTaskId": "6981fb214bfd71d5b41ec2dd",
+    "sourceTaskName": "IRPJ e CSLL EM COTAS - VIA WHATSAPP",
+    "deptName": "Fiscal",
+    "responsibleId": "69ac61580daa2217ee2a926e",
+    "responsibleName": "Larissa Souza Porto",
+    "approvers": [],
+    "approveType": [
+      "DONE",
+      "DISCONSIDERED"
+    ],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "68829ce905813da4c4661c68"
+    ],
+    "documentNames": [
+      "COTA IRPJ E CSLL"
+    ],
+    "enviaCliente": "documentos=1; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "IRPJ e CSLL EM COTAS - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "607",
+    "empresa": "ALVES FRANCA COMERCIO DE MOVEIS LTDA",
+    "cnpj": "13800072000165",
+    "customerId": "685dbe49c8f21be1257d0939",
+    "linkId": "688cad3556297155c49dae67",
+    "sourceTaskId": "67e54ca10a7bd787b45f9751",
+    "sourceTaskName": "LIGAÇÃO AO CLIENTE - ACOMPANHAMENTO CS",
+    "deptName": "Administrativo",
+    "responsibleId": "62c6c74f8d10c800075536ff",
+    "responsibleName": "Amanda Xavier",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [],
+    "documentNames": [],
+    "enviaCliente": "checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "LIGAÇÃO AO CLIENTE - ACOMPANHAMENTO CS",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "607",
+    "empresa": "ALVES FRANCA COMERCIO DE MOVEIS LTDA",
+    "cnpj": "13800072000165",
+    "customerId": "685dbe49c8f21be1257d0939",
+    "linkId": "6a7e3a16bcb168fce3896bd0",
+    "sourceTaskId": "6a7e388fc79c47853537c560",
+    "sourceTaskName": "PLR - PARTICIPAÇÃO NOS LUCROS - VIA WHATSAPP",
+    "deptName": "Pessoal",
+    "responsibleId": "6a109a7068f46978705ac891",
+    "responsibleName": "Kamilly Vitoria",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "60b61ebf1da68300063234fa"
+    ],
+    "documentNames": [
+      "Recibo PLR"
+    ],
+    "enviaCliente": "documentos=1; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "PLR - PARTICIPAÇÃO NOS LUCROS - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "607",
+    "empresa": "ALVES FRANCA COMERCIO DE MOVEIS LTDA",
+    "cnpj": "13800072000165",
+    "customerId": "685dbe49c8f21be1257d0939",
+    "linkId": "6a7e3a1714938c09fc4e7987",
+    "sourceTaskId": "6981fb88fef65bf1cf03cc00",
+    "sourceTaskName": "REINF - SETOR FISCAL NORMAL - VIA WHATSAPP",
+    "deptName": "Fiscal",
+    "responsibleId": "6838c45b83472ab9ce1ff0b4",
+    "responsibleName": "Maria Tatiane dos Santos",
+    "approvers": [],
+    "approveType": [
+      "DONE",
+      "DISCONSIDERED"
+    ],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "66709c3ef3f4310007995bc9"
+    ],
+    "documentNames": [
+      "GUIA DCTFWEB"
+    ],
+    "enviaCliente": "documentos=1; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "REINF - SETOR FISCAL NORMAL - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "607",
+    "empresa": "ALVES FRANCA COMERCIO DE MOVEIS LTDA",
+    "cnpj": "13800072000165",
+    "customerId": "685dbe49c8f21be1257d0939",
+    "linkId": "6a7e3a1981133249f88e860a",
+    "sourceTaskId": "6a7e38a29dde0d499e5832e0",
+    "sourceTaskName": "VERIFICAÇÃO DE PENDENCIA FGTS - VIA WHATSAPP",
+    "deptName": "Pessoal",
+    "responsibleId": "6a109a7068f46978705ac891",
+    "responsibleName": "Kamilly Vitoria",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [],
+    "documentNames": [],
+    "enviaCliente": "checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "VERIFICAÇÃO DE PENDENCIA FGTS - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "607",
+    "empresa": "ALVES FRANCA COMERCIO DE MOVEIS LTDA",
+    "cnpj": "13800072000165",
+    "customerId": "685dbe49c8f21be1257d0939",
+    "linkId": "6a7e3a1a9dde0d499e583d83",
+    "sourceTaskId": "6a7e38a6690fac807b46646f",
+    "sourceTaskName": "VERIFICAR PENDENCIAS - RECEITA FEDERAL (DP) - VIA WHATSAPP",
+    "deptName": "Pessoal",
+    "responsibleId": "6a109a7068f46978705ac891",
+    "responsibleName": "Kamilly Vitoria",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [],
+    "documentNames": [],
+    "enviaCliente": "checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "VERIFICAR PENDENCIAS - RECEITA FEDERAL (DP) - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "607",
+    "empresa": "ALVES FRANCA COMERCIO DE MOVEIS LTDA",
+    "cnpj": "13800072000165",
+    "customerId": "685dbe49c8f21be1257d0939",
+    "linkId": "6a7e3a1cc79c478535383794",
+    "sourceTaskId": "6a7e38c41870a688225dc05a",
+    "sourceTaskName": "VERIFICAR PENDÊNCIAS SEFAZ/RECEITA FEDERAL (NORMAL) - VIA WHATSAPP",
+    "deptName": "Fiscal",
+    "responsibleId": "6838c45b83472ab9ce1ff0b4",
+    "responsibleName": "Maria Tatiane dos Santos",
+    "approvers": [],
+    "approveType": [
+      "DONE",
+      "DISCONSIDERED"
+    ],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "67be2c613eb87add3177c2de",
+      "67be2cbbfad57d6fefd2f1b6"
+    ],
+    "documentNames": [
+      "PENDÊNCIA SEFAZ",
+      "SITUAÇÃO FISCAL RECEITA FEDERAL"
+    ],
+    "enviaCliente": "documentos=2; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "VERIFICAR PENDÊNCIAS SEFAZ/RECEITA FEDERAL (NORMAL) - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "630",
+    "empresa": "MMM UTILIDADES DO LAR LTDA",
+    "cnpj": "05230649000201",
+    "customerId": "68a8713aa0c854a40985238e",
+    "linkId": "69617f17ecd47cbe96d40a86",
+    "sourceTaskId": "6961362d8e1a570ed10e8bcf",
+    "sourceTaskName": "ANÁLISE DE EMPRESA SEM MOVIMENTO - DP",
+    "deptName": "Pessoal",
+    "responsibleId": "60da0e2fe03dfd000742f690",
+    "responsibleName": "Tasso Nata Ramos de Jesus",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [],
+    "documentNames": [],
+    "enviaCliente": "não envia (interno)",
+    "action": "keep",
+    "targetTaskName": "ANÁLISE DE EMPRESA SEM MOVIMENTO - DP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "630",
+    "empresa": "MMM UTILIDADES DO LAR LTDA",
+    "cnpj": "05230649000201",
+    "customerId": "68a8713aa0c854a40985238e",
+    "linkId": "6a7e3a1dc79c4785353837b3",
+    "sourceTaskId": "6a7e38241e8f47528c435359",
+    "sourceTaskName": "CONSULTAR EXTRATOR DIRF - VIA WHATSAPP",
+    "deptName": "Pessoal",
+    "responsibleId": "60da0e2fe03dfd000742f690",
+    "responsibleName": "Tasso Nata Ramos de Jesus",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "60b61ebf1da68300063234be"
+    ],
+    "documentNames": [
+      "DIRF Recibo"
+    ],
+    "enviaCliente": "documentos=1; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "CONSULTAR EXTRATOR DIRF - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "630",
+    "empresa": "MMM UTILIDADES DO LAR LTDA",
+    "cnpj": "05230649000201",
+    "customerId": "68a8713aa0c854a40985238e",
+    "linkId": "6a7e3a1fbcb168fce3896c36",
+    "sourceTaskId": "6981fa22732b0b36c5d2d26d",
+    "sourceTaskName": "DCTFWEB - MIT - VIA WHATSAPP",
+    "deptName": "Fiscal",
+    "responsibleId": "67782a6fb33c1429c0a31516",
+    "responsibleName": "Vinni Fontes",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "60b61ebf1da68300063234b8"
+    ],
+    "documentNames": [
+      "RECIBO DCTF-WEB"
+    ],
+    "enviaCliente": "documentos=1; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "DCTFWEB - MIT - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "630",
+    "empresa": "MMM UTILIDADES DO LAR LTDA",
+    "cnpj": "05230649000201",
+    "customerId": "68a8713aa0c854a40985238e",
+    "linkId": "6a7e3a209dde0d499e583de2",
+    "sourceTaskId": "6a7e384d1e8f47528c436c17",
+    "sourceTaskName": "EFD ICMS IPI - NORMAL (SERGIPE) - VIA WHATSAPP",
+    "deptName": "Fiscal",
+    "responsibleId": "67782a6fb33c1429c0a31516",
+    "responsibleName": "Vinni Fontes",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "60b61ebf1da6830006323514"
+    ],
+    "documentNames": [
+      "RECIBO SPED FISCAL"
+    ],
+    "enviaCliente": "documentos=1; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "EFD ICMS IPI - NORMAL (SERGIPE) - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "630",
+    "empresa": "MMM UTILIDADES DO LAR LTDA",
+    "cnpj": "05230649000201",
+    "customerId": "68a8713aa0c854a40985238e",
+    "linkId": "6a7e3a221e8f47528c438b44",
+    "sourceTaskId": "6a7e387881133249f88e61a4",
+    "sourceTaskName": "GUIA DIFERENCIAL DE ALÍQUOTAS (SERGIPE) - VIA WHATSAPP",
+    "deptName": "Fiscal",
+    "responsibleId": "67782a6fb33c1429c0a31516",
+    "responsibleName": "Vinni Fontes",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "60b61ebf1da68300063234e5",
+      "647b5321bb59890007125d1b",
+      "69a9ba51560d91dca2e90ef5"
+    ],
+    "documentNames": [
+      "DAE ICMS DIFERENCIAL ALIQUOTA SERGIPE (USO E CONSUMO)",
+      "DAE ICMS FECOMP SERGIPE",
+      "DAE ICMS DIFERENCIAL ALIQUOTA SERGIPE (IMOBILIZADO)"
+    ],
+    "enviaCliente": "documentos=3; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "GUIA DIFERENCIAL DE ALÍQUOTAS (SERGIPE) - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "630",
+    "empresa": "MMM UTILIDADES DO LAR LTDA",
+    "cnpj": "05230649000201",
+    "customerId": "68a8713aa0c854a40985238e",
+    "linkId": "6a7e3a23bc939138a3e337a4",
+    "sourceTaskId": "6a7e387d1870a688225da17a",
+    "sourceTaskName": "ICMS ANTECIPADO - NORMAL (SERGIPE) - VIA WHATSAPP",
+    "deptName": "Fiscal",
+    "responsibleId": "67782a6fb33c1429c0a31516",
+    "responsibleName": "Vinni Fontes",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "60cc8262798d2c00060c20c8",
+      "6493662d02f4920006e662f1",
+      "64948f83e133f400073bbc6a",
+      "6a5fab452bbc1bbf023ba3b3",
+      "6a5fac04e97e705233d136e4"
+    ],
+    "documentNames": [
+      "DAE ICMS ANTECIPADO",
+      "FCP ANTECIPADO",
+      "FCP COMPLEMENTAÇÂO",
+      "MAPA ANTECIPADO - SEM INTEGRAÇÃO",
+      "MEMÓRIA DE CALCULO ANTECIPADO"
+    ],
+    "enviaCliente": "documentos=5; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "ICMS ANTECIPADO - NORMAL (SERGIPE) - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "630",
+    "empresa": "MMM UTILIDADES DO LAR LTDA",
+    "cnpj": "05230649000201",
+    "customerId": "68a8713aa0c854a40985238e",
+    "linkId": "6a7e3a251e8f47528c438bbf",
+    "sourceTaskId": "6a7e38821870a688225da244",
+    "sourceTaskName": "ICMS NORMAL (SERGIPE) - VIA WHATSAPP",
+    "deptName": "Fiscal",
+    "responsibleId": "67782a6fb33c1429c0a31516",
+    "responsibleName": "Vinni Fontes",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "60b61ebf1da68300063234e7",
+      "647b5321bb59890007125d1b"
+    ],
+    "documentNames": [
+      "DAE ICMS SERGIPE",
+      "DAE ICMS FECOMP SERGIPE"
+    ],
+    "enviaCliente": "documentos=2; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "ICMS NORMAL (SERGIPE) - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "630",
+    "empresa": "MMM UTILIDADES DO LAR LTDA",
+    "cnpj": "05230649000201",
+    "customerId": "68a8713aa0c854a40985238e",
+    "linkId": "6a7e3a26bc939138a3e337ca",
+    "sourceTaskId": "6a7e3889bc939138a3e30e8a",
+    "sourceTaskName": "INCLUSÃO NOTAS AGÍL SEFAZ ( LUCRO REL / PRESUMIDO ) - VIA WHATSAPP",
+    "deptName": "Fiscal",
+    "responsibleId": "67782a6fb33c1429c0a31516",
+    "responsibleName": "Vinni Fontes",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "6834ae6de7c9be39dfb2ca7a",
+      "6834c802843886a7ce75092c"
+    ],
+    "documentNames": [
+      "COMPROVAÇÃO NOTA VINCULADA SEFAZ - RELATÓRIO",
+      "COMPROVAÇÃO NOTA VÍNCULADA SEFAZ - SISTEMA"
+    ],
+    "enviaCliente": "documentos=2; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "INCLUSÃO NOTAS AGÍL SEFAZ ( LUCRO REL / PRESUMIDO ) - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "630",
+    "empresa": "MMM UTILIDADES DO LAR LTDA",
+    "cnpj": "05230649000201",
+    "customerId": "68a8713aa0c854a40985238e",
+    "linkId": "6a7e3a28bc939138a3e337e2",
+    "sourceTaskId": "6981fb214bfd71d5b41ec2dd",
+    "sourceTaskName": "IRPJ e CSLL EM COTAS - VIA WHATSAPP",
+    "deptName": "Fiscal",
+    "responsibleId": "69ac61580daa2217ee2a926e",
+    "responsibleName": "Larissa Souza Porto",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "68829ce905813da4c4661c68"
+    ],
+    "documentNames": [
+      "COTA IRPJ E CSLL"
+    ],
+    "enviaCliente": "documentos=1; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "IRPJ e CSLL EM COTAS - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "630",
+    "empresa": "MMM UTILIDADES DO LAR LTDA",
+    "cnpj": "05230649000201",
+    "customerId": "68a8713aa0c854a40985238e",
+    "linkId": "68a873646351d5a4954e60dc",
+    "sourceTaskId": "67e54ca10a7bd787b45f9751",
+    "sourceTaskName": "LIGAÇÃO AO CLIENTE - ACOMPANHAMENTO CS",
+    "deptName": "Administrativo",
+    "responsibleId": "62c6c74f8d10c800075536ff",
+    "responsibleName": "Amanda Xavier",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [],
+    "documentNames": [],
+    "enviaCliente": "checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "LIGAÇÃO AO CLIENTE - ACOMPANHAMENTO CS",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "630",
+    "empresa": "MMM UTILIDADES DO LAR LTDA",
+    "cnpj": "05230649000201",
+    "customerId": "68a8713aa0c854a40985238e",
+    "linkId": "6a7e3a299dde0d499e583e64",
+    "sourceTaskId": "6a7e388fc79c47853537c560",
+    "sourceTaskName": "PLR - PARTICIPAÇÃO NOS LUCROS - VIA WHATSAPP",
+    "deptName": "Pessoal",
+    "responsibleId": "60da0e2fe03dfd000742f690",
+    "responsibleName": "Tasso Nata Ramos de Jesus",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "60b61ebf1da68300063234fa"
+    ],
+    "documentNames": [
+      "Recibo PLR"
+    ],
+    "enviaCliente": "documentos=1; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "PLR - PARTICIPAÇÃO NOS LUCROS - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "630",
+    "empresa": "MMM UTILIDADES DO LAR LTDA",
+    "cnpj": "05230649000201",
+    "customerId": "68a8713aa0c854a40985238e",
+    "linkId": "6a7e3a2cc79c4785353838ce",
+    "sourceTaskId": "6981fb88fef65bf1cf03cc00",
+    "sourceTaskName": "REINF - SETOR FISCAL NORMAL - VIA WHATSAPP",
+    "deptName": "Fiscal",
+    "responsibleId": "67782a6fb33c1429c0a31516",
+    "responsibleName": "Vinni Fontes",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "66709c3ef3f4310007995bc9"
+    ],
+    "documentNames": [
+      "GUIA DCTFWEB"
+    ],
+    "enviaCliente": "documentos=1; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "REINF - SETOR FISCAL NORMAL - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "630",
+    "empresa": "MMM UTILIDADES DO LAR LTDA",
+    "cnpj": "05230649000201",
+    "customerId": "68a8713aa0c854a40985238e",
+    "linkId": "6a7e3a2d81133249f88e86a6",
+    "sourceTaskId": "6a7e38a6690fac807b46646f",
+    "sourceTaskName": "VERIFICAR PENDENCIAS - RECEITA FEDERAL (DP) - VIA WHATSAPP",
+    "deptName": "Pessoal",
+    "responsibleId": "60da0e2fe03dfd000742f690",
+    "responsibleName": "Tasso Nata Ramos de Jesus",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [],
+    "documentNames": [],
+    "enviaCliente": "checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "VERIFICAR PENDENCIAS - RECEITA FEDERAL (DP) - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  },
+  {
+    "code": "630",
+    "empresa": "MMM UTILIDADES DO LAR LTDA",
+    "cnpj": "05230649000201",
+    "customerId": "68a8713aa0c854a40985238e",
+    "linkId": "6a7e3a2fbcb168fce3896ccc",
+    "sourceTaskId": "6a7e38c41870a688225dc05a",
+    "sourceTaskName": "VERIFICAR PENDÊNCIAS SEFAZ/RECEITA FEDERAL (NORMAL) - VIA WHATSAPP",
+    "deptName": "Fiscal",
+    "responsibleId": "67782a6fb33c1429c0a31516",
+    "responsibleName": "Vinni Fontes",
+    "approvers": [],
+    "approveType": [],
+    "notifyCustomer": false,
+    "notifyWhatsapp": false,
+    "documents": [
+      "67be2c613eb87add3177c2de",
+      "67be2cbbfad57d6fefd2f1b6"
+    ],
+    "documentNames": [
+      "PENDÊNCIA SEFAZ",
+      "SITUAÇÃO FISCAL RECEITA FEDERAL"
+    ],
+    "enviaCliente": "documentos=2; checklist menciona envio/cliente",
+    "action": "keep",
+    "targetTaskName": "VERIFICAR PENDÊNCIAS SEFAZ/RECEITA FEDERAL (NORMAL) - VIA WHATSAPP",
+    "detail": "Tarefa interna / sem substituto WhatsApp"
+  }
+]

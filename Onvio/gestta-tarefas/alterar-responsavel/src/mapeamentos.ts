@@ -54,11 +54,23 @@ export async function buscarClientePorCnpj(
     cacheClientes = await listarClientes(client);
   }
 
-  return (
-    cacheClientes.find(
-      (c) => (c.cnpj || "").replace(/\D/g, "") === cnpjNorm
-    ) ?? null
+  const ativo = cacheClientes.find(
+    (c) => (c.cnpj || "").replace(/\D/g, "") === cnpjNorm
   );
+  if (ativo) return ativo;
+
+  const inativos = await listarClientes(client, cnpjNorm, false);
+  const inativo = inativos.find(
+    (c) => (c.cnpj || "").replace(/\D/g, "") === cnpjNorm
+  );
+  if (inativo) {
+    console.warn(
+      `[${cnpjNorm}] Cliente inativo no Gestta; tarefas fiscais ainda serao transferidas.`
+    );
+    return inativo;
+  }
+
+  return null;
 }
 
 /**

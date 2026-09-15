@@ -4,6 +4,8 @@ const email = document.getElementById("email");
 const password = document.getElementById("password");
 const saveCredentials = document.getElementById("saveCredentials");
 const cnpj = document.getElementById("cnpj");
+const companyInfo = document.getElementById("companyInfo");
+const companyInfoValue = document.getElementById("companyInfoValue");
 const uf = document.getElementById("uf");
 const regimeFiscal = document.getElementById("regimeFiscal");
 const incluirAnuais = document.getElementById("incluirAnuais");
@@ -37,25 +39,73 @@ const reportsPath = document.getElementById("reportsPath");
 const confirmModal = document.getElementById("confirmModal");
 const confirmApply = document.getElementById("confirmApply");
 const confirmCancel = document.getElementById("confirmCancel");
+const confirmCompanyName = document.getElementById("confirmCompanyName");
+const confirmCompanyCnpj = document.getElementById("confirmCompanyCnpj");
+const confirmTaskCount = document.getElementById("confirmTaskCount");
+const dpConfig = document.getElementById("dpConfig");
+const dpArea = document.querySelector('input[name="area"][value="dp"]');
+const dpFolhaGroup = document.getElementById("dpFolhaGroup");
 
 const state = {
   matrixReady: false,
   automationBusy: false,
   authenticated: false,
+  confirmationOpen: false,
+  company: null,
+  companyLookupVersion: 0,
 };
 
 function getInput() {
   const areas = [...document.querySelectorAll('input[name="area"]:checked')].map((item) => item.value);
+  const dpProfile = document.querySelector('input[name="dpProfile"]:checked')?.value;
+  const grupoFolha = document.querySelector('input[name="dpGroup"]:checked')?.value;
+  const dpAdditional = [...document.querySelectorAll('input[name="dpAdditional"]:checked')].map(
+    (item) => item.value,
+  );
   return {
     cnpj: cnpj.value,
     areas,
     regimeFiscal: regimeFiscal.value,
-    incluirAnuais: incluirAnuais.checked,
+    dp: areas.includes("dp") && dpProfile
+      ? {
+          perfil: dpProfile,
+          adicionais: dpAdditional,
+          grupoFolha: dpProfile === "normal" ? grupoFolha : undefined,
+        }
+      : undefined,
+    incluirAnuais: true,
     planoPremium: planoPremium.checked,
     supervisor: supervisor.checked,
     adicionarAnaliseParcelamentos: adicionarAnaliseParcelamentos.checked,
     uf: document.body.classList.contains("advanced") ? uf.value || undefined : undefined,
   };
+}
+
+function syncDpConfig() {
+  const enabled = Boolean(dpArea?.checked);
+  if (dpConfig) {
+    dpConfig.disabled = !enabled;
+    dpConfig.classList.toggle("disabled", !enabled);
+  }
+
+  const perfil = document.querySelector('input[name="dpProfile"]:checked')?.value;
+  const grupoFolhaHabilitado = enabled && perfil === "normal";
+  if (dpFolhaGroup) {
+    dpFolhaGroup.disabled = !grupoFolhaHabilitado;
+    dpFolhaGroup.classList.toggle("disabled", !grupoFolhaHabilitado);
+  }
+}
+
+function formatarCategoriaDp(categoria) {
+  const labels = {
+    normal: "Normal",
+    sem_movimento: "Sem movimento",
+    particularidade: "Particularidade",
+    normal_domestica: "Normal doméstica",
+    normal_mei: "Normal MEI",
+    exatas: "Exatas",
+  };
+  return labels[categoria] || "—";
 }
 
 function getRunOptions() {
@@ -84,6 +134,68 @@ function syncActionButtons() {
   loginButton.disabled = state.automationBusy;
   selectMatrix.disabled = state.automationBusy;
   resetMatrix.disabled = state.automationBusy || !resetMatrix.dataset.custom;
+  cnpj.disabled = state.automationBusy || state.confirmationOpen;
+}
+
+function normalizarCnpj(value) {
+  return String(value || "").replace(/\D/g, "");
+}
+
+function formatarCnpj(value) {
+  const digits = normalizarCnpj(value);
+  if (digits.length !== 14) return digits;
+  return `${digits.slice(0, 2)}.${digits.slice(2, 5)}.${digits.slice(5, 8)}/${digits.slice(8, 12)}-${digits.slice(12)}`;
+}
+
+function renderCompanyInfo(message, kind = "muted") {
+  companyInfoValue.textContent = message;
+  companyInfo.className = `company-info ${kind}`;
+}
+
+function clearCompanyInfo(message = "Informe o CNPJ para consultar a empresa.") {
+  state.company = null;
+  state.companyLookupVersion += 1;
+  renderCompanyInfo(message);
+}
+
+async function lookupCompany() {
+  const requestedCnpj = normalizarCnpj(cnpj.value);
+  if (requestedCnpj.length !== 14) {
+    state.company = null;
+    renderCompanyInfo("Informe um CNPJ com 14 digitos para consultar a empresa.", "error");
+    return null;
+  }
+  if (!state.authenticated) {
+    state.company = null;
+    renderCompanyInfo("Faca login para consultar a empresa no Gestta.", "error");
+    return null;
+  }
+
+  const version = ++state.companyLookupVersion;
+  state.company = null;
+  renderCompanyInfo("Consultando empresa no Gestta...");
+
+  let result;
+  try {
+    result = await api.lookupCompany(cnpj.value);
+  } catch (error) {
+    if (version !== state.companyLookupVersion || requestedCnpj !== normalizarCnpj(cnpj.value)) return null;
+    const message = error instanceof Error ? error.message : String(error);
+    renderCompanyInfo(message || "Nao foi possivel consultar a empresa no Gestta.", "error");
+    setStatus(message || "Falha ao consultar empresa.", true);
+    return null;
+  }
+  if (version !== state.companyLookupVersion || requestedCnpj !== normalizarCnpj(cnpj.value)) return null;
+
+  if (!result.ok) {
+    renderCompanyInfo(result.error || "Nao foi possivel consultar a empresa no Gestta.", "error");
+    setStatus(result.error || "Falha ao consultar empresa.", true);
+    return null;
+  }
+
+  state.company = result.company;
+  renderCompanyInfo(`${result.company.name} — ${formatarCnpj(result.company.cnpj)}`, "resolved");
+  return result.company;
 }
 
 function showStep(step) {
@@ -146,7 +258,7 @@ function renderPreview(preview) {
 
   for (const tarefa of preview.tarefas) {
     const tr = document.createElement("tr");
-    for (const value of [tarefa.aba, tarefa.tarefa, tarefa.responsavel]) {
+    for (const value of [tarefa.aba, formatarCategoriaDp(tarefa.categoriaDp), tarefa.tarefa, tarefa.responsavel]) {
       const td = document.createElement("td");
       td.textContent = value;
       tr.appendChild(td);
@@ -171,8 +283,14 @@ async function loadInitialState() {
 }
 
 async function calculatePreview() {
+  const input = getInput();
+  if (input.areas.includes("dp") && !input.dp) {
+    setStatus("Selecione o perfil do DP antes de calcular a previa.", true);
+    showStep("company");
+    return null;
+  }
   setStatus("Calculando previa...");
-  const result = await api.calculatePreview({ input: getInput() });
+  const result = await api.calculatePreview({ input });
   if (!result.ok) {
     setStatus(result.error, true);
     return null;
@@ -183,9 +301,14 @@ async function calculatePreview() {
   return result.preview;
 }
 
-function askApplyConfirmation() {
+function askApplyConfirmation(company, preview) {
+  confirmCompanyName.textContent = company.name;
+  confirmCompanyCnpj.textContent = `CNPJ: ${formatarCnpj(company.cnpj)}`;
+  confirmTaskCount.textContent = `${preview.tarefas.length} tarefa(s) da previa serao aplicadas.`;
   return new Promise((resolve) => {
     const cleanup = () => {
+      state.confirmationOpen = false;
+      syncActionButtons();
       confirmModal.classList.add("hidden");
       confirmApply.removeEventListener("click", onApply);
       confirmCancel.removeEventListener("click", onCancel);
@@ -200,19 +323,28 @@ function askApplyConfirmation() {
     };
     confirmApply.addEventListener("click", onApply);
     confirmCancel.addEventListener("click", onCancel);
+    state.confirmationOpen = true;
+    syncActionButtons();
     confirmModal.classList.remove("hidden");
     confirmCancel.focus();
   });
 }
 
 async function runAutomation(mode) {
+  const company = await lookupCompany();
+  if (!company) return;
+
   const preview = await calculatePreview();
   if (!preview) return;
 
   if (mode === "apply") {
-    const confirmed = await askApplyConfirmation();
+    const confirmed = await askApplyConfirmation(company, preview);
     if (!confirmed) {
       setStatus("Aplicacao cancelada.");
+      return;
+    }
+    if (normalizarCnpj(cnpj.value) !== company.cnpj) {
+      setStatus("O CNPJ foi alterado. Consulte a empresa novamente antes de aplicar.", true);
       return;
     }
   }
@@ -238,6 +370,23 @@ document.querySelectorAll(".step-link").forEach((button) => {
 
 document.querySelectorAll('input[name="uiMode"]').forEach((input) => {
   input.addEventListener("change", () => setMode(input.value));
+});
+
+document.querySelectorAll('input[name="area"]').forEach((input) => {
+  input.addEventListener("change", syncDpConfig);
+});
+
+document.querySelectorAll('input[name="dpProfile"]').forEach((input) => {
+  input.addEventListener("change", syncDpConfig);
+});
+
+cnpj.addEventListener("input", () => {
+  clearCompanyInfo();
+});
+
+cnpj.addEventListener("blur", () => {
+  if (normalizarCnpj(cnpj.value).length === 0) return;
+  void lookupCompany();
 });
 
 previewButton.addEventListener("click", () => {
@@ -332,3 +481,5 @@ api.onAutomationDone((result) => {
 loadInitialState().catch((error) => {
   setStatus(error instanceof Error ? error.message : String(error), true);
 });
+
+syncDpConfig();

@@ -25,6 +25,20 @@ export interface RelatorioRollback {
   resultados: ResultadoRollbackItem[];
 }
 
+interface ResultadoAplicacaoFiscalLeitura {
+  aplicado?: boolean;
+  cnpj?: string;
+  empresa?: string;
+  customerId?: string;
+  groupCustomerId?: string;
+  tarefa?: string;
+  setor?: string;
+  responsavelAtualId?: string;
+  responsavelAtual?: string;
+  responsavelPlanejadoId?: string;
+  responsavelPlanejado?: string;
+}
+
 function getRelatoriosDir(): string {
   const configuredDir = process.env.GESTTA_RELATORIOS_DIR?.trim();
   if (configuredDir) return path.resolve(configuredDir);
@@ -39,7 +53,34 @@ function getCompanyUserId(companyUser: CompanyTaskItem["company_user"]): string 
 
 export function carregarRollbackItemsDoRelatorio(caminhoRelatorio: string): RollbackResponsavelItem[] {
   const raw = fs.readFileSync(caminhoRelatorio, "utf8");
-  const relatorio = JSON.parse(raw) as RelatorioExecucao;
+  const data = JSON.parse(raw) as unknown;
+  const fiscal = data as { tipo?: string; resultados?: ResultadoAplicacaoFiscalLeitura[] };
+
+  if (fiscal.tipo === "aplicacao-reatribuicao-fiscal-v1") {
+    const items = (fiscal.resultados ?? [])
+      .filter((resultado) => resultado.aplicado)
+      .flatMap((resultado): RollbackResponsavelItem[] => {
+        if (!resultado.customerId || !resultado.groupCustomerId || !resultado.responsavelPlanejadoId) return [];
+        return [{
+          cnpj: resultado.cnpj ?? "",
+          ...(resultado.empresa ? { empresa: resultado.empresa } : {}),
+          customerId: resultado.customerId,
+          groupCustomerId: resultado.groupCustomerId,
+          taskName: resultado.tarefa,
+          departmentName: resultado.setor,
+          previousCompanyUserId: resultado.responsavelAtualId,
+          previousCompanyUserName: resultado.responsavelAtual,
+          appliedCompanyUserId: resultado.responsavelPlanejadoId,
+          appliedCompanyUserName: resultado.responsavelPlanejado ?? resultado.responsavelPlanejadoId,
+        }];
+      });
+    if (items.length === 0) {
+      throw new Error("Relatorio fiscal nao possui alteracoes aplicadas reversiveis.");
+    }
+    return items;
+  }
+
+  const relatorio = data as RelatorioExecucao;
 
   const items = relatorio.resultados.flatMap((resultado) =>
     resultado.sucesso && Array.isArray(resultado.rollbackItems)

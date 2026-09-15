@@ -1,0 +1,39 @@
+Neste vídeo eu vou ensinar a você como você deverá fazer a execução dessa tarefa de um fluxo do bitrix e para o departamento pessoal ela avisa de conclusão de alteração de dp então quando chegar essa tarefa o que devemos fazer abaixo temos o checklist que trata -se verificar qual tipo de alteração foi feita no contrato social da empresa e se essa alteração afeta o dp esse é o primeiro objetivo dessa tarefa e como e onde você deverá fazer para executá -la abaixo você tem uma informação chamada itens de crm negócio e aqui tem o nome da empresa você deverá clicar 
+
+e ela vai abrir uma outra aba de informações porque trata -se de um fluxo 
+
+e abaixo você manuseando o mouse para baixo o objetivo que você deverá consultar 
+
+em todas as atividades que vierem desse o fluxo é qual o motivo da alteração contratual é isso você tem que olhar nesse caso aqui desse cliente diz troca de regime vai para o simples nacional uma troca de regime afeta o departamento pessoal sim então nós devemos fazer a segunda opção que é alterar as informações no sistema parametrizar é outro passo do checklist se no motivo tivesse alteração alteração de atividade alteração de atividade alteração de sócio alteração de não de fantasia alteração de e -mail alteração de endereço nós não faríamos mais nenhum procedimento no sistema de parametrização porque porque não impacta na mudança da empresa em relação a folha de pagamento que é o objetivo de qualquer mudança de regime nós só temos como seguir o segundo processo do checklist que é esse aqui quando for alteração de regime quando for alteração de regime então vou pegar este exemplo agora e vou fazer na prática como deve fazer a parametrização em caso de alteração de regime então aqui nós já consultamos marco aqui e vamos abrir o sistema desse cliente o sistema que você deverá abrir é o nosso sistema domínio entrando com usuário e senha outro ponto importante gente que acabar esquecendo é o seguinte nesses casos aqui a exemplo desse desse esse cliente nosso ele é um meio geralmente meio é obrigatório início com cpf isso dificulta na hora do de pesquisar dentro da domínio então em alguns casos também para você ser mais prático você vem clica novamente né aqui perdão no índice de crm na empresa 
+
+e vem e dá uma olhadinha se tem as informações aqui nesse campo e coloque três opções de razão social e aqui tem drb digital então houve também uma mudança de nome da razão social então vamos lá para o sistema domínio então vamos lá para o sistema domínio então entrei com usuário e senha eu clico aqui no canto esquerdo é troca de empresas 
+
+clico ou por código caso já saiba ou apelido nesse caso vou pelo apelido e ele alterou para d rb digital código 703 clico em acessar 
+
+após estar no na empresa você clica acima do canto esquerdo no controle 
+
+abaixo você busca o nome parâmetros 
+
+após abrir a opção parâmetros essa empresa lá eu vou passar aqui nas opções que deverá ser alterado 
+
+em caso em caso de mudança então neste exemplo aqui ele era MEI e passou agora CC simples nacional já foi alterado aqui 
+
+em cálculo não se altera nada eu venho agora em regime vou até voltar aqui para esclarecer melhor então eu venho aqui em geral tá em classificação tributária faça alteração para atualidade venho agora acima em regime o que aqui era antes era é permanece ME porque ele é do simples BI também é do simples nacional e a opção de simples nacional tá aqui aí se enquadra tá certo 
+
+e essa execução que deve ser feito em mudanças de processos de alteração se fosse uma nova você clicaria aqui em nova vigência agora eu colocaria data a descrição do regime se simp nacional se o presumir do lucro real alteraria aqui esse é o normal ME ou EPP 
+
+e clica se ele é optante ou não optante eu vou escolher aqui a vigência 
+
+tá aí esse processo que deve ser feito em casos de alteração de 
+
+de regime tá são essas as opções que deverão ser feitas aqui também arquivo ele altera você clica em arquivo serviços e em caso de novo você clica na opção aqui ao lado direito nova vigência coloca a data da alteração descreve que você pode ser simples nacional pode colocar nova vigência tá vigência é dois traços sempre nacional e aí você vem em INSS é que você vai precisar saber e consultar as informações do FAP da empresa FEPAS perdão que tem um código e nesse caso do simples nacional as informações são essas aqui é o que altera só o FEPAS que vai de acordo com atividade empresarial isso aqui também deverá ser alterado para aquela tarefa de tudo e feito feito isso que a gente faz para comprovar e é importante eu fechar aqui 
+
+tirar aqui um print eu vou tirar um print maior 
+
+vou lá na tarefa 
+
+e aí 
+
+o retrato que o processo foi feito em caminho clique no lado direito 
+
+não precisa enviar de ctf para caso de alteração de regime uma vez que a empresa já foi encaminhada e aqui eu venho em concluir está aí o processo de aviso de conclusão de alteração do dp quando se tem parametrização e quando não haveria esse processo. Lembrando que deve -se fazer sempre a consulta dentro do CRM de qual tipo dá alteração. E clique em concluir. Esse é um processo e dúvidas sempre à disposição. 

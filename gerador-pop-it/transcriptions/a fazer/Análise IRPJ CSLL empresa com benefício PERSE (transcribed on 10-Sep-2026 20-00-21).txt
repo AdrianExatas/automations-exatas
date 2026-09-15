@@ -1,0 +1,74 @@
+Fala pessoal, vou gravar aqui um vídeo para vocês de uma empresa que tem um benefício do PS, e aí a gente vai ter alguns aspectos a ser analisado. Vamos lá.
+Primeiro a gente vai entrar aqui, colocar os impostos na domínio para identificar a situação social.
+Essa empresa ela tem lucros, ela tem aplicação financeira, e aí sobre aplicação financeira tem algo que a gente tem que analisar,
+a aplicação financeira não entra no cálculo do PS. Então vou analisar aqui a parte de CSLL e a parte de Imposto de Renda e Contribuição Social
+para vocês identificarem aqui uma situação que é importante. Então vamos lá.
+A gente vai ter o cálculo da CSLL e a gente vai enxergar a seguinte situação. Esse faturamento é o operacional da empresa e esse é não operacional.
+Esse daqui entra totalmente no PS e essa receita aqui não entra. Então vamos lá.
+Vamos lá. O total do imposto, quando calcula-se sobre 32% de presunção, a alíquota de 9%, a gente vai ter um total de imposto de 17.88801.
+Só que aí eu tenho que afastar, né? Um é com aplicação do PS e outro sem aplicação do PS. Então vamos lá.
+Sem aplicação do PS, né? A gente teria esse cenário aqui, aí eu tenho uma planilhada complementar para mim auxiliar,
+que é a receita operacional, que vai me dar 16.675,20. Se eu diminuir esse valor aqui do total aqui, eu vou ter a tributação,
+que seria o que é afetado da CSLL sem o PS. Então automaticamente eu vou ter aqui uma diferença a recolher.
+Deixa eu botar aqui. Uma diferença a recolher desse valor. Beleza? A mesma coisa vai acontecer com o imposto de renda.
+Só que o imposto de renda tem algo que vocês precisam ter uma atenção maior, que é no tocante a questão do...
+Que no imposto de renda tem a retenção, né? O próprio banco ele retém. Então ele reteve aqui 1.424.
+Então a gente vai ver aqui, né? O total a recolher da 42 mil, né? Isso deduzindo essa parte aqui seria o que é retido,
+mais o adicional, 42, beleza? Só que se a gente for fazer o cálculo, né? Sem a receita financeira, né?
+A gente tem esse seguinte cenário aqui, ó. Faturamento operacional da esse, o total a recolher da 40 mil, né?
+Deu 38 porque eu coloquei aqui o imposto. Só que eu não vou colocar nesse caso aqui, por quê?
+Porque essa dedução é pra receita financeira. Então se a gente pega aqui 40 mil, 320, menos, né?
+Menos os 42, quanto é que a gente tem? A gente vai ter esse cenário aqui, ó. Beleza?
+Totalizando 38 com a redução. Então a gente tem esse cenário aqui, ó.
+40 mil, 320, menos 42, 264,11. Então significa dizer que a gente tem 1.944,11 de que? De diferença.
+Então o valor, né? Que seria com a receita financeira deu 42, só que deu 42 deduzindo isso, né?
+Então a gente tem a seguinte análise. Qual a análise que a gente tem?
+Que o valor seria 1.900, 1.944,11 mais quanto? 1.424,80. Então esse, perdão aqui, teve um erro aqui, vamos lá.
+Esse aqui, menos aqui, menos com menos a mais. 1.424,80. Então o total da receita financeira seria esse, né?
+Seria total esse. Só que como eu tenho essa retenção, o valor a recolher vai ser 1.944,11.
+Então vamos lá. Aí eu entro no ECAG, na DCTFWeb, né? Eu entro, vou entrar no MID, né?
+E no MID eu vou fazer o seguinte preenchimento, né?
+Aqui os dados, né? Aqui da empresa, né? O regime cumulativo presumido, né?
+Aí eu vou lançar os débitos. Aí eu lanço o CSLL, né? Que seria o valor total.
+E aqui é o valor suspenso, que é justamente esse daqui, ó.
+Suspenso por quê? Porque isso vai estar via PERSE.
+Então eu deixo o suspenso 40.320 e o total a recolher de 1.944,11.
+Que é o que eu devo recolher, né? Fora do PERSE.
+A mesma coisa vai acontecer com o CSLL. O valor a recolher é esse, o suspenso é esse, o valor a recolher é esse daqui.
+Pronto. Aí eu declaro, né? O MID e eu venho pra minha DCTFWeb.
+Quando eu chego na DCTFWeb, eu vou encontrar dessa forma ela.
+E aí o que é importante a gente observar.
+Quando a gente quer somente gerar a guia complementar, eu vou aqui, desmarco, né?
+E vou selecionar apenas o que eu quero gerar.
+Tenho nesses dois e vou aqui em editar DAF.
+Chegando em editar DAF, eu vou fazer aqui, ó.
+Tá vendo? Desmarco ele, ó. Perfeitamente, né?
+E vou lançar apenas o que eu quero.
+Então, de imposto de renda, quanto é que eu quero?
+Eu quero apenas recolher 1.944,11, né?
+E de CSLL, eu quero recolher quanto?
+Eu quero recolher 1.212,1212,81.
+E aí eu vou lá e faço o que eu imito DAF.
+Pronto.
+Emitindo DAF, né?
+Eu já tenho esse DAF aqui, salvo.
+Aqui, ó.
+Salvo ele com DAF, IRPJ, CSLL, não judicial.
+Porque a parte judicial vai ser aquela parte que tá como suspensa, né?
+Que eu coloquei aqui como suspensa.
+Salvar, né?
+E aí, consequentemente, eu vou ter aqui, ó.
+Tá vendo?
+Só os impostos, realmente, que vai recolher de forma não judicial.
+Porque o judicial eu preencho o e-mail.
+Então, eu vou aqui no e-mail só pra fazer todo o processo, né?
+Pra vocês enxergarem.
+Aí, eu já fiz o e-mail, né?
+Enviei aqui, ó.
+Coloquei os códigos de recolhimento, né?
+O valor a recolher de IRPJ, CSLL, referente ao código 748,
+CSLL, decódio judicial de imposto de renda, 7429.
+Imposto de renda da 40.320, CSLL 16.67520.
+Perfeito?
+E aqui eu concluo o nosso vídeo.
+E, consequentemente, a gente vai saber como operacionalizar a partir de agora.

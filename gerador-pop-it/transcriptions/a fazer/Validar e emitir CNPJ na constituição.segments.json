@@ -1,0 +1,388 @@
+{
+  "media": "G:\\Meu Drive\\GESTÃO DE PROCESSOS\\_SEM_SETOR\\VÍDEOS\\VALIDAR E EMITIR CNPJ NA CONSTITUIÇÃO.mkv",
+  "transcript_path": "C:\\Users\\Exatas\\Documents\\GitHub\\automations-exatas\\gerador-pop-it\\transcriptions\\a fazer\\VALIDAR E EMITIR CNPJ NA CONSTITUIÇÃO (transcribed on 10-Sep-2026 20-51-18).txt",
+  "language": "pt",
+  "duration_sec": 455.7226875,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 8.0,
+      "text": "Irei mostrar como fazer a validação da emissão do CNPJ assim que sai o processo na parte da junta comercial."
+    },
+    {
+      "start": 8.0,
+      "end": 51.94,
+      "text": "Faz o login, informa o protocolo, clica em acompanhar, aqui informa que foi deferido e que o ato já está arquivado."
+    },
+    {
+      "start": 51.94,
+      "end": 57.94,
+      "text": "Na aba da receita, você vai clicar nessa opção, vai informar novamente o protocolo."
+    },
+    {
+      "start": 57.94,
+      "end": 79.69,
+      "text": "Aqui ele mostra a opção, módulo administração, tributária, inser informações."
+    },
+    {
+      "start": 79.69,
+      "end": 92.02,
+      "text": "Entrar com o GOV, porém aqui está mostrando que foi negado, porque provavelmente ele está puxando o login das atas."
+    },
+    {
+      "start": 93.02,
+      "end": 100.02,
+      "text": "Eu vou sair para fazer o login com o acesso do sócio administrador."
+    },
+    {
+      "start": 100.02,
+      "end": 104.02,
+      "text": "Ele só vai validar se tiver com esse acesso do administrador."
+    },
+    {
+      "start": 104.02,
+      "end": 114.02,
+      "text": "Aqui eu tenho a informação do cliente certo, do GOV, mas pode também ser feito caso ele já tenha na base o certificado da pessoa física."
+    },
+    {
+      "start": 114.02,
+      "end": 118.02,
+      "text": "Lembrando que tem que ser o administrador, o sócio cotista não é válido."
+    },
+    {
+      "start": 119.02,
+      "end": 133.1,
+      "text": "Vou fazer o login aqui e ele vai pedir para gerar o código de acesso."
+    },
+    {
+      "start": 133.1,
+      "end": 135.1,
+      "text": "Irei solicitar o cliente."
+    },
+    {
+      "start": 135.1,
+      "end": 145.71,
+      "text": "Em seguida, vem aqui na opção de autorizar."
+    },
+    {
+      "start": 145.71,
+      "end": 154.71,
+      "text": "Você percebe que aqui ele já está logado com o acesso do cliente."
+    },
+    {
+      "start": 154.71,
+      "end": 156.71,
+      "text": "Aqui eu venho de novo, insiro informações."
+    },
+    {
+      "start": 156.71,
+      "end": 162.71,
+      "text": "Ele já trouxe aqui para o número do processo."
+    },
+    {
+      "start": 162.71,
+      "end": 164.71,
+      "text": "Da rede sim, eu só vou validar."
+    },
+    {
+      "start": 164.71,
+      "end": 165.71,
+      "text": "Faço a conferência."
+    },
+    {
+      "start": 165.71,
+      "end": 171.12,
+      "text": "Solicita a inscrição do CNPJ."
+    },
+    {
+      "start": 171.12,
+      "end": 174.12,
+      "text": "Aqui ele diz que o regime fez toda a diferença, certo?"
+    },
+    {
+      "start": 174.12,
+      "end": 177.12,
+      "text": "E aí traz os dados do protocolo e o nome empresarial."
+    },
+    {
+      "start": 177.12,
+      "end": 184.12,
+      "text": "E logo abaixo ele vai dar a opção simples nacional, caso a empresa realmente seja optando pelo simples."
+    },
+    {
+      "start": 184.12,
+      "end": 190.12,
+      "text": "E caso ela seja lucro real ou presumido, a opção aqui de regime regular."
+    },
+    {
+      "start": 190.12,
+      "end": 199.93,
+      "text": "Em caso de dúvida, pode ir no card da empresa e verificar as informações lá da tributação."
+    },
+    {
+      "start": 199.93,
+      "end": 203.93,
+      "text": "Aqui está dizendo que a empresa vai ser optando pelo simples nacional."
+    },
+    {
+      "start": 203.93,
+      "end": 207.93,
+      "text": "Então, mediante isso, irei selecionar aqui."
+    },
+    {
+      "start": 207.93,
+      "end": 211.93,
+      "text": "Aqui ele está informando que foi selecionada a opção do simples nacional."
+    },
+    {
+      "start": 211.93,
+      "end": 213.93,
+      "text": "Clique em avançar."
+    },
+    {
+      "start": 213.93,
+      "end": 223.49,
+      "text": "Aqui ele traz a ciência do domicílio tributário eletrônico do DTE, certo?"
+    },
+    {
+      "start": 223.49,
+      "end": 226.49,
+      "text": "E aqui a ciência do simples nacional."
+    },
+    {
+      "start": 226.49,
+      "end": 231.38,
+      "text": "Aqui eu já habilitei as duas opções, avançar."
+    },
+    {
+      "start": 231.38,
+      "end": 235.38,
+      "text": "Aqui ele, por último, ele traz a parte do detalhamento da solicitação."
+    },
+    {
+      "start": 235.38,
+      "end": 241.38,
+      "text": "Novamente o protocolo, o nome da empresa e aqui ele diz, vamos lá, enquadrar a empresa."
+    },
+    {
+      "start": 241.38,
+      "end": 245.38,
+      "text": "O regime, o enquadramento tributário regime foi o do simples nacional."
+    },
+    {
+      "start": 245.38,
+      "end": 250.38,
+      "text": "E as declarações foram validadas já para a obrigatoriedade do DTE."
+    },
+    {
+      "start": 250.38,
+      "end": 256.38,
+      "text": "E com isso também a opção anual do simples nacional para a competência."
+    },
+    {
+      "start": 256.38,
+      "end": 259.38,
+      "text": "O exercício, na verdade."
+    },
+    {
+      "start": 259.38,
+      "end": 263.38,
+      "text": "Logo abaixo, é a hora de fazer a assinatura."
+    },
+    {
+      "start": 263.38,
+      "end": 267.38,
+      "text": "Aqui está pendente porque não foi validado."
+    },
+    {
+      "start": 267.38,
+      "end": 273.38,
+      "text": "Ao clicar em assinar, aí ele pergunta se deseja continuar assim."
+    },
+    {
+      "start": 273.38,
+      "end": 276.38,
+      "text": "Ele vai pedir novamente o código."
+    },
+    {
+      "start": 276.38,
+      "end": 283.38,
+      "text": "Que nesse caso, por se tratar de um acesso do GOV, eu tenho que pegar diretamente com o cliente."
+    },
+    {
+      "start": 283.38,
+      "end": 302.98,
+      "text": "Autorizar, assinatura concluída, representante, transmitir solicitação."
+    },
+    {
+      "start": 302.98,
+      "end": 310.98,
+      "text": "Após a transmissão, a ciência e o resultado serão considerados efetivados e os dados não poderão ser mais alterados."
+    },
+    {
+      "start": 310.98,
+      "end": 311.98,
+      "text": "Tem certeza?"
+    },
+    {
+      "start": 311.98,
+      "end": 312.98,
+      "text": "Nesse caso, sim."
+    },
+    {
+      "start": 312.98,
+      "end": 313.98,
+      "text": "Transmitir."
+    },
+    {
+      "start": 313.98,
+      "end": 319.15,
+      "text": "Aguarda a validação."
+    },
+    {
+      "start": 319.15,
+      "end": 337.85,
+      "text": "Foi validado."
+    },
+    {
+      "start": 337.85,
+      "end": 341.85,
+      "text": "E aqui ele mostra já o número do CNPJ."
+    },
+    {
+      "start": 341.85,
+      "end": 343.85,
+      "text": "Emitir comprovante."
+    },
+    {
+      "start": 343.85,
+      "end": 345.85,
+      "text": "Confirmar."
+    },
+    {
+      "start": 345.85,
+      "end": 349.38,
+      "text": "Consultar."
+    },
+    {
+      "start": 349.38,
+      "end": 351.38,
+      "text": "Aqui está o cartão do CNPJ."
+    },
+    {
+      "start": 351.38,
+      "end": 354.38,
+      "text": "Virei salvar na parte da empresa."
+    },
+    {
+      "start": 354.38,
+      "end": 356.38,
+      "text": "Salvar."
+    },
+    {
+      "start": 356.38,
+      "end": 366.76,
+      "text": "CNPJ."
+    },
+    {
+      "start": 366.76,
+      "end": 371.22,
+      "text": "Pronto."
+    },
+    {
+      "start": 371.22,
+      "end": 373.88,
+      "text": "Salvo."
+    },
+    {
+      "start": 373.88,
+      "end": 374.88,
+      "text": "Volto lá."
+    },
+    {
+      "start": 374.88,
+      "end": 379.88,
+      "text": "E aí, baixar o termo deferimento da opção do simples nacional."
+    },
+    {
+      "start": 379.88,
+      "end": 380.88,
+      "text": "Termo deferimento."
+    },
+    {
+      "start": 380.88,
+      "end": 381.88,
+      "text": "Certo?"
+    },
+    {
+      "start": 381.88,
+      "end": 386.88,
+      "text": "Aqui ele diz a data que foi solicitada e a data da inscrição do CNPJ."
+    },
+    {
+      "start": 386.88,
+      "end": 390.88,
+      "text": "Então, salvo também esse documento na pasta."
+    },
+    {
+      "start": 390.88,
+      "end": 422.8,
+      "text": "Termo de deferimento simples."
+    },
+    {
+      "start": 422.8,
+      "end": 427.8,
+      "text": "Está minúsculo, vou só alterar novamente."
+    },
+    {
+      "start": 427.8,
+      "end": 435.14,
+      "text": "Termo deferimento simples nacional."
+    },
+    {
+      "start": 435.14,
+      "end": 436.14,
+      "text": "Pronto."
+    },
+    {
+      "start": 436.14,
+      "end": 438.14,
+      "text": "Salvo."
+    },
+    {
+      "start": 438.14,
+      "end": 449.3,
+      "text": "Aqui, eu só vou fazer agora sair do acesso do cliente."
+    },
+    {
+      "start": 449.3,
+      "end": 455.3,
+      "text": "E finalizou aí a parte da validação e emissão do cartão do CNPJ da empresa."
+    },
+    {
+      "start": 455.3,
+      "end": 456.3,
+      "text": "Tchau."
+    },
+    {
+      "start": 456.3,
+      "end": 457.3,
+      "text": "Tchau."
+    },
+    {
+      "start": 457.3,
+      "end": 458.3,
+      "text": "Tchau."
+    },
+    {
+      "start": 458.3,
+      "end": 459.3,
+      "text": "Tchau."
+    },
+    {
+      "start": 459.3,
+      "end": 460.3,
+      "text": "Tchau."
+    }
+  ]
+}

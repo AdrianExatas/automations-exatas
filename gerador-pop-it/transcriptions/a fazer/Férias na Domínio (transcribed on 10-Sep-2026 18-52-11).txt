@@ -1,0 +1,20 @@
+Olá pessoal, hoje eu vou ensinar a vocês como cadastrar aviso de férias e como calcular as férias aqui no Sistema 1, Domínio.
+Se fosse uma solicitação feita pelo Onvio, eu conseguiria já puxar diretamente para cá, mas foi uma solicitação feita no Zap Contabil, então a gente vai ter que fazer manual.
+Processos, Férias, aviso prévio individual.
+Seleciono a colaboradora, Maria Aparecida, seleciono o período de gols que vai começar dia 18 de março de 2026, serão 30 dias mesmo de férias.
+Feito isso, eu gravo.
+Aviso de férias, eu venho nessa malinha aqui, porque diretamente daqui eu já vou colocar na pasta da empresa, gravar.
+Agora a gente vai calcular essas férias.
+Processo, Férias, individual, nova.
+Aqui já puxa a informação que a gente incluiu no aviso prévio.
+Feito isso, calcular.
+A gente espera o sistema calcular as férias.
+Depois de calculando, a gente confere se o valor bateu.
+Após isso, a gente faz o mesmo procedimento que é feito com a vez do férias.
+Clica na malinha e automaticamente sobe o domínio para a pasta da empresa, no Onvio.
+Pronto.
+Aqui estão as informações, a gente confere.
+Feita a conferência, a gente envia para o Onvio.
+Aqui, ó.
+Feito isso, a gente grava.
+E foi isso, pessoal.

@@ -1,72 +1,26 @@
 import path from "node:path";
 import process from "node:process";
-import { chromium } from "playwright";
-import { processPortalRow } from "./portal.js";
-import type { CliOptions, RunResult } from "./types.js";
-import { readInputWorkbook, writeResultWorkbook } from "./workbook.js";
+import { pathToFileURL } from "node:url";
+import { runAutomation } from "./automation.js";
+import type { CliOptions } from "./types.js";
 
-async function main(): Promise<void> {
-  const options = parseCliArgs(process.argv.slice(2));
+export async function main(argv = process.argv.slice(2)): Promise<void> {
+  const options = parseCliArgs(argv);
   const cwd = process.cwd();
-  const inputPath = path.resolve(cwd, options.inputPath);
-  const rows = readInputWorkbook(inputPath);
 
-  console.log(`Planilha carregada: ${inputPath}`);
-  console.log(`Total de linhas para processar: ${rows.length}`);
-
-  const browser = await chromium.launch({
-    headless: !options.headed,
-    slowMo: options.headed ? 150 : 0,
+  const result = await runAutomation({
+    inputPath: options.inputPath,
+    cwd,
+    headed: options.headed,
+    log: (message) => console.log(message),
   });
 
-  const results: RunResult[] = [];
-
-  try {
-    for (const row of rows) {
-      console.log(`\n[linha ${row.rowNumber}] Processando codigo ${row.codigo}...`);
-
-      try {
-        const rowResults = await processPortalRow(browser, row, cwd);
-        results.push(...rowResults);
-
-        const successCount = rowResults.filter((result) => result.status === "sucesso").length;
-        const errorCount = rowResults.filter((result) => result.status === "erro").length;
-        console.log(
-          `[linha ${row.rowNumber}] Concluido. Sucesso: ${successCount}. Erros: ${errorCount}.`,
-        );
-      } catch (error) {
-        const message = error instanceof Error ? error.message : String(error);
-        results.push({
-          rowNumber: row.rowNumber,
-          codigo: row.codigo,
-          empresa: row.empresa,
-          cnpj: row.cnpj,
-          numeroParcelamento: row.numeroParcelamento,
-          parcela: row.parcela,
-          vencimento: row.vencimento,
-          status: "erro",
-          mensagem: message,
-        });
-        console.error(`[linha ${row.rowNumber}] Erro: ${message}`);
-      }
-    }
-  } finally {
-    await browser.close();
-  }
-
-  const reportPath = await writeResultWorkbook(results, cwd);
-  const successCount = results.filter((result) => result.status === "sucesso").length;
-  const errorCount = results.filter((result) => result.status === "erro").length;
-
-  console.log(`\nProcessamento concluido. Sucessos: ${successCount}. Erros: ${errorCount}.`);
-  console.log(`Relatorio salvo em: ${reportPath}`);
-
-  if (errorCount > 0) {
+  if (result.errorCount > 0) {
     process.exitCode = 1;
   }
 }
 
-function parseCliArgs(args: string[]): CliOptions {
+export function parseCliArgs(args: string[]): CliOptions {
   let inputPath = "model.xlsx";
   let headed = false;
 
@@ -88,8 +42,12 @@ function parseCliArgs(args: string[]): CliOptions {
   return { inputPath, headed };
 }
 
-main().catch((error) => {
-  const message = error instanceof Error ? error.stack ?? error.message : String(error);
-  console.error(message);
-  process.exitCode = 1;
-});
+const executedFilePath = process.argv[1] ? path.resolve(process.argv[1]) : null;
+
+if (executedFilePath && pathToFileURL(executedFilePath).href === import.meta.url) {
+  main().catch((error) => {
+    const message = error instanceof Error ? error.stack ?? error.message : String(error);
+    console.error(message);
+    process.exitCode = 1;
+  });
+}

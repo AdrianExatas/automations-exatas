@@ -15,7 +15,7 @@ from src.core.config import SIEG_API_KEY
 
 # Configurações da API
 API_URL_BASE = 'https://up.sieg.com/EnviarXml'
-API_URL_VERIFICAR = 'https://api.sieg.com/BaixarXml?xmlType=1'
+API_URL_VERIFICAR = 'https://api.sieg.com/BaixarXml'
 
 # Configurações de retry
 RETRY_MAX_TENTATIVAS = 5  # Aumentado de 3 para 5
@@ -62,7 +62,7 @@ def _get_session() -> requests.Session:
     return _session
 
 
-def verificar_xml_existe(chave_acesso: str, api_key: Optional[str] = None) -> bool:
+def verificar_xml_existe(chave_acesso: str, api_key: Optional[str] = None, xml_type: int = 1) -> bool:
     """
     Verifica se um XML já existe no SIEG usando a chave de acesso
     
@@ -85,7 +85,7 @@ def verificar_xml_existe(chave_acesso: str, api_key: Optional[str] = None) -> bo
             return False
         
         # Construir URL de verificação
-        url_verificar = f"{API_URL_VERIFICAR}&api_key={urllib.parse.quote(api_key)}"
+        url_verificar = f"{API_URL_VERIFICAR}?xmlType={xml_type}&api_key={urllib.parse.quote(api_key)}"
         
         # Usar sessão para reutilizar conexões
         session = _get_session()
@@ -93,7 +93,7 @@ def verificar_xml_existe(chave_acesso: str, api_key: Optional[str] = None) -> bo
         # Tentar baixar o XML
         response = session.post(
             url_verificar,
-            data=chave_acesso,
+            json=chave_acesso,
             timeout=TIMEOUT_VERIFICACAO
         )
         

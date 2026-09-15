@@ -1,0 +1,35 @@
+Nesse vídeo eu vou ensinar você a fazer uma execução do processo de informação de informe de rendimentos utilizando o aplicativo ebdiff que é um processo qual você poderá usar de momentos em que a empresa solicite os informes de anos anteriores e talvez você não tenha acesso suficiente. Então o primeiro momento é você abrir o domínio sistema, 
+
+entrar com seu usuário e senha. 
+
+Após entrar no sistema domínio eu vou dar um exemplo a vocês prático de uma empresa que nos solicitou. Então eu vou aqui em empresas no canto esquerdo acima, 
+
+vou digitar aqui a empresa com a qual iremos ter como exemplo. 
+
+Estando na empresa eu vou aqui em controle, empresas, pronto. Essas informações do CDPJ é que iremos necessitar neste momento. Agora nós vamos entrar no portal do E -Social. Então a gente abre aí uma página do Google, geralmente utiliza aqui a novela, ou a novela, a nova janela anônima, perdão. Digita aqui essocial .gov .br Clica em entrargov .br 
+
+Vem seu certificado digital. 
+
+Sempre selecionamos o certificado da exata contabilidade ou de Marcelo Alves Andrade devido às procurações. 
+
+Acima nós clicamos na opção trocar perfil. 
+
+Seleciona seu perfil, nós iremos em procurador de pessoa jurídica e informa o CNPJ da devida empresa. Vou dividir até a tela. Para ser mais prático. Copio e colo o CNPJ no E -Social. Clica em verificar. 
+
+Agora seleciona o módulo, eu vou na opção geral. 
+
+E vamos solicitar os arquivos do E -Social, que é o XML. Esse XML vai fazer com que a gente depois transforme 
+
+no comprovante de rendimento. Então nós vamos aqui em Downloads, Solicitação. O tipo de solicitação. O tipo de solicitação, você deverá clicar nesses todos os eventos entregues em um determinado período. 
+
+Abaixo você vai inserir a data de entrega do evento do início. Então como estamos buscando o informe de rendimento, se faz necessário de janeiro do ano até 12 do ano. Então nesse exemplo nós vamos fazer o ano de 2025. Então vem aqui janeiro de 2025. 
+
+A 31 do 1 
+
+de 2025. Data de entrega, data do fim. Por que? Abaixo você perceba que tem algumas regras. Dentre elas, ele diz aqui, os pedidos devem possuir intervalo de solicitação no máximo de 31 dias. Por isso, por isso nós não conseguimos solicitar de janeiro a dezembro. E sim, deverá ser mês a mês esse pedido de solicitação. Aqui também tem outras informações, tá? Dentre elas, o resultado do processamento dos pedidos. Eles ficam disponíveis por 7 dias para Downloads. Caso não consiga, se faz necessário solicitar novamente. Sobre o prazo para disponibilização dos arquivos, depende da quantidade de eventos que ocorrerá na forma da síncrona do processo. Então possa ser que com 24 horas ou até mais, geralmente eu consulto de um dia para o outro após minha solicitação. Então vamos lá aqui, voltando ao período. 
+
+Perceba aqui, do 1 ao dia 31 e salvar. Pronto, solicitação efetuada com sucesso. Esse pedido foi de janeiro, deverá ser feito agora dos 11 meses restantes. Eu acabei efetuando todo o processo, eu vou mostrar aqui vocês na opção Downloads e Consulta, de todos os meses, para encurtar o processo do vídeo. 
+
+Agora você clica em Consultar, todas as solicitações registradas. 
+
+E aqui ele apresenta todas as competências solicitadas. Inclusive, o mês de janeiro posterior é sempre bom, então ao invés de somente o do ano, sempre também puxar o do janeiro seguinte. Porque como se trata de imposto de renda, ele vai muito pela data de pagamento. Então se a empresa paga a folha da competência 12 no mês 1, então o imposto de renda do mês 12 vai estar no mês 1 de 2026. Então por isso é importante. Aqui na opção Situação, perceba que está solicitado. Então ele ainda não está apto a baixar os arquivos. Então para esse vídeo, o processo se encerra aqui. E na parte 2 eu vou ensinar a vocês, assim que a situação estiver como opção de baixada, para fazer execução do processo de encaminhamento ao cliente do comprovante de renda. 

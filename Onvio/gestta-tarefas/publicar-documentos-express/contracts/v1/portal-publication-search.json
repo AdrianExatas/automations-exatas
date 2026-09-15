@@ -1,0 +1,21 @@
+{
+  "request": {
+    "searchTerm": "document.pdf",
+    "sortBy": [{ "fieldName": "name", "order": "Ascending" }],
+    "containers": [{ "containerType": "projects", "containerId": "project-id", "parentId": "onvio-client-id" }]
+  },
+  "response": {
+    "data": {
+      "items": [{
+        "guid": "portal-document-id",
+        "isObjectNotFound": false,
+        "itemMetadata": { "name": "document.pdf", "fileType": "application/pdf", "mimeType": "application/pdf" },
+        "containers": [{
+          "containerId": "folder-id",
+          "containerType": "folders",
+          "containerPath": [{ "containerId": "project-id", "containerType": "projects", "primaryAssociationId": "onvio-client-id", "primaryAssociationType": "Client" }]
+        }]
+      }]
+    }
+  }
+}

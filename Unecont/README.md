@@ -256,11 +256,37 @@ Configure no `.env`:
 ```env
 UNECONT_EMPRESAS_URL=https://app.unecont.com/Contador/Empresas/Default.aspx
 UNECONT_EMPRESAS_REPORT_NAME=
+BITRIX_COMPETENCIAS_URL=https://grupoexatas.bitrix24.com.br/sheet/<link-compartilhado>
+BITRIX_CONTABIL_URL=https://grupoexatas.bitrix24.com.br/sheet/<link-compartilhado>
 ```
 
 `UNECONT_EMPRESAS_REPORT_NAME` pode ficar vazio; nesse caso o nome enviado ao
 Unecont usa a data atual. Cookies e `RequestVerificationToken` sao obtidos pela
 sessao autenticada do Playwright a cada execucao.
+
+`BITRIX_COMPETENCIAS_URL` e obrigatoria para o comando mensal. O arquivo
+compartilhado e baixado em modo de leitura. A planilha final usa a **base
+completa** de empresas ativas no Unecont; os codigos da aba do **mes vigente**
+(calendario da execucao) sao tratados como onboarding em andamento e ficam
+**fora** da planilha. O onboarding da competencia de referencia (mes anterior)
+entra normalmente se a empresa estiver ativa no Unecont. Empresas excluidas
+aparecem em `Excluidas Competencia` no relatorio e nao seguem para consulta de
+usuarios.
+
+Antes da publicacao, o comando consulta cada empresa final no Onvio e faz o
+cruzamento Unecont x Onvio/Gestta: mantem na planilha apenas empresas `ATIVO`
+(ou `LOCALIZADO_SEM_STATUS` com `clientId`). Empresas `INATIVO` ou
+`NAO_LOCALIZADO` saem da planilha e ficam no `relatorio-onvio-clientes.xlsx`,
+sem bloquear a publicacao.
+
+`BITRIX_CONTABIL_URL` e obrigatoria para o comando mensal. A aba `Empresas`
+da planilha compartilhada substitui a lista local para classificar cada empresa
+como `SETOR CONTÁBIL` ou `SETOR FISCAL`.
+
+O enriquecimento Onvio preenche `ONVIO_CLIENT_ID` e `ONVIO_STATUS` sem alterar
+codigo, CNPJ ou razao social trazidos do Unecont. O arquivo
+`relatorio-onvio-clientes.xlsx` fica no diretorio mensal para auditoria do
+cruzamento.
 
 ## Upload para o Onvio
 

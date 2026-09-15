@@ -1,0 +1,21 @@
+Dando continuidade as gravações, hoje eu vou apresentar você dentro do nosso portal sistema domínio como executar um relatório de função, o cargo e até mesmo do salário, algumas empresas solicitam e você deverá primeiramente entrar no sistema domínio, domínio folha, usuário e senha, após a abertura do sistema você vai clicar na opção acima relatórios, clica na opção abaixo ou cadastrais, 
+
+clica na opção empregados, aqui ele vai trazer algumas informações e qual a que você necessita para essa demanda, em ordem deste nome e abaixo impressão, você clica aqui, se você clicar na opção ele vai dar algumas informações, isso pode servir para demais solicitações, nesse específico nós vamos para nome e cargos de CBO e marca e deixa marcado essa opção imprimir salário, aqui você também tem no canto, pode selecionar outras empresas, caso você queira, tipo todas ou nenhuma ou solicitar apenas a opção, ou solicitar apenas a que você está em execução, nesse caso nós estamos aqui na 421 e você clica ok, você também pode ir na opção seleção, empregados, clicar apenas em um funcionário, aquele que o empregador solicitar, eu vou desmarcar aqui para a gente fazer uma prática com todos, clica ok, 
+
+e após você fazer as devidas alterações, você clica em ok 
+
+está aí o relatório essa é a relação cadastral cargo e o número do CBO e com salário se for solicitado apenas os cargos sem o salário, você desmarca essa opção aqui, clique em ok 
+
+está vendo que o salário acaba sumindo você fecha aqui, salva e encaminha ao cliente então você deixa aqui como imprimir, vou deixar aqui novamente vamos fazer um teste com seleção, você clica em seleção vou solicitar apenas o dessa colaboradora, clica ok e clica ok 
+
+está aí o relatório como você deve agora encaminhar o cliente na pasta do Onville você coloca aqui, descreve 
+
+você irá digitar aqui, relatório de função competência, você salva na pasta aí no meu caso é download, você entra na pasta do Onville né, o acesso vem em pessoal e clica em arquivos diversos, neste arquivo diversos se ele não tiver nenhuma subpasta você clica aqui e larga ele na opção solta mesmo 
+
+você senta aqui e joga neste caso aqui vou fazer um teste prático tá vendo só que aqui eu vou marcar excluir porque não trata -se de um pedido solicitado 
+
+mas está aí o processo de como pegar um relatório de função e salário dentro do 
+
+dentro do domínio 
+
+concluímos o vídeo por aqui aguardo espero que tenha ajudado 

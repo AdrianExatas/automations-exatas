@@ -4,14 +4,8 @@ import XLSX from "xlsx";
 import type { InputRow, RunResult } from "./types.js";
 import { DEFAULT_TIPO_RECEITA, isBlank, normalizeCnpj, normalizeIePi, timestampForFile } from "./utils.js";
 
-const REQUIRED_HEADERS = [
-  "CODIGO",
-  "INSCRICAO ESTADUAL",
-  "NUMERO PARCELAMENTO",
-  "PARCELA",
-  "VENCIMENTO",
-  "LOCAL PARA SALVAR ARQUIVO",
-] as const;
+const OFFICIAL_HEADERS = ["CODIGO", "INSCRICAO ESTADUAL"] as const;
+const LEGACY_HEADERS = ["NUMERO PARCELAMENTO", "PARCELA", "VENCIMENTO", "LOCAL PARA SALVAR ARQUIVO"] as const;
 
 type RawSheetRow = Record<string, unknown>;
 
@@ -50,7 +44,7 @@ export function readInputWorkbook(filePath: string): InputRow[] {
 function validateHeaders(headerRow: string[]): void {
   const headers = new Set(headerRow);
 
-  for (const header of REQUIRED_HEADERS) {
+  for (const header of OFFICIAL_HEADERS) {
     if (!headers.has(header)) {
       throw new Error(`A planilha de entrada precisa conter a coluna obrigatoria "${header}".`);
     }
@@ -81,20 +75,15 @@ function mapRow(row: RawSheetRow, rowNumber: number): InputRow | null {
     throw new Error(`Linha ${rowNumber}: a coluna INSCRICAO ESTADUAL esta vazia.`);
   }
 
-  if (!numeroParcelamento) {
-    throw new Error(`Linha ${rowNumber}: a coluna NUMERO PARCELAMENTO esta vazia.`);
-  }
-
-  if (!parcela) {
-    throw new Error(`Linha ${rowNumber}: a coluna PARCELA esta vazia.`);
-  }
-
-  if (!vencimento) {
-    throw new Error(`Linha ${rowNumber}: a coluna VENCIMENTO esta vazia.`);
-  }
-
   if (!saveDir) {
     throw new Error(`Linha ${rowNumber}: a coluna LOCAL PARA SALVAR ARQUIVO esta vazia.`);
+  }
+
+  const hasLegacyParcel = Boolean(numeroParcelamento || parcela || vencimento);
+  if (hasLegacyParcel && (!numeroParcelamento || !parcela || !vencimento)) {
+    throw new Error(
+      `Linha ${rowNumber}: no modo legado preencha NUMERO PARCELAMENTO, PARCELA e VENCIMENTO juntos.`,
+    );
   }
 
   return {
@@ -103,12 +92,25 @@ function mapRow(row: RawSheetRow, rowNumber: number): InputRow | null {
     empresa: empresa || undefined,
     cnpj: cnpj || undefined,
     inscricaoEstadual,
-    numeroParcelamento,
-    parcela,
-    vencimento,
+    numeroParcelamento: numeroParcelamento || undefined,
+    parcela: parcela || undefined,
+    vencimento: vencimento || undefined,
     tipoReceita,
     saveDir,
   };
+}
+
+export const TEMPLATE_HEADERS = ["CODIGO", "EMPRESA", "CNPJ", "INSCRICAO ESTADUAL"] as const;
+
+export async function writeTemplateWorkbook(filePath: string): Promise<string> {
+  await fs.mkdir(path.dirname(filePath), { recursive: true });
+
+  const workbook = XLSX.utils.book_new();
+  const worksheet = XLSX.utils.aoa_to_sheet([[...TEMPLATE_HEADERS]]);
+  XLSX.utils.book_append_sheet(workbook, worksheet, "Entrada");
+  XLSX.writeFile(workbook, filePath);
+
+  return filePath;
 }
 
 export async function writeResultWorkbook(results: RunResult[], cwd: string): Promise<string> {
@@ -124,6 +126,7 @@ export async function writeResultWorkbook(results: RunResult[], cwd: string): Pr
     NUMERO_PARCELAMENTO: result.numeroParcelamento ?? "",
     PARCELA: result.parcela ?? "",
     VENCIMENTO: result.vencimento,
+    SITUACAO_VENCIMENTO: result.situacaoVencimento ?? "",
     NOME_ORIGINAL_PDF: result.nomeOriginalPdf ?? "",
     CAMINHO_PDF: result.pdfPath ?? "",
     STATUS: result.status,
@@ -137,3 +140,5 @@ export async function writeResultWorkbook(results: RunResult[], cwd: string): Pr
 
   return reportPath;
 }
+
+export { LEGACY_HEADERS };

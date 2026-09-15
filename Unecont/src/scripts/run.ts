@@ -23,6 +23,17 @@ export async function main(): Promise<number> {
   }
 
   try {
+    const skipCheckpoint = process.argv.includes("--sem-checkpoint");
+    const downloadsDirArg = (() => {
+      const index = process.argv.indexOf("--downloads-dir");
+      if (index >= 0) {
+        const value = process.argv[index + 1];
+        return value && !value.startsWith("--") ? value.trim() : undefined;
+      }
+      const prefixed = process.argv.find((arg) => arg.startsWith("--downloads-dir="));
+      return prefixed ? prefixed.slice("--downloads-dir=".length).trim() || undefined : undefined;
+    })();
+
     const result = await downloadUnecontBatch({
       credentials: {
         email: env.unecontEmail,
@@ -31,8 +42,11 @@ export async function main(): Promise<number> {
       input: { excelPath },
       browser: {
         headless: env.headless,
+        downloadDir: downloadsDirArg,
       },
-      checkpointPath: resolveRuntimePath("checkpoints", "download-batch.json"),
+      checkpointPath: skipCheckpoint
+        ? undefined
+        : resolveRuntimePath("checkpoints", "download-batch.json"),
       logger: console,
       timeouts: {
         defaultTimeoutSeconds: env.defaultTimeout,

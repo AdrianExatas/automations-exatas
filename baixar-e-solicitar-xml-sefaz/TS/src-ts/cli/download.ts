@@ -1,7 +1,7 @@
 #!/usr/bin/env bun
 import { Command } from "commander";
 import { limparCheckpoint, limparCheckpointSeForDeOutroDia, verificarCheckpoint } from "../download/checkpoint.js";
-import { executarDownload } from "../download/runner.js";
+import { executarDownload, codigoSaidaDownload } from "../download/runner.js";
 import { downloadState } from "../download/state.js";
 
 const program = new Command();
@@ -20,7 +20,7 @@ program
   .option("--nao-extrair", "Nao extrai os arquivos .zip baixados")
   .option("--upload", "Executa upload automatico para SIEG apos descompactacao", false)
   .option("--selenium", "Forca o fluxo antigo via Selenium", false)
-  .option("--http", "Usa o fluxo HTTP autenticado", true);
+  .option("--transport <modo>", "auto, http ou playwright", "auto");
 
 program.parse(process.argv);
 const options = program.opts<{
@@ -35,6 +35,7 @@ const options = program.opts<{
   naoExtrair?: boolean;
   upload: boolean;
   selenium: boolean;
+  transport: "auto" | "http" | "playwright";
 }>();
 
 if (options.status) {
@@ -69,6 +70,7 @@ console.log("=".repeat(60));
 console.log("AUTOMACAO DE DOWNLOAD DE XMLs SEFAZ (TS/Bun)");
 console.log("=".repeat(60));
 console.log(`Execucao: ${options.selenium ? "Selenium" : "HTTP"}`);
+console.log(`Transporte: ${options.transport}`);
 console.log(`Modo: ${downloadState.usarHeadless ? "Headless" : "Visivel"}`);
 console.log(`Extracao automatica: ${downloadState.extrairZips ? "Sim" : "Nao"}`);
 console.log(`Upload automatico SIEG: ${downloadState.uploadAutomatico ? "Sim" : "Nao"}`);
@@ -89,8 +91,11 @@ if (checkpoint) {
 }
 
 try {
-  await executarDownload({ selenium: options.selenium });
-  process.exit(0);
+  if (!(["auto", "http", "playwright"] as const).includes(options.transport)) {
+    throw new Error("--transport deve ser auto, http ou playwright");
+  }
+  const resultado = await executarDownload({ selenium: options.selenium, transport: options.transport });
+  process.exit(codigoSaidaDownload(resultado));
 } catch (error) {
   console.error(`\n[ERRO] Erro critico: ${error instanceof Error ? error.message : String(error)}`);
   process.exit(1);

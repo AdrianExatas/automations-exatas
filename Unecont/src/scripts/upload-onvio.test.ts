@@ -43,7 +43,7 @@ describe("upload CLI", () => {
     refreshUdsLongTokenForUploadMock.mockResolvedValue("token-renovado-mock");
     process.env.EMPRESAS_EXCEL_PATH = "empresas.xlsx";
     process.env.ONVIO_UDS_TOKEN = "token";
-    process.env.BD_API_BASE_URL = "http://localhost:3001/api";
+    process.env.ONVIO_FIRM_COMPANY_ID = "firm-test";
     resolveExcelPath.mockReturnValue("C:/tmp/empresas.xlsx");
     findLatestNormalizedDir.mockReturnValue("C:/tmp/normalized");
     loadEmpresasFromExcel.mockReturnValue([
@@ -73,6 +73,7 @@ describe("upload CLI", () => {
   afterEach(() => {
     delete process.env.EMPRESAS_EXCEL_PATH;
     delete process.env.ONVIO_UDS_TOKEN;
+    delete process.env.ONVIO_FIRM_COMPANY_ID;
     delete process.env.BD_API_BASE_URL;
     delete process.env.ONVIO_SKIP_ATTACHMENTS;
     delete process.env.ONVIO_DRY_RUN;
@@ -188,9 +189,12 @@ describe("upload CLI", () => {
         attachmentsDir: "C:/tmp/normalized",
         attachmentsMode: "required",
         dryRun: false,
-        bdApiBaseUrl: "http://localhost:3001/api",
+        identifierProvider: expect.objectContaining({
+          loadLookupData: expect.any(Function),
+        }),
       }),
     );
+    expect(uploadOnvioBatch.mock.calls[0]?.[0]?.bdApiBaseUrl).toBeUndefined();
   });
 
   it("exibe aviso de solicitante sem ID tambem em upload real com sucesso", async () => {

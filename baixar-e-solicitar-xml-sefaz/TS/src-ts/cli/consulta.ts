@@ -17,7 +17,7 @@ program
   .option("--limpar-historico", "Limpa todo o historico de execucoes", false)
   .option("--data-inicial <data>", "Data inicial do intervalo (DD/MM/YYYY ou DDMMYYYY)")
   .option("--data-final <data>", "Data final do intervalo (DD/MM/YYYY ou DDMMYYYY)")
-  .option("--http", "Usa fluxo HTTP autenticado", true)
+  .option("--transport <modo>", "auto, http ou playwright", "auto")
   .option("--selenium", "Forca o fluxo legado via Selenium", false);
 
 program.parse(process.argv);
@@ -29,6 +29,7 @@ const options = program.opts<{
   dataInicial?: string;
   dataFinal?: string;
   selenium: boolean;
+  transport: "auto" | "http" | "playwright";
 }>();
 
 if (options.status) {
@@ -57,11 +58,15 @@ try {
 
   const dataInicial = options.dataInicial ? parseDateInput(options.dataInicial) : undefined;
   const dataFinal = options.dataFinal ? parseDateInput(options.dataFinal) : undefined;
+  if (!(["auto", "http", "playwright"] as const).includes(options.transport)) {
+    throw new Error("--transport deve ser auto, http ou playwright");
+  }
   const sucesso = await executarCapturaComFallback({
     headless: options.visible ? false : options.headless,
     dataInicial,
     dataFinal,
     selenium: options.selenium,
+    transport: options.transport,
   });
   process.exit(sucesso ? 0 : 1);
 } catch (error) {

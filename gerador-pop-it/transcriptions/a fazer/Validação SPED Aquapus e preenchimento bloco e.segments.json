@@ -1,0 +1,143 @@
+{
+  "media": "G:\\Meu Drive\\GESTÃO DE PROCESSOS\\_SEM_SETOR\\VÍDEOS\\VALIDAÇÃO SPED AQUAPUS E PREENCHIMENTO BLOCO E.mkv",
+  "transcript_path": "C:\\Users\\Exatas\\Documents\\GitHub\\automations-exatas\\gerador-pop-it\\transcriptions\\a fazer\\VALIDAÇÃO SPED AQUAPUS E PREENCHIMENTO BLOCO E (transcribed on 10-Sep-2026 20-45-23).txt",
+  "language": "pt",
+  "duration_sec": 316.0106875,
+  "segments": [
+    {
+      "start": 0.72,
+      "end": 27.96,
+      "text": "Bom, para poder validar o SPED aqui da Aquaplus, ele sempre vai vir com esses erros aqui, ó. Certo? Esse erro é devido a uma inconsistência da Domínio, que faz a leitura dessa nota aqui, você está vendo que nós estamos sem o crédito de ICMS, mas com o crédito de FECOEP aqui, por questões do diferimento."
+    },
+    {
+      "start": 27.96,
+      "end": 58.38,
+      "text": "Com isso, a Domínio reconhece que você tem o FECOEP como crédito, mas não tem o ICMS, é por isso que dá esse erro. Aí, para corrigir, a gente tem que clicar aqui no erro, vai aparecer esse registro aqui, que é o C191, e a gente vai excluir essa informação do registro, e aí a gente vai excluindo todos os outros até validar."
+    },
+    {
+      "start": 58.38,
+      "end": 71.5,
+      "text": "Agora, o próximo passo, é a gente editar o bloco E, com as informações do FECOEP, STI e a questão do FECOEP normal."
+    },
+    {
+      "start": 71.5,
+      "end": 95.9,
+      "text": "Vamos agora, aqui no bloco E111, caso viesse aqui a informação do crédito do FECOEP, a gente teria que alterar esse crédito com a informação pertinente aqui do bloco E."
+    },
+    {
+      "start": 95.9,
+      "end": 130.51,
+      "text": "E qual seria? Seria esse aqui, o ajuste, ele vai vir dessa forma como está aqui na taja verde, e a gente precisa colocar ele como está agora nessa taja verde, que é o código daqui."
+    },
+    {
+      "start": 130.51,
+      "end": 150.75,
+      "text": "Se você prestar atenção, o código AL02999, certo? Esse é o código correto, o código errado, ele vai vir com AL02001, esse é o ajuste."
+    },
+    {
+      "start": 150.75,
+      "end": 155.35,
+      "text": "Quando essa informação vem aqui, no E111."
+    },
+    {
+      "start": 155.77,
+      "end": 167.87,
+      "text": "Os próximos ajustes a serem feitos, que a domínio não reconhece, é aqui no E, E210, E220 e E250, que é o ICMSST."
+    },
+    {
+      "start": 169.47,
+      "end": 175.45,
+      "text": "Pronto. A gente vai ver aqui, que o valor da substituição tributária, ele está vindo junto com o FECOEP ST."
+    },
+    {
+      "start": 176.91,
+      "end": 184.07,
+      "text": "ICMSST, FECOEP ST, os valores somados estão dando esse valor aqui, e a gente precisa separá-lo e colocar aqui nesses campos."
+    },
+    {
+      "start": 184.59,
+      "end": 185.59,
+      "text": "Como é que a gente faz?"
+    },
+    {
+      "start": 186.55,
+      "end": 192.69,
+      "text": "Eu geralmente faço o seguinte, abro as guias que foram enviadas para o cliente, e vou fazendo os ajustes pertinentes, aqui."
+    },
+    {
+      "start": 195.24,
+      "end": 201.74,
+      "text": "Veja que aqui, o E220 não tem nenhuma informação, o E250 já tem a informação, mas está somado."
+    },
+    {
+      "start": 201.74,
+      "end": 213.66,
+      "text": "E no E210, a soma está aqui, certo? Eu vou alterar, e vocês vão ver como é que vai ficar."
+    },
+    {
+      "start": 213.66,
+      "end": 222.55,
+      "text": "Pronto. Aqui, a gente fez agora os preenchimentos."
+    },
+    {
+      "start": 222.67,
+      "end": 229.15,
+      "text": "Se a gente for aqui, veja que o campo E220, a gente preencheu, com o FECOEP ST, certo?"
+    },
+    {
+      "start": 232.62,
+      "end": 239.97,
+      "text": "Aí, veja que são códigos distintos, esses códigos aqui, certo?"
+    },
+    {
+      "start": 239.97,
+      "end": 244.27,
+      "text": "Que é o AL15999, e o AL14999."
+    },
+    {
+      "start": 244.75,
+      "end": 246.77,
+      "text": "Um é o débito, e o outro é a dedução."
+    },
+    {
+      "start": 248.11,
+      "end": 258.21,
+      "text": "Quando a gente vem para o E250, a gente vai ter o valor, veja que a gente já diminuiu, que era 34, agora é 32, né?"
+    },
+    {
+      "start": 258.21,
+      "end": 268.39,
+      "text": "Então, temos aqui a substituição tributária com o código, está aqui, e o FECOEP substituição tributária, que está aqui."
+    },
+    {
+      "start": 269.35,
+      "end": 281.41,
+      "text": "E no E210, veja que aqui, nesse primeiro campo, está o valor dos 34, aqui está a dedução, porque a gente lançou aqui no ajuste, certo?"
+    },
+    {
+      "start": 281.41,
+      "end": 287.05,
+      "text": "Quando o deduz, fica o valor, que é do ICMSST, que está aqui, certo?"
+    },
+    {
+      "start": 287.35,
+      "end": 295.45,
+      "text": "E aqui embaixo, em extras apurações, a gente precisa preencher com o restante, que é o 1747,37."
+    },
+    {
+      "start": 297.67,
+      "end": 300.79,
+      "text": "E agora a gente vamos validar, para ver se está certinho."
+    },
+    {
+      "start": 305.6,
+      "end": 306.08,
+      "text": "Validou."
+    },
+    {
+      "start": 306.78,
+      "end": 314.16,
+      "text": "É só agora verificar as outras situações, como CST, CFOB, se está tudo condizente, e enviar o SPED."
+    }
+  ]
+}

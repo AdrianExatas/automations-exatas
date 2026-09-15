@@ -1,0 +1,6 @@
+# Dependencias da extracao de prints de cliques em video.
+# Uso: pip install -r skills/gerar-pop-it/scripts/requirements-prints.txt
+
+opencv-python>=4.8.0
+numpy>=1.24.0
+rapidocr-onnxruntime>=1.3.0

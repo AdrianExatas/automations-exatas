@@ -1,0 +1,7 @@
+# Dependencias da transcricão local (faster-whisper / large-v3-turbo).
+# Uso: pip install -r skills/gerar-pop-it/scripts/requirements-transcribe.txt
+#
+# Tambem e necessario ffmpeg no PATH (https://ffmpeg.org/download.html).
+
+faster-whisper>=1.1.0
+watchdog>=4.0.0

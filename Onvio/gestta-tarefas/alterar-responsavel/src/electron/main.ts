@@ -5,6 +5,7 @@ import { criarPlanilhaPadrao } from "../planilha-padrao";
 import { lerEstruturaPlanilha } from "../planilha-estrutura";
 import { loadRuntimeEnv, runAutomation } from "../automation";
 import { executarReversaoRelatorio } from "../rollback";
+import { readSelectedSheetPath, writeSelectedSheetPath } from "./sheet-settings";
 
 interface StoredCredentials {
   email?: string;
@@ -558,9 +559,20 @@ ipcMain.handle("sheet:select", async () => {
     ? await dialog.showOpenDialog(mainWindow, options)
     : await dialog.showOpenDialog(options);
 
+  const filePath = result.filePaths[0] ?? "";
+  if (filePath) writeSelectedSheetPath(app.getPath("userData"), filePath);
+
   return {
     canceled: result.canceled,
-    filePath: result.filePaths[0] ?? "",
+    filePath,
+  };
+});
+
+ipcMain.handle("sheet:load-selected", () => {
+  const filePath = readSelectedSheetPath(app.getPath("userData"));
+  return {
+    filePath: filePath ?? "",
+    exists: Boolean(filePath && fs.existsSync(filePath)),
   };
 });
 
@@ -594,8 +606,36 @@ ipcMain.handle("template:download", async () => {
     return { canceled: true, filePath: "" };
   }
 
-  criarPlanilhaPadrao(result.filePath);
-  return { canceled: false, filePath: result.filePath };
+  const fileAlreadyExists = fs.existsSync(result.filePath);
+  if (fileAlreadyExists) {
+    const confirmation = mainWindow
+      ? await dialog.showMessageBox(mainWindow, {
+          type: "warning",
+          title: "Planilha existente",
+          message: "Ja existe uma planilha neste local.",
+          detail: "Usar o arquivo existente preserva todos os responsaveis que ja foram alterados.",
+          buttons: ["Usar arquivo existente", "Substituir pelo modelo padrao", "Cancelar"],
+          defaultId: 0,
+          cancelId: 2,
+        })
+      : await dialog.showMessageBox({
+          type: "warning",
+          title: "Planilha existente",
+          message: "Ja existe uma planilha neste local.",
+          detail: "Usar o arquivo existente preserva todos os responsaveis que ja foram alterados.",
+          buttons: ["Usar arquivo existente", "Substituir pelo modelo padrao", "Cancelar"],
+          defaultId: 0,
+          cancelId: 2,
+        });
+
+    if (confirmation.response === 2) return { canceled: true, filePath: "" };
+    if (confirmation.response === 1) criarPlanilhaPadrao(result.filePath);
+  } else {
+    criarPlanilhaPadrao(result.filePath);
+  }
+
+  writeSelectedSheetPath(app.getPath("userData"), result.filePath);
+  return { canceled: false, filePath: result.filePath, existing: fileAlreadyExists };
 });
 
 ipcMain.handle("reports:open", async () => {

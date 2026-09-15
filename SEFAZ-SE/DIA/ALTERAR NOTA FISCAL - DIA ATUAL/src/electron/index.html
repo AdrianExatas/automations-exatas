@@ -21,17 +21,24 @@
         <form id="run-form" class="panel">
           <div class="section-title">Acesso</div>
           <label>
-            <span>Login</span>
-            <input id="user" type="text" autocomplete="username" required />
+            <span>Codigo do vinculo Contador</span>
+            <input id="user" type="text" autocomplete="username" placeholder="Ex.: SE007829" required />
           </label>
           <label>
-            <span>Senha</span>
-            <input id="password" type="password" autocomplete="current-password" required />
+            <span>Certificado digital A1 (.pfx)</span>
+            <div class="path-row">
+              <input id="cert-path" type="text" required />
+              <button id="select-cert" type="button" class="icon-button" title="Selecionar certificado">...</button>
+            </div>
+          </label>
+          <label>
+            <span>Senha do certificado</span>
+            <input id="cert-password" type="password" autocomplete="current-password" />
           </label>
           <div class="row">
             <label class="check">
               <input id="remember" type="checkbox" />
-              <span>Lembrar login e senha</span>
+              <span>Lembrar vinculo e certificado</span>
             </label>
             <button id="forget" type="button" class="ghost">Esquecer</button>
           </div>

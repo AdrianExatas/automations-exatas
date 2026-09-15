@@ -1,0 +1,283 @@
+{
+  "media": "G:\\Meu Drive\\GESTÃO DE PROCESSOS\\_SEM_SETOR\\VÍDEOS\\Solicitacao codigo CSC Simples Nacional.mkv",
+  "transcript_path": "C:\\Users\\Exatas\\Documents\\GitHub\\automations-exatas\\gerador-pop-it\\transcriptions\\a fazer\\Solicitacao codigo CSC Simples Nacional (transcribed on 10-Sep-2026 20-55-41).txt",
+  "language": "pt",
+  "duration_sec": 283.5413125,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 17.0,
+      "text": "Bom dia, hoje vou gravar um vídeo aqui que o Soli solicitou, onde eu vou estar demonstrando como é que faz a solicitação do código de acesso para transmissão do Simples Nacional, certo? Vou digitar aqui Simples Nacional, certo?"
+    },
+    {
+      "start": 17.0,
+      "end": 25.0,
+      "text": "Simples Nacional, e como não tem, a gente vai solicitar alterar código."
+    },
+    {
+      "start": 25.0,
+      "end": 45.0,
+      "text": "Simples Nacional, aqui a gente vai colocar o CNPJ da empresa, nesse caso vai ser a link informática, certo? 00543242, 1000 contra 21."
+    },
+    {
+      "start": 45.0,
+      "end": 52.9,
+      "text": "E o CPF do sócio? O CPF do sócio a gente pode estar pegando aqui, na domínio."
+    },
+    {
+      "start": 52.9,
+      "end": 78.08,
+      "text": "E nesse caso, como é um cliente que já declarou o imposto de renda, está sendo solicitado o número do recebo, certo?"
+    },
+    {
+      "start": 78.08,
+      "end": 90.08,
+      "text": "Mas caso esse cliente não tenha declarado o número do imposto de renda, ao invés de ter solicitado o número do recebo, será solicitado o número do título de eleitor, beleza?"
+    },
+    {
+      "start": 90.08,
+      "end": 99.08,
+      "text": "Então, são essas duas situações que podem acontecer. Caso tenha declarado o imposto de renda, vai ser solicitado o número do recebo, se não tiver declarado o imposto de renda, vai ser o número do título de eleitor."
+    },
+    {
+      "start": 99.08,
+      "end": 112.08,
+      "text": "Nessa situação, como eu expliquei, vai ser o número do recebo do imposto de renda. E onde a gente pode estar solicitando, onde a gente pode estar conseguindo esse número do recebo?"
+    },
+    {
+      "start": 112.08,
+      "end": 136.22,
+      "text": "Aqui na pasta da nossa empresa, a gente tem algumas informações, que é referente à declaração do ano passado. Então, a gente vai vir aqui em arquivos úteis, arquivos úteis aqui, arquivos úteis não, arquivos para IRPF, ano 2025, clientes."
+    },
+    {
+      "start": 136.22,
+      "end": 149.44,
+      "text": "E a gente vai estar buscando pelo número da empresa. Aqui está, Marcos, e o número do recebo da empresa dele está aqui. Beleza?"
+    },
+    {
+      "start": 151.86,
+      "end": 157.46,
+      "text": "Aí, esse número aqui, que a gente vai estar preenchendo, para solicitar a informação lá do código de acesso."
+    },
+    {
+      "start": 157.46,
+      "end": 172.04,
+      "text": "Vamos colocar 2799956348. Continuar. Pronto. O número do código de acesso está aqui em cima. Beleza?"
+    },
+    {
+      "start": 172.96,
+      "end": 182.36,
+      "text": "Aí, o que a gente vai fazer com essa informação, que é o principal e o que a gente mais necessita, que vai ser destinado a alguém que vai fazer essa solicitação?"
+    },
+    {
+      "start": 182.36,
+      "end": 188.08,
+      "text": "A gente necessita que seja feita, colocada aqui em parâmetros."
+    },
+    {
+      "start": 190.14,
+      "end": 193.28,
+      "text": "Você vai colocar, clicar aqui em federal."
+    },
+    {
+      "start": 197.7,
+      "end": 198.1,
+      "text": "Parâmetros."
+    },
+    {
+      "start": 202.44,
+      "end": 206.64,
+      "text": "Como eu não tenho autorização, eu não consigo criar uma nova vigência, está vendo?"
+    },
+    {
+      "start": 206.64,
+      "end": 216.26,
+      "text": "Mas, quem for fazer, vai criar em nova vigência, vai colocar aqui a informação, que é o código, e vai gravar."
+    },
+    {
+      "start": 217.8,
+      "end": 221.0,
+      "text": "Mas, como o meu usuário não está autorizado, eu não consigo salvar essa informação."
+    },
+    {
+      "start": 221.24,
+      "end": 225.38,
+      "text": "Porém, quem for fazer, certamente vai ter a liberação. Beleza?"
+    },
+    {
+      "start": 225.38,
+      "end": 238.34,
+      "text": "Aí, depois que tiver colocado o número aqui, vai vir em empresas, nas observações, vai colocar a informação, que é o símbolo irracional, né?"
+    },
+    {
+      "start": 238.88,
+      "end": 242.56,
+      "text": "Aí vai ter CNPJ."
+    },
+    {
+      "start": 243.72,
+      "end": 250.8,
+      "text": "E aí a gente vai, basicamente, copiar a informação inicial que a gente colocou lá na página do símbolo irracional."
+    },
+    {
+      "start": 251.14,
+      "end": 274.13,
+      "text": "Aqui, na verdade."
+    },
+    {
+      "start": 276.56,
+      "end": 277.08,
+      "text": "E o código."
+    },
+    {
+      "start": 277.86,
+      "end": 278.26,
+      "text": "Prontinho."
+    },
+    {
+      "start": 278.26,
+      "end": 279.26,
+      "text": "Prontinho."
+    },
+    {
+      "start": 279.26,
+      "end": 280.26,
+      "text": "Prontinho."
+    },
+    {
+      "start": 280.26,
+      "end": 281.26,
+      "text": "Prontinho."
+    },
+    {
+      "start": 281.26,
+      "end": 282.26,
+      "text": "Prontinho."
+    },
+    {
+      "start": 282.26,
+      "end": 283.26,
+      "text": "Prontinho."
+    },
+    {
+      "start": 283.26,
+      "end": 284.26,
+      "text": "Prontinho."
+    },
+    {
+      "start": 284.26,
+      "end": 285.26,
+      "text": "Prontinho."
+    },
+    {
+      "start": 285.26,
+      "end": 286.26,
+      "text": "Prontinho."
+    },
+    {
+      "start": 286.26,
+      "end": 287.26,
+      "text": "Prontinho."
+    },
+    {
+      "start": 287.26,
+      "end": 288.26,
+      "text": "Prontinho."
+    },
+    {
+      "start": 288.26,
+      "end": 289.26,
+      "text": "Prontinho."
+    },
+    {
+      "start": 289.26,
+      "end": 290.26,
+      "text": "Prontinho."
+    },
+    {
+      "start": 290.26,
+      "end": 291.26,
+      "text": "Prontinho."
+    },
+    {
+      "start": 291.26,
+      "end": 292.26,
+      "text": "Prontinho."
+    },
+    {
+      "start": 292.26,
+      "end": 293.26,
+      "text": "Prontinho."
+    },
+    {
+      "start": 293.26,
+      "end": 294.26,
+      "text": "Prontinho."
+    },
+    {
+      "start": 294.26,
+      "end": 295.26,
+      "text": "Prontinho."
+    },
+    {
+      "start": 295.26,
+      "end": 296.26,
+      "text": "Prontinho."
+    },
+    {
+      "start": 296.26,
+      "end": 297.26,
+      "text": "Prontinho."
+    },
+    {
+      "start": 297.26,
+      "end": 298.26,
+      "text": "Prontinho."
+    },
+    {
+      "start": 298.26,
+      "end": 299.26,
+      "text": "Prontinho."
+    },
+    {
+      "start": 299.26,
+      "end": 300.26,
+      "text": "Prontinho."
+    },
+    {
+      "start": 300.26,
+      "end": 301.26,
+      "text": "Prontinho."
+    },
+    {
+      "start": 301.26,
+      "end": 302.26,
+      "text": "Prontinho."
+    },
+    {
+      "start": 302.26,
+      "end": 303.26,
+      "text": "Prontinho."
+    },
+    {
+      "start": 303.26,
+      "end": 304.26,
+      "text": "Prontinho."
+    },
+    {
+      "start": 304.26,
+      "end": 305.26,
+      "text": "Prontinho."
+    },
+    {
+      "start": 305.26,
+      "end": 306.26,
+      "text": "Prontinho."
+    },
+    {
+      "start": 306.26,
+      "end": 307.26,
+      "text": "Prontinho."
+    }
+  ]
+}

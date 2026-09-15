@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nfeProc xmlns="http://www.portalfiscal.inf.br/nfe" versao="4.00">
+  <NFe>
+    <infNFe Id="NFe28260698765432000188550010000001231000001234" versao="4.00">
+      <ide>
+        <cUF>28</cUF>
+        <mod>55</mod>
+        <serie>1</serie>
+        <nNF>123</nNF>
+        <dhEmi>2026-06-05T09:00:00-03:00</dhEmi>
+        <tpNF>1</tpNF>
+      </ide>
+      <emit>
+        <CNPJ>98765432000188</CNPJ>
+        <xNome>FORNECEDOR ABC LTDA</xNome>
+        <enderEmit><UF>SE</UF></enderEmit>
+      </emit>
+      <dest>
+        <CNPJ>12345678000199</CNPJ>
+        <xNome>EMPRESA TESTE LTDA</xNome>
+        <enderDest><UF>SE</UF></enderDest>
+      </dest>
+      <det nItem="1">
+        <prod>
+          <cProd>G001</cProd>
+          <xProd>GASOLINA COMUM TIPO C</xProd>
+          <NCM>27101259</NCM>
+          <CFOP>5656</CFOP>
+          <uCom>LT</uCom>
+          <qCom>200.0000</qCom>
+          <vUnCom>5.0000</vUnCom>
+          <vProd>1000.00</vProd>
+        </prod>
+        <imposto>
+          <ICMS>
+            <ICMS00>
+              <orig>0</orig>
+              <CST>00</CST>
+              <vBC>1000.00</vBC>
+              <pICMS>18.00</pICMS>
+              <vICMS>180.00</vICMS>
+            </ICMS00>
+          </ICMS>
+          <IPI>
+            <IPITrib><CST>50</CST><vIPI>0.00</vIPI></IPITrib>
+          </IPI>
+          <PIS>
+            <PISAliq><CST>01</CST><vBC>1000.00</vBC><pPIS>1.65</pPIS><vPIS>16.50</vPIS></PISAliq>
+          </PIS>
+          <COFINS>
+            <COFINSAliq><CST>01</CST><vBC>1000.00</vBC><pCOFINS>7.60</pCOFINS><vCOFINS>76.00</vCOFINS></COFINSAliq>
+          </COFINS>
+        </imposto>
+      </det>
+      <total>
+        <ICMSTot>
+          <vBC>1000.00</vBC>
+          <vICMS>180.00</vICMS>
+          <vBCST>0.00</vBCST>
+          <vST>0.00</vST>
+          <vProd>1000.00</vProd>
+          <vFrete>0.00</vFrete>
+          <vDesc>0.00</vDesc>
+          <vIPI>0.00</vIPI>
+          <vPIS>16.50</vPIS>
+          <vCOFINS>76.00</vCOFINS>
+          <vNF>1000.00</vNF>
+        </ICMSTot>
+      </total>
+    </infNFe>
+  </NFe>
+  <protNFe versao="4.00">
+    <infProt>
+      <chNFe>28260698765432000188550010000001231000001234</chNFe>
+      <cStat>100</cStat>
+      <xMotivo>Autorizado o uso da NF-e</xMotivo>
+      <nProt>128260000000001</nProt>
+    </infProt>
+  </protNFe>
+</nfeProc>

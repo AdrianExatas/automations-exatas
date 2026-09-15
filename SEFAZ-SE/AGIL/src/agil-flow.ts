@@ -1,19 +1,11 @@
 import { mkdir, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import type { Frame, Locator, Page } from '@playwright/test';
+import { loginSefazEmpresaInteractive, openAgilIncluirNotaFiscal } from './shared/sefaz-playwright-login';
 
-export type AgilCredentials = {
-  username: string;
-  password: string;
+export type AgilAuthOptions = {
+  timeoutMs?: number;
 };
-
-export type AgilAuthOptions =
-  | ({
-      authMode: 'credentials';
-    } & AgilCredentials)
-  | {
-      authMode: 'certificate';
-    };
 
 export type AgilInserirTimeouts = {
   /** Tempo maximo por fase aguardando alerta "Atenção" ou linha na grelha apos clicar em Inserir. */
@@ -63,9 +55,8 @@ export type IncluirNotasFiscaisOptions = AgilAuthOptions &
     onProgress?: (event: DanfeProgressEvent) => void;
   };
 
-const ACESSO_URL = 'https://www.sefaz.se.gov.br/SitePages/acesso_usuario.aspx';
-const CERTIFICATE_LOGIN_TIMEOUT = 180_000;
 const ATTENTION_MESSAGE_TIMEOUT = 5_000;
+const AGIL_LOGIN_TIMEOUT_MS = 180_000;
 const PDF_POPUP_TIMEOUT = 30_000;
 const INLINE_ERROR_TIMEOUT = 5_000;
 /** Intervalo curto entre checagens de overlay/grelha; faz transicao entre notas mais responsiva. */
@@ -82,9 +73,6 @@ const POST_CLICK_SETTLE_MS = 250;
 /** Primeira checagem de visibilidade de `#danfe` (transicao entre notas): evita esperar 3s quando o campo continua oculto. */
 const DANFE_QUICK_VISIBILITY_PROBE_MS = 600;
 const REOPEN_INCLUSAO_ATTEMPTS = 2;
-const AGIL_MENU_VISIBLE_TIMEOUT_MS = 2_000;
-const AGIL_MENU_CLICK_TIMEOUT_MS = 4_000;
-const INCLUIR_LINK_VISIBLE_TIMEOUT_MS = 5_000;
 const INCLUIR_LINK_CLICK_TIMEOUT_MS = 4_000;
 const DANFE_REOPEN_VISIBLE_TIMEOUT_MS = 6_000;
 const PREPARE_NEXT_AFTER_ERROR_REOPEN_ENABLED = false;
@@ -167,6 +155,64 @@ function isDetachedSafe(frame: Frame): boolean {
   } catch {
     return true;
   }
+}
+
+/** Formulario AGIL (codegen): `#danfe` / Inserir / Salvar / Enviar vivem no iframe `#servico`. */
+function danfeInServicoIframe(page: Page): Locator {
+  return page.locator('#servico').contentFrame().locator('#danfe');
+}
+
+function formButtonInServicoIframe(
+  page: Page,
+  name: 'Inserir' | 'Salvar' | 'Enviar',
+): Locator {
+  return page.locator('#servico').contentFrame().getByRole('button', { name });
+}
+
+async function resolveDanfeInput(page: Page, timeoutMs: number): Promise<Locator | undefined> {
+  try {
+    const servicoDanfe = danfeInServicoIframe(page);
+    if (await servicoDanfe.isVisible({ timeout: timeoutMs }).catch(() => false)) {
+      return servicoDanfe;
+    }
+  } catch {
+    // Pagina de teste sem iframe, ou #servico ainda nao montado.
+  }
+
+  for (const frame of todasAsFrames(page)) {
+    const danfe = frame.locator('#danfe');
+    if (await danfe.isVisible({ timeout: 80 }).catch(() => false)) {
+      return danfe;
+    }
+  }
+
+  return undefined;
+}
+
+async function waitForDanfeInput(page: Page, timeoutMs: number): Promise<Locator> {
+  const deadline = Date.now() + timeoutMs;
+
+  while (Date.now() < deadline) {
+    const remaining = Math.max(50, deadline - Date.now());
+    const found = await resolveDanfeInput(page, Math.min(500, remaining));
+    if (found) {
+      return found;
+    }
+    await sleep(INSERIR_POLL_MS);
+  }
+
+  throw new Error('Timeout waiting for #danfe');
+}
+
+async function clickFormButton(page: Page, name: 'Inserir' | 'Salvar' | 'Enviar'): Promise<void> {
+  try {
+    await formButtonInServicoIframe(page, name).click({ timeout: 10_000 });
+    return;
+  } catch {
+    // iframe #servico ausente: tenta o botao na pagina (testes / portal legado).
+  }
+
+  await page.getByRole('button', { name }).click({ timeout: 10_000 });
 }
 
 /** Locators para a chave na grelha em uma frame especifica (exclui o campo #danfe). */
@@ -306,94 +352,52 @@ async function obterDiretorioDownloadEmpresa(page: Page, pdfDownloadDir: string)
 }
 
 async function autenticarAgil(page: Page, auth: AgilAuthOptions) {
-  await page.goto(ACESSO_URL, { waitUntil: 'domcontentloaded' });
-  await page.getByRole('link', { name: 'Acesso aos Sistemas' }).click();
-
-  if (auth.authMode === 'certificate') {
-    const popupPromise = page.waitForEvent('popup', { timeout: 5_000 }).catch(() => null);
-
-    await page.getByRole('link', { name: 'Paris' }).click({ noWaitAfter: true });
-
-    const popup = await popupPromise;
-    const authenticatedPage = popup ?? page;
-
-    await authenticatedPage
-      .getByText('AGIL', { exact: true })
-      .waitFor({ timeout: CERTIFICATE_LOGIN_TIMEOUT });
-
-    return authenticatedPage;
+  if (await resolveDanfeInput(page, DANFE_QUICK_VISIBILITY_PROBE_MS)) {
+    return page;
   }
 
-  const acessoFrame = page
-    .frameLocator('iframe[name="MSOPageViewerWebPart_WebPartWPQ1"]')
-    .frameLocator('iframe[name="acesso"]');
+  const portalPage = (await loginSefazEmpresaInteractive(
+    page,
+    auth.timeoutMs ?? AGIL_LOGIN_TIMEOUT_MS,
+  )) as Page;
 
-  await acessoFrame.locator('input[name="UserName"]').fill(auth.username);
-  await acessoFrame.locator('input[name="Password"]').fill(auth.password);
-  await acessoFrame.getByRole('button', { name: 'OK' }).click();
-
-  await page.getByText('AGIL', { exact: true }).waitFor({ timeout: 60_000 });
-
-  return page;
+  await openAgilIncluirNotaFiscal(portalPage, auth.timeoutMs ?? AGIL_LOGIN_TIMEOUT_MS);
+  await waitForDanfeInput(portalPage, DANFE_REOPEN_VISIBLE_TIMEOUT_MS).catch(() => undefined);
+  return portalPage;
 }
 
 async function abrirTelaInclusaoNotaFiscal(page: Page) {
-  const danfeInput = page.locator('#danfe');
-
-  if (await danfeInput.isVisible({ timeout: DANFE_QUICK_VISIBILITY_PROBE_MS }).catch(() => false)) {
+  const danfeInput = await resolveDanfeInput(page, DANFE_QUICK_VISIBILITY_PROBE_MS);
+  if (danfeInput) {
     return danfeInput;
   }
 
   await forcarReabrirTelaInclusaoNotaFiscal(page);
 
-  if (!(await danfeInput.isVisible({ timeout: 500 }).catch(() => false))) {
+  const afterReopen = await resolveDanfeInput(page, 1_500);
+  if (!afterReopen) {
     throw new Error(
       'Nao foi possivel abrir a tela "Incluir Nota Fiscal" (link nao ficou disponivel).',
     );
   }
 
-  return danfeInput;
+  return afterReopen;
 }
 
 /**
- * Forca reabertura da tela "Incluir Nota Fiscal" (clica AGIL + link), dispensando
- * qualquer overlay residual antes. Usado entre chaves (apos erro ou quando a tela
- * muda apos Enviar) para evitar que o link do menu fique inacessivel ou que o
- * `<div id="alert">` da chave anterior bloqueie cliques na proxima.
- *
- * Resiliente:
- * - `waitFor({ state: 'visible' })` ANTES do click no link evita os 30s do auto-wait
- *   do Playwright contra um seletor que demora a ficar actionable.
- * - Cliques com timeout reduzido falham rapido se o elemento nao responder.
+ * Forca reabertura da tela "Incluir Nota Fiscal" no menu SIT (AGIL → Incluir Nota Fiscal).
  */
 async function forcarReabrirTelaInclusaoNotaFiscal(page: Page) {
   let overlayEncontrado = false;
   let lastError: unknown;
-  const danfeInput = page.locator('#danfe');
 
   for (let attempt = 1; attempt <= REOPEN_INCLUSAO_ATTEMPTS; attempt += 1) {
     const overlayResult = await garantirSemOverlayBloqueante(page);
     overlayEncontrado = overlayEncontrado || overlayResult.overlayEncontrado;
 
     try {
-      const agil = page.getByText('AGIL', { exact: true });
-
-      if (await agil.isVisible({ timeout: AGIL_MENU_VISIBLE_TIMEOUT_MS }).catch(() => false)) {
-        await agil.click({ timeout: AGIL_MENU_CLICK_TIMEOUT_MS });
-      }
-
-      const incluirLink = page.getByRole('link', { name: 'Incluir Nota Fiscal' });
-
-      await incluirLink.waitFor({
-        state: 'visible',
-        timeout: INCLUIR_LINK_VISIBLE_TIMEOUT_MS,
-      });
-      await incluirLink.click({ timeout: INCLUIR_LINK_CLICK_TIMEOUT_MS });
-
-      await danfeInput.waitFor({
-        state: 'visible',
-        timeout: DANFE_REOPEN_VISIBLE_TIMEOUT_MS,
-      });
+      await openAgilIncluirNotaFiscal(page, INCLUIR_LINK_CLICK_TIMEOUT_MS);
+      await waitForDanfeInput(page, DANFE_REOPEN_VISIBLE_TIMEOUT_MS);
 
       return { overlayEncontrado };
     } catch (error) {
@@ -422,7 +426,7 @@ async function clickComCheckOverlay(
     throw new Error(message ?? `Overlay bloqueante impede o click em ${name}.`);
   }
 
-  await page.getByRole('button', { name }).click({ timeout: 10_000 });
+  await clickFormButton(page, name);
 }
 
 async function aguardarResultadoAposInserir(
@@ -778,7 +782,7 @@ function comDeadlineAbsoluto<T>(
  * Fluxo canônico de inclusão de uma chave DANFE no AGIL (apos `autenticarAgil`), alinhado ao
  * que o Playwright Codegen registra na SEFAZ-SE:
  *
- * - **Abrir tela**: sondagem rapida de `#danfe` (`DANFE_QUICK_VISIBILITY_PROBE_MS`);
+ * - **Abrir tela**: sondagem rapida de `#danfe` no iframe `#servico` (codegen Playwright);
  *   quando o campo nao aparece, reabre via AGIL + "Incluir Nota Fiscal" com tentativas curtas.
  * - **Sucesso**: preencher `#danfe` -> Inserir -> pausa `POST_CLICK_SETTLE_MS` (1s) -> aguardar
  *   linha na grelha -> Salvar -> mesma pausa -> registrar listener do popup PDF -> Enviar ->
@@ -1002,8 +1006,8 @@ export async function incluirNotaFiscalAgil(page: Page, options: IncluirNotaFisc
       return;
     }
 
-    await authenticatedPage.getByRole('button', { name: 'Salvar' }).click();
-    await authenticatedPage.getByRole('button', { name: 'Enviar' }).click();
+    await clickFormButton(authenticatedPage, 'Salvar');
+    await clickFormButton(authenticatedPage, 'Enviar');
     return;
   }
 

@@ -1,0 +1,20 @@
+Referencia sanitizada do fluxo Agape NFS-e.
+
+Acessar:
+https://agnfseprd.agapesistemas.com.br/?alias=pmboquim
+
+Campos observados no login JSF:
+- login: input name="j_id53"
+- senha: input name="j_id55"
+- botao entrar: name="j_id64"
+- ViewState: input name="javax.faces.ViewState"
+
+Campos observados no filtro:
+- formulario: form_conteudo
+- data inicial: input rich-calendar com sufixo InputDate
+- data final: input rich-calendar com sufixo InputDate
+- exercicio: input text adicional do formulario
+- status finalizada: radio value="F"
+- botao pesquisar: link com sufixo :lupa
+
+Credenciais reais foram removidas deste arquivo.

@@ -54,7 +54,7 @@ export interface ServiceRequestIdentifierProvider {
   loadLookupData(): Promise<ServiceRequestIdentifierLookupData>;
 }
 
-export type ServiceRequestMode = "attachments" | "no-attachments";
+export type ServiceRequestMode = "attachments" | "no-attachments" | "optional-attachments";
 export type ServiceRequestAttachmentStrategy = "explicit" | "code-fallback";
 
 export interface ServiceRequestDefaultContent {
@@ -87,6 +87,8 @@ export interface SendServiceRequestsOptions {
   mode?: ServiceRequestMode;
   attachmentsMode?: "required" | "none";
   attachmentStrategy?: ServiceRequestAttachmentStrategy;
+  /** When false, skip Unecont-style filename vs company-name checks. Default true. */
+  validateAttachmentIdentity?: boolean;
   dryRun?: boolean;
   identifierProvider?: ServiceRequestIdentifierProvider;
   bdApiBaseUrl?: string;
@@ -103,6 +105,8 @@ export interface SendServiceRequestsOptions {
   onUnauthorized?: () => Promise<string>;
   /** Optional progress hook (e.g. CLI logging). */
   onProgress?: (event: SendServiceRequestsProgressEvent) => void;
+  /** When true between items, remaining rows are skipped as cancelled. */
+  shouldCancel?: () => boolean;
   /** Resolve requesterId from client users when spreadsheet/env/BD lookups fail. */
   resolveRequesterId?: (
     row: ServiceRequestRow,
@@ -142,6 +146,7 @@ export interface ServiceRequestBatchResult {
     success: number;
     failed: number;
     skipped: number;
+    cancelled?: boolean;
   };
   items: ServiceRequestBatchItemResult[];
   warnings: string[];

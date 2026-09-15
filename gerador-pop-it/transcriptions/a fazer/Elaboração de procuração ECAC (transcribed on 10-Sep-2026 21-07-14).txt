@@ -1,0 +1,7 @@
+Vamos fazer a liberação da procuração da receita, no ICAC. O certificado do cliente já tem que entrar na página. Vai entrar, permite, certificado digital, seleciona o certificado do cliente. Quando entrar na página do cliente, confere o nome da empresa, sócio responsável, autorizações de acesso, procurações.
+E as autorizações do GOG vai em nova autorização, vai informar primeiro. As procurações, elas têm que ser feitas no CNPJ das Atas, no CPF de Marcílio e no CPF de Soares.
+A validade tem que ser de 5 anos, lembrando que sempre tem que colocar um dia antes. Vamos supor, por exemplo, hoje é dia 30, a gente vai colocar dia 29 do 4 de 2031.
+Dá 5 anos, confere exatas, avançar, seleciona todos os serviços, avançar, assinar. Assinar com certificado, assina com certificado, seleciona.
+A autorização dos serviços, fecha, vai fazer o mesmo procedimento para o CPF de Marcílio, avançar, seleciona todos os serviços, avançar.
+As três procurações foram solicitadas. O segundo passo, a gente vai ter que entrar no ICAC com o certificado das Atas, com o certificado de Marcílio e com o certificado de Soares, para fazer a confirmação da procuração.
+As três procurações foram solicitadas.

@@ -1,6 +1,9 @@
-import { writeFileSync } from "node:fs";
+import { existsSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import type { IncomingHttpHeaders } from "node:http";
+import { request as httpsRequest } from "node:https";
 import { join } from "node:path";
 import iconv from "iconv-lite";
+import forge from "node-forge";
 import { CookieJar } from "tough-cookie";
 import { PATHS, SEFAZ_HTTP_RETRY_ATTEMPTS, SEFAZ_HTTP_TIMEOUT_MS } from "../core/config.js";
 import { downloadState } from "../download/state.js";
@@ -12,6 +15,7 @@ import {
   firstValue,
   isSessionExpired,
   parseDownloadListing,
+  parseEmpresasDoFormulario,
   parseErrorMessage,
   parseForm,
   parseJsRedirect,
@@ -38,6 +42,21 @@ interface RequestOptions {
   timeoutMs?: number;
 }
 
+interface CertificateRequestOptions {
+  pfxPath: string;
+  pfxPassword: string;
+  method?: "GET" | "POST";
+  data?: Array<[string, string]>;
+  referer?: string;
+  redirectLimit?: number;
+  timeoutMs?: number;
+}
+
+interface ClientCertificatePem {
+  cert: string;
+  key: string;
+}
+
 export class SefazHttpError extends Error {
   constructor(message: string) {
     super(message);
@@ -49,6 +68,22 @@ export class SefazSessionExpiredError extends SefazHttpError {
   constructor(message: string) {
     super(message);
     this.name = "SefazSessionExpiredError";
+  }
+}
+
+/** A rota/formulario mudou e o transporte HTTP nao pode continuar com seguranca. */
+export class SefazPortalIncompatibleError extends SefazHttpError {
+  constructor(message: string) {
+    super(message);
+    this.name = "SefazPortalIncompatibleError";
+  }
+}
+
+/** Resposta funcional do portal; nunca deve disparar um novo envio automatico. */
+export class SefazPortalBusinessError extends SefazHttpError {
+  constructor(message: string) {
+    super(message);
+    this.name = "SefazPortalBusinessError";
   }
 }
 
@@ -74,6 +109,7 @@ export class SefazHttpClient {
   static readonly publicLoginUrl = "https://www.sefaz.se.gov.br/SitePages/acesso_usuario.aspx";
   static readonly portalIframeUrl = "https://security.sefaz.se.gov.br/internet/portal/acesso.jsp";
   static readonly loginPostUrl = "https://security.sefaz.se.gov.br/internet/login/login.jsp";
+  static readonly certificateLoginUrl = "https://security.sefaz.se.gov.br/certificado/login.aspx";
   static readonly internetBaseUrl = "https://security.sefaz.se.gov.br/internet/";
   static readonly portalUrl = "https://security.sefaz.se.gov.br/internet/portal.jsp";
   static readonly navPageStride = 15;
@@ -83,6 +119,7 @@ export class SefazHttpClient {
   private portalUrl?: string;
   private listingUrl?: string;
   private listingPage?: DownloadListingPage;
+  private lastListingHtml?: string;
   private solicitacaoFormCache?: HtmlForm;
   private empresasCache?: Array<{ inscricao: string; nome: string }>;
 
@@ -120,13 +157,55 @@ export class SefazHttpClient {
     return true;
   }
 
+  async loginComCertificado(pfxPath: string, pfxPassword: string): Promise<boolean> {
+    if (!pfxPath) {
+      throw new SefazHttpError("SEFAZ_CERT_PFX_PATH nao configurado no .env");
+    }
+    if (!existsSync(pfxPath)) {
+      throw new SefazHttpError(`Certificado PFX nao encontrado: ${pfxPath}`);
+    }
+    if (!pfxPassword) {
+      throw new SefazHttpError("SEFAZ_CERT_PFX_PASSWORD nao configurado no .env");
+    }
+
+    let response: HttpResponse;
+    try {
+      response = await this.requestWithClientCertificate(SefazHttpClient.certificateLoginUrl, {
+        pfxPath,
+        pfxPassword,
+        referer: "https://www.sefaz.se.gov.br/",
+      });
+      await this.storeHeadersCookies(response.headers, response.url);
+      response = await this.followCertificateJsRedirects(response, pfxPath, pfxPassword);
+    } catch (error) {
+      throw this.normalizeCertificateLoginError(error);
+    }
+
+    if (!response.url.toLowerCase().includes("portal.jsp")) {
+      throw new SefazPortalIncompatibleError(
+        parseErrorMessage(response.text) ?? "Falha no login por certificado no portal legado",
+      );
+    }
+
+    this.portalUrl = response.url;
+    this.portalHtml = response.text;
+    return true;
+  }
+
   async abrirFormularioSolicitacao(forceRefresh = false): Promise<HtmlForm> {
     if (!forceRefresh && this.solicitacaoFormCache) {
       return this.solicitacaoFormCache;
     }
-    const listing = await this.abrirListagemDownloads();
+    let listing = await this.abrirListagemDownloads(false, forceRefresh);
     if (!listing.newRequestUrl) {
-      throw new SefazHttpError("Nao foi possivel localizar o link 'Novo' na listagem");
+      this.clearNavigationCache();
+      listing = await this.abrirListagemDownloads(false, true);
+    }
+    if (!listing.newRequestUrl) {
+      const debugPath = this.salvarHtmlListagemSemNovo(listing);
+      throw new SefazPortalIncompatibleError(
+        `Nao foi possivel localizar o comando de nova solicitacao na listagem. URL final: ${this.redactSefazTokens(listing.url)}. Links encontrados: ${listing.linkCount ?? 0}. HTML salvo em ${debugPath}`,
+      );
     }
     const response = await this.request("GET", listing.newRequestUrl, { referer: listing.url });
     this.solicitacaoFormCache = parseForm(SefazHttpClient.internetBaseUrl, response.url, response.text);
@@ -138,15 +217,7 @@ export class SefazHttpClient {
       return [...this.empresasCache];
     }
     const form = await this.abrirFormularioSolicitacao();
-    const empresas: Array<{ inscricao: string; nome: string }> = [];
-    for (const [texto, valor] of Object.entries(form.selectOptions.cdPessoaContribuinte ?? {})) {
-      const inscricao = valor.trim();
-      const nome = texto.trim();
-      if (!inscricao || !nome || nome.toLowerCase().startsWith("selecione")) {
-        continue;
-      }
-      empresas.push({ inscricao, nome });
-    }
+    const empresas = parseEmpresasDoFormulario(form);
     this.empresasCache = [...empresas];
     return empresas;
   }
@@ -184,19 +255,20 @@ export class SefazHttpClient {
     };
   }
 
-  async abrirListagemDownloads(readyOnly = false): Promise<DownloadListingPage> {
-    if (!readyOnly && this.listingPage) {
+  async abrirListagemDownloads(readyOnly = false, forceRefresh = false): Promise<DownloadListingPage> {
+    if (!readyOnly && !forceRefresh && this.listingPage) {
       return this.listingPage;
     }
     const portal = await this.ensurePortal();
     const solicitarXmlUrl = parsePortalMenuLink(portal.url, portal.text, "Solicitar Arquivos XML");
     if (!solicitarXmlUrl) {
-      throw new SefazHttpError("Nao foi possivel localizar o menu 'Solicitar Arquivos XML'");
+      throw new SefazPortalIncompatibleError("Nao foi possivel localizar o menu 'Solicitar Arquivos XML'");
     }
 
     let response = await this.request("GET", solicitarXmlUrl, { referer: portal.url });
     response = await this.followJsRedirect(response, solicitarXmlUrl);
     const listing = parseDownloadListing(SefazHttpClient.internetBaseUrl, response.url, response.text, readyOnly);
+    this.lastListingHtml = response.text;
     this.listingUrl = response.url;
     if (!readyOnly) {
       this.listingPage = listing;
@@ -218,7 +290,7 @@ export class SefazHttpClient {
       }
     }
 
-    if (pagina === 1 && current.currentPage === 1) {
+    if (pagina === 1 && (current.currentPage == null || current.currentPage === 1)) {
       return current;
     }
 
@@ -254,8 +326,12 @@ export class SefazHttpClient {
     ensureDir(destino);
 
     const tempFile = join(destino, `${info.nmArquivo || info.dtSolicitacao || "arquivo_tmp"}.zip`);
+    if (existsSync(tempFile)) {
+      rmSync(tempFile, { force: true });
+    }
     let downloadUrl = info.url;
     let referer = this.listingUrl ?? SefazHttpClient.portalUrl;
+    let downloaded = false;
 
     for (let tentativa = 0; tentativa < 3; tentativa += 1) {
       const response = await this.request("GET", downloadUrl, { referer, checkSession: false, asBinary: true });
@@ -279,10 +355,21 @@ export class SefazHttpClient {
       }
 
       writeFileSync(tempFile, response.buffer);
+      downloaded = true;
       break;
     }
 
+    if (!downloaded) {
+      if (existsSync(tempFile)) {
+        rmSync(tempFile, { force: true });
+      }
+      throw new SefazHttpError("O portal retornou redirecionamentos HTML repetidos em vez do ZIP solicitado");
+    }
+
     if (!verificarZipValido(tempFile)) {
+      if (existsSync(tempFile)) {
+        rmSync(tempFile, { force: true });
+      }
       throw new SefazHttpError(`ZIP baixado esta corrompido: ${info.nmArquivo}`);
     }
 
@@ -348,26 +435,40 @@ export class SefazHttpClient {
     throw lastError;
   }
 
+  /**
+   * Adota a sessao temporaria criada pelo navegador no Portal Fazendario.
+   * Cookies permanecem apenas na instancia atual do cliente HTTP.
+   */
+  async adotarSessaoDoPortal(
+    cookies: Array<{ name: string; value: string; domain: string; path?: string; secure?: boolean }>,
+    servicoXmlUrl: string,
+  ): Promise<void> {
+    for (const cookie of cookies) {
+      const domain = cookie.domain.replace(/^\./, "");
+      if (!domain) continue;
+      const serialized = [
+        `${cookie.name}=${cookie.value}`,
+        `Domain=${cookie.domain}`,
+        `Path=${cookie.path || "/"}`,
+        cookie.secure === false ? "" : "Secure",
+      ].filter(Boolean).join("; ");
+      await this.cookieJar.setCookie(serialized, `https://${domain}/`);
+    }
+    this.portalUrl = servicoXmlUrl;
+    this.portalHtml = `<a href="${servicoXmlUrl}">Solicitar Arquivos XML</a>`;
+    this.listingUrl = undefined;
+    this.listingPage = undefined;
+    this.solicitacaoFormCache = undefined;
+    this.empresasCache = undefined;
+  }
+
   private async requestOnce(
     method: "GET" | "POST",
     requestUrl: URL,
     options: RequestOptions,
     timeoutMs: number,
   ): Promise<HttpResponse> {
-    const headers = new Headers(options.headers ?? {});
-    headers.set(
-      "User-Agent",
-      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36",
-    );
-    headers.set("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
-    headers.set("Accept-Language", "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7");
-    if (options.referer) {
-      headers.set("Referer", options.referer);
-    }
-    const cookie = await this.cookieJar.getCookieString(requestUrl.toString());
-    if (cookie) {
-      headers.set("Cookie", cookie);
-    }
+    const headers = await this.buildRequestHeaders(requestUrl, options);
 
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), timeoutMs);
@@ -385,11 +486,17 @@ export class SefazHttpClient {
         redirect: "follow",
         signal: controller.signal,
       });
+    } catch (error) {
+      clearTimeout(timeout);
+      if (this.shouldFallbackToNodeHttps(error, requestUrl)) {
+        return this.requestOnceWithNodeHttps(method, requestUrl, headers, body, timeoutMs, options.asBinary);
+      }
+      throw error;
     } finally {
       clearTimeout(timeout);
     }
 
-    await this.storeCookies(response, requestUrl.toString());
+    await this.storeCookies(response, response.url || requestUrl.toString());
     const arrayBuffer = await response.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
     const contentType = response.headers.get("content-type")?.toLowerCase() ?? "";
@@ -398,6 +505,337 @@ export class SefazHttpClient {
       : iconv.decode(buffer, contentType.includes("utf-8") ? "utf8" : "latin1");
 
     return { url: response.url, status: response.status, headers: response.headers, text, buffer };
+  }
+
+  private shouldFallbackToNodeHttps(error: unknown, requestUrl: URL): boolean {
+    return (
+      requestUrl.protocol === "https:" &&
+      error instanceof Error &&
+      error.message.toLowerCase().includes("unable to connect")
+    );
+  }
+
+  private async requestOnceWithNodeHttps(
+    method: "GET" | "POST",
+    requestUrl: URL,
+    headers: Headers,
+    body: string | undefined,
+    timeoutMs: number,
+    asBinary?: boolean,
+    redirectsRemaining = 5,
+  ): Promise<HttpResponse> {
+    const response = await this.nodeHttpsOnce(method, requestUrl, headers, body, timeoutMs, asBinary);
+    await this.storeHeadersCookies(response.headers, requestUrl.toString());
+
+    if ([301, 302, 303, 307, 308].includes(response.status)) {
+      const redirectLocation = response.headers.get("location");
+      if (!redirectLocation) {
+        return response;
+      }
+      if (redirectsRemaining <= 0) {
+        throw new SefazHttpError(`Limite de redirects excedido em ${method} ${requestUrl.toString()}`);
+      }
+      const redirectUrl = new URL(redirectLocation, requestUrl);
+      const nextMethod: "GET" | "POST" = [307, 308].includes(response.status) ? method : "GET";
+      const nextHeaders = await this.buildRequestHeaders(redirectUrl, { referer: requestUrl.toString() });
+      if (nextMethod === "POST" && body && !nextHeaders.has("Content-Type")) {
+        nextHeaders.set("Content-Type", "application/x-www-form-urlencoded");
+      }
+      return this.requestOnceWithNodeHttps(
+        nextMethod,
+        redirectUrl,
+        nextHeaders,
+        nextMethod === "GET" ? undefined : body,
+        timeoutMs,
+        asBinary,
+        redirectsRemaining - 1,
+      );
+    }
+
+    return response;
+  }
+
+  private nodeHttpsOnce(
+    method: "GET" | "POST",
+    requestUrl: URL,
+    headers: Headers,
+    body: string | undefined,
+    timeoutMs: number,
+    asBinary?: boolean,
+  ): Promise<HttpResponse> {
+    return new Promise((resolve, reject) => {
+      const request = httpsRequest(
+        requestUrl,
+        {
+          method,
+          headers: Object.fromEntries(headers.entries()),
+        },
+        (response) => {
+          const chunks: Buffer[] = [];
+          response.on("data", (chunk: Buffer | string) => {
+            chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk));
+          });
+          response.on("end", () => {
+            try {
+              const responseHeaders = this.headersFromIncoming(response.headers);
+              const buffer = Buffer.concat(chunks);
+              const contentType = responseHeaders.get("content-type")?.toLowerCase() ?? "";
+              const text = asBinary && !contentType.includes("text/html")
+                ? ""
+                : iconv.decode(buffer, contentType.includes("utf-8") ? "utf8" : "latin1");
+              resolve({
+                url: requestUrl.toString(),
+                status: response.statusCode ?? 0,
+                headers: responseHeaders,
+                text,
+                buffer,
+              });
+            } catch (error) {
+              reject(error);
+            }
+          });
+        },
+      );
+
+      request.setTimeout(timeoutMs, () => {
+        request.destroy(new SefazHttpError(`Timeout HTTP apos ${timeoutMs}ms em ${method} ${requestUrl.toString()}`));
+      });
+      request.on("error", reject);
+      if (body) {
+        request.write(body);
+      }
+      request.end();
+    });
+  }
+
+  private headersFromIncoming(headers: IncomingHttpHeaders): Headers {
+    const result = new Headers();
+    for (const [key, value] of Object.entries(headers)) {
+      if (Array.isArray(value)) {
+        for (const item of value) {
+          result.append(key, item);
+        }
+      } else if (value != null) {
+        result.set(key, String(value));
+      }
+    }
+    return result;
+  }
+
+  private async buildRequestHeaders(
+    requestUrl: URL,
+    options: Pick<RequestOptions, "headers" | "referer">,
+  ): Promise<Headers> {
+    const headers = new Headers(options.headers ?? {});
+    headers.set(
+      "User-Agent",
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36",
+    );
+    headers.set("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+    headers.set("Accept-Language", "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7");
+    if (options.referer) {
+      headers.set("Referer", options.referer);
+    }
+    const cookie = await this.cookieJar.getCookieString(requestUrl.toString());
+    if (cookie) {
+      headers.set("Cookie", cookie);
+    }
+    return headers;
+  }
+
+  private async requestWithClientCertificate(
+    url: string,
+    options: CertificateRequestOptions,
+  ): Promise<HttpResponse> {
+    const certificate = this.loadClientCertificatePem(options.pfxPath, options.pfxPassword);
+    return this.requestWithClientCertificateRedirects(
+      new URL(url),
+      certificate,
+      options.method ?? "GET",
+      options.data,
+      options.referer,
+      options.timeoutMs ?? this.timeoutMs,
+      options.redirectLimit ?? 5,
+    );
+  }
+
+  private async requestWithClientCertificateRedirects(
+    requestUrl: URL,
+    certificate: ClientCertificatePem,
+    method: "GET" | "POST",
+    data: Array<[string, string]> | undefined,
+    referer: string | undefined,
+    timeoutMs: number,
+    redirectsRemaining: number,
+  ): Promise<HttpResponse> {
+    const response = await this.requestWithClientCertificateOnce(requestUrl, certificate, method, data, referer, timeoutMs);
+    await this.storeHeadersCookies(response.headers, response.url);
+
+    if ([301, 302, 303, 307, 308].includes(response.status)) {
+      const redirectLocation = response.headers.get("location");
+      if (!redirectLocation) {
+        return response;
+      }
+      if (redirectsRemaining <= 0) {
+        throw new SefazHttpError(`Limite de redirects excedido no login por certificado: ${response.url}`);
+      }
+      const redirectUrl = new URL(redirectLocation, response.url);
+      return this.requestWithClientCertificateRedirects(
+        redirectUrl,
+        certificate,
+        "GET",
+        undefined,
+        response.url,
+        timeoutMs,
+        redirectsRemaining - 1,
+      );
+    }
+
+    if (response.status >= 400) {
+      throw new SefazNonRetryableHttpError(`Falha HTTP ${response.status} em ${response.url}`);
+    }
+
+    return response;
+  }
+
+  private async requestWithClientCertificateOnce(
+    requestUrl: URL,
+    certificate: ClientCertificatePem,
+    method: "GET" | "POST",
+    data: Array<[string, string]> | undefined,
+    referer: string | undefined,
+    timeoutMs: number,
+  ): Promise<HttpResponse> {
+    const headers = await this.buildRequestHeaders(requestUrl, {
+      referer,
+      headers: { "Upgrade-Insecure-Requests": "1" },
+    });
+    const body = data ? new URLSearchParams(data).toString() : undefined;
+    if (body) {
+      headers.set("Content-Type", "application/x-www-form-urlencoded");
+    }
+
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), timeoutMs);
+
+    let response: Response;
+    try {
+      response = await fetch(requestUrl, {
+        method,
+        headers,
+        body,
+        redirect: "manual",
+        signal: controller.signal,
+        tls: {
+          cert: certificate.cert,
+          key: certificate.key,
+        },
+      } as RequestInit & { tls: { cert: string; key: string } });
+    } finally {
+      clearTimeout(timeout);
+    }
+
+    const arrayBuffer = await response.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+    const contentType = response.headers.get("content-type")?.toLowerCase() ?? "";
+    const text = iconv.decode(buffer, contentType.includes("utf-8") ? "utf8" : "latin1");
+
+    return {
+      url: response.url || requestUrl.toString(),
+      status: response.status,
+      headers: response.headers,
+      text,
+      buffer,
+    };
+  }
+
+  private loadClientCertificatePem(pfxPath: string, pfxPassword: string): ClientCertificatePem {
+    const pfxBuffer = readFileSync(pfxPath);
+    const p12Der = forge.util.decode64(pfxBuffer.toString("base64"));
+    const p12Asn1 = forge.asn1.fromDer(p12Der);
+    const p12 = forge.pkcs12.pkcs12FromAsn1(p12Asn1, false, pfxPassword);
+
+    const certBagOid = String(forge.pki.oids.certBag);
+    const shroudedKeyBagOid = String(forge.pki.oids.pkcs8ShroudedKeyBag);
+    const keyBagOid = String(forge.pki.oids.keyBag);
+
+    const certBags = (p12.getBags({ bagType: certBagOid })[certBagOid] ?? []) as Array<{
+      cert?: forge.pki.Certificate;
+    }>;
+    const keyBags = [
+      ...(p12.getBags({ bagType: shroudedKeyBagOid })[shroudedKeyBagOid] ?? []),
+      ...(p12.getBags({ bagType: keyBagOid })[keyBagOid] ?? []),
+    ] as Array<{ key?: forge.pki.PrivateKey }>;
+
+    const cert = certBags
+      .map((bag) => bag.cert)
+      .filter((cert): cert is forge.pki.Certificate => Boolean(cert))
+      .map((cert) => forge.pki.certificateToPem(cert))
+      .join("");
+    const key = keyBags.find((bag) => bag.key)?.key;
+
+    if (!cert || !key) {
+      throw new SefazHttpError("Certificado PFX nao contem certificado e chave privada utilizaveis");
+    }
+
+    return {
+      cert,
+      key: forge.pki.privateKeyToPem(key),
+    };
+  }
+
+  private async followCertificateJsRedirects(
+    response: HttpResponse,
+    pfxPath: string,
+    pfxPassword: string,
+  ): Promise<HttpResponse> {
+    let current = response;
+    for (let redirectCount = 0; redirectCount < 5; redirectCount += 1) {
+      if (current.url.toLowerCase().includes("portal.jsp")) {
+        return current;
+      }
+
+      const certificateForm = this.parseCertificateFormToSubmit(current);
+      if (certificateForm) {
+        current = await this.requestWithClientCertificate(certificateForm.actionUrl, {
+          pfxPath,
+          pfxPassword,
+          method: certificateForm.method,
+          data: simplifyFormPayload(certificateForm, {}),
+          referer: current.url,
+        });
+        await this.storeHeadersCookies(current.headers, current.url);
+        continue;
+      }
+
+      const redirectUrl = parseJsRedirect(current.url, current.text);
+      if (redirectUrl) {
+        current = redirectUrl.includes("/certificado/")
+          ? await this.requestWithClientCertificate(redirectUrl, {
+            pfxPath,
+            pfxPassword,
+            referer: current.url,
+          })
+          : await this.request("GET", redirectUrl, { referer: current.url, checkSession: false });
+        await this.storeHeadersCookies(current.headers, current.url);
+        continue;
+      }
+
+      return current;
+    }
+    throw new SefazHttpError(`Limite de navegacao excedido no login por certificado: ${current.url}`);
+  }
+
+  private parseCertificateFormToSubmit(response: HttpResponse): HtmlForm | undefined {
+    try {
+      const form = parseForm(response.url, response.url, response.text, "form");
+      if (/submit\s*\(/i.test(response.text) || form.fields.usuariosCadastrados) {
+        return form;
+      }
+      return undefined;
+    } catch {
+      return undefined;
+    }
   }
 
   private shouldRetryStatus(status: number): boolean {
@@ -452,9 +890,48 @@ export class SefazHttpClient {
     if (!cookies.length && single) {
       cookies.push(single);
     }
+    await this.storeCookieHeaders(cookies, url);
+  }
+
+  private async storeHeadersCookies(headers: Headers, url: string): Promise<void> {
+    const headersWithSetCookie = headers as Headers & { getSetCookie?: () => string[] };
+    const cookies = headersWithSetCookie.getSetCookie?.() ?? [];
+    const single = headers.get("set-cookie");
+    if (!cookies.length && single) {
+      cookies.push(single);
+    }
+    await this.storeCookieHeaders(cookies, url);
+  }
+
+  private async storeCookieHeaders(cookies: string[], url: string): Promise<void> {
     for (const cookie of cookies) {
       await this.cookieJar.setCookie(cookie, url);
     }
+  }
+
+  private normalizeCertificateLoginError(error: unknown): SefazHttpError {
+    if (error instanceof SefazHttpError) {
+      return error;
+    }
+    if (!(error instanceof Error)) {
+      return new SefazHttpError(`Falha no login por certificado: ${String(error)}`);
+    }
+
+    const lowerMessage = error.message.toLowerCase();
+    if (
+      lowerMessage.includes("mac verify failure") ||
+      lowerMessage.includes("bad decrypt") ||
+      lowerMessage.includes("pkcs") ||
+      lowerMessage.includes("pfx") ||
+      lowerMessage.includes("passphrase") ||
+      lowerMessage.includes("password")
+    ) {
+      return new SefazHttpError(
+        "Falha ao abrir certificado PFX. Verifique a senha e se o arquivo informado e um .pfx valido.",
+      );
+    }
+
+    return new SefazHttpError(`Falha no login por certificado: ${error.message}`);
   }
 
   private async followJsRedirect(response: HttpResponse, referer?: string): Promise<HttpResponse> {
@@ -541,13 +1018,39 @@ export class SefazHttpClient {
     return parsed.toString();
   }
 
+  private clearNavigationCache(): void {
+    this.portalHtml = undefined;
+    this.portalUrl = undefined;
+    this.listingUrl = undefined;
+    this.listingPage = undefined;
+    this.solicitacaoFormCache = undefined;
+  }
+
+  private salvarHtmlListagemSemNovo(listing: DownloadListingPage): string {
+    const debugDir = join(PATHS.projectRoot, "_local", "debug", "sefaz_listing_sem_novo");
+    ensureDir(debugDir);
+    const timestamp = new Date().toISOString().replace(/\D/g, "").slice(0, 14);
+    const path = join(debugDir, `listing_sem_novo_${timestamp}.html`);
+    const body = this.lastListingHtml
+      ? this.redactSefazTokens(this.lastListingHtml)
+      : `Listagem sem HTML capturado. URL: ${this.redactSefazTokens(listing.url)}`;
+    writeFileSync(path, body, "utf8");
+    return path;
+  }
+
+  private redactSefazTokens(value: string): string {
+    return value
+      .replace(/([?&;]token=)[^"'&;\s<>]+/gi, "$1<redacted>")
+      .replace(/(token%3d)[^%&"'<>;\s]+/gi, "$1<redacted>");
+  }
+
   private salvarHtmlDownloadInesperado(info: DownloadInfo, htmlText: string): string {
     const debugDir = join(PATHS.projectRoot, "_local", "debug", "sefaz_download_html");
     ensureDir(debugDir);
     const nomeBase = [info.nmArquivo, info.dtSolicitacao, info.tipoDownload].filter(Boolean).join("_") || "download_html";
     const safeName = nomeBase.replace(/[<>:"/\\|?*\x00-\x1f]+/g, "_").replace(/\s+/g, "_").replace(/^[._\s]+|[._\s]+$/g, "").slice(0, 120);
     const path = join(debugDir, `${safeName || "download_html"}.html`);
-    writeFileSync(path, htmlText, "utf8");
+    writeFileSync(path, this.redactSefazTokens(htmlText), "utf8");
     return path;
   }
 

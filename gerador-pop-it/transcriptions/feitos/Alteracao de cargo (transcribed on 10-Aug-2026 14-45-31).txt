@@ -1,0 +1,41 @@
+Neste vídeo eu vou apresentar como efetuar uma alteração de cargo. A exemplo da empresa Panificação Três Irmãos, ela solicita ao seu colaborador Gideus uma alteração no seu cargo, quando ele passará a ser maceiro. Tá, se como eu descubro esses tipos de cargo, se de fato a nomenclatura está correta, se de fato existe? Primeiro, podemos utilizar a busca mais simples e mais fácil hoje, que é a utilização do Google. Você pode colocar aqui, cargo de maceiro. 
+
+Aqui ele já puxou com o CBO, e o CBO é Classificação Brasileira de Ocupações, eu vou te explicar em instantes. Mas aqui ele já identifica o cargo de maceiro, o seu código, que é 848315. Como eu valido essa informação? Eu venho e descrevo aqui, CBO por código. 
+
+Aqui é a página do site do governo, lá consta todas as funções do nosso país, todos os cargos, todas as suas atividades que exerce. Então você clica, 
+
+vem em buscas, 
+
+existe tanto a pesquisa por nome, que ele chama de título, se você descrever aqui, maceiro e consultar, ele já apresenta aqui algumas opções, 
+
+ou por código. 
+
+Neste caso, o nosso seria 848315. Clica em consultar. 
+
+E aqui está o maceiro. Se você quiser ainda fomentar suas informações, você clica na numeração e aqui ele vai dar algumas familiaridades e as suas atividades pertinentes a esse tipo. 
+
+Então como fazemos isso dentro da domínio. Você clica em empregados. 
+
+Você clica em empregados. 
+
+Procura o colaborador. 
+
+Aqui está o Gil e Gilson. 
+
+Você clica na opção cargo. 
+
+Vai clicar em seu teclado F7, porque vamos criar ou não esse cargo. Então ele já dá a opção de criação, mas vamos ver se já existe dentro da empresa. 
+
+Marcelo, já tem. Então não precisa mais efetuar. A gente vai utilizar o código 2, que é o cargo do código. 
+
+Ele não foi encaminhado ao E -Social. Vou encaminhar aqui. Fecha. 
+
+Veio novamente em cargo e digito o número 2, que é o código dele. Pronto. Ele já alterou. Você vem na opção gravar. 
+
+Ele vai solicitar para os campos alterados neste cadastro se você deseja retificar os dados atuais ou incluir o histórico de alteração. Não trata -se de uma retificação, porque não houve um erro, mas sim de fato uma alteração. Então clique em alteração. Vamos colocar a data da solicitação. Neste caso, dia 20 do 3 foi solicitado. 
+
+Para o dia 20 do 3 foi solicitado. E clique em gravar. Sim. 
+
+Está. Está. Está aí. Após você fazer. Após gravar. Possivelmente ele já estará. Apto aí na sua carteira de trabalho. 
+
+E desta forma a gente finaliza a operação. 

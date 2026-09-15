@@ -5,6 +5,10 @@ import { createClientUsersRequesterResolver } from "../client-users-requester-re
 import { loadEnvConfig } from "../config";
 import { loadEmpresasFromExcel } from "../input";
 import { OnvioHttpClientUsersProvider } from "../onvio-http-client-users-provider";
+import {
+  createOnvioDepartmentsIdentifierProvider,
+  OnvioHttpDepartmentsProvider,
+} from "../onvio-http-departments-provider";
 import { resolveRuntimePath } from "../project-paths";
 import type { EmpresaBatchItem } from "../types";
 import { readCachedUdsLongTokenForUpload, refreshUdsLongTokenForUpload } from "../onvio-uds-refresh";
@@ -17,6 +21,7 @@ import {
   resolveExcelPath,
 } from "./cli-helpers";
 import { normalizeCode } from "./upload-onvio-helpers";
+import { assertNoAttachmentIdentityMismatches } from "../attachment-identity-gate";
 
 interface UploadCliFlags {
   skipAttachments: boolean;
@@ -297,6 +302,22 @@ export async function main(argv: string[] = process.argv.slice(2)): Promise<numb
     }
   }
 
+  if (!skipAttachments && attachmentsDir) {
+    try {
+      // Gate sobre a planilha completa do lote (nao so o restante do checkpoint),
+      // para nao enviar nada se houver arquivo trocado no diretorio.
+      const todasParaGate = loadEmpresasFromExcel(excelPath);
+      assertNoAttachmentIdentityMismatches(todasParaGate, attachmentsDir);
+      console.log(`[Onvio] Gate de identidade: OK (${attachmentsDir}).`);
+    } catch (error) {
+      console.error(
+        "Erro na execucao:",
+        error instanceof Error ? error.message : String(error),
+      );
+      return 1;
+    }
+  }
+
   const nfsVideoTrimmed = env.unecontOnvioNfsVideoPath.trim();
   const extraAttachmentPaths =
     !skipAttachments && nfsVideoTrimmed ? [path.resolve(nfsVideoTrimmed)] : undefined;
@@ -372,6 +393,26 @@ export async function main(argv: string[] = process.argv.slice(2)): Promise<numb
       )
     : undefined;
 
+  const identifierProvider = tokenForClientUserLookup
+    ? createOnvioDepartmentsIdentifierProvider(
+        new OnvioHttpDepartmentsProvider({
+          token: tokenForClientUserLookup,
+          baseUrl: env.onvioBaseUrl,
+          firmCompanyId: env.onvioFirmCompanyId,
+          cookie: env.onvioCookie,
+          onUnauthorized: onUnauthorizedForLookup,
+        }),
+      )
+    : undefined;
+
+  if (identifierProvider) {
+    console.log("[Onvio] Departamentos: lookup via API Onvio (sem BD).");
+  } else {
+    console.warn(
+      "[Onvio] Sem token para listar departamentos; use ONVIO_DEPARTMENT_ID/ONVIO_DEPARTMENT_NAME ou coluna ONVIO_DEPARTMENT_ID.",
+    );
+  }
+
   try {
     const result = await uploadOnvioBatch({
       token: tokenForBatch,
@@ -379,7 +420,8 @@ export async function main(argv: string[] = process.argv.slice(2)): Promise<numb
       attachmentsDir,
       attachmentsMode: skipAttachments ? "none" : "required",
       dryRun,
-      bdApiBaseUrl: env.bdApiBaseUrl,
+      // Planilha (ONVIO_CLIENT_ID) + Onvio (departamentos/solicitantes); BD fora do fluxo.
+      identifierProvider,
       extraAttachmentPaths,
       onUnauthorized,
       resolveRequesterId,

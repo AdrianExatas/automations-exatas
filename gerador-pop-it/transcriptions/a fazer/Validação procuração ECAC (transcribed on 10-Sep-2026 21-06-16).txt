@@ -1,0 +1,4 @@
+Agora vamos para o segundo passo, que é fazer a liberação que foi solicitada pelo certificado do cliente. A gente vai entrar, só que agora com o certificado da Exatas, para fazer a liberação, a gente entra com o certificado, vai em autorizações de acesso, procurações, minhas autorizações de acesso, entrar, congove, aí aqui já vai ser diferente, a gente vai nas recebidas.
+Com isso tem aqui, está um telecom, que foi o que a gente acabou de solicitar, validar, confirma, abre a procuração, vai salvar na pasta da empresa, a procuração, a pasta da empresa está no telecom, no paralegal, a gente abre uma pasta procurações, especifica qual é a procuração, vou caricar aqui uma procuração 3, que eu vou validar.
+Pronto!
+Pronto!

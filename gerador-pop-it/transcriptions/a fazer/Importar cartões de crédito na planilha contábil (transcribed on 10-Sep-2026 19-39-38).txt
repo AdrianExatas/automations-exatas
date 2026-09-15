@@ -1,0 +1,57 @@
+Olá pessoal, boa tarde, tudo bem? Pessoal estou aqui para gravar um vídeo de frente à planilha de importação, e eu fiz os cartões de crédito, certo? Vamos lá.
+Essa planilha que vocês estão vendo está salva no caminho, na pasta de PC, na rede, DC Contável, na pasta de CAINAN.
+Depois de não pegar essa cópia, pegar a cópia, ele já foi febroso, eu não queria mudar de lugar, para não ter confronto de naiva na planilha em si, certo? Vamos lá.
+Vamos abrir ela, certo? E pegar alguns dados aqui, você vai limpar, certo? Limpo, aí vamos abrir o arquivo que a gente enviou a planilha.
+Vou pegar essa planilha, tá? Que é da Stone, certo? E vou usar essas colunas, data da venda, valor bruto e valor líquido, certo?
+Vamos lá, vou vir aqui, dar um Ctrl C, aí atenção no seguinte detalhe, vocês não podem já colar direito, tem que vir aqui, ó.
+Então, essa é a opção, certo? Porque se você estava direto, pode ocasionar erro, quando você for finalizar o Preciso MedinaTobers e emitir ela, para você poder jogar ela lá no domínio, certo?
+Vamos lá, valor bruto, certo? Vamos lá, valor bruto, vamos vir aqui, Ctrl C, Ctrl V, acompanhado Recebido, que é o link do cartão.
+Vamos lá, valor bruto, certo? Vamos vir aqui, Ctrl C, Ctrl V, Ctrl V, certo?
+Vamos vir aqui, venda, Ctrl C, Ctrl V, certo?
+Vamos vir aqui, venda, Ctrl C, Ctrl V, Ctrl V, pronto.
+Aí, o que não estiver aqui, não está errado, porque essa explicação pode ser de refeição, ou de voucher, alguma coisa do gênero, entendeu?
+Pronto, aí feito isso, vamos remover o C, pronto.
+Pronto, removeu, vamos regerar a planilha, se nem que já leu toda a planilha, e só salvar.
+Vamos botar fim, certo?
+Ele vai deixar, salvo já, a coisa correta, como se importar.
+Já feito cima, fazer importação, porém, nós vamos salvar ela, certo?
+Depois, para outro passo para vocês.
+Vamos salvar aqui na rede, que pode salvar na parte da empresa, certo?
+Aí fica opcional de cada um.
+Vou vir aqui, essa empresa está fazendo a SuperLine, SuperLine, Contábil, 2025, vou jogar aqui, 4 para 3, certo?
+Ok, pronto.
+Leandro, posso jogar no domínio? Não.
+Por que?
+Um passo aqui que vou evoluir, é deixar ela como FX, como se fosse um banco.
+Pronto, para aí, então está o seguinte.
+Vamos vir aqui na ferramenta, o FX fácil, certo?
+Vou botar aqui para vocês, mas eu vou aqui, Excel para o FX.
+Seleciono, saiu o login, seleciono, vou simplificar o arquivo que eu acabei de salvar, certo?
+Aqui é a parte 3.
+Vem aqui, converter.
+Abaixar o arquivo convertido.
+Eu vou deixar aqui fora mesmo, certo?
+Aí, lá sim, vamos para o domínio, como se fosse importar o saco botado.
+Aqui está botando a conta do cartão.
+O cartão do domínio aqui é uma conta só para todos os cartões, certo?
+Vou botar o período, que eu estou fechando, estou conciliando.
+Mas vou vir aqui, vou selecionar a pasta convertida.
+Todos os pessoal ver, abrir e importar.
+Mas vamos esperar para ele ter algum erro ou não.
+Aqui está processando os dados do FX.
+Vamos aguardar mais um scan aqui.
+Processamento, porque são muitos dados, né?
+São várias vendas, vamos esperar mais um pouquinho.
+Para ele processar totalmente.
+Mais alguns instantes.
+Está finalizando.
+Processo mais alguns instantes.
+Pronto.
+Vamos ver se deu tudo certinho.
+Vou fazer tudo configurado.
+Pronto.
+Aí, agora é só para gravar e fazer a conciliação.
+Então, até a tarde a todos, obrigado.
+Estamos aí.
+Tchau, tchau.
+Tchau.

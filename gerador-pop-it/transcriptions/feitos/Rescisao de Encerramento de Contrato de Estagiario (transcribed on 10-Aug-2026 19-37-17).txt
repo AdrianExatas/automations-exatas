@@ -1,0 +1,67 @@
+Neste vídeo eu vou ensinar a você como efetuar uma rescisão de encerramento do contrato de um estagiário 
+
+Inicia pela solicitação do cliente, em específico pela plataforma Onvio, que é um sistema de comunicação entre a empresa e o cliente A exemplo desta empresa, ele está aqui solicitando e ele descreve aqui, solicitamos o desligamento do estagiário, considerando que o último dia de trabalho foi 1 de setembro de 2026 
+
+A observação é indenizado, porém estagiários não contêm aviso prévio, então nem se desconta, nem se indeniza 
+
+A observação, aqui também é outra situação, lógico, cada empresa pode ter a sua, mas só para detalhes, favor atentasse a inclusão do auxílio de transporte no fechamento Ela pede aqui que o auxílio de transporte seja pago, mas a ideia é como fazer a execução do aviso, comunicado e dispensa, como também da rescisão do estagiário, tá? Então você após ter ciência do pedido, você abrirá aqui o domínio folha, 
+
+entrará com seu usuário e senha 
+
+aqui eu já me encontro na empresa, então você deverá primeiro fazer o comunicado de dispensa, vem aqui acima em relatórios, abaixo gerenciador de relatórios, 
+
+na opção rescisão 
+
+procura, procurei, 
+
+dispensa, compromisso de estágio, esse é o documento inicial, abaixo ele tem algumas informações a serem inseridas, então você vai aqui no campo 1, empresa e onde estiver a asterística é obrigatório, então o código da empresa, 690, o código do colaborador, então como é que eu posso descobrir aqui, eu venho em utilitários, consulta recibos, é uma das maneiras, tá? Existem várias outras, porém aqui eu gosto de utilizar, clico aqui em selecionar, venho aqui em empregados, clico aqui nos 3 pontos, ele vai me dar aqui a lista dos funcionários, eu clico em nome, pra ele me dar em ordem, vou, caso tenha esquecido o nome do colaborador, venho aqui aí, trata -se do Jamerson, então procura aqui o Jamerson, 
+
+aí ele está diário, perdão, está diário, aqui Jamerson, código 52, e eu digito aqui, código 52, qual a data de emissão? Dia 1º de julho, que foi a data da solicitação da cliente, feito isso, eu clico em executar, 
+
+pronto, aqui a dispensa, eu clico aqui em publicar esse relatório, na pasta, eu seleciono aqui nos 3 pontos, eu vou até pessoal, 
+
+demissão, 
+
+1026, 
+
+o mês 7, que é o mês de dispensa, 
+
+e o Jamerson já se encontra lá, lembrando que, pra enviar na pasta do Onvil, tem que fazer o processo com o qual em outros vídeos já foi ensinado a você, deverá ir lá, abrir a competência, descrever o nome, criar a pasta do colaborador, tá certo? nesse momento aqui, ele já se encontra, porque já foi feito, a execução anterior, lá dentro do Onvil, que é mostrando, essa parte aqui, olha, 
+
+olha, pessoal, isso ele não vai vir, então a gente precisa, criar, antes de enviar o documento, aqui, percebe, se eu clicar aqui, mês 7, não tem outras pastas, então se eu for criar de um novo colaborador, tem que vir novo, pasta, entendeu? Então voltamos aqui, aqui já, já, basta clicar ok, eu não vou fazer isso, porque nós já enviamos anteriormente, tá aí a dispensa, através do domínio, publicar, então vou cancelar aqui, só foi um demonstrativo, e vamos pra parte de rescisão, a rescisão, vamos clicar aqui em processos, rescisões, individual, 
+
+código do colaborador 52, 
+
+mês 1, do 7, 2026, 
+
+o motivo, pra esse efeito, que é encerramento do contrato, a opção é 43, instição de término de contrato do estágio, 
+
+pronto, esse é o processo, tá, supor, eu sei, que esse colaborador, ele se encerrou, tá certo, a cliente informou lá, mas não ficou claro, esse é um segredo importante, gente, você precisa vir aqui, em arquivo, 
+
+estagiário, cadastro, antes, se não ficou tão claro, no pedido, antes de se direcionar a cliente, é necessário fazer essa consulta aqui, eu vou me direcionar aqui ao Jameson, 
+
+pronto, aqui o cadastro dele, né, e abaixo, início do contrato, tá lá, que ele foi dia 3 do 2, quando eu clico aqui nesses 3 pontos, ao lado, ele vai trazer aqui, o contrato, tá vendo que houve prorrogação, primeiro contrato do Gesso, iniciou 3 do 2, encerrou 29 do 8, e a empresa, ela prorrogou até, 1º de julho, então, por isso que é o encerramento, tem que se ter detalhes dessa informação, porque pode ser uma antecipação do empregado, ou uma antecipação, do empregador, tá, e isso muda o processo, então, por isso aqui, olha, ele está como encerramento, feito isso, eu retorno aqui, né, na parte de rescisão, e clico em calcular, 
+
+e aí está, esse é o cálculo de rescisão, é, vamos clicar agora em recibo, 
+
+aqui, 
+
+aqui serão os valores, que deverão ser encaminhados, tá, é, 
+
+depois dos cálculos, claro, conferidos, nós vamos agora no processo do relatório de documentos, então, você vem em relatórios, recibos, rescisões, código 52 do colaborador, responsável, 
+
+não precisa de responsável, aqui abaixo, em emitir, você pode botar o termo de quitação, analítico de cálculo, ou memória de cálculo, opcional, nós vamos deixar o analítico aqui, a carta de referência, e você clica em ok, 
+
+e aí você vai clicar em publicar, 
+
+você vai digitar o nome, documentos, demissionais, 
+
+clica nos três pontos, vem aqui em pessoal, demissão, publicação, 2026, 2027, gemerson, clica em ok, 
+
+aguarda a publicação, 
+
+o outro documento agora é o, a ficha de empregado, então, você vem em relatórios, cadastrais, 
+
+ficha de empregado, clica, aqui em seleção, pra ele não puxa todos, vem aqui a opção estagiários, no três ponto, procura o nome, gemerson, clica em ok, depois em ok, novamente, a ficha de empregado, vai trazer as informações lá abaixo, tipo de rescisão, extinção, e as informações do desligamento, eu venho novamente em publicar, ficha de empregado, vou aqui nos três pontos, pra selecionar a pasta, pessoal, 
+
+demissão, 2627, 2727, a pasta do colaborador, ok, gravar, e aguarda aí, depois consulta se não houve, foi encaminhado, outro ponto interessante, os documentos só vão estar sendo enviados corretamente, se esse campo abaixo aqui, o houve, tiver tudo esverdeado, principalmente aqui esse agente, tá, se tiver vermelho, ele não vai, ele não vai enviar o houve, então tá aí, esse é o processo de documentação, documentação, envio, de demissão, de encerramento de um estagiário. 

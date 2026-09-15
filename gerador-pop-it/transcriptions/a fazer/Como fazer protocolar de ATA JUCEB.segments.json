@@ -1,0 +1,43 @@
+{
+  "media": "G:\\Meu Drive\\GESTÃO DE PROCESSOS\\05 - Paralegal\\VÍDEOS\\COMO FAZER PROTOCOLAR DE ATA JUCEB.mkv",
+  "transcript_path": "C:\\Users\\Exatas\\Documents\\GitHub\\automations-exatas\\gerador-pop-it\\transcriptions\\a fazer\\COMO FAZER PROTOCOLAR DE ATA JUCEB (transcribed on 10-Sep-2026 19-35-41).txt",
+  "language": "pt",
+  "duration_sec": 210.6666875,
+  "segments": [
+    {
+      "start": 1.01,
+      "end": 45.55,
+      "text": "Acesse o portador do SEB, em Requerimento Eletrônico, Atualizar Requerimento, Informa o Número, o número seria esse daqui, o que fica na capa do processo, 8150123354, ele pergunta se quer voltar para o início ou retornar para a última etapa, verifica as informações, avançar, assinatura digital."
+    },
+    {
+      "start": 45.55,
+      "end": 110.28,
+      "text": "Pronto, aqui é a capa do processo, que ele já gera automaticamente, certo? Só vou fazer a conferência, começo de máquinas, e aqui abaixo, a ata, eu venho no clipe, seleciono o arquivo, abrir, enviar, aguardo ele carregar, venho na lupa para conferir, tá aqui a ata, foi selecionada, volto lá para a página,"
+    },
+    {
+      "start": 110.28,
+      "end": 124.0,
+      "text": "venho no lápis, seleciono, assinar com certificado, já tenho, já o instalado, clico em assinar, vou selecionar o nome dele, assinar documentos."
+    },
+    {
+      "start": 124.0,
+      "end": 148.49,
+      "text": "Pronto, aqui ele está dizendo que foi assinado com sucesso, agora eu venho na parte da ata e faço o mesmo procedimento, atualizar dados, atenção, foram assinados, porém não foi protocolado ainda,"
+    },
+    {
+      "start": 148.49,
+      "end": 188.91,
+      "text": "verifico, está tudo verdinho, enviar processo, o documento assinado, guardo a carregar, demora um pouquinho, seu processo foi marcado para dar entrada, certo?"
+    },
+    {
+      "start": 188.91,
+      "end": 203.01,
+      "text": "Caso o pagamento já tenha sido efetuado da taxa, ele vai direcionar automaticamente, e se o pagamento estiver pendente, ele vai estar protocolado, porém ele só vai dar seguimento após o sistema reconhecer o pagamento da taxa, certo?"
+    },
+    {
+      "start": 203.07,
+      "end": 209.31,
+      "text": "Esse é o passo a passo para fazer a assinatura das atas e protocolar na Juseb."
+    }
+  ]
+}

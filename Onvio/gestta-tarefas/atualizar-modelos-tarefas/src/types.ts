@@ -9,6 +9,7 @@ export interface FrequencyDate {
 export interface GesttaTask {
   _id: string;
   name: string;
+  type?: string;
   company_department: string | { _id: string; name?: string };
   subtype: string;
   competence?: number | null;
@@ -27,6 +28,17 @@ export interface GesttaTask {
   group_customer_count?: number;
   company_documents?: string[];
   notify_whatsapp?: boolean;
+}
+
+export interface CustomerTaskConfig {
+  _id: string;
+  company_task?: string | GesttaTask;
+  company_user?: string | { _id?: string; name?: string } | null;
+  approve?: boolean;
+  approvers?: string[];
+  approve_type?: string[];
+  active?: boolean;
+  customer?: string | { _id?: string; name?: string };
 }
 
 export interface TaskUpdatePayload {

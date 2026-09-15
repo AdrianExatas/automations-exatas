@@ -33,6 +33,75 @@ IMPERATIVE_HINTS = (
     "envie",
 )
 
+# Meta-linguagem / demo do vídeo — texto operacional deve ser universal
+DEMO_META_PATTERNS = (
+    re.compile(r"\bna fonte\b", re.I),
+    re.compile(r"\bexemplo demonstrativo\b", re.I),
+    re.compile(r"\bno v[ií]deo\b", re.I),
+    re.compile(r"\bna grava[cç][aã]o\b", re.I),
+    re.compile(r"\bconforme a grava[cç][aã]o\b", re.I),
+    re.compile(r"\bcomo (?:foi )?ensinado no v[ií]deo\b", re.I),
+)
+
+
+def operational_text_blobs(content: dict[str, Any]) -> list[tuple[str, str]]:
+    """(origem, texto) do conteúdo operacional — exclui pontos_validacao."""
+    out: list[tuple[str, str]] = []
+    doc = content.get("documento") or {}
+    for key in ("objetivo", "resultado_esperado"):
+        val = text(doc.get(key))
+        if val:
+            out.append((f"documento.{key}", val))
+    for step in as_list((content.get("pop") or {}).get("etapas")):
+        sid = text(step.get("id")) or "?"
+        for key in ("o_que", "como", "registro"):
+            val = text(step.get(key))
+            if val:
+                out.append((f"pop.{sid}.{key}", val))
+    for sec in as_list((content.get("it") or {}).get("secoes")):
+        sid = text(sec.get("id") or sec.get("etapa_id")) or "?"
+        for key in ("titulo", "caminho"):
+            val = text(sec.get(key))
+            if val:
+                out.append((f"it.{sid}.{key}", val))
+        for i, inst in enumerate(as_list(sec.get("instrucoes")), start=1):
+            val = text(inst)
+            if val:
+                out.append((f"it.{sid}.instrucao{i}", val))
+        for i, att in enumerate(as_list(sec.get("atencoes")), start=1):
+            val = text(att)
+            if val:
+                out.append((f"it.{sid}.atencao{i}", val))
+        print_field = sec.get("campo_print") or {}
+        if isinstance(print_field, dict):
+            for key in ("rotulo", "orientacao", "legenda"):
+                val = text(print_field.get(key))
+                if val:
+                    out.append((f"it.{sid}.print.{key}", val))
+    for block in as_list((content.get("form") or {}).get("blocos")):
+        bid = text(block.get("id") or block.get("titulo")) or "?"
+        for item in as_list(block.get("itens")):
+            val = text(item.get("pergunta"))
+            if val:
+                out.append((f"form.{bid}.{text(item.get('id')) or '?'}", val))
+    for risk in as_list((content.get("mp") or {}).get("riscos")):
+        rid = text(risk.get("id")) or "?"
+        for key in ("etapa", "como_faz", "risco", "barreira", "mitigacao"):
+            val = text(risk.get(key))
+            if val:
+                out.append((f"mp.{rid}.{key}", val))
+    return out
+
+
+def check_demo_meta(content: dict[str, Any]) -> list[str]:
+    hits: list[str] = []
+    for origem, blob in operational_text_blobs(content):
+        for pat in DEMO_META_PATTERNS:
+            if pat.search(blob):
+                hits.append(f"{origem}: trecho não universal ({pat.pattern})")
+                break
+    return hits
+
 
 def load_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8-sig"))
@@ -128,7 +197,32 @@ def validate(content: dict[str, Any]) -> tuple[list[str], list[str]]:
     if "form" in types:
         if not form_blocks:
             errors.append("FORM solicitado sem blocos.")
-        covered = {text(block.get("etapa_id")) for block in form_blocks}
+        if len(form_blocks) > 7:
+            errors.append(f"FORM com {len(form_blocks)} blocos; o molde QUA.002 aceita no máximo 7.")
+        large_blocks = [
+            text(block.get("id") or block.get("titulo") or "?")
+            for block in form_blocks
+            if len(as_list(block.get("itens"))) > 2
+        ]
+        if len(large_blocks) > 3:
+            errors.append(
+                "FORM com mais de 3 blocos com >2 itens (slots grandes 5–7 esgotados): "
+                + ", ".join(large_blocks)
+            )
+        for block in form_blocks:
+            n_items = len(as_list(block.get("itens")))
+            if n_items > 15:
+                bid = text(block.get("id") or block.get("titulo") or "?")
+                errors.append(f"Bloco FORM {bid} com {n_items} itens; capacidade máxima do molde é 15.")
+        covered = set()
+        for block in form_blocks:
+            eid = text(block.get("etapa_id"))
+            if eid:
+                covered.add(eid)
+            for extra in as_list(block.get("etapa_ids")):
+                extra_id = text(extra)
+                if extra_id:
+                    covered.add(extra_id)
         if stages:
             uncovered = [sid for sid in stages if sid not in covered]
             if uncovered:
@@ -219,6 +313,11 @@ def validate(content: dict[str, Any]) -> tuple[list[str], list[str]]:
                     errors.append("Entrada da lista mestra sem codigo_titulo.")
                 if text(entry.get("origem")).upper() not in {"", "INTERNO"}:
                     warnings.append(f"Lista mestra: origem inesperada em {text(entry.get('codigo_titulo'))}.")
+
+    for hit in check_demo_meta(content):
+        errors.append(
+            "Texto operacional deve ser universal (sem demo do vídeo / meta-frase): " + hit
+        )
 
     return errors, warnings
 

@@ -40,8 +40,10 @@ vi.mock("./flows/login-flow", () => ({
 
 vi.mock("./flows/download-flow", () => ({
   DownloadFlow: class {
+    dismissBlockingDialogs = vi.fn().mockResolvedValue(false);
     selectEmpresa = selectEmpresa;
     navigateToServicosTomados = navigateToServicosTomados;
+    assertSelectedEmpresa = vi.fn().mockResolvedValue(undefined);
     downloadReport = downloadReport;
   },
 }));

@@ -2,11 +2,16 @@ import { app, BrowserWindow, dialog, ipcMain, safeStorage, session, shell } from
 import type { WebFrameMain } from "electron";
 import fs from "fs";
 import path from "path";
+import { createGesttaClient } from "../api/client";
+import { listarClientes } from "../api/endpoints";
+import { resolveGesttaRuntimeAuth } from "../auth/runtime-auth";
+import { identificarEmpresaGestta, resolverClientePorCnpj } from "../customer";
 import { executarParametrizacao } from "../execution";
 import { validarInput } from "../input";
 import { calcularPreviewMatriz, DEFAULT_MATRIX_FILE } from "../matrix";
 import { salvarRelatorios } from "../relatorio";
 import { ParametrizacaoInput } from "../types";
+import { normalizarCnpj } from "../utils";
 import { resolveDefaultResourcePath, resolveReportsDir } from "./app-paths";
 import {
   getMatrixInfo,
@@ -45,6 +50,11 @@ let mainWindow: BrowserWindow | null = null;
 let authWindow: BrowserWindow | null = null;
 let runningAutomation = false;
 let cancelRequested = false;
+const DEFAULT_RUN_OPTIONS = {
+  timeoutMs: 60000,
+  readRetries: 5,
+  readRetryDelayMs: 2000,
+};
 const CLEAR_BROWSER_STORAGES: NonNullable<Electron.ClearStorageDataOptions["storages"]> = [
   "cookies",
   "filesystem",
@@ -828,6 +838,31 @@ ipcMain.handle("preview:calculate", (_event, payload: { input: unknown }) => {
     ensureMatrixAvailable(matrixPath);
     const preview = calcularPreviewMatriz(matrixPath, input);
     return { ok: true, preview };
+  } catch (error) {
+    return { ok: false, error: error instanceof Error ? error.message : String(error) };
+  }
+});
+
+ipcMain.handle("company:lookup", async (_event, rawCnpj: unknown) => {
+  if (runningAutomation) {
+    return { ok: false, error: "Aguarde a conclusao da automacao para consultar outra empresa." };
+  }
+  if (!readAuthStatus().authenticated) {
+    return { ok: false, error: "Faca login antes de consultar a empresa." };
+  }
+
+  const cnpj = normalizarCnpj(rawCnpj);
+  if (cnpj.length !== 14) {
+    return { ok: false, error: "Campo cnpj deve conter 14 digitos." };
+  }
+
+  try {
+    const company = await withAutomationEnvironment(DEFAULT_RUN_OPTIONS, async () => {
+      const auth = await resolveGesttaRuntimeAuth();
+      const client = createGesttaClient(auth, { timeoutMs: DEFAULT_RUN_OPTIONS.timeoutMs });
+      return identificarEmpresaGestta(resolverClientePorCnpj(await listarClientes(client), cnpj));
+    });
+    return { ok: true, company };
   } catch (error) {
     return { ok: false, error: error instanceof Error ? error.message : String(error) };
   }

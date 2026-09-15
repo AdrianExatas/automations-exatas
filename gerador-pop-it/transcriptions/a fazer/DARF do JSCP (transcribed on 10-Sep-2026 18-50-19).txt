@@ -1,0 +1,23 @@
+Hoje eu vou mostrar como emitir o DARF JCP. Para isso, iremos averiguar os valores, tanto na planilha da empresa, quanto no sistema domínio.
+Para isso, iremos abrir o domínio, consulta de recibos, selecionar, seleciona os contribuintes, confere o período que você estiver apurando, dá um OK.
+Vem em lançamento, e aqui nós iremos encontrar o valor, 6000 no caso, 88286.
+Iremos conferir também na planilha.
+Iremos na pasta Arquivos Exatas, Empresas, digita o nome da empresa, Pessoal,
+2000, a planilha JSCP, período, aguarda abrir, e aqui encontra o seu valor, 688286.
+O valor bateu com o do sistema, 688286, e agora de fato iremos gerar o DAF.
+Vamos abrir o navegador, digitar syscalc web.
+Neste primeiro, selecionamos o contribuinte, sou humano.
+No código, nós iremos digitar 5706.
+Ele dará essas duas opções.
+O correto é o 5706-02, a partir do 01 de 2006.
+Iremos alterar a data de consolidação, colocando o primeiro dia do mês, que você estiver fazendo a apuração.
+E iremos repetir a data no período de apuração também.
+Ele puxou a data de vencimento correta, 15 do 10.
+E aqui iremos preencher o valor, que é, neste caso, 688286.
+Feito isso, iremos calcular.
+Ele gerou a data de vencimento correta, consolidação também, e o valor também.
+Vamos selecionar e emitir o DAF.
+Feito isso, para finalizarmos, iremos salvar na pasta da empresa.
+Arquivo exatas, empresas, nome da empresa, pessoal, planilha, JSCP, 2025, DAF.
+E iremos renomear com o período que nós estivermos fazendo a apuração.
+DAF emitida.

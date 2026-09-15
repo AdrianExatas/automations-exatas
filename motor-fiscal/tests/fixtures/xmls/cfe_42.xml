@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CFe>
+  <infCFe Id="CFe28260612345678000199590001234560000421234567" versaoDadosEnt="0.08">
+    <ide>
+      <cUF>28</cUF>
+      <mod>59</mod>
+      <nserieSAT>000123456</nserieSAT>
+      <nCFe>000042</nCFe>
+      <dEmi>20260615</dEmi>
+      <hEmi>101500</hEmi>
+    </ide>
+    <emit>
+      <CNPJ>12345678000199</CNPJ>
+      <xNome>EMPRESA TESTE LTDA</xNome>
+    </emit>
+    <dest/>
+    <det nItem="1">
+      <prod>
+        <cProd>P002</cProd>
+        <xProd>OLEO LUBRIFICANTE</xProd>
+        <NCM>27101932</NCM>
+        <CFOP>5405</CFOP>
+        <uCom>UN</uCom>
+        <qCom>2.0000</qCom>
+        <vUnCom>25.00</vUnCom>
+        <vProd>50.00</vProd>
+      </prod>
+      <imposto>
+        <ICMS>
+          <ICMS60>
+            <Orig>0</Orig>
+            <CST>60</CST>
+          </ICMS60>
+        </ICMS>
+      </imposto>
+    </det>
+    <total>
+      <ICMSTot>
+        <vICMS>0.00</vICMS>
+        <vProd>50.00</vProd>
+        <vDesc>0.00</vDesc>
+        <vPIS>0.00</vPIS>
+        <vCOFINS>0.00</vCOFINS>
+      </ICMSTot>
+      <vCFe>50.00</vCFe>
+    </total>
+  </infCFe>
+</CFe>

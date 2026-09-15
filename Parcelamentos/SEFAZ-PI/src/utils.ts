@@ -74,3 +74,55 @@ export function timestampForFile(date = new Date()): string {
 export function resolveSaveDir(cwd: string, saveDir: string): string {
   return path.isAbsolute(saveDir) ? saveDir : path.resolve(cwd, saveDir);
 }
+
+export type SituacaoVencimento = "vencida" | "mes_atual" | "futura";
+
+function parseBrazilianDate(value: string): Date | null {
+  const match = value.trim().match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+  if (!match) {
+    return null;
+  }
+
+  const day = Number(match[1]);
+  const month = Number(match[2]);
+  const year = Number(match[3]);
+  const date = new Date(year, month - 1, day);
+  if (date.getFullYear() !== year || date.getMonth() !== month - 1 || date.getDate() !== day) {
+    return null;
+  }
+
+  return date;
+}
+
+function monthYearKey(date: Date): string {
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`;
+}
+
+function dateOnly(date: Date): Date {
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+}
+
+export function classifyDueDate(vencimento: string, referenceDate = new Date()): SituacaoVencimento {
+  const parsed = parseBrazilianDate(vencimento);
+  if (!parsed) {
+    throw new Error(`Nao foi possivel classificar o vencimento "${vencimento}".`);
+  }
+
+  if (dateOnly(parsed).getTime() < dateOnly(referenceDate).getTime()) {
+    return "vencida";
+  }
+
+  if (monthYearKey(parsed) === monthYearKey(referenceDate)) {
+    return "mes_atual";
+  }
+
+  return "futura";
+}
+
+export function shouldEmitParcelByDueStatus(situacaoVencimento: SituacaoVencimento): boolean {
+  return situacaoVencimento === "vencida" || situacaoVencimento === "mes_atual";
+}
+
+export function extractBrazilianDates(text: string): string[] {
+  return [...text.matchAll(/\b(\d{2}\/\d{2}\/\d{4})\b/g)].map((match) => match[1]!);
+}

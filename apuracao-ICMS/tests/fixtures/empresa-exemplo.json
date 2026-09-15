@@ -1,0 +1,48 @@
+{
+  "razao_social": "Comercial Exemplo SE Ltda",
+  "cnpj": "11222333000181",
+  "ie": "270123456",
+  "uf": "SE",
+  "regime": "Normal",
+  "analista": "Ana Fiscal",
+  "revisor": "Bruno Coordenador",
+  "sistema_fiscal": "Sistema Fiscal Demo",
+  "matriz_tributaria_resumo": [
+    {
+      "operacao": "Compra para revenda interna",
+      "cfop": "1.102",
+      "cst": "00",
+      "credito_debito": "Credito",
+      "st": false,
+      "difal": false,
+      "fcp": false
+    },
+    {
+      "operacao": "Venda interna",
+      "cfop": "5.102",
+      "cst": "00",
+      "credito_debito": "Debito",
+      "st": false,
+      "difal": false,
+      "fcp": false
+    },
+    {
+      "operacao": "Compra interestadual",
+      "cfop": "2.102",
+      "cst": "00",
+      "credito_debito": "Credito",
+      "st": false,
+      "difal": true,
+      "fcp": false
+    },
+    {
+      "operacao": "Venda interestadual",
+      "cfop": "6.102",
+      "cst": "00",
+      "credito_debito": "Debito",
+      "st": false,
+      "difal": true,
+      "fcp": false
+    }
+  ]
+}

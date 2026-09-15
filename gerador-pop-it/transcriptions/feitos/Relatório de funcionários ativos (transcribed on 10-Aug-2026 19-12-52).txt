@@ -1,0 +1,13 @@
+Nesse vídeo eu vou ensinar como que faz a emissão do relatório de funcionários ativos. Primeiro a gente loga no domínio, aí vai na parte de relatórios, 
+
+cadastrais 
+
+e procura por empregados. 
+
+Aqui a gente vai definir a ordem, que vai ser cargo mais o CBO. 
+
+Aqui o tipo do modelo é nome, cargos mais CBO, esse daqui, e coloca assim o salário. E na seleção a gente vai selecionar essa opção de funcionários ativos. Clica em OK 
+
+e gera. Aí a gente salva em PDF e envia para o cliente. 
+
+E é esse relatório, esse modelo. 

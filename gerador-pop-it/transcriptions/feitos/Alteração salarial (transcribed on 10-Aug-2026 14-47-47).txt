@@ -1,0 +1,21 @@
+Olá pessoal, hoje eu vou ensinar como fazer alteração salarial aqui na domínio. 
+
+Primeiro a gente entra no nosso domínio com o usuário e a senha, depois a gente vem em processos, alteração salarial e individual. A gente seleciona qual é o colaborador que vai ter o salário alterado. 
+
+Nesse caso é o José Cristóvão. Feito isso, clique em novo. 
+
+Dados de alteração. 
+
+Eu gosto sempre de colocar para o início do mês. 
+
+O motivo, ajuste salarial. Não é uma alteração retroativa. Eu gosto de marcar a opção de alteração cadastral porque fica visível na ficha do empregado. 
+
+Salário. Aqui a gente tem alguns tipos de novo salário, percentual, nível índice. Se eu adicionar novo salário, aqui eu seleciono qual é o valor desse novo salário. Nesse caso eu vou fazer por percentual. Aqui eu seleciono qual é o valor do percentual que será esse aumento. No caso é 4 ,5%. Pronto. Valor reajustado. É justamente esse valor que vai ser reajustado no salário do colaborador. Feito isso, clica em gravar. Pronto. 
+
+Alteração gravada com sucesso. Pronto. Feita a alteração, a gente vai puxar a ficha do empregado. Relatórios cadastrais. Ficha do empregado. 
+
+Seleção. 61. 
+
+61 porque é o código do funcionário. Ok. Pronto. 
+
+Aqui vai estar a ficha do empregado com o novo salário aqui embaixo alterado. Está vendo? Pronto. Feito isso, transforma em PDF e envia ao cliente. 

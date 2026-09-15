@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nfeProc xmlns="http://www.portalfiscal.inf.br/nfe" versao="4.00">
+  <NFe>
+    <infNFe Id="NFe28260612345678000199550010000005011000005017" versao="4.00">
+      <ide>
+        <cUF>28</cUF>
+        <mod>55</mod>
+        <serie>1</serie>
+        <nNF>501</nNF>
+        <dhEmi>2026-06-10T10:00:00-03:00</dhEmi>
+        <tpNF>1</tpNF>
+      </ide>
+      <emit>
+        <CNPJ>12345678000199</CNPJ>
+        <xNome>EMPRESA TESTE LTDA</xNome>
+        <enderEmit><UF>SE</UF></enderEmit>
+      </emit>
+      <dest>
+        <CNPJ>11222333000144</CNPJ>
+        <xNome>CLIENTE XYZ SA</xNome>
+        <enderDest><UF>BA</UF></enderDest>
+      </dest>
+      <det nItem="1">
+        <prod>
+          <cProd>P001</cProd>
+          <xProd>GASOLINA COMUM</xProd>
+          <NCM>27101259</NCM>
+          <CFOP>5656</CFOP>
+          <uCom>LT</uCom>
+          <qCom>100.0000</qCom>
+          <vUnCom>5.0000</vUnCom>
+          <vProd>500.00</vProd>
+        </prod>
+        <imposto>
+          <ICMS>
+            <ICMS00>
+              <orig>0</orig>
+              <CST>00</CST>
+              <vBC>500.00</vBC>
+              <pICMS>18.00</pICMS>
+              <vICMS>90.00</vICMS>
+            </ICMS00>
+          </ICMS>
+          <PIS>
+            <PISAliq><CST>01</CST><vBC>500.00</vBC><pPIS>1.65</pPIS><vPIS>8.25</vPIS></PISAliq>
+          </PIS>
+          <COFINS>
+            <COFINSAliq><CST>01</CST><vBC>500.00</vBC><pCOFINS>7.60</pCOFINS><vCOFINS>38.00</vCOFINS></COFINSAliq>
+          </COFINS>
+        </imposto>
+      </det>
+      <total>
+        <ICMSTot>
+          <vBC>500.00</vBC>
+          <vICMS>90.00</vICMS>
+          <vBCST>0.00</vBCST>
+          <vST>0.00</vST>
+          <vProd>500.00</vProd>
+          <vFrete>0.00</vFrete>
+          <vDesc>0.00</vDesc>
+          <vIPI>0.00</vIPI>
+          <vPIS>8.25</vPIS>
+          <vCOFINS>38.00</vCOFINS>
+          <vNF>500.00</vNF>
+        </ICMSTot>
+      </total>
+    </infNFe>
+  </NFe>
+  <protNFe versao="4.00">
+    <infProt>
+      <chNFe>28260612345678000199550010000005011000005017</chNFe>
+      <cStat>100</cStat>
+      <xMotivo>Autorizado o uso da NF-e</xMotivo>
+      <nProt>128260000000002</nProt>
+    </infProt>
+  </protNFe>
+</nfeProc>

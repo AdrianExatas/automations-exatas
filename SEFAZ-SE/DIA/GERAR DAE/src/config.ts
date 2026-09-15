@@ -91,16 +91,16 @@ export function loadConfig(argv: string[], env: NodeJS.ProcessEnv = process.env)
   const modelDir = options.modelDir;
   const outDir = options.outDir;
   const auth = resolveSefazAuthConfig(env, {
-    authMode: options.authMode,
+    authMode: options.authMode ?? "certificate",
     certPath: options.certPath,
     certPasswordFile: options.certPasswordFile,
   });
 
-  if (requiresPasswordCredentials(auth) && !user) {
-    throw new Error("Informe o login da SEFAZ.");
+  if (!user) {
+    throw new Error("Informe o login da SEFAZ (SEFAZ_USER / --user) para selecionar o vinculo Contador.");
   }
-  if (requiresPasswordCredentials(auth) && !password?.trim()) {
-    throw new Error("Informe a senha da SEFAZ.");
+  if (!auth.certificate) {
+    throw new Error("Certificado digital A1 nao encontrado. Configure SEFAZ_CERT_PATH ou informe --cert-path.");
   }
   if (typeof timeoutMs !== "number" || !Number.isFinite(timeoutMs) || timeoutMs <= 0) {
     throw new Error("Timeout invalido.");
@@ -145,15 +145,14 @@ function parseBrowserChannel(raw: string): PlaywrightBrowserChannel {
 
 function parseAuthMode(raw: string): SefazAuthMode {
   const value = raw.trim().toLowerCase();
-  if (value === "auto" || value === "certificate" || value === "password") {
-    return value;
+  if (value === "password") {
+    throw new Error("Login por senha nao e mais suportado. Use --auth-mode certificate.");
+  }
+  if (value === "auto" || value === "certificate") {
+    return "certificate";
   }
 
-  throw new Error("Use --auth-mode com auto, certificate ou password.");
-}
-
-function requiresPasswordCredentials(auth: ReturnType<typeof resolveSefazAuthConfig>): boolean {
-  return auth.authMode === "password" || !auth.certificate;
+  throw new Error("Use --auth-mode com certificate.");
 }
 
 function parseAno(raw: string): number {

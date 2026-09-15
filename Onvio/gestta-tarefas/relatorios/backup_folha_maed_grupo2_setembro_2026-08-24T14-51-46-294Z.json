@@ -1,0 +1,2080 @@
+{
+  "generatedAt": "2026-08-24T14:51:46.294Z",
+  "mode": "apply",
+  "sourceExcel": "C:\\Users\\Exatas\\Downloads\\Planilhas\\Gerais\\Particularidades\\Levantamento de Maed sem movimento.xlsx",
+  "department": {
+    "id": "60b61ebc1da6830006322e3d",
+    "name": "Pessoal"
+  },
+  "maedTotal": 247,
+  "maedUnresolved": [],
+  "maedRemovals": [
+    {
+      "customerId": "63d11db05ce2730006c22548",
+      "codigo": "374",
+      "empresa": "5W ENGENHARIA E CONSULTORIA LTDA",
+      "cnpj": "47326196000172",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c527fd77e6a6ed0b51047",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "69a9dd742edd3bd49691d7d4",
+      "codigo": "722",
+      "empresa": "65.509.219 EMANOEL SOARES SANTOS",
+      "cnpj": "65509219000166",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c52984d1bc04db3be1afb",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "6a2b0c6bbd7566c64bc6e93f",
+      "codigo": "770",
+      "empresa": "67.255.241 JOSE RANGEL SANTOS DE SOUZA",
+      "cnpj": "67255241000152",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c52a7afbd73762126f00b",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "6a18b054b6f9a40f14b02419",
+      "codigo": "764",
+      "empresa": "A B PEREIRA SERVICOS LTDA",
+      "cnpj": "56987197000159",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c52a524e72ed6041c5865",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "6882924fa37600ef03c09d09",
+      "codigo": "616",
+      "empresa": "A BELINHA COMERCIO VAREJISTA DE MOVEIS LTDA",
+      "cnpj": "07996854000119",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c5274c01d9ed1ac4def21",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "60b67a439fda5800070dc080",
+      "codigo": "115",
+      "empresa": "AC&M REPRESENTACOES COMERCIAIS LTDA",
+      "cnpj": "36169347000100",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c527daeaae3863adf1ac0",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "69b19e7e847fa4cddb8893d8",
+      "codigo": "725",
+      "empresa": "AKMA COMERCIO DE GASES E EQUIPAMENTOS HOSPITALARES LTDA",
+      "cnpj": "37608680000130",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c52854b8267e2fe25c858",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "69a1eb6d7fa35a2d8aa2b9e7",
+      "codigo": "720",
+      "empresa": "ALEL SERVICOS DE TELECOMUNICACAO LTDA",
+      "cnpj": "53056744000194",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c5296d77e6a6ed0b51385",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "685dbe49c8f21be1257d0939",
+      "codigo": "607",
+      "empresa": "ALVES FRANCA COMERCIO DE MOVEIS LTDA",
+      "cnpj": "13800072000165",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c5282c01d9ed1ac4df0e4",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "67f824a9c0b42688c589c330",
+      "codigo": "592",
+      "empresa": "AME-SE PILATES E OSTEOPATIA LTDA",
+      "cnpj": "58341027000128",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c528232c519c35cea824c",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "6a174bf04cfcb41f2fa21499",
+      "codigo": "762",
+      "empresa": "ANDRADE PARTICIPAÇÕES LTDA",
+      "cnpj": "67019493000182",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c52a3c01d9ed1ac4df51e",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "690253d3ddc36446fb1cbc5d",
+      "codigo": "657",
+      "empresa": "ANTONIO CARLOS DOS SANTOS FILHO LTDA",
+      "cnpj": "63420504000180",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c5283afbd73762126ea81",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "698ccc9bb9c4b8f209281d52",
+      "codigo": "709",
+      "empresa": "ARJ AGRO LTDA",
+      "cnpj": "65078491000139",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c52944b8267e2fe25ca1e",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "6984b77c5fc1f5d1cd879c7c",
+      "codigo": "706",
+      "empresa": "AUTOMAXCODE TECNOLOGIA E AUTOMACAO LTDA",
+      "cnpj": "64949483000158",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c5293d77e6a6ed0b512cc",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "69d7e58e7aae22d8e24754b4",
+      "codigo": "740",
+      "empresa": "B W DE S FERREIRA TELECOMUNICACAO LTDA",
+      "cnpj": "27883535000295",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c527cc01d9ed1ac4df04a",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "60b67ab69c73af0006505225",
+      "codigo": "108",
+      "empresa": "CASA AGROPECUARIA SANTANA LTDA",
+      "cnpj": "24291220000180",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c5289d77e6a6ed0b51117",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "6a4be732218582b5ab91cc82",
+      "codigo": "777",
+      "empresa": "CAUEIRA EMPREENDIMENTOS E GESTAO PATRIMONIAL LTDA",
+      "cnpj": "67847206000122",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c52adafbd73762126f3fd",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "6a5f6f3513ceb2d25b4c49f4",
+      "codigo": "785",
+      "empresa": "CN COMERCIO E SERVICOS DIGITAIS LTDA",
+      "cnpj": "63401317000150",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c52b132c519c35cea8ddc",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "69b83a0a5159d2552da59d7a",
+      "codigo": "726",
+      "empresa": "COMERCIO E INDUSTRIA GABRIEL MACEDO LTDA",
+      "cnpj": "32864979000213",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c529a3213eeff3dc17eeb",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "6a60da1c4904aaf074ee9162",
+      "codigo": "787",
+      "empresa": "CONECT+ LTDA",
+      "cnpj": "63640843000172",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c52b2e1556c7223ff8568",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "6981f2007f9b80858a6b1b9f",
+      "codigo": "703",
+      "empresa": "DRB DIGITAL LTDA",
+      "cnpj": "63717019000173",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c5291d77e6a6ed0b51246",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "69c6d9df385c4810e73b7131",
+      "codigo": "737",
+      "empresa": "EMPODERAR CONSULTORIA E GESTAO LTDA",
+      "cnpj": "53415192000163",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c5276afbd73762126e8ef",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "61b254975222b700067c75ed",
+      "codigo": "229",
+      "empresa": "EMPORIO BRUMAR PRODUTOS NATURAIS LTDA",
+      "cnpj": "10485182000272",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c526fc01d9ed1ac4deead",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "61b255a90b888f000640e02b",
+      "codigo": "230",
+      "empresa": "EMPORIO BRUMAR PRODUTOS NATURAIS LTDA",
+      "cnpj": "10485182000353",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c5270e1556c7223ff7620",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "61c32a20bcd5f8000681899d",
+      "codigo": "237",
+      "empresa": "EMPORIO BRUMAR PRODUTOS NATURAIS LTDA",
+      "cnpj": "10485182000515",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c52713213eeff3dc17a8b",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "69960a5f2a1b80c7c7919f35",
+      "codigo": "711",
+      "empresa": "ERENILCE FONSECA DE OLIVEIRA DE RIO REAL",
+      "cnpj": "86875093000113",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c52944d1bc04db3be1a8e",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "6a2aff49eed0ea0adc6dcde0",
+      "codigo": "769",
+      "empresa": "FLASHNET TELECOMUNICAÇÕES LTDA",
+      "cnpj": "28641032000195",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c52a6d77e6a6ed0b515be",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "69a5f41614b522ff98d98290",
+      "codigo": "721",
+      "empresa": "GRUP ON PARTICIPACOES LTDA",
+      "cnpj": "65424895000137",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c5297afbd73762126ed3d",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "6a31853903a884881c003607",
+      "codigo": "773",
+      "empresa": "JK HOME LTDA",
+      "cnpj": "67511603000129",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c52ac24e72ed6041c5f07",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "699765e4a52eba5cf26ab692",
+      "codigo": "712",
+      "empresa": "JOAO VICTOR FONSECA OLIVEIRA",
+      "cnpj": "55789505000179",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c528ce1556c7223ff7946",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "6977a9e2c1ee364ef752402c",
+      "codigo": "696",
+      "empresa": "KBCA CONSULTECH LTDA",
+      "cnpj": "64713421000142",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c527cc01d9ed1ac4df026",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "6a183f1739aa1dc041e008c5",
+      "codigo": "763",
+      "empresa": "L C ANDRADE",
+      "cnpj": "27254244000319",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c52a4c01d9ed1ac4df53d",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "67b48fad7128b60f534e2546",
+      "codigo": "574",
+      "empresa": "LORENNA COSTA LTDA",
+      "cnpj": "59479596000105",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c5281afbd73762126ea19",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "6977d9f76e9d98cd653fd36d",
+      "codigo": "697",
+      "empresa": "LOTUS MULTIMARCAS LTDA",
+      "cnpj": "27501461000102",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c528d24e72ed6041c4a09",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "6447b49c1fe5700006dd742a",
+      "codigo": "401",
+      "empresa": "MADEREIRA RONDONIA LTDA",
+      "cnpj": "50428807000106",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c5277d77e6a6ed0b50f7e",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "69f275516fec178108404ef8",
+      "codigo": "747",
+      "empresa": "MAXSUEL REIS SANTOS LTDA",
+      "cnpj": "18640107000160",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c52a0e1556c7223ff7e1b",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "69cc24f3bb835449c6cb2f55",
+      "codigo": "736",
+      "empresa": "MERCEARIA SANTANA COMERCIO LTDA",
+      "cnpj": "21167954000163",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c529e24e72ed6041c554b",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "69cc292d6495a0b5cf261041",
+      "codigo": "739",
+      "empresa": "MERCEARIA WS COMERCIO LTDA",
+      "cnpj": "50918715000104",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c529f4d1bc04db3be1c0e",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "698a4a1050234189f40794c2",
+      "codigo": "704",
+      "empresa": "MN CANTANHEDE COMERCIO E SERVICOS LTDA",
+      "cnpj": "40145566000126",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c5291aeaae3863adf1d64",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "697b91bf494697e65c57ec43",
+      "codigo": "701",
+      "empresa": "OFICIO DE REGISTRO CIVIL DAS PESSOAS NATURAIS",
+      "cnpj": "27432621000109",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c528fe1556c7223ff7a89",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "66d765ac08da3d0007a6cce0",
+      "codigo": "527",
+      "empresa": "PHYSIA - TRAINING AND RESEARCH LTDA",
+      "cnpj": "57074587000109",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c528be1556c7223ff7904",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "69c5a6d0b50005b0ab815662",
+      "codigo": "735",
+      "empresa": "QUEIROS E GARCIA LTDA",
+      "cnpj": "56952686000175",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c529d4d1bc04db3be1bd5",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "697a4193f857fb86192cfa20",
+      "codigo": "698",
+      "empresa": "REFRIPAN REFRIGERACAO E PANIFICACAO LTDA",
+      "cnpj": "02215533000116",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c528e4b8267e2fe25c982",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "697b9307b35a2634efc7e0a3",
+      "codigo": "702",
+      "empresa": "REGISTRO CIVIL DAS PESSOAS NATURAIS COM FUNCOES NOTARIAS DE JANDAIRA",
+      "cnpj": "29578096000151",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c529032c519c35cea8545",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "69fe481fd9dd15486fc4e587",
+      "codigo": "755",
+      "empresa": "ROSEANE DE LIMA OLIVEIRA LTDA",
+      "cnpj": "51403647000103",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c52a3c01d9ed1ac4df4d9",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "69839d7d32f1d3358bf48da2",
+      "codigo": "705",
+      "empresa": "T M GUIMARES",
+      "cnpj": "42280625000102",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c529224e72ed6041c4aee",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "699f560ccd889758f46291ba",
+      "codigo": "715",
+      "empresa": "T M GUIMARES",
+      "cnpj": "42280625000285",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c5295d77e6a6ed0b5135b",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "69b0796dead7f8366929c033",
+      "codigo": "724",
+      "empresa": "TD ENGENHARIA LTDA",
+      "cnpj": "65595240000121",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c5285d77e6a6ed0b510bc",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "6a4508f0769eac6c8147f406",
+      "codigo": "776",
+      "empresa": "TOBIENSE GAS LTDA",
+      "cnpj": "66900892000195",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c52ace1556c7223ff8500",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "6a206d393cc3f61520772c04",
+      "codigo": "767",
+      "empresa": "VALE DO ARVOREDO SOCIEDADE DE PROPOSITO  ESPECIFICO  LTDA",
+      "cnpj": "67141716000180",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c52a64b8267e2fe25cd12",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "67053f350559be22a1c38a32",
+      "codigo": "537",
+      "empresa": "VIA ROMA SALVADOR PIZZARIA, BAR E RESTAURANTE LTDA",
+      "cnpj": "41210457000108",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c52793213eeff3dc17b6f",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "69c599afd8d3140243a48ae9",
+      "codigo": "734",
+      "empresa": "W C OLIVEIRA TELECOM LTDA",
+      "cnpj": "46014732000131",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c529c24e72ed6041c53ec",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "60b679ce9c73af0006504dbe",
+      "codigo": "58",
+      "empresa": "WALLISON OLIVEIRA GAMA",
+      "cnpj": "22161614000198",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c5288aeaae3863adf1b92",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "6a68c219fcb24ad8ed96c8c6",
+      "codigo": "790",
+      "empresa": "WEH SERVICOS DE TELECOMUNICACAO LTDA",
+      "cnpj": "57693363000177",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+      "taskId": "6a635a204d8819abae314957",
+      "linkId": "6a8c52b4d77e6a6ed0b51c15",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "676ad66d778579f2fa97413b",
+      "codigo": "559",
+      "empresa": "57.088.272 NAILZA DA COSTA DO NASCIMENTO",
+      "cnpj": "57088272000102",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 2",
+      "taskId": "62fe7db236c2e400064524b0",
+      "linkId": "6a8c5280e1556c7223ff77f3",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "6944673d0ea6ef6816357e74",
+      "codigo": "681",
+      "empresa": "BAHIA WI-FI MANUTENCAO DE EQUIPAMENTOS LTDA",
+      "cnpj": "15299871000125",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 2",
+      "taskId": "62fe7db236c2e400064524b0",
+      "linkId": "6a8c527ae1556c7223ff76f4",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "69f3b86ac777bbd0640b7298",
+      "codigo": "749",
+      "empresa": "DCF COMERCIO E TRANSPORTES LTDA",
+      "cnpj": "41862972000172",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 2",
+      "taskId": "62fe7db236c2e400064524b0",
+      "linkId": "6a8c52a0e1556c7223ff7e58",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "66a8fb4836eb88000788606e",
+      "codigo": "510",
+      "empresa": "EVISSON SANTOS REPRESENTACOES LTDA",
+      "cnpj": "55194177000168",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 2",
+      "taskId": "62fe7db236c2e400064524b0",
+      "linkId": "6a8c528a32c519c35cea83c8",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "63c955cd9026f90007c141a3",
+      "codigo": "371",
+      "empresa": "KOMER RESTAURANTE LTDA",
+      "cnpj": "39265237000130",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 2",
+      "taskId": "62fe7db236c2e400064524b0",
+      "linkId": "6a8c5276c01d9ed1ac4def6a",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "67e4599694c01608380c55d5",
+      "codigo": "587",
+      "empresa": "NORDESTINO RESTAURANTE COMERCIO DE ALIMENTOS LTDA",
+      "cnpj": "43583925000115",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 2",
+      "taskId": "62fe7db236c2e400064524b0",
+      "linkId": "6a8c5279afbd73762126e951",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    },
+    {
+      "customerId": "6706c9dc02ebcb303ad64437",
+      "codigo": "538",
+      "empresa": "REALEZA REPRESENTACAO COMERCIAL LTDA",
+      "cnpj": "57623329000126",
+      "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 2",
+      "taskId": "62fe7db236c2e400064524b0",
+      "linkId": "6a8c528c24e72ed6041c49bc",
+      "applyStatus": "ok",
+      "applyDetail": "vinculo Folha removido"
+    }
+  ],
+  "grupo2": [
+    {
+      "customerId": "60b679909c73af0006504cec",
+      "codigo": "29",
+      "empresa": "J.R.V FRIGORIFICO ESTRELAS LTDA",
+      "cnpj": "27251340000141",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": true,
+      "eraseAugStatus": 200,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "60b6797d5e12720006e00e37",
+      "codigo": "44",
+      "empresa": "MARANATA INDUSTRIA DE CONFECCOES LTDA",
+      "cnpj": "14438754000132",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "60b6797d9fda5800070dbe7c",
+      "codigo": "45",
+      "empresa": "EXATAS CONTABILIDADE LTDA",
+      "cnpj": "27939154000108",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "60b67a709c73af00065050ec",
+      "codigo": "81",
+      "empresa": "MITIKAS TECNOLOGIA DA INFORMACAO LTDA",
+      "cnpj": "22949522000177",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "60b67ae99c73af0006505324",
+      "codigo": "160",
+      "empresa": "EDICLAUDIO ALVES DO NASCIMENTO 97243345549",
+      "cnpj": "31000087000120",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": true,
+      "eraseAugStatus": 200,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "60b67aef83d461000665f406",
+      "codigo": "163",
+      "empresa": "MAXX INDUSTRIA E COMERCIO DE PAPEL LTDA",
+      "cnpj": "17935938000104",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "60b633ced6f4f80006076ea1",
+      "codigo": "164",
+      "empresa": "MAXX INDUSTRIA E COMERCIO DE PAPEL LTDA",
+      "cnpj": "17935938000287",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "60b67b139fda5800070dc31b",
+      "codigo": "169",
+      "empresa": "CRISTAL BORDADOS INDUSTRIA E COMERCIO DE CONFECCAO LTDA",
+      "cnpj": "40388684000165",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "60b67b005e12720006e01595",
+      "codigo": "185",
+      "empresa": "SUPERMERCADO SUPERLAR LTDA",
+      "cnpj": "03932909000176",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "613fbc6a29abc900063324be",
+      "codigo": "203",
+      "empresa": "R R C TRANSPORTES LTDA",
+      "cnpj": "43268332000164",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "614b71aadff48600061c4e81",
+      "codigo": "206",
+      "empresa": "INDUSTRIA ALAGOANA DE COLCHOES E ESPUMA LTDA",
+      "cnpj": "11188276000161",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": true,
+      "eraseAugStatus": 200,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "618565442a97390006c8b49a",
+      "codigo": "220",
+      "empresa": "GTERRA CONSULTORIA UMBAUBA LTDA",
+      "cnpj": "41131730000109",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": true,
+      "eraseAugStatus": 200,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "61f1b445f5bc7100069fc25c",
+      "codigo": "243",
+      "empresa": "FERREIRA COMERCIO DE ALIMENTOS LTDA",
+      "cnpj": "31633840000115",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "621bf096a5b1430006a50d13",
+      "codigo": "259",
+      "empresa": "LITORAL INDUSTRIA E COMERCIO DE PAPEL LTDA",
+      "cnpj": "07394409000189",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "621bf76729da5600070294f5",
+      "codigo": "260",
+      "empresa": "LIMPEMAXX INDUSTRIA E COMERCIO LTDA",
+      "cnpj": "10757799000119",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "62a11161891b2c00061d228e",
+      "codigo": "281",
+      "empresa": "AQUA LOCACOES DE VEICULOS LTDA",
+      "cnpj": "09480081000149",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": true,
+      "eraseAugStatus": 200,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "628fdf8fd56d220006b3f457",
+      "codigo": "283",
+      "empresa": "EMANUELLE BASTOS TRINDADE",
+      "cnpj": "12555719000178",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "failure",
+      "detalhe": "ago HTTP 404; set erase HTTP 404; set gen HTTP 404",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": false,
+      "eraseSepStatus": 404,
+      "generateSepOk": false,
+      "generateSepStatus": 404
+    },
+    {
+      "customerId": "62a10facc09465000696de7a",
+      "codigo": "289",
+      "empresa": "AQUAPLUS IND E COM DE PRODUTOS QUIMICOS LTDA",
+      "cnpj": "17270483000147",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": true,
+      "eraseAugStatus": 200,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "62b36e1cde6ff5000669819b",
+      "codigo": "294",
+      "empresa": "SUPERMERCADO UNIBOOM LTDA",
+      "cnpj": "05295716000187",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": true,
+      "eraseAugStatus": 200,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "63c96454fa8f3c0007bd2dad",
+      "codigo": "372",
+      "empresa": "REINA REFEICOES LTDA",
+      "cnpj": "43449807000119",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "6407795efe1813000738a21a",
+      "codigo": "390",
+      "empresa": "RSP VISTORIA VEICULAR LTDA",
+      "cnpj": "49794303000112",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "648097909e40e500065fbd7c",
+      "codigo": "414",
+      "empresa": "EMANUEL MESSIAS ALVES SANTANA",
+      "cnpj": "01721544569",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "648099719e40e500065fc0f1",
+      "codigo": "415",
+      "empresa": "ELSON CARDO DOS SANTOS",
+      "cnpj": "95518070578",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "64809bc90d912e0006b68e99",
+      "codigo": "417",
+      "empresa": "MARCELO GOMES DA SILVA",
+      "cnpj": "00757951406",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "6511cbadcbba73000607b7e2",
+      "codigo": "432",
+      "empresa": "FORTNET TELECOM TECNOLOGIA LTDA",
+      "cnpj": "52297393000140",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "6532615d62acd80006d54f02",
+      "codigo": "435",
+      "empresa": "GIULLIAN CAROLINE ODONTOLOGIA LTDA",
+      "cnpj": "52598699000137",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "6544dcdab396980006386b6b",
+      "codigo": "439",
+      "empresa": "AUTO POSTO CEU 2 LTDA",
+      "cnpj": "51030248000136",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "654e7d6b4307500007d90ad8",
+      "codigo": "441",
+      "empresa": "49.521.118 CAMILA SILVA FONTES",
+      "cnpj": "49521118000154",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "failure",
+      "detalhe": "ago HTTP 404; set erase HTTP 404; set gen HTTP 404",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": false,
+      "eraseSepStatus": 404,
+      "generateSepOk": false,
+      "generateSepStatus": 404
+    },
+    {
+      "customerId": "660c47b7d321c000076a9d36",
+      "codigo": "465",
+      "empresa": "BY TELECOM LTDA",
+      "cnpj": "30034575000196",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "6616f9743c2f360006721f5b",
+      "codigo": "467",
+      "empresa": "INFOTEC - SERVICOS DE PROVEDOR DA INTERNET LTDA",
+      "cnpj": "07565239000158",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "662b9ed9a42f5700073b0d19",
+      "codigo": "468",
+      "empresa": "NR SHOWS LTDA",
+      "cnpj": "54884694000104",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "664106bfe9ba4c0006398e80",
+      "codigo": "489",
+      "empresa": "INFOTEC - SERVICOS DE PROVEDOR DA INTERNET LTDA",
+      "cnpj": "07565239000743",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "664e49b5b78ad600066c8b93",
+      "codigo": "494",
+      "empresa": "GARVEX SOLUCOES TECNOLOGICAS LTDA",
+      "cnpj": "54337268000142",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "66cf20ac8d11cb00072ffe73",
+      "codigo": "522",
+      "empresa": "G & S SERVICOS E CONSTRUCOES LTDA",
+      "cnpj": "26769939000109",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": true,
+      "eraseAugStatus": 200,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "66f2c2e07771e60006057a52",
+      "codigo": "530",
+      "empresa": "AGROPECUARIA FERTIL LTDA",
+      "cnpj": "03983099000187",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "66f2d29768ceb60006288dfc",
+      "codigo": "533",
+      "empresa": "CONSTRUFERTIL COMERCIAL LTDA",
+      "cnpj": "20593801000115",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "672bcc59265bed3a4b14d968",
+      "codigo": "543",
+      "empresa": "LINK INFORMATICA - PROVEDOR DE ACESSO A INTERNET LTDA",
+      "cnpj": "00543242000121",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "67e416714436116d1c3fc2f2",
+      "codigo": "586",
+      "empresa": "VS SERVICOS LTDA",
+      "cnpj": "60093425000114",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "67f6ae97b12d2e31017ee33f",
+      "codigo": "591",
+      "empresa": "NORDESTINO RESTAURANTE COMERCIO DE ALIMENTOS LTDA",
+      "cnpj": "43583925000204",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "6855abfc91cac75bade2f400",
+      "codigo": "603",
+      "empresa": "VS SERVICOS LTDA FL",
+      "cnpj": "60093425000203",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": true,
+      "eraseAugStatus": 200,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "6866e70927e1236c1da49ac2",
+      "codigo": "609",
+      "empresa": "DEEP CONNECT TELECOM LTDA",
+      "cnpj": "12087327000121",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "6882991d3a7dc10c71048309",
+      "codigo": "617",
+      "empresa": "CONECTA NETWORKS LTDA",
+      "cnpj": "07366656000171",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "68838fceba139f69023e6c73",
+      "codigo": "619",
+      "empresa": "W. E. R DE JESUS COMERCIO E SERVICOS LTDA",
+      "cnpj": "01884967000146",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "688a4532b339390c46522074",
+      "codigo": "620",
+      "empresa": "J.R.ROMARIO SANTOS LTDA",
+      "cnpj": "61985497000139",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": true,
+      "eraseAugStatus": 200,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "688a4cb3b231ba4d1879795e",
+      "codigo": "621",
+      "empresa": "ACESSON ON SERVICOS LTDA",
+      "cnpj": "10766581000120",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "688a5380c62e7970c4c3b766",
+      "codigo": "622",
+      "empresa": "CONECTA SERVICOS DE ACESSO A INTERNET LTDA",
+      "cnpj": "60422239000181",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "689ba9f63df68a374fb88a4d",
+      "codigo": "627",
+      "empresa": "J. R. FRIGORIFICO ESTRELA LTDA",
+      "cnpj": "21308080000117",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "68a62cb44ef1dc111b9edc22",
+      "codigo": "629",
+      "empresa": "J. R. S. ROMARIO DISTRIBUIDORA DE ALIMENTOS LTDA",
+      "cnpj": "43690185000116",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "68a8c7bd33cd308c8c43ff91",
+      "codigo": "631",
+      "empresa": "LWM MATERIAIS MEDICOS E CIRURGICOS LTDA",
+      "cnpj": "48622250000190",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "68e7ce3d82f690b60e3b573d",
+      "codigo": "646",
+      "empresa": "VLZ TECNOLOGIAS LTDA",
+      "cnpj": "23274706000147",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "68f69b415df2aecb4f9cfec5",
+      "codigo": "650",
+      "empresa": "COLARES PROVEDOR E SERVICOS DE INTERNET LTDA",
+      "cnpj": "07000820000122",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "6900db10f5d2d0b7395b7b19",
+      "codigo": "653",
+      "empresa": "COLARES PROVEDOR E SERVICOS DE INTERNET LTDA",
+      "cnpj": "07000820000203",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "690102a1d0c1050ac5d2d049",
+      "codigo": "654",
+      "empresa": "COLARES PROVEDOR E SERVICOS DE INTERNET LTDA",
+      "cnpj": "07000820000394",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "690a023b23c56f6e382f01eb",
+      "codigo": "659",
+      "empresa": "JET PROVEDOR DE INTERNET LTDA",
+      "cnpj": "58222375000186",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "690a0983f0726744787018fa",
+      "codigo": "660",
+      "empresa": "JETFIBER PROVEDOR DE INTERNET LTDA",
+      "cnpj": "28318900000109",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "69123a8297937ca33174358a",
+      "codigo": "662",
+      "empresa": "VLZ SERVICOS LTDA",
+      "cnpj": "63596784000182",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "6915cb38d15813fb7c427dfc",
+      "codigo": "663",
+      "empresa": "ACESSON ON SERVICOS LTDA",
+      "cnpj": "10766581000201",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "691b33ff441c52f63642cf0a",
+      "codigo": "664",
+      "empresa": "CONTROLTI INTEGRANDO SOLUCOES LTDA",
+      "cnpj": "29301862000136",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "691c5d3617c3acd02affbc05",
+      "codigo": "665",
+      "empresa": "RAPIDANET TELECOM LTDA",
+      "cnpj": "34707793000103",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "6924ccd00ca286126291a5ce",
+      "codigo": "667",
+      "empresa": "ADILENE CONFECCOES LTDA",
+      "cnpj": "48507647000130",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "6924dc4d35b7d8f28560119c",
+      "codigo": "668",
+      "empresa": "A CASA DO LAR LTDA",
+      "cnpj": "42778255000120",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "692713da2d676e0be0acefa6",
+      "codigo": "671",
+      "empresa": "MAXSERV NETWORLD TELECOMUNICACOES LTDA",
+      "cnpj": "33488085000158",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "6931f268bb26b1358c94a2c6",
+      "codigo": "673",
+      "empresa": "INTRALINKK TELECOM LTDA",
+      "cnpj": "35578449000116",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "69383373cdd6e5cdf9f236f0",
+      "codigo": "675",
+      "empresa": "MARCO ANTONIO LIMA DE AQUINO",
+      "cnpj": "32607093000103",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "6942f3a303bed4ddeb629f6a",
+      "codigo": "679",
+      "empresa": "UPCONNECT INTERNET LTDA",
+      "cnpj": "52176097000191",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "694453ff0ad782ce8778a8c1",
+      "codigo": "680",
+      "empresa": "BAHIA WI-FI INTERNET LTDA",
+      "cnpj": "41904180000113",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "694472fd524e618cfe9bafbf",
+      "codigo": "682",
+      "empresa": "BAHIA WI-FI TELECOMUNICACOES LTDA",
+      "cnpj": "30219456000108",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "6949323075f52eddfd4edf0d",
+      "codigo": "683",
+      "empresa": "BAHIA WIRELESS TELECOM LTDA",
+      "cnpj": "52480556000126",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "694e8c2451eedeacb91c17b9",
+      "codigo": "685",
+      "empresa": "A A FERREIRA LTDA",
+      "cnpj": "10633978000144",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "695ec77cf8b29b7a7cbc8d1e",
+      "codigo": "689",
+      "empresa": "GUIMARAES INFORMATICA E SEGURANCA LTDA",
+      "cnpj": "07479998000106",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "696142f4e4e61e8b47c53712",
+      "codigo": "690",
+      "empresa": "POWER TELECOMUNICACOES LTDA",
+      "cnpj": "07802639000130",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "698b950da775ea332ae00fac",
+      "codigo": "708",
+      "empresa": "NORDESTE REFEICOES LTDA",
+      "cnpj": "65055991000155",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "69a1da9b7fa35a2d8a9ffce2",
+      "codigo": "719",
+      "empresa": "TOPNET CONECT SERVICOS LTDA",
+      "cnpj": "32358092000172",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "69bc356a1991803ffa20aca3",
+      "codigo": "728",
+      "empresa": "SIN CONNECT TELECOMUNICACOES LTDA",
+      "cnpj": "37336982000105",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "6a1df8586809d21d1c37b8ac",
+      "codigo": "765",
+      "empresa": "E. D. DE SOUSA TELECOMUNICACOES",
+      "cnpj": "31868216000105",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "6a1f413c7f0f8a6fb4c31b4f",
+      "codigo": "766",
+      "empresa": "LPSA LTDA",
+      "cnpj": "67118895000134",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": true,
+      "eraseAugStatus": 200,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "6a2801d50ef18487494a44fd",
+      "codigo": "768",
+      "empresa": "AGILLI VEICULOS, INTERMEDIACOES, RASTREAMENTO E MONITORAMENTO LTDA",
+      "cnpj": "46083352000159",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "6a2b124867cd0b83e73f7e87",
+      "codigo": "771",
+      "empresa": "CONSERLIMPE CONSULTORIA EMPREENDIMENTOS LTDA",
+      "cnpj": "18736208000139",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": true,
+      "eraseAugStatus": 200,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "6a2b21c1fc9c9b67e2711ba7",
+      "codigo": "772",
+      "empresa": "PREVLIMP CONSULTORIA E EMPREENDIMENTOS LTDA",
+      "cnpj": "10260618000144",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": true,
+      "eraseAugStatus": 200,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "6a344d69ea0f15ca794e949a",
+      "codigo": "774",
+      "empresa": "PERCOP SERVICOS LTDA",
+      "cnpj": "60710499000152",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": false,
+      "eraseAugStatus": 404,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "6a5f875213ceb2d25b4f1167",
+      "codigo": "786",
+      "empresa": "REALEZA ENXOVAIS LTDA",
+      "cnpj": "55981432000112",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": true,
+      "eraseAugStatus": 200,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    },
+    {
+      "customerId": "6a68e2051cbb23516345057e",
+      "codigo": "791",
+      "empresa": "PRIME NET TELECOM LTDA",
+      "cnpj": "58180507000154",
+      "tarefas": [
+        "FOLHA DE PAGAMENTO GERAL - GRUPO 2"
+      ],
+      "result": "success",
+      "detalhe": "Pessoal ago removido (sem interacao); set/2026 gerado",
+      "eraseAugOk": true,
+      "eraseAugStatus": 200,
+      "eraseSepOk": true,
+      "eraseSepStatus": 200,
+      "generateSepOk": true,
+      "generateSepStatus": 200
+    }
+  ]
+}

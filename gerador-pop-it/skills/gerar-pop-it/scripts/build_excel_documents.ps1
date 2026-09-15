@@ -45,10 +45,16 @@ $TextClassificacao = U 'CLASSIFICA\u00C7\u00C3O'
 $TextEvidencia = U 'EVID\u00CANCIA/PRINT \u2014 INSER\u00C7\u00C3O MANUAL'
 $TextValidacao = U 'PENDENTE DE VALIDA\u00C7\u00C3O'
 $TextSetor = "SETOR"
+$TextDepart = "DEPART."
 $TextCodigo = U 'C\u00D3DIGO'
 $TextVersao = U 'VERS\u00C3O'
 $TextEmissao = U 'EMISS\u00C3O'
 $TextRevisao = U 'REVIS\u00C3O'
+$TextInicio = U 'IN\u00CDCIO'
+$TextProduto = "PRODUTO"
+$TextElaborado = "ELABORADO POR"
+$TextVerificado = "VERIFICADO POR"
+$TextAprovado = "APROVADO POR"
 
 function Get-FullPath([string]$PathValue) {
   if ([System.IO.Path]::IsPathRooted($PathValue)) {
@@ -143,6 +149,18 @@ $ColorYellow = Get-OleColor "#FFE699"
 $ColorRed = Get-OleColor "#F4B084"
 $ColorSuggested = Get-OleColor "#FFF4CE"
 
+# Paleta fiel ao MP de referência (MP.FIS.001)
+$ColorMpSectionSipoc = Get-OleColor "#B8CCE4"
+$ColorMpSubheaderSipoc = Get-OleColor "#EBF1DE"
+$ColorMpSectionMap = Get-OleColor "#8DB4E2"
+$ColorMpHeaderMap = Get-OleColor "#DCE6F1"
+$ColorMpBar = Get-OleColor "#1F497D"
+$ColorMpGreen = Get-OleColor "#00B050"
+$ColorMpYellow = Get-OleColor "#FFFF00"
+$ColorMpRed = Get-OleColor "#FF0000"
+$ColorMpOrange = Get-OleColor "#E36C09"
+$ColorMpTitleBlue = Get-OleColor "#3333FF"
+
 function Quote-FormulaText([string]$Text) {
   return '"' + $Text.Replace('"', '""') + '"'
 }
@@ -220,24 +238,24 @@ function Add-StatusFormatting($Range) {
 function Add-RiskFormatting($ScoreRange, $ClassificationRange) {
   $ScoreRange.FormatConditions.Delete()
   $greenScore = $ScoreRange.FormatConditions.Add($xlCellValue, $xlLessEqual, "4")
-  $greenScore.Interior.Color = $ColorGreen
+  $greenScore.Interior.Color = $ColorMpGreen
   [void][System.Runtime.InteropServices.Marshal]::FinalReleaseComObject($greenScore)
   $yellowScore = $ScoreRange.FormatConditions.Add($xlCellValue, $xlBetween, "5", "10")
-  $yellowScore.Interior.Color = $ColorYellow
+  $yellowScore.Interior.Color = $ColorMpYellow
   [void][System.Runtime.InteropServices.Marshal]::FinalReleaseComObject($yellowScore)
   $redScore = $ScoreRange.FormatConditions.Add($xlCellValue, $xlGreaterEqual, "12")
-  $redScore.Interior.Color = $ColorRed
+  $redScore.Interior.Color = $ColorMpRed
   [void][System.Runtime.InteropServices.Marshal]::FinalReleaseComObject($redScore)
 
   $ClassificationRange.FormatConditions.Delete()
   $greenClass = $ClassificationRange.FormatConditions.Add($xlCellValue, $xlEqual, ("=" + (Quote-FormulaText $TextToleravel)))
-  $greenClass.Interior.Color = $ColorGreen
+  $greenClass.Interior.Color = $ColorMpGreen
   [void][System.Runtime.InteropServices.Marshal]::FinalReleaseComObject($greenClass)
-  $yellowClass = $ClassificationRange.FormatConditions.Add($xlCellValue, $xlEqual, ("=" + (Quote-FormulaText "ALARP")))
-  $yellowClass.Interior.Color = $ColorYellow
+  $yellowClass = $ClassificationRange.FormatConditions.Add($xlCellValue, $xlEqual, ("=" + (Quote-FormulaText (U 'RAZO\u00C1VEL (ALARP)'))))
+  $yellowClass.Interior.Color = $ColorMpYellow
   [void][System.Runtime.InteropServices.Marshal]::FinalReleaseComObject($yellowClass)
   $redClass = $ClassificationRange.FormatConditions.Add($xlCellValue, $xlEqual, ("=" + (Quote-FormulaText $TextInaceitavel)))
-  $redClass.Interior.Color = $ColorRed
+  $redClass.Interior.Color = $ColorMpRed
   [void][System.Runtime.InteropServices.Marshal]::FinalReleaseComObject($redClass)
 }
 
@@ -313,8 +331,8 @@ function Reset-Workbook($Workbook, [string]$SheetName) {
   $sheet.Visible = -1
   $sheet.Name = $SheetName
   try { $sheet.Unprotect("") } catch { }
-  [void]$sheet.Cells.UnMerge()
-  [void]$sheet.Cells.Clear()
+  Invoke-TransientComRetry { [void]$sheet.Cells.UnMerge() } "desfazer merges da planilha"
+  Invoke-TransientComRetry { [void]$sheet.Cells.Clear() } "limpar planilha"
 
   $hasLogo = $false
   for ($index = $sheet.Shapes.Count; $index -ge 1; $index--) {
@@ -713,45 +731,71 @@ function Get-FlowSteps($Content) {
 function Set-MpMetadata($Sheet, $Content) {
   $document = Get-PropertyValue $Content "documento" $null
 
-  [void]$Sheet.Range("C1:H2").Merge()
-  Set-Text $Sheet.Range("C1") "MAPEAMENTO DE PROCESSO"
-  Set-TitleStyle $Sheet.Range("C1:H2") "Bahnschrift" 16
-  $Sheet.Rows.Item(1).RowHeight = 24
-  $Sheet.Rows.Item(2).RowHeight = 24
+  [void]$Sheet.Range("A1:A4").Merge()
+  [void]$Sheet.Range("B1:H2").Merge()
+  Set-Text $Sheet.Range("B1") "MAPEAMENTO DE PROCESSO"
+  $Sheet.Range("B1:H2").Font.Name = "Bahnschrift"
+  $Sheet.Range("B1:H2").Font.Size = 16
+  $Sheet.Range("B1:H2").Font.Bold = $true
+  $Sheet.Range("B1:H2").Font.Color = $ColorMpTitleBlue
+  $Sheet.Range("B1:H2").HorizontalAlignment = $xlCenter
+  $Sheet.Range("B1:H2").VerticalAlignment = $xlCenter
+  $Sheet.Range("B1:H2").WrapText = $true
+  Set-AllBorders $Sheet.Range("B1:H2")
+  $Sheet.Rows.Item(1).RowHeight = 22
+  $Sheet.Rows.Item(2).RowHeight = 22
 
-  Set-Text $Sheet.Range("I1") $TextCodigo
-  [void]$Sheet.Range("J1:K1").Merge()
+  Set-Text $Sheet.Range("I1") (U 'C\u00F3digo:')
   Set-Text $Sheet.Range("J1") (Get-StringValue $document "codigo_mp" "MP.XXX.XXX")
-  Set-Text $Sheet.Range("I2") $TextVersao
-  [void]$Sheet.Range("J2:K2").Merge()
-  Set-Text $Sheet.Range("J2") (Get-StringValue $document "versao" "00")
-  Set-HeaderStyle $Sheet.Range("I1:K2") "Bahnschrift"
-  $Sheet.Range("J1:K2").Interior.Color = $ColorWhite
+  Set-Text $Sheet.Range("I2") (U 'Emiss\u00E3o:')
+  Set-Text $Sheet.Range("J2") (Get-StringValue $document "emissao" "")
+  Set-Text $Sheet.Range("I3") (U 'Vers\u00E3o:')
+  Set-Text $Sheet.Range("J3") (Get-StringValue $document "versao" "00")
+  Set-Text $Sheet.Range("I4") (U 'Revis\u00E3o:')
+  Set-Text $Sheet.Range("J4") (Get-StringValue $document "revisao" "")
+  $Sheet.Range("I1:J4").Font.Name = "Bahnschrift"
+  $Sheet.Range("I1:J4").Font.Size = 12
+  $Sheet.Range("I1:I4").Font.Bold = $true
+  Set-AllBorders $Sheet.Range("I1:J4")
 
-  Set-Text $Sheet.Range("A3") $TextSetor
-  [void]$Sheet.Range("B3:C3").Merge()
-  Set-Text $Sheet.Range("B3") (Get-StringValue $document "setor" $TextValidacao)
-  Set-Text $Sheet.Range("D3") "PROCESSO"
+  Set-Text $Sheet.Range("B3") $TextDepart
+  Set-Text $Sheet.Range("C3") (Get-StringValue $document "setor" $TextValidacao)
+  Set-Text $Sheet.Range("D3") "PROCESSO:"
   [void]$Sheet.Range("E3:H3").Merge()
   Set-Text $Sheet.Range("E3") (Get-StringValue $document "titulo" "")
-  Set-Text $Sheet.Range("I3") $TextEmissao
-  [void]$Sheet.Range("J3:K3").Merge()
-  Set-Text $Sheet.Range("J3") (Get-StringValue $document "emissao" "")
-  Set-HeaderStyle $Sheet.Range("A3:K3") "Bahnschrift"
-  $Sheet.Range("B3:C3").Interior.Color = $ColorWhite
-  $Sheet.Range("E3:H3").Interior.Color = $ColorWhite
-  $Sheet.Range("J3:K3").Interior.Color = $ColorWhite
+  $Sheet.Range("B3").Interior.Color = $ColorWhite
+  $Sheet.Range("B3").Font.Color = $ColorText
+  $Sheet.Range("B3").Font.Bold = $true
+  $Sheet.Range("D3").Interior.Color = $ColorWhite
+  $Sheet.Range("D3").Font.Color = $ColorText
+  $Sheet.Range("D3").Font.Bold = $true
+  $Sheet.Range("B3:H4").Font.Name = "Bahnschrift"
+  $Sheet.Range("B3:H4").Font.Size = 12
+  Set-AllBorders $Sheet.Range("B3:H3")
 
-  Set-Text $Sheet.Range("A4") (U 'RESULTADO ESPERADO')
-  [void]$Sheet.Range("B4:H4").Merge()
-  Set-Text $Sheet.Range("B4") (Get-StringValue $document "resultado_esperado" $TextValidacao)
-  Set-Text $Sheet.Range("I4") $TextRevisao
-  [void]$Sheet.Range("J4:K4").Merge()
-  Set-Text $Sheet.Range("J4") (Get-StringValue $document "revisao" "")
-  Set-HeaderStyle $Sheet.Range("A4:K4") "Bahnschrift"
-  $Sheet.Range("B4:H4").Interior.Color = $ColorWhite
-  $Sheet.Range("J4:K4").Interior.Color = $ColorWhite
-  $Sheet.Rows.Item(4).RowHeight = 35
+  Set-Text $Sheet.Range("A5") ($TextInicio + ":")
+  Set-Text $Sheet.Range("B5") (Get-StringValue $document "emissao" "")
+  Set-Text $Sheet.Range("C5") ($TextProduto + ":")
+  [void]$Sheet.Range("D5:J5").Merge()
+  Set-Text $Sheet.Range("D5") (Get-StringValue $document "objetivo" $TextValidacao)
+  $Sheet.Range("A5:J5").Interior.Color = $ColorNavy
+  $Sheet.Range("A5:J5").Font.Color = $ColorWhite
+  $Sheet.Range("A5:J5").Font.Name = "Bahnschrift"
+  $Sheet.Range("A5:J5").Font.Size = 12
+  $Sheet.Range("A5").Font.Bold = $true
+  $Sheet.Range("C5").Font.Bold = $true
+  $Sheet.Rows.Item(5).RowHeight = 28
+  Set-AllBorders $Sheet.Range("A5:J5")
+
+  [void]$Sheet.Range("A6:J6").Merge()
+  Set-Text $Sheet.Range("A6") ("Resultado Esperado do Processo: " + (Get-StringValue $document "resultado_esperado" $TextValidacao))
+  $Sheet.Range("A6:J6").Interior.Color = $ColorNavy
+  $Sheet.Range("A6:J6").Font.Color = $ColorWhite
+  $Sheet.Range("A6:J6").Font.Name = "Bahnschrift"
+  $Sheet.Range("A6:J6").Font.Size = 12
+  $Sheet.Range("A6").Font.Bold = $true
+  $Sheet.Rows.Item(6).RowHeight = 32
+  Set-AllBorders $Sheet.Range("A6:J6")
 }
 
 function Write-Sipoc($Sheet, $Mp, [int]$StartRow) {
@@ -762,34 +806,102 @@ function Write-Sipoc($Sheet, $Mp, [int]$StartRow) {
   $outputs = Get-ArrayValue $chain "saidas"
   $rowCount = [Math]::Max(1, [Math]::Max([Math]::Max($suppliers.Count, $inputs.Count), [Math]::Max($clients.Count, $outputs.Count)))
 
-  [void]$Sheet.Range("A$StartRow:K$StartRow").Merge()
-  Set-Text $Sheet.Range("A$StartRow") "CADEIA CLIENTE-FORNECEDOR (SIPOC)"
-  Set-SectionStyle $Sheet.Range("A$StartRow:K$StartRow") "Bahnschrift"
+  [void]$Sheet.Range("A$StartRow:J$StartRow").Merge()
+  Set-Text $Sheet.Range("A$StartRow") "CADEIA CLIENTE FORNECEDOR"
+  $Sheet.Range("A$StartRow:J$StartRow").Interior.Color = $ColorMpSectionSipoc
+  $Sheet.Range("A$StartRow").Font.Bold = $true
+  $Sheet.Range("A$StartRow").Font.Name = "Bahnschrift"
+  $Sheet.Range("A$StartRow").Font.Size = 12
+  $Sheet.Range("A$StartRow").HorizontalAlignment = $xlCenter
+  Set-AllBorders $Sheet.Range("A$StartRow:J$StartRow")
   $headerRow = $StartRow + 1
   [void]$Sheet.Range("A$headerRow:B$headerRow").Merge()
   [void]$Sheet.Range("C$headerRow:D$headerRow").Merge()
   [void]$Sheet.Range("E$headerRow:G$headerRow").Merge()
-  [void]$Sheet.Range("H$headerRow:K$headerRow").Merge()
-  Set-Text $Sheet.Range("A$headerRow") "FORNECEDORES"
-  Set-Text $Sheet.Range("C$headerRow") "ENTRADAS"
-  Set-Text $Sheet.Range("E$headerRow") "CLIENTES"
-  Set-Text $Sheet.Range("H$headerRow") (U 'SA\u00CDDAS')
-  Set-HeaderStyle $Sheet.Range("A$headerRow:K$headerRow") "Bahnschrift"
+  [void]$Sheet.Range("H$headerRow:J$headerRow").Merge()
+  Set-Text $Sheet.Range("A$headerRow") "FORNECEDORES:"
+  Set-Text $Sheet.Range("C$headerRow") "ENTRADAS:"
+  Set-Text $Sheet.Range("E$headerRow") "CLIENTES:"
+  Set-Text $Sheet.Range("H$headerRow") (U 'SA\u00CDDA:')
+  Set-HeaderStyle $Sheet.Range("A$headerRow:J$headerRow") "Bahnschrift"
+  $Sheet.Range("A$headerRow:J$headerRow").Interior.Color = $ColorMpSubheaderSipoc
+  $Sheet.Range("A$headerRow:J$headerRow").Font.Size = 12
 
   for ($offset = 0; $offset -lt $rowCount; $offset++) {
     $row = $headerRow + 1 + $offset
     [void]$Sheet.Range("A$row:B$row").Merge()
     [void]$Sheet.Range("C$row:D$row").Merge()
     [void]$Sheet.Range("E$row:G$row").Merge()
-    [void]$Sheet.Range("H$row:K$row").Merge()
+    [void]$Sheet.Range("H$row:J$row").Merge()
     Set-Text $Sheet.Range("A$row") $(if ($offset -lt $suppliers.Count) { [string]$suppliers[$offset] } else { "" })
     Set-Text $Sheet.Range("C$row") $(if ($offset -lt $inputs.Count) { [string]$inputs[$offset] } else { "" })
     Set-Text $Sheet.Range("E$row") $(if ($offset -lt $clients.Count) { [string]$clients[$offset] } else { "" })
     Set-Text $Sheet.Range("H$row") $(if ($offset -lt $outputs.Count) { [string]$outputs[$offset] } else { "" })
-    Set-BodyStyle $Sheet.Range("A$row:K$row") "Bahnschrift" 9
-    $Sheet.Rows.Item($row).RowHeight = 31
+    Set-BodyStyle $Sheet.Range("A$row:J$row") "Bahnschrift" 12
+    $Sheet.Range("A$row:J$row").HorizontalAlignment = $xlLeft
+    $Sheet.Rows.Item($row).RowHeight = 28
   }
-  return $headerRow + $rowCount + 1
+  return $headerRow + $rowCount + 2
+}
+
+function Get-DefaultPG($Risk) {
+  $suggested = Get-BoolValue $Risk "sugerido" $true
+  $p = Get-PropertyValue $Risk "probabilidade" $null
+  $g = Get-PropertyValue $Risk "gravidade" $null
+  if ($null -eq $p -or [string]::IsNullOrWhiteSpace([string]$p)) {
+    $p = $(if ($suggested) { 3 } else { 2 })
+  }
+  if ($null -eq $g -or [string]::IsNullOrWhiteSpace([string]$g)) {
+    $g = 3
+  }
+  return @([int]$p, [int]$g)
+}
+
+function Get-RiskClassification([int]$Score) {
+  if ($Score -le 4) { return $TextToleravel }
+  if ($Score -le 10) { return (U 'RAZO\u00C1VEL (ALARP)') }
+  return $TextInaceitavel
+}
+
+function Add-MpStepShape($Sheet, [int]$Row, [string]$Text, [bool]$IsOval) {
+  # msoShapeOval=9, msoShapeRoundedRectangle=5
+  $left = $Sheet.Cells.Item($Row, 1).Left + 4
+  $top = $Sheet.Cells.Item($Row, 1).Top + 4
+  $width = [Math]::Max(80, $Sheet.Columns.Item(1).Width * 6.5)
+  $height = [Math]::Max(36, $Sheet.Rows.Item($Row).Height - 8)
+  $type = $(if ($IsOval) { 9 } else { 5 })
+  $shape = $Sheet.Shapes.AddShape($type, $left, $top, $width, $height)
+  try {
+    $shape.TextFrame2.TextRange.Text = $Text
+    $shape.TextFrame2.TextRange.Font.Name = "Bahnschrift"
+    $shape.TextFrame2.TextRange.Font.Size = 10
+    $shape.TextFrame2.TextRange.Font.Bold = $true
+    $shape.TextFrame2.TextRange.Font.Fill.ForeColor.RGB = $ColorNavy
+    $shape.TextFrame2.TextRange.ParagraphFormat.Alignment = 2
+    $shape.Fill.Visible = $false
+    $shape.Line.ForeColor.RGB = $ColorNavy
+    $shape.Line.Weight = 2
+  } catch {
+    try { $shape.TextFrame.Characters().Text = $Text } catch { }
+  }
+  [void][System.Runtime.InteropServices.Marshal]::FinalReleaseComObject($shape)
+}
+
+function Add-MpStepConnector($Sheet, [int]$FromRow, [int]$ToRow) {
+  # msoConnectorStraight=1
+  $colA = $Sheet.Cells.Item($FromRow, 1)
+  $x = $colA.Left + (($Sheet.Columns.Item(1).Width * 6.5) / 2.0)
+  $y1 = $Sheet.Cells.Item($FromRow, 1).Top + $Sheet.Rows.Item($FromRow).Height - 6
+  $y2 = $Sheet.Cells.Item($ToRow, 1).Top + 6
+  $connector = $Sheet.Shapes.AddConnector(1, $x, $y1, $x, $y2)
+  try {
+    $connector.Line.ForeColor.RGB = $ColorNavy
+    $connector.Line.Weight = 1.5
+    # msoArrowheadTriangle = 5
+    $connector.Line.EndArrowheadStyle = 5
+  } finally {
+    [void][System.Runtime.InteropServices.Marshal]::FinalReleaseComObject($connector)
+  }
 }
 
 function Write-Flow($Sheet, $Content, [int]$StartRow) {
@@ -830,82 +942,204 @@ function Write-Flow($Sheet, $Content, [int]$StartRow) {
 }
 
 function Write-RiskLegend($Sheet, [int]$StartRow) {
-  [void]$Sheet.Range("A$StartRow:K$StartRow").Merge()
+  [void]$Sheet.Range("A$StartRow:J$StartRow").Merge()
   Set-Text $Sheet.Range("A$StartRow") (U 'ESCALAS E MATRIZ DE TOLERABILIDADE (P \u00D7 G)')
-  Set-SectionStyle $Sheet.Range("A$StartRow:K$StartRow") "Bahnschrift"
+  $Sheet.Range("A$StartRow:J$StartRow").Interior.Color = $ColorMpBar
+  $Sheet.Range("A$StartRow:J$StartRow").Font.Name = "Bahnschrift"
+  $Sheet.Range("A$StartRow:J$StartRow").Font.Size = 12
+  $Sheet.Range("A$StartRow:J$StartRow").Font.Bold = $true
+  $Sheet.Range("A$StartRow:J$StartRow").Font.Color = $ColorWhite
+  $Sheet.Range("A$StartRow:J$StartRow").HorizontalAlignment = $xlCenter
+  $Sheet.Range("A$StartRow:J$StartRow").VerticalAlignment = $xlCenter
+  $Sheet.Range("A$StartRow:J$StartRow").WrapText = $true
+  Set-AllBorders $Sheet.Range("A$StartRow:J$StartRow")
   $row = $StartRow + 1
 
   [void]$Sheet.Range("A$row:E$row").Merge()
-  [void]$Sheet.Range("F$row:K$row").Merge()
+  [void]$Sheet.Range("F$row:J$row").Merge()
   Set-Text $Sheet.Range("A$row") "PROBABILIDADE"
   Set-Text $Sheet.Range("F$row") "GRAVIDADE"
-  Set-HeaderStyle $Sheet.Range("A$row:K$row") "Bahnschrift"
+  $Sheet.Range("A$row:E$row").Interior.Color = $ColorMpBar
+  $Sheet.Range("F$row:J$row").Interior.Color = $ColorMpBar
+  $Sheet.Range("A$row:J$row").Font.Name = "Bahnschrift"
+  $Sheet.Range("A$row:J$row").Font.Size = 12
+  $Sheet.Range("A$row:J$row").Font.Bold = $true
+  $Sheet.Range("A$row:J$row").Font.Color = $ColorWhite
+  $Sheet.Range("A$row:J$row").HorizontalAlignment = $xlCenter
+  $Sheet.Range("A$row:J$row").VerticalAlignment = $xlCenter
+  $Sheet.Range("A$row:J$row").WrapText = $true
+  Set-AllBorders $Sheet.Range("A$row:J$row")
   $row++
 
   $probability = @(
-    @("1 - NUNCA", (U 'N\u00E3o ocorreu no hist\u00F3rico conhecido.')),
-    @("2 - REMOTA", (U 'Pouco prov\u00E1vel; h\u00E1 controles consistentes.')),
-    @("3 - INCOMUM", (U 'Pode ocorrer em situa\u00E7\u00F5es espec\u00EDficas.')),
-    @("4 - OCASIONAL", (U 'Pode ocorrer ao longo da rotina.')),
-    @("5 - FREQUENTE", (U 'Ocorre repetidamente ou \u00E9 muito prov\u00E1vel.'))
+    @("NUNCA", "1", (U 'Nunca ocorreu'), $ColorWhite),
+    @("REMOTA", "2", (U 'Remota, dificilmente ocorre'), $ColorMpGreen),
+    @("INCOMUM", "3", (U 'Incomum, \u00E9 poss\u00EDvel ocorrer'), $ColorMpYellow),
+    @("OCASIONAL", "4", (U 'Ocasional, probabilidade de ocorrer ao longo do tempo'), $ColorMpOrange),
+    @("FREQUENTE", "5", (U 'Frequente, provavelmente ocorrer\u00E1 novamente de imediato'), $ColorMpRed)
   )
   $severity = @(
-    @("1 - SEM IMPACTO RELEVANTE", (U 'Retrabalho m\u00EDnimo, sem interrup\u00E7\u00E3o relevante.')),
-    @("2 - BAIXA", (U 'Corre\u00E7\u00E3o simples e impacto limitado.')),
-    @("3 - MODERADA", (U 'Afeta prazo ou qualidade e exige interven\u00E7\u00E3o.')),
-    @("4 - ALTA", (U 'Impacto operacional, financeiro ou ao cliente relevante.')),
-    @("5 - CR\u00CDTICA", (U 'Impacto grave em conformidade ou continuidade.'))
+    @("SEM GRAVIDADE", "1", (U 'Sem necessidade de tratamento')),
+    @("POUCO GRAVE", "2", (U 'Danos m\u00EDnimos ou moderados, mas com dura\u00E7\u00E3o r\u00E1pida')),
+    @("GRAVE", "3", (U 'Com necessidade de interven\u00E7\u00E3o, com dano ou perda de prazo')),
+    @("MUITO GRAVE", "4", (U 'Necessidade de interven\u00E7\u00E3o, ou interven\u00E7\u00E3o de grande impacto')),
+    @("EXTREM. GRAVE", "5", (U 'Dentro das possibilidades, em curto prazo o evento dano pode ocorrer'))
   )
   for ($index = 0; $index -lt 5; $index++) {
-    [void]$Sheet.Range("A$row:B$row").Merge()
     [void]$Sheet.Range("C$row:E$row").Merge()
-    [void]$Sheet.Range("F$row:G$row").Merge()
-    [void]$Sheet.Range("H$row:K$row").Merge()
+    [void]$Sheet.Range("H$row:J$row").Merge()
     Set-Text $Sheet.Range("A$row") (U ([string]$probability[$index][0]))
-    Set-Text $Sheet.Range("C$row") (U ([string]$probability[$index][1]))
-    Set-Text $Sheet.Range("F$row") (U ([string]$severity[$index][0]))
-    Set-Text $Sheet.Range("H$row") (U ([string]$severity[$index][1]))
-    Set-BodyStyle $Sheet.Range("A$row:K$row") "Bahnschrift" 8
+    Set-Text $Sheet.Range("B$row") (U ([string]$probability[$index][1]))
+    Set-Text $Sheet.Range("C$row") (U ([string]$probability[$index][2]))
+    Set-Text $Sheet.Range("F$row") (U ([string]$severity[$index][1]))
+    Set-Text $Sheet.Range("H$row") (U ([string]$severity[$index][2]))
+    $fillColor = [int]$probability[$index][3]
+    if ($fillColor -ne $ColorWhite) {
+      $Sheet.Range("A$row:H$row").Interior.Color = $fillColor
+    }
+    Set-BodyStyle $Sheet.Range("A$row:J$row") "Bahnschrift" 12
+    $Sheet.Range("A$row:J$row").HorizontalAlignment = $xlCenter
+    $Sheet.Range("A$row:J$row").VerticalAlignment = $xlCenter
+    $Sheet.Range("A$row:B$row").Font.Bold = $true
+    $Sheet.Range("F$row").Font.Bold = $true
     $Sheet.Rows.Item($row).RowHeight = 31
     $row++
   }
 
+  [void]$Sheet.Range("A$row:J$row").Merge()
+  Set-Text $Sheet.Range("A$row") "TOLERABILIDADE"
+  $Sheet.Range("A$row:J$row").Interior.Color = $ColorMpBar
+  $Sheet.Range("A$row:J$row").Font.Name = "Bahnschrift"
+  $Sheet.Range("A$row:J$row").Font.Size = 12
+  $Sheet.Range("A$row:J$row").Font.Bold = $true
+  $Sheet.Range("A$row:J$row").Font.Color = $ColorWhite
+  $Sheet.Range("A$row:J$row").HorizontalAlignment = $xlCenter
+  Set-AllBorders $Sheet.Range("A$row:J$row")
   $row++
-  [void]$Sheet.Range("A$row:K$row").Merge()
-  Set-Text $Sheet.Range("A$row") (U 'MATRIZ DE TOLERABILIDADE: 1\u20134 TOLER\u00C1VEL | 5\u201310 ALARP | 12 OU MAIS INACEIT\u00C1VEL')
-  Set-HeaderStyle $Sheet.Range("A$row:K$row") "Bahnschrift"
+
+  [void]$Sheet.Range("A$row:B$row").Merge()
+  [void]$Sheet.Range("C$row:J$row").Merge()
+  Set-Text $Sheet.Range("A$row") "PROBABILIDADE"
+  Set-Text $Sheet.Range("C$row") "GRAVIDADE"
+  $Sheet.Range("A$row:J$row").Interior.Color = $ColorMpBar
+  $Sheet.Range("A$row:J$row").Font.Name = "Bahnschrift"
+  $Sheet.Range("A$row:J$row").Font.Size = 12
+  $Sheet.Range("A$row:J$row").Font.Bold = $true
+  $Sheet.Range("A$row:J$row").Font.Color = $ColorWhite
+  $Sheet.Range("A$row:J$row").HorizontalAlignment = $xlCenter
+  Set-AllBorders $Sheet.Range("A$row:J$row")
   $row++
-  Set-Text $Sheet.Range("A$row") "P \ G"
-  for ($gravity = 1; $gravity -le 5; $gravity++) {
-    Set-Text $Sheet.Cells.Item($row, $gravity + 1) [string]$gravity
-  }
-  Set-HeaderStyle $Sheet.Range("A$row:F$row") "Bahnschrift"
+
+  [void]$Sheet.Range("D$row:E$row").Merge()
+  [void]$Sheet.Range("F$row:H$row").Merge()
+  Set-Text $Sheet.Range("C$row") "SEM GRAVIDADE"
+  Set-Text $Sheet.Range("D$row") "POUCO GRAVE"
+  Set-Text $Sheet.Range("F$row") "GRAVE"
+  Set-Text $Sheet.Range("I$row") "MUITO GRAVE"
+  Set-Text $Sheet.Range("J$row") "EXTREM. GRAVE"
+  Set-BodyStyle $Sheet.Range("A$row:J$row") "Bahnschrift" 12
+  $Sheet.Range("C$row:J$row").Font.Bold = $true
+  $Sheet.Range("C$row:J$row").HorizontalAlignment = $xlCenter
+  Set-AllBorders $Sheet.Range("A$row:J$row")
+  $row++
+
   for ($probabilityValue = 5; $probabilityValue -ge 1; $probabilityValue--) {
-    $row++
-    Set-Text $Sheet.Cells.Item($row, 1) [string]$probabilityValue
-    $Sheet.Cells.Item($row, 1).Font.Bold = $true
-    $Sheet.Cells.Item($row, 1).HorizontalAlignment = $xlCenter
+    [void]$Sheet.Range("A$row:B$row").Merge()
+    Set-Text $Sheet.Range("A$row") $(if ($probabilityValue -eq 5) { "Frequente" } elseif ($probabilityValue -eq 4) { "Ocasional" } elseif ($probabilityValue -eq 3) { "Incomum" } elseif ($probabilityValue -eq 2) { "Remoto" } else { "Nunca" })
+    $Sheet.Range("A$row:B$row").HorizontalAlignment = -4130
     for ($gravity = 1; $gravity -le 5; $gravity++) {
+      $targetCol = $(if ($gravity -eq 1) { 3 } elseif ($gravity -eq 2) { 4 } elseif ($gravity -eq 3) { 6 } elseif ($gravity -eq 4) { 9 } else { 10 })
       $score = $probabilityValue * $gravity
-      $cell = $Sheet.Cells.Item($row, $gravity + 1)
+      $cell = $Sheet.Cells.Item($row, $targetCol)
       $cell.Value2 = $score
       $cell.HorizontalAlignment = $xlCenter
-      $cell.Interior.Color = $(if ($score -le 4) { $ColorGreen } elseif ($score -le 10) { $ColorYellow } else { $ColorRed })
+      $cell.VerticalAlignment = $xlCenter
+      $cell.Font.Name = "Bahnschrift"
+      $cell.Font.Size = 12
+      if ($score -le 4) {
+        $cell.Interior.Color = $ColorMpGreen
+      } elseif ($score -le 10) {
+        $cell.Interior.Color = $ColorMpYellow
+      } else {
+        $cell.Interior.Color = $ColorMpRed
+      }
     }
-    Set-AllBorders $Sheet.Range("A$row:F$row")
+    Set-AllBorders $Sheet.Range("A$row:J$row")
+    $row++
   }
+
+  [void]$Sheet.Range("A$row:J$row").Merge()
+  Set-Text $Sheet.Range("A$row") (U 'MATRIZ DE TOLERABILIDADE: 1\u20134 TOLER\u00C1VEL | 5\u201310 ALARP | 12 OU MAIS INACEIT\u00C1VEL')
+  $Sheet.Range("A$row:J$row").Interior.Color = $ColorMpBar
+  $Sheet.Range("A$row:J$row").Font.Name = "Bahnschrift"
+  $Sheet.Range("A$row:J$row").Font.Size = 12
+  $Sheet.Range("A$row:J$row").Font.Bold = $true
+  $Sheet.Range("A$row:J$row").Font.Color = $ColorWhite
+  $Sheet.Range("A$row:J$row").HorizontalAlignment = $xlCenter
+  Set-AllBorders $Sheet.Range("A$row:J$row")
+  $row++
+
+  [void]$Sheet.Range("A$row:B$row").Merge()
+  [void]$Sheet.Range("C$row:G$row").Merge()
+  [void]$Sheet.Range("H$row:J$row").Merge()
+  Set-Text $Sheet.Range("A$row") "RISCO"
+  Set-Text $Sheet.Range("C$row") "MEDIDAS"
+  Set-Text $Sheet.Range("H$row") "SEGUIMENTO"
+  $Sheet.Range("A$row:J$row").Interior.Color = $ColorMpBar
+  $Sheet.Range("A$row:J$row").Font.Name = "Bahnschrift"
+  $Sheet.Range("A$row:J$row").Font.Size = 12
+  $Sheet.Range("A$row:J$row").Font.Bold = $true
+  $Sheet.Range("A$row:J$row").Font.Color = $ColorWhite
+  $Sheet.Range("A$row:J$row").HorizontalAlignment = $xlCenter
+  Set-AllBorders $Sheet.Range("A$row:J$row")
+  $row++
+
+  [void]$Sheet.Range("A$row:B$row").Merge()
+  [void]$Sheet.Range("C$row:G$row").Merge()
+  [void]$Sheet.Range("H$row:J$row").Merge()
+  Set-Text $Sheet.Range("A$row") (U '\u2265 12')
+  Set-Text $Sheet.Range("C$row") (U 'N\u00EDvel de risco t\u00E3o alto que requer a\u00E7\u00E3o significante e urgente para reduzir sua magnitude.')
+  Set-Text $Sheet.Range("H$row") (U 'Controlar e monitorar / reuni\u00E3o de an\u00E1lise cr\u00EDtica imediata.')
+  $Sheet.Range("A$row:B$row").Interior.Color = $ColorMpRed
+  Set-BodyStyle $Sheet.Range("A$row:J$row") "Bahnschrift" 12
+  $Sheet.Range("A$row:B$row").HorizontalAlignment = $xlCenter
+  Set-AllBorders $Sheet.Range("A$row:J$row")
+  $row++
+
+  [void]$Sheet.Range("A$row:B$row").Merge()
+  [void]$Sheet.Range("C$row:G$row").Merge()
+  [void]$Sheet.Range("H$row:J$row").Merge()
+  Set-Text $Sheet.Range("A$row") "5 a 10"
+  Set-Text $Sheet.Range("C$row") (U 'Devem ser implantadas as pol\u00EDticas de redu\u00E7\u00E3o de risco a m\u00E9dio e curto prazo.')
+  Set-Text $Sheet.Range("H$row") (U 'Abrir plano de a\u00E7\u00E3o')
+  $Sheet.Range("A$row:B$row").Interior.Color = $ColorMpYellow
+  Set-BodyStyle $Sheet.Range("A$row:J$row") "Bahnschrift" 12
+  $Sheet.Range("A$row:B$row").HorizontalAlignment = $xlCenter
+  Set-AllBorders $Sheet.Range("A$row:J$row")
+  $row++
+
+  [void]$Sheet.Range("A$row:B$row").Merge()
+  [void]$Sheet.Range("C$row:G$row").Merge()
+  [void]$Sheet.Range("H$row:J$row").Merge()
+  Set-Text $Sheet.Range("A$row") "1 a 4"
+  Set-Text $Sheet.Range("C$row") (U 'N\u00E3o requer a\u00E7\u00E3o espec\u00EDfica. N\u00EDvel de risco que \u00E9 baixo, mas deve ser gerenciado.')
+  Set-Text $Sheet.Range("H$row") (U 'Monitorar / acompanhar mensal')
+  $Sheet.Range("A$row:B$row").Interior.Color = $ColorMpGreen
+  Set-BodyStyle $Sheet.Range("A$row:J$row") "Bahnschrift" 12
+  $Sheet.Range("A$row:B$row").HorizontalAlignment = $xlCenter
+  Set-AllBorders $Sheet.Range("A$row:J$row")
+
   return $row + 1
 }
 
 function Build-MpWorkbook($Excel, $Content, [string]$TemplatePath, [string]$OutputPath) {
-  Copy-Template $TemplatePath $OutputPath
   $workbook = $null
   $sheet = $null
   try {
     try {
       Invoke-TransientComRetry {
-        $script:__openedWorkbook = $Excel.Workbooks.Open($OutputPath, 0, $false)
-      } "abrir MP" 6
+        $script:__openedWorkbook = $Excel.Workbooks.Add()
+      } "criar MP" 6
       $workbook = $script:__openedWorkbook
       if ($null -eq $workbook) {
         throw "O Excel retornou um workbook nulo."
@@ -916,30 +1150,72 @@ function Build-MpWorkbook($Excel, $Content, [string]$TemplatePath, [string]$Outp
         throw "O Excel retornou um workbook sem planilha editavel."
       }
     } catch {
-      throw "O Excel nao conseguiu abrir o modelo do MP. Confirme que o Excel desktop esta instalado, licenciado e sem janelas de dialogo abertas. Detalhe: $($_.Exception.Message)"
+      throw "O Excel nao conseguiu criar o workbook do MP. Confirme que o Excel desktop esta instalado, licenciado e sem janelas de dialogo abertas. Detalhe: $($_.Exception.Message)"
     }
     Set-CommonDocumentProperties $workbook
-    $sheet = Reset-Workbook $workbook "MP"
+    for ($index = $workbook.Worksheets.Count; $index -ge 2; $index--) {
+      $extraSheet = $workbook.Worksheets.Item($index)
+      try {
+        $extraSheet.Delete()
+      } finally {
+        [void][System.Runtime.InteropServices.Marshal]::FinalReleaseComObject($extraSheet)
+      }
+    }
+    $sheet = $workbook.Worksheets.Item(1)
+    $sheet.Name = "MP"
+    try { $sheet.Unprotect("") } catch { }
+    [void]$sheet.Cells.Clear()
 
-    $widths = @(12, 17, 27, 24, 23, 6, 6, 8, 15, 23, 23)
+    $logoPath = [System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot "..\assets\exatas-logo.png"))
+    if (Test-Path -LiteralPath $logoPath -PathType Leaf) {
+      try {
+        $logo = $sheet.Shapes.AddPicture($logoPath, 0, -1, $sheet.Range("A1").Left, $sheet.Range("A1").Top, 145, 33)
+        $logo.Name = "EXATAS_LOGO"
+      } catch {
+      } finally {
+        if ($null -ne $logo) { [void][System.Runtime.InteropServices.Marshal]::FinalReleaseComObject($logo) }
+      }
+    }
+
+    $widths = @(23, 20, 28, 26, 24, 6, 6, 8, 22, 26)
     for ($index = 0; $index -lt $widths.Count; $index++) {
       $sheet.Columns.Item($index + 1).ColumnWidth = $widths[$index]
     }
+    $sheet.Columns.Item(11).ColumnWidth = 2
+    $sheet.Columns.Item(11).Hidden = $true
     Set-MpMetadata $sheet $Content
     $mp = Get-PropertyValue $Content "mp" $null
-    $row = Write-Sipoc $sheet $mp 6
-    $row = Write-Flow $sheet $Content $row
+    $row = Write-Sipoc $sheet $mp 7
 
-    [void]$sheet.Range("A$row:K$row").Merge()
+    [void]$sheet.Range("A$row:J$row").Merge()
     Set-Text $sheet.Range("A$row") (U 'MAPA DE PROCESSO E MATRIZ DE RISCOS')
-    Set-SectionStyle $sheet.Range("A$row:K$row") "Bahnschrift"
+    $sheet.Range("A$row:J$row").Interior.Color = $ColorMpSectionMap
+    $sheet.Range("A$row").Font.Bold = $true
+    $sheet.Range("A$row").Font.Name = "Bahnschrift"
+    $sheet.Range("A$row").Font.Size = 12
+    $sheet.Range("A$row").HorizontalAlignment = $xlCenter
+    Set-AllBorders $sheet.Range("A$row:J$row")
     $row++
-    $headers = @("ETAPA", "QUEM FAZ", "COMO FAZ", "RISCO", "BARREIRA", "P", "G", (U 'P \u00D7 G'), $TextClassificacao, (U 'MITIGA\u00C7\u00C3O'), (U 'RESULTADO / INDICADOR'))
+    $headers = @(
+      "ETAPAS",
+      "QUEM FAZ (categoria profissional)",
+      "COMO FAZ (associar documento)",
+      (U 'PERIGO/RISCO\u000A RISCO: probabilidade ou chance de resultados fora do previsto\u000APERIGO: condi\u00E7\u00E3o ou conjunto de circunst\u00E2ncia que tem o potencial de causar dano'),
+      (U 'BARREIRA\u000Aetapas do processo e/ou POP e/ou protocolos, etc'),
+      "P",
+      "G",
+      "PXG",
+      (U 'MITIGA\u00C7\u00C3O \u000Ao que fazer ap\u00F3s o evento acontecer para minimizar o dano?'),
+      (U 'RESULTADO \u000AIndicadores, relat\u00F3rios de notifica\u00E7\u00F5es e auditorias')
+    )
     for ($column = 1; $column -le $headers.Count; $column++) {
       Set-Text $sheet.Cells.Item($row, $column) ([string]$headers[$column - 1])
     }
-    Set-HeaderStyle $sheet.Range("A$row:K$row") "Bahnschrift"
-    $sheet.Rows.Item($row).RowHeight = 45
+    Set-Text $sheet.Cells.Item(1, 11) "RISCO_RAW"
+    Set-HeaderStyle $sheet.Range("A$row:J$row") "Bahnschrift"
+    $sheet.Range("A$row:J$row").Interior.Color = $ColorMpHeaderMap
+    $sheet.Range("A$row:J$row").Font.Size = 12
+    $sheet.Rows.Item($row).RowHeight = 40
     $row++
 
     $risks = Get-ArrayValue $mp "riscos"
@@ -948,56 +1224,113 @@ function Build-MpWorkbook($Excel, $Content, [string]$TemplatePath, [string]$Outp
     }
     $firstRiskRow = $row
     $riskNumber = 0
+    $riskTotal = @($risks).Count
     foreach ($risk in $risks) {
       $riskNumber++
-      $suggested = Get-BoolValue $risk "sugerido" $false
-      $riskId = Get-StringValue $risk "id" ("R{0:D2}" -f $riskNumber)
-      $stageId = Get-StringValue $risk "etapa_id" ""
+      $pg = Get-DefaultPG $risk
+      $pVal = [int]$pg[0]
+      $gVal = [int]$pg[1]
+      $score = $pVal * $gVal
+      $classification = Get-RiskClassification $score
       $stage = Get-StringValue $risk "etapa" $TextValidacao
-      $stageText = $(if ([string]::IsNullOrWhiteSpace($stageId)) { $stage } else { $stageId + " - " + $stage })
-      if ($suggested) {
-        $stageText = $stageText + " | " + (U 'RISCO SUGERIDO \u2014 PENDENTE DE VALIDA\u00C7\u00C3O')
-      }
       $riskText = Get-StringValue $risk "risco" $TextValidacao
       $barrier = Get-StringValue $risk "barreira" $TextValidacao
       $mitigation = Get-StringValue $risk "mitigacao" ""
       $indicator = Get-StringValue $risk "resultado_indicador" ""
 
-      Set-Text $sheet.Cells.Item($row, 1) ($riskId + " | " + $stageText)
+      Set-Text $sheet.Cells.Item($row, 1) $stage
       Set-Text $sheet.Cells.Item($row, 2) (Get-StringValue $risk "quem_faz" $TextValidacao)
       Set-Text $sheet.Cells.Item($row, 3) (Get-StringValue $risk "como_faz" $TextValidacao)
-      Set-Text $sheet.Cells.Item($row, 4) $riskText
+      Set-Text $sheet.Cells.Item($row, 4) $classification
       Set-Text $sheet.Cells.Item($row, 5) $barrier
+      $sheet.Cells.Item($row, 6).Value2 = $pVal
+      $sheet.Cells.Item($row, 7).Value2 = $gVal
+      $sheet.Cells.Item($row, 8).Formula = ('=F{0}*G{0}' -f $row)
+      Set-Text $sheet.Cells.Item($row, 9) $mitigation
+      Set-Text $sheet.Cells.Item($row, 10) $indicator
+      Set-Text $sheet.Cells.Item($row, 11) $riskText
 
-      # P and G always start empty. The process owner/Quality assigns them in Excel.
-      $sheet.Cells.Item($row, 8).Formula = ('=IF(OR(F{0}="",G{0}=""),"",F{0}*G{0})' -f $row)
-      $sheet.Cells.Item($row, 9).Formula = ('=IF(H{0}="","",IF(H{0}<=4,{1},IF(H{0}<=10,"ALARP",{2})))' -f $row, (Quote-FormulaText $TextToleravel), (Quote-FormulaText $TextInaceitavel))
-      Set-Text $sheet.Cells.Item($row, 10) $mitigation
-      Set-Text $sheet.Cells.Item($row, 11) $indicator
-
-      Set-BodyStyle $sheet.Range("A$row:K$row") "Bahnschrift" 9
-      if ($suggested) {
-        $sheet.Range("A$row:K$row").Interior.Color = $ColorSuggested
-      }
+      Set-BodyStyle $sheet.Range("A$row:J$row") "Bahnschrift" 12
+      $sheet.Range("A$row").Interior.Color = $ColorWhite
+      $sheet.Range("A$row").Font.Bold = $true
+      $sheet.Range("A$row").HorizontalAlignment = $xlCenter
       $sheet.Range("F$row:G$row").Interior.Color = $ColorInput
-      $sheet.Range("A$row:G$row").Locked = $false
-      $sheet.Range("J$row:K$row").Locked = $false
-      $sheet.Range("H$row:I$row").FormulaHidden = $true
-      $sheet.Range("F$row:I$row").HorizontalAlignment = $xlCenter
-      Add-RiskFormatting $sheet.Cells.Item($row, 8) $sheet.Cells.Item($row, 9)
-      $sheet.Rows.Item($row).RowHeight = 72
+      $sheet.Range("F$row:H$row").HorizontalAlignment = $xlCenter
+      $sheet.Range("D$row").HorizontalAlignment = $xlCenter
+      $sheet.Range("D$row").Font.Bold = $true
+      $sheet.Range("E$row").Font.Color = Get-OleColor "#0563C1"
+      $sheet.Range("E$row").Font.Underline = 2
+      try {
+        $sheet.Cells.Item($row, 4).AddComment($riskText) | Out-Null
+      } catch { }
+      $sheet.Range("A$row:J$row").Locked = $false
+      $sheet.Rows.Item($row).RowHeight = 64
+      $isOval = ($riskNumber -eq 1 -or $riskNumber -eq $riskTotal)
+      try { Add-MpStepShape $sheet $row $stage $isOval } catch {
+        Write-Warning ("Nao foi possivel criar shape da etapa: " + $_.Exception.Message)
+      }
+      if ($riskNumber -lt $riskTotal) {
+        try { Add-MpStepConnector $sheet $row ($row + 1) } catch {
+          Write-Warning ("Nao foi possivel criar conector da etapa: " + $_.Exception.Message)
+        }
+      }
       $row++
     }
     $lastRiskRow = $row - 1
+    Add-RiskFormatting $sheet.Range("H$firstRiskRow:H$lastRiskRow") $sheet.Range("D$firstRiskRow:D$lastRiskRow")
     Add-WholeNumberValidation $sheet.Range("F$firstRiskRow:G$lastRiskRow")
-    Add-WorkbookName $workbook "MP_PROBABILIDADE" (Get-AbsoluteReference "MP" "F" $firstRiskRow $lastRiskRow)
-    Add-WorkbookName $workbook "MP_GRAVIDADE" (Get-AbsoluteReference "MP" "G" $firstRiskRow $lastRiskRow)
-    Add-WorkbookName $workbook "MP_SCORE" (Get-AbsoluteReference "MP" "H" $firstRiskRow $lastRiskRow)
+    Add-WorkbookName $workbook "MP_PROBABILIDADE" (Get-AbsoluteReference $sheet.Name "F" $firstRiskRow $lastRiskRow)
+    Add-WorkbookName $workbook "MP_GRAVIDADE" (Get-AbsoluteReference $sheet.Name "G" $firstRiskRow $lastRiskRow)
+    Add-WorkbookName $workbook "MP_SCORE" (Get-AbsoluteReference $sheet.Name "H" $firstRiskRow $lastRiskRow)
+
+    # Folhas auxiliares no padrao da referencia
+    try {
+      if (@($workbook.Worksheets | ForEach-Object { $_.Name }) -notcontains "Plan1") {
+        $plan1 = $workbook.Worksheets.Add([System.Type]::Missing, $workbook.Worksheets.Item($workbook.Worksheets.Count), 1)
+        $plan1.Name = "Plan1"
+        [void][System.Runtime.InteropServices.Marshal]::FinalReleaseComObject($plan1)
+      }
+      if (@($workbook.Worksheets | ForEach-Object { $_.Name }) -notcontains "EXEMPLO") {
+        $ex = $workbook.Worksheets.Add([System.Type]::Missing, $workbook.Worksheets.Item($workbook.Worksheets.Count), 1)
+        $ex.Name = "EXEMPLO"
+        Set-Text $ex.Range("A1") "Folha de exemplo institucional (referencia de formatacao)."
+        Set-Text $ex.Range("A2") "Use a aba principal do processo para o mapeamento operacional."
+        [void][System.Runtime.InteropServices.Marshal]::FinalReleaseComObject($ex)
+      }
+      $sheet.Activate()
+    } catch {
+      Write-Warning ("Nao foi possivel criar Plan1/EXEMPLO: " + $_.Exception.Message)
+    }
 
     $row++
     $row = Write-RiskLegend $sheet $row
-    $sheet.Range("A1:K" + ($row - 1)).Font.Name = "Bahnschrift"
-    $sheet.PageSetup.PrintArea = '$A$1:$K$' + ($row - 1)
+
+    $row++
+    [void]$sheet.Range("A$row:C$row").Merge()
+    [void]$sheet.Range("D$row:F$row").Merge()
+    [void]$sheet.Range("G$row:J$row").Merge()
+    Set-Text $sheet.Range("A$row") $TextElaborado
+    Set-Text $sheet.Range("D$row") $TextVerificado
+    Set-Text $sheet.Range("H$row") $TextAprovado
+    Set-HeaderStyle $sheet.Range("A$row:J$row") "Bahnschrift"
+    $sheet.Range("A$row:J$row").Interior.Color = $ColorMpBar
+    $sheet.Range("A$row:J$row").Font.Color = $ColorWhite
+    $sheet.Range("A$row:J$row").Font.Size = 12
+    $row++
+    $document = Get-PropertyValue $Content "documento" $null
+    [void]$sheet.Range("A$row:C$row").Merge()
+    [void]$sheet.Range("D$row:F$row").Merge()
+    [void]$sheet.Range("G$row:J$row").Merge()
+    Set-Text $sheet.Range("A$row") (Get-StringValue $document "elaborador" "")
+    Set-Text $sheet.Range("D$row") (Get-StringValue $document "verificador" "")
+    Set-Text $sheet.Range("G$row") (Get-StringValue $document "aprovador" "")
+    Set-BodyStyle $sheet.Range("A$row:J$row") "Bahnschrift" 12
+    $sheet.Range("A$row:J$row").HorizontalAlignment = $xlCenter
+    $sheet.Rows.Item($row).RowHeight = 28
+    $row++
+
+    $sheet.Range("A1:J" + ($row - 1)).Font.Name = "Bahnschrift"
+    $sheet.PageSetup.PrintArea = '$A$1:$J$' + ($row - 1)
     $sheet.PageSetup.Orientation = $xlLandscape
     $sheet.PageSetup.Zoom = $false
     $sheet.PageSetup.FitToPagesWide = 1
@@ -1012,7 +1345,7 @@ function Build-MpWorkbook($Excel, $Content, [string]$TemplatePath, [string]$Outp
     $sheet.EnableSelection = $xlUnlockedCells
 
     $Excel.CalculateFullRebuild()
-    Invoke-TransientComRetry { $workbook.Save() } "salvar MP"
+    Invoke-TransientComRetry { $workbook.SaveAs($OutputPath) } "salvar MP"
   } finally {
     if ($null -ne $sheet) {
       [void][System.Runtime.InteropServices.Marshal]::FinalReleaseComObject($sheet)

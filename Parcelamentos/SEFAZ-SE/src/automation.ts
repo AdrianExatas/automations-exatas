@@ -34,10 +34,20 @@ export async function runAutomation(options: RunAutomationOptions): Promise<RunA
     mapDir: options.mapDir,
   });
   const results: RunResult[] = [];
+  let cancelled = false;
 
   try {
-    for (const row of rows) {
-      log(`\n[linha ${row.rowNumber}] Processando codigo ${row.codigo}...`);
+    for (let index = 0; index < rows.length; index += 1) {
+      if (options.shouldCancel?.()) {
+        cancelled = true;
+        log("Execucao cancelada pelo usuario.");
+        break;
+      }
+
+      const row = rows[index]!;
+      const label = `Processando IE ${row.inscricaoEstadual} na SEFAZ-SE...`;
+      options.onProgress?.({ current: index + 1, total: rows.length, label });
+      log(`\n[linha ${row.rowNumber}] ${label}`);
 
       try {
         const rowResults = await processRowByTransport({
@@ -90,6 +100,8 @@ export async function runAutomation(options: RunAutomationOptions): Promise<RunA
     successCount,
     errorCount,
     ignoredCount,
+    cancelled,
+    results,
   };
 }
 

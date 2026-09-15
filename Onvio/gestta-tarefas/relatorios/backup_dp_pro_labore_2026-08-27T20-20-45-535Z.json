@@ -1,0 +1,1613 @@
+{
+  "generatedAt": "2026-08-27T20:20:45.535Z",
+  "mode": "apply",
+  "sourceExcel": "C:\\Users\\Exatas\\Documents\\GitHub\\automations-exatas\\Onvio\\gestta-tarefas\\relatorios\\levantamento_dp_pro_labore_2026-08-27.xlsx",
+  "addTaskIds": {
+    "CONSULTAR EXTRATOR DIRF": "60b61ec51da6830006323533",
+    "DCTFWEB - SETOR PESSOAL": "6252c6e82dbce400063d5fa1",
+    "FOLHA DE PAGAMENTO GERAL - GRUPO 1": "6a635a204d8819abae314957"
+  },
+  "removeTaskIds": {
+    "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - JAN": "6a84a5cfb622a707a3c7eb85",
+    "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - DEZ": "6a84a5e0037f098cd1533f42"
+  },
+  "empresas": [
+    {
+      "codigoPlanilha": "58",
+      "nomePlanilha": "WALLISON OLIVEIRA GAMA",
+      "documento": "22.161.614/0001-98",
+      "customerId": "60b679ce9c73af0006504dbe",
+      "codigoGestta": "58",
+      "nomeGestta": "WALLISON OLIVEIRA GAMA",
+      "resolveStatus": "ok",
+      "detalhe": "Resolvido por Customer ID",
+      "responsavelPlanilha": "Kamilly Vitoria",
+      "responsibleId": "6a109a7068f46978705ac891",
+      "responsibleName": "Kamilly Vitoria",
+      "removedSemMovimento": [
+        {
+          "linkId": "6a84b8f02905cd1d8621b8f1",
+          "taskId": "6a84a5e0037f098cd1533f42",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - DEZ",
+          "companyUserId": "6a707b8a22f421b314444a76",
+          "companyUserName": "Samara Lima",
+          "approvers": [],
+          "approveType": [],
+          "applyStatus": "ok",
+          "applyDetail": "removido"
+        },
+        {
+          "linkId": "6a84b8efb622a707a3ca64b9",
+          "taskId": "6a84a5cfb622a707a3c7eb85",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - JAN",
+          "companyUserId": "6a707b8a22f421b314444a76",
+          "companyUserName": "Samara Lima",
+          "approvers": [],
+          "approveType": [],
+          "applyStatus": "ok",
+          "applyDetail": "removido"
+        }
+      ],
+      "addedTargets": [
+        {
+          "taskId": "60b61ec51da6830006323533",
+          "taskName": "CONSULTAR EXTRATOR DIRF",
+          "alreadyLinked": true,
+          "linkId": "6a9096e06a10f86e27bb7c19",
+          "action": "skip",
+          "applyStatus": "ok",
+          "applyDetail": "ja vinculada; dono atualizado link=6a9096e06a10f86e27bb7c19",
+          "patchedUser": true
+        },
+        {
+          "taskId": "6252c6e82dbce400063d5fa1",
+          "taskName": "DCTFWEB - SETOR PESSOAL",
+          "alreadyLinked": false,
+          "linkId": "6a909c1f7769acb1c1b1b500",
+          "action": "add",
+          "applyStatus": "ok",
+          "applyDetail": "adicionado link=6a909c1f7769acb1c1b1b500",
+          "newLinkId": "6a909c1f7769acb1c1b1b500",
+          "patchedUser": true
+        },
+        {
+          "taskId": "6a635a204d8819abae314957",
+          "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+          "alreadyLinked": false,
+          "linkId": "6a909c209919a6979a770dd8",
+          "action": "add",
+          "applyStatus": "ok",
+          "applyDetail": "adicionado link=6a909c209919a6979a770dd8",
+          "newLinkId": "6a909c209919a6979a770dd8",
+          "patchedUser": true
+        }
+      ],
+      "snapshotPessoal": [
+        {
+          "linkId": "6a9096e06a10f86e27bb7c19",
+          "taskId": "60b61ec51da6830006323533",
+          "taskName": "CONSULTAR EXTRATOR DIRF"
+        },
+        {
+          "linkId": "6a84b8f02905cd1d8621b8f1",
+          "taskId": "6a84a5e0037f098cd1533f42",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - DEZ",
+          "companyUserId": "6a707b8a22f421b314444a76",
+          "companyUserName": "Samara Lima"
+        },
+        {
+          "linkId": "6a84b8efb622a707a3ca64b9",
+          "taskId": "6a84a5cfb622a707a3c7eb85",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - JAN",
+          "companyUserId": "6a707b8a22f421b314444a76",
+          "companyUserName": "Samara Lima"
+        }
+      ],
+      "applyStatus": "ok",
+      "applyDetail": "adicionados=2; dono=Kamilly Vitoria; removidos=2",
+      "problemas": [],
+      "verificacao": {
+        "temDirf": true,
+        "temDctfweb": true,
+        "temFolhaG1": true,
+        "donoDirf": "",
+        "donoDctfweb": "",
+        "donoFolhaG1": "",
+        "aindaTemJan": false,
+        "aindaTemDez": false,
+        "ok": true,
+        "detalhe": "ok; dono=Kamilly Vitoria"
+      }
+    },
+    {
+      "codigoPlanilha": "108",
+      "nomePlanilha": "CASA AGROPECUARIA SANTANA LTDA",
+      "documento": "24.291.220/0001-80",
+      "customerId": "60b67ab69c73af0006505225",
+      "codigoGestta": "108",
+      "nomeGestta": "CASA AGROPECUARIA SANTANA LTDA",
+      "resolveStatus": "ok",
+      "detalhe": "Resolvido por Customer ID",
+      "responsavelPlanilha": "Kamilly Vitoria",
+      "responsibleId": "6a109a7068f46978705ac891",
+      "responsibleName": "Kamilly Vitoria",
+      "removedSemMovimento": [
+        {
+          "linkId": "6a84b902817ad023a3995f08",
+          "taskId": "6a84a5e0037f098cd1533f42",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - DEZ",
+          "companyUserId": "6a707b8a22f421b314444a76",
+          "companyUserName": "Samara Lima",
+          "approvers": [],
+          "approveType": [],
+          "applyStatus": "ok",
+          "applyDetail": "removido"
+        },
+        {
+          "linkId": "6a84b901545ad8efc227bbdb",
+          "taskId": "6a84a5cfb622a707a3c7eb85",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - JAN",
+          "companyUserId": "6a707b8a22f421b314444a76",
+          "companyUserName": "Samara Lima",
+          "approvers": [],
+          "approveType": [],
+          "applyStatus": "ok",
+          "applyDetail": "removido"
+        }
+      ],
+      "addedTargets": [
+        {
+          "taskId": "60b61ec51da6830006323533",
+          "taskName": "CONSULTAR EXTRATOR DIRF",
+          "alreadyLinked": true,
+          "linkId": "6a9096fa9919a6979a7690b6",
+          "action": "skip",
+          "applyStatus": "ok",
+          "applyDetail": "ja vinculada; dono atualizado link=6a9096fa9919a6979a7690b6",
+          "patchedUser": true
+        },
+        {
+          "taskId": "6252c6e82dbce400063d5fa1",
+          "taskName": "DCTFWEB - SETOR PESSOAL",
+          "alreadyLinked": false,
+          "linkId": "6a909c248370033570c22126",
+          "action": "add",
+          "applyStatus": "ok",
+          "applyDetail": "adicionado link=6a909c248370033570c22126",
+          "newLinkId": "6a909c248370033570c22126",
+          "patchedUser": true
+        },
+        {
+          "taskId": "6a635a204d8819abae314957",
+          "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+          "alreadyLinked": false,
+          "linkId": "6a909c259919a6979a770e45",
+          "action": "add",
+          "applyStatus": "ok",
+          "applyDetail": "adicionado link=6a909c259919a6979a770e45",
+          "newLinkId": "6a909c259919a6979a770e45",
+          "patchedUser": true
+        }
+      ],
+      "snapshotPessoal": [
+        {
+          "linkId": "6a9096fa9919a6979a7690b6",
+          "taskId": "60b61ec51da6830006323533",
+          "taskName": "CONSULTAR EXTRATOR DIRF"
+        },
+        {
+          "linkId": "6a84b902817ad023a3995f08",
+          "taskId": "6a84a5e0037f098cd1533f42",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - DEZ",
+          "companyUserId": "6a707b8a22f421b314444a76",
+          "companyUserName": "Samara Lima"
+        },
+        {
+          "linkId": "6a84b901545ad8efc227bbdb",
+          "taskId": "6a84a5cfb622a707a3c7eb85",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - JAN",
+          "companyUserId": "6a707b8a22f421b314444a76",
+          "companyUserName": "Samara Lima"
+        }
+      ],
+      "applyStatus": "ok",
+      "applyDetail": "adicionados=2; dono=Kamilly Vitoria; removidos=2",
+      "problemas": [],
+      "verificacao": {
+        "temDirf": true,
+        "temDctfweb": true,
+        "temFolhaG1": true,
+        "donoDirf": "",
+        "donoDctfweb": "",
+        "donoFolhaG1": "",
+        "aindaTemJan": false,
+        "aindaTemDez": false,
+        "ok": true,
+        "detalhe": "ok; dono=Kamilly Vitoria"
+      }
+    },
+    {
+      "codigoPlanilha": "115",
+      "nomePlanilha": "AC&M REPRESENTACOES COMERCIAIS LTDA",
+      "documento": "36.169.347/0001-00",
+      "customerId": "60b67a439fda5800070dc080",
+      "codigoGestta": "115",
+      "nomeGestta": "AC&M REPRESENTACOES COMERCIAIS LTDA",
+      "resolveStatus": "ok",
+      "detalhe": "Resolvido por Customer ID",
+      "responsavelPlanilha": "Kamilly Vitoria",
+      "responsibleId": "6a109a7068f46978705ac891",
+      "responsibleName": "Kamilly Vitoria",
+      "removedSemMovimento": [
+        {
+          "linkId": "6a84b904037f098cd1559c9f",
+          "taskId": "6a84a5e0037f098cd1533f42",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - DEZ",
+          "companyUserId": "6a707b8a22f421b314444a76",
+          "companyUserName": "Samara Lima",
+          "approvers": [],
+          "approveType": [],
+          "applyStatus": "ok",
+          "applyDetail": "removido"
+        },
+        {
+          "linkId": "6a84b903d47edd066a4750fe",
+          "taskId": "6a84a5cfb622a707a3c7eb85",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - JAN",
+          "companyUserId": "6a707b8a22f421b314444a76",
+          "companyUserName": "Samara Lima",
+          "approvers": [],
+          "approveType": [],
+          "applyStatus": "ok",
+          "applyDetail": "removido"
+        }
+      ],
+      "addedTargets": [
+        {
+          "taskId": "60b61ec51da6830006323533",
+          "taskName": "CONSULTAR EXTRATOR DIRF",
+          "alreadyLinked": true,
+          "linkId": "6a9097138370033570c17b7d",
+          "action": "skip",
+          "applyStatus": "ok",
+          "applyDetail": "ja vinculada; dono atualizado link=6a9097138370033570c17b7d",
+          "patchedUser": true
+        },
+        {
+          "taskId": "6252c6e82dbce400063d5fa1",
+          "taskName": "DCTFWEB - SETOR PESSOAL",
+          "alreadyLinked": false,
+          "linkId": "6a909c29105393c5efe3e65c",
+          "action": "add",
+          "applyStatus": "ok",
+          "applyDetail": "adicionado link=6a909c29105393c5efe3e65c",
+          "newLinkId": "6a909c29105393c5efe3e65c",
+          "patchedUser": true
+        },
+        {
+          "taskId": "6a635a204d8819abae314957",
+          "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+          "alreadyLinked": false,
+          "linkId": "6a909c2a9919a6979a770eaf",
+          "action": "add",
+          "applyStatus": "ok",
+          "applyDetail": "adicionado link=6a909c2a9919a6979a770eaf",
+          "newLinkId": "6a909c2a9919a6979a770eaf",
+          "patchedUser": true
+        }
+      ],
+      "snapshotPessoal": [
+        {
+          "linkId": "6a9097138370033570c17b7d",
+          "taskId": "60b61ec51da6830006323533",
+          "taskName": "CONSULTAR EXTRATOR DIRF"
+        },
+        {
+          "linkId": "6a84b904037f098cd1559c9f",
+          "taskId": "6a84a5e0037f098cd1533f42",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - DEZ",
+          "companyUserId": "6a707b8a22f421b314444a76",
+          "companyUserName": "Samara Lima"
+        },
+        {
+          "linkId": "6a84b903d47edd066a4750fe",
+          "taskId": "6a84a5cfb622a707a3c7eb85",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - JAN",
+          "companyUserId": "6a707b8a22f421b314444a76",
+          "companyUserName": "Samara Lima"
+        }
+      ],
+      "applyStatus": "ok",
+      "applyDetail": "adicionados=2; dono=Kamilly Vitoria; removidos=2",
+      "problemas": [],
+      "verificacao": {
+        "temDirf": true,
+        "temDctfweb": true,
+        "temFolhaG1": true,
+        "donoDirf": "",
+        "donoDctfweb": "",
+        "donoFolhaG1": "",
+        "aindaTemJan": false,
+        "aindaTemDez": false,
+        "ok": true,
+        "detalhe": "ok; dono=Kamilly Vitoria"
+      }
+    },
+    {
+      "codigoPlanilha": "374",
+      "nomePlanilha": "5W ENGENHARIA E CONSULTORIA LTDA",
+      "documento": "47.326.196/0001-72",
+      "customerId": "63d11db05ce2730006c22548",
+      "codigoGestta": "374",
+      "nomeGestta": "5W ENGENHARIA E CONSULTORIA LTDA",
+      "resolveStatus": "ok",
+      "detalhe": "Resolvido por Customer ID",
+      "responsavelPlanilha": "Kamilly Vitoria",
+      "responsibleId": "6a109a7068f46978705ac891",
+      "responsibleName": "Kamilly Vitoria",
+      "removedSemMovimento": [
+        {
+          "linkId": "6a84b9456b69f0f9bb9b79ec",
+          "taskId": "6a84a5e0037f098cd1533f42",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - DEZ",
+          "companyUserId": "6a707b8a22f421b314444a76",
+          "companyUserName": "Samara Lima",
+          "approvers": [],
+          "approveType": [],
+          "applyStatus": "ok",
+          "applyDetail": "removido"
+        },
+        {
+          "linkId": "6a84b9452cae4908772b5cd6",
+          "taskId": "6a84a5cfb622a707a3c7eb85",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - JAN",
+          "companyUserId": "6a707b8a22f421b314444a76",
+          "companyUserName": "Samara Lima",
+          "approvers": [],
+          "approveType": [],
+          "applyStatus": "ok",
+          "applyDetail": "removido"
+        }
+      ],
+      "addedTargets": [
+        {
+          "taskId": "60b61ec51da6830006323533",
+          "taskName": "CONSULTAR EXTRATOR DIRF",
+          "alreadyLinked": true,
+          "linkId": "6a90972dc748e097b32941f4",
+          "action": "skip",
+          "applyStatus": "ok",
+          "applyDetail": "ja vinculada; dono atualizado link=6a90972dc748e097b32941f4",
+          "patchedUser": true
+        },
+        {
+          "taskId": "6252c6e82dbce400063d5fa1",
+          "taskName": "DCTFWEB - SETOR PESSOAL",
+          "alreadyLinked": false,
+          "linkId": "6a909c2de5f6cfefcf13a422",
+          "action": "add",
+          "applyStatus": "ok",
+          "applyDetail": "adicionado link=6a909c2de5f6cfefcf13a422",
+          "newLinkId": "6a909c2de5f6cfefcf13a422",
+          "patchedUser": true
+        },
+        {
+          "taskId": "6a635a204d8819abae314957",
+          "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+          "alreadyLinked": false,
+          "linkId": "6a909c2f8370033570c2227a",
+          "action": "add",
+          "applyStatus": "ok",
+          "applyDetail": "adicionado link=6a909c2f8370033570c2227a",
+          "newLinkId": "6a909c2f8370033570c2227a",
+          "patchedUser": true
+        }
+      ],
+      "snapshotPessoal": [
+        {
+          "linkId": "6a90972dc748e097b32941f4",
+          "taskId": "60b61ec51da6830006323533",
+          "taskName": "CONSULTAR EXTRATOR DIRF"
+        },
+        {
+          "linkId": "6a84b9456b69f0f9bb9b79ec",
+          "taskId": "6a84a5e0037f098cd1533f42",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - DEZ",
+          "companyUserId": "6a707b8a22f421b314444a76",
+          "companyUserName": "Samara Lima"
+        },
+        {
+          "linkId": "6a84b9452cae4908772b5cd6",
+          "taskId": "6a84a5cfb622a707a3c7eb85",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - JAN",
+          "companyUserId": "6a707b8a22f421b314444a76",
+          "companyUserName": "Samara Lima"
+        }
+      ],
+      "applyStatus": "ok",
+      "applyDetail": "adicionados=2; dono=Kamilly Vitoria; removidos=2",
+      "problemas": [],
+      "verificacao": {
+        "temDirf": true,
+        "temDctfweb": true,
+        "temFolhaG1": true,
+        "donoDirf": "",
+        "donoDctfweb": "",
+        "donoFolhaG1": "",
+        "aindaTemJan": false,
+        "aindaTemDez": false,
+        "ok": true,
+        "detalhe": "ok; dono=Kamilly Vitoria"
+      }
+    },
+    {
+      "codigoPlanilha": "401",
+      "nomePlanilha": "MADEREIRA RONDONIA LTDA",
+      "documento": "50.428.807/0001-06",
+      "customerId": "6447b49c1fe5700006dd742a",
+      "codigoGestta": "401",
+      "nomeGestta": "MADEREIRA RONDONIA LTDA",
+      "resolveStatus": "ok",
+      "detalhe": "Resolvido por Customer ID",
+      "responsavelPlanilha": "Juliana Pereira",
+      "responsibleId": "698dee53bc20742b0be40912",
+      "responsibleName": "Juliana Pereira",
+      "removedSemMovimento": [
+        {
+          "linkId": "6a84b9602cae4908772b6128",
+          "taskId": "6a84a5e0037f098cd1533f42",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - DEZ",
+          "companyUserId": "6a707b8a22f421b314444a76",
+          "companyUserName": "Samara Lima",
+          "approvers": [],
+          "approveType": [],
+          "applyStatus": "ok",
+          "applyDetail": "removido"
+        },
+        {
+          "linkId": "6a84b95f6b69f0f9bb9b7e45",
+          "taskId": "6a84a5cfb622a707a3c7eb85",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - JAN",
+          "companyUserId": "6a707b8a22f421b314444a76",
+          "companyUserName": "Samara Lima",
+          "approvers": [],
+          "approveType": [],
+          "applyStatus": "ok",
+          "applyDetail": "removido"
+        }
+      ],
+      "addedTargets": [
+        {
+          "taskId": "60b61ec51da6830006323533",
+          "taskName": "CONSULTAR EXTRATOR DIRF",
+          "alreadyLinked": true,
+          "linkId": "6a9097467769acb1c1b0f2d0",
+          "action": "skip",
+          "applyStatus": "ok",
+          "applyDetail": "ja vinculada; dono atualizado link=6a9097467769acb1c1b0f2d0",
+          "patchedUser": true
+        },
+        {
+          "taskId": "6252c6e82dbce400063d5fa1",
+          "taskName": "DCTFWEB - SETOR PESSOAL",
+          "alreadyLinked": false,
+          "linkId": "6a909c336a10f86e27bc0210",
+          "action": "add",
+          "applyStatus": "ok",
+          "applyDetail": "adicionado link=6a909c336a10f86e27bc0210",
+          "newLinkId": "6a909c336a10f86e27bc0210",
+          "patchedUser": true
+        },
+        {
+          "taskId": "6a635a204d8819abae314957",
+          "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+          "alreadyLinked": false,
+          "linkId": "6a909c346a10f86e27bc023b",
+          "action": "add",
+          "applyStatus": "ok",
+          "applyDetail": "adicionado link=6a909c346a10f86e27bc023b",
+          "newLinkId": "6a909c346a10f86e27bc023b",
+          "patchedUser": true
+        }
+      ],
+      "snapshotPessoal": [
+        {
+          "linkId": "6a9097467769acb1c1b0f2d0",
+          "taskId": "60b61ec51da6830006323533",
+          "taskName": "CONSULTAR EXTRATOR DIRF"
+        },
+        {
+          "linkId": "6a84b9602cae4908772b6128",
+          "taskId": "6a84a5e0037f098cd1533f42",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - DEZ",
+          "companyUserId": "6a707b8a22f421b314444a76",
+          "companyUserName": "Samara Lima"
+        },
+        {
+          "linkId": "6a84b95f6b69f0f9bb9b7e45",
+          "taskId": "6a84a5cfb622a707a3c7eb85",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - JAN",
+          "companyUserId": "6a707b8a22f421b314444a76",
+          "companyUserName": "Samara Lima"
+        }
+      ],
+      "applyStatus": "ok",
+      "applyDetail": "adicionados=2; dono=Juliana Pereira; removidos=2",
+      "problemas": [],
+      "verificacao": {
+        "temDirf": true,
+        "temDctfweb": true,
+        "temFolhaG1": true,
+        "donoDirf": "",
+        "donoDctfweb": "",
+        "donoFolhaG1": "",
+        "aindaTemJan": false,
+        "aindaTemDez": false,
+        "ok": true,
+        "detalhe": "ok; dono=Juliana Pereira"
+      }
+    },
+    {
+      "codigoPlanilha": "510",
+      "nomePlanilha": "EVISSON SANTOS REPRESENTACOES LTDA",
+      "documento": "55.194.177/0001-68",
+      "customerId": "66a8fb4836eb88000788606e",
+      "codigoGestta": "510",
+      "nomeGestta": "EVISSON SANTOS REPRESENTACOES LTDA",
+      "resolveStatus": "ok",
+      "detalhe": "Resolvido por Customer ID",
+      "responsavelPlanilha": "Kamilly Vitoria",
+      "responsibleId": "6a109a7068f46978705ac891",
+      "responsibleName": "Kamilly Vitoria",
+      "removedSemMovimento": [
+        {
+          "linkId": "6a84b9b64bea6f389cbc6974",
+          "taskId": "6a84a5e0037f098cd1533f42",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - DEZ",
+          "companyUserId": "6a707b8a22f421b314444a76",
+          "companyUserName": "Samara Lima",
+          "approvers": [],
+          "approveType": [],
+          "applyStatus": "ok",
+          "applyDetail": "removido"
+        },
+        {
+          "linkId": "6a84b9b5817ad023a3997eac",
+          "taskId": "6a84a5cfb622a707a3c7eb85",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - JAN",
+          "companyUserId": "6a707b8a22f421b314444a76",
+          "companyUserName": "Samara Lima",
+          "approvers": [],
+          "approveType": [],
+          "applyStatus": "ok",
+          "applyDetail": "removido"
+        }
+      ],
+      "addedTargets": [
+        {
+          "taskId": "60b61ec51da6830006323533",
+          "taskName": "CONSULTAR EXTRATOR DIRF",
+          "alreadyLinked": true,
+          "linkId": "6a9097606a10f86e27bb86ea",
+          "action": "skip",
+          "applyStatus": "ok",
+          "applyDetail": "ja vinculada; dono atualizado link=6a9097606a10f86e27bb86ea",
+          "patchedUser": true
+        },
+        {
+          "taskId": "6252c6e82dbce400063d5fa1",
+          "taskName": "DCTFWEB - SETOR PESSOAL",
+          "alreadyLinked": false,
+          "linkId": "6a909c379919a6979a770fdb",
+          "action": "add",
+          "applyStatus": "ok",
+          "applyDetail": "adicionado link=6a909c379919a6979a770fdb",
+          "newLinkId": "6a909c379919a6979a770fdb",
+          "patchedUser": true
+        },
+        {
+          "taskId": "6a635a204d8819abae314957",
+          "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+          "alreadyLinked": false,
+          "linkId": "6a909c38105393c5efe3e7e5",
+          "action": "add",
+          "applyStatus": "ok",
+          "applyDetail": "adicionado link=6a909c38105393c5efe3e7e5",
+          "newLinkId": "6a909c38105393c5efe3e7e5",
+          "patchedUser": true
+        }
+      ],
+      "snapshotPessoal": [
+        {
+          "linkId": "6a9097606a10f86e27bb86ea",
+          "taskId": "60b61ec51da6830006323533",
+          "taskName": "CONSULTAR EXTRATOR DIRF"
+        },
+        {
+          "linkId": "6a84b9b64bea6f389cbc6974",
+          "taskId": "6a84a5e0037f098cd1533f42",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - DEZ",
+          "companyUserId": "6a707b8a22f421b314444a76",
+          "companyUserName": "Samara Lima"
+        },
+        {
+          "linkId": "6a84b9b5817ad023a3997eac",
+          "taskId": "6a84a5cfb622a707a3c7eb85",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - JAN",
+          "companyUserId": "6a707b8a22f421b314444a76",
+          "companyUserName": "Samara Lima"
+        }
+      ],
+      "applyStatus": "ok",
+      "applyDetail": "adicionados=2; dono=Kamilly Vitoria; removidos=2",
+      "problemas": [],
+      "verificacao": {
+        "temDirf": true,
+        "temDctfweb": true,
+        "temFolhaG1": true,
+        "donoDirf": "",
+        "donoDctfweb": "",
+        "donoFolhaG1": "",
+        "aindaTemJan": false,
+        "aindaTemDez": false,
+        "ok": true,
+        "detalhe": "ok; dono=Kamilly Vitoria"
+      }
+    },
+    {
+      "codigoPlanilha": "527",
+      "nomePlanilha": "PHYSIA - TRAINING AND RESEARCH LTDA",
+      "documento": "57.074.587/0001-09",
+      "customerId": "66d765ac08da3d0007a6cce0",
+      "codigoGestta": "527",
+      "nomeGestta": "PHYSIA - TRAINING AND RESEARCH LTDA",
+      "resolveStatus": "ok",
+      "detalhe": "Resolvido por Customer ID",
+      "responsavelPlanilha": "Kamilly Vitoria",
+      "responsibleId": "6a109a7068f46978705ac891",
+      "responsibleName": "Kamilly Vitoria",
+      "removedSemMovimento": [
+        {
+          "linkId": "6a84b9c74bea6f389cbc6c97",
+          "taskId": "6a84a5e0037f098cd1533f42",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - DEZ",
+          "companyUserId": "6a707b8a22f421b314444a76",
+          "companyUserName": "Samara Lima",
+          "approvers": [],
+          "approveType": [],
+          "applyStatus": "ok",
+          "applyDetail": "removido"
+        },
+        {
+          "linkId": "6a84b9c62cae4908772b746e",
+          "taskId": "6a84a5cfb622a707a3c7eb85",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - JAN",
+          "companyUserId": "6a707b8a22f421b314444a76",
+          "companyUserName": "Samara Lima",
+          "approvers": [],
+          "approveType": [],
+          "applyStatus": "ok",
+          "applyDetail": "removido"
+        }
+      ],
+      "addedTargets": [
+        {
+          "taskId": "60b61ec51da6830006323533",
+          "taskName": "CONSULTAR EXTRATOR DIRF",
+          "alreadyLinked": true,
+          "linkId": "6a909779d8fa15432816352c",
+          "action": "skip",
+          "applyStatus": "ok",
+          "applyDetail": "ja vinculada; dono atualizado link=6a909779d8fa15432816352c",
+          "patchedUser": true
+        },
+        {
+          "taskId": "6252c6e82dbce400063d5fa1",
+          "taskName": "DCTFWEB - SETOR PESSOAL",
+          "alreadyLinked": false,
+          "linkId": "6a909c3c105393c5efe3e83e",
+          "action": "add",
+          "applyStatus": "ok",
+          "applyDetail": "adicionado link=6a909c3c105393c5efe3e83e",
+          "newLinkId": "6a909c3c105393c5efe3e83e",
+          "patchedUser": true
+        },
+        {
+          "taskId": "6a635a204d8819abae314957",
+          "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+          "alreadyLinked": false,
+          "linkId": "6a909c3d1ad9ac00743ac140",
+          "action": "add",
+          "applyStatus": "ok",
+          "applyDetail": "adicionado link=6a909c3d1ad9ac00743ac140",
+          "newLinkId": "6a909c3d1ad9ac00743ac140",
+          "patchedUser": true
+        }
+      ],
+      "snapshotPessoal": [
+        {
+          "linkId": "6a909779d8fa15432816352c",
+          "taskId": "60b61ec51da6830006323533",
+          "taskName": "CONSULTAR EXTRATOR DIRF"
+        },
+        {
+          "linkId": "6a84b9c74bea6f389cbc6c97",
+          "taskId": "6a84a5e0037f098cd1533f42",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - DEZ",
+          "companyUserId": "6a707b8a22f421b314444a76",
+          "companyUserName": "Samara Lima"
+        },
+        {
+          "linkId": "6a84b9c62cae4908772b746e",
+          "taskId": "6a84a5cfb622a707a3c7eb85",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - JAN",
+          "companyUserId": "6a707b8a22f421b314444a76",
+          "companyUserName": "Samara Lima"
+        }
+      ],
+      "applyStatus": "ok",
+      "applyDetail": "adicionados=2; dono=Kamilly Vitoria; removidos=2",
+      "problemas": [],
+      "verificacao": {
+        "temDirf": true,
+        "temDctfweb": true,
+        "temFolhaG1": true,
+        "donoDirf": "",
+        "donoDctfweb": "",
+        "donoFolhaG1": "",
+        "aindaTemJan": false,
+        "aindaTemDez": false,
+        "ok": true,
+        "detalhe": "ok; dono=Kamilly Vitoria"
+      }
+    },
+    {
+      "codigoPlanilha": "538",
+      "nomePlanilha": "REALEZA",
+      "documento": "57.623.329/0001-26",
+      "customerId": "6706c9dc02ebcb303ad64437",
+      "codigoGestta": "538",
+      "nomeGestta": "REALEZA REPRESENTACAO COMERCIAL LTDA",
+      "resolveStatus": "ok",
+      "detalhe": "Resolvido por Customer ID",
+      "responsavelPlanilha": "Kamilly Vitoria",
+      "responsibleId": "6a109a7068f46978705ac891",
+      "responsibleName": "Kamilly Vitoria",
+      "removedSemMovimento": [
+        {
+          "linkId": "6a84b9dc2cae4908772b77c0",
+          "taskId": "6a84a5e0037f098cd1533f42",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - DEZ",
+          "companyUserId": "6a707b8a22f421b314444a76",
+          "companyUserName": "Samara Lima",
+          "approvers": [],
+          "approveType": [],
+          "applyStatus": "ok",
+          "applyDetail": "removido"
+        },
+        {
+          "linkId": "6a84b9db2905cd1d8621e953",
+          "taskId": "6a84a5cfb622a707a3c7eb85",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - JAN",
+          "companyUserId": "6a707b8a22f421b314444a76",
+          "companyUserName": "Samara Lima",
+          "approvers": [],
+          "approveType": [],
+          "applyStatus": "ok",
+          "applyDetail": "removido"
+        }
+      ],
+      "addedTargets": [
+        {
+          "taskId": "60b61ec51da6830006323533",
+          "taskName": "CONSULTAR EXTRATOR DIRF",
+          "alreadyLinked": true,
+          "linkId": "6a9097937769acb1c1b0f92f",
+          "action": "skip",
+          "applyStatus": "ok",
+          "applyDetail": "ja vinculada; dono atualizado link=6a9097937769acb1c1b0f92f",
+          "patchedUser": true
+        },
+        {
+          "taskId": "6252c6e82dbce400063d5fa1",
+          "taskName": "DCTFWEB - SETOR PESSOAL",
+          "alreadyLinked": false,
+          "linkId": "6a909c406a10f86e27bc0333",
+          "action": "add",
+          "applyStatus": "ok",
+          "applyDetail": "adicionado link=6a909c406a10f86e27bc0333",
+          "newLinkId": "6a909c406a10f86e27bc0333",
+          "patchedUser": true
+        },
+        {
+          "taskId": "6a635a204d8819abae314957",
+          "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+          "alreadyLinked": false,
+          "linkId": "6a909c41d8fa15432816c393",
+          "action": "add",
+          "applyStatus": "ok",
+          "applyDetail": "adicionado link=6a909c41d8fa15432816c393",
+          "newLinkId": "6a909c41d8fa15432816c393",
+          "patchedUser": true
+        }
+      ],
+      "snapshotPessoal": [
+        {
+          "linkId": "6a9097937769acb1c1b0f92f",
+          "taskId": "60b61ec51da6830006323533",
+          "taskName": "CONSULTAR EXTRATOR DIRF"
+        },
+        {
+          "linkId": "6a84b9dc2cae4908772b77c0",
+          "taskId": "6a84a5e0037f098cd1533f42",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - DEZ",
+          "companyUserId": "6a707b8a22f421b314444a76",
+          "companyUserName": "Samara Lima"
+        },
+        {
+          "linkId": "6a84b9db2905cd1d8621e953",
+          "taskId": "6a84a5cfb622a707a3c7eb85",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - JAN",
+          "companyUserId": "6a707b8a22f421b314444a76",
+          "companyUserName": "Samara Lima"
+        }
+      ],
+      "applyStatus": "ok",
+      "applyDetail": "adicionados=2; dono=Kamilly Vitoria; removidos=2",
+      "problemas": [],
+      "verificacao": {
+        "temDirf": true,
+        "temDctfweb": true,
+        "temFolhaG1": true,
+        "donoDirf": "",
+        "donoDctfweb": "",
+        "donoFolhaG1": "",
+        "aindaTemJan": false,
+        "aindaTemDez": false,
+        "ok": true,
+        "detalhe": "ok; dono=Kamilly Vitoria"
+      }
+    },
+    {
+      "codigoPlanilha": "574",
+      "nomePlanilha": "LORENNA COSTA LTDA (INSTITUTO TRILHAR)",
+      "documento": "59.479.596/0001-05",
+      "customerId": "67b48fad7128b60f534e2546",
+      "codigoGestta": "574",
+      "nomeGestta": "LORENNA COSTA LTDA",
+      "resolveStatus": "ok",
+      "detalhe": "Resolvido por Customer ID",
+      "responsavelPlanilha": "Kamilly Vitoria",
+      "responsibleId": "6a109a7068f46978705ac891",
+      "responsibleName": "Kamilly Vitoria",
+      "removedSemMovimento": [
+        {
+          "linkId": "6a84ba062905cd1d8621efec",
+          "taskId": "6a84a5e0037f098cd1533f42",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - DEZ",
+          "companyUserId": "6a707b8a22f421b314444a76",
+          "companyUserName": "Samara Lima",
+          "approvers": [],
+          "approveType": [],
+          "applyStatus": "ok",
+          "applyDetail": "removido"
+        },
+        {
+          "linkId": "6a84ba06545ad8efc227e6fe",
+          "taskId": "6a84a5cfb622a707a3c7eb85",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - JAN",
+          "companyUserId": "6a707b8a22f421b314444a76",
+          "companyUserName": "Samara Lima",
+          "approvers": [],
+          "approveType": [],
+          "applyStatus": "ok",
+          "applyDetail": "removido"
+        }
+      ],
+      "addedTargets": [
+        {
+          "taskId": "60b61ec51da6830006323533",
+          "taskName": "CONSULTAR EXTRATOR DIRF",
+          "alreadyLinked": true,
+          "linkId": "6a9097ac6a10f86e27bb8d99",
+          "action": "skip",
+          "applyStatus": "ok",
+          "applyDetail": "ja vinculada; dono atualizado link=6a9097ac6a10f86e27bb8d99",
+          "patchedUser": true
+        },
+        {
+          "taskId": "6252c6e82dbce400063d5fa1",
+          "taskName": "DCTFWEB - SETOR PESSOAL",
+          "alreadyLinked": false,
+          "linkId": "6a909c441ad9ac00743ac233",
+          "action": "add",
+          "applyStatus": "ok",
+          "applyDetail": "adicionado link=6a909c441ad9ac00743ac233",
+          "newLinkId": "6a909c441ad9ac00743ac233",
+          "patchedUser": true
+        },
+        {
+          "taskId": "6a635a204d8819abae314957",
+          "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+          "alreadyLinked": false,
+          "linkId": "6a909c45e5f6cfefcf13a73b",
+          "action": "add",
+          "applyStatus": "ok",
+          "applyDetail": "adicionado link=6a909c45e5f6cfefcf13a73b",
+          "newLinkId": "6a909c45e5f6cfefcf13a73b",
+          "patchedUser": true
+        }
+      ],
+      "snapshotPessoal": [
+        {
+          "linkId": "6a9097ac6a10f86e27bb8d99",
+          "taskId": "60b61ec51da6830006323533",
+          "taskName": "CONSULTAR EXTRATOR DIRF"
+        },
+        {
+          "linkId": "6a84ba062905cd1d8621efec",
+          "taskId": "6a84a5e0037f098cd1533f42",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - DEZ",
+          "companyUserId": "6a707b8a22f421b314444a76",
+          "companyUserName": "Samara Lima"
+        },
+        {
+          "linkId": "6a84ba06545ad8efc227e6fe",
+          "taskId": "6a84a5cfb622a707a3c7eb85",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - JAN",
+          "companyUserId": "6a707b8a22f421b314444a76",
+          "companyUserName": "Samara Lima"
+        }
+      ],
+      "applyStatus": "ok",
+      "applyDetail": "adicionados=2; dono=Kamilly Vitoria; removidos=2",
+      "problemas": [],
+      "verificacao": {
+        "temDirf": true,
+        "temDctfweb": true,
+        "temFolhaG1": true,
+        "donoDirf": "",
+        "donoDctfweb": "",
+        "donoFolhaG1": "",
+        "aindaTemJan": false,
+        "aindaTemDez": false,
+        "ok": true,
+        "detalhe": "ok; dono=Kamilly Vitoria"
+      }
+    },
+    {
+      "codigoPlanilha": "592",
+      "nomePlanilha": "AME-SE PILATES E OSTEOPATIA LTDA",
+      "documento": "58.341.027/0001-28",
+      "customerId": "67f824a9c0b42688c589c330",
+      "codigoGestta": "592",
+      "nomeGestta": "AME-SE PILATES E OSTEOPATIA LTDA",
+      "resolveStatus": "ok",
+      "detalhe": "Resolvido por Customer ID",
+      "responsavelPlanilha": "Kamilly Vitoria",
+      "responsibleId": "6a109a7068f46978705ac891",
+      "responsibleName": "Kamilly Vitoria",
+      "removedSemMovimento": [
+        {
+          "linkId": "6a84ba13817ad023a3998bc8",
+          "taskId": "6a84a5e0037f098cd1533f42",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - DEZ",
+          "companyUserId": "6a707b8a22f421b314444a76",
+          "companyUserName": "Samara Lima",
+          "approvers": [],
+          "approveType": [],
+          "applyStatus": "ok",
+          "applyDetail": "removido"
+        },
+        {
+          "linkId": "6a84ba122cae4908772b8154",
+          "taskId": "6a84a5cfb622a707a3c7eb85",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - JAN",
+          "companyUserId": "6a707b8a22f421b314444a76",
+          "companyUserName": "Samara Lima",
+          "approvers": [],
+          "approveType": [],
+          "applyStatus": "ok",
+          "applyDetail": "removido"
+        }
+      ],
+      "addedTargets": [
+        {
+          "taskId": "60b61ec51da6830006323533",
+          "taskName": "CONSULTAR EXTRATOR DIRF",
+          "alreadyLinked": true,
+          "linkId": "6a9097c6105393c5efe35d26",
+          "action": "skip",
+          "applyStatus": "ok",
+          "applyDetail": "ja vinculada; dono atualizado link=6a9097c6105393c5efe35d26",
+          "patchedUser": true
+        },
+        {
+          "taskId": "6252c6e82dbce400063d5fa1",
+          "taskName": "DCTFWEB - SETOR PESSOAL",
+          "alreadyLinked": false,
+          "linkId": "6a909c49105393c5efe3e928",
+          "action": "add",
+          "applyStatus": "ok",
+          "applyDetail": "adicionado link=6a909c49105393c5efe3e928",
+          "newLinkId": "6a909c49105393c5efe3e928",
+          "patchedUser": true
+        },
+        {
+          "taskId": "6a635a204d8819abae314957",
+          "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+          "alreadyLinked": false,
+          "linkId": "6a909c4a9919a6979a7711f7",
+          "action": "add",
+          "applyStatus": "ok",
+          "applyDetail": "adicionado link=6a909c4a9919a6979a7711f7",
+          "newLinkId": "6a909c4a9919a6979a7711f7",
+          "patchedUser": true
+        }
+      ],
+      "snapshotPessoal": [
+        {
+          "linkId": "6a9097c6105393c5efe35d26",
+          "taskId": "60b61ec51da6830006323533",
+          "taskName": "CONSULTAR EXTRATOR DIRF"
+        },
+        {
+          "linkId": "6a84ba13817ad023a3998bc8",
+          "taskId": "6a84a5e0037f098cd1533f42",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - DEZ",
+          "companyUserId": "6a707b8a22f421b314444a76",
+          "companyUserName": "Samara Lima"
+        },
+        {
+          "linkId": "6a84ba122cae4908772b8154",
+          "taskId": "6a84a5cfb622a707a3c7eb85",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - JAN",
+          "companyUserId": "6a707b8a22f421b314444a76",
+          "companyUserName": "Samara Lima"
+        }
+      ],
+      "applyStatus": "ok",
+      "applyDetail": "adicionados=2; dono=Kamilly Vitoria; removidos=2",
+      "problemas": [],
+      "verificacao": {
+        "temDirf": true,
+        "temDctfweb": true,
+        "temFolhaG1": true,
+        "donoDirf": "",
+        "donoDctfweb": "",
+        "donoFolhaG1": "",
+        "aindaTemJan": false,
+        "aindaTemDez": false,
+        "ok": true,
+        "detalhe": "ok; dono=Kamilly Vitoria"
+      }
+    },
+    {
+      "codigoPlanilha": "607",
+      "nomePlanilha": "ALVES FRANCA COMERCIO DE MOVEIS LTDA",
+      "documento": "13.800.072/0001-65",
+      "customerId": "685dbe49c8f21be1257d0939",
+      "codigoGestta": "607",
+      "nomeGestta": "ALVES FRANCA COMERCIO DE MOVEIS LTDA",
+      "resolveStatus": "ok",
+      "detalhe": "Resolvido por Customer ID",
+      "responsavelPlanilha": "Kamilly Vitoria",
+      "responsibleId": "6a109a7068f46978705ac891",
+      "responsibleName": "Kamilly Vitoria",
+      "removedSemMovimento": [
+        {
+          "linkId": "6a84ba204bea6f389cbc788e",
+          "taskId": "6a84a5e0037f098cd1533f42",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - DEZ",
+          "companyUserId": "6a707b8a22f421b314444a76",
+          "companyUserName": "Samara Lima",
+          "approvers": [],
+          "approveType": [],
+          "applyStatus": "ok",
+          "applyDetail": "removido"
+        },
+        {
+          "linkId": "6a84ba1f817ad023a3998cf1",
+          "taskId": "6a84a5cfb622a707a3c7eb85",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - JAN",
+          "companyUserId": "6a707b8a22f421b314444a76",
+          "companyUserName": "Samara Lima",
+          "approvers": [],
+          "approveType": [],
+          "applyStatus": "ok",
+          "applyDetail": "removido"
+        }
+      ],
+      "addedTargets": [
+        {
+          "taskId": "60b61ec51da6830006323533",
+          "taskName": "CONSULTAR EXTRATOR DIRF",
+          "alreadyLinked": true,
+          "linkId": "6a9097df105393c5efe35f6f",
+          "action": "skip",
+          "applyStatus": "ok",
+          "applyDetail": "ja vinculada; dono atualizado link=6a9097df105393c5efe35f6f",
+          "patchedUser": true
+        },
+        {
+          "taskId": "6252c6e82dbce400063d5fa1",
+          "taskName": "DCTFWEB - SETOR PESSOAL",
+          "alreadyLinked": false,
+          "linkId": "6a909c4d9919a6979a7713bb",
+          "action": "add",
+          "applyStatus": "ok",
+          "applyDetail": "adicionado link=6a909c4d9919a6979a7713bb",
+          "newLinkId": "6a909c4d9919a6979a7713bb",
+          "patchedUser": true
+        },
+        {
+          "taskId": "6a635a204d8819abae314957",
+          "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+          "alreadyLinked": false,
+          "linkId": "6a909c4e7769acb1c1b1b9dd",
+          "action": "add",
+          "applyStatus": "ok",
+          "applyDetail": "adicionado link=6a909c4e7769acb1c1b1b9dd",
+          "newLinkId": "6a909c4e7769acb1c1b1b9dd",
+          "patchedUser": true
+        }
+      ],
+      "snapshotPessoal": [
+        {
+          "linkId": "6a9097df105393c5efe35f6f",
+          "taskId": "60b61ec51da6830006323533",
+          "taskName": "CONSULTAR EXTRATOR DIRF"
+        },
+        {
+          "linkId": "6a84ba204bea6f389cbc788e",
+          "taskId": "6a84a5e0037f098cd1533f42",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - DEZ",
+          "companyUserId": "6a707b8a22f421b314444a76",
+          "companyUserName": "Samara Lima"
+        },
+        {
+          "linkId": "6a84ba1f817ad023a3998cf1",
+          "taskId": "6a84a5cfb622a707a3c7eb85",
+          "taskName": "TRANSMISSÃO DA DCTFWEB SEM MOVIMENTO - JAN",
+          "companyUserId": "6a707b8a22f421b314444a76",
+          "companyUserName": "Samara Lima"
+        }
+      ],
+      "applyStatus": "ok",
+      "applyDetail": "adicionados=2; dono=Kamilly Vitoria; removidos=2",
+      "problemas": [],
+      "verificacao": {
+        "temDirf": true,
+        "temDctfweb": true,
+        "temFolhaG1": true,
+        "donoDirf": "",
+        "donoDctfweb": "",
+        "donoFolhaG1": "",
+        "aindaTemJan": false,
+        "aindaTemDez": false,
+        "ok": true,
+        "detalhe": "ok; dono=Kamilly Vitoria"
+      }
+    },
+    {
+      "codigoPlanilha": "657",
+      "nomePlanilha": "ANTONIO CARLOS DOS SANTOS FILHO LTDA",
+      "documento": "63.420.504/0001-80",
+      "customerId": "690253d3ddc36446fb1cbc5d",
+      "codigoGestta": "657",
+      "nomeGestta": "ANTONIO CARLOS DOS SANTOS FILHO LTDA",
+      "resolveStatus": "ok",
+      "detalhe": "Resolvido por Customer ID",
+      "responsavelPlanilha": "Kamilly Vitoria",
+      "responsibleId": "6a109a7068f46978705ac891",
+      "responsibleName": "Kamilly Vitoria",
+      "removedSemMovimento": [],
+      "addedTargets": [
+        {
+          "taskId": "60b61ec51da6830006323533",
+          "taskName": "CONSULTAR EXTRATOR DIRF",
+          "alreadyLinked": true,
+          "linkId": "6a9097f9105393c5efe36157",
+          "action": "skip",
+          "applyStatus": "ok",
+          "applyDetail": "ja vinculada; dono atualizado link=6a9097f9105393c5efe36157",
+          "patchedUser": true
+        },
+        {
+          "taskId": "6252c6e82dbce400063d5fa1",
+          "taskName": "DCTFWEB - SETOR PESSOAL",
+          "alreadyLinked": true,
+          "linkId": "6a90980c883c5dd1a91fc927",
+          "action": "skip",
+          "applyStatus": "ok",
+          "applyDetail": "ja vinculada; dono atualizado link=6a90980c883c5dd1a91fc927",
+          "patchedUser": true
+        },
+        {
+          "taskId": "6a635a204d8819abae314957",
+          "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+          "alreadyLinked": true,
+          "linkId": "6a90980d6a10f86e27bb94e8",
+          "action": "skip",
+          "applyStatus": "ok",
+          "applyDetail": "ja vinculada; dono atualizado link=6a90980d6a10f86e27bb94e8",
+          "patchedUser": true
+        }
+      ],
+      "snapshotPessoal": [
+        {
+          "linkId": "6a9097f9105393c5efe36157",
+          "taskId": "60b61ec51da6830006323533",
+          "taskName": "CONSULTAR EXTRATOR DIRF",
+          "companyUserId": "6a109a7068f46978705ac891",
+          "companyUserName": "Kamilly Vitoria"
+        },
+        {
+          "linkId": "6a90980c883c5dd1a91fc927",
+          "taskId": "6252c6e82dbce400063d5fa1",
+          "taskName": "DCTFWEB - SETOR PESSOAL",
+          "companyUserId": "6a109a7068f46978705ac891",
+          "companyUserName": "Kamilly Vitoria"
+        },
+        {
+          "linkId": "6a90980d6a10f86e27bb94e8",
+          "taskId": "6a635a204d8819abae314957",
+          "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+          "companyUserId": "6a109a7068f46978705ac891",
+          "companyUserName": "Kamilly Vitoria"
+        }
+      ],
+      "applyStatus": "ok",
+      "applyDetail": "adicionados=0; dono=Kamilly Vitoria; removidos=0",
+      "problemas": [],
+      "verificacao": {
+        "temDirf": true,
+        "temDctfweb": true,
+        "temFolhaG1": true,
+        "donoDirf": "",
+        "donoDctfweb": "",
+        "donoFolhaG1": "",
+        "aindaTemJan": false,
+        "aindaTemDez": false,
+        "ok": true,
+        "detalhe": "ok; dono=Kamilly Vitoria"
+      }
+    },
+    {
+      "codigoPlanilha": "712",
+      "nomePlanilha": "JOAO VICTOR FONSECA OLIVEIRA",
+      "documento": "55.789.505/0001-79",
+      "customerId": "699765e4a52eba5cf26ab692",
+      "codigoGestta": "712",
+      "nomeGestta": "JOAO VICTOR FONSECA OLIVEIRA",
+      "resolveStatus": "ok",
+      "detalhe": "Resolvido por Customer ID",
+      "responsavelPlanilha": "Kamilly Vitoria",
+      "responsibleId": "6a109a7068f46978705ac891",
+      "responsibleName": "Kamilly Vitoria",
+      "removedSemMovimento": [],
+      "addedTargets": [
+        {
+          "taskId": "60b61ec51da6830006323533",
+          "taskName": "CONSULTAR EXTRATOR DIRF",
+          "alreadyLinked": true,
+          "linkId": "6a90980ed8fa154328164957",
+          "action": "skip",
+          "applyStatus": "ok",
+          "applyDetail": "ja vinculada; dono atualizado link=6a90980ed8fa154328164957",
+          "patchedUser": true
+        },
+        {
+          "taskId": "6252c6e82dbce400063d5fa1",
+          "taskName": "DCTFWEB - SETOR PESSOAL",
+          "alreadyLinked": true,
+          "linkId": "6a90980fd8fa15432816497b",
+          "action": "skip",
+          "applyStatus": "ok",
+          "applyDetail": "ja vinculada; dono atualizado link=6a90980fd8fa15432816497b",
+          "patchedUser": true
+        },
+        {
+          "taskId": "6a635a204d8819abae314957",
+          "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+          "alreadyLinked": true,
+          "linkId": "6a909810c748e097b32954c0",
+          "action": "skip",
+          "applyStatus": "ok",
+          "applyDetail": "ja vinculada; dono atualizado link=6a909810c748e097b32954c0",
+          "patchedUser": true
+        }
+      ],
+      "snapshotPessoal": [
+        {
+          "linkId": "6a90980ed8fa154328164957",
+          "taskId": "60b61ec51da6830006323533",
+          "taskName": "CONSULTAR EXTRATOR DIRF",
+          "companyUserId": "6a109a7068f46978705ac891",
+          "companyUserName": "Kamilly Vitoria"
+        },
+        {
+          "linkId": "6a90980fd8fa15432816497b",
+          "taskId": "6252c6e82dbce400063d5fa1",
+          "taskName": "DCTFWEB - SETOR PESSOAL",
+          "companyUserId": "6a109a7068f46978705ac891",
+          "companyUserName": "Kamilly Vitoria"
+        },
+        {
+          "linkId": "6a909810c748e097b32954c0",
+          "taskId": "6a635a204d8819abae314957",
+          "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+          "companyUserId": "6a109a7068f46978705ac891",
+          "companyUserName": "Kamilly Vitoria"
+        }
+      ],
+      "applyStatus": "ok",
+      "applyDetail": "adicionados=0; dono=Kamilly Vitoria; removidos=0",
+      "problemas": [],
+      "verificacao": {
+        "temDirf": true,
+        "temDctfweb": true,
+        "temFolhaG1": true,
+        "donoDirf": "",
+        "donoDctfweb": "",
+        "donoFolhaG1": "",
+        "aindaTemJan": false,
+        "aindaTemDez": false,
+        "ok": true,
+        "detalhe": "ok; dono=Kamilly Vitoria"
+      }
+    },
+    {
+      "codigoPlanilha": "724",
+      "nomePlanilha": "TD ENGENHARIA LTDA",
+      "documento": "65.595.240/0001-21",
+      "customerId": "69b0796dead7f8366929c033",
+      "codigoGestta": "724",
+      "nomeGestta": "TD ENGENHARIA LTDA",
+      "resolveStatus": "ok",
+      "detalhe": "Resolvido por Customer ID",
+      "responsavelPlanilha": "Kamilly Vitoria",
+      "responsibleId": "6a109a7068f46978705ac891",
+      "responsibleName": "Kamilly Vitoria",
+      "removedSemMovimento": [],
+      "addedTargets": [
+        {
+          "taskId": "60b61ec51da6830006323533",
+          "taskName": "CONSULTAR EXTRATOR DIRF",
+          "alreadyLinked": true,
+          "linkId": "6a9098118370033570c1904d",
+          "action": "skip",
+          "applyStatus": "ok",
+          "applyDetail": "ja vinculada; dono atualizado link=6a9098118370033570c1904d",
+          "patchedUser": true
+        },
+        {
+          "taskId": "6252c6e82dbce400063d5fa1",
+          "taskName": "DCTFWEB - SETOR PESSOAL",
+          "alreadyLinked": true,
+          "linkId": "6a909812e69837f6d0b3585c",
+          "action": "skip",
+          "applyStatus": "ok",
+          "applyDetail": "ja vinculada; dono atualizado link=6a909812e69837f6d0b3585c",
+          "patchedUser": true
+        },
+        {
+          "taskId": "6a635a204d8819abae314957",
+          "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+          "alreadyLinked": true,
+          "linkId": "6a909813140ed5fb957aac75",
+          "action": "skip",
+          "applyStatus": "ok",
+          "applyDetail": "ja vinculada; dono atualizado link=6a909813140ed5fb957aac75",
+          "patchedUser": true
+        }
+      ],
+      "snapshotPessoal": [
+        {
+          "linkId": "6a9098118370033570c1904d",
+          "taskId": "60b61ec51da6830006323533",
+          "taskName": "CONSULTAR EXTRATOR DIRF",
+          "companyUserId": "6a109a7068f46978705ac891",
+          "companyUserName": "Kamilly Vitoria"
+        },
+        {
+          "linkId": "6a909812e69837f6d0b3585c",
+          "taskId": "6252c6e82dbce400063d5fa1",
+          "taskName": "DCTFWEB - SETOR PESSOAL",
+          "companyUserId": "6a109a7068f46978705ac891",
+          "companyUserName": "Kamilly Vitoria"
+        },
+        {
+          "linkId": "6a909813140ed5fb957aac75",
+          "taskId": "6a635a204d8819abae314957",
+          "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+          "companyUserId": "6a109a7068f46978705ac891",
+          "companyUserName": "Kamilly Vitoria"
+        }
+      ],
+      "applyStatus": "ok",
+      "applyDetail": "adicionados=0; dono=Kamilly Vitoria; removidos=0",
+      "problemas": [],
+      "verificacao": {
+        "temDirf": true,
+        "temDctfweb": true,
+        "temFolhaG1": true,
+        "donoDirf": "",
+        "donoDctfweb": "",
+        "donoFolhaG1": "",
+        "aindaTemJan": false,
+        "aindaTemDez": false,
+        "ok": true,
+        "detalhe": "ok; dono=Kamilly Vitoria"
+      }
+    },
+    {
+      "codigoPlanilha": "725",
+      "nomePlanilha": "AKMA COMERCIO DE GASES E EQUIPAMENTOS HOSPITALARES LTDA",
+      "documento": "37.608.680/0001-30",
+      "customerId": "69b19e7e847fa4cddb8893d8",
+      "codigoGestta": "725",
+      "nomeGestta": "AKMA COMERCIO DE GASES E EQUIPAMENTOS HOSPITALARES LTDA",
+      "resolveStatus": "ok",
+      "detalhe": "Resolvido por Customer ID",
+      "responsavelPlanilha": "Kamilly Vitoria",
+      "responsibleId": "6a109a7068f46978705ac891",
+      "responsibleName": "Kamilly Vitoria",
+      "removedSemMovimento": [],
+      "addedTargets": [
+        {
+          "taskId": "60b61ec51da6830006323533",
+          "taskName": "CONSULTAR EXTRATOR DIRF",
+          "alreadyLinked": true,
+          "linkId": "6a909815d8fa154328164a9d",
+          "action": "skip",
+          "applyStatus": "ok",
+          "applyDetail": "ja vinculada; dono atualizado link=6a909815d8fa154328164a9d",
+          "patchedUser": true
+        },
+        {
+          "taskId": "6252c6e82dbce400063d5fa1",
+          "taskName": "DCTFWEB - SETOR PESSOAL",
+          "alreadyLinked": true,
+          "linkId": "6a9098167769acb1c1b11c74",
+          "action": "skip",
+          "applyStatus": "ok",
+          "applyDetail": "ja vinculada; dono atualizado link=6a9098167769acb1c1b11c74",
+          "patchedUser": true
+        },
+        {
+          "taskId": "6a635a204d8819abae314957",
+          "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+          "alreadyLinked": true,
+          "linkId": "6a909817883c5dd1a91fc9f0",
+          "action": "skip",
+          "applyStatus": "ok",
+          "applyDetail": "ja vinculada; dono atualizado link=6a909817883c5dd1a91fc9f0",
+          "patchedUser": true
+        }
+      ],
+      "snapshotPessoal": [
+        {
+          "linkId": "6a909815d8fa154328164a9d",
+          "taskId": "60b61ec51da6830006323533",
+          "taskName": "CONSULTAR EXTRATOR DIRF",
+          "companyUserId": "6a109a7068f46978705ac891",
+          "companyUserName": "Kamilly Vitoria"
+        },
+        {
+          "linkId": "6a9098167769acb1c1b11c74",
+          "taskId": "6252c6e82dbce400063d5fa1",
+          "taskName": "DCTFWEB - SETOR PESSOAL",
+          "companyUserId": "6a109a7068f46978705ac891",
+          "companyUserName": "Kamilly Vitoria"
+        },
+        {
+          "linkId": "6a909817883c5dd1a91fc9f0",
+          "taskId": "6a635a204d8819abae314957",
+          "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+          "companyUserId": "6a109a7068f46978705ac891",
+          "companyUserName": "Kamilly Vitoria"
+        }
+      ],
+      "applyStatus": "ok",
+      "applyDetail": "adicionados=0; dono=Kamilly Vitoria; removidos=0",
+      "problemas": [],
+      "verificacao": {
+        "temDirf": true,
+        "temDctfweb": true,
+        "temFolhaG1": true,
+        "donoDirf": "",
+        "donoDctfweb": "",
+        "donoFolhaG1": "",
+        "aindaTemJan": false,
+        "aindaTemDez": false,
+        "ok": true,
+        "detalhe": "ok; dono=Kamilly Vitoria"
+      }
+    },
+    {
+      "codigoPlanilha": "706",
+      "nomePlanilha": "AUTOMAXCODE TECNOLOGIA E AUTOMACAO LTDA - PROLABORE",
+      "documento": "64.949.483/0001-58",
+      "customerId": "6984b77c5fc1f5d1cd879c7c",
+      "codigoGestta": "706",
+      "nomeGestta": "AUTOMAXCODE TECNOLOGIA E AUTOMACAO LTDA",
+      "resolveStatus": "ok",
+      "detalhe": "Resolvido por Customer ID",
+      "responsavelPlanilha": "Juliana Barreto",
+      "responsibleId": "67b38cd5830a034bc59aecdb",
+      "responsibleName": "Juliana Barreto",
+      "removedSemMovimento": [],
+      "addedTargets": [
+        {
+          "taskId": "60b61ec51da6830006323533",
+          "taskName": "CONSULTAR EXTRATOR DIRF",
+          "alreadyLinked": true,
+          "linkId": "6a909818d8fa154328164ae6",
+          "action": "skip",
+          "applyStatus": "ok",
+          "applyDetail": "ja vinculada; dono atualizado link=6a909818d8fa154328164ae6",
+          "patchedUser": true
+        },
+        {
+          "taskId": "6252c6e82dbce400063d5fa1",
+          "taskName": "DCTFWEB - SETOR PESSOAL",
+          "alreadyLinked": true,
+          "linkId": "6a909819883c5dd1a91fca39",
+          "action": "skip",
+          "applyStatus": "ok",
+          "applyDetail": "ja vinculada; dono atualizado link=6a909819883c5dd1a91fca39",
+          "patchedUser": true
+        },
+        {
+          "taskId": "6a635a204d8819abae314957",
+          "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+          "alreadyLinked": true,
+          "linkId": "6a90981ae69837f6d0b35943",
+          "action": "skip",
+          "applyStatus": "ok",
+          "applyDetail": "ja vinculada; dono atualizado link=6a90981ae69837f6d0b35943",
+          "patchedUser": true
+        }
+      ],
+      "snapshotPessoal": [
+        {
+          "linkId": "6a909818d8fa154328164ae6",
+          "taskId": "60b61ec51da6830006323533",
+          "taskName": "CONSULTAR EXTRATOR DIRF",
+          "companyUserId": "67b38cd5830a034bc59aecdb",
+          "companyUserName": "Juliana Barreto"
+        },
+        {
+          "linkId": "6a909819883c5dd1a91fca39",
+          "taskId": "6252c6e82dbce400063d5fa1",
+          "taskName": "DCTFWEB - SETOR PESSOAL",
+          "companyUserId": "67b38cd5830a034bc59aecdb",
+          "companyUserName": "Juliana Barreto"
+        },
+        {
+          "linkId": "6a90981ae69837f6d0b35943",
+          "taskId": "6a635a204d8819abae314957",
+          "taskName": "FOLHA DE PAGAMENTO GERAL - GRUPO 1",
+          "companyUserId": "67b38cd5830a034bc59aecdb",
+          "companyUserName": "Juliana Barreto"
+        }
+      ],
+      "applyStatus": "ok",
+      "applyDetail": "adicionados=0; dono=Juliana Barreto; removidos=0",
+      "problemas": [],
+      "verificacao": {
+        "temDirf": true,
+        "temDctfweb": true,
+        "temFolhaG1": true,
+        "donoDirf": "",
+        "donoDctfweb": "",
+        "donoFolhaG1": "",
+        "aindaTemJan": false,
+        "aindaTemDez": false,
+        "ok": true,
+        "detalhe": "ok; dono=Juliana Barreto"
+      }
+    }
+  ]
+}

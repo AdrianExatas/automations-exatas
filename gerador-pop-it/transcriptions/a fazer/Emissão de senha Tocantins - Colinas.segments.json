@@ -1,0 +1,23 @@
+{
+  "media": "G:\\Meu Drive\\GESTÃO DE PROCESSOS\\_SEM_SETOR\\VÍDEOS\\EMISSÃO DE SENHA TOCANTINS - COLINAS.mkv",
+  "transcript_path": "C:\\Users\\Exatas\\Documents\\GitHub\\automations-exatas\\gerador-pop-it\\transcriptions\\a fazer\\EMISSÃO DE SENHA TOCANTINS - COLINAS (transcribed on 10-Sep-2026 21-05-32).txt",
+  "language": "pt",
+  "duration_sec": 103.104,
+  "segments": [
+    {
+      "start": 0.21,
+      "end": 30.21,
+      "text": "Para fazer a solicitação da senha de acesso na SEFAZ, Dr. Cantinas, referente ao município de Colinas, é necessário fazer o envio do e-mail, ele deve constar o nome da empresa, CNPJ e o número da inscrição estadual, o assunto será a solicitação de senha e o endereço será colinas.co.gov.br"
+    },
+    {
+      "start": 30.21,
+      "end": 72.77,
+      "text": "A solicitação é referente a colinas, certo? Vai depender também muito da questão do município. Faz o envio e aguarda o retorno. Entenda a resposta, eles costumam mandar o bom dia e a senha. Essa senha é necessário fazer o acesso, necessário fazer o acesso no portal do contribuinte, informa o número da inscrição e a senha que recebeu no e-mail. Clica na opção entrar. Nesse caso aqui,"
+    },
+    {
+      "start": 72.77,
+      "end": 95.19,
+      "text": "já foi feita a validação, mas antes de avançar para essa aba, irá aparecer um campo para informar a senha atual e criar nova senha. Essa senha dessa empresa permaneceu a mesma, então foi salvo já na parte da domínio, no campo de observação e o passo a passo seria esse."
+    }
+  ]
+}

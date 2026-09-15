@@ -1,0 +1,23 @@
+{
+  "media": "G:\\Meu Drive\\GESTÃO DE PROCESSOS\\13 - Auditoria\\VÍDEOS\\3-min.mp4",
+  "transcript_path": "C:\\Users\\Exatas\\Documents\\GitHub\\automations-exatas\\gerador-pop-it\\transcriptions\\a fazer\\3-min (transcribed on 10-Sep-2026 20-33-54).txt",
+  "language": "pt",
+  "duration_sec": 83.648,
+  "segments": [
+    {
+      "start": 1.46,
+      "end": 36.56,
+      "text": "Agora nós vamos fazer a análise do relatório e critérios. Primeiro, você vai olhar o CNPJ da empresa, para saber quais atividades ele exerce, no caso aqui é loja de variedades, é uma loja varejista, depois olhamos olhar seu regime, que aqui já fala, situação no SIPP Nacional."
+    },
+    {
+      "start": 36.56,
+      "end": 68.68,
+      "text": "Então é, SIPP Nacional, loja de comércio e varejista. Você vem e olha o relatório, para saber se está enquadrado no regime correto, e no anexo correto, no caso do comércio, anexo 1, e pelo que o relatório fala, ele já faz a segregação de receitas."
+    },
+    {
+      "start": 68.68,
+      "end": 73.68,
+      "text": "Monofasic ST, e se monofasic ST."
+    }
+  ]
+}

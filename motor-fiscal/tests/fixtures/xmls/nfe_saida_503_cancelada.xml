@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nfeProc xmlns="http://www.portalfiscal.inf.br/nfe" versao="4.00">
+  <NFe>
+    <infNFe Id="NFe28260612345678000199550010000005031000005039" versao="4.00">
+      <ide>
+        <cUF>28</cUF>
+        <mod>55</mod>
+        <serie>1</serie>
+        <nNF>503</nNF>
+        <dhEmi>2026-06-12T15:30:00-03:00</dhEmi>
+        <tpNF>1</tpNF>
+      </ide>
+      <emit>
+        <CNPJ>12345678000199</CNPJ>
+        <xNome>EMPRESA TESTE LTDA</xNome>
+        <enderEmit><UF>SE</UF></enderEmit>
+      </emit>
+      <dest>
+        <CNPJ>11222333000144</CNPJ>
+        <xNome>CLIENTE XYZ SA</xNome>
+        <enderDest><UF>BA</UF></enderDest>
+      </dest>
+      <det nItem="1">
+        <prod>
+          <cProd>P002</cProd>
+          <xProd>OLEO LUBRIFICANTE</xProd>
+          <NCM>27101932</NCM>
+          <CFOP>5405</CFOP>
+          <uCom>UN</uCom>
+          <qCom>10.0000</qCom>
+          <vUnCom>25.0000</vUnCom>
+          <vProd>250.00</vProd>
+        </prod>
+        <imposto>
+          <ICMS>
+            <ICMS60>
+              <orig>0</orig>
+              <CST>60</CST>
+            </ICMS60>
+          </ICMS>
+          <PIS>
+            <PISNT><CST>06</CST></PISNT>
+          </PIS>
+          <COFINS>
+            <COFINSNT><CST>06</CST></COFINSNT>
+          </COFINS>
+        </imposto>
+      </det>
+      <total>
+        <ICMSTot>
+          <vBC>0.00</vBC>
+          <vICMS>0.00</vICMS>
+          <vBCST>0.00</vBCST>
+          <vST>0.00</vST>
+          <vProd>250.00</vProd>
+          <vFrete>0.00</vFrete>
+          <vDesc>0.00</vDesc>
+          <vIPI>0.00</vIPI>
+          <vPIS>0.00</vPIS>
+          <vCOFINS>0.00</vCOFINS>
+          <vNF>250.00</vNF>
+        </ICMSTot>
+      </total>
+    </infNFe>
+  </NFe>
+  <protNFe versao="4.00">
+    <infProt>
+      <chNFe>28260612345678000199550010000005031000005039</chNFe>
+      <cStat>100</cStat>
+      <xMotivo>Autorizado o uso da NF-e</xMotivo>
+      <nProt>128260000000003</nProt>
+    </infProt>
+  </protNFe>
+</nfeProc>

@@ -61,6 +61,12 @@ export type SavedCredentials = {
   password: string;
 };
 
+export type SavedAgilCredentials = {
+  user: string;
+  certPath: string;
+  certPassword: string;
+};
+
 function saveCredentials(userKey: string, passKey: string, creds: SavedCredentials): void {
   set(userKey, creds.user);
   set(passKey, encrypt(creds.password));
@@ -78,10 +84,37 @@ function clearCredentials(userKey: string, passKey: string): void {
   del(passKey);
 }
 
+function saveAgilCert(creds: SavedAgilCredentials): void {
+  set(AGIL_USER_KEY, creds.user);
+  set(AGIL_CERT_PATH_KEY, creds.certPath);
+  set(AGIL_CERT_PASS_KEY, encrypt(creds.certPassword));
+}
+
+function loadAgilCert(): SavedAgilCredentials | null {
+  const user = get(AGIL_USER_KEY);
+  const certPath = get(AGIL_CERT_PATH_KEY);
+  const encrypted = get(AGIL_CERT_PASS_KEY);
+  if (!user || !certPath) return null;
+  return {
+    user,
+    certPath,
+    certPassword: encrypted ? decrypt(encrypted) : "",
+  };
+}
+
+function clearAgilCert(): void {
+  del(AGIL_USER_KEY);
+  del(AGIL_CERT_PATH_KEY);
+  del(AGIL_CERT_PASS_KEY);
+  del(AGIL_PASS_KEY);
+}
+
 const SEFAZ_USER_KEY = "sefaz.user";
 const SEFAZ_PASS_KEY = "sefaz.password";
 const AGIL_USER_KEY = "agil.user";
 const AGIL_PASS_KEY = "agil.password";
+const AGIL_CERT_PATH_KEY = "agil.certPath";
+const AGIL_CERT_PASS_KEY = "agil.certPassword";
 
 export const sefazStore = {
   saveSefazCredentials: (creds: SavedCredentials) =>
@@ -89,8 +122,7 @@ export const sefazStore = {
   loadSefazCredentials: () => loadCredentials(SEFAZ_USER_KEY, SEFAZ_PASS_KEY),
   clearSefazCredentials: () => clearCredentials(SEFAZ_USER_KEY, SEFAZ_PASS_KEY),
 
-  saveAgilCredentials: (creds: SavedCredentials) =>
-    saveCredentials(AGIL_USER_KEY, AGIL_PASS_KEY, creds),
-  loadAgilCredentials: () => loadCredentials(AGIL_USER_KEY, AGIL_PASS_KEY),
-  clearAgilCredentials: () => clearCredentials(AGIL_USER_KEY, AGIL_PASS_KEY),
+  saveAgilCredentials: (creds: SavedAgilCredentials) => saveAgilCert(creds),
+  loadAgilCredentials: () => loadAgilCert(),
+  clearAgilCredentials: () => clearAgilCert(),
 };

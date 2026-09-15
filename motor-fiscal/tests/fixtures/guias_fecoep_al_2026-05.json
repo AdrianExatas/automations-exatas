@@ -1,0 +1,32 @@
+{
+  "empresa_cnpj": "11188276000161",
+  "competencia": "2026-05",
+  "uf": "AL",
+  "guias": [
+    {
+      "tributo": "icms",
+      "codigo_or": "000",
+      "codigo_receita": "13170",
+      "valor": 195.0
+    },
+    {
+      "tributo": "fecoep",
+      "codigo_or": "006",
+      "codigo_receita": "50059",
+      "valor": 20.0
+    },
+    {
+      "tributo": "icms_difal",
+      "codigo_or": "090",
+      "codigo_receita": "15610",
+      "valor": 22.0
+    },
+    {
+      "tributo": "fecoep_difal",
+      "codigo_or": "090",
+      "codigo_receita": "50075",
+      "valor": 3.0
+    }
+  ],
+  "ajustes": []
+}

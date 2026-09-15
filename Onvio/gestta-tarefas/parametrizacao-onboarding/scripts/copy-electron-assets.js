@@ -5,7 +5,7 @@ const root = path.resolve(__dirname, "..");
 const electronSourceDir = path.join(root, "src", "electron");
 const electronOutputDir = path.join(root, "dist", "electron");
 const resourcesOutputDir = path.join(root, "dist", "resources");
-const matrixFileName = "PLANILHA GERAL TAREFAS POR REGIME.xlsx";
+const matrixFileName = "PLANILHA GERAL DE TAREFAS POR REGIME E SETOR.xlsx";
 const iconFileName = "icon.ico";
 
 function drawRect(pixels, size, x, y, width, height, color) {

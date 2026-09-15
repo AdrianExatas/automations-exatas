@@ -1,0 +1,22 @@
+{
+  "uf": "SE",
+  "descricao": "Matriz tributária ICMS — Sergipe (parametrizável)",
+  "regras": [
+    {"cfop": "1102", "cst": "000", "aliq_esperada": 18.0, "natureza": "compra_interna"},
+    {"cfop": "1656", "cst": "000", "aliq_esperada": 18.0, "natureza": "compra_combustivel"},
+    {"cfop": "1352", "cst": "000", "aliq_esperada": 12.0, "natureza": "frete_entrada"},
+    {"cfop": "5102", "cst": "000", "aliq_esperada": 18.0, "natureza": "venda_interna"},
+    {"cfop": "5656", "cst": "000", "aliq_esperada": 18.0, "natureza": "venda_combustivel"},
+    {"cfop": "6102", "cst": "000", "aliq_esperada": 12.0, "natureza": "venda_interestadual"}
+  ],
+  "fecoep": {
+    "descricao": "Codigos de receita SE (E116) — ICMS/FECOEP/DIFAL observados na remessa 06/2026 MAXX",
+    "cod_rec_icms": "0101",
+    "cod_rec_icms_difal": "0111",
+    "cod_rec_normal": "0142",
+    "cod_rec_difal": "0150",
+    "cod_or_icms": "000",
+    "cod_or_normal": "006",
+    "cod_or_difal": "090"
+  }
+}

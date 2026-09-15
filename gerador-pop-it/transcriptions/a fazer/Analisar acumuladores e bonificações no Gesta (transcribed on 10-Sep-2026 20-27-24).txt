@@ -1,0 +1,821 @@
+Eu gosto de iniciar sempre, qualquer pouco, pontuando para vocês a importância da ferramenta que seria o Gesta. Porque no Gesta, a gente sempre traz, pessoal, algo que é de fundamental importância, que é aqui, analisar a previsão de cada acumulador, verificar se as receitas financeiras foram lançadas, verificar se as bonificações recebidas também foram lançadas, saber quais as bonificações devem ser incluídas.
+Por que, Suário? Vamos pegar um exemplo. A empresa, ela recebeu uma nota fiscal de compra, e dentro dessa compra tem bonificações. Essa bonificação, ela entra como receita? Não entra. Por quê? Porque ela entra como custo da mercadoria adquirida.
+Agora, se eu receber uma nota fiscal somente de bonificação, aí eu tenho que levar isso como receita para ser ofertada lá no...
+Queria ter um acumulador próprio, onde você lança essa receita de bonificação. Me faça entender.
+Questão também a gente tem de venda de imobilizado, né? E aí também tem que ser adicionado, né? Ou seja, o ganho que se teve, né?
+Entre o preço de aquisição e o preço de venda, pra gente ver se teve. E depois fazer a transmissão da guia, né? Via DCTFWeb.
+Então, vamos lá. Só pra gente entender. Ah, tem algumas outras situações que não estão aqui, mas que vocês também vão nos fazer compreender.
+É, pessoal, aqui está a Aquapruz, que eu trouxe ela como exemplo, porque é uma empresa que tem dois impostos que devem ser excluídos na hora da apuração.
+E a gente já, nela, tinha cometido alguns erros bem lá atrás, porque o ICMSST, ele não compõe a receita.
+Ele tem que ser extraído da sua receita. Exemplo aqui, ó. A empresa teve como valor de faturamento no trimestre de receita.
+Vamos pegar aqui tudo que é acumulador de venda. A receita dela foi essa. Pronto.
+Da receita dela, eu tenho aqui uma parte que é ICMSST, que é 65 mil, perfeito?
+E eu tenho também o IPI. Tá vendo o IPI aqui, pessoal?
+Vocês querem que eu aumente aqui ou tá de boa pra vocês?
+Dá pra ver, tá de boa aí. Tá de boa?
+Então, eu tenho aqui o IPI também, que eu tenho que retirar da minha base.
+Então, minha receita seria essa.
+Tem outra situação também, que vocês vão verificar, porque aqui eu tô na qual?
+Eu tô na matriz. E ela tem receita de matriz e filial.
+Como é que eu sei isso? Vamos lá.
+Como é que eu sei isso aqui, Naeli? Que eu tenho receita de matriz e filial?
+Como é que eu identifiquei que eu tenho receita de matriz e filial?
+Pode falar. Tá sem áudio.
+Ela disse que tá sem áudio. Tá sem conseguir falar.
+O áudio do áudio não tá abrindo lá, Naeli?
+Tá não.
+Vini, você consegue transcrever aí o que...
+Falar o que Naeli tá dizendo?
+Ela tá pedindo que você perguntar.
+Você fazia normalmente a pergunta.
+Vamos lá.
+Como é que eu consegui identificar, Naeli, pelas informações aqui de acumulador,
+que a empresa tem receita de filial?
+Ela disse que não sabe não pelos acumuladores, Sôres.
+Pronto, vamos lá.
+Por isso que é importante, pessoal.
+A gente tem dois acumuladores aqui, que é o 1038 e o 1039, que é de transferência.
+Então, só por esses aqui eu já consigo identificar que se teve receita aqui de quê?
+Na filial.
+Na filial.
+Então, tipo, eu vou ter que identificar qual é a filial e qual a receita que teve lá.
+Porque na hora da apuração do IRPJ, ela é uma apuração centralizada, igual o PIS e COFINS.
+É diferente do ICMS.
+O ICMS é apurado em cada CNPJ, de forma individual.
+Ou seja, teve inscrição estadual, teve venda, teve compra, teve transferência.
+Apura-se o ICMS de forma descentralizada.
+Já, e aí o IPJ e contribuição social sobre o lucro.
+Você vai fazer a apuração centralizada.
+Me faz compreender?
+Beleza.
+Então, vamos lá.
+Eu vou abrir aqui outro domínio, só para a gente ter a demonstração e depois a gente chegar no cálculo
+para ver se está batendo exatamente com o valor devido.
+Mas aqui, enquanto está abrindo o domínio, eu vou fazer o seguinte.
+Eu vou vir aqui, nesse daqui, e vou lançar, colocar aqui o imposto 7.
+Que é o IRPJ.
+Chegando no imposto 7, eu vou fazer o quê?
+Gerar um relatório.
+Vou detalhar por acumulador, não vou detalhar por nota.
+Beleza?
+Marca aqui os dois, só para vocês entenderem.
+Lembrando que esse pop que a gente está gravando aqui, ele vai sofrer alteração no próximo mês.
+Então, no próximo mês a gente vai ter que fazer outro pop.
+Vocês já sabem por quê, né?
+Perfeito.
+Todo mundo sabe, só o Tati.
+Tati que bala a sua cabeça.
+Vocês sabem, não é, Elê?
+Ela disse que passou um pouco para ela.
+Ah, beleza. Pronto. Fechou.
+Fechou. Pronto.
+A gente está aqui, pessoal, na apuração da CSLL, né?
+Então, exemplo, vou fazer um questionamento aqui à Joyce agora.
+Joyce está aí qual período?
+Estou sem ouvir.
+Aí não tem como traduzir, não.
+Porque aí só está...
+Está no sétimo.
+Sétimo, né? Pronto.
+Então, você já deve ter visto.
+Como é que eu consigo identificar qual é a presunção aqui da CSLL?
+A CSLL, você sabe como é que eu consigo identificar?
+Sabe?
+Não lembro.
+Pronto. Vamos lá.
+Eu vou dizer a forma mais fácil, né?
+Depois a gente tem que aprender fazendo...
+Vou usar um pouco do método de Alan, que ela disse assim.
+Ele ensina pela forma mais difícil, porque aí a pessoa não tem como desaprender.
+Eu costumo dizer, eu prefiro ensinar a forma mais fácil e depois a pessoa vai na forma mais difícil.
+Mas vamos lá.
+A forma mais fácil, Joyce, é o seguinte.
+Toda empresa, para se identificar o regime, vamos dizer assim, o enquadramento tributário,
+você tem que saber as atividades.
+Quais atividades que essa empresa tem?
+Então, eu vou pegar aqui, ela tem atividade de fabricação.
+Toda empresa que for fabricação e comércio, ela vai ter uma presunção de 8%.
+No caso, para imposto de renda.
+E 12% para CSLL.
+Então, em cima disso, você vai.
+Vou ainda deixar mais fácil a sua vida.
+E a dos demais.
+Eu pego aqui o código do KINAI, do cliente.
+Eu copio, eu vou aqui, CTRL-C.
+E vou aqui numa ferramenta, que aí eu acho que você já tem um acesso a ela.
+Eu acredito, né?
+Se não tivesse, você já solicita a Adria.
+Mas já era para ter.
+Que é o e-connect.
+No e-connect a gente tem aqui uma abazinha.
+Deixa eu atualizar aqui.
+A gente vem aqui, entra no e-connect.
+Vamos ver se ele vai deixar.
+Pediu senha.
+É rapidinho, faz parte do treinamento.
+Justamente para mostrar aqui.
+Isso aqui, ó.
+Viu?
+Pronto, chegou.
+Eu copio aqui.
+Volto para o e-connect.
+Pronto, chegando aqui, eu vou nessa ferramenta aqui, ó.
+Tá vendo?
+Eu fui aqui, ó.
+Soluções, ferramentas, regime tributário.
+Quando chegar aqui, Joyce e Naile, eu vou colocar, copiar.
+Volto para ela e coloco aqui.
+E aí ela vai me dizer o seguinte, as informações que eu quero.
+No lucro presumido, até o final desse ano,
+que nunca a gente está apurando terceiro trimestre de 2025, 8%.
+E CSLL 12.
+Então, viu como ficou fácil?
+Aí a questão também, Pins e Coffins, ele já traz, entendeu?
+Ele já traz aqui.
+Então, aqui eu validei.
+Tá batendo?
+Tá 12%.
+Concorda?
+Beleza?
+Aqui ele vai me trazer também uma situação que é importante, pessoal.
+Ó, venda de produto dentro do Estado a prazo, que é produto sem ST.
+Ele me trouxe o faturamento e ele me trouxe aqui já com a presunção.
+Presumiu.
+Esse valor deu esse.
+E também ele presumiu a dedução do IPI, porque nesse caso aqui não tem ST.
+E ele me trouxe aqui quanto?
+92.
+Então, esse menos esse dá esse.
+Perfeito.
+Me faz compreender.
+Tranquilo, então.
+O ST, tá vendo que ele tá os dois?
+O IPI, o ICMS ST e a base reduzida.
+Tá vendo como tá aqui?
+Então, eu tive essa redução.
+Perfeito.
+Tranquilo, então.
+Nesse caso aqui, a mesma coisa, ele vai trazer as devoluções, que é algo importante também
+da gente se alentar, porque a devolução, ela é redutora da minha receita.
+Então, exemplo, se eu tive uma receita, igual a que teve, de 1.655.000, eu tenho que deduzir
+minhas devoluções, que vai reduzir também o meu valor a pagar de imposto.
+Então, tem que se atentar a isso.
+Além de se atentar ao ICMS ST e ao IPI, que é redutor, eu tenho minhas devoluções
+também.
+E como é que eu valido aqui se tá batendo, então?
+Que seria também lá no acumulador.
+Por isso que eu digo que o acumulador, o relatório de acumulador, ele é muito importante,
+porque você tem que identificar se todas as receitas que estão sendo levadas pra tributação,
+se elas estão batendo.
+Da mesma forma que aqui a devolução, a devolução de venda, eu tenho duas.
+Uma que é 1.891, outra 5.410.
+Então, todas estão aqui.
+Vamos lá.
+Aqui, ela aqui, olha.
+Uma tá batendo e a segunda tá aqui.
+Então, tá todas batendo, beleza?
+Fechou?
+Isso é da matriz.
+Aí, tá vendo se o LPJ tá aqui da matriz, pessoal?
+Tão observando aqui é o da matriz.
+Aqui é o da filial, olha.
+Aqui embaixo, que é filial.
+Então, aqui é a matriz e aqui é filial.
+Perfeito?
+Posteriormente, pronto.
+A gente identificou que tá batendo a devolução.
+Agora, eu vou verificar se tá batendo a receita que a gente tinha calculada.
+Olha.
+Bateu certinho, não foi?
+Não bateu?
+Perfeito?
+Então, você viu quanto foi importante a gente identificar se tá realmente?
+Por quê?
+Eu já peguei situações de que for ser criado acumuladores, não colocar a parametrização
+no acumulador e aí, por causa disso, não levar pra apuração do IRPJ.
+Só que como é que eu sei?
+Eu tenho que fazer esse batimento de contas aqui, verificar se os acumuladores que estão
+informados, que tiveram receita, se realmente eles estão dentro do meu cálculo.
+Aí, eu vou trazer ainda mais, vamos dizer assim, pontos de vocês identificarem erros.
+Porque assim, não adianta só eu fazer a apuração sem dizer da onde é que nasce a apuração.
+A apuração nasce do acumulador.
+Então, aonde é que eu identifico a correta, se o acumulador tá configurado correto?
+Então, eu venho aqui, ó.
+Tá vendo, Naeli e Joyce, vocês que estão iniciando?
+O acumulador, ele que define.
+Então, aqui, tá vendo aí?
+CSL12 e IRPJ8.
+Então, é aqui que nasce tudo.
+Se não tiver configurado aqui, tiver os impostos zerados, ele não vai trazer pra aqui.
+Então, ele só vai trazer se estiver aqui.
+Entende?
+Pronto, beleza.
+Então, se eu passar as outras empresas que tem tudo aqui pra vocês, vocês conseguem?
+Eu brincando, eu vou se preocupar.
+Não senta pressão, não.
+Aqui é de boa.
+Vocês não vão sentir pressão, não.
+Né, Tati?
+Vamos lá.
+Agora, a gente vai pra quem?
+Pra filial.
+Pra validar a filial, se tá tudo correto.
+A filial é a empresa, essa daqui, né?
+373.
+Vamos validar a filial.
+A mesma coisa, ó.
+Relatório, novamente.
+Relatório, acompanhamento, resumo por acumulador.
+Coloco mês 10.
+Três meses, pessoal.
+10, 11, 12.
+É 1, 2 e 3, 4, 5, 6, 7, 8, 9.
+Então, evolução de venda que teve, ó.
+2.
+Vamos ver se teve aqui ele, ó.
+7.
+Então, tudo aqui, perfeito?
+Eles estão aqui, ó.
+Agora, a gente vai ver a receita.
+Venda.
+Vamos lá, vamos ver o dele.
+Venda.
+Tem um acumulador 500, que dá 11, 3, 8, 2, 40.
+Mais.
+Um acumulador 600.
+Mais.
+Eu coloquei alguma coisa errada, você me diga, né?
+Aqui tá dando a diferença de 900 e...
+Ah, eu esqueci desse, ó.
+Tá batendo, tá vendo?
+Eu tinha esquecido desse.
+Então, fechou aqui.
+Concorda?
+Batendo até as vírgulas.
+Eu digo assim, ó.
+Tem que bater até as vírgulas.
+Que geralmente, às vezes, acontece no cálculo não bater.
+E isso daqui, pessoal, é algo importante.
+Porque na hora que o contábil for fazer o LALU,
+que é o LALU não, perdão.
+A ECF, lá no contábil, essas deduções aqui,
+que é muito importante, que é o ICMSST e o IPI,
+ele tem que estar no campo correto.
+Porque a ECF, ela faz a validação entre a parte contábil e fiscal
+pra ver se a dedução que tá sendo aplicada, ela bate.
+Entendeu?
+Que são dois campos.
+O M110, se eu não tô enganado, e o M200 e alguma coisa da ECF.
+Porque um é a apuração fiscal e o outro é a parte que é a DRE.
+Se os dois não estiverem batendo, você não consegue enviar a ECF,
+porque vai dar incongruência.
+Perfeito?
+Então, é muito importante a gente fazer essa validação.
+Então, aqui a gente percebe que, pelas análises que a gente fez,
+tá batendo tudo certinho.
+Eu costumo fazer uma análise meio que operacional minha,
+que é o seguinte, eu chego aqui só pra ver se a domínio tá calculando correto.
+Ou seja, pegar esses valores aqui, somar ele,
+deduzindo esses, pra ver se esse valor aqui,
+aplicando a presunção, se tá tudo igual.
+Eu percebo aqui, pessoal, que tá faltando uma situação.
+Vocês sabem dizer qual é a situação aqui que tá faltando?
+Que eu não identifiquei aqui.
+Vocês conseguem identificar o que é que tá faltando?
+Tem uma situação faltando, que lá do início do checklist eu pontuei.
+Vamos lá, se vocês pegaram o fio da minhada.
+As bonificações, por favor.
+Isso mesmo, as bonificações.
+Se você verificar aqui, não teve nenhum acumulador de bonificação.
+Não é isso?
+Não teve nenhum acumulador de bonificação.
+Então, como é que eu valido?
+Vamos lá.
+Eu tive aqui, ó.
+Apenas uma bonificação na filial, que foi essa de 188,91.
+Aí, como é que eu identifico isso?
+Eu tenho que vir aqui, ó.
+Vamos lá.
+Aqui é a filial.
+Não, aqui é a matriz.
+Eu venho aqui, entradas.
+Aí, eu vou fazer o seguinte, pessoal.
+Olha como é importante.
+Veja sempre os caminhos, né?
+Relatório, ó.
+Relatório.
+Aqui, entradas.
+Beleza?
+Aí, eu vou fazer o seguinte.
+Eu vou pegar o acumulador que tá me trazendo essa nota.
+Ou esse valor aqui.
+Eu expliquei o que é a vocês lá no início.
+Quem é que consegue me...
+Me tirando João Vito e Vini e Tatiana.
+Vou deixar isso para as meninas, porque é bom para elas, vamos dizer assim,
+enlarguecer a parte de compreensão.
+O que foi que eu disse lá no início?
+Sobre a bonificação.
+Eu disse alguma coisa.
+Alguém se recorda?
+Em Naili.
+O que foi que eu disse sobre a bonificação?
+Não lembro não, Soares.
+Sendo sincera.
+É importante, viu?
+Porque aí é onde a gente vai medir o nível de aprendizado de vocês.
+Porque assim, vamos pensar o seguinte.
+Tudo que a gente foca, expande.
+Se você não foca, você não expande.
+Então, eu disse o seguinte.
+Que só entraria no cálculo as bonificações quando a nota fiscal fosse uma nota fiscal
+só de bonificação.
+Não foi isso que eu disse no início?
+Então, preste atenção.
+Sempre eu vou trazer no início de todas, vamos dizer, todo o pó que eu trago sempre algo
+que vocês têm que focar que é importante, que é o que deve ser tratado durante as apurações.
+Então, vamos lá.
+Eu vou pegar as notas fiscais que eu já identifiquei.
+Deixa eu ver aqui se ele consegue me dar o filtro por nota fiscal.
+Acho que ele não vai me dar.
+Deixa eu ver se eu vou dar o 2.
+Fornecedor, pá, pá, pá.
+Qual fornecedor?
+Só pronto.
+Acho que eu não vou conseguir, não.
+Mas eu tenho o número da nota aqui.
+São essas notas aqui.
+É 43198.
+É melhor fazer aqui.
+43198 e a 73135.
+Vamos lá.
+Então, eu estou abrindo aqui a nota fiscal de entrada para a gente identificar se essa
+nota fiscal, ela foi uma que a gente chama de segmento.
+Quando é segmentada a nota, pessoal, significa dizer que essa nota, vamos dizer assim, ela
+teve dois CFOPS.
+Entendeu?
+Ô, Soares, o Sandril me ensinou um método que a gente faz aqui uma consulta.
+Sim.
+Que é mais fácil de gerar um relatório para ver se a nota é pura ou não.
+É, entendi.
+Eu sei que é lá em relatório, né?
+Mas eu estou mostrando aqui o passo a passo, porque é como aquela situação que,
+Alan, você lembra que eu disse lá no início?
+O ensinamento é muito mais difícil.
+É, para você saber como é que chegou nele, entendeu?
+Beleza.
+Mas aqui, nesse caso, pessoal, está vendo que a bonificação, ela foi, não teve segmento?
+Quando ela tem segmento, está vendo esse campo aqui, ele vem com 1 ou 0 e 1.
+Então, nesse caso, todas foram 0.
+Então, eu vou ter que fazer o quê?
+Adicionar.
+Eu vou ter que adicionar essa receita.
+Beleza?
+Por quê?
+Alguém sabe por quê?
+Se eu não adicionar, qual o problema que eu tenho?
+Vamos lá, vamos ver se vocês...
+Eu falei, eu já dei um macete a vocês disso daí.
+Agora eu vou abrir para todos, viu?
+Não vou deixar nelas, não.
+Vamos ver se vocês todos já estão sabendo por quê.
+Eu expliquei o motivo do problema que pode acontecer.
+Vamos lá?
+A questão lá do contábil que vai influenciar no...
+Isso mesmo, na DRE.
+Na DRE, é isso.
+Porque quando as meninas do contábil lançarem isso aqui, isso daqui vai como receita.
+Então, exemplo, a receita que vai estar na DRE vai estar maior do que a receita fiscal.
+Então, se eu não lançar esse ajuste, a apuração que está aí, o setor contábil calcular,
+vai estar maior do que a receita fiscal.
+Então, na hora da ICF não vai fechar.
+Me faço compreender?
+Pronto, beleza.
+Massa.
+Vamos lá, então.
+Então, eu tenho aqui na matriz, quanto de receita para avançar?
+188 reais, né?
+91, não é isso?
+188,91.
+Agora vamos para a filial, para a gente identificar se na filial teve também.
+Bonificação teve na filial.
+Vamos agora identificar se as bonificações foram.
+Agora vamos usar o método mais fácil, né, João?
+Tu já foi no método FIS, né?
+Eu só não me lembro qual o caminho, viu?
+Se você quiser me ajudar aqui, eu agradeço.
+Mas eu tinha validado com o Sandro esse caminho.
+Eu sei que é em relatórios.
+Não, você vai em...
+Como se fosse uma nota de entrada mesmo lá.
+É arquivos.
+Dá uma nota de entrada mesmo, aqui na setinha do lado.
+Dá uma nota de entrada aqui.
+Oh, sim.
+Aí, isso.
+Aí.
+Aí.
+Ah, diga.
+Aí você vai em listagem.
+Aí relatório aqui agora.
+Aí você vai colocar os filtros.
+Ah, já...
+Já aqui.
+Tributação...
+Análise e bonificação, né?
+Que já tem criado.
+Ah, pronto.
+Entendeu, Ormira?
+Tipo, aqui é um relatório que já foi criado
+pra justamente identificar.
+É...
+Só que não coloca a data, não?
+Aqui, é.
+Aqui dentro.
+Aonde?
+É a entrada.
+Entrada.
+Ah.
+Agora...
+Veja os outros filtros, como tá.
+Se tá só aí.
+Não tá não marcado.
+É porque eu coloco...
+Eu não coloco acumulador, não.
+Eu coloco...
+CFOB só.
+Eu vi...
+Vou ver se vai.
+Não.
+Não é assim, não.
+É melhor tirar o...
+É melhor tirar o acumulador e deixar o CFOB.
+C9 e 10 e 29 e 10.
+Eu vou trazer ele, né?
+É.
+E aí, Ju?
+Tirou já.
+Tirou já.
+Tirou.
+Oh, não é acumulador, né?
+Isso é só.
+Acho que ele já...
+C9 e 10.
+É porque isso...
+O lado do outro em cima.
+Aí.
+Ok.
+Não teve segmento, não.
+Ah, mas eu acho que o do segmento eu tirei, não foi?
+Foi do segmento.
+Aí, embaixo.
+Zero.
+Ok.
+Todos é segmento zero, esse daqui.
+Totalizando da quanta?
+Agora, lá eu tava dando...
+É porque eu acho que você pegou só um time, um milho de ferrão ali.
+Você fez ou fez um?
+Porque ela deu 188?
+Não, acho que 188 era do outro.
+Ou da matriz.
+Era a matriz.
+É.
+Ah, tá.
+É filial.
+É.
+Aqui.
+Bonificação.
+108.
+Cadê a outra aqui?
+Mais do...
+É, 1294.
+Ah, tá certo.
+Vamos só validar aqui.
+36, já foi.
+862, 24.
+Mais 36, mais 33.
+Mas não necessariamente vai bater, né, Suárez?
+Porque pode ser que tenha uma bonificação ali que seja segmentado.
+Isso.
+Não, vai ser só daqui mesmo.
+Dá 1.402.
+Vamos só verificar se realmente...
+Se bate aqui, só pra ter uma...
+Se realmente é 100%.
+Bateu.
+É esse o valor mesmo.
+Aí a gente...
+Geralmente, pessoal...
+Geralmente não.
+Eu indico que se lance aqui, entendeu?
+Você vai lançar, ou seja, o valor...
+Correspondente a cada empresa.
+Porque o sistema já leva, entendeu?
+Tipo, eu lanço na filial, o valor que seria 1.402 de bonificação.
+E eu lanço o valor na matriz também, que é referente ao valor dela.
+Beleza?
+Aí o sistema da Domini, ela se encarrega de levar isso daí.
+Aí, outra pergunta que eu faço a você.
+A vocês.
+Qual a presunção aqui?
+Alguém sabe?
+100%.
+Pronto.
+Você sabe por que é 100% na Eli e em Joyce?
+Já ouvi de qual me passa aí qual a espécie?
+Eita.
+Deixa eu pegar uma padrão, já.
+Eu não lembro não, sem cabeça.
+Só eu olho sempre a do mês anterior.
+Seria aquela questão do por que passa de 60 mil, Suárez?
+Não.
+Vamos dizer.
+Vamos lá.
+Deixa eu pegar aqui um...
+Qual o mês que teve.
+Alguém quer chutar ou...
+Eu já sabe por que.
+Aqui, acumulador 10.28.
+Pessoal, aqui eu estou ensinando a forma mais fácil, né?
+Ou seja, eu vou na última nota.
+Ou saída.
+Só para vocês entenderem.
+Eu estou indo na última nota, pessoal.
+Porque quando eu vou gerar...
+Quando eu chegar aqui nela, ela vai apresentar aqui para mim.
+A última nota que teve.
+Aqui é.
+Meio de nove, está vendo?
+Aí eu vou aqui e clico em novo.
+Foi até o João Vitor que fez.
+Aqui é a nota 7.
+Está vendo?
+Ele já sai para a nota 7.
+Coloca a data.
+31.
+Aqui já está o CFOB.
+Já está tudo.
+Coloca o valor.
+1.402.52.
+Beleza?
+Fechou.
+Aí eu gravo aqui.
+O postulador vai colocar.
+Mas aqui eu só para...
+Aqui é importante.
+Eu vou colocar até...
+Vou colocar nesse acumulador aqui para vocês entenderem.
+Então, vocês têm que entender a parte contábil.
+Não sei se as meninas estão lançando.
+Eu acho que elas já estão lançando.
+Ah!
+Tem uma situação.
+Sabe por que não lança aqui, pessoal?
+Não lança a parte contábil nessa nota.
+Você sabe por quê?
+Para não duplicar.
+Porque já está lançada a receita pela nota de entrada.
+Então, se eu lanço novamente, eu duplico.
+Entendeu?
+Então, por isso que é importante também vocês saberem isso daí.
+Entendeu?
+Tudo por trás tem uma lógica.
+Nada aqui é feito por acaso.
+Tudo tem uma lógica contábil por trás.
+Ou seja, isso daí é teste.
+Teste, opera.
+Teste, opera.
+Teste, opera.
+Então, tudo para não ter nenhum erro.
+Então, tipo, não se lança aqui a parte contábil que é aqui.
+Porque na nota de entrada já é feito o lançamento.
+Então, por isso que a gente faz.
+Então, aqui eu já lancei.
+Agora eu vou lançar o da matriz, né?
+Que eu lancei o da filial.
+Beleza?
+Você lançou o imposto dentro do item?
+Você lançou o item para cuidar?
+Deixa eu ver, veja.
+Deixa eu ver, rapidinho.
+Deixa eu ver aqui, rapidinho.
+Boa ideia.
+Geralmente, eu acho que ele pega pelo acumulador, não é não?
+Ele não vai pegar pelo item, não.
+Esse daqui, eu acho.
+É, eu acho que isso é quando é algo real que tem que lançar para o PIS e COFINS, né?
+É.
+Acho que é mesmo.
+Isso.
+Eu presumir não precisa porque não tem interferência no PIS e COFINS.
+É, só para validar, vamos pegar o do mês passado.
+Acumulador 10, 28.
+É, mas tem aqui, ó.
+Zero.
+Nesse, na filial a gente conclui.
+É, deixa eu ver quantos minutos.
+Pronto, a gente está a 32 minutos, pessoal.
+É, vocês estão vendo que eu estou sendo detalhista em cada situação com vocês, né?
+E a gente está tirando dúvida.
+Então, a gente vai terminar a apuração em 32 minutos.
+Por isso que eu disse a vocês que duas pessoas ficando no IRPJ e fazendo dessa forma aqui,
+indo nos mínimos detalhes, a gente consegue concluir todos os IRPJ-CSLL.
+Porque é um, poxa, vamos dizer assim, menos complexo.
+Claro, tem suas particularidades, tem.
+Mas a gente consegue.
+Então, a gente está a 33 minutos aqui fechando dúvidas, fechando a questão de um POP.
+E a gente vai concluir.
+Só falta agora lançar o da matriz.
+Então, para a matriz.
+Aí eu vou ter que regerar novamente, né?
+Depois que lançar aqui, só para vocês entenderem.
+Porque ele vai pegar a receita de bonificação da filial e vai pegar a receita de bonificação da matriz.
+Ah, eu estou aguardando a resposta de vocês, né?
+De por quê?
+Qual o percentual?
+Eu não sei não, sabe por quê.
+Ninguém sabe?
+Tato sabe?
+Pronto.
+A gente está falando, aqui é considerado que tipo de receita, que tipo de receita é essa?
+Receita financeira?
+Isso mesmo.
+É uma receita financeira.
+Por isso que é 100%.
+Me ajude aqui, seu receita.
+Tem uma situação que a gente ia esquecendo.
+Perguntar ao pessoal do contábil aí se já foi lançado a receita financeira.
+Porque está faltando ela também, para não esquecer.
+Aqui, tributação, 1029.
+Então, vamos lá, pega o 1029.
+Foi lançado não ainda, Suárez?
+Que o responsável da empresa não mandou ainda.
+Pronto, beleza.
+Esqueci o nome dele.
+Marcelo, né?
+Marcelo não mandou não ainda.
+Beleza, eu vou cobrar ele.
+Qual o valor daqui, vocês sabem?
+Vocês recordam?
+188, né?
+De alguma coisa.
+Isso.
+Aqui ela, só para ligar.
+Enquanto eu estou preenchendo aqui, eu queria uma análise de Nayeli e de Joyce.
+Para vocês.
+Do que eu fiz aqui.
+O que é que eu preciso ainda, vamos dizer assim, fortalecer.
+Claro, pessoal, toda a parte operacional, que é o que eu estou fazendo aqui, é necessário.
+Eu sempre digo que você tem que ter, no mínimo, uma base inicial.
+Entendeu?
+Porque se a gente for fazer tudo no automático, fica meio que engessado.
+Você tem que saber o porquê.
+Então, tipo, eu tentei mostrar aqui para vocês tudo o que está por volta de cada cálculo, de cada situação,
+para que vocês tenham o máximo de fundamento.
+Porque, por exemplo, eu faço isso.
+Beleza, aí eu vejo o questionamento de um cliente.
+Ah, Suárez, e por que foi lançado isso, isso e isso?
+Então, vocês têm que saber, entendeu?
+Qual é a base, por que se lança.
+Entendeu?
+Isso daí é fundamental.
+Porque nenhum questionamento futuro, você tem fundamento para chegar e dizer para o cliente o porquê de cada situação.
+Aqui a gente conclui.
+Agora eu vou recalcular aqui, só para vocês entenderem.
+E vou mostrar a vocês.
+Reprocessar.
+Bom, aí quando terminar aqui, ele vai apresentar todos os impostos.
+A gente só vai conferir se está tudo puxando.
+E fechou a apuração, pessoal.
+Vocês acharam o quê?
+Foi complexo?
+Como é a análise de vocês?
+Aberta aí.
+É.
+Para mim, ainda fica um pouco complexo.
+Porque eu não usei muito ainda o domínio, né?
+Aí, assim, ainda está um pouco complexo, sim, para mim.
+Está muito, Sônia.
+Ah, perdão.
+Quais pontos que você acha que para você é complexo para a gente tentar trabalhar em cima deles?
+Não, assim, é porque, na verdade, eu fico um pouco perdida na questão de mexer mesmo.
+Na domínio?
+Na domínio, é.
+Pronto.
+Então, aí o que eu vou pedir?
+Enfim, você como líder, pegar um, como é que chama?
+Lá dentro da plataforma.
+Porque a gente tem o módulo de treinamento, né?
+Da domínio.
+E aí você criar um ciclo para ela de trabalhar só isso daí.
+Por exemplo, a domínio lança vários cursos.
+Por exemplo, está lançando agora, pessoal, já pensando na alteração do cálculo do IRPJ-CSLL.
+Então, na Eli e Joyce e também os demais.
+Para vocês se anteciparem, porque quando eu vi o módulo, por exemplo, eu já assisti.
+Então, quando eu vi o cálculo do IRPJ já com a atualização da nova norma, que aumentou, né?
+E aumentou em 10%.
+Eu já sei como é que o sistema da domínio vai se comportar.
+Então, é importante vocês não só se abastecer do conhecimento na hora de operacionalizar, mas é antes.
+Então, a domínio já lançou um treinamento voltado a essa parte dos 10%.
+Como é que o sistema vai se comportar.
+Até Sandro foi que mandou para mim, se eu não estou enganado.
+Esse...
+De como fazer parametrização na domínio, né?
+De tudo isso daí.
+Para que vocês, na hora de executar, vocês já saibam.
+Entendeu?
+Pronto.
+Então, aqui vamos lá.
+A gente já fez análise de cada acumulador, a gente já lançou as bonificações, a gente
+verificou, não tinha venda de imobilizado, né?
+E aí, ficou esses dois pendentes.
+Vim, eu vou direcionar para você, porque eu não sei se Sibeli vai vir, que se é hoje
+ou amanhã.
+Então, você só fica aguardando lançar a receita financeira.
+O contábil lançou, pronto.
+Você já gera a guia, transmita a DCTFWeb.
+Entendeu?
+E tranquilo.
+Vamos lá, só validar aqui.
+Ô, Soares.
+Oi.
+Como você estava relatando aí, os pontos, né?
+Sim.
+Aí no Gesta, sobre o cálculo.
+Mas você vê que aí ele não cita essas informações da água referente ao IPI e o IST.
+Sim.
+Se, caso, vamos supor, eu, né?
+Como não tinha apurado dessa forma, talvez eu me perderia nessa situação.
+Entendi.
+Pronto.
+O IST e o IPI.
+Pronto.
+Vini, você coloca o seguinte.
+Eu vou pedir para você.
+Pedi a Tawani para...
+Na verdade, era algo que eu queria já fazer há um tempo, só que devido às demandas, a gente acabou não executando.
+Mas a intenção era que cada tipo de empresa, segmento, tenha um checklist diferente.
+Porque meio que você se deixar isso para as empresas de serviço, porque as empresas de serviço têm, vamos dizer assim, particularidade também diferente.
+Então, seria criar um checklist e uma tarefa própria para esse segmento.
+E no caso da Água Plus, a Cibela ainda chegou a colocar algumas particularidades dela na aba observação da domínio, no campo fiscal lá.
+Sim.
+Ela colocou.
+Aluguel PF, ICMSST, FCAVST, ela colocou algumas coisas aqui.
+Seria criar o hábito também de a gente começar a alimentar isso aqui, como a gente já tem até pontuado algumas reuniões, não foi?
+Isso. Então, pessoal, só para constar aqui, vocês estão vendo a bonificação, está vendo 100%, aqui essa da matriz e aqui a bonificação da filial, 100%, está vendo?
+Então, já está trazendo, então aqui eu já tenho toda a memória de cálculo.
+Então, aqui só para vocês entenderem, já vou ensinar ali que vocês ainda estão no início.
+Aqui seria a presunção, ou seja, de toda essa receita, tirando as devoluções, tirando tudo, a presunção do IRPJ, que é 8%, tem algumas receitas que é 100%, vai entrar agora, falta a receita financeira, que é do banco, que também é 100%, então vai aumentar um pouquinho aqui também, só que vai ficar, vamos dizer assim,
+quando aumentar a receita, ela vai impactar diretamente aqui, exemplo, se a receita financeira do banco foi 3 mil reais, então aqui vai para, diretamente para 262 mil e alguma coisa, beleza?
+Por quê? Porque é 100%, só a receita operacional que vai seguir a presunção, conforme eu ensinei lá no início, que é com base no CNAE.
+Aí a gente tem aqui, 259, a gente tem aqui a redução, que é para encontrar o adicional, o adicional de 10%, ou seja, esse adicional de 10% é diferente do adicional que a nova lei vai trazer,
+porque o adicional que a nova lei vai trazer é decorrente de quê?
+O adicional que a nova lei vai trazer, que é a 256, é decorrente de quê?
+É quando a empresa ultrapassar 5 milhões, isso, anual, ou, só que vai ser via trimestre, então já saiu até uma instituição normativa,
+então vai ser assim, 5 milhões dividido por 4, então em cada mês que a empresa ultrapassar isso daqui, já vai aplicar os 10%, entendeu?
+Ah, Suárez, no primeiro mês eu não ultrapasso, não aplica, e aí você também vai acumular gordura, mas se ultrapassar já foi, beleza?
+Aí no caso é sobre serviço, né?
+Foi?
+Sobre serviço, né? Esses 10%, comércio...
+Não, todas as empresas.
+Todas as empresas?
+É, todas.
+Então a gente vai ter essa situação aqui, que é para achar o adicional.
+O adicional, Joyce e Nayeli, é o seguinte, quando ultrapassar, vamos pensar, eu tenho um mito que a legislação me coloca,
+que é de 20 mil ao mês, né?
+Ou seja, 20 mil de quê?
+Quando eu calcular a presunção, se ultrapassar 20 mil ao mês, que no trimestre dá 60,
+eu vou ter que fazer esse cálculo aqui, que é pegar esses 259 mil menos 60, que é o limite que eles colocam,
+para você não pagar adicional, o que ultrapassou vai dar 199, sobre esse valor eu aplico 10%.
+Então eu tenho de adicional de IRPJ, 19.954.
+Ah, Suárez, só vai tendo IRPJ, a lei só prevê com IRPJ.
+Então eu tenho 19 mil de adicional, mais 38 mil, que é do imposto, que é sobre isso daqui,
+ou seja, sobre os 259.545, vezes 15%, que é a lei, tá?
+Me deu aqui 38.931, mais o adicional, que é 19.954.590.
+Ou seja, eu tenho 58 mil aqui de imposto a recolher de IRPJ.
+A CSLL é mais tranquilo, porque não tem adicional, é só aplicar sobre a presunção,
+ou seja, sobre os 12%, eu aplico 9.
+Me faço compreender?
+Pronto, então beleza.
+O que é que a gente vai fazer?
+João, Fito e Tato, vocês dois vão ficar encarregados para executar o IRPJ de todas as empresas que estão.
+Vini vai transferir para vocês.
+E Vini, aí você veja com Naeli e Joyce as demandas que você pode passar para a gente tentar zerar as pendências que a gente tem do setor fiscal.
+Beleza?
+Tranquilo aqui?
+Fechou.
+Tati e João Vítio, tem alguma dúvida?
+Beleza.
+Jogue duro aqui, aplique o que a gente contextualizou aqui.
+E qualquer dúvida também, pode me acionar para a gente alinhar.
+Verifica com o contábil quais as empresas que já enviaram a receita financeira.
+Os que já enviaram, vocês já adiantam.
+Tá, e já me mandar a lista aqui.
+Ela já mandou.
+O que está faltando, vocês me avisam para o cobrar dos clientes.
+Beleza?
+Fechou, pessoal.
+Obrigado.
+Que tenhamos um ótimo início de semana.
+Obrigado.

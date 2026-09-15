@@ -4,39 +4,45 @@ import type { RunConfig } from "../types";
 import type { XmlDownloadConfig } from "../xml-downloads";
 import type { StartRunRequest, StartXmlDownloadRequest } from "./ipc-types";
 
-export const DEFAULT_TIMEOUT_MS = 30_000;
+export const DEFAULT_TIMEOUT_MS = 90_000;
 export const DEFAULT_XML_THREADS = 8;
 export const DEFAULT_XML_TIMEOUT_MS = 90_000;
 export const DEFAULT_XML_RETRY_COUNT = 2;
 export const DEFAULT_XML_RETRY_DELAY_MS = 1_000;
 
 export function buildRunConfig(request: StartRunRequest): RunConfig {
-  const auth = resolveSefazAuthConfig(process.env);
   const user = request.user.trim();
-  const password = request.password;
+  const certPath = request.certPath.trim();
   const formats = request.formats.filter((format) => format === "pdf" || format === "xls");
   const outDir = request.outDir.trim();
 
-  if (requiresPasswordCredentials(auth) && !user) {
-    throw new Error("Informe o login da SEFAZ.");
+  if (!user) {
+    throw new Error("Informe o código do vínculo Contador.");
   }
-  if (requiresPasswordCredentials(auth) && !password) {
-    throw new Error("Informe a senha da SEFAZ.");
+  if (!certPath) {
+    throw new Error("Selecione o certificado digital A1 (.pfx).");
   }
   if (formats.length === 0) {
     throw new Error("Selecione pelo menos um formato.");
   }
   if (!outDir) {
-    throw new Error("Selecione uma pasta de saida.");
+    throw new Error("Selecione uma pasta de saída.");
   }
+
+  const auth = resolveSefazAuthConfig(process.env, {
+    authMode: "certificate",
+    certPath,
+    certPassword: request.certPassword,
+  });
 
   return {
     user,
-    password,
+    password: "",
     competencia: parseCompetencia(request.competencia),
     formats,
     outDir,
     checkpointEnabled: request.checkpointEnabled ?? true,
+    headless: false,
     timeoutMs: DEFAULT_TIMEOUT_MS,
     ...auth,
   };
@@ -45,7 +51,7 @@ export function buildRunConfig(request: StartRunRequest): RunConfig {
 export function buildXmlDownloadConfig(request: StartXmlDownloadRequest): XmlDownloadConfig {
   const outDir = request.outDir.trim();
   if (!outDir) {
-    throw new Error("Selecione uma pasta de saida.");
+    throw new Error("Selecione uma pasta de saída.");
   }
 
   return {
@@ -58,8 +64,4 @@ export function buildXmlDownloadConfig(request: StartXmlDownloadRequest): XmlDow
     retryCount: DEFAULT_XML_RETRY_COUNT,
     retryDelayMs: DEFAULT_XML_RETRY_DELAY_MS,
   };
-}
-
-function requiresPasswordCredentials(auth: ReturnType<typeof resolveSefazAuthConfig>): boolean {
-  return auth.authMode === "password" || !auth.certificate;
 }

@@ -1,0 +1,16 @@
+Nesse vídeo eu vou mostrar como testar se o certificado está válido, se ele realmente funciona, e quem foi o sócio-administrador que fez a emissão desse certificado. Para o caso do contrato social, está dizendo ali que são mais de um sócio-administrador, porém somente um é o representante perante a Receita.
+Então, quando há alteração contratual e precisa consultar se vai precisar fazer um novo certificado ou não, se realmente mudou o sócio ou não, dessa forma você consegue verificar.
+O primeiro passo é verificar qual foi a certificadora que fez esse certificado. Para isso você precisa instalar o certificado, buscar ou gerenciar certificados de usuários, pessoal, certificados,
+certificados, pesquisar a empresa que você quer consultar, Santa Fé. O certificado da Santa Fé foi feito pela Singular.
+Então você volta no Google e vai pesquisar Testar Certificado Singular.
+Então você vai clicar nessa opção, Testar Certificado, aguarda carregar, tentar mais uma vez, que não está indo para a página certa.
+Pronto, essa é a página que você vai selecionar o certificado para fazer o teste.
+Santa Fé, Gestão Patrimonial.
+Pronto, Santa Fé é um certificado válido.
+E aqui está dizendo que o CPF do sócio que fez é esse aqui.
+Aí você consulta a compatibilidade desse CPF com o sócio atual.
+Se for o mesmo CPF, não precisa fazer um novo certificado.
+Se tem diferença do sócio que emitiu o certificado para o sócio que é atualmente, aí vai precisar.
+Neste caso aqui, atualmente, na última alteração contratual, a Santa Fé passou a ser administrada por Bruno.
+E esse CPF é de Lucas.
+Então, com essa alteração, que mudou para Bruno, vai ser necessário fazer um novo certificado.

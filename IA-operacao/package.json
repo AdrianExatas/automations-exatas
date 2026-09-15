@@ -1,0 +1,27 @@
+{
+  "name": "ia-operacao",
+  "version": "1.0.0",
+  "description": "Download de relatorios Unecont (xlsx bruto) ate antes da formatacao local",
+  "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "download": "tsx src/scripts/run.ts",
+    "run": "tsx src/scripts/run.ts",
+    "conferir-notas": "tsx src/scripts/conferir-notas.ts",
+    "playwright:codegen": "playwright codegen",
+    "playwright:install": "playwright install chrome",
+    "build": "tsc -p tsconfig.json"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.0",
+    "playwright": "^1.58.2",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.23.12",
+    "typescript": "^5.0.0"
+  }
+}

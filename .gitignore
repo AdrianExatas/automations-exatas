@@ -45,6 +45,22 @@ env/
 *.temp
 *.bak
 *~
+
+# Sensitive certificates, browser captures and session exports
+*.pfx
+*.p12
+*.har
+screenshots/
+*.storage-state.json
+*.auth.json
+
+# Local signing credentials and generated desktop release bundles
+SEFAZ-SE/DIA/shared/certificado/
+baixar-e-solicitar-xml-sefaz/certificado/
+**/release/
+**/release-*/
+/apuracao-ICMS.zip
+/zappy/pacote-integracao-zappy.zip
 *.swp
 
 # Editors and OS files
@@ -58,6 +74,7 @@ Thumbs.db
 # Repository conventions
 _local/
 .mp4
+*.mkv
 Financeiro/var/
 Financeiro/samples/*.pdf
 

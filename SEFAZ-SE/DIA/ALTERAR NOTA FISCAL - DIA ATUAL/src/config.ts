@@ -25,16 +25,16 @@ export async function loadConfig(argv = process.argv.slice(2)): Promise<RunAlter
   const password = cli.password ?? process.env.SEFAZ_PASSWORD ?? "";
   const spreadsheetPath = cli.spreadsheetPath ?? process.env.PLANILHA_NOTAS ?? "";
   const auth = resolveSefazAuthConfig(process.env, {
-    authMode: cli.authMode,
+    authMode: cli.authMode ?? "certificate",
     certPath: cli.certPath,
     certPasswordFile: cli.certPasswordFile,
   });
 
-  if (requiresPasswordCredentials(auth) && !user.trim()) {
-    throw new Error("Informe --user ou SEFAZ_USER.");
+  if (!user.trim()) {
+    throw new Error("Informe --user ou SEFAZ_USER (codigo do vinculo Contador).");
   }
-  if (requiresPasswordCredentials(auth) && !password) {
-    throw new Error("Informe --password ou SEFAZ_PASSWORD.");
+  if (!auth.certificate) {
+    throw new Error("Certificado digital A1 nao encontrado. Configure SEFAZ_CERT_PATH ou informe --cert-path.");
   }
   if (!spreadsheetPath.trim()) {
     throw new Error("Informe --planilha ou PLANILHA_NOTAS.");
@@ -163,15 +163,14 @@ function parseBrowserChannel(raw: string): PlaywrightBrowserChannel {
 
 function parseAuthMode(raw: string): SefazAuthMode {
   const value = raw.trim().toLowerCase();
-  if (value === "auto" || value === "certificate" || value === "password") {
-    return value;
+  if (value === "password") {
+    throw new Error("Login por senha nao e mais suportado. Use --auth-mode certificate.");
+  }
+  if (value === "auto" || value === "certificate") {
+    return "certificate";
   }
 
-  throw new Error("Use --auth-mode com auto, certificate ou password.");
-}
-
-function requiresPasswordCredentials(auth: ReturnType<typeof resolveSefazAuthConfig>): boolean {
-  return auth.authMode === "password" || !auth.certificate;
+  throw new Error("Use --auth-mode com certificate.");
 }
 
 async function loadDotEnv(filePath = ".env"): Promise<void> {

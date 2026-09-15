@@ -1,0 +1,123 @@
+{
+  "media": "G:\\Meu Drive\\GESTÃO DE PROCESSOS\\_SEM_SETOR\\VÍDEOS\\Replicar acumulador na empresa.mp4",
+  "transcript_path": "C:\\Users\\Exatas\\Documents\\GitHub\\automations-exatas\\gerador-pop-it\\transcriptions\\a fazer\\Replicar acumulador na empresa (transcribed on 10-Sep-2026 20-42-26).txt",
+  "language": "pt",
+  "duration_sec": 204.8,
+  "segments": [
+    {
+      "start": 0.43,
+      "end": 20.43,
+      "text": "Eu estou gravando aqui o vídeo de como replicar um acumulador na empresa. O primeiro passo é você vai entrar na empresa para saber se já possui o acumulador lá ou não, porque se já existia a numeração cadastrada, se você replicar, ele vai se sobrepor e vai excluir o que já tem."
+    },
+    {
+      "start": 20.43,
+      "end": 46.43,
+      "text": "Aí eu vou pegar aqui como exemplo uma empresa que ela ingressou agora. Vamos pegar aqui como exemplo a Colaris. Pronto, na verdade, eu vou verificar aqui na Colaris. Eu já sei que os acumuladores que foram criados na Bonsomos de serviço tomado iniciam a partir do acumulador número 2000."
+    },
+    {
+      "start": 46.43,
+      "end": 52.43,
+      "text": "Então eu vou verificar aqui se já existe o acumulador de número 2000."
+    },
+    {
+      "start": 65.42,
+      "end": 100.0,
+      "text": "Código 2000, não tem. Venho aqui, vou na empresa, R$ 26,00, exemplo. Vou selecionar aqui o acumulador 2000. Venho aqui em Replicar."
+    },
+    {
+      "start": 100.0,
+      "end": 110.8,
+      "text": "Replicar. Aí vai habilitar esse campo aqui. Apenas o registro corrente. Replicar. Aí agora aqui eu vou selecionar a empresa."
+    },
+    {
+      "start": 110.8,
+      "end": 121.16,
+      "text": "Na minha empresa, exemplo, a empresa aqui. Para qual serão replicados o acumulador vai ser a empresa Colaris. Eu vou procurar aqui a empresa Colaris."
+    },
+    {
+      "start": 121.16,
+      "end": 141.13,
+      "text": "Pronto. Avançar. Informação replicada. O acumulador foi replicado. Aí agora eu vou verificar a configuração de importação."
+    },
+    {
+      "start": 141.13,
+      "end": 151.13,
+      "text": "Eu já tenho aqui toda a importação. Eu já tenho aqui toda a parametrização feita."
+    },
+    {
+      "start": 151.13,
+      "end": 163.13,
+      "text": "É só, você vai selecionar aqui, replicar. Só que vai ter que replicar todos os acumuladores lá. A partir do 2000, replicou."
+    },
+    {
+      "start": 163.13,
+      "end": 167.13,
+      "text": "Você vem aqui e replica a configuração de importação nesse campo."
+    },
+    {
+      "start": 167.13,
+      "end": 171.13,
+      "text": "A gente tem um jeito de mandar. A gente tem que replicar. A gente vai fazer uma mágica."
+    },
+    {
+      "start": 171.13,
+      "end": 177.13,
+      "text": "Certo. E é basicamente esse o procedimento. Só vou mostrar lá aqui. Já possui o acumulador 2000 na empresa Colaris."
+    },
+    {
+      "start": 177.13,
+      "end": 179.13,
+      "text": "Mas a mágica do que vai."
+    },
+    {
+      "start": 188.71,
+      "end": 189.71,
+      "text": "Acumuladores."
+    },
+    {
+      "start": 191.71,
+      "end": 193.71,
+      "text": "Para domínio? Não, por radar."
+    },
+    {
+      "start": 193.71,
+      "end": 195.71,
+      "text": "Incorpbras."
+    },
+    {
+      "start": 195.71,
+      "end": 196.71,
+      "text": "Especuído."
+    },
+    {
+      "start": 196.71,
+      "end": 197.71,
+      "text": "A cirurgidade."
+    },
+    {
+      "start": 197.71,
+      "end": 198.71,
+      "text": "Incont 아파트."
+    },
+    {
+      "start": 198.71,
+      "end": 213.37,
+      "text": "Deut"
+    },
+    {
+      "start": 213.71,
+      "end": 215.71,
+      "text": "menos."
+    },
+    {
+      "start": 215.71,
+      "end": 218.71,
+      "text": "Certo."
+    },
+    {
+      "start": 218.71,
+      "end": 220.71,
+      "text": "Ok."
+    }
+  ]
+}

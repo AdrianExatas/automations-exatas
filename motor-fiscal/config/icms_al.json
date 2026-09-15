@@ -1,0 +1,39 @@
+{
+  "uf": "AL",
+  "descricao": "Matriz tributária ICMS — Alagoas (parametrizável; alíquotas internas típicas 19% + FECOEP à parte)",
+  "regras": [
+    {"cfop": "1102", "cst": "000", "aliq_esperada": 19.0, "natureza": "compra_interna"},
+    {"cfop": "1403", "cst": "000", "aliq_esperada": 19.0, "natureza": "compra_interna_st"},
+    {"cfop": "1656", "cst": "000", "aliq_esperada": 19.0, "natureza": "compra_combustivel"},
+    {"cfop": "1352", "cst": "000", "aliq_esperada": 12.0, "natureza": "frete_entrada"},
+    {"cfop": "2102", "cst": "000", "aliq_esperada": 12.0, "natureza": "compra_interestadual"},
+    {"cfop": "5102", "cst": "000", "aliq_esperada": 19.0, "natureza": "venda_interna"},
+    {"cfop": "5405", "cst": "060", "aliq_esperada": 0.0, "natureza": "venda_st_cobrado_anteriormente"},
+    {"cfop": "5656", "cst": "000", "aliq_esperada": 19.0, "natureza": "venda_combustivel"},
+    {"cfop": "6102", "cst": "000", "aliq_esperada": 12.0, "natureza": "venda_interestadual"},
+    {"cfop": "6108", "cst": "000", "aliq_esperada": 12.0, "natureza": "venda_interestadual_nao_contribuinte"}
+  ],
+  "fecoep": {
+    "descricao": "FECOEP AL (Lei 6.558/2004 / IN SEF 6/2017) — distinto do FCP E310",
+    "cod_rec_normal": "50059",
+    "cod_rec_difal": "50075",
+    "cod_rec_icms": "13170",
+    "cod_rec_icms_difal": "15610",
+    "cod_or_icms": "000",
+    "cod_or_normal": "006",
+    "cod_or_difal": "090",
+    "aliq_default": 2.0,
+    "aliq_fecoep": {
+      "comentario": "Default 2%. Liste em ncm_1 prefixos NCM sujeitos a 1% (Lei 6.558 art. 2º/2º-A). Chaves NCM/prefixo sobrescrevem.",
+      "ncm_1": []
+    },
+    "e111": {
+      "debito_controle": "AL009999",
+      "credito_controle": "AL029999",
+      "deducao_icms": "AL040001",
+      "debito_especial": "AL050001",
+      "debito_especial_difal": "AL050020",
+      "filtro_descricao": "FECOEP"
+    }
+  }
+}

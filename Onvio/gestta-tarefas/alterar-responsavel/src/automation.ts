@@ -103,6 +103,22 @@ function perguntar(pergunta: string): Promise<string> {
   });
 }
 
+/**
+ * Backup/preflight roda quando o operador pede --backup-only
+ * ou quando a planilha usa coluna TAREFA (alteracao pontual).
+ */
+export function deveGerarBackupPreflight(
+  backupOnly: boolean,
+  linhas: Array<{ tarefa?: string }>
+): boolean {
+  return backupOnly || linhas.some((linha) => Boolean(linha.tarefa));
+}
+
+/** --backup-only sempre sai antes de qualquer PATCH. */
+export function deveInterromperAposBackup(backupOnly: boolean): boolean {
+  return backupOnly;
+}
+
 export function parseArgs(argv = process.argv.slice(2)): CliArgs {
   const continuar = argv.some((a) => a === "--continuar" || a === "-c");
   const ignorarCheckpoint = argv.some((a) => a === "--sem-checkpoint" || a === "--ignorar-checkpoint");
@@ -684,9 +700,9 @@ export async function runAutomation(options: AutomationRunOptions): Promise<void
   const client = createGesttaClient(auth);
   await preflightGesttaAuth(client);
 
-  if (linhas.some((linha) => linha.tarefa)) {
+  if (deveGerarBackupPreflight(Boolean(options.backupOnly), linhas)) {
     await gerarBackupPreflight(client, planilhaPath, linhas, inicioExecucao);
-    if (options.backupOnly) {
+    if (deveInterromperAposBackup(Boolean(options.backupOnly))) {
       console.log("\nBackup/preflight concluido. Nenhum responsavel foi alterado.");
       return;
     }

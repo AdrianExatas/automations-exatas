@@ -38,31 +38,58 @@ export class EmpresaSelectionPage {
     });
   }
 
+  private async dismissPointerBlockers(): Promise<void> {
+    await this.page.evaluate(() => {
+      if (typeof document === "undefined") return;
+      for (const overlay of Array.from(document.querySelectorAll(".sweet-overlay"))) {
+        (overlay as HTMLElement).style.display = "none";
+        overlay.remove();
+      }
+      for (const alert of Array.from(document.querySelectorAll("div.sweet-alert"))) {
+        const el = alert as HTMLElement;
+        el.style.display = "none";
+        el.classList.remove("visible", "showSweetAlert");
+      }
+      const loading = document.querySelector("#Loading_modalLoading, .modalLoading") as HTMLElement | null;
+      if (loading) {
+        loading.style.display = "none";
+        loading.classList.remove("in", "show");
+      }
+      document.querySelectorAll(".modal-backdrop").forEach((backdrop) => backdrop.remove());
+      document.body?.classList.remove("modal-open");
+    });
+  }
+
   private async openSelectionModalWithFallback(): Promise<void> {
-    await this.page
-      .locator(
-        "#LeftSideBarControl_divEmpresaSelecionadaPrincipal button.btSelecionaParceiroEmpresa",
-      )
-      .click();
+    const button = this.page.locator(
+      "#LeftSideBarControl_divEmpresaSelecionadaPrincipal button.btSelecionaParceiroEmpresa",
+    );
 
-    try {
-      await this.waitForSelectionModal(EmpresaSelectionPage.MODAL_CLICK_TIMEOUT_MS);
-      return;
-    } catch {
-      await this.page.evaluate(() => {
-        const opener = (
-          window as typeof window & {
-            ExibeModalSelecionaParceiroEmpresaMenuLateral?: () => void;
-          }
-        ).ExibeModalSelecionaParceiroEmpresaMenuLateral;
-
-        if (typeof opener !== "function") {
-          throw new Error("Funcao de abertura do modal de empresas nao encontrada");
-        }
-
-        opener();
-      });
+    for (let attempt = 1; attempt <= 3; attempt++) {
+      await this.dismissPointerBlockers();
+      try {
+        await button.click({ timeout: 5_000, force: attempt > 1 });
+        await this.waitForSelectionModal(EmpresaSelectionPage.MODAL_CLICK_TIMEOUT_MS);
+        return;
+      } catch {
+        if (attempt === 3) break;
+      }
     }
+
+    await this.dismissPointerBlockers();
+    await this.page.evaluate(() => {
+      const opener = (
+        window as typeof window & {
+          ExibeModalSelecionaParceiroEmpresaMenuLateral?: () => void;
+        }
+      ).ExibeModalSelecionaParceiroEmpresaMenuLateral;
+
+      if (typeof opener !== "function") {
+        throw new Error("Funcao de abertura do modal de empresas nao encontrada");
+      }
+
+      opener();
+    });
 
     await this.waitForSelectionModal(EmpresaSelectionPage.LIST_LOAD_TIMEOUT_MS);
   }
@@ -74,14 +101,24 @@ export class EmpresaSelectionPage {
     } catch {
       // O modal pode aparecer sem checkbox clicavel; ainda assim precisa sair da frente.
     }
-    const closeBtn = this.page
-      .locator("#novidadeProgramaIndicacaoFase02 button.close[data-dismiss='modal']")
-      .first();
-    await closeBtn.click({ timeout: 1000 }).catch(() => {});
+    const closeSelectors = [
+      "#novidadeProgramaIndicacaoFase02 button.close[data-dismiss='modal']",
+      "#modalNovidadeIntegracaoDominio button.close[data-dismiss='modal']",
+      "#modalNovidadeIntegracaoDominio button[data-dismiss='modal']",
+      "#modalNovidadeIntegracaoDominio .close",
+    ];
+    for (const selector of closeSelectors) {
+      await this.page.locator(selector).first().click({ timeout: 1000 }).catch(() => {});
+    }
     await this.page.evaluate(() => {
       if (typeof document === "undefined") return;
-      const modal = document.querySelector("#novidadeProgramaIndicacaoFase02");
-      if (modal) modal.remove();
+      for (const id of [
+        "novidadeProgramaIndicacaoFase02",
+        "modalNovidadeIntegracaoDominio",
+      ]) {
+        const modal = document.querySelector(`#${id}`);
+        if (modal) modal.remove();
+      }
       const body = document.body;
       if (!body) return;
       document.querySelectorAll(".modal-backdrop").forEach((backdrop: Element) => backdrop.remove());

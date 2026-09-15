@@ -1,12 +1,16 @@
 import { join } from "node:path";
-import { PATHS, SENHA_SEFAZ, UPLOAD_NUM_WORKERS, USUARIO_SEFAZ } from "../core/config.js";
-import { SefazHttpClient, SefazHttpError } from "../sefaz-http/client.js";
-import type { DownloadInfo, DownloadListingPage } from "../types.js";
+import { PATHS, SEFAZ_CERT_PFX_PASSWORD, SEFAZ_CERT_PFX_PATH, UPLOAD_NUM_WORKERS } from "../core/config.js";
+import { SefazHttpError } from "../sefaz-http/client.js";
+import { SefazPortalClient, type SefazTransport } from "../portal/client.js";
+import type { DownloadInfo, DownloadListingPage, UploadResult } from "../types.js";
 import { acquireFileLock } from "../utils/lock.js";
-import { arquivoJaOrganizado, extrairZipOrganizadoExistente } from "./files.js";
+import { arquivoJaOrganizado, extrairZipOrganizadoExistente, limparDownloadsTemporarios } from "./files.js";
 import { downloadState } from "./state.js";
+import { type DownloadExecutionResult } from "./exit-code.js";
 import {
   carregarCheckpoint,
+  chaveArquivoBaixado,
+  jaBaixado,
   registrarArquivoBaixado,
   salvarCheckpoint,
   salvarCursorCheckpoint,
@@ -14,26 +18,8 @@ import {
 
 const CURSOR_SAVE_INTERVAL = 10;
 
-function chaveDownload(info: DownloadInfo): string {
-  const payload = {
-    url: info.url,
-    nome: info.nmArquivo,
-    dt_solicitacao: info.dtSolicitacao ?? "",
-    tipo_download: info.tipoDownload,
-  };
-  return JSON.stringify(payload, Object.keys(payload).sort());
-}
-
-function jaBaixado(info: DownloadInfo, arquivosBaixados: Set<string>): boolean {
-  return (
-    arquivosBaixados.has(info.url) ||
-    Boolean(info.nmArquivo && arquivosBaixados.has(info.nmArquivo)) ||
-    Boolean(info.dtSolicitacao && arquivosBaixados.has(info.dtSolicitacao))
-  );
-}
-
 async function processarPaginaHttp(
-  client: SefazHttpClient,
+  client: SefazPortalClient,
   paginaInfo: DownloadListingPage,
   arquivosBaixados: Set<string>,
   downloadsComErro: Set<string>,
@@ -67,7 +53,7 @@ async function processarPaginaHttp(
       continue;
     }
 
-    const chaveErro = chaveDownload(info);
+    const chaveErro = chaveArquivoBaixado(info);
     if (downloadsComErro.has(chaveErro)) {
       console.log(`   [SKIP] ${info.nmArquivo || info.dtSolicitacao} - erro ja registrado nesta execucao`);
       continue;
@@ -89,7 +75,7 @@ async function processarPaginaHttp(
   return [novos, erros];
 }
 
-async function executarUploadAutomatico(): Promise<void> {
+async function executarUploadAutomatico(): Promise<UploadResult> {
   console.log("\n" + "=".repeat(60));
   console.log("INICIANDO UPLOAD AUTOMATICO PARA SIEG");
   console.log("=".repeat(60));
@@ -102,13 +88,16 @@ async function executarUploadAutomatico(): Promise<void> {
   if (resultado.erro) {
     console.log(`[AVISO] Upload automatico retornou erro: ${resultado.erro}`);
   }
+  return resultado;
 }
 
-export async function executarDownloadHttp(): Promise<void> {
+export async function executarDownloadHttp(transport: SefazTransport = "auto"): Promise<DownloadExecutionResult> {
   const lock = acquireFileLock(join(PATHS.lockDir, "download_http.lock"), "Ja existe um download HTTP em andamento");
+  limparDownloadsTemporarios();
   const checkpoint = carregarCheckpoint();
   const arquivosBaixados = checkpoint?.arquivos_baixados ?? new Set<string>();
   const downloadsComErro = new Set<string>();
+  let downloadErros = 0;
   let totalBaixados = checkpoint?.total_baixados ?? 0;
   const paginaInicial = downloadState.paginaInicial ?? checkpoint?.pagina_atual ?? 1;
   const paginaFinal = downloadState.paginaFinal;
@@ -145,9 +134,11 @@ export async function executarDownloadHttp(): Promise<void> {
     console.log(`[CHECKPOINT] Retomando da pagina ${paginaInicial} com ${totalBaixados} arquivo(s)`);
   }
 
+  const client = new SefazPortalClient(transport, downloadState.usarHeadless);
   try {
-    const client = new SefazHttpClient();
-    await client.login(USUARIO_SEFAZ, SENHA_SEFAZ);
+    console.log("[INFO] Autenticando com certificado digital...");
+    await client.login(SEFAZ_CERT_PFX_PATH, SEFAZ_CERT_PFX_PASSWORD);
+    console.log("[OK] Login por certificado realizado");
 
     let pagina = paginaInicial;
     while (true) {
@@ -168,6 +159,7 @@ export async function executarDownloadHttp(): Promise<void> {
         downloadsComErro,
         registrarDownloadCompleto,
       );
+      downloadErros += erros;
 
       ultimaPaginaProcessada = paginaInfo.currentPage ?? pagina;
       paginasDesdeCursor += 1;
@@ -187,6 +179,7 @@ export async function executarDownloadHttp(): Promise<void> {
       pagina = proxima;
     }
   } finally {
+    await client.close();
     salvarCursorAtual();
     process.removeListener("SIGINT", signalHandler);
     process.removeListener("SIGTERM", signalHandler);
@@ -197,17 +190,22 @@ export async function executarDownloadHttp(): Promise<void> {
   console.log("RESUMO DO DOWNLOAD");
   console.log("=".repeat(60));
   console.log(`[OK] Total de arquivos baixados: ${totalBaixados}`);
+  console.log(`[ERRO] Total de falhas nesta execucao: ${downloadErros}`);
   console.log(`[INFO] Diretorio de destino: ${PATHS.downloadsDir}`);
   console.log("=".repeat(60));
 
+  const resultado: DownloadExecutionResult = { downloadErros };
   if (downloadState.uploadAutomatico) {
-    await executarUploadAutomatico();
+    resultado.upload = await executarUploadAutomatico();
   }
+  return resultado;
 }
 
-export async function executarDownload(options: { selenium?: boolean } = {}): Promise<void> {
+export async function executarDownload(options: { selenium?: boolean; transport?: SefazTransport } = {}): Promise<DownloadExecutionResult> {
   if (options.selenium) {
     throw new SefazHttpError("Fluxo Selenium legado nao foi portado para TS; use o fluxo HTTP ou mantenha o Python para esse fallback.");
   }
-  await executarDownloadHttp();
+  return executarDownloadHttp(options.transport ?? "auto");
 }
+
+export { codigoSaidaDownload, type DownloadExecutionResult } from "./exit-code.js";

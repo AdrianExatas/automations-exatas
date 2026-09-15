@@ -1,0 +1,76 @@
+Irei mostrar como fazer a validação da emissão do CNPJ assim que sai o processo na parte da junta comercial.
+Faz o login, informa o protocolo, clica em acompanhar, aqui informa que foi deferido e que o ato já está arquivado.
+Na aba da receita, você vai clicar nessa opção, vai informar novamente o protocolo.
+Aqui ele mostra a opção, módulo administração, tributária, inser informações.
+Entrar com o GOV, porém aqui está mostrando que foi negado, porque provavelmente ele está puxando o login das atas.
+Eu vou sair para fazer o login com o acesso do sócio administrador.
+Ele só vai validar se tiver com esse acesso do administrador.
+Aqui eu tenho a informação do cliente certo, do GOV, mas pode também ser feito caso ele já tenha na base o certificado da pessoa física.
+Lembrando que tem que ser o administrador, o sócio cotista não é válido.
+Vou fazer o login aqui e ele vai pedir para gerar o código de acesso.
+Irei solicitar o cliente.
+Em seguida, vem aqui na opção de autorizar.
+Você percebe que aqui ele já está logado com o acesso do cliente.
+Aqui eu venho de novo, insiro informações.
+Ele já trouxe aqui para o número do processo.
+Da rede sim, eu só vou validar.
+Faço a conferência.
+Solicita a inscrição do CNPJ.
+Aqui ele diz que o regime fez toda a diferença, certo?
+E aí traz os dados do protocolo e o nome empresarial.
+E logo abaixo ele vai dar a opção simples nacional, caso a empresa realmente seja optando pelo simples.
+E caso ela seja lucro real ou presumido, a opção aqui de regime regular.
+Em caso de dúvida, pode ir no card da empresa e verificar as informações lá da tributação.
+Aqui está dizendo que a empresa vai ser optando pelo simples nacional.
+Então, mediante isso, irei selecionar aqui.
+Aqui ele está informando que foi selecionada a opção do simples nacional.
+Clique em avançar.
+Aqui ele traz a ciência do domicílio tributário eletrônico do DTE, certo?
+E aqui a ciência do simples nacional.
+Aqui eu já habilitei as duas opções, avançar.
+Aqui ele, por último, ele traz a parte do detalhamento da solicitação.
+Novamente o protocolo, o nome da empresa e aqui ele diz, vamos lá, enquadrar a empresa.
+O regime, o enquadramento tributário regime foi o do simples nacional.
+E as declarações foram validadas já para a obrigatoriedade do DTE.
+E com isso também a opção anual do simples nacional para a competência.
+O exercício, na verdade.
+Logo abaixo, é a hora de fazer a assinatura.
+Aqui está pendente porque não foi validado.
+Ao clicar em assinar, aí ele pergunta se deseja continuar assim.
+Ele vai pedir novamente o código.
+Que nesse caso, por se tratar de um acesso do GOV, eu tenho que pegar diretamente com o cliente.
+Autorizar, assinatura concluída, representante, transmitir solicitação.
+Após a transmissão, a ciência e o resultado serão considerados efetivados e os dados não poderão ser mais alterados.
+Tem certeza?
+Nesse caso, sim.
+Transmitir.
+Aguarda a validação.
+Foi validado.
+E aqui ele mostra já o número do CNPJ.
+Emitir comprovante.
+Confirmar.
+Consultar.
+Aqui está o cartão do CNPJ.
+Virei salvar na parte da empresa.
+Salvar.
+CNPJ.
+Pronto.
+Salvo.
+Volto lá.
+E aí, baixar o termo deferimento da opção do simples nacional.
+Termo deferimento.
+Certo?
+Aqui ele diz a data que foi solicitada e a data da inscrição do CNPJ.
+Então, salvo também esse documento na pasta.
+Termo de deferimento simples.
+Está minúsculo, vou só alterar novamente.
+Termo deferimento simples nacional.
+Pronto.
+Salvo.
+Aqui, eu só vou fazer agora sair do acesso do cliente.
+E finalizou aí a parte da validação e emissão do cartão do CNPJ da empresa.
+Tchau.
+Tchau.
+Tchau.
+Tchau.
+Tchau.

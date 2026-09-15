@@ -1,0 +1,71 @@
+Fala pessoal, vou gravar aqui um vídeo para vocês de uma empresa que tem um benefício do PERSE
+e aí a gente vai ter alguns aspectos a ser analisado, vamos lá.
+Primeiro a gente vai entrar aqui, colocar os impostos na domínio para identificar a situação social.
+Essa empresa tem lucros, ela tem aplicação financeira e aí sobre aplicação financeira tem algo que a gente tem que analisar
+que a aplicação financeira não entra no cálculo do PERSE, então vou analisar aqui a parte de CSLL
+e a parte de Imposto de Renda e Contribuição Social para vocês identificarem aqui uma situação que é importante.
+Então vamos lá, a gente vai ter o cálculo da CSLL e a gente vai enxergar a seguinte situação.
+Esse faturamento é o operacional da empresa e esse é não operacional.
+Esse daqui entra totalmente no PERSE e essa receita aqui não entra, então vamos lá.
+O total do imposto, quando calcula-se sobre 32% de presunção, a alíquota de 9%, a gente vai ter um total de imposto de R$17.888,01.
+Só que aí eu tenho que afastar, um é com aplicação do PERSE e outro sem aplicação do PERSE.
+Então vamos lá.
+Sem aplicação do PERSE, a gente teria esse cenário aqui, aí eu tenho uma planilha complementar para me auxiliar,
+que é a receita operacional que vai me dar R$16.675,20.
+Se eu diminuir esse valor aqui do total aqui, eu vou ter a tributação, que seria o que é afetado a CSLL sem o PERSE.
+Então, automaticamente eu vou ter aqui uma diferença a recolher, deixa eu botar aqui, uma diferença a recolher desse valor, beleza?
+A mesma coisa vai acontecer com o imposto de renda, só que o imposto de renda tem algo que vocês precisam ter uma atenção maior,
+que é no tocante a questão que no imposto de renda tem a retenção, o próprio banco retém, então ele reteve aqui R$1.424,00.
+Então a gente vai ver aqui o total a recolher da R$42.000,00, isso deduzindo essa parte aqui seria o que é retido,
+mais o adicional, R$42.000,00, beleza?
+Só que se a gente for fazer o cálculo sem a receita financeira, a gente tem esse seguinte cenário aqui,
+o faturamento operacional dá esse, o total a recolher dá R$40.000,00, né?
+Deu R$38.000,00 porque eu coloquei aqui o imposto, só que eu não vou colocar nesse caso aqui, por quê?
+Porque essa dedução é para a receita financeira.
+Então se a gente pega aqui R$40.320,00 menos os R$42.000,00, quanto é que a gente tem?
+A gente vai ter esse cenário aqui, beleza?
+Totalizando R$38.000,00 com a redução, então a gente tem esse cenário aqui, R$40.320,00 menos R$42.000,00, R$264.000,11.
+Então significa dizer que a gente tem R$1.944,11 de diferença.
+Então o valor que seria com a receita financeira deu R$42,00, só que deu R$42,00 deduzindo isso.
+Então a gente tem a seguinte análise, com a análise que a gente tem,
+que o valor seria R$1.900,00, R$1.944,11 mais quanto? R$1.424,80.
+Então, esse, perdão aqui, teve um erro aqui, vamos lá, esse aqui, menos aqui, menos com menos da mais, 1424,80.
+Então, o total da receita financeira seria esse, né, seria total esse.
+Só que como eu tenho essa retenção, o valor a recolher vai ser 1944,11.
+Então, vamos lá, aí eu entro no ECA, aqui na DCTFWeb, né, eu entro, vou entrar no MID, né,
+e no MID eu vou fazer o seguinte preenchimento, né, que os dados, né, que da empresa, né, o regime cumulativo, presumido, né,
+aí eu vou lançar os débitos, aí eu lanço o CSLL, né, que seria o valor total, e aqui é o valor suspenso, que é justamente esse daqui, ó.
+Suspenso por quê? Porque isso vai estar via PERSE, então eu deixo o suspenso 40.320 e o total a recolher de 1944,11,
+que é o que eu devo recolher, né, fora do PERSE.
+A mesma coisa vai acontecer com o CSLL, o valor a recolher é esse, o suspenso é esse, o valor a recolher é esse daqui.
+Pronto, aí eu declaro, né, o MIT e eu venho pra minha DCTFWeb.
+Quando eu chego na DCTFWeb, eu vou encontrar dessa forma ela.
+E aí o que é importante a gente observar, quando a gente quer somente gerar a guia complementar,
+eu vou aqui, desmarco, né, e vou selecionar apenas o que eu quero gerar,
+tenho nesses dois, e vou aqui em editar DAF.
+Chegando em editar DAF, eu vou fazer aqui, ó, tá vendo?
+Desmarco ele, ó, perfeitamente, né, e vou lançar apenas o que eu quero.
+Então, de imposto de renda, quanto é que eu quero?
+Eu quero apenas recolher 1944,11, né, e de CSLL eu quero recolher quanto?
+Eu quero recolher 1.212,1212,81.
+E aí eu vou lá e faço o que eu imito DAF.
+Pronto, emitindo DAF, né, eu vou, eu já tenho esse DAF aqui, salvo.
+Aqui, ó, salvo ele com DAF e RPJ de CSLL não judicial,
+porque a parte judicial vai ser aquela parte que tá como suspensa, né,
+que eu coloquei aqui como suspensa, salvar.
+E aí, consequentemente, eu vou ter aqui, ó, tá vendo?
+Só os impostos realmente que vai recolher de forma não judicial,
+porque o judicial eu preencho o e-mail.
+Então, eu vou aqui no e-mail só pra fazer todo o processo, né,
+pra vocês enxergarem.
+Aí eu já fiz o e-mail, né, enviei aqui, ó,
+coloquei os códigos de recolhimento, né,
+o valor a recolher de RPJ de CSLL,
+referente ao código 748,
+CSLL, depósito judicial de imposto de renda, 7,429,
+imposto de renda da 40.320,
+CSLL 16.67520.
+Perfeito?
+E aqui eu concluo o nosso vídeo,
+consequentemente, a gente vai saber como operacionalizar a partir de agora.
+E aí

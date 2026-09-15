@@ -1,0 +1,17 @@
+no vídeo de hoje eu vou ensinar você como você deverá executar uma tarefa dentro do bitrix chamada de aviso de conclusão de alteração de dp aqui nós temos alguns checklists porém dentro dela o que você precisa iniciar o saber ao que ser feito deverá ser primeiramente clicar aqui na opção íntegro de crm em negócio que aqui consta a empresa e o objetivo agora é saber qual o motivo da alteração se isso impacta ou não para execução dentro do sistema domínio em relação a essa aqui abaixo você vai estar qual o motivo da alteração contratual alteração de natureza jurídica de mei para ltda inclusão de atividades 
+
+então impacto diretamente em relação a folha de pagamento suas incidências tributárias não haverá para essa empresa mas devemos fazer a devida alteração dentro do sistema agora ciente da situação você deverá abrir seu sistema domínio folha com usuário e senha vamos entrar aqui buscar a empresa e foi feita a situação e aqui né em campo de troca de empresas tá em apelido você digita aqui nós já estamos após estar na empresa correta você deverá clicar na opção controle 
+
+os parâmetros e esse é o primeiro passo onde deverá ser feito a alteração dentro dos parâmetros que trata -se sobre o 
+
+e aí a natureza jurídica e dentro de parâmetros você deverá clicar na opção geral e nesta daqui né tem alguma geral mas vamos aqui na segunda coluna coluna próxima configurações de envio perceba que a classificação tributária ela está como microempreendedor mas ela passou a ser limitada então com isso você deverá clicar aqui na opção simples nacional nexo 13 geralmente anexo 5 geralmente anexo simples nacional quarta é construtora e serviço então esse é o primeiro alteração acima acima você deverá vir aqui logo no canto superior em regime 
+
+permanece a descrição simples nacional o regime se encontra em me optando pelo sim perceba que já foi também está correto idêntico ao do classificação tributária então dessa forma para efeito da alteração de e -mail para limitada basta clicar agora em gravar a alteração você vai clicar em alteração não retificação aqui você vê a data então onde você poderá estar vendo no próprio crm então você poder podemos pegar aqui a data aqui registrada em comentários dia 18 de 6 alteração registrada 
+
+aqui você pode pegar aqui em gravar 
+
+aqui ele solicitou porque ele criou acabou criando uma nova vigência gravar 
+
+alteração feita conclusa aqui se trata da alteração do da natureza jurídica vamos verificar a atividade tá então fecho aqui vemos ainda em controle clicamos em empresas 
+
+atividade aqui ao clicar na atividade já traz né e vamos agora em arquivo serviços validar em serviços se a atividade está correta então 47 52 47 52 pronto então aqui não se faz mais nenhum tipo de processo de atualização porque ambas estão com a atividade está correta está aí o processo de execução 

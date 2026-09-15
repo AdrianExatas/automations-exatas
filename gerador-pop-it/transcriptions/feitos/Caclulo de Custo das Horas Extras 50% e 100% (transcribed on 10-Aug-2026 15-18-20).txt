@@ -1,0 +1,15 @@
+Eu vou ensinar você como deverá usar essa planilha para efeito de cálculo de horas extras tanto em relação a hora 100 % quanto de horas 50 % Aqui nesse campo onde está salário total você vai colocar o salário do colaborador, salário bruto dele para efeito do cálculo As horas mensais geralmente são calculadas por base de 220 horas semanais que equivale a um cálculo de 5 semanas Na parte de dia mês você vai inserir aqui a quantidade de dias total dentro do mês Vamos pegar um exemplo aqui do mês de maio Então você vai no Calidade é necessário saber, então 31 dias Os dias úteis você vai colocar retirando 
+
+domingos 
+
+e feriados no mês Então você precisa contabilizar, ao exemplo aqui de maio, se nós temos um total de 31 dias, quantos domingos nós temos no mês? Então lá no calendário vai nos dizer que tem 5 domingos no mês 5 domingos no mês Quais são os outros fatores para retirada? Feriados Então se eu sei que dia 1º de maio é feriado, eu vou lá então tenho aqui um feriado, correto? Totalizando 6 dias Então 6 menos 31 dias, 25 
+
+Os dias de DSR seria 
+
+em dias DSR são os dias de domingos e feriados Então a soma dos dois tem que dar o equivalente ao somatório dos dias dentro do mês Se teve ou se tem feriado no município, então ele não seria 6 Ele seria 7 5 domingos 7 E aqui seria 24 Só trouxe um exemplo porque vai depender e é importante que vocês tenham ciência dessa informação Então vamos trabalhar apenas com o feriado nacional do dia 1º Mais os domingos que estão em calendário Perceba que ao preencher esses valores aqui, o que eu devo fazer? Vou zerar esse aqui, esse quantitativo de horas, pronto Perceba que os valores estão zerados 
+
+Se eu quiser saber um cálculo baseado nessas informações Esse salário de 2 .474, 
+
+competência mês de maio Eu vou aqui e agora quero saber o custo de horas 50 % Então trabalhou 10 horas Eu digito aqui a quantidade de horas e já me traz o valor aqui embaixo Trabalhou 15 horas 100 % Aqui ele já me traz o valor Então esses valores aqui seriam os valores que eu deveria pagar ao meu coletivo 
+
+Então você ganha essa planilha que vai ajudar bastante A vocês nesse cálculo do custo 

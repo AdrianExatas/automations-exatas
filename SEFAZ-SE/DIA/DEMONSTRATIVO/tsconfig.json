@@ -10,5 +10,15 @@
     "noEmit": true,
     "outDir": "dist"
   },
-  "include": ["src/**/*.ts", "test/**/*.ts"]
+  "include": [
+    "src/**/*.ts",
+    "test/**/*.ts",
+    "../ALTERAR NOTA FISCAL - DIA ATUAL/src/**/*.ts",
+    "../shared/**/*.ts"
+  ],
+  "exclude": [
+    "../ALTERAR NOTA FISCAL - DIA ATUAL/src/electron/**",
+    "../ALTERAR NOTA FISCAL - DIA ATUAL/src/main.ts",
+    "../ALTERAR NOTA FISCAL - DIA ATUAL/test/**"
+  ]
 }

@@ -1,0 +1,288 @@
+{
+  "media": "G:\\Meu Drive\\GESTÃO DE PROCESSOS\\02 - Departamento Pessoal\\VÍDEOS\\1.2 Execução da tarefa de verificação de pendencias FGTS.mp4",
+  "transcript_path": "C:\\Users\\Exatas\\Documents\\GitHub\\automations-exatas\\gerador-pop-it\\transcriptions\\a fazer\\1.2 Execução da tarefa de verificação de pendencias FGTS (transcribed on 10-Sep-2026 19-02-50).txt",
+  "language": "pt",
+  "duration_sec": 386.2826875,
+  "segments": [
+    {
+      "start": 1.26,
+      "end": 31.24,
+      "text": "Dando continuidade ao processo de execução da verificação de pendências de FGTS, neste vídeo complementar, iria apresentar a você a forma de execução e conclusão da tarefa. No vídeo anterior, foi a explicação. Dando continuidade, o que ocorre? Vamos lá, essa tarefa ainda irá vencer, nós iremos pegar como modelo teste, para apresentar o que vai ser necessário, já a partir desse mês."
+    },
+    {
+      "start": 31.26,
+      "end": 52.68,
+      "text": "A competência é atual, mas sempre iremos consultar, principalmente, no item 1, a competência anterior, e vamos dar início agora mesmo. No item 1, onde ele trata, consultar e validar no sistema Folha, a importação, o que será necessário para comprovação dessa tarefa."
+    },
+    {
+      "start": 52.68,
+      "end": 66.58,
+      "text": "Você deverá abrir o sistema Domínio Folha, clica em Relatórios, E-Social, Demonstrativo de FGTS Folha e FGTS E-Social."
+    },
+    {
+      "start": 66.58,
+      "end": 85.7,
+      "text": "Na competência, sempre uma anterior, porque estamos na folha ainda de envio das informações de agosto, então sempre vai ser o mês anterior, se estamos em setembro, será agosto, quando for outubro, será setembro, e por aí segue esse padrão."
+    },
+    {
+      "start": 85.7,
+      "end": 93.62,
+      "text": "Você deverá marcar essas opções abaixo, em Destacar a Linha, e emitir apenas colaboradores com diligência."
+    },
+    {
+      "start": 94.98,
+      "end": 104.34,
+      "text": "Você vem após isso, clica em OK, aqui ele vai trazer as informações que eu preciso, que esteja na tarefa."
+    },
+    {
+      "start": 104.34,
+      "end": 122.14,
+      "text": "Na coluna situação, perceba que não foi enviado, é justamente isso que você tem que se atentar, porque se tiver colaboradores com situação de E-Social não enviado, deverá ser feito o processo de envio, ou justificar na tarefa,"
+    },
+    {
+      "start": 122.14,
+      "end": 137.0,
+      "text": "porque possa haver empresas do grupo 2, que principalmente, creio eu, que o pagamento é só posterior, mas enfim, aqui estamos tratando de possivelmente remuneração, tá?"
+    },
+    {
+      "start": 137.0,
+      "end": 153.24,
+      "text": "Então, no mínimo, o que você deverá fazer? No mínimo não, o que vai ser necessário ser feito? Tirar o print, caso esteja não enviado, só tira o print, se tiver feito a correção e o envio,"
+    },
+    {
+      "start": 154.86,
+      "end": 165.24,
+      "text": "você deverá vir na tarefa, abaixo em Escreva uma imagem, você vai clicar, ele vai abrir essa tela, e você cola o print."
+    },
+    {
+      "start": 165.24,
+      "end": 175.12,
+      "text": "Lembrando, como é teste, isso ainda não foi transmitido, mas o objetivo é que só transmita o print aqui, quando for corrigido."
+    },
+    {
+      "start": 175.88,
+      "end": 185.12,
+      "text": "Tá, só ocorreu que a empresa tem alguma situação aí, e aí não demonstra o envio, você deverá, além do print, descrever o motivo."
+    },
+    {
+      "start": 186.12,
+      "end": 194.82,
+      "text": "Esse é o processo do item 1. Feito isso, vamos para o item 2 e 3, eu não vou enviar aqui, tá?"
+    },
+    {
+      "start": 195.24,
+      "end": 202.74,
+      "text": "2 e 3, que é consultar os FGTS em aberto, e parcelamento da empresa."
+    },
+    {
+      "start": 203.0,
+      "end": 210.65,
+      "text": "Então, você vai abrir uma página do Google, clica em uma nova janela anônima, geralmente eu utilizo esse,"
+    },
+    {
+      "start": 210.99,
+      "end": 230.52,
+      "text": "FGTS, você vai digitar aqui, digital, entrar com gov.br, seu certificado digital,"
+    },
+    {
+      "start": 230.52,
+      "end": 244.92,
+      "text": "seleciona o certificado da exata contabilidade, vai direcioná-lo na opção procurador, porque você vai acessar a empresa que você está consultando,"
+    },
+    {
+      "start": 246.1,
+      "end": 251.68,
+      "text": "aqui você retorna no domínio, eu vou dividir aqui a tela, para ficarmos produtivo,"
+    },
+    {
+      "start": 251.68,
+      "end": 267.8,
+      "text": "digito o CNPJ da empresa, clica em definir, retorna a página do FGTS digital, e a opção de consulta será a da seguinte forma,"
+    },
+    {
+      "start": 267.94,
+      "end": 275.68,
+      "text": "você deverá vir na opção consultas do empregador, consulta de competência de referência,"
+    },
+    {
+      "start": 275.68,
+      "end": 286.77,
+      "text": "abaixo em período, você vai marcar a opção completo, e vai clicar em filtrar,"
+    },
+    {
+      "start": 291.75,
+      "end": 297.19,
+      "text": "abaixo você poderá inserir, deverá, para ter uma visão mais clara, a opção 100,"
+    },
+    {
+      "start": 298.97,
+      "end": 304.29,
+      "text": "e perceba que ele já traz aqui, uma irregularidade,"
+    },
+    {
+      "start": 304.29,
+      "end": 310.55,
+      "text": "e para ser mais objetivo na tarefa, você poderá desmarcar a opção regular,"
+    },
+    {
+      "start": 311.63,
+      "end": 315.01,
+      "text": "clica em filtrar, e perceba aqui, que essa empresa,"
+    },
+    {
+      "start": 315.97,
+      "end": 320.31,
+      "text": "demonstra uma opção aqui, de pendência, o que deverá ser feito,"
+    },
+    {
+      "start": 321.23,
+      "end": 323.81,
+      "text": "tira-se o print, para comprovar,"
+    },
+    {
+      "start": 325.45,
+      "end": 328.99,
+      "text": "vai na tarefa, e faz o mesmo procedimento,"
+    },
+    {
+      "start": 328.99,
+      "end": 330.67,
+      "text": "que foi feito,"
+    },
+    {
+      "start": 331.49,
+      "end": 332.31,
+      "text": "no do domínio,"
+    },
+    {
+      "start": 332.59,
+      "end": 333.61,
+      "text": "clique em inscrever,"
+    },
+    {
+      "start": 334.83,
+      "end": 335.75,
+      "text": "abaixo,"
+    },
+    {
+      "start": 337.55,
+      "end": 339.21,
+      "text": "você vai clicar em enviar,"
+    },
+    {
+      "start": 339.31,
+      "end": 340.95,
+      "text": "eu não vou fazer isso nessa tarefa,"
+    },
+    {
+      "start": 341.25,
+      "end": 341.89,
+      "text": "neste momento,"
+    },
+    {
+      "start": 343.05,
+      "end": 344.25,
+      "text": "você vai clicar em enviar,"
+    },
+    {
+      "start": 345.31,
+      "end": 346.71,
+      "text": "e marcar as opções,"
+    },
+    {
+      "start": 348.33,
+      "end": 348.59,
+      "text": "tá,"
+    },
+    {
+      "start": 350.33,
+      "end": 351.65,
+      "text": "você vai marcar as opções,"
+    },
+    {
+      "start": 352.03,
+      "end": 353.73,
+      "text": "e aqui ele já conclui a tarefa,"
+    },
+    {
+      "start": 358.19,
+      "end": 360.39,
+      "text": "neste caso, como você identificou,"
+    },
+    {
+      "start": 360.39,
+      "end": 362.61,
+      "text": "que a empresa, ela tem alguma irregularidade,"
+    },
+    {
+      "start": 363.17,
+      "end": 364.99,
+      "text": "deverá entrar em contato primeiro,"
+    },
+    {
+      "start": 365.23,
+      "end": 365.95,
+      "text": "analisar,"
+    },
+    {
+      "start": 366.87,
+      "end": 368.41,
+      "text": "entrar em contato com o cliente,"
+    },
+    {
+      "start": 369.15,
+      "end": 371.31,
+      "text": "e posterior ao alinhamento com o cliente,"
+    },
+    {
+      "start": 371.47,
+      "end": 372.01,
+      "text": "enviar a guia,"
+    },
+    {
+      "start": 373.29,
+      "end": 375.69,
+      "text": "não deve fazer qualquer tipo de envio,"
+    },
+    {
+      "start": 375.83,
+      "end": 376.89,
+      "text": "antes de analisar,"
+    },
+    {
+      "start": 377.07,
+      "end": 377.51,
+      "text": "e antes,"
+    },
+    {
+      "start": 378.31,
+      "end": 379.67,
+      "text": "de entrar em contato com o cliente,"
+    },
+    {
+      "start": 380.61,
+      "end": 380.97,
+      "text": "essa,"
+    },
+    {
+      "start": 381.43,
+      "end": 382.35,
+      "text": "é uma demonstração,"
+    },
+    {
+      "start": 382.61,
+      "end": 384.15,
+      "text": "que precisamos executar,"
+    },
+    {
+      "start": 384.15,
+      "end": 384.65,
+      "text": "e aí,"
+    },
+    {
+      "start": 384.65,
+      "end": 386.67,
+      "text": "eu vou fazer qualquer tipo de envio,"
+    }
+  ]
+}

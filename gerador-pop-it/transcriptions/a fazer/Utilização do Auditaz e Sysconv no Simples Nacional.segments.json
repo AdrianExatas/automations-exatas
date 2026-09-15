@@ -1,0 +1,28 @@
+{
+  "media": "G:\\Meu Drive\\GESTÃO DE PROCESSOS\\13 - Auditoria\\VÍDEOS\\2-min.mp4",
+  "transcript_path": "C:\\Users\\Exatas\\Documents\\GitHub\\automations-exatas\\gerador-pop-it\\transcriptions\\a fazer\\2-min (transcribed on 10-Sep-2026 20-33-32).txt",
+  "language": "pt",
+  "duration_sec": 181.2266875,
+  "segments": [
+    {
+      "start": 0.91,
+      "end": 48.71,
+      "text": "Bom dia, hoje vamos fazer a utilização do Auditaz do Sysconv. Vamos começar pelo Auditaz, Auditaz é gerado do Simples, servindo as declarações do Simples, seleciona todas, botão direito, WinRAR, arquivo RAR, transforma zip, após isso, só abrir a ferramenta, seleciona o Simples,"
+    },
+    {
+      "start": 51.55,
+      "end": 119.43,
+      "text": "agora seleciona os cupons, os comprovados de pagamento, e no fim seleciona a pasta onde você quer ser gerado o Excel, e aqui tem o seu Excel gerado, e agora vamos para o Sysconv, Sysconv é o regime normal, você vai selecionar o XML ou SPAD, se for SPAD, aqui, SPAD, XML você escolhe o modelo,"
+    },
+    {
+      "start": 119.43,
+      "end": 177.7,
+      "text": "seleciona o TXT, seleciona o TXT, seleciona a pasta, onde estão todos os TXT, e só exportar, e aqui está o Sysconv, e aqui está o Sysconv, seu arquivo, você vai fazer a análise."
+    },
+    {
+      "start": 177.7,
+      "end": 207.68,
+      "text": "E aqui está o Sysconv, e aqui está o Sysconv, e aqui está o Sysconv."
+    }
+  ]
+}

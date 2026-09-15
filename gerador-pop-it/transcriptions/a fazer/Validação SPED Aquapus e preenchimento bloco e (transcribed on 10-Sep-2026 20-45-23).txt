@@ -1,0 +1,27 @@
+Bom, para poder validar o SPED aqui da Aquaplus, ele sempre vai vir com esses erros aqui, ó. Certo? Esse erro é devido a uma inconsistência da Domínio, que faz a leitura dessa nota aqui, você está vendo que nós estamos sem o crédito de ICMS, mas com o crédito de FECOEP aqui, por questões do diferimento.
+Com isso, a Domínio reconhece que você tem o FECOEP como crédito, mas não tem o ICMS, é por isso que dá esse erro. Aí, para corrigir, a gente tem que clicar aqui no erro, vai aparecer esse registro aqui, que é o C191, e a gente vai excluir essa informação do registro, e aí a gente vai excluindo todos os outros até validar.
+Agora, o próximo passo, é a gente editar o bloco E, com as informações do FECOEP, STI e a questão do FECOEP normal.
+Vamos agora, aqui no bloco E111, caso viesse aqui a informação do crédito do FECOEP, a gente teria que alterar esse crédito com a informação pertinente aqui do bloco E.
+E qual seria? Seria esse aqui, o ajuste, ele vai vir dessa forma como está aqui na taja verde, e a gente precisa colocar ele como está agora nessa taja verde, que é o código daqui.
+Se você prestar atenção, o código AL02999, certo? Esse é o código correto, o código errado, ele vai vir com AL02001, esse é o ajuste.
+Quando essa informação vem aqui, no E111.
+Os próximos ajustes a serem feitos, que a domínio não reconhece, é aqui no E, E210, E220 e E250, que é o ICMSST.
+Pronto. A gente vai ver aqui, que o valor da substituição tributária, ele está vindo junto com o FECOEP ST.
+ICMSST, FECOEP ST, os valores somados estão dando esse valor aqui, e a gente precisa separá-lo e colocar aqui nesses campos.
+Como é que a gente faz?
+Eu geralmente faço o seguinte, abro as guias que foram enviadas para o cliente, e vou fazendo os ajustes pertinentes, aqui.
+Veja que aqui, o E220 não tem nenhuma informação, o E250 já tem a informação, mas está somado.
+E no E210, a soma está aqui, certo? Eu vou alterar, e vocês vão ver como é que vai ficar.
+Pronto. Aqui, a gente fez agora os preenchimentos.
+Se a gente for aqui, veja que o campo E220, a gente preencheu, com o FECOEP ST, certo?
+Aí, veja que são códigos distintos, esses códigos aqui, certo?
+Que é o AL15999, e o AL14999.
+Um é o débito, e o outro é a dedução.
+Quando a gente vem para o E250, a gente vai ter o valor, veja que a gente já diminuiu, que era 34, agora é 32, né?
+Então, temos aqui a substituição tributária com o código, está aqui, e o FECOEP substituição tributária, que está aqui.
+E no E210, veja que aqui, nesse primeiro campo, está o valor dos 34, aqui está a dedução, porque a gente lançou aqui no ajuste, certo?
+Quando o deduz, fica o valor, que é do ICMSST, que está aqui, certo?
+E aqui embaixo, em extras apurações, a gente precisa preencher com o restante, que é o 1747,37.
+E agora a gente vamos validar, para ver se está certinho.
+Validou.
+É só agora verificar as outras situações, como CST, CFOB, se está tudo condizente, e enviar o SPED.

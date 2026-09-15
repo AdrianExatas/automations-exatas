@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["metadataResponse", "updateRequestPatch", "updateResponse"],
+  "properties": {
+    "metadataResponse": { "type": "object", "required": ["data"] },
+    "updateRequestPatch": { "type": "object", "required": ["customFields", "addUserTags"] },
+    "updateResponse": { "type": "object", "required": ["data"] }
+  }
+}

@@ -1,0 +1,4 @@
+Bom dia, hoje vamos fazer a utilização do Auditaz do Sysconv. Vamos começar pelo Auditaz, Auditaz é gerado do Simples, servindo as declarações do Simples, seleciona todas, botão direito, WinRAR, arquivo RAR, transforma zip, após isso, só abrir a ferramenta, seleciona o Simples,
+agora seleciona os cupons, os comprovados de pagamento, e no fim seleciona a pasta onde você quer ser gerado o Excel, e aqui tem o seu Excel gerado, e agora vamos para o Sysconv, Sysconv é o regime normal, você vai selecionar o XML ou SPAD, se for SPAD, aqui, SPAD, XML você escolhe o modelo,
+seleciona o TXT, seleciona o TXT, seleciona a pasta, onde estão todos os TXT, e só exportar, e aqui está o Sysconv, e aqui está o Sysconv, seu arquivo, você vai fazer a análise.
+E aqui está o Sysconv, e aqui está o Sysconv, e aqui está o Sysconv.

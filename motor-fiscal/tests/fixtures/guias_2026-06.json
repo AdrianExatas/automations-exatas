@@ -1,0 +1,15 @@
+{
+  "empresa_cnpj": "12345678000199",
+  "competencia": "2026-06",
+  "guias": [
+    {
+      "tributo": "icms",
+      "codigo_receita": "1015",
+      "uf": "SE",
+      "valor": 0.0,
+      "vencimento": "2026-07-10",
+      "observacao": "Saldo credor — sem guia a recolher"
+    }
+  ],
+  "ajustes": []
+}

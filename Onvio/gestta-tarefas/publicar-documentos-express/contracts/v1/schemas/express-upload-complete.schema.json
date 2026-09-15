@@ -1,0 +1,9 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["upload", "confirm"],
+  "properties": {
+    "upload": { "type": "object", "required": ["request", "response"] },
+    "confirm": { "type": "object", "required": ["request", "response"] }
+  }
+}

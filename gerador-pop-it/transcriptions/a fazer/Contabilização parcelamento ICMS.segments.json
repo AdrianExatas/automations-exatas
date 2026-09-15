@@ -1,0 +1,1298 @@
+{
+  "media": "G:\\Meu Drive\\GESTÃO DE PROCESSOS\\04 - Contábil\\VÍDEOS\\CONTABILIZAÇÃO PARCELAMENTO ICMS -min.mp4",
+  "transcript_path": "C:\\Users\\Exatas\\Documents\\GitHub\\automations-exatas\\gerador-pop-it\\transcriptions\\a fazer\\CONTABILIZAÇÃO PARCELAMENTO ICMS -min (transcribed on 10-Sep-2026 19-46-16).txt",
+  "language": "pt",
+  "duration_sec": 1099.072,
+  "segments": [
+    {
+      "start": 0.75,
+      "end": 35.15,
+      "text": "Olá pessoal, tudo bem? Vamos lá. Eu tenho que ensinar a vocês como contabilizar um parcelamento de CMS, certo? Eu vou usar esse aqui da Jamel como exemplo, sabe? Aí vamos supor que aqui seja 1 de 11 de 2025 como exemplo, tá? Aí vamos lá. Primeiro passo, o que que eu vou pegar aqui de dados no começo? Vimos que ela foi solicitada 1 de 11 de 2025 no caso, né? Como exemplo. E o valor que eu vou contabilizar é esse valor aqui, ó."
+    },
+    {
+      "start": 35.17,
+      "end": 62.03,
+      "text": "O valor parcelado, 143.937,27. Vou fazer o lançamento deles. A minha domínio, a minha média. Aí como eu falei, vamos supor que seja 25, esse parcelamento. Aí vou botar aqui vários débitos. Vou botar um crédito para vários débitos, certo? Vamos lá."
+    },
+    {
+      "start": 62.03,
+      "end": 72.49,
+      "text": "O minha conta crédito vai ser no passivo não circulante. Por quê? Porque como vocês viram aqui, foi parcelado para 84 vezes."
+    },
+    {
+      "start": 73.59,
+      "end": 82.41,
+      "text": "Entendeu? Então, como nós sabemos, né? 12 parcelas, acima de 12 parcelas, é no passivo não circulante, certo?"
+    },
+    {
+      "start": 82.41,
+      "end": 92.78,
+      "text": "Mas vamos lá. Mas vamos lá. Procurar a conta. Passivo não circulante. Aqui está ela, certo?"
+    },
+    {
+      "start": 94.04,
+      "end": 101.12,
+      "text": "Aí eu vou fazer o quê? Vou... O valor que eu vou colocar aqui, é o valor que tem que cair nessa conta aqui."
+    },
+    {
+      "start": 101.12,
+      "end": 112.12,
+      "text": "Que é o valor de 143.937,27. Vamos lá. 143.937,27."
+    },
+    {
+      "start": 112.12,
+      "end": 122.9,
+      "text": "Certo? Aí eu vou botar o histórico."
+    },
+    {
+      "start": 122.9,
+      "end": 138.44,
+      "text": "Parcelamento. Simples. Parcelamento. ICMS. Protocolo. Número. 2023.01.02.3810."
+    },
+    {
+      "start": 138.44,
+      "end": 147.2,
+      "text": "Eu sempre uso esse histórico, para identificar qual parcelamento que foi feito, para mim conseguir acompanhar."
+    },
+    {
+      "start": 147.2,
+      "end": 156.08,
+      "text": "E aí eu vou incluir. Aqui eu vou botar a conta de ICMS antecipada, certo?"
+    },
+    {
+      "start": 156.72,
+      "end": 162.46,
+      "text": "Aí eu vou botar a conta ICMS antecipada, não está originária da minha conta, certo?"
+    },
+    {
+      "start": 163.74,
+      "end": 170.84,
+      "text": "Aí note, o valor que vai ser aqui, vai ser esse valor aqui, 123.927,30."
+    },
+    {
+      "start": 170.84,
+      "end": 197.48,
+      "text": "Aí aqui temos mais dados. Temos valor de atualização, juros e multa, certo?"
+    },
+    {
+      "start": 197.48,
+      "end": 210.17,
+      "text": "Então, atualização. Vai ser o valor de 15.4249."
+    },
+    {
+      "start": 210.17,
+      "end": 219.76,
+      "text": "Bota aqui, atualização. Sobre, parcelamento, tal."
+    },
+    {
+      "start": 227.22,
+      "end": 248.18,
+      "text": "Aí os juros. Temos a multa também."
+    },
+    {
+      "start": 267.62,
+      "end": 274.24,
+      "text": "Aí temos também, aí temos também aqui, ó, essa parte aqui é do normal, imposto normal."
+    },
+    {
+      "start": 275.08,
+      "end": 279.24,
+      "text": "E essa aqui é a parte da multa fiscal, certo?"
+    },
+    {
+      "start": 279.8,
+      "end": 283.9,
+      "text": "Que essa multa fiscal aqui, ela não dedutiva, de imposto de renda nesse CLL."
+    },
+    {
+      "start": 283.9,
+      "end": 291.3,
+      "text": "Eu gosto de colocar ela nas despesas não dedutivas, lá, ou nas despesas não operacionais, certo?"
+    },
+    {
+      "start": 293.04,
+      "end": 294.86,
+      "text": "Vamos botar nas despesas não dedutíveis."
+    },
+    {
+      "start": 310.81,
+      "end": 311.53,
+      "text": "Dedutíveis."
+    },
+    {
+      "start": 313.21,
+      "end": 314.73,
+      "text": "Finas financeiras."
+    },
+    {
+      "start": 315.75,
+      "end": 317.67,
+      "text": "Não dedutíveis. Multa fiscal."
+    },
+    {
+      "start": 319.13,
+      "end": 323.91,
+      "text": "Aí aqui no caso, como vocês podem ver, a multa fiscal temos o quê?"
+    },
+    {
+      "start": 323.91,
+      "end": 329.19,
+      "text": "Temos o valor da multa, atualização, juros, sobre o detalhe."
+    },
+    {
+      "start": 329.57,
+      "end": 333.59,
+      "text": "Ele vai botar tudo em um só, porque tantos juros como a atualização,"
+    },
+    {
+      "start": 334.55,
+      "end": 338.37,
+      "text": "elas também não são dedutíveis de imposto de renda nesse CLL."
+    },
+    {
+      "start": 338.95,
+      "end": 340.07,
+      "text": "Aí ficaria isso aqui."
+    },
+    {
+      "start": 341.31,
+      "end": 348.68,
+      "text": "Deixa eu colocar mais aqui, o histórico, multa, juros."
+    },
+    {
+      "start": 348.68,
+      "end": 353.4,
+      "text": "Aqui é a multa fiscal, certo?"
+    },
+    {
+      "start": 353.74,
+      "end": 360.16,
+      "text": "Aí é só, viu que bateu o débito do crédito, gravou, certo?"
+    },
+    {
+      "start": 361.22,
+      "end": 367.1,
+      "text": "Aí, vamos colocar eles, jogar eles para a curto prazo."
+    },
+    {
+      "start": 367.64,
+      "end": 368.66,
+      "text": "Como que eu vou fazer isso?"
+    },
+    {
+      "start": 368.84,
+      "end": 369.92,
+      "text": "Coloca aqui, novo."
+    },
+    {
+      "start": 369.92,
+      "end": 373.66,
+      "text": "A data, né, que foi feito o parcelamento."
+    },
+    {
+      "start": 375.1,
+      "end": 375.96,
+      "text": "Aí vou fazer o quê?"
+    },
+    {
+      "start": 376.56,
+      "end": 381.62,
+      "text": "Vou debitar o meu passivo não circulante."
+    },
+    {
+      "start": 382.22,
+      "end": 388.26,
+      "text": "E vou acreditar o meu passivo circulante."
+    },
+    {
+      "start": 388.76,
+      "end": 393.24,
+      "text": "E vai ocorrer o pagamento nas 12 primeiras parcelas, né?"
+    },
+    {
+      "start": 394.28,
+      "end": 395.54,
+      "text": "Aí, o que eu vou fazer aqui?"
+    },
+    {
+      "start": 396.1,
+      "end": 398.45,
+      "text": "Vou fazer como?"
+    },
+    {
+      "start": 398.45,
+      "end": 412.27,
+      "text": "Vou vir aqui, ó, botar o 143,937,27, dividido por 12."
+    },
+    {
+      "start": 412.89,
+      "end": 413.47,
+      "text": "Tá certo?"
+    },
+    {
+      "start": 413.79,
+      "end": 414.05,
+      "text": "Não."
+    },
+    {
+      "start": 414.93,
+      "end": 415.99,
+      "text": "Não tá certo."
+    },
+    {
+      "start": 416.11,
+      "end": 416.49,
+      "text": "Por quê?"
+    },
+    {
+      "start": 417.57,
+      "end": 422.79,
+      "text": "Você vir aqui, ó, temos que contabilizar o valor da entrada,"
+    },
+    {
+      "start": 422.99,
+      "end": 427.79,
+      "text": "mais 11 parcelas de 273,15."
+    },
+    {
+      "start": 427.79,
+      "end": 429.25,
+      "text": "Aí sim, vai ser correto."
+    },
+    {
+      "start": 429.37,
+      "end": 429.97,
+      "text": "Mas, vamos lá."
+    },
+    {
+      "start": 429.97,
+      "end": 433.01,
+      "text": "Vamos lá, 173,15,"
+    },
+    {
+      "start": 433.21,
+      "end": 434.75,
+      "text": "vezes 11 parcelas,"
+    },
+    {
+      "start": 435.51,
+      "end": 438.31,
+      "text": "mais 1745, dá em 82, dá em cara."
+    },
+    {
+      "start": 438.47,
+      "end": 442.55,
+      "text": "Então, o valor que não circulante vai passar,"
+    },
+    {
+      "start": 443.29,
+      "end": 445.69,
+      "text": "no meu passivo circulante vai ser esse valor aqui,"
+    },
+    {
+      "start": 445.77,
+      "end": 449.49,
+      "text": "de 20.590,47 centavos."
+    },
+    {
+      "start": 450.49,
+      "end": 451.57,
+      "text": "Aí, vamos lá."
+    },
+    {
+      "start": 453.03,
+      "end": 457.17,
+      "text": "Vai ser 20.590,47 centavos."
+    },
+    {
+      "start": 457.17,
+      "end": 470.55,
+      "text": "Aí, vamos fazer assim, ó, transferência, parcelamento, curto prazo, certo?"
+    },
+    {
+      "start": 470.55,
+      "end": 472.01,
+      "text": "Curto prazo."
+    },
+    {
+      "start": 472.01,
+      "end": 474.25,
+      "text": "E, então, eu vou clavar."
+    },
+    {
+      "start": 474.57,
+      "end": 474.85,
+      "text": "Pronto."
+    },
+    {
+      "start": 475.05,
+      "end": 479.97,
+      "text": "Já fiz a minha provisão, curto prazo, com a longo prazo."
+    },
+    {
+      "start": 479.97,
+      "end": 480.97,
+      "text": "Pronto."
+    },
+    {
+      "start": 480.97,
+      "end": 485.11,
+      "text": "Agora, vamos fazer aqui, o pagamento da entrada, certo?"
+    },
+    {
+      "start": 485.11,
+      "end": 492.56,
+      "text": "Entrada de novo, pronto."
+    },
+    {
+      "start": 492.56,
+      "end": 499.12,
+      "text": "Como você pode ver, aqui no parcelamento da entrada, tem vários itens compondo a parcela."
+    },
+    {
+      "start": 499.12,
+      "end": 502.9,
+      "text": "Você viu, que você já fez, né?"
+    },
+    {
+      "start": 502.9,
+      "end": 506.46,
+      "text": "Já fizemos, a apropriação total dela."
+    },
+    {
+      "start": 507.32,
+      "end": 510.92,
+      "text": "Então, vamos colocar a primeira parcela aqui."
+    },
+    {
+      "start": 518.47,
+      "end": 523.79,
+      "text": "1 do 11, que vai ser a parcela de entrada."
+    },
+    {
+      "start": 523.79,
+      "end": 533.23,
+      "text": "Agora, vou pegar aqui, vou pegar o outro caixa, ou banco, certo?"
+    },
+    {
+      "start": 534.37,
+      "end": 535.13,
+      "text": "Aí, vou pagar."
+    },
+    {
+      "start": 535.45,
+      "end": 537.01,
+      "text": "Pagamento, parcelamento, parcelamento."
+    },
+    {
+      "start": 538.59,
+      "end": 541.35,
+      "text": "Aí, bota aqui, eu continuo com as parcelas."
+    },
+    {
+      "start": 543.82,
+      "end": 546.5,
+      "text": "Parcela 1,84."
+    },
+    {
+      "start": 548.12,
+      "end": 548.48,
+      "text": "Pronto."
+    },
+    {
+      "start": 548.92,
+      "end": 550.62,
+      "text": "Feito isso, a minha parcela tá ok."
+    },
+    {
+      "start": 551.64,
+      "end": 554.48,
+      "text": "Agora, vamos pegar um exemplo de uma parcela."
+    },
+    {
+      "start": 556.4,
+      "end": 560.08,
+      "text": "Que o cliente pagou, certo?"
+    },
+    {
+      "start": 560.08,
+      "end": 565.02,
+      "text": "Aí, pra isso, eu vou trabalhar com uma planilha, de acompanhamento."
+    },
+    {
+      "start": 565.86,
+      "end": 566.7,
+      "text": "Essa daqui, ó."
+    },
+    {
+      "start": 567.6,
+      "end": 570.3,
+      "text": "Eu vou usar essa planilha, pra mim, ainda acompanhando."
+    },
+    {
+      "start": 571.02,
+      "end": 572.14,
+      "text": "Como que você faz isso, Leandro?"
+    },
+    {
+      "start": 572.34,
+      "end": 573.88,
+      "text": "Vou explicar como que eu faço."
+    },
+    {
+      "start": 575.02,
+      "end": 576.3,
+      "text": "Eu acho mais fácil, entendeu?"
+    },
+    {
+      "start": 576.44,
+      "end": 578.38,
+      "text": "De a pessoa, ainda acompanhar mês a mês."
+    },
+    {
+      "start": 579.28,
+      "end": 583.84,
+      "text": "Porque, assim, você sabe que o valor mensal, mês, ela atualiza, né?"
+    },
+    {
+      "start": 585.54,
+      "end": 587.84,
+      "text": "Aí, pra isso, eu vou passar essa planilha, de acompanhamento."
+    },
+    {
+      "start": 587.84,
+      "end": 590.2,
+      "text": "Eu vou vir aqui, ó."
+    },
+    {
+      "start": 591.92,
+      "end": 594.24,
+      "text": "Dividir, pra ficar mais fácil explicar pra vocês."
+    },
+    {
+      "start": 596.47,
+      "end": 596.79,
+      "text": "Vamos lá."
+    },
+    {
+      "start": 596.89,
+      "end": 602.63,
+      "text": "O valor, da entrada, vai ficar aquele mesmo."
+    },
+    {
+      "start": 602.83,
+      "end": 604.53,
+      "text": "A gente já contabilizou, certo?"
+    },
+    {
+      "start": 607.7,
+      "end": 615.54,
+      "text": "Porém, as parcelas, seguintes, elas se atualizam todo mês."
+    },
+    {
+      "start": 620.22,
+      "end": 620.54,
+      "text": "Aqui, ó."
+    },
+    {
+      "start": 621.06,
+      "end": 622.3,
+      "text": "Aí, eu vou usar ela como base."
+    },
+    {
+      "start": 622.3,
+      "end": 627.22,
+      "text": "O principal, vai ser, os principais, vai ser isso aqui, ó."
+    },
+    {
+      "start": 627.38,
+      "end": 628.56,
+      "text": "O principal é esse."
+    },
+    {
+      "start": 629.18,
+      "end": 632.66,
+      "text": "Aí, tem a atualização, juros e multa."
+    },
+    {
+      "start": 632.86,
+      "end": 636.34,
+      "text": "E aqui, pra cá, já, a, é a multa fiscal de ICMS."
+    },
+    {
+      "start": 636.42,
+      "end": 638.06,
+      "text": "Eu expliquei, que ela é não dedutível."
+    },
+    {
+      "start": 639.06,
+      "end": 639.42,
+      "text": "Vamos lá."
+    },
+    {
+      "start": 639.62,
+      "end": 642.72,
+      "text": "O valor do imposto, vai ser o principal."
+    },
+    {
+      "start": 642.72,
+      "end": 647.08,
+      "text": "Então, aqui, vai ser 1.425,24."
+    },
+    {
+      "start": 648.36,
+      "end": 650.16,
+      "text": "Aí, dá uma atualização."
+    },
+    {
+      "start": 652.36,
+      "end": 654.04,
+      "text": "183,54."
+    },
+    {
+      "start": 656.82,
+      "end": 663.16,
+      "text": "Juros, 8,92."
+    },
+    {
+      "start": 665.04,
+      "end": 666.62,
+      "text": "Aí, vem a multa."
+    },
+    {
+      "start": 667.8,
+      "end": 670.12,
+      "text": "De 29,08."
+    },
+    {
+      "start": 670.12,
+      "end": 675.08,
+      "text": "Se você olhar aqui, o sub-total, vai ficar o sub-total o meu."
+    },
+    {
+      "start": 675.86,
+      "end": 677.38,
+      "text": "Vamos pra multa fiscal."
+    },
+    {
+      "start": 678.78,
+      "end": 682.96,
+      "text": "12,26, 3,80, 0,31 centavos."
+    },
+    {
+      "start": 683.64,
+      "end": 684.48,
+      "text": "Também barato."
+    },
+    {
+      "start": 684.58,
+      "end": 685.8,
+      "text": "Então, quando a minha parcela tá, ok."
+    },
+    {
+      "start": 686.9,
+      "end": 688.54,
+      "text": "Nós vamos puxar um pagamento aqui."
+    },
+    {
+      "start": 689.18,
+      "end": 693.14,
+      "text": "Pra explicar pra vocês como que faz a baixa de um pagamento."
+    },
+    {
+      "start": 693.66,
+      "end": 694.78,
+      "text": "Vou vir aqui, né."
+    },
+    {
+      "start": 696.88,
+      "end": 697.82,
+      "text": "Você faz."
+    },
+    {
+      "start": 697.82,
+      "end": 721.56,
+      "text": "Esse pagamento aqui, ó."
+    },
+    {
+      "start": 722.64,
+      "end": 723.64,
+      "text": "Passar lá, 28."
+    },
+    {
+      "start": 723.78,
+      "end": 724.46,
+      "text": "Um exemplo, tá."
+    },
+    {
+      "start": 725.98,
+      "end": 726.74,
+      "text": "Aí, vamos lá."
+    },
+    {
+      "start": 729.86,
+      "end": 731.52,
+      "text": "Vamos preencher a planilha, certo."
+    },
+    {
+      "start": 736.39,
+      "end": 739.03,
+      "text": "Aqui, eu vou pegar os normais."
+    },
+    {
+      "start": 739.43,
+      "end": 741.09,
+      "text": "Deixar, por último, esse é multa fiscal."
+    },
+    {
+      "start": 741.75,
+      "end": 742.63,
+      "text": "Amal, normal."
+    },
+    {
+      "start": 742.63,
+      "end": 747.23,
+      "text": "É composto pelo principal, 158,86."
+    },
+    {
+      "start": 748.93,
+      "end": 751.55,
+      "text": "Atualização, 109,98."
+    },
+    {
+      "start": 752.17,
+      "end": 754.35,
+      "text": "Amal, multa, 8,56."
+    },
+    {
+      "start": 755.57,
+      "end": 757.07,
+      "text": "Juros, 2,87."
+    },
+    {
+      "start": 757.69,
+      "end": 757.99,
+      "text": "Certo?"
+    },
+    {
+      "start": 759.43,
+      "end": 760.75,
+      "text": "Então, o próximo item."
+    },
+    {
+      "start": 761.47,
+      "end": 763.13,
+      "text": "Vou pular a multa fiscal, né."
+    },
+    {
+      "start": 763.13,
+      "end": 773.27,
+      "text": "Aqui, vai ser, 505,3,94, 0,29, 0,14."
+    },
+    {
+      "start": 774.21,
+      "end": 776.07,
+      "text": "Bateu, pânico no final."
+    },
+    {
+      "start": 776.47,
+      "end": 777.27,
+      "text": "Vamos pro próximo."
+    },
+    {
+      "start": 781.24,
+      "end": 782.52,
+      "text": "1,311,23."
+    },
+    {
+      "start": 783.4,
+      "end": 784.72,
+      "text": "5,58,63."
+    },
+    {
+      "start": 786.02,
+      "end": 789.76,
+      "text": "Multa fiscal, 7,91, 27,77."
+    },
+    {
+      "start": 790.76,
+      "end": 791.76,
+      "text": "Aqui, bateu."
+    },
+    {
+      "start": 792.22,
+      "end": 792.6,
+      "text": "Próximo."
+    },
+    {
+      "start": 792.6,
+      "end": 794.6,
+      "text": "Vamos pra multa fiscal."
+    },
+    {
+      "start": 795.68,
+      "end": 797.66,
+      "text": "Multa fiscal, a mesma esqueminha."
+    },
+    {
+      "start": 797.9,
+      "end": 798.7,
+      "text": "12,26."
+    },
+    {
+      "start": 799.28,
+      "end": 799.98,
+      "text": "Atualização."
+    },
+    {
+      "start": 800.96,
+      "end": 801.9,
+      "text": "Multa não tem."
+    },
+    {
+      "start": 802.08,
+      "end": 802.88,
+      "text": "E só juros."
+    },
+    {
+      "start": 803.14,
+      "end": 803.46,
+      "text": "Pronto."
+    },
+    {
+      "start": 804.18,
+      "end": 804.9,
+      "text": "Aí, veja."
+    },
+    {
+      "start": 805.2,
+      "end": 806.96,
+      "text": "E aqui, vai fazer um cruzamento."
+    },
+    {
+      "start": 808.18,
+      "end": 811.06,
+      "text": "Do valor base, da minha parcela."
+    },
+    {
+      "start": 811.52,
+      "end": 813.04,
+      "text": "Com o valor que eu paguei, certo."
+    },
+    {
+      "start": 813.04,
+      "end": 816.18,
+      "text": "Como vocês podem ver, ele dá uma diferença."
+    },
+    {
+      "start": 817.4,
+      "end": 818.96,
+      "text": "E atualiza todo mês, né."
+    },
+    {
+      "start": 819.68,
+      "end": 821.2,
+      "text": "Atualiza todo mês, a dívida."
+    },
+    {
+      "start": 821.44,
+      "end": 825.42,
+      "text": "Aí, esse aqui, vai ser uma atualização."
+    },
+    {
+      "start": 826.1,
+      "end": 827.7,
+      "text": "Da parcela em si."
+    },
+    {
+      "start": 828.42,
+      "end": 829.22,
+      "text": "Original, entendeu."
+    },
+    {
+      "start": 829.22,
+      "end": 832.18,
+      "text": "Aí, como que eu vou contabilizar isso aqui, Leandro."
+    },
+    {
+      "start": 832.44,
+      "end": 832.88,
+      "text": "Vamos lá."
+    },
+    {
+      "start": 833.08,
+      "end": 834.2,
+      "text": "Vou mostrar pra vocês."
+    },
+    {
+      "start": 835.02,
+      "end": 836.94,
+      "text": "Como que vai proceder agora, certo."
+    },
+    {
+      "start": 838.22,
+      "end": 838.88,
+      "text": "Tá, vamos lá."
+    },
+    {
+      "start": 840.26,
+      "end": 840.82,
+      "text": "Novo."
+    },
+    {
+      "start": 844.3,
+      "end": 845.22,
+      "text": "Pagamento aqui."
+    },
+    {
+      "start": 845.22,
+      "end": 850.44,
+      "text": "Vai ser dia 18 do 3."
+    },
+    {
+      "start": 851.76,
+      "end": 853.74,
+      "text": "18 do 3, 2026."
+    },
+    {
+      "start": 854.74,
+      "end": 856.5,
+      "text": "Vai ser um crédito."
+    },
+    {
+      "start": 857.44,
+      "end": 858.26,
+      "text": "E vários zeros."
+    },
+    {
+      "start": 859.4,
+      "end": 861.84,
+      "text": "Vou botar pelo caixa mesmo."
+    },
+    {
+      "start": 862.28,
+      "end": 862.96,
+      "text": "O valor."
+    },
+    {
+      "start": 863.44,
+      "end": 868.24,
+      "text": "O valor total da parcela paga."
+    },
+    {
+      "start": 868.24,
+      "end": 870.36,
+      "text": "Foi 2.281."
+    },
+    {
+      "start": 871.0,
+      "end": 872.4,
+      "text": "2.199, 21."
+    },
+    {
+      "start": 874.76,
+      "end": 876.88,
+      "text": "2.199, 21."
+    },
+    {
+      "start": 876.88,
+      "end": 882.38,
+      "text": "A parcela foi a 28 de 84."
+    },
+    {
+      "start": 883.52,
+      "end": 886.02,
+      "text": "Pode copiar aqui o álbum histórico."
+    },
+    {
+      "start": 887.46,
+      "end": 887.94,
+      "text": "Aqui."
+    },
+    {
+      "start": 889.28,
+      "end": 890.7,
+      "text": "Aqui, adepto."
+    },
+    {
+      "start": 890.94,
+      "end": 893.38,
+      "text": "Vai ser a conta do meu passivo."
+    },
+    {
+      "start": 894.24,
+      "end": 896.44,
+      "text": "O passivo circulante."
+    },
+    {
+      "start": 896.86,
+      "end": 905.02,
+      "text": "O passivo circulante."
+    },
+    {
+      "start": 905.84,
+      "end": 907.26,
+      "text": "O valor total aqui."
+    },
+    {
+      "start": 908.36,
+      "end": 910.38,
+      "text": "Vai ser o valor que eu vou botar aqui."
+    },
+    {
+      "start": 911.76,
+      "end": 913.26,
+      "text": "Vai ser o valor original."
+    },
+    {
+      "start": 913.28,
+      "end": 913.92,
+      "text": "Originária."
+    },
+    {
+      "start": 915.8,
+      "end": 918.24,
+      "text": "Originária da parcela."
+    },
+    {
+      "start": 918.78,
+      "end": 922.56,
+      "text": "Que vai ser 1.713.15."
+    },
+    {
+      "start": 922.68,
+      "end": 923.28,
+      "text": "Por que esse valor?"
+    },
+    {
+      "start": 923.42,
+      "end": 925.14,
+      "text": "Porque você já fez a provisão."
+    },
+    {
+      "start": 926.22,
+      "end": 928.68,
+      "text": "Lá no ato do que foi feito o parcelamento."
+    },
+    {
+      "start": 928.78,
+      "end": 928.94,
+      "text": "Entendeu?"
+    },
+    {
+      "start": 929.06,
+      "end": 930.82,
+      "text": "Então, tem que ser ele todo esse valor."
+    },
+    {
+      "start": 931.96,
+      "end": 932.42,
+      "text": "Vou botar aqui."
+    },
+    {
+      "start": 932.42,
+      "end": 934.46,
+      "text": "1.713.15."
+    },
+    {
+      "start": 934.46,
+      "end": 936.88,
+      "text": "Contra c."
+    },
+    {
+      "start": 936.92,
+      "end": 937.14,
+      "text": "Contra c."
+    },
+    {
+      "start": 937.46,
+      "end": 938.22,
+      "text": "Contra v."
+    },
+    {
+      "start": 940.85,
+      "end": 941.41,
+      "text": "Aí, vamos lá."
+    },
+    {
+      "start": 941.51,
+      "end": 942.05,
+      "text": "Agora é aqui."
+    },
+    {
+      "start": 942.21,
+      "end": 943.05,
+      "text": "Atenção é aqui."
+    },
+    {
+      "start": 944.27,
+      "end": 950.07,
+      "text": "Você viu que o valor base da atualização foi 6.33."
+    },
+    {
+      "start": 950.07,
+      "end": 954.57,
+      "text": "só que ele pagou 600 de atualização do imposto"
+    },
+    {
+      "start": 954.57,
+      "end": 956.57,
+      "text": "então eu vou mostrar esses aqui"
+    },
+    {
+      "start": 956.57,
+      "end": 962.47,
+      "text": "esses que excederam o valor da parcela base"
+    },
+    {
+      "start": 962.47,
+      "end": 965.47,
+      "text": "atualização"
+    },
+    {
+      "start": 965.47,
+      "end": 970.25,
+      "text": "atualização do imposto"
+    },
+    {
+      "start": 970.25,
+      "end": 975.24,
+      "text": "atualização do parcelamento"
+    },
+    {
+      "start": 975.24,
+      "end": 976.94,
+      "text": "o valor que eu vou colocar"
+    },
+    {
+      "start": 976.94,
+      "end": 981.94,
+      "text": "vai ser de 489,01"
+    },
+    {
+      "start": 981.94,
+      "end": 987.94,
+      "text": "atualização"
+    },
+    {
+      "start": 987.94,
+      "end": 991.94,
+      "text": "sobre parcelamento"
+    },
+    {
+      "start": 991.94,
+      "end": 995.94,
+      "text": "próximo item é minha multa"
+    },
+    {
+      "start": 995.94,
+      "end": 997.94,
+      "text": "multa mora"
+    },
+    {
+      "start": 997.94,
+      "end": 1004.5,
+      "text": "fica lá na minha despesa financeira"
+    },
+    {
+      "start": 1004.5,
+      "end": 1008.5,
+      "text": "o valor vai ser 59,68"
+    },
+    {
+      "start": 1008.5,
+      "end": 1017.09,
+      "text": "aí vem os juros"
+    },
+    {
+      "start": 1017.09,
+      "end": 1024.82,
+      "text": "21,86"
+    },
+    {
+      "start": 1024.82,
+      "end": 1029.03,
+      "text": "pronto"
+    },
+    {
+      "start": 1029.03,
+      "end": 1033.78,
+      "text": "como vocês podem ver"
+    },
+    {
+      "start": 1033.78,
+      "end": 1035.78,
+      "text": "já lançamos esse"
+    },
+    {
+      "start": 1035.78,
+      "end": 1037.78,
+      "text": "está ok"
+    },
+    {
+      "start": 1037.78,
+      "end": 1039.78,
+      "text": "está ok"
+    },
+    {
+      "start": 1039.78,
+      "end": 1041.78,
+      "text": "lembra que eu te falei que a multa fiscal"
+    },
+    {
+      "start": 1041.78,
+      "end": 1043.78,
+      "text": "pode lançar tudo junto"
+    },
+    {
+      "start": 1043.78,
+      "end": 1045.78,
+      "text": "esses dois itens"
+    },
+    {
+      "start": 1045.78,
+      "end": 1047.78,
+      "text": "por que?"
+    },
+    {
+      "start": 1047.78,
+      "end": 1049.78,
+      "text": "por causa que ele é indedutível"
+    },
+    {
+      "start": 1049.78,
+      "end": 1050.78,
+      "text": "certo?"
+    },
+    {
+      "start": 1050.78,
+      "end": 1051.78,
+      "text": "então você pode juntar tudo aqui"
+    },
+    {
+      "start": 1051.78,
+      "end": 1053.78,
+      "text": "aqui no lado"
+    },
+    {
+      "start": 1053.78,
+      "end": 1055.78,
+      "text": "15,51"
+    },
+    {
+      "start": 1055.78,
+      "end": 1057.78,
+      "text": "vou vir aqui"
+    },
+    {
+      "start": 1057.78,
+      "end": 1059.78,
+      "text": "incluir"
+    },
+    {
+      "start": 1059.78,
+      "end": 1061.78,
+      "text": "tudo na minha multa"
+    },
+    {
+      "start": 1061.78,
+      "end": 1063.78,
+      "text": "não dedutível"
+    },
+    {
+      "start": 1063.78,
+      "end": 1064.78,
+      "text": "está vendo?"
+    },
+    {
+      "start": 1064.78,
+      "end": 1065.78,
+      "text": "vou vir aqui"
+    },
+    {
+      "start": 1065.78,
+      "end": 1067.78,
+      "text": "15,51"
+    },
+    {
+      "start": 1067.78,
+      "end": 1069.78,
+      "text": "aí bota aqui"
+    },
+    {
+      "start": 1069.78,
+      "end": 1071.78,
+      "text": "multa fiscal"
+    },
+    {
+      "start": 1071.78,
+      "end": 1077.68,
+      "text": "sobre parcelamento"
+    },
+    {
+      "start": 1077.68,
+      "end": 1081.57,
+      "text": "e"
+    },
+    {
+      "start": 1081.57,
+      "end": 1083.57,
+      "text": "viu que bateu aqui"
+    },
+    {
+      "start": 1083.57,
+      "end": 1085.57,
+      "text": "não tem uma diferença nada"
+    },
+    {
+      "start": 1085.57,
+      "end": 1087.57,
+      "text": "só gravar"
+    },
+    {
+      "start": 1087.57,
+      "end": 1088.57,
+      "text": "então pessoal"
+    },
+    {
+      "start": 1088.57,
+      "end": 1089.57,
+      "text": "isso ai"
+    },
+    {
+      "start": 1089.57,
+      "end": 1091.57,
+      "text": "o que eu queria ensinar a vocês"
+    },
+    {
+      "start": 1091.57,
+      "end": 1093.57,
+      "text": "o que eu queria"
+    },
+    {
+      "start": 1093.57,
+      "end": 1094.57,
+      "text": "fazer a provisão"
+    },
+    {
+      "start": 1094.57,
+      "end": 1095.57,
+      "text": "e fazer abaixo"
+    },
+    {
+      "start": 1095.57,
+      "end": 1096.57,
+      "text": "tá bom?"
+    },
+    {
+      "start": 1096.57,
+      "end": 1097.57,
+      "text": "muito obrigado"
+    },
+    {
+      "start": 1097.57,
+      "end": 1099.57,
+      "text": "até o próximo vídeo"
+    }
+  ]
+}

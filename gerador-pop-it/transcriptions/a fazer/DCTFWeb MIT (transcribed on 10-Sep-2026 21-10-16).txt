@@ -1,0 +1,27 @@
+Lá nós iremos mostrar, eu irei mostrar como realizar a tarefa da DCTFWeb Meet. Ela é uma tarefa basicamente de conferência, de que se for importado o Meet dos tributos todos corretos no site da Receita.
+Então nós precisamos estar com o ECAC aberto e colocar na empresa referente. Pode pegar o CNPJ daqui mesmo da tarefa, para que se torne mais rápido e nós ganhamos velocidade.
+Entrando no ECAC, nós vamos aqui em assinar e transmitir DCTFWeb. Irei voltar novamente para mostrar aqui, assinar e transmitir DCTFWeb.
+Entrando aqui, nós aceitamos o CAPTCHA e ele nos trará se está transmitido ou não. Aqui na aba de situação, ativa, então quer dizer que foi transmitida.
+Mas se caso estivesse em processamento, a tarefa que nós façamos é a transmissão. Então se estivesse em processamento, nós teríamos que transmitir o Meet, que foi importado.
+Claro, validando se estão todas as informações, caso não esteja procurar o que acontecer.
+Temos que observar o mês de apuração, se está correto. Nós estamos apurando o mês 12, então é o período, para ver se está tudo ok.
+Nós podemos visualizar cada atributo aqui no olhinho, para ver se todos já foram importados.
+Nós, como podemos observar, estão todos aqui. IRF, PIS, COFINS, IRPJ, CSLL.
+Então é importante essa conferência também, para que não deixe passar batido nenhum tributo, certo?
+Aí nós podemos voltar e salvar aqui, nessa parte, o recibo.
+Salvando o recibo aqui, porque já estava salvo.
+Vou colocar aqui para substituir, mas coloca assim, recibo DCTFWeb e o período referente.
+Salvando o recibo, salvo, salvo e nós colocamos aqui na tarefa o recibo.
+Eu vou tirar aqui, porque eu já tinha concluído, mas só para deixar tudo certinho.
+Recibo DCTFWeb, nós arrastamos e importamos para a tarefa, para que seja feita a conclusão.
+Para uma conferência maior ainda, nós podemos estar abrindo o SPED, vendo se os valores conferem, se está tudo batendo certinho.
+Para que assim esteja realmente tudo validado.
+Mas em resumo, a tarefa é isso.
+Ver se foi transmitida DCTFWeb, como está a situação, se está ativa ou diferente.
+Verificar o período de apuração e baixar o recibo para importar na tarefa.
+Isso depois de verificar se estão todos os tributos, lembrando.
+Obrigado.
+Obrigado.
+Obrigado.
+Obrigado.
+Obrigado.

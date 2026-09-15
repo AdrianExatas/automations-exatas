@@ -285,21 +285,29 @@ def validate_excel(checker: Checker, kind: str, path: Path, content: dict) -> No
             checker.add(
                 kind,
                 "vocabulario-parecer",
-                contains_normalized(text, "PENDENTE") and contains_normalized(text, "CONFORME"),
-                "PENDENTE/CONFORME",
+                contains_normalized(text, "NAO CONFORME") and contains_normalized(text, "CONFORME"),
+                "CONFORME/NÃO CONFORME",
             )
             checker.add(
                 kind,
-                "vocabulario-evidencia",
-                contains_normalized(text, "EVIDENCIA"),
-                "EVIDÊNCIA/PRINT",
+                "vocabulario-checklist",
+                contains_normalized(text, "COEFICIENTE PARCIAL")
+                and contains_normalized(text, "PARECER INSPECAO"),
+                "Coeficiente Parcial / Parecer Inspeção",
+            )
+            checker.add(
+                kind,
+                "vocabulario-observacao",
+                contains_normalized(text, "OBSERVACAO"),
+                "OBSERVAÇÃO",
             )
             # Conteúdo preenchido (não apenas o template sanitizado).
             checker.add(
                 kind,
                 "conteudo-preenchido",
-                not contains_normalized(text, "[Descreva o item verificavel]"),
-                "itens reais no lugar do placeholder do template",
+                not contains_normalized(text, "MODELO CHECK LIST TAREFA")
+                or contains_normalized(text, str(content["documento"].get("titulo", ""))),
+                "título real no lugar do placeholder do template",
             )
             questions = []
             for block in content.get("form", {}).get("blocos", []):

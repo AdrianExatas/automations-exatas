@@ -1,4 +1,5 @@
 import { calcularPreviewMatriz } from "./matrix";
+import { resolverClientePorCnpj } from "./customer";
 import {
   AreaParametrizacao,
   ClienteGestta,
@@ -120,14 +121,6 @@ function normalizarCompanyUserName(companyUser: ConfiguracaoAplicavel["company_u
     return typeof value === "string" ? value : undefined;
   }
   return undefined;
-}
-
-function resolverCliente(clientes: ClienteGestta[], cnpj: string): ClienteGestta {
-  const normalized = normalizarCnpj(cnpj);
-  const matches = clientes.filter((cliente) => normalizarCnpj(cliente.cnpj) === normalized);
-  if (matches.length === 1) return matches[0];
-  if (matches.length === 0) throw new Error(`Cliente nao encontrado no Gestta para CNPJ ${normalized}.`);
-  throw new Error(`CNPJ ${normalized} retornou ${matches.length} clientes no Gestta.`);
 }
 
 function uniqueByName<T extends { name: string }>(items: T[]): Map<string, T[]> {
@@ -268,7 +261,7 @@ async function fazerPreflight(
     api.listarTarefasRecorrentesAtivas(),
   ]);
 
-  const cliente = resolverCliente(clientes, input.cnpj);
+  const cliente = resolverClientePorCnpj(clientes, input.cnpj);
   const tasksByName = uniqueByName(tarefasGestta);
   const usersByName = uniqueByName(usuarios);
 

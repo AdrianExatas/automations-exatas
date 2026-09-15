@@ -1,0 +1,17 @@
+- generic [ref=e2]:
+  - generic [ref=e16]:
+    - heading "404" [level=1] [ref=e17]
+    - paragraph [ref=e18]: Este domínio não existe. Você digitou o endereço corretamente? Verifique novamente.
+  - generic [ref=e20]:
+    - paragraph [ref=e21]: Aparentemente, sua conta Bitrix24 não foi usada por um tempo e foi desativada.
+    - paragraph [ref=e22]:
+      - link "Criar novo Bitrix24" [ref=e23] [cursor=pointer]:
+        - /url: https://www.bitrix24.com.br/register/reg.php
+  - generic [ref=e25]:
+    - paragraph [ref=e26]: Você é um usuário ativo e tudo estava bem da última vez?
+    - paragraph [ref=e27]:
+      - link "Contatar o Suporte Técnico" [ref=e28] [cursor=pointer]:
+        - /url: https://helpdesk.bitrix24.com.br/ticket.php?ID=0
+    - paragraph
+    - generic [ref=e29]: "Nota: o endereço que você usou para criar seu último Bitrix24 pode não estar disponível agora. Nesse caso, use um endereço diferente ao cadastrar um novo Bitrix24."
+    - paragraph

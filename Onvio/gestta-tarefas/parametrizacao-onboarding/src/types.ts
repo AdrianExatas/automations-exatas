@@ -7,10 +7,21 @@ export type AreaParametrizacao =
 
 export type RegimeFiscal = "simples_nacional" | "fiscal_normal";
 
+export type PerfilDp = "normal" | "sem_movimento";
+export type AdicionalDp = "particularidade" | "normal_domestica" | "normal_mei" | "exatas";
+export type GrupoFolha = "grupo_1" | "grupo_2";
+
+export interface ConfiguracaoDp {
+  perfil: PerfilDp;
+  adicionais: AdicionalDp[];
+  grupoFolha?: GrupoFolha;
+}
+
 export interface ParametrizacaoInput {
   cnpj: string;
   areas: AreaParametrizacao[];
   regimeFiscal: RegimeFiscal;
+  dp?: ConfiguracaoDp;
   incluirAnuais: boolean;
   planoPremium: boolean;
   supervisor: boolean;
@@ -23,6 +34,7 @@ export interface TarefaMatriz {
   aba: string;
   tarefa: string;
   responsavel: string;
+  categoriaDp?: string;
   anual: boolean;
   premium: boolean;
   supervisor: boolean;
@@ -42,6 +54,12 @@ export interface ClienteGestta {
   code?: string;
   active?: boolean;
   [key: string]: unknown;
+}
+
+export interface EmpresaGesttaResolvida {
+  id: string;
+  name: string;
+  cnpj: string;
 }
 
 export interface RespostaClientes {

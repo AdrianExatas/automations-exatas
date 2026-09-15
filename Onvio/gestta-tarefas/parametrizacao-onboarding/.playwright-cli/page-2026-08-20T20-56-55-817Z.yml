@@ -1,0 +1,102 @@
+- main [ref=e2]:
+  - complementary [ref=e3]:
+    - generic [ref=e4]:
+      - generic [ref=e5]: PO
+      - generic [ref=e6]:
+        - strong [ref=e7]: Onboarding Gestta
+        - generic [ref=e8]: Parametrizacao de tarefas
+    - radiogroup "Modo da interface" [ref=e9]:
+      - generic [ref=e10]:
+        - radio "Basico" [checked] [ref=e11]
+        - generic [ref=e12] [cursor=pointer]: Basico
+      - generic [ref=e13]:
+        - radio "Avancado" [ref=e14]
+        - generic [ref=e15] [cursor=pointer]: Avancado
+    - navigation "Etapas" [ref=e16]:
+      - button "1. Planilha" [ref=e17] [cursor=pointer]
+      - button "2. Login" [ref=e18] [cursor=pointer]
+      - button "3. Empresa" [ref=e19] [cursor=pointer]
+      - button "4. Opcoes" [ref=e20] [cursor=pointer]
+      - button "5. Executar" [ref=e21] [cursor=pointer]
+    - generic [ref=e22]:
+      - button "Relatorios" [ref=e23] [cursor=pointer]
+      - button "Limpar acesso" [ref=e24] [cursor=pointer]
+  - generic [ref=e25]:
+    - generic [ref=e26]:
+      - generic [ref=e27]:
+        - heading "Parametrizacao Onboarding Gestta" [level=1] [ref=e28]
+        - paragraph [ref=e29]: Carregando configuracao...
+      - generic [ref=e30]:
+        - generic [ref=e31]: Planilha
+        - generic [ref=e32]: Login
+    - generic [ref=e33]:
+      - generic [ref=e59]:
+        - generic [ref=e60]:
+          - heading "Empresa" [level=2] [ref=e61]
+          - generic [ref=e62]: Dados do cliente
+        - generic [ref=e63]:
+          - generic [ref=e64]:
+            - text: CNPJ
+            - textbox "CNPJ" [ref=e65]:
+              - /placeholder: 00.000.000/0000-00
+          - generic [ref=e66]:
+            - text: Regime fiscal
+            - combobox "Regime fiscal" [ref=e67]:
+              - option "Simples Nacional" [selected]
+              - option "Fiscal Normal"
+        - generic [ref=e68]:
+          - generic [ref=e69]: Empresa no Gestta
+          - generic [ref=e70]: Informe o CNPJ para consultar a empresa.
+        - group "Areas" [ref=e71]:
+          - generic [ref=e73]:
+            - checkbox "DP" [checked] [ref=e74]
+            - text: DP
+          - generic [ref=e75]:
+            - checkbox "Fiscal" [checked] [ref=e76]
+            - text: Fiscal
+          - generic [ref=e77]:
+            - checkbox "Financeiro" [ref=e78]
+            - text: Financeiro
+          - generic [ref=e79]:
+            - checkbox "Contabil" [checked] [ref=e80]
+            - text: Contabil
+          - generic [ref=e81]:
+            - checkbox "Sucesso do Cliente" [ref=e82]
+            - text: Sucesso do Cliente
+        - group "Configuração DP" [ref=e83]:
+          - paragraph [ref=e85]: Escolha o perfil principal da empresa. Os adicionais podem ser combinados.
+          - generic [ref=e86]:
+            - generic [ref=e87]:
+              - radio "Normal" [checked] [ref=e88]
+              - text: Normal
+            - generic [ref=e89]:
+              - radio "Sem movimento" [ref=e90]
+              - text: Sem movimento
+          - generic [ref=e91]:
+            - generic [ref=e92]:
+              - checkbox "Particularidades" [checked] [active] [ref=e93]
+              - text: Particularidades
+            - generic [ref=e94]:
+              - checkbox "Normal doméstica" [ref=e95]
+              - text: Normal doméstica
+            - generic [ref=e96]:
+              - checkbox "Normal MEI" [ref=e97]
+              - text: Normal MEI
+            - generic [ref=e98]:
+              - checkbox "Exatas" [ref=e99]
+              - text: Exatas
+      - generic [ref=e43]:
+        - generic [ref=e45]:
+          - heading "Previa" [level=2] [ref=e46]
+          - text: 0 tarefas
+        - table [ref=e48]:
+          - rowgroup [ref=e49]:
+            - row [ref=e50]:
+              - columnheader "Aba" [ref=e51]
+              - columnheader "Categoria" [ref=e52]
+              - columnheader "Tarefa" [ref=e53]
+              - columnheader "Responsavel" [ref=e54]
+          - rowgroup
+        - generic [ref=e55]:
+          - heading "Logs" [level=2] [ref=e56]
+          - button "Limpar" [ref=e57] [cursor=pointer]

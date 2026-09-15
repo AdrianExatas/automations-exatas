@@ -1,0 +1,21 @@
+Nesse vídeo eu vou estar ensinando como fazer o cadastro e inclusão de dependentes no cadastro do funcionário vou no atalho de cadastro de empregados que é esse bonequinho 
+
+após a apertura do cadastro de empregados eu vou na opção pessoais e na opção dependentes 
+
+clico em novo 
+
+cadastro o nome do filho do dependente 
+
+a data de nascimento 
+
+cadastro CPF sem o CPF não consegue passar o cadastro 
+
+local de nascimento 
+
+clico na opção tipo de dependência marco filhos ou enteado que é o código 03 
+
+após esse primeiro cadastro vou na segunda opção de dependência clico em salário família e determino o fim já puxa automático as informações é a partir do cadastro da data de nascimento 
+
+e clico em IR e determino o FII que também puxa automático depois eu vou na opção gravar 
+
+já está cadastrado aqui no sistema e na opção gravar para finalizar o cadastro 

@@ -2,14 +2,16 @@ import fs from "fs";
 import path from "path";
 import * as XLSX from "xlsx";
 import {
+  AdicionalDp,
   AreaParametrizacao,
+  GrupoFolha,
   MatrizPreview,
   ParametrizacaoInput,
   TarefaMatriz,
 } from "./types";
 import { extrairUfDaTarefa, normalizarChave, normalizarTexto } from "./utils";
 
-export const DEFAULT_MATRIX_FILE = "PLANILHA GERAL TAREFAS POR REGIME.xlsx";
+export const DEFAULT_MATRIX_FILE = "PLANILHA GERAL DE TAREFAS POR REGIME E SETOR.xlsx";
 
 const AREA_SHEETS: Record<AreaParametrizacao, string> = {
   dp: "DP",
@@ -40,6 +42,20 @@ const ANALISE_PARCELAMENTOS_TAREFAS: Array<{
 
 type Row = unknown[];
 
+const DP_CATEGORIAS = new Map<string, string>([
+  [normalizarChave("Normal"), "normal"],
+  [normalizarChave("Sem movimento"), "sem_movimento"],
+  [normalizarChave("Particularidade"), "particularidade"],
+  [normalizarChave("Normal Domestica"), "normal_domestica"],
+  [normalizarChave("Normal MEI"), "normal_mei"],
+  [normalizarChave("Exatas"), "exatas"],
+]);
+
+const GRUPOS_FOLHA_POR_TAREFA = new Map<string, GrupoFolha>([
+  [normalizarChave("FOLHA DE PAGAMENTO GERAL GRUPO 1"), "grupo_1"],
+  [normalizarChave("FOLHA DE PAGAMENTO GERAL GRUPO 2"), "grupo_2"],
+]);
+
 export function getDefaultMatrixPath(): string {
   const configured = process.env.MATRIX_PATH?.trim();
   if (configured) {
@@ -48,8 +64,17 @@ export function getDefaultMatrixPath(): string {
   return path.resolve(process.cwd(), DEFAULT_MATRIX_FILE);
 }
 
+function resolveSheetName(workbook: XLSX.WorkBook, sheetName: string): string | undefined {
+  const exact = workbook.SheetNames.find((name) => name === sheetName);
+  if (exact) return exact;
+
+  const wanted = normalizarChave(sheetName);
+  return workbook.SheetNames.find((name) => normalizarChave(name) === wanted);
+}
+
 function getSheetRows(workbook: XLSX.WorkBook, sheetName: string): Row[] {
-  const sheet = workbook.Sheets[sheetName];
+  const resolvedSheetName = resolveSheetName(workbook, sheetName);
+  const sheet = resolvedSheetName ? workbook.Sheets[resolvedSheetName] : undefined;
   if (!sheet) throw new Error(`Aba nao encontrada na matriz: ${sheetName}.`);
   return XLSX.utils.sheet_to_json<Row>(sheet, {
     header: 1,
@@ -57,6 +82,14 @@ function getSheetRows(workbook: XLSX.WorkBook, sheetName: string): Row[] {
     raw: false,
     blankrows: false,
   });
+}
+
+export function normalizarCategoriaDp(value: unknown): string | undefined {
+  return DP_CATEGORIAS.get(normalizarChave(value));
+}
+
+export function normalizarGrupoFolhaDaTarefa(value: unknown): GrupoFolha | undefined {
+  return GRUPOS_FOLHA_POR_TAREFA.get(normalizarChave(value));
 }
 
 function lerResponsaveisControle(workbook: XLSX.WorkBook): Map<string, string> {
@@ -109,12 +142,20 @@ function hasMarker(row: Row, marker: string): boolean {
   return row.some((cell) => normalizarTexto(cell) === wanted);
 }
 
-function deveIncluir(row: Row, input: ParametrizacaoInput): boolean {
+function deveIncluir(row: Row, input: ParametrizacaoInput, area: AreaParametrizacao): boolean {
+  if (area === "dp") {
+    const categoria = normalizarCategoriaDp(row[1]);
+    if (!categoria || !input.dp) return false;
+    if (categoria !== input.dp.perfil && !input.dp.adicionais.includes(categoria as AdicionalDp)) return false;
+
+    const grupoFolhaDaTarefa = normalizarGrupoFolhaDaTarefa(row[0]);
+    if (grupoFolhaDaTarefa && grupoFolhaDaTarefa !== input.dp.grupoFolha) return false;
+  }
+
   const isPremiumRow = hasMarker(row, "PLANO PREMIUM");
-  const ativaNaColunaB = normalizarTexto(row[1]) === "SIM";
+  const ativaNaColunaB = area === "dp" || normalizarTexto(row[1]) === "SIM";
 
   if (!ativaNaColunaB && !(input.planoPremium && isPremiumRow)) return false;
-  if (normalizarTexto(row[2]) === "SIM" && !input.incluirAnuais) return false;
   if (isPremiumRow && !input.planoPremium) return false;
   if (hasMarker(row, "Supervisor") && !input.supervisor) return false;
 
@@ -169,7 +210,14 @@ export function calcularPreviewMatriz(
     const before = tarefas.length;
 
     rows.forEach((row, index) => {
-      if (index < 2 || !isLinhaDeTarefa(row) || !deveIncluir(row, input)) return;
+      if (index < 2 || !isLinhaDeTarefa(row)) return;
+
+      const categoriaDp = area === "dp" ? normalizarCategoriaDp(row[1]) : undefined;
+      if (area === "dp" && !categoriaDp) {
+        avisos.push(`Linha ${index + 1} da aba DP ignorada: status DP nao classificado.`);
+        return;
+      }
+      if (!deveIncluir(row, input, area)) return;
 
       const tarefa = String(row[0] ?? "").trim();
       tarefas.push({
@@ -177,6 +225,7 @@ export function calcularPreviewMatriz(
         aba,
         tarefa,
         responsavel,
+        categoriaDp,
         anual: normalizarTexto(row[2]) === "SIM",
         premium: hasMarker(row, "PLANO PREMIUM"),
         supervisor: hasMarker(row, "Supervisor"),

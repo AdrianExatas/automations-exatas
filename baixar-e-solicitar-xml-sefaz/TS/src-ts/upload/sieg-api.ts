@@ -2,7 +2,8 @@ import { SIEG_API_KEY } from "../core/config.js";
 import { sleep } from "../utils/retry.js";
 
 const API_URL_BASE = "https://up.sieg.com/EnviarXml";
-const API_URL_VERIFICAR = "https://api.sieg.com/BaixarXml?xmlType=1";
+const API_URL_VERIFICAR = "https://api.sieg.com/BaixarXml";
+const API_URL_EVENTOS = "https://api.sieg.com/BaixarEventos";
 const RETRY_MAX_TENTATIVAS = 5;
 const RETRY_ERROS_RECUPERAVEIS = new Set([500, 502, 503, 504, 429]);
 const TIMEOUT_ENVIO_MS = 60_000;
@@ -27,18 +28,18 @@ async function responseText(response: Response): Promise<string> {
   }
 }
 
-export async function verificarXmlExiste(chaveAcesso: string, apiKey = SIEG_API_KEY): Promise<boolean> {
+export async function verificarXmlExiste(chaveAcesso: string, apiKey = SIEG_API_KEY, xmlType = 1): Promise<boolean> {
   if (!chaveAcesso || chaveAcesso.length !== 44 || !apiKey) {
     return false;
   }
   try {
-    const url = `${API_URL_VERIFICAR}&api_key=${encodeURIComponent(apiKey)}`;
+    const url = `${API_URL_VERIFICAR}?xmlType=${xmlType}&api_key=${encodeURIComponent(apiKey)}`;
     const response = await fetchWithTimeout(
       url,
       {
         method: "POST",
-        headers: { "Content-Type": "text/plain" },
-        body: chaveAcesso,
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(chaveAcesso),
       },
       TIMEOUT_VERIFICACAO_MS,
     );
@@ -46,6 +47,79 @@ export async function verificarXmlExiste(chaveAcesso: string, apiKey = SIEG_API_
   } catch {
     return false;
   }
+}
+
+export async function verificarXmlExisteComRetry(
+  chaveAcesso: string,
+  apiKey = SIEG_API_KEY,
+  tentativas = 3,
+  intervaloMs = 2_000,
+  xmlType = 1,
+): Promise<boolean> {
+  for (let tentativa = 1; tentativa <= Math.max(1, tentativas); tentativa += 1) {
+    if (await verificarXmlExiste(chaveAcesso, apiKey, xmlType)) {
+      return true;
+    }
+    if (tentativa < tentativas) {
+      await sleep(intervaloMs);
+    }
+  }
+  return false;
+}
+
+export async function verificarEventoExiste(
+  chaveAcesso: string,
+  tipoEvento: number,
+  apiKey = SIEG_API_KEY,
+  xmlType = 1,
+): Promise<boolean> {
+  if (!chaveAcesso || chaveAcesso.length !== 44 || !apiKey || !Number.isFinite(tipoEvento)) {
+    return false;
+  }
+  try {
+    const url = `${API_URL_EVENTOS}?api_key=${encodeURIComponent(apiKey)}`;
+    const response = await fetchWithTimeout(
+      url,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          ChaveXml: chaveAcesso,
+          TipoXml: xmlType,
+          TipoEvento: tipoEvento,
+          Skip: 0,
+          Take: 1,
+        }),
+      },
+      TIMEOUT_VERIFICACAO_MS,
+    );
+    if (response.status !== 200) {
+      return false;
+    }
+    const json = await response.json();
+    return Array.isArray(json) && json.length > 0;
+  } catch {
+    return false;
+  }
+}
+
+export async function verificarEventoExisteComRetry(
+  chaveAcesso: string,
+  tipoEvento: number,
+  apiKey = SIEG_API_KEY,
+  tentativas = 3,
+  intervaloMs = 2_000,
+  xmlType = 1,
+): Promise<boolean> {
+  for (let tentativa = 1; tentativa <= Math.max(1, tentativas); tentativa += 1) {
+    if (await verificarEventoExiste(chaveAcesso, tipoEvento, apiKey, xmlType)) {
+      return true;
+    }
+    if (tentativa < tentativas) {
+      await sleep(intervaloMs);
+    }
+  }
+  return false;
 }
 
 export async function enviarXml(

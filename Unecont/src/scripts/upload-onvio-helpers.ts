@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { matchEmpresaFileIdentity } from "../empresa-file-identity";
 import type { EmpresaBatchItem, UploadOnvioOptions } from "../types";
 
 export interface UploadAttachmentFile {
@@ -74,6 +75,13 @@ export function filenameHasExactCodeToken(filename: string, code: string): boole
   if (!normalizedCode) return false;
 
   const baseName = path.basename(filename, path.extname(filename));
+  // Arquivos Unecont: "CODIGO - UneCont - Tomados - ...". Usar so o prefixo evita
+  // colidir com digitos de CNPJ no nome (ex.: 38.635.853 ≠ codigo 635).
+  const leading = baseName.match(/^(\d+)\s*-/);
+  if (leading) {
+    return normalizeCode(leading[1]) === normalizedCode;
+  }
+
   const tokens = normalizeForMatch(baseName)
     .split(/[^A-Z0-9]+/)
     .filter(Boolean);
@@ -83,6 +91,28 @@ export function filenameHasExactCodeToken(filename: string, code: string): boole
 
 function buildFileNameMap(files: UploadAttachmentFile[]): Map<string, UploadAttachmentFile> {
   return new Map(files.map((file) => [normalizeForMatch(file.fileName), file]));
+}
+
+function assertAttachmentMatchesEmpresa(
+  file: UploadAttachmentFile,
+  empresa: EmpresaBatchItem,
+): void {
+  // Apenas planilhas Unecont (.xlsx) passam pela trava de razao social.
+  if (file.extension.toLowerCase() !== ".xlsx") return;
+
+  const nome = empresa.nome?.trim();
+  if (!nome) {
+    throw new UploadResolutionError(
+      `Anexo recusado: empresa ${empresa.codigo || "<sem código>"} sem nome para validar identidade do arquivo ${file.fileName}.`,
+    );
+  }
+
+  const identity = matchEmpresaFileIdentity(file.fileName, nome);
+  if (!identity.ok) {
+    throw new UploadResolutionError(
+      `Anexo incompatível com a empresa ${empresa.codigo || "<sem código>"} (${nome}): ${file.fileName}`,
+    );
+  }
 }
 
 export function resolveAttachmentsForEmpresa(
@@ -101,6 +131,7 @@ export function resolveAttachmentsForEmpresa(
       if (!match) {
         throw new UploadResolutionError(`Arquivo listado na planilha não encontrado: ${arquivo}`);
       }
+      assertAttachmentMatchesEmpresa(match, empresa);
       return match;
     });
 
@@ -112,6 +143,10 @@ export function resolveAttachmentsForEmpresa(
     throw new UploadResolutionError(
       `Nenhum anexo encontrado para o código ${empresa.codigo || "<sem código>"}.`,
     );
+  }
+
+  for (const match of matches) {
+    assertAttachmentMatchesEmpresa(match, empresa);
   }
   return matches;
 }

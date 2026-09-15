@@ -1,0 +1,17 @@
+Neste vídeo eu vou apresentar como você deverá agora fazer os cálculos de provisão baseado na tarefa controle de 13º fizemos anteriormente a das férias agora será do 13º e para este exemplo iremos utilizar a empresa 87 revendedora de gás então 
+
+deverá entrar no domínio com a empresa vale ressaltar e reforçar que a competência abriu porém o cálculo tem que ser a do mês anterior então sempre prestar atenção nisso 
+
+vamos fazer a conferência então relatórios provisões 13º competência 3 
+
+destacar a linha emitir o código ok 
+
+sem dados para emitir então não houve um cálculo ainda desta empresa o que iremos fazer o cálculo então processo provisões 
+
+férias e 13º aqui você coloca a competência do cálculo desmarco férias inclui apenas 13º salário 
+
+há uma observação também você pode usar o cálculo para demais empresas para calcular de uma só vez ele tem uma demora significativa dependendo da quantidade mas é uma opção então você pode clicar em empresas e selecionar as empresas que você gostaria que calculasse junto com a revendedora neste caso só daremos o exemplo da revendedora e quando você marcar aqui deixar as marcadas você pode apenas clicar em ok e quando for gerar o cálculo ela vai calcular de todas elas então vamos clicar em calcular 
+
+provisão calculada com sucesso então viemos aqui novamente em relatório para fazer a conferência 
+
+está aí cálculo feito 

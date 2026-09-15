@@ -1,6 +1,37 @@
 const DEFAULT_USER_AGENT =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36";
 
+/**
+ * Decodifica HTML/texto da SEFAZ.
+ * Portal legado costuma mandar iso-8859-1; UTF-8 forçado gera "relat�rio".
+ */
+export function decodeSefazText(bytes: Uint8Array, contentType?: string | null): string {
+  const raw = contentType?.match(/charset=([^;\s]+)/i)?.[1]?.trim().replace(/^["']|["']$/g, "") ?? "";
+  const normalized = normalizeCharset(raw) || "iso-8859-1";
+  try {
+    return new TextDecoder(normalized, { fatal: false }).decode(bytes);
+  } catch {
+    return new TextDecoder("latin1", { fatal: false }).decode(bytes);
+  }
+}
+
+function normalizeCharset(value: string): string {
+  const lower = value.toLowerCase();
+  if (!lower) {
+    return "";
+  }
+  if (lower === "utf8" || lower === "utf-8") {
+    return "utf-8";
+  }
+  if (lower === "latin1" || lower === "latin-1" || lower === "iso-8859-1" || lower === "iso8859-1") {
+    return "iso-8859-1";
+  }
+  if (lower === "windows-1252" || lower === "cp1252") {
+    return "windows-1252";
+  }
+  return lower;
+}
+
 export type HttpResult = {
   url: string;
   status: number;
@@ -55,9 +86,7 @@ export class HttpClient {
   }
 
   text(result: HttpResult): string {
-    const contentType = result.headers.get("content-type") ?? "";
-    const charset = contentType.match(/charset=([^;\s]+)/i)?.[1] ?? "iso-8859-1";
-    return new TextDecoder(charset, { fatal: false }).decode(result.bytes);
+    return decodeSefazText(result.bytes, result.headers.get("content-type"));
   }
 
   resolve(pathOrUrl: string): string {
@@ -125,9 +154,7 @@ export class HttpClient {
 }
 
 function buildHttpStatusError(status: number, url: string, headers: Headers, bytes: Uint8Array): string {
-  const contentType = headers.get("content-type") ?? "";
-  const charset = contentType.match(/charset=([^;\s]+)/i)?.[1] ?? "utf-8";
-  const text = new TextDecoder(charset, { fatal: false }).decode(bytes).replace(/\s+/g, " ").trim();
+  const text = decodeSefazText(bytes, headers.get("content-type")).replace(/\s+/g, " ").trim();
   const excerpt = text ? `: ${text.slice(0, 200)}` : "";
   return `HTTP ${status} ao acessar ${url}${excerpt}`;
 }

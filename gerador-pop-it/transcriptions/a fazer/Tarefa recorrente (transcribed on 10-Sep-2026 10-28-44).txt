@@ -1,0 +1,18 @@
+Olá, no vídeo de hoje a gente vai ensinar como é que a gente vai conseguir fazer a recorrência
+dessa tarefa daqui, retornar ao cliente. Ela é uma tarefa que chega tanto no acompanhamento
+administrativo quanto no acompanhamento judicial. Tem um checklist dela que é a tarefa de acompanhamento
+com esse exato nome. Aí o que a gente vai fazer para criar essa tarefa recorrente? A gente vai
+copiar o nome exato dela, certo? Que essa vai ser uma tarefa modelo. Aí a gente vai vir em tarefas
+e projetos, vai vir até essa setinha aqui do lado de criar, tarefas usando o modelo. A gente pode
+colocar o nome dela aqui direto ou caso a gente prefira, a gente pode colocar o nome aqui no filtro.
+Por exemplo, vai ter essas outras tarefas que são tarefas modelo e a gente pesquisa. E o que a gente vai
+fazer? A gente vai fazer uma cópia dessa tarefa. Essa daqui vai ser o modelo e a gente vai fazer uma
+cópia e só vai alterar o nome do cliente, por exemplo. Teste. Aí a tarefa com o intuito de acompanhar o
+processo administrativo. Prazo dela é de um dia e ela acontece toda semana às terças-feiras. Aqui ó. Você pode
+definir um outro dia também, se preferir. E aqui a recorrência ela finaliza manualmente e a data de início.
+Nesse caso aqui, vamos supor que ela inicia no dia 27 de agosto. Aí a gente clica em salvar e criar.
+Pronto. Aí essa tarefa já foi criada. Ela não vai aparecer nesse momento, ela só vai aparecer no dia
+que foi setado daqui. No dia 27 às 8 horas da manhã, nesse caso. E aí a gente pode fechar aqui. Caso a gente
+ver essa tarefa, a gente pode filtrar ela. Aqui ó. Acompanhamento, judicial, administrativo judicial e
+também tem essa daqui que a gente acabou de criar, que é pra um cliente específico. Aí essas daqui servem
+e essa daqui é a tarefa que realmente vai aparecer lá.

@@ -1,23 +1,30 @@
 import { app, BrowserWindow, dialog, ipcMain, shell } from "electron";
 import path from "node:path";
+import { runAlterarNotaFiscal } from "../../../ALTERAR NOTA FISCAL - DIA ATUAL/src/runner";
 import { previousMonthCompetencia } from "../dates";
 import { messageOf } from "../errors";
 import { runSefazDia } from "../runner";
 import { runXmlDownload } from "../xml-downloads";
+import { buildAlterarRunConfig } from "./alterar-request-builders";
 import { clearCredentials, readCredentials, saveCredentials } from "./credentials-store";
-import type { StartRunRequest, StartXmlDownloadRequest } from "./ipc-types";
+import type { StartAlterarRunRequest, StartRunRequest, StartXmlDownloadRequest } from "./ipc-types";
 import { buildRunConfig, buildXmlDownloadConfig } from "./request-builders";
 
 let mainWindow: BrowserWindow | undefined;
 let currentRun: AbortController | undefined;
 let currentXmlDownload: AbortController | undefined;
+let currentAlterarRun: AbortController | undefined;
+
+function isBusy(): boolean {
+  return Boolean(currentRun || currentXmlDownload || currentAlterarRun);
+}
 
 async function createWindow(): Promise<void> {
   mainWindow = new BrowserWindow({
-    width: 1040,
-    height: 760,
-    minWidth: 920,
-    minHeight: 680,
+    width: 1240,
+    height: 820,
+    minWidth: 1080,
+    minHeight: 700,
     title: "SEFAZ-SE DIA",
     backgroundColor: "#f6f4ef",
     webPreferences: {
@@ -51,23 +58,47 @@ function registerIpcHandlers(): void {
   ipcMain.handle("app:getDefaults", () => ({
     competencia: previousMonthCompetencia().value,
     outDir: path.join(app.getPath("downloads"), "SEFAZ-SE-DIA"),
+    alterarOutDir: path.join(app.getPath("downloads"), "SEFAZ-SE-DIA-ALTERAR-NOTA-ATUAL"),
+    headless: false,
   }));
 
   ipcMain.handle("credentials:get", () => readCredentials(credentialsPath()));
-  ipcMain.handle("credentials:save", (_event, credentials: { user: string; password: string }) => saveCredentials(credentialsPath(), credentials));
+  ipcMain.handle(
+    "credentials:save",
+    (_event, credentials: { user: string; certPath: string; certPassword: string }) =>
+      saveCredentials(credentialsPath(), credentials),
+  );
   ipcMain.handle("credentials:clear", () => clearCredentials(credentialsPath()));
 
   ipcMain.handle("dialog:selectOutDir", async () => {
     const result = await dialog.showOpenDialog(mainWindow!, {
-      title: "Selecionar pasta de saida",
+      title: "Selecionar pasta de saída",
       properties: ["openDirectory", "createDirectory"],
     });
     return result.canceled ? undefined : result.filePaths[0];
   });
 
+  ipcMain.handle("dialog:selectCert", async () => {
+    const result = await dialog.showOpenDialog(mainWindow!, {
+      title: "Selecionar certificado digital A1",
+      properties: ["openFile"],
+      filters: [{ name: "Certificado PFX", extensions: ["pfx", "p12"] }],
+    });
+    return result.canceled ? undefined : result.filePaths[0];
+  });
+
+  ipcMain.handle("dialog:selectSpreadsheet", async () => {
+    const result = await dialog.showOpenDialog(mainWindow!, {
+      title: "Selecionar planilha",
+      properties: ["openFile"],
+      filters: [{ name: "Planilha", extensions: ["xlsx", "xls", "xlsm"] }],
+    });
+    return result.canceled ? undefined : result.filePaths[0];
+  });
+
   ipcMain.handle("run:start", async (event, request: StartRunRequest) => {
-    if (currentRun || currentXmlDownload) {
-      throw new Error("Ja existe uma execucao em andamento.");
+    if (isBusy()) {
+      throw new Error("Já existe uma execução em andamento.");
     }
 
     const config = buildRunConfig(request);
@@ -75,19 +106,35 @@ function registerIpcHandlers(): void {
 
     try {
       if (request.rememberCredentials) {
-        await saveCredentials(credentialsPath(), { user: request.user, password: request.password });
+        await saveCredentials(credentialsPath(), {
+          user: request.user,
+          certPath: request.certPath,
+          certPassword: request.certPassword,
+        });
       } else {
         await clearCredentials(credentialsPath());
       }
 
-      return await runSefazDia(config, {
+      const result = await runSefazDia(config, {
         signal: currentRun.signal,
-        onLog: (message) => event.sender.send("run:log", message),
-        onProgress: (progress) => event.sender.send("run:progress", progress),
+        onLog: (message) => {
+          if (!event.sender.isDestroyed()) {
+            event.sender.send("run:log", message);
+          }
+        },
+        onProgress: (progress) => {
+          if (!event.sender.isDestroyed()) {
+            event.sender.send("run:progress", progress);
+          }
+        },
       });
+      return result;
     } catch (error) {
-      event.sender.send("run:log", messageOf(error));
-      throw error;
+      const message = messageOf(error);
+      if (!event.sender.isDestroyed()) {
+        event.sender.send("run:log", message);
+      }
+      throw new Error(message);
     } finally {
       currentRun = undefined;
     }
@@ -98,22 +145,19 @@ function registerIpcHandlers(): void {
   });
 
   ipcMain.handle("xml:start", async (event, request: StartXmlDownloadRequest) => {
-    if (currentRun || currentXmlDownload) {
-      throw new Error("Ja existe uma execucao em andamento.");
+    if (isBusy()) {
+      throw new Error("Já existe uma execução em andamento.");
     }
 
     const config = buildXmlDownloadConfig(request);
 
     currentXmlDownload = new AbortController();
     try {
-      return await runXmlDownload(
-        config,
-        {
-          signal: currentXmlDownload.signal,
-          onLog: (message) => event.sender.send("xml:log", message),
-          onProgress: (progress) => event.sender.send("xml:progress", progress),
-        },
-      );
+      return await runXmlDownload(config, {
+        signal: currentXmlDownload.signal,
+        onLog: (message) => event.sender.send("xml:log", message),
+        onProgress: (progress) => event.sender.send("xml:progress", progress),
+      });
     } catch (error) {
       event.sender.send("xml:log", messageOf(error));
       throw error;
@@ -124,6 +168,54 @@ function registerIpcHandlers(): void {
 
   ipcMain.handle("xml:cancel", () => {
     currentXmlDownload?.abort();
+  });
+
+  ipcMain.handle("alterar:run:start", async (event, request: StartAlterarRunRequest) => {
+    if (isBusy()) {
+      throw new Error("Já existe uma execução em andamento.");
+    }
+
+    const config = buildAlterarRunConfig(request);
+    currentAlterarRun = new AbortController();
+
+    try {
+      if (request.rememberCredentials) {
+        await saveCredentials(credentialsPath(), {
+          user: request.user,
+          certPath: request.certPath,
+          certPassword: request.certPassword,
+        });
+      } else {
+        await clearCredentials(credentialsPath());
+      }
+
+      const result = await runAlterarNotaFiscal(config, {
+        signal: currentAlterarRun.signal,
+        onLog: (message) => {
+          if (!event.sender.isDestroyed()) {
+            event.sender.send("alterar:run:log", message);
+          }
+        },
+        onProgress: (progress) => {
+          if (!event.sender.isDestroyed()) {
+            event.sender.send("alterar:run:progress", progress);
+          }
+        },
+      });
+      return result;
+    } catch (error) {
+      const message = messageOf(error);
+      if (!event.sender.isDestroyed()) {
+        event.sender.send("alterar:run:log", message);
+      }
+      throw new Error(message);
+    } finally {
+      currentAlterarRun = undefined;
+    }
+  });
+
+  ipcMain.handle("alterar:run:cancel", () => {
+    currentAlterarRun?.abort();
   });
 
   ipcMain.handle("shell:openPath", async (_event, targetPath: string) => {

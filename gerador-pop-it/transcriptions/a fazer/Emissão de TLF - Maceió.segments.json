@@ -1,0 +1,18 @@
+{
+  "media": "G:\\Meu Drive\\GESTÃO DE PROCESSOS\\_SEM_SETOR\\VÍDEOS\\EMISSÃO DE TLF - MACEIO.mkv",
+  "transcript_path": "C:\\Users\\Exatas\\Documents\\GitHub\\automations-exatas\\gerador-pop-it\\transcriptions\\a fazer\\EMISSÃO DE TLF - MACEIO (transcribed on 10-Sep-2026 21-02-56).txt",
+  "language": "pt",
+  "duration_sec": 123.0506875,
+  "segments": [
+    {
+      "start": 1.14,
+      "end": 68.7,
+      "text": "Irei mostrar como fazer a consulta do TLF na Prefeitura de Maceió. Acesse o site, Prefeitura de Maceió, na opção empresários, guia de pagamento, em cadastro seleciona pessoa física ou pessoa jurídica, informa o CNPJ da empresa que deseja fazer a consulta, ele já puxou aqui a informação e logo abaixo tem dizendo licença,"
+    },
+    {
+      "start": 68.7,
+      "end": 122.49,
+      "text": "seleciona emissão de guia, verifica as informações e salva na faixa da impressão. Feito isso, é só enviar para o cliente."
+    }
+  ]
+}

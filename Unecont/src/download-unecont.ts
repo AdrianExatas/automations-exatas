@@ -190,12 +190,15 @@ export async function downloadUnecontBatch(
       logMessage(logger, "info", `${prefix} Processando ${empresaLabel}`);
 
       try {
+        await downloadFlow.dismissBlockingDialogs();
         await downloadFlow.selectEmpresa(empresa.cnpj);
         await downloadFlow.navigateToServicosTomados();
+        await downloadFlow.assertSelectedEmpresa(empresa.cnpj, empresa.codigo);
         let filePath = await downloadFlow.downloadReport(
           empresa.cnpj,
           downloadsDir,
           empresa.codigo,
+          empresa.nome,
         );
         logMessage(logger, "info", `${prefix} Arquivo baixado: ${path.basename(filePath)}`);
         if (options.reportFormatting?.enabled) {
@@ -293,6 +296,7 @@ export async function downloadUnecontBatch(
             message: error.message,
           });
           logMessage(logger, "warn", `${prefix} Empresa nao encontrada: ${empresaLabel}`);
+          await downloadFlow.dismissBlockingDialogs().catch(() => undefined);
           continue;
         }
 
@@ -305,6 +309,7 @@ export async function downloadUnecontBatch(
             message: error.message,
           });
           logMessage(logger, "warn", `${prefix} Sem notas: ${empresaLabel}`);
+          await downloadFlow.dismissBlockingDialogs().catch(() => undefined);
           continue;
         }
 
@@ -320,6 +325,7 @@ export async function downloadUnecontBatch(
           "error",
           `${prefix} Falha: ${empresaLabel} -> ${error instanceof Error ? error.message : String(error)}`,
         );
+        await downloadFlow.dismissBlockingDialogs().catch(() => undefined);
       }
     }
 

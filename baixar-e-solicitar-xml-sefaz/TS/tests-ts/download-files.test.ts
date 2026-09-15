@@ -56,4 +56,48 @@ describe("download files", () => {
     expect(extrairZipOrganizadoExistente(info)).toBe(true);
     expect(existsSync(join(tempDir, "downloads", "2026", "05", "AKMA COMERCIO DE GASES E EQUIPAMENTOS HOSPITALARES L", "xmls", "nota.xml"))).toBe(true);
   });
+
+  it("nao considera ZIP existente invalido como ja organizado", async () => {
+    await useTempDownloads();
+    const { arquivoJaOrganizado, organizedZipPath } = await import("../src-ts/download/files.js");
+    const info = createInfo();
+    const zipPath = organizedZipPath(info);
+    mkdirSync(join(zipPath, ".."), { recursive: true });
+    new AdmZip().writeZip(zipPath);
+
+    expect(arquivoJaOrganizado(info)).toBe(false);
+  });
+
+  it("substitui ZIP organizado corrompido pelo download novo", async () => {
+    await useTempDownloads();
+    const { organizeDownloadedZip, organizedZipPath, verificarZipValido } = await import("../src-ts/download/files.js");
+    const info = createInfo();
+    const zipPath = organizedZipPath(info);
+    mkdirSync(join(zipPath, ".."), { recursive: true });
+    new AdmZip().writeZip(zipPath);
+
+    const sourceZip = join(tempDir, "novo.zip");
+    const zip = new AdmZip();
+    zip.addFile("nota.xml", Buffer.from("<nfeProc><NFe /></nfeProc>", "utf8"));
+    zip.writeZip(sourceZip);
+
+    expect(organizeDownloadedZip(sourceZip, info, false)).toBe(zipPath);
+    expect(verificarZipValido(zipPath)).toBe(true);
+  });
+
+  it("remove zips temporarios da raiz de downloads", async () => {
+    await useTempDownloads();
+    const config = await import("../src-ts/core/config.js");
+    const { limparDownloadsTemporarios } = await import("../src-ts/download/files.js");
+    const zipPath = join(config.PATHS.downloadsDir, "arquivo.zip");
+    const nestedDir = join(config.PATHS.downloadsDir, "2026");
+    mkdirSync(nestedDir, { recursive: true });
+    const nestedZip = join(nestedDir, "keep.zip");
+    new AdmZip().writeZip(zipPath);
+    new AdmZip().writeZip(nestedZip);
+
+    limparDownloadsTemporarios();
+    expect(existsSync(zipPath)).toBe(false);
+    expect(existsSync(nestedZip)).toBe(true);
+  });
 });

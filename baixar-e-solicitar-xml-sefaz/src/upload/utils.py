@@ -214,3 +214,31 @@ def obter_tipo_completo_nota(xml_string: str) -> str:
         return tipo
     
     return 'Desconhecido'
+
+
+def obter_xml_type_sieg(xml_string: str) -> int:
+    """
+    Obtem o xmlType usado pela API SIEG de download/confirmacao.
+
+    Returns:
+        1=NFe, 2=CTe, 3=NFSe, 4=NFCe, 5=CFe. Usa 1 como fallback.
+    """
+    codigo = obter_codigo_tipo_nota(xml_string)
+    if codigo == 55:
+        return 1
+    if codigo == 65:
+        return 4
+
+    tipo = identificar_tipo_xml(xml_string)
+    if tipo == 'NFe':
+        return 1
+    if tipo == 'CTe':
+        return 2
+    if tipo == 'NFSe':
+        return 3
+    if tipo == 'NFCe':
+        return 4
+    if tipo == 'CFe':
+        return 5
+
+    return 1

@@ -2,6 +2,8 @@
 
 Automacao Playwright com interface Electron para acessar o AGIL e incluir notas fiscais em lote.
 
+O login e **interativo**: o navegador (Microsoft Edge, por padrao) abre visivel. Voce escolhe o certificado no prompt do Windows e o vinculo **Empresa Inscrita** no Portal Fazendario. Depois o app abre **Incluir Nota Fiscal** e processa o lote.
+
 ## Configuracao
 
 Instale as dependencias:
@@ -10,13 +12,7 @@ Instale as dependencias:
 bun install
 ```
 
-Para rodar **testes Playwright** ou o **script em linha de comando** (`bun run agil`) com o Chromium baixado pelo Playwright, execute uma vez:
-
-```powershell
-bunx playwright install chromium
-```
-
-Na **interface Electron** em ambiente corporativo, costuma-se usar o Chrome ou o Edge **ja instalados** no Windows, sem baixar o Chromium do Playwright. No **app instalado** (`dist:win`), se `BROWSER_CHANNEL` nao estiver definida, o app usa **Microsoft Edge** por padrao (`channel: msedge`). Em desenvolvimento (`bun run app`), sem variavel o Playwright usa o Chromium proprio, que exige `playwright install chromium`. Para forcar outro canal, defina `BROWSER_CHANNEL=chrome` ou `msedge` no `.env` ou no ambiente.
+A interface e o script usam o **Microsoft Edge** instalado no Windows (`BROWSER_CHANNEL=msedge`) para o prompt de certificado do sistema. Para forcar o Chrome, defina `BROWSER_CHANNEL=chrome`.
 
 Para usar o script sem interface, crie um arquivo `.env` a partir do exemplo:
 
@@ -27,12 +23,9 @@ Copy-Item .env.example .env
 Preencha no `.env`:
 
 ```env
-SEFAZ_USERNAME=seu_usuario
-SEFAZ_PASSWORD=sua_senha
 SEFAZ_DANFE=chave_de_44_digitos
 SEFAZ_DANFE_FILE=
-AUTH_MODE=credentials
-BROWSER_CHANNEL=
+BROWSER_CHANNEL=msedge
 DRY_RUN=false
 HEADLESS=false
 SLOW_MO=0
@@ -40,9 +33,9 @@ KEEP_OPEN=false
 PDF_DOWNLOAD_DIR=output/agil-pdfs
 ```
 
-Para **certificado digital**, use `AUTH_MODE=certificate` (ou `certificado`). `SEFAZ_USERNAME` e `SEFAZ_PASSWORD` ficam em branco. No Windows, defina `BROWSER_CHANNEL=msedge` para o Playwright usar o Edge e o prompt de certificado do sistema, ou `BROWSER_CHANNEL=chrome` se a politica da empresa padronizar o Google Chrome.
+Nao e necessario `SEFAZ_USER` nem arquivo `.pfx`. O certificado e o vinculo sao escolhidos na tela.
 
-`SEFAZ_DANFE` e opcional no script. A interface Electron nao grava login, senha ou certificado em disco.
+`SEFAZ_DANFE` e opcional no script.
 
 ## Interface Electron
 
@@ -52,9 +45,7 @@ Rodar a aplicacao:
 bun run app
 ```
 
-Na aba Login, escolha `Login e senha` ou `Certificado digital`. No modo certificado, o Chromium abre visivel e a selecao do certificado e feita manualmente no prompt do sistema.
-
-Na aba Login tambem existe a opcao `Dry-run`, que preenche a chave e para antes de `Salvar`. Na aba Notas fiscais, cole chaves de NF-e ou importe arquivos `.xls`, `.xlsx`, `.csv` e `.txt`. A aplicacao detecta sequencias de 44 digitos, remove duplicadas e processa o lote de forma sequencial.
+Ao clicar em Iniciar, o Edge abre. Selecione o certificado e o vinculo Empresa Inscrita. Na aba Login existe a opcao `Dry-run`, que preenche a chave e para antes de `Salvar`. Na aba Notas fiscais, cole chaves de NF-e ou importe arquivos `.xls`, `.xlsx`, `.csv` e `.txt`. A aplicacao detecta sequencias de 44 digitos, remove duplicadas e processa o lote de forma sequencial.
 
 Apos carregar ou executar notas, use `Baixar relatorio` para exportar um `.xlsx`
 com o resumo por chave e o historico de eventos da execucao. O relatorio nao
@@ -80,8 +71,6 @@ bun run dist:win
 
 Os artefatos aparecem em `release\`. A configuracao atual **nao assina** o executavel (`signAndEditExecutable: false`), adequado a uso interno; para publicacao externa, configure assinatura de codigo conforme a documentacao do electron-builder.
 
-Na versao empacotada, o Edge instalado no Windows e usado por padraio; `BROWSER_CHANNEL` no `.env` ou no sistema continua tendo prioridade (por exemplo `chrome` se a empresa padronizar o Google Chrome).
-
 ## Execucao por script
 
 O comando `bun run agil` executa o script com **tsx** (Node), porque no Windows o Playwright costuma nao abrir o navegador se o proprio script for interpretado diretamente pelo Bun.
@@ -90,10 +79,9 @@ O comando `bun run agil` executa o script com **tsx** (Node), porque no Windows 
 bun run agil
 ```
 
-Rodar dry-run lento com certificado digital:
+Rodar dry-run lento (o operador seleciona certificado e vinculo no navegador):
 
 ```powershell
-$env:AUTH_MODE="certificate"
 $env:DRY_RUN="true"
 $env:HEADLESS="false"
 $env:KEEP_OPEN="true"
@@ -107,6 +95,8 @@ Rodar testes:
 ```powershell
 bun run test
 ```
+
+O teste ao vivo `incluir-nota-fiscal.spec.ts` tambem e headed: escolha certificado e vinculo quando o navegador abrir.
 
 Ao finalizar uma inclusao com sucesso, o PDF gerado pelo AGIL e salvo em uma
 subpasta por empresa dentro de `PDF_DOWNLOAD_DIR` ou, se a variavel nao for

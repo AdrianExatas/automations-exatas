@@ -1,0 +1,43 @@
+{
+  "media": "G:\\Meu Drive\\GESTÃO DE PROCESSOS\\02 - Departamento Pessoal\\VÍDEOS\\POP - DOCUMENTOS RESCISÓRIOS-min.mp4",
+  "transcript_path": "C:\\Users\\Exatas\\Documents\\GitHub\\automations-exatas\\gerador-pop-it\\transcriptions\\a fazer\\POP - DOCUMENTOS RESCISÓRIOS-min (transcribed on 10-Sep-2026 18-54-09).txt",
+  "language": "pt",
+  "duration_sec": 84.928,
+  "segments": [
+    {
+      "start": 0.24,
+      "end": 13.24,
+      "text": "Vou iniciar o pop agora sobre a relação de documentos que deve ser enviado para o empregador em caso de demissão pelo empregador trabalhada ou indenizada. É a mesma relação de documentos."
+    },
+    {
+      "start": 13.24,
+      "end": 28.24,
+      "text": "O que a gente vai fazer? Tem esse modelo, o checklist dos documentos, aí a gente vai enviar a ficha de empregado, seguro-desemprego, recibo de rescisão, o termo de quitação a gente vai mandar só se a pessoa tiver menos de um ano na empresa."
+    },
+    {
+      "start": 28.24,
+      "end": 46.6,
+      "text": "Se tiver mais de um ano, a gente vai mandar o termo de homologação. Aí tem a carta de referência, o analítico do cálculo da rescisão, esses extratos que a gente solicita antes de executar a rescisão, que é o extrato analítico e o extrato para fins rescisórios."
+    },
+    {
+      "start": 46.78,
+      "end": 55.24,
+      "text": "A gente manda também a multa dos 40% do FGTS, o relatório desse boleto do FGTS também e o informativo de desligamento."
+    },
+    {
+      "start": 55.24,
+      "end": 66.52,
+      "text": "A gente vai juntar todos os documentos em uma pasta, que foi essa pasta que já está selecionada aqui, e a gente vai jogar toda essa documentação para o Onvil."
+    },
+    {
+      "start": 67.72,
+      "end": 79.12,
+      "text": "A gente chega aqui e seleciona os documentos que a gente vai enviar e manda para o Onvil da empresa selecionada."
+    },
+    {
+      "start": 80.0,
+      "end": 84.3,
+      "text": "Aí aguarda o carregamento, confere se está tudo ok e finaliza."
+    }
+  ]
+}

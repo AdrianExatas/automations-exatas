@@ -1,0 +1,1081 @@
+﻿{
+    "schema_version":  "2.0",
+    "documentos_solicitados":  [
+                                   "pop",
+                                   "it",
+                                   "form",
+                                   "mp"
+                               ],
+    "saida":  {
+                  "arquivo_pop":  "PR.FIS.001 - Apuracao de ICMS Fechamento Mensal.docx",
+                  "arquivo_it":  "IN.FIS.001 - Apuracao de ICMS Fechamento Mensal.docx",
+                  "arquivo_form":  "FORM.FIS.001 - Apuracao de ICMS Fechamento Mensal.xlsx",
+                  "arquivo_mp":  "MP.FIS.001 - Apuracao de ICMS Fechamento Mensal.xlsx"
+              },
+    "documento":  {
+                      "titulo":  "APURACAO DE ICMS - FECHAMENTO MENSAL",
+                      "codigo_pop":  "PR.FIS.001",
+                      "codigo_it":  "IN.FIS.001",
+                      "codigo_form":  "FORM.FIS.001",
+                      "codigo_mp":  "MP.FIS.001",
+                      "sigla_setor":  "FIS",
+                      "numero":  "001",
+                      "setor":  "Fiscal",
+                      "emissao":  "07/08/2026",
+                      "revisao":  "07/08/2026",
+                      "versao":  "00",
+                      "elaborador":  "Ponto para validacao: elaborarador oficial",
+                      "verificador":  "Ponto para validacao: verificador oficial",
+                      "aprovador":  "Ponto para validacao: aprovador oficial",
+                      "objetivo":  "Padronizar o fechamento mensal da apuracao de ICMS, da parametrizacao e captura documental ate a transmissao da EFD, geracao de guias, pagamento e arquivamento do dossie.",
+                      "resultado_esperado":  "Competencia FECHADA com EFD transmitida, obrigacoes estaduais cumpridas, guias conferidas, pagamento acompanhado e dossie mensal arquivado sem pendencias bloqueantes.",
+                      "frequencia":  "Mensal, por estabelecimento/competencia"
+                  },
+    "abreviaturas":  [
+                         "EFD: Escrituracao Fiscal Digital ICMS/IPI",
+                         "PVA: Programa Validador e Assinador",
+                         "ST: Substituicao Tributaria",
+                         "DIFAL: Diferencial de Aliquota",
+                         "FCP: Fundo de Combate a Pobreza",
+                         "CIAP: Controle de Credito de ICMS do Ativo Permanente",
+                         "CFOP: Codigo Fiscal de Operacoes e Prestacoes",
+                         "CST: Codigo de Situacao Tributaria",
+                         "GNRE: Guia Nacional de Recolhimento de Tributos Estaduais",
+                         "DAE/DAR: Documento de Arrecadacao Estadual"
+                     ],
+    "documentacao_complementar":  [
+                                      "PR.FIS.001",
+                                      "IN.FIS.001",
+                                      "FORM.FIS.001",
+                                      "MP.FIS.001",
+                                      "Guia Pratico da EFD ICMS/IPI (SPED)",
+                                      "Matriz tributaria da empresa (local)"
+                                  ],
+    "pop":  {
+                "etapas":  [
+                               {
+                                   "id":  "E01",
+                                   "o_que":  "Validar parametrizacao tributaria",
+                                   "como":  "Conferir matriz da empresa, produtos, CFOPs, CST, ST, DIFAL, FCP, credito e CIAP.",
+                                   "setor":  "Fiscal",
+                                   "registro":  "Matriz tributaria / cadastro fiscal"
+                               },
+                               {
+                                   "id":  "E02",
+                                   "o_que":  "Receber documentos da competencia",
+                                   "como":  "Consolidar NF-e, NFC-e, CT-e, eventos, devolucoes, cancelamentos e demais documentos aplicaveis.",
+                                   "setor":  "Fiscal",
+                                   "registro":  "Base documental da competencia"
+                               },
+                               {
+                                   "id":  "E03",
+                                   "o_que":  "Conferir integridade documental",
+                                   "como":  "Cruzar XML SEFAZ x sistema fiscal x documentos do cliente e aplicar Gate 1.",
+                                   "setor":  "Fiscal",
+                                   "registro":  "Relatorio de integridade / pendencias"
+                               },
+                               {
+                                   "id":  "E04",
+                                   "o_que":  "Classificar operacoes",
+                                   "como":  "Identificar natureza economica de cada entrada/saida e impacto em credito/debito.",
+                                   "setor":  "Fiscal",
+                                   "registro":  "Classificacao tributaria"
+                               },
+                               {
+                                   "id":  "E05",
+                                   "o_que":  "Escriturar documentos fiscais",
+                                   "como":  "Aplicar regras tributarias e registrar CFOP, CST, bases, ICMS, ST, DIFAL e FCP.",
+                                   "setor":  "Fiscal",
+                                   "registro":  "Sistema fiscal / livros"
+                               },
+                               {
+                                   "id":  "E06",
+                                   "o_que":  "Conferir entradas e CIAP",
+                                   "como":  "Auditar creditos por tipo de entrada e controlar apropriacao de ativo permanente.",
+                                   "setor":  "Fiscal",
+                                   "registro":  "Relatorio de entradas / CIAP"
+                               },
+                               {
+                                   "id":  "E07",
+                                   "o_que":  "Conferir saidas",
+                                   "como":  "Auditar debitos e cruzar faturamento x documentos emitidos x escrituracao x contabilidade.",
+                                   "setor":  "Fiscal",
+                                   "registro":  "Relatorio de saidas"
+                               },
+                               {
+                                   "id":  "E08",
+                                   "o_que":  "Executar apuracoes especiais",
+                                   "como":  "Separar e apurar ICMS-ST, DIFAL/FCP e antecipacoes/especiais por UF.",
+                                   "setor":  "Fiscal",
+                                   "registro":  "Apuracoes ST / DIFAL / FCP / especiais"
+                               },
+                               {
+                                   "id":  "E09",
+                                   "o_que":  "Apurar ICMS proprio e ajustes",
+                                   "como":  "Calcular conta grafica, lancar ajustes documentados e obter saldo a recolher ou credor.",
+                                   "setor":  "Fiscal",
+                                   "registro":  "Demonstrativo E110 / ajustes"
+                               },
+                               {
+                                   "id":  "E10",
+                                   "o_que":  "Conciliar a apuracao",
+                                   "como":  "Fechar os 13 cruzamentos da folha de conferencia a 100% ou justificar.",
+                                   "setor":  "Fiscal",
+                                   "registro":  "Relatorio de conferencia"
+                               },
+                               {
+                                   "id":  "E11",
+                                   "o_que":  "Revisar e aprovar apuracao",
+                                   "como":  "Revisor valida cadeia completa e aplica Gate 2 antes da EFD.",
+                                   "setor":  "Fiscal",
+                                   "registro":  "Parecer de revisao / FORM"
+                               },
+                               {
+                                   "id":  "E12",
+                                   "o_que":  "Gerar e validar EFD",
+                                   "como":  "Gerar arquivo, validar no PVA, corrigir erros e conferir Bloco E.",
+                                   "setor":  "Fiscal",
+                                   "registro":  "Arquivo EFD / PVA / recibo"
+                               },
+                               {
+                                   "id":  "E13",
+                                   "o_que":  "Cumprir obrigacoes estaduais",
+                                   "como":  "Verificar obrigacoes adicionais da UF e transmitir as aplicaveis.",
+                                   "setor":  "Fiscal",
+                                   "registro":  "Cadastro UF / comprovantes estaduais"
+                               },
+                               {
+                                   "id":  "E14",
+                                   "o_que":  "Gerar e aprovar guias",
+                                   "como":  "Emitir guias, aplicar Gate 3 (guia = obrigacao) e aprovar dados basicos.",
+                                   "setor":  "Fiscal",
+                                   "registro":  "Guias DAE/DAR/GNRE"
+                               },
+                               {
+                                   "id":  "E15",
+                                   "o_que":  "Acompanhar pagamento",
+                                   "como":  "Enviar guia, acompanhar vencimento e arquivar comprovante.",
+                                   "setor":  "Fiscal",
+                                   "registro":  "Comprovante de pagamento"
+                               },
+                               {
+                                   "id":  "E16",
+                                   "o_que":  "Fechar competencia e arquivar dossie",
+                                   "como":  "Confirmar EFD, obrigacoes, guias, pagamento e montar dossie com 15 pastas.",
+                                   "setor":  "Fiscal",
+                                   "registro":  "Dossie mensal / status FECHADA"
+                               }
+                           ]
+            },
+    "it":  {
+               "perfil_redacao":  "passo_a_passo",
+               "secoes":  [
+                              {
+                                  "id":  "E01",
+                                  "etapa_id":  "E01",
+                                  "titulo":  "1. VALIDAR PARAMETRIZACAO TRIBUTARIA",
+                                  "caminho":  "",
+                                  "instrucoes":  [
+                                                     "Abra a matriz tributaria da empresa/estabelecimento.",
+                                                     "Verifique CNPJ, IE, UF, regime e obrigacoes da UF.",
+                                                     "Confirme NCM, CEST, origem, CFOP, CST/CSOSN, aliquotas, ST, FCP, DIFAL, credito e CIAP.",
+                                                     "Registre inconsistencias antes de iniciar a competencia.",
+                                                     "Se houver parametro pendente, abra pendencia e nao avance para escrituracao; se nao houver, siga para o recebimento dos documentos."
+                                                 ],
+                                  "atencoes":  [
+                                                   "A matriz tributaria e onde a maior parte das travas deve concentrar-se."
+                                               ],
+                                  "campo_print":  {
+                                                      "incluir":  true,
+                                                      "id":  "E01",
+                                                      "rotulo":  "Matriz tributaria conferida",
+                                                      "orientacao":  "Insira manualmente a tela ou planilha da matriz tributaria sem expor dados de outro cliente.",
+                                                      "legenda":  "Imagem 1 - Parametrizacao tributaria validada.",
+                                                      "obrigatorio":  true
+                                                  }
+                              },
+                              {
+                                  "id":  "E02",
+                                  "etapa_id":  "E02",
+                                  "titulo":  "2. RECEBER DOCUMENTOS DA COMPETENCIA",
+                                  "caminho":  "",
+                                  "instrucoes":  [
+                                                     "Liste os tipos de documento exigidos pela atividade da empresa.",
+                                                     "Consolide NF-e, NFC-e, CT-e, eventos, devolucoes, cancelamentos e documentos informados pelo cliente.",
+                                                     "Organize a base documental da competencia em pasta local do dossie.",
+                                                     "Atualize o status para Documentacao recebida."
+                                                 ],
+                                  "atencoes":  [
+                                                   "O fechamento exige 100% dos documentos da competencia."
+                                               ],
+                                  "campo_print":  {
+                                                      "incluir":  false,
+                                                      "id":  "E02",
+                                                      "rotulo":  "Campo print nao aplicavel - E02",
+                                                      "orientacao":  "Nao inserir print nesta etapa.",
+                                                      "legenda":  "Sem print - E02.",
+                                                      "obrigatorio":  false
+                                                  }
+                              },
+                              {
+                                  "id":  "E03",
+                                  "etapa_id":  "E03",
+                                  "titulo":  "3. CONFERIR INTEGRIDADE DOCUMENTAL (GATE 1)",
+                                  "caminho":  "",
+                                  "instrucoes":  [
+                                                     "Cruze XML SEFAZ x sistema fiscal x documentos do cliente.",
+                                                     "Verifique notas emitidas nao escrituradas, recebidas nao escrituradas, canceladas, duplicadas, chave invalida e competencia divergente.",
+                                                     "Se existirem documentos faltantes, abra pendencia documental e bloqueie o fechamento.",
+                                                     "Se nao existirem documentos faltantes, libere a classificacao das operacoes."
+                                                 ],
+                                  "atencoes":  [
+                                                   "Gate 1 e bloqueante: nao avance com faltantes sem justificativa aprovada."
+                                               ],
+                                  "campo_print":  {
+                                                      "incluir":  true,
+                                                      "id":  "E03",
+                                                      "rotulo":  "Relatorio de integridade",
+                                                      "orientacao":  "Insira manualmente o relatorio de cruzamento sem credenciais nem dados de outro cliente.",
+                                                      "legenda":  "Imagem 2 - Conferencia de integridade / Gate 1.",
+                                                      "obrigatorio":  true
+                                                  }
+                              },
+                              {
+                                  "id":  "E04",
+                                  "etapa_id":  "E04",
+                                  "titulo":  "4. CLASSIFICAR OPERACOES",
+                                  "caminho":  "",
+                                  "instrucoes":  [
+                                                     "Identifique a natureza economica de cada entrada e saida (revenda, uso/consumo, ativo, frete, devolucao, ST, beneficio etc.).",
+                                                     "Determine o direito ao credito e a forma de debito do ICMS.",
+                                                     "Registre a classificacao no sistema fiscal ou planilha de apoio.",
+                                                     "Marque documentos sem classificacao como pendencia."
+                                                 ],
+                                  "atencoes":  [
+                                                   "Nao classifique apenas pelo CFOP; a natureza economica prevalece."
+                                               ],
+                                  "campo_print":  {
+                                                      "incluir":  false,
+                                                      "id":  "E04",
+                                                      "rotulo":  "Campo print nao aplicavel - E04",
+                                                      "orientacao":  "Nao inserir print nesta etapa.",
+                                                      "legenda":  "Sem print - E04.",
+                                                      "obrigatorio":  false
+                                                  }
+                              },
+                              {
+                                  "id":  "E05",
+                                  "etapa_id":  "E05",
+                                  "titulo":  "5. ESCRITURAR DOCUMENTOS FISCAIS",
+                                  "caminho":  "",
+                                  "instrucoes":  [
+                                                     "Importe ou lance os documentos no sistema fiscal conforme a classificacao.",
+                                                     "Confirme CFOP, CST, NCM, CEST, base, aliquota, ICMS, ST, FCP, DIFAL e beneficios.",
+                                                     "Se o documento trouxer exclusivamente IBS/CBS sem ICMS/IPI, nao escriture na EFD ICMS/IPI.",
+                                                     "Se o documento envolver IBS/CBS e tambem ICMS/IPI, escriture a parte de ICMS/IPI normalmente."
+                                                 ],
+                                  "atencoes":  [
+                                                   "A escrituracao deve refletir a tributacao real da operacao e da UF."
+                                               ],
+                                  "campo_print":  {
+                                                      "incluir":  true,
+                                                      "id":  "E05",
+                                                      "rotulo":  "Escrituracao concluida",
+                                                      "orientacao":  "Insira manualmente a tela de escrituracao/resumo da competencia, sem dados de outro cliente.",
+                                                      "legenda":  "Imagem 3 - Escrituracao fiscal da competencia.",
+                                                      "obrigatorio":  true
+                                                  }
+                              },
+                              {
+                                  "id":  "E06",
+                                  "etapa_id":  "E06",
+                                  "titulo":  "6. CONFERIR ENTRADAS E CIAP",
+                                  "caminho":  "",
+                                  "instrucoes":  [
+                                                     "Separe entradas por tipo: revenda, insumo, ativo, uso/consumo, frete, energia, ST e beneficio.",
+                                                     "Avalie credito permitido, vedado ou proporcional para cada grupo.",
+                                                     "Se houver ativo imobilizado com direito a credito, cadastre no CIAP, controle saldo e lance a parcela apropriavel.",
+                                                     "Mantenha o CIAP separado dos creditos comuns."
+                                                 ],
+                                  "atencoes":  [
+                                                   "Credito indevido de uso/consumo e CIAP incompleto sao falhas tipicas."
+                                               ],
+                                  "campo_print":  {
+                                                      "incluir":  true,
+                                                      "id":  "E06",
+                                                      "rotulo":  "Creditos e CIAP",
+                                                      "orientacao":  "Insira manualmente o relatorio de entradas/CIAP da competencia.",
+                                                      "legenda":  "Imagem 4 - Conferencia de entradas e CIAP.",
+                                                      "obrigatorio":  true
+                                                  }
+                              },
+                              {
+                                  "id":  "E07",
+                                  "etapa_id":  "E07",
+                                  "titulo":  "7. CONFERIR SAIDAS",
+                                  "caminho":  "",
+                                  "instrucoes":  [
+                                                     "Confera natureza, CFOP, CST, base, reducao, aliquota, debito, beneficio, FCP, ST e DIFAL das saidas.",
+                                                     "Cruze faturamento fiscal x documentos emitidos x escrituracao x contabilidade.",
+                                                     "Explique qualquer diferenca antes do fechamento.",
+                                                     "Atualize o status para Conferencia de saidas."
+                                                 ],
+                                  "atencoes":  [
+                                                   "Diferenca nao explicada bloqueia a revisao."
+                                               ],
+                                  "campo_print":  {
+                                                      "incluir":  true,
+                                                      "id":  "E07",
+                                                      "rotulo":  "Relatorio de saidas",
+                                                      "orientacao":  "Insira manualmente o cruzamento de saidas/faturamento sem dados sensiveis de outro cliente.",
+                                                      "legenda":  "Imagem 5 - Conferencia de saidas.",
+                                                      "obrigatorio":  true
+                                                  }
+                              },
+                              {
+                                  "id":  "E08",
+                                  "etapa_id":  "E08",
+                                  "titulo":  "8. EXECUTAR APURACOES ESPECIAIS",
+                                  "caminho":  "",
+                                  "instrucoes":  [
+                                                     "Separe operacoes sujeitas a ICMS-ST, DIFAL/FCP e antecipacoes/especiais.",
+                                                     "Apure ST por UF e registre debitos, ajustes e ressarcimentos permitidos.",
+                                                     "Calcule DIFAL e FCP por UF origem/destino conforme a legislacao aplicavel.",
+                                                     "Trate antecipacoes e ICMS especiais fora da apuracao comum quando a UF exigir."
+                                                 ],
+                                  "atencoes":  [
+                                                   "Codigo de receita e vencimento dependem da UF do estabelecimento/operacao."
+                                               ],
+                                  "campo_print":  {
+                                                      "incluir":  false,
+                                                      "id":  "E08",
+                                                      "rotulo":  "Campo print nao aplicavel - E08",
+                                                      "orientacao":  "Nao inserir print nesta etapa.",
+                                                      "legenda":  "Sem print - E08.",
+                                                      "obrigatorio":  false
+                                                  }
+                              },
+                              {
+                                  "id":  "E09",
+                                  "etapa_id":  "E09",
+                                  "titulo":  "9. APURAR ICMS PROPRIO E AJUSTES",
+                                  "caminho":  "",
+                                  "instrucoes":  [
+                                                     "Consolide saldo credor anterior, creditos, outros creditos e estornos de debitos.",
+                                                     "Subtraia debitos, outros debitos e estornos de creditos para obter o saldo preliminar.",
+                                                     "Aplique deducoes/incentivos permitidos e obtenha ICMS a recolher ou saldo credor a transportar.",
+                                                     "Lance cada ajuste com codigo, fundamento legal, valor, documento comprobatório e responsavel."
+                                                 ],
+                                  "atencoes":  [
+                                                   "Nao permita ajuste generico sem documentacao."
+                                               ],
+                                  "campo_print":  {
+                                                      "incluir":  true,
+                                                      "id":  "E09",
+                                                      "rotulo":  "Demonstrativo da apuracao",
+                                                      "orientacao":  "Insira manualmente o demonstrativo da conta grafica/ajustes da competencia.",
+                                                      "legenda":  "Imagem 6 - Apuracao do ICMS proprio e ajustes.",
+                                                      "obrigatorio":  true
+                                                  }
+                              },
+                              {
+                                  "id":  "E10",
+                                  "etapa_id":  "E10",
+                                  "titulo":  "10. CONCILIAR A APURACAO",
+                                  "caminho":  "",
+                                  "instrucoes":  [
+                                                     "Preencha a folha dos 13 cruzamentos (XML x escrituracao ate EFD x guia).",
+                                                     "Registre causa, valor, responsavel e acao para cada diferenca.",
+                                                     "Se houver diferenca nao justificada, marque pendencia fiscal e nao envie para revisao final.",
+                                                     "Se todos os cruzamentos fecharem ou estiverem justificados, encaminhe para revisao."
+                                                 ],
+                                  "atencoes":  [
+                                                   "A conciliacao e uma das etapas mais criticas do fechamento."
+                                               ],
+                                  "campo_print":  {
+                                                      "incluir":  true,
+                                                      "id":  "E10",
+                                                      "rotulo":  "Folha de conferencia",
+                                                      "orientacao":  "Insira manualmente a folha de conciliacao preenchida.",
+                                                      "legenda":  "Imagem 7 - Conciliação da apuracao.",
+                                                      "obrigatorio":  true
+                                                  }
+                              },
+                              {
+                                  "id":  "E11",
+                                  "etapa_id":  "E11",
+                                  "titulo":  "11. REVISAR E APROVAR APURACAO (GATE 2)",
+                                  "caminho":  "",
+                                  "instrucoes":  [
+                                                     "Entregue ao revisor a cadeia documentos → classificacao → tributacao → creditos → debitos → ajustes → apuracao → obrigacao.",
+                                                     "Preencha o FORM de revisao com evidencias.",
+                                                     "Se existir divergencia, devolva para a etapa responsavel.",
+                                                     "Se nao existir divergencia, libere a geracao/transmissao da EFD."
+                                                 ],
+                                  "atencoes":  [
+                                                   "O revisor nao deve apenas verificar se o imposto bateu."
+                                               ],
+                                  "campo_print":  {
+                                                      "incluir":  true,
+                                                      "id":  "E11",
+                                                      "rotulo":  "Parecer de revisao",
+                                                      "orientacao":  "Insira manualmente o parecer/FORM de revisao assinado ou registrado.",
+                                                      "legenda":  "Imagem 8 - Gate 2 - Revisao da apuracao.",
+                                                      "obrigatorio":  true
+                                                  }
+                              },
+                              {
+                                  "id":  "E12",
+                                  "etapa_id":  "E12",
+                                  "titulo":  "12. GERAR E VALIDAR EFD",
+                                  "caminho":  "",
+                                  "instrucoes":  [
+                                                     "Gere o arquivo EFD ICMS/IPI no sistema fiscal.",
+                                                     "Importe no PVA e valide a estrutura.",
+                                                     "Corrija erros, analise advertencias e valide novamente.",
+                                                     "Confera Bloco E (E100, E110-E116, E200/E210, E300/E310) antes da transmissao.",
+                                                     "Transmita e arquive o recibo."
+                                                 ],
+                                  "atencoes":  [
+                                                   "Nao transmita com erro estrutural pendente."
+                                               ],
+                                  "campo_print":  {
+                                                      "incluir":  true,
+                                                      "id":  "E12",
+                                                      "rotulo":  "Validacao PVA / recibo",
+                                                      "orientacao":  "Insira manualmente a tela de validacao sem erros ou o recibo de transmissao.",
+                                                      "legenda":  "Imagem 9 - EFD validada/transmitida.",
+                                                      "obrigatorio":  true
+                                                  }
+                              },
+                              {
+                                  "id":  "E13",
+                                  "etapa_id":  "E13",
+                                  "titulo":  "13. CUMPRIR OBRIGACOES ESTADUAIS",
+                                  "caminho":  "",
+                                  "instrucoes":  [
+                                                     "Consulte o cadastro da empresa: UF → obrigacao → periodicidade → vencimento → responsavel.",
+                                                     "Se a UF possuir obrigacao adicional vinculada ao ICMS, cumpra e arquive o comprovante.",
+                                                     "Se a UF nao possuir obrigacao adicional, registre a nao aplicabilidade no dossie.",
+                                                     "Atualize o status antes de gerar guias."
+                                                 ],
+                                  "atencoes":  [
+                                                   "Obrigações estaduais sao parametrizadas individualmente por UF."
+                                               ],
+                                  "campo_print":  {
+                                                      "incluir":  false,
+                                                      "id":  "E13",
+                                                      "rotulo":  "Campo print nao aplicavel - E13",
+                                                      "orientacao":  "Nao inserir print nesta etapa.",
+                                                      "legenda":  "Sem print - E13.",
+                                                      "obrigatorio":  false
+                                                  }
+                              },
+                              {
+                                  "id":  "E14",
+                                  "etapa_id":  "E14",
+                                  "titulo":  "14. GERAR E APROVAR GUIAS (GATE 3)",
+                                  "caminho":  "",
+                                  "instrucoes":  [
+                                                     "Confirme que apuracao = EFD = obrigacao estadual.",
+                                                     "Gere DAE/DAR, GNRE, guia ST, DIFAL, FCP ou antecipacao conforme o caso.",
+                                                     "Se o valor da guia for diferente da obrigacao, nao envie; corrija e regenere.",
+                                                     "Se o valor da guia for igual a obrigacao, confira competencia, CNPJ/IE, UF, codigo de receita, vencimento e tipo de ICMS.",
+                                                     "Aprove o envio ao cliente/financeiro."
+                                                 ],
+                                  "atencoes":  [
+                                                   "Gate 3 impede envio de guia divergente."
+                                               ],
+                                  "campo_print":  {
+                                                      "incluir":  true,
+                                                      "id":  "E14",
+                                                      "rotulo":  "Guia aprovada",
+                                                      "orientacao":  "Insira manualmente a guia conferida (oculte dados bancarios sensiveis se necessario).",
+                                                      "legenda":  "Imagem 10 - Gate 3 - Guia conferida.",
+                                                      "obrigatorio":  true
+                                                  }
+                              },
+                              {
+                                  "id":  "E15",
+                                  "etapa_id":  "E15",
+                                  "titulo":  "15. ACOMPANHAR PAGAMENTO",
+                                  "caminho":  "",
+                                  "instrucoes":  [
+                                                     "Envie a guia ao responsavel pelo pagamento.",
+                                                     "Acompanhe o vencimento.",
+                                                     "Receba o comprovante e confirme o pagamento.",
+                                                     "Arquive o comprovante no dossie."
+                                                 ],
+                                  "atencoes":  [
+                                                   "O processo nao se encerra apenas com a geracao da guia."
+                                               ],
+                                  "campo_print":  {
+                                                      "incluir":  true,
+                                                      "id":  "E15",
+                                                      "rotulo":  "Comprovante de pagamento",
+                                                      "orientacao":  "Insira manualmente o comprovante de pagamento da competencia.",
+                                                      "legenda":  "Imagem 11 - Pagamento confirmado.",
+                                                      "obrigatorio":  true
+                                                  }
+                              },
+                              {
+                                  "id":  "E16",
+                                  "etapa_id":  "E16",
+                                  "titulo":  "16. FECHAR COMPETENCIA E ARQUIVAR DOSSIE",
+                                  "caminho":  "",
+                                  "instrucoes":  [
+                                                     "Crie o dossie mensal com as 15 subpastas padrao.",
+                                                     "Arquive documentos, relatorios, apuracoes, EFD, recibo, obrigacoes, guias, comprovantes e evidencias de revisao.",
+                                                     "Confirme EFD transmitida + protocolo + obrigacoes + guias + pagamento + documentacao.",
+                                                     "Altere o status da competencia para FECHADA.",
+                                                     "Se surgir documento apos o fechamento, inicie retificacao com reabertura controlada."
+                                                 ],
+                                  "atencoes":  [
+                                                   "Alteracoes apos FECHADA exigem retificacao documentada."
+                                               ],
+                                  "campo_print":  {
+                                                      "incluir":  true,
+                                                      "id":  "E16",
+                                                      "rotulo":  "Dossie mensal",
+                                                      "orientacao":  "Insira manualmente a estrutura de pastas do dossie ou checklist de fechamento.",
+                                                      "legenda":  "Imagem 12 - Competencia fechada e dossie arquivado.",
+                                                      "obrigatorio":  true
+                                                  }
+                              }
+                          ]
+           },
+    "form":  {
+                 "campos_contexto":  [
+                                         {
+                                             "id":  "cliente",
+                                             "rotulo":  "Cliente / Empresa",
+                                             "valor_inicial":  ""
+                                         },
+                                         {
+                                             "id":  "cnpj",
+                                             "rotulo":  "CNPJ",
+                                             "valor_inicial":  ""
+                                         },
+                                         {
+                                             "id":  "competencia",
+                                             "rotulo":  "Competencia (AAAA-MM)",
+                                             "valor_inicial":  ""
+                                         },
+                                         {
+                                             "id":  "uf",
+                                             "rotulo":  "UF",
+                                             "valor_inicial":  ""
+                                         },
+                                         {
+                                             "id":  "analista",
+                                             "rotulo":  "Analista",
+                                             "valor_inicial":  ""
+                                         },
+                                         {
+                                             "id":  "revisor",
+                                             "rotulo":  "Revisor",
+                                             "valor_inicial":  ""
+                                         }
+                                     ],
+                 "prazo_dias":  null,
+                 "blocos":  [
+                                {
+                                    "id":  "B01",
+                                    "etapa_id":  "E01",
+                                    "titulo":  "PARAMETRIZACAO TRIBUTARIA",
+                                    "setor":  "Fiscal",
+                                    "itens":  [
+                                                  {
+                                                      "id":  "C01",
+                                                      "pergunta":  "A matriz tributaria da empresa/estabelecimento foi conferida para a competencia?",
+                                                      "resposta_conforme":  "SIM"
+                                                  },
+                                                  {
+                                                      "id":  "C02",
+                                                      "pergunta":  "CFOP, CST, ST, DIFAL, FCP, credito e CIAP estao parametrizados sem pendencia bloqueante?",
+                                                      "resposta_conforme":  "SIM"
+                                                  }
+                                              ],
+                                    "campo_evidencia":  true
+                                },
+                                {
+                                    "id":  "B02",
+                                    "etapa_id":  "E03",
+                                    "titulo":  "GATE 1 - INTEGRIDADE DOCUMENTAL",
+                                    "setor":  "Fiscal",
+                                    "itens":  [
+                                                  {
+                                                      "id":  "C03",
+                                                      "pergunta":  "O cruzamento XML SEFAZ x sistema fiscal x documentos do cliente foi executado?",
+                                                      "resposta_conforme":  "SIM"
+                                                  },
+                                                  {
+                                                      "id":  "C04",
+                                                      "pergunta":  "Existem documentos faltantes sem justificativa aprovada?",
+                                                      "resposta_conforme":  "NÃO"
+                                                  },
+                                                  {
+                                                      "id":  "C05",
+                                                      "pergunta":  "Notas canceladas, duplicadas e chaves invalidas foram tratadas?",
+                                                      "resposta_conforme":  "SIM"
+                                                  }
+                                              ],
+                                    "campo_evidencia":  true
+                                },
+                                {
+                                    "id":  "B03",
+                                    "etapa_id":  "E06",
+                                    "titulo":  "ENTRADAS E CIAP",
+                                    "setor":  "Fiscal",
+                                    "itens":  [
+                                                  {
+                                                      "id":  "C06",
+                                                      "pergunta":  "Os creditos de entrada foram conferidos por natureza da operacao?",
+                                                      "resposta_conforme":  "SIM"
+                                                  },
+                                                  {
+                                                      "id":  "C07",
+                                                      "pergunta":  "Quando houver ativo imobilizado com direito a credito, o CIAP foi atualizado e a parcela lancada?",
+                                                      "resposta_conforme":  "SIM"
+                                                  }
+                                              ],
+                                    "campo_evidencia":  true
+                                },
+                                {
+                                    "id":  "B04",
+                                    "etapa_id":  "E07",
+                                    "titulo":  "SAIDAS",
+                                    "setor":  "Fiscal",
+                                    "itens":  [
+                                                  {
+                                                      "id":  "C08",
+                                                      "pergunta":  "Os debitos de saida foram conferidos (CFOP, CST, base, aliquota, beneficio, ST, DIFAL, FCP)?",
+                                                      "resposta_conforme":  "SIM"
+                                                  },
+                                                  {
+                                                      "id":  "C09",
+                                                      "pergunta":  "O cruzamento faturamento x documentos emitidos x escrituracao x contabilidade fecha ou esta justificado?",
+                                                      "resposta_conforme":  "SIM"
+                                                  }
+                                              ],
+                                    "campo_evidencia":  true
+                                },
+                                {
+                                    "id":  "B05",
+                                    "etapa_id":  "E08",
+                                    "titulo":  "APURACOES ESPECIAIS",
+                                    "setor":  "Fiscal",
+                                    "itens":  [
+                                                  {
+                                                      "id":  "C10",
+                                                      "pergunta":  "Quando houver operacoes de ST, a apuracao por UF foi concluida?",
+                                                      "resposta_conforme":  "SIM"
+                                                  },
+                                                  {
+                                                      "id":  "C11",
+                                                      "pergunta":  "Quando houver DIFAL/FCP, a apuracao por UF origem/destino foi concluida?",
+                                                      "resposta_conforme":  "SIM"
+                                                  }
+                                              ],
+                                    "campo_evidencia":  true
+                                },
+                                {
+                                    "id":  "B06",
+                                    "etapa_id":  "E09",
+                                    "titulo":  "ICMS PROPRIO E AJUSTES",
+                                    "setor":  "Fiscal",
+                                    "itens":  [
+                                                  {
+                                                      "id":  "C12",
+                                                      "pergunta":  "A conta grafica do ICMS proprio foi consolidada com saldo anterior, creditos e debitos?",
+                                                      "resposta_conforme":  "SIM"
+                                                  },
+                                                  {
+                                                      "id":  "C13",
+                                                      "pergunta":  "Cada ajuste possui codigo, fundamento legal, valor, documento comprobatório e responsavel?",
+                                                      "resposta_conforme":  "SIM"
+                                                  }
+                                              ],
+                                    "campo_evidencia":  true
+                                },
+                                {
+                                    "id":  "B07",
+                                    "etapa_id":  "E10",
+                                    "titulo":  "CONCILIACAO (13 CRUZAMENTOS)",
+                                    "setor":  "Fiscal",
+                                    "itens":  [
+                                                  {
+                                                      "id":  "C14",
+                                                      "pergunta":  "XML x escrituracao fecha 100% ou esta justificado?",
+                                                      "resposta_conforme":  "SIM"
+                                                  },
+                                                  {
+                                                      "id":  "C15",
+                                                      "pergunta":  "Totais de entradas e saidas x livros fiscais fecham 100% ou estao justificados?",
+                                                      "resposta_conforme":  "SIM"
+                                                  },
+                                                  {
+                                                      "id":  "C16",
+                                                      "pergunta":  "Debitos e creditos das notas x apuracao fecham 100% ou estao justificados?",
+                                                      "resposta_conforme":  "SIM"
+                                                  },
+                                                  {
+                                                      "id":  "C17",
+                                                      "pergunta":  "Ajustes, CIAP, ST, DIFAL, FCP e saldo anterior fecham 100% ou estao justificados?",
+                                                      "resposta_conforme":  "SIM"
+                                                  },
+                                                  {
+                                                      "id":  "C18",
+                                                      "pergunta":  "Apuracao x EFD e EFD x guia fecham 100% ou estao justificados?",
+                                                      "resposta_conforme":  "SIM"
+                                                  }
+                                              ],
+                                    "campo_evidencia":  true
+                                },
+                                {
+                                    "id":  "B08",
+                                    "etapa_id":  "E11",
+                                    "titulo":  "GATE 2 - REVISAO",
+                                    "setor":  "Fiscal",
+                                    "itens":  [
+                                                  {
+                                                      "id":  "C19",
+                                                      "pergunta":  "A revisao foi feita por pessoa diferente do analista executor?",
+                                                      "resposta_conforme":  "SIM"
+                                                  },
+                                                  {
+                                                      "id":  "C20",
+                                                      "pergunta":  "Existe divergencia nao tratada na cadeia documental/tributaria/apuracao?",
+                                                      "resposta_conforme":  "NÃO"
+                                                  },
+                                                  {
+                                                      "id":  "C21",
+                                                      "pergunta":  "A transmissao da EFD foi liberada pelo revisor?",
+                                                      "resposta_conforme":  "SIM"
+                                                  }
+                                              ],
+                                    "campo_evidencia":  true
+                                },
+                                {
+                                    "id":  "B09",
+                                    "etapa_id":  "E12",
+                                    "titulo":  "EFD E BLOCO E",
+                                    "setor":  "Fiscal",
+                                    "itens":  [
+                                                  {
+                                                      "id":  "C22",
+                                                      "pergunta":  "A EFD foi validada no PVA sem erros bloqueantes?",
+                                                      "resposta_conforme":  "SIM"
+                                                  },
+                                                  {
+                                                      "id":  "C23",
+                                                      "pergunta":  "O Bloco E (E100, E110-E116, E200/E210, E300/E310 quando aplicavel) foi conferido?",
+                                                      "resposta_conforme":  "SIM"
+                                                  },
+                                                  {
+                                                      "id":  "C24",
+                                                      "pergunta":  "O recibo de transmissao foi arquivado?",
+                                                      "resposta_conforme":  "SIM"
+                                                  }
+                                              ],
+                                    "campo_evidencia":  true
+                                },
+                                {
+                                    "id":  "B10",
+                                    "etapa_id":  "E14",
+                                    "titulo":  "GATE 3 - GUIAS",
+                                    "setor":  "Fiscal",
+                                    "itens":  [
+                                                  {
+                                                      "id":  "C25",
+                                                      "pergunta":  "O valor de cada guia e igual ao valor da obrigacao correspondente?",
+                                                      "resposta_conforme":  "SIM"
+                                                  },
+                                                  {
+                                                      "id":  "C26",
+                                                      "pergunta":  "Competencia, CNPJ/IE, UF, codigo de receita, vencimento e tipo de ICMS foram conferidos?",
+                                                      "resposta_conforme":  "SIM"
+                                                  }
+                                              ],
+                                    "campo_evidencia":  true
+                                },
+                                {
+                                    "id":  "B11",
+                                    "etapa_id":  "E15",
+                                    "titulo":  "PAGAMENTO",
+                                    "setor":  "Fiscal",
+                                    "itens":  [
+                                                  {
+                                                      "id":  "C27",
+                                                      "pergunta":  "O comprovante de pagamento foi recebido e arquivado?",
+                                                      "resposta_conforme":  "SIM"
+                                                  }
+                                              ],
+                                    "campo_evidencia":  true
+                                },
+                                {
+                                    "id":  "B12",
+                                    "etapa_id":  "E16",
+                                    "titulo":  "DOSSIE E FECHAMENTO",
+                                    "setor":  "Fiscal",
+                                    "itens":  [
+                                                  {
+                                                      "id":  "C28",
+                                                      "pergunta":  "O dossie mensal foi criado com as 15 subpastas padrao?",
+                                                      "resposta_conforme":  "SIM"
+                                                  },
+                                                  {
+                                                      "id":  "C29",
+                                                      "pergunta":  "EFD, recibo, obrigacoes estaduais (quando aplicaveis), guias, comprovantes e evidencias de revisao estao arquivados?",
+                                                      "resposta_conforme":  "SIM"
+                                                  },
+                                                  {
+                                                      "id":  "C30",
+                                                      "pergunta":  "A competencia foi marcada como FECHADA somente apos todos os itens anteriores?",
+                                                      "resposta_conforme":  "SIM"
+                                                  }
+                                              ],
+                                    "campo_evidencia":  true
+                                }
+                            ],
+                 "observacoes":  [
+                                     "Perguntas condicionais (Quando houver...) devem ser respondidas conforme aplicabilidade da empresa/competencia.",
+                                     "Qualquer resposta divergente ou em branco mantem o parecer PENDENTE ou NAO CONFORME.",
+                                     "Etapas E02, E04, E05 e E13 sem bloco FORM dedicado: controle coberto pelos Gates 1/2/3 e pelos blocos de conciliacao/dossie; omissao justificada."
+                                 ]
+             },
+    "mp":  {
+               "cadeia":  {
+                              "fornecedores":  [
+                                                   "Cliente",
+                                                   "SEFAZ / XML",
+                                                   "Sistema fiscal (ex.: Dominio)",
+                                                   "Matriz tributaria",
+                                                   "Analista fiscal"
+                                               ],
+                              "entradas":  [
+                                               "Documentos fiscais da competencia",
+                                               "Parametros tributarios",
+                                               "Saldo credor anterior",
+                                               "Legislacao da UF",
+                                               "Comprovantes de recolhimento anterior"
+                                           ],
+                              "clientes":  [
+                                               "Cliente",
+                                               "Financeiro",
+                                               "Revisor/Coordenador fiscal",
+                                               "Auditoria interna",
+                                               "Fisco"
+                                           ],
+                              "saidas":  [
+                                             "EFD ICMS/IPI transmitida",
+                                             "Recibo de transmissao",
+                                             "Guias de recolhimento",
+                                             "Comprovantes de pagamento",
+                                             "Dossie mensal arquivado",
+                                             "Competencia FECHADA"
+                                         ]
+                          },
+               "riscos":  [
+                              {
+                                  "id":  "R01",
+                                  "etapa_id":  "E03",
+                                  "etapa":  "Conferir integridade documental",
+                                  "quem_faz":  "Analista fiscal",
+                                  "como_faz":  "Cruza XML x sistema x documentos do cliente.",
+                                  "risco":  "Avancar com nota nao escriturada ou faltante.",
+                                  "barreira":  "FORM.FIS.001 - Bloco B02 Gate 1.",
+                                  "probabilidade":  null,
+                                  "gravidade":  null,
+                                  "mitigacao":  "",
+                                  "resultado_indicador":  "",
+                                  "sugerido":  true
+                              },
+                              {
+                                  "id":  "R02",
+                                  "etapa_id":  "E04",
+                                  "etapa":  "Classificar operacoes",
+                                  "quem_faz":  "Analista fiscal",
+                                  "como_faz":  "Define natureza economica e credito/debito.",
+                                  "risco":  "Classificacao tributaria incorreta gerando credito indevido ou debito omitido.",
+                                  "barreira":  "FORM.FIS.001 - Blocos B03/B04 e matriz tributaria.",
+                                  "probabilidade":  null,
+                                  "gravidade":  null,
+                                  "mitigacao":  "",
+                                  "resultado_indicador":  "",
+                                  "sugerido":  true
+                              },
+                              {
+                                  "id":  "R03",
+                                  "etapa_id":  "E06",
+                                  "etapa":  "Conferir entradas e CIAP",
+                                  "quem_faz":  "Analista fiscal",
+                                  "como_faz":  "Audita creditos e apropriacao de CIAP.",
+                                  "risco":  "Credito indevido de uso/consumo ou CIAP mal apropriado.",
+                                  "barreira":  "FORM.FIS.001 - Bloco B03.",
+                                  "probabilidade":  null,
+                                  "gravidade":  null,
+                                  "mitigacao":  "",
+                                  "resultado_indicador":  "",
+                                  "sugerido":  true
+                              },
+                              {
+                                  "id":  "R04",
+                                  "etapa_id":  "E08",
+                                  "etapa":  "Executar apuracoes especiais",
+                                  "quem_faz":  "Analista fiscal",
+                                  "como_faz":  "Apura ST, DIFAL/FCP e especiais por UF.",
+                                  "risco":  "ST/DIFAL/FCP calculados ou alocados incorretamente por UF.",
+                                  "barreira":  "FORM.FIS.001 - Bloco B05.",
+                                  "probabilidade":  null,
+                                  "gravidade":  null,
+                                  "mitigacao":  "",
+                                  "resultado_indicador":  "",
+                                  "sugerido":  true
+                              },
+                              {
+                                  "id":  "R05",
+                                  "etapa_id":  "E12",
+                                  "etapa":  "Gerar e validar EFD",
+                                  "quem_faz":  "Analista fiscal",
+                                  "como_faz":  "Gera EFD e valida no PVA.",
+                                  "risco":  "Transmitir EFD com erro estrutural ou Bloco E inconsistente.",
+                                  "barreira":  "FORM.FIS.001 - Bloco B09.",
+                                  "probabilidade":  null,
+                                  "gravidade":  null,
+                                  "mitigacao":  "",
+                                  "resultado_indicador":  "",
+                                  "sugerido":  true
+                              },
+                              {
+                                  "id":  "R06",
+                                  "etapa_id":  "E14",
+                                  "etapa":  "Gerar e aprovar guias",
+                                  "quem_faz":  "Analista fiscal / revisor",
+                                  "como_faz":  "Emite e confere guias contra a obrigacao.",
+                                  "risco":  "Enviar guia com valor divergente da obrigacao.",
+                                  "barreira":  "FORM.FIS.001 - Bloco B10 Gate 3.",
+                                  "probabilidade":  null,
+                                  "gravidade":  null,
+                                  "mitigacao":  "",
+                                  "resultado_indicador":  "",
+                                  "sugerido":  true
+                              },
+                              {
+                                  "id":  "R07",
+                                  "etapa_id":  "E16",
+                                  "etapa":  "Fechar competencia e arquivar dossie",
+                                  "quem_faz":  "Analista fiscal",
+                                  "como_faz":  "Arquiva evidencias e marca FECHADA.",
+                                  "risco":  "Retificar competencia sem documentar motivo/reabertura controlada.",
+                                  "barreira":  "FORM.FIS.001 - Bloco B12 e fluxo de retificacao.",
+                                  "probabilidade":  null,
+                                  "gravidade":  null,
+                                  "mitigacao":  "",
+                                  "resultado_indicador":  "",
+                                  "sugerido":  true
+                              }
+                          ]
+           },
+    "lista_mestra":  {
+                         "entradas":  [
+                                          {
+                                              "codigo_titulo":  "PR.FIS.001 - Apuracao de ICMS Fechamento Mensal",
+                                              "origem":  "INTERNO",
+                                              "tipo":  "PR",
+                                              "setor":  "Fiscal",
+                                              "revisao_numero":  "00",
+                                              "ultima_revisao":  "07/08/2026",
+                                              "elaborador":  "Ponto para validacao",
+                                              "verificador":  "Ponto para validacao",
+                                              "aprovador":  "Ponto para validacao",
+                                              "data_aprovacao":  "07/08/2026",
+                                              "localizacao":  "apuracao-ICMS/documentos/apuracao-icms-fechamento-mensal/documentos/",
+                                              "procedimento_raiz":  "PR.FIS.001",
+                                              "procedimentos_citados":  [
+                                                                            "IN.FIS.001",
+                                                                            "FORM.FIS.001",
+                                                                            "MP.FIS.001"
+                                                                        ],
+                                              "observacoes":  "Codigos e responsaveis provisórios ate validacao institucional."
+                                          },
+                                          {
+                                              "codigo_titulo":  "IN.FIS.001 - Apuracao de ICMS Fechamento Mensal",
+                                              "origem":  "INTERNO",
+                                              "tipo":  "IN",
+                                              "setor":  "Fiscal",
+                                              "revisao_numero":  "00",
+                                              "ultima_revisao":  "07/08/2026",
+                                              "elaborador":  "Ponto para validacao",
+                                              "verificador":  "Ponto para validacao",
+                                              "aprovador":  "Ponto para validacao",
+                                              "data_aprovacao":  "07/08/2026",
+                                              "localizacao":  "apuracao-ICMS/documentos/apuracao-icms-fechamento-mensal/documentos/",
+                                              "procedimento_raiz":  "PR.FIS.001",
+                                              "procedimentos_citados":  [
+                                                                            "PR.FIS.001",
+                                                                            "FORM.FIS.001",
+                                                                            "MP.FIS.001"
+                                                                        ],
+                                              "observacoes":  ""
+                                          },
+                                          {
+                                              "codigo_titulo":  "FORM.FIS.001 - Apuracao de ICMS Fechamento Mensal",
+                                              "origem":  "INTERNO",
+                                              "tipo":  "FORM",
+                                              "setor":  "Fiscal",
+                                              "revisao_numero":  "00",
+                                              "ultima_revisao":  "07/08/2026",
+                                              "elaborador":  "Ponto para validacao",
+                                              "verificador":  "Ponto para validacao",
+                                              "aprovador":  "Ponto para validacao",
+                                              "data_aprovacao":  "07/08/2026",
+                                              "localizacao":  "apuracao-ICMS/documentos/apuracao-icms-fechamento-mensal/documentos/",
+                                              "procedimento_raiz":  "PR.FIS.001",
+                                              "procedimentos_citados":  [
+                                                                            "PR.FIS.001",
+                                                                            "IN.FIS.001",
+                                                                            "MP.FIS.001"
+                                                                        ],
+                                              "observacoes":  ""
+                                          },
+                                          {
+                                              "codigo_titulo":  "MP.FIS.001 - Apuracao de ICMS Fechamento Mensal",
+                                              "origem":  "INTERNO",
+                                              "tipo":  "MP",
+                                              "setor":  "Fiscal",
+                                              "revisao_numero":  "00",
+                                              "ultima_revisao":  "07/08/2026",
+                                              "elaborador":  "Ponto para validacao",
+                                              "verificador":  "Ponto para validacao",
+                                              "aprovador":  "Ponto para validacao",
+                                              "data_aprovacao":  "07/08/2026",
+                                              "localizacao":  "apuracao-ICMS/documentos/apuracao-icms-fechamento-mensal/documentos/",
+                                              "procedimento_raiz":  "PR.FIS.001",
+                                              "procedimentos_citados":  [
+                                                                            "PR.FIS.001",
+                                                                            "IN.FIS.001",
+                                                                            "FORM.FIS.001"
+                                                                        ],
+                                              "observacoes":  ""
+                                          }
+                                      ]
+                     },
+    "revisoes":  [
+                     {
+                         "numero":  "00",
+                         "alteracao":  "Emissao inicial a partir do mapeamento operacional de apuracao de ICMS (fechamento mensal)."
+                     }
+                 ],
+    "pontos_validacao":  [
+                             "Confirmar codigos oficiais (PR/IN/FORM/MP), setor/sigla, elaborador, verificador, aprovador e prazo padrao por UF.",
+                             "Confirmar nome oficial do sistema fiscal interno e caminhos de tela (Sistema \u003e Menu \u003e Tela) nas secoes da IT.",
+                             "Etapas E02, E04, E05 e E13 sem bloco FORM dedicado: omissao justificada; controle coberto pelos Gates 1/2/3, blocos de entradas/saidas/conciliacao e pelo bloco de dossie/fechamento.",
+                             "Ponto para validação: revisar P/G dos riscos sugeridos no MP (R01, R02, R03, R04, R05, R06, R07)."
+                         ],
+    "transcricao":  {
+                        "status":  "fornecida",
+                        "idioma":  "pt",
+                        "observacao":  "Fonte: apuracao-ICMS/chat.md (mapeamento operacional exportado)."
+                    }
+}

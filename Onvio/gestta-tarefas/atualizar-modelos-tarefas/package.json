@@ -9,11 +9,27 @@
     "start": "node dist/index.js",
     "dev": "ts-node src/index.ts",
     "dry-run": "ts-node src/index.ts --dry-run",
-    "apply": "ts-node src/index.ts --apply"
+    "apply": "ts-node src/index.ts --apply",
+    "whatsapp-mmm-alves": "ts-node scripts/whatsapp-mmm-alves.ts",
+    "levantamento:pessoal-maed": "ts-node scripts/levantamento-pessoal-maed-sem-movimento.ts",
+    "levantamento:folha-grupo-particularidades": "ts-node scripts/levantamento-folha-grupo-particularidades.ts",
+    "levantamento:folha-grupos-geradas-ago-set": "ts-node scripts/levantamento-folha-grupos-geradas-ago-set.ts",
+    "levantamento:setor-vs-colaborador": "ts-node scripts/levantamento-setor-tarefa-vs-colaborador.ts",
+    "levantamento:difal-icms-antecipado": "ts-node scripts/levantamento-difal-icms-antecipado.ts",
+    "relatorio:validacao-sped-efd": "ts-node scripts/gerar-relatorio-validacao-sped-efd.ts",
+    "configurar:sped-icms": "ts-node scripts/aplicar-configuracao-sped-icms.ts",
+    "regenerar:sped-icms-setembro": "ts-node scripts/regenerar-sped-icms-setembro.ts",
+    "relatorio:antes-depois-sped-icms": "ts-node scripts/gerar-relatorio-antes-depois-sped-icms.ts",
+    "aplicar:dctfweb-sem-movimento-maed": "ts-node scripts/aplicar-dctfweb-sem-movimento-maed.ts",
+    "aplicar:dp-pro-labore": "ts-node scripts/aplicar-dp-pro-labore.ts",
+    "sincronizar:folha-adiantamento-quinzenas": "ts-node scripts/sincronizar-folha-adiantamento-quinzenas.ts",
+    "sincronizar:folha-grupo-particularidades": "ts-node scripts/sincronizar-folha-grupo-particularidades.ts",
+    "ajustar:folha-maed-grupo2-setembro": "ts-node scripts/ajustar-folha-maed-e-grupo2-setembro.ts"
   },
   "dependencies": {
     "axios": "^1.6.0",
-    "dotenv": "^16.3.0"
+    "dotenv": "^16.3.0",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@types/node": "^20.10.0",

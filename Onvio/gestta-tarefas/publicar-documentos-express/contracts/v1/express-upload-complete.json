@@ -1,0 +1,24 @@
+{
+  "upload": {
+    "request": {
+      "contentType": "multipart/form-data",
+      "headers": { "x-version": "v2" },
+      "fields": {
+        "customer_task": "task-id",
+        "company_document": "company-document-id",
+        "file": "binary-pdf-not-versioned"
+      }
+    },
+    "response": {
+      "_id": "attachment-id",
+      "file_name": "document.pdf",
+      "type": "WEB_AUTOMATIC",
+      "company_document": { "_id": "company-document-id", "name": "DARF DCTFWEB" },
+      "customer_task": { "_id": "task-id", "name": "DCTFWEB - SETOR PESSOAL" }
+    }
+  },
+  "confirm": {
+    "request": { "company_document": "company-document-id", "customer_task": "task-id" },
+    "response": "OK"
+  }
+}

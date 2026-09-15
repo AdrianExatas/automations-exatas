@@ -1,0 +1,8 @@
+{
+  "uf": "default",
+  "descricao": "Fallback generico quando nao houver config da UF",
+  "regras": [
+    {"cfop": "1102", "cst": "000", "aliq_esperada": 18.0, "natureza": "compra_interna"},
+    {"cfop": "5102", "cst": "000", "aliq_esperada": 18.0, "natureza": "venda_interna"}
+  ]
+}

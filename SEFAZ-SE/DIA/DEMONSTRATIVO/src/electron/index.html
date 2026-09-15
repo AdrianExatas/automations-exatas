@@ -7,100 +7,169 @@
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <main class="app-shell">
-      <section class="hero">
-        <div>
-          <p class="eyebrow">SEFAZ-SE</p>
-          <h1>DIA</h1>
-          <p class="subtitle">Baixe demonstrativos por empresa em PDF e XLS com relatorio de execucao.</p>
-        </div>
-        <div class="status" id="status-text">Carregando...</div>
-      </section>
+    <div id="app-layout" class="app-layout">
+      <aside id="app-sidebar" class="app-sidebar" aria-label="Aplicativos">
+        <button id="sidebar-pin" type="button" class="sidebar-pin" title="Fixar menu" aria-pressed="false">
+          <span class="sidebar-pin-icon" aria-hidden="true">☰</span>
+          <span class="sidebar-label">Menu</span>
+        </button>
+        <nav class="sidebar-nav">
+          <button
+            type="button"
+            class="sidebar-item is-active"
+            data-app="demonstrativo"
+            title="Demonstrativo"
+            aria-current="page"
+          >
+            <span class="sidebar-item-icon" aria-hidden="true">D</span>
+            <span class="sidebar-label">Demonstrativo</span>
+          </button>
+          <button
+            type="button"
+            class="sidebar-item"
+            data-app="alterar"
+            title="Alterar Nota Fiscal - DIA Atual"
+          >
+            <span class="sidebar-item-icon" aria-hidden="true">N</span>
+            <span class="sidebar-label">Alterar Nota</span>
+          </button>
+        </nav>
+      </aside>
 
-      <section class="workspace">
-        <form id="run-form" class="panel">
-          <div class="section-title">Acesso</div>
-          <label>
-            <span>Login</span>
-            <input id="user" type="text" autocomplete="username" required />
-          </label>
-          <label>
-            <span>Senha</span>
-            <input id="password" type="password" autocomplete="current-password" required />
-          </label>
-          <div class="row">
-            <label class="check">
-              <input id="remember" type="checkbox" />
-              <span>Lembrar login e senha</span>
-            </label>
-            <button id="forget" type="button" class="ghost">Esquecer</button>
+      <main class="app-shell">
+        <section class="hero">
+          <div>
+            <p class="eyebrow">SEFAZ-SE</p>
+            <h1>DIA</h1>
+            <p class="subtitle" id="hero-subtitle">
+              Baixe demonstrativos por empresa em PDF e XLS com relatório de execução.
+            </p>
           </div>
-
-          <div class="section-title">Execucao</div>
-          <label>
-            <span>Competencia</span>
-            <input id="competencia" type="month" required />
-          </label>
-          <div class="formats">
-            <label class="check tile">
-              <input id="format-pdf" type="checkbox" checked />
-              <span>PDF</span>
-            </label>
-            <label class="check tile">
-              <input id="format-xls" type="checkbox" checked />
-              <span>XLS</span>
-            </label>
-          </div>
-          <label class="check">
-            <input id="checkpoint-enabled" type="checkbox" checked />
-            <span>Salvar checkpoints durante a execucao</span>
-          </label>
-          <label>
-            <span>Pasta de saida</span>
-            <div class="path-row">
-              <input id="out-dir" type="text" required />
-              <button id="select-out-dir" type="button" class="icon-button" title="Selecionar pasta">...</button>
-            </div>
-          </label>
-
-          <div class="actions">
-            <button id="start" type="submit" class="primary">Iniciar</button>
-            <button id="download-xml" type="button">Baixar XMLs</button>
-            <button id="cancel" type="button" disabled>Cancelar</button>
-          </div>
-        </form>
-
-        <section class="panel monitor">
-          <div class="summary">
-            <div>
-              <span id="success-count">0</span>
-              <small>sucessos</small>
-            </div>
-            <div>
-              <span id="error-count">0</span>
-              <small>erros</small>
-            </div>
-            <div>
-              <span id="total-count">0</span>
-              <small>itens</small>
-            </div>
-          </div>
-
-          <div class="progress-block">
-            <progress id="progress" value="0" max="1"></progress>
-            <div id="progress-text">0 de 0</div>
-          </div>
-
-          <pre id="logs" class="logs" aria-live="polite"></pre>
-
-          <div class="actions">
-            <button id="open-folder" type="button" disabled>Abrir pasta</button>
-            <button id="open-report" type="button" disabled>Abrir relatorio</button>
-            <button id="open-xml-report" type="button" disabled>Abrir relatorio XML</button>
-          </div>
+          <div class="status" id="status-text">Carregando...</div>
         </section>
-      </section>
-    </main>
+
+        <section class="workspace">
+          <form id="run-form" class="panel form-panel">
+            <div class="form-scroll">
+              <div class="section-title">Acesso</div>
+              <label>
+                <span>Código do vínculo Contador</span>
+                <input id="user" type="text" autocomplete="username" placeholder="Ex.: SE007829" required />
+              </label>
+              <label>
+                <span>Certificado digital A1 (.pfx)</span>
+                <div class="path-row">
+                  <input id="cert-path" type="text" required />
+                  <button id="select-cert" type="button" class="icon-button" title="Selecionar certificado">...</button>
+                </div>
+              </label>
+              <label>
+                <span>Senha do certificado</span>
+                <input id="cert-password" type="password" autocomplete="current-password" />
+              </label>
+              <div class="row">
+                <label class="check">
+                  <input id="remember" type="checkbox" />
+                  <span>Lembrar vínculo e certificado</span>
+                </label>
+                <button id="forget" type="button" class="ghost">Esquecer</button>
+              </div>
+
+              <div id="panel-demonstrativo" class="app-panel" data-app-panel="demonstrativo">
+                <div class="section-title">Execução — Demonstrativo</div>
+                <label>
+                  <span>Competência</span>
+                  <input id="competencia" type="month" required />
+                </label>
+                <div class="formats">
+                  <label class="check tile">
+                    <input id="format-pdf" type="checkbox" checked />
+                    <span>PDF</span>
+                  </label>
+                  <label class="check tile">
+                    <input id="format-xls" type="checkbox" checked />
+                    <span>XLS</span>
+                  </label>
+                </div>
+                <label class="check">
+                  <input id="checkpoint-enabled" type="checkbox" checked />
+                  <span>Salvar checkpoints durante a execução</span>
+                </label>
+                <label>
+                  <span>Pasta de saída</span>
+                  <div class="path-row">
+                    <input id="out-dir" type="text" required />
+                    <button id="select-out-dir" type="button" class="icon-button" title="Selecionar pasta">...</button>
+                  </div>
+                </label>
+              </div>
+
+              <div id="panel-alterar" class="app-panel is-hidden" data-app-panel="alterar" hidden>
+                <div class="section-title">Execução — Alterar Nota Fiscal</div>
+                <label>
+                  <span>Planilha</span>
+                  <div class="path-row">
+                    <input id="spreadsheet-path" type="text" />
+                    <button id="select-spreadsheet" type="button" class="icon-button" title="Selecionar planilha">...</button>
+                  </div>
+                </label>
+                <label class="check">
+                  <input id="headless" type="checkbox" />
+                  <span>Executar navegador em segundo plano (headless)</span>
+                </label>
+                <label>
+                  <span>Pasta de saída</span>
+                  <div class="path-row">
+                    <input id="alterar-out-dir" type="text" />
+                    <button id="select-alterar-out-dir" type="button" class="icon-button" title="Selecionar pasta">...</button>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <div class="actions form-actions" id="actions-demonstrativo">
+              <button id="start" type="submit" class="primary">Iniciar</button>
+              <button id="download-xml" type="button">Baixar XMLs</button>
+              <button id="cancel" type="button" disabled>Cancelar</button>
+            </div>
+            <div class="actions form-actions is-hidden" id="actions-alterar" hidden>
+              <button id="alterar-start" type="button" class="primary">Iniciar</button>
+              <button id="alterar-cancel" type="button" disabled>Cancelar</button>
+            </div>
+          </form>
+
+          <section class="panel monitor">
+            <div class="summary">
+              <div>
+                <span id="success-count">0</span>
+                <small>sucessos</small>
+              </div>
+              <div>
+                <span id="error-count">0</span>
+                <small>erros</small>
+              </div>
+              <div>
+                <span id="total-count">0</span>
+                <small>itens</small>
+              </div>
+            </div>
+
+            <div class="progress-block">
+              <progress id="progress" value="0" max="1"></progress>
+              <div id="progress-text">0 de 0</div>
+            </div>
+
+            <pre id="logs" class="logs" aria-live="polite"></pre>
+
+            <div class="actions">
+              <button id="open-folder" type="button" disabled>Abrir pasta</button>
+              <button id="open-report" type="button" disabled>Abrir relatório</button>
+              <button id="open-xml-report" type="button" disabled>Abrir relatório XML</button>
+            </div>
+          </section>
+        </section>
+      </main>
+    </div>
     <script type="module" src="./renderer.js"></script>
   </body>
 </html>

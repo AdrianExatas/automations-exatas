@@ -1,0 +1,23 @@
+{
+  "media": "G:\\Meu Drive\\GESTÃO DE PROCESSOS\\_SEM_SETOR\\VÍDEOS\\CAIXA POSTAL - SÃO PAULO.mp4",
+  "transcript_path": "C:\\Users\\Exatas\\Documents\\GitHub\\automations-exatas\\gerador-pop-it\\transcriptions\\a fazer\\CAIXA POSTAL - SÃO PAULO (transcribed on 10-Sep-2026 21-10-46).txt",
+  "language": "pt",
+  "duration_sec": 89.6426875,
+  "segments": [
+    {
+      "start": 0.02,
+      "end": 33.24,
+      "text": "Agora eu vou ensinar como entrar na caixa postada do SEFAZ de São Paulo, você vai colocar SEFAZ, ECP, primeiro link aqui, aí você vai rolar pra baixo, Portal Fiscal Eletrônico, aí você vem com o certificado da empresa, certo? Você vai procurar aqui o certificado da empresa, acho que é esse, a matriz, a filial, aí você vem em DEC,"
+    },
+    {
+      "start": 33.24,
+      "end": 68.95,
+      "text": "aí certificado digital, aí novamente com o certificado da empresa, certo? Aqui é o Pessoa Física, vamos ver nesse aqui, pronto, é esse mesmo, aí você vem aí, para a caixa postal, você vai colocar o CNPJ da empresa, buscar, pronto, não lidas,"
+    },
+    {
+      "start": 68.95,
+      "end": 87.59,
+      "text": "últimos meses, últimos meses, últimos 12 meses, tá vendo? Aí caso tenha alguma mensagem, vai estar aqui, a dos últimos meses, não teve nenhuma por enquanto, todos, tá vendo? Seria aqui a caixa postal."
+    }
+  ]
+}

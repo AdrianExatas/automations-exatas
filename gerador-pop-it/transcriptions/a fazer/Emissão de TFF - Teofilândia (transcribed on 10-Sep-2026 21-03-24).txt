@@ -1,0 +1,3 @@
+Irei mostrar como fazer a emissão da guia da TFF na Prefeitura de Teofilândia. Acessa o site da Prefeitura, na opção Tributos, seleciona a opção TLL, TFF, seleciona a opção CNPJ, pesquisar, informa o CNPJ,
+que funciona na pasta da empresa, lá no setor do paralegal. Pesquisa, seleciona a opção MT, gerou a guia, confere o vencimento, seleciona,
+a empresa, TFF, pronto, e salva na pasta. Feito isso, envia para o cliente.

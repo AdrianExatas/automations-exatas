@@ -90,10 +90,18 @@ describe("planilha", () => {
 
   test("relata linha verde como ignorada sem acessar o portal", async () => {
     const dir = await makeTempDir();
+    const certDir = await makeTempDir();
+    const pfxPath = path.join(certDir, "certificado.pfx");
+    await fs.writeFile(pfxPath, "fake-pfx");
     const result = await runAlterarNotaFiscal({
       user: "usuario",
-      password: "senha",
-      authMode: "password",
+      password: "",
+      authMode: "certificate",
+      certificate: {
+        pfxPath,
+        passphrase: "",
+        origins: ["https://www.sefaz.se.gov.br"],
+      },
       spreadsheetPath: modelSpreadsheetPath(),
       outDir: dir,
       headless: true,
@@ -143,11 +151,14 @@ describe("relatorio", () => {
 
 describe("config", () => {
   test("aceita dry-run, headed e limite no CLI", async () => {
+    const certDir = await makeTempDir();
+    const pfxPath = path.join(certDir, "certificado.pfx");
+    await fs.writeFile(pfxPath, "fake-pfx");
     const config = await loadConfig([
       "--user",
       "usuario",
-      "--password",
-      "senha",
+      "--cert-path",
+      pfxPath,
       "--planilha",
       "planilha.xlsx",
       "--headed",
@@ -162,14 +173,18 @@ describe("config", () => {
     expect(config.dryRun).toBe(true);
     expect(config.limit).toBe(1);
     expect(config.stepDelayMs).toBe(1000);
+    expect(config.authMode).toBe("certificate");
   });
 
   test("aceita canal do navegador no CLI", async () => {
+    const certDir = await makeTempDir();
+    const pfxPath = path.join(certDir, "certificado.pfx");
+    await fs.writeFile(pfxPath, "fake-pfx");
     const config = await loadConfig([
       "--user",
       "u",
-      "--password",
-      "p",
+      "--cert-path",
+      pfxPath,
       "--planilha",
       "x.xls",
       "--channel",

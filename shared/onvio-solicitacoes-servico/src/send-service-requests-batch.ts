@@ -42,6 +42,10 @@ function normalizeMode(options: SendServiceRequestsOptions): ServiceRequestMode 
   return "attachments";
 }
 
+function usesResolvedAttachments(mode: ServiceRequestMode): boolean {
+  return mode === "attachments" || mode === "optional-attachments";
+}
+
 function resolveDefaultContent(options: SendServiceRequestsOptions) {
   return options.defaultContent ?? {
     subject: buildDefaultServiceRequestSubject,
@@ -197,6 +201,7 @@ export async function sendServiceRequestsBatch(
 
   const lookupData = await loadLookupData(options, warnings);
 
+  const validateAttachmentIdentity = options.validateAttachmentIdentity !== false;
   let availableFiles = [] as ResolvedAttachmentFile[];
   if (mode === "attachments") {
     if (!attachmentsDir) {
@@ -211,10 +216,12 @@ export async function sendServiceRequestsBatch(
     if (availableFiles.length === 0) {
       throw new Error(`Nenhum arquivo PDF/XLSX elegivel encontrado em ${attachmentsDir}`);
     }
+  } else if (mode === "optional-attachments" && attachmentsDir && fs.existsSync(attachmentsDir)) {
+    availableFiles = buildAvailableAttachmentFiles(attachmentsDir);
   }
 
   let extraAttachmentFiles = [] as ResolvedAttachmentFile[];
-  if (mode === "attachments" && options.extraAttachmentPaths?.length) {
+  if (usesResolvedAttachments(mode) && options.extraAttachmentPaths?.length) {
     extraAttachmentFiles = resolveExtraAttachmentPaths(options.extraAttachmentPaths);
   }
 
@@ -223,6 +230,7 @@ export async function sendServiceRequestsBatch(
   let success = 0;
   let failed = 0;
   let skipped = 0;
+  let cancelled = false;
 
   const callOnvio = dryRun ? null : createOnvio401Retry(options);
   const onProgress = options.onProgress;
@@ -231,6 +239,30 @@ export async function sendServiceRequestsBatch(
   onProgress?.({ type: "batch_start", total: totalCount });
 
   for (let i = 0; i < serviceRequests.length; i++) {
+    if (options.shouldCancel?.()) {
+      cancelled = true;
+      for (let j = i; j < serviceRequests.length; j++) {
+        const remaining = serviceRequests[j]!;
+        const remainingIndex = j + 1;
+        skipped++;
+        const cancelMessage = "Cancelado pelo usuario.";
+        items.push({
+          serviceRequest: remaining,
+          status: "skipped",
+          message: cancelMessage,
+        });
+        onProgress?.({
+          type: "item_done",
+          index: remainingIndex,
+          total: totalCount,
+          row: remaining,
+          outcome: "skipped",
+          message: cancelMessage,
+        });
+      }
+      break;
+    }
+
     const serviceRequest = serviceRequests[i]!;
     const index = i + 1;
     const total = totalCount;
@@ -240,12 +272,20 @@ export async function sendServiceRequestsBatch(
     const itemWarnings = [...warnings];
 
     try {
-      let attachments =
-        mode === "attachments"
-          ? resolveAttachmentsForServiceRequest(serviceRequest, availableFiles, attachmentStrategy)
-          : [];
-      if (mode === "attachments" && extraAttachmentFiles.length > 0) {
-        attachments = appendExtraAttachments(attachments, extraAttachmentFiles);
+      let attachments: ResolvedAttachmentFile[] = [];
+      if (usesResolvedAttachments(mode)) {
+        attachments = resolveAttachmentsForServiceRequest(
+          serviceRequest,
+          availableFiles,
+          attachmentStrategy,
+          {
+            validateIdentity: validateAttachmentIdentity,
+            allowMissing: mode === "optional-attachments",
+          },
+        );
+        if (extraAttachmentFiles.length > 0) {
+          attachments = appendExtraAttachments(attachments, extraAttachmentFiles);
+        }
       }
       let clientRequesterId: string | undefined;
       if (
@@ -286,7 +326,7 @@ export async function sendServiceRequestsBatch(
       const resolvedRequesterId = resolvedIdentifiers.requesterId;
 
       if (
-        mode === "attachments" &&
+        usesResolvedAttachments(mode) &&
         serviceRequest.qtdArquivos != null &&
         serviceRequest.qtdArquivos >= 0 &&
         serviceRequest.qtdArquivos !== attachments.length
@@ -308,7 +348,7 @@ export async function sendServiceRequestsBatch(
       if (dryRun) {
         skipped++;
         const skipMessage =
-          mode === "no-attachments"
+          attachments.length === 0
             ? "Pre-validacao OK: solicitacao sem anexos seria aberta."
             : `Pre-validacao OK: ${attachments.length} anexo(s) seriam enviados.`;
         items.push({
@@ -330,7 +370,7 @@ export async function sendServiceRequestsBatch(
         continue;
       }
 
-      if (mode === "no-attachments") {
+      if (attachments.length === 0) {
         const response = await callOnvio!((token) =>
           openTicket({
             token,
@@ -430,6 +470,7 @@ export async function sendServiceRequestsBatch(
       success,
       failed,
       skipped,
+      ...(cancelled ? { cancelled: true } : {}),
     },
     items,
     warnings,

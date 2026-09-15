@@ -1,0 +1,16 @@
+Apresentando o relatório de erros na apuração do Simples Nacional da Baitelecom. Aqui nós podemos ver a ZNFCOM, espécie 43. Aqui no quadro provida e aqui espécie 42 é o documento não fiscal, que seriam as faturas.
+Jogando as informações também no NFCROSS, se formos filtrar somente essa nota 282, nós podemos observar aqui que há somente a ZNFCOM, que aqui é o plano, que está com o CFOP e a locação.
+A diferença é que, como a locação está sendo destaque de ICMS, aqui ela ficou dessa forma também.
+Porém, não há incidência das faturas nesse caso.
+Como nós podemos ver aqui, irei colocar na próxima nota aqui, no NFCROSS.
+290, colocando na 290, podemos ver o mesmo caso.
+Duas NFCROSS, só que uma está sem o destaque de ICMS, assim como também aqui na Domínio.
+Mas já fizemos os ajustes necessários, porém, entrou as faturas.
+E, trazendo agora um exemplo de uma nota que tenha as faturas, iremos pegar aqui a próxima, que é a 234.
+Nós podemos observar aqui os planos 234 e o valor total 1.200, que seria...
+Aqui, nós já conseguimos visualizar o valor total, que é os 1.200.
+Então, não há necessidade das faturas.
+Ou seja, terá que ser feita a exclusão de todas essas faturas,
+porque o que está incidindo somente é a NFCROSS, e não as faturas dentro dessa nota,
+como nós podemos observar aqui, o valor de 1.200.
+Então, nós podemos observar aqui, o valor de 1.200, que é o valor total de 1.200, que é o valor total de 1.200, que é o valor total de 1.200.

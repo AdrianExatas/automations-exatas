@@ -1,0 +1,9 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["request", "response"],
+  "properties": {
+    "request": { "type": "object", "required": ["searchTerm", "sortBy", "containers"] },
+    "response": { "type": "object", "required": ["data"] }
+  }
+}

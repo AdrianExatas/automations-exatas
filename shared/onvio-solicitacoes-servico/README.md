@@ -29,7 +29,7 @@ Opcoes principais:
 
 - `--excel <arquivo>`
 - `--attachments-dir <pasta>`
-- `--mode attachments|no-attachments`
+- `--mode attachments|no-attachments|optional-attachments`
 - `--attachment-strategy explicit|code-fallback`
 - `--dry-run`
 - `--bd-api-base-url <url>`
@@ -51,6 +51,8 @@ O pacote generico nao consulta a BD API por padrao.
 
 - `explicit`: usa apenas a coluna `ARQUIVOS`
 - `code-fallback`: quando `ARQUIVOS` estiver vazio, tenta localizar anexos pelo `CODIGO`
+- `optional-attachments`: anexa se houver arquivos na linha, caminhos absolutos ou `extraAttachmentPaths`; senão abre sem anexo
+- `validateAttachmentIdentity: false` desliga a checagem Unecont de nome do `.xlsx`
 
 ## Desenvolvimento
 

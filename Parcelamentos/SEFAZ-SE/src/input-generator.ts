@@ -338,8 +338,11 @@ function runCurlRequestWithBinary(request: ParsedCurlRequest): CurlExecutionResu
 function captureFreshGesttaJwt(onvioAuthDir: string): void {
   console.log("\nJWT expirado. Recapturando tokens via shared/onvio-auth...");
 
-  const command = process.platform === "win32" ? "npm.cmd" : "npm";
-  const result = spawnSync(command, ["run", "capture-tokens"], {
+  const command = process.platform === "win32" ? process.env.ComSpec ?? "cmd.exe" : "npm";
+  const args = process.platform === "win32"
+    ? ["/d", "/s", "/c", "npm run capture-tokens"]
+    : ["run", "capture-tokens"];
+  const result = spawnSync(command, args, {
     cwd: onvioAuthDir,
     stdio: "inherit",
     windowsHide: false,

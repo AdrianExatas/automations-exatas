@@ -41,6 +41,8 @@ export type DownloadResult = {
   bytes: Uint8Array;
   suggestedFilename?: string;
   contentType?: string;
+  /** Origem do download: HTTP (preferencial) ou UI Playwright. */
+  via?: "http" | "playwright";
 };
 
 export type XmlDownloadEntry = {

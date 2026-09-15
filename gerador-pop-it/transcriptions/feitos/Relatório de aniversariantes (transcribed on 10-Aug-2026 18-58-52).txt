@@ -1,0 +1,3 @@
+Nesse vídeo eu vou ensinar como emitir o relatório de aniversariante do mês. Primeiro a gente loga na empresa, clica em relatórios, gerenciador de relatórios, procura pelo item personalizados e clica em empregados aniversariantes do mês. Seleciona o código da empresa, o mês de referência, sempre coloca 06 ou 05 até completar, nunca só o número 6. O tipo de serviço a gente deixa em branco e filial deixa em branco também e clica em executar. 
+
+O sistema vai emitir esse tipo de relatório e a gente vai salvar em PDF e encaminhar para o cliente. 
