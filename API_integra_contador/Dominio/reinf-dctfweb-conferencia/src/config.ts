@@ -20,23 +20,27 @@ export interface AppConfig {
   authSecret: string;
 }
 
+export function stripQuotes(value: string): string {
+  return value.trim().replace(/^["']|["']$/g, "").trim();
+}
+
 export function loadConfig(): AppConfig {
   const rootDir = process.cwd();
   return {
-    serproConsumerKey: process.env.SERPRO_CONSUMER_KEY || process.env.CONSUMER_KEY || "",
-    serproConsumerSecret: process.env.SERPRO_CONSUMER_SECRET || process.env.CONSUMER_SECRET || "",
-    serproCertPfxPath: process.env.SERPRO_CERT_PFX_PATH || process.env.SERPRO_CERT_PATH || process.env.CERT_PFX_PATH || "",
-    serproCertPassword: process.env.SERPRO_CERT_PASSWORD || process.env.SERPRO_CERT_PASS || process.env.CERT_PASSWORD || "",
+    serproConsumerKey: stripQuotes(process.env.SERPRO_CONSUMER_KEY || process.env.CONSUMER_KEY || ""),
+    serproConsumerSecret: stripQuotes(process.env.SERPRO_CONSUMER_SECRET || process.env.CONSUMER_SECRET || ""),
+    serproCertPfxPath: stripQuotes(process.env.SERPRO_CERT_PFX_PATH || process.env.SERPRO_CERT_PATH || process.env.CERT_PFX_PATH || ""),
+    serproCertPassword: stripQuotes(process.env.SERPRO_CERT_PASSWORD || process.env.SERPRO_CERT_PASS || process.env.CERT_PASSWORD || ""),
     serproContratanteCnpj: cleanDigits(process.env.SERPRO_CONTRATANTE_CNPJ || process.env.CONTRATANTE_CNPJ || ""),
-    dominioOdbcDsn: process.env.DOMINIO_ODBC_DSN || "Contabil Oficial",
-    dominioUser: process.env.DOMINIO_USER || "EXTERNO",
-    dominioPassword: process.env.DOMINIO_PASSWORD || "",
-    sqliteDbPath: process.env.SQLITE_DB_PATH || resolve(rootDir, "conferencia_historico.db"),
+    dominioOdbcDsn: stripQuotes(process.env.DOMINIO_ODBC_DSN || "Contabil Oficial"),
+    dominioUser: stripQuotes(process.env.DOMINIO_USER || "EXTERNO"),
+    dominioPassword: stripQuotes(process.env.DOMINIO_PASSWORD || ""),
+    sqliteDbPath: stripQuotes(process.env.SQLITE_DB_PATH || resolve(rootDir, "conferencia_historico.db")),
     port: parseInt(process.env.PORT || "3000", 10),
     authEnabled: process.env.AUTH_ENABLED === "true",
-    authUser: process.env.AUTH_USER || "administrator",
-    authPassword: process.env.AUTH_PASSWORD || process.env.SERVER_PASSWORD || "amz@exatas1010",
-    authSecret: process.env.AUTH_SECRET || "exatas-integra-contador-auth-secret-2026",
+    authUser: stripQuotes(process.env.AUTH_USER || "administrator"),
+    authPassword: stripQuotes(process.env.AUTH_PASSWORD || process.env.SERVER_PASSWORD || "amz@exatas1010"),
+    authSecret: stripQuotes(process.env.AUTH_SECRET || "exatas-integra-contador-auth-secret-2026"),
   };
 }
 
