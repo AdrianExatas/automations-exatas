@@ -12,35 +12,40 @@
 <body>
   <div class="app-layout">
     <!-- Top Header -->
+    <!-- Top Header -->
     <header class="app-header">
-      <div class="brand">
-        <div class="brand-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-          </svg>
-        </div>
-        <div class="brand-text">
-          <h1>Conferência Fiscal 360°</h1>
-          <div class="brand-sub">
-            <span class="badge-tag">EFD-REINF × DCTFWEB × DOMÍNIO</span>
-            <span class="db-badge" id="dbStatusBadge">
-              <span class="status-indicator-dot"></span>
-              <span id="dbStatusText">Domínio: Contabil Oficial (Conectado)</span>
-            </span>
-            <span class="db-badge" id="lanBadge" style="cursor: pointer; background: rgba(56, 189, 248, 0.1); border-color: rgba(56, 189, 248, 0.3);" title="Clique para copiar o link para compartilhamento na rede interna">
-              <span class="status-indicator-dot" style="background: #38BDF8;"></span>
-              <span id="lanStatusText" style="color: #38BDF8;">Rede: Detectando...</span>
-            </span>
-            <span class="db-badge" id="userSessionBadge" style="display: none; background: rgba(16, 185, 129, 0.12); border-color: rgba(16, 185, 129, 0.3);">
-              <span class="status-indicator-dot" style="background: #10B981;"></span>
-              <span id="sessionUserText" style="color: #10B981; font-weight: 600;">administrator</span>
-              <button id="btnLogout" type="button" style="background: none; border: none; color: #9CA3AF; cursor: pointer; margin-left: 6px; font-size: 11px; padding: 0 4px; text-decoration: underline;" title="Sair da sessão">Sair</button>
-            </span>
+      <div class="header-left">
+        <div class="brand">
+          <div class="brand-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+            </svg>
+          </div>
+          <div class="brand-text">
+            <div class="brand-title-row">
+              <h1>Conferência Fiscal 360°</h1>
+              <span class="badge-tag">EFD-REINF × DCTFWEB × DOMÍNIO</span>
+            </div>
+            <div class="system-status-pills">
+              <span class="system-status-chip" id="dbStatusBadge">
+                <span class="status-indicator-dot"></span>
+                <span id="dbStatusText">Domínio: Contabil Oficial (Conectado)</span>
+              </span>
+              <span class="system-status-chip chip-lan" id="lanBadge" title="Clique para copiar o link para compartilhamento na rede interna">
+                <span class="status-indicator-dot dot-cyan"></span>
+                <span id="lanStatusText">Rede: Detectando...</span>
+              </span>
+              <span class="system-status-chip chip-user" id="userSessionBadge" style="display: none;">
+                <span class="status-indicator-dot dot-green"></span>
+                <span id="sessionUserText">administrator</span>
+                <button id="btnLogout" type="button" class="btn-logout" title="Sair da sessão">Sair</button>
+              </span>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="header-actions" id="headerActionsDctfweb">
+      <div class="header-right" id="headerActionsDctfweb">
         <div class="comp-selector-wrap">
           <label for="compSelect">Competência:</label>
           <select id="compSelect" class="input-field comp-select">
@@ -55,26 +60,29 @@
             <option value="2026-01">2026-01 (Janeiro/2026)</option>
           </select>
         </div>
-        <button id="btnLoadDominio" class="btn btn-dominio" title="Captura as informações de fechamento e totalizadores direto do banco Domínio">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6c0 1.66 3.58 3 8 3s8-1.34 8-3-3.58-3-8-3-8 1.34-8 3z"/><path d="M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3"/><path d="M4 18c0 1.66 3.58 3 8 3s8-1.34 8-3"/><polyline points="16 19 19 22 22 19"/></svg>
-          Capturar da Domínio
-        </button>
-        <button id="btnEstimate" class="btn btn-secondary">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-          Estimar Lote
-        </button>
-        <button id="btnRunBatch" class="btn btn-primary">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-          Conciliar com DCTFWeb
-        </button>
-        <button id="btnRunWorker" class="btn btn-worker" title="Executar varredura automática em segundo plano (Caixa Postal, Procurações e CND)">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-          <span id="workerStatusText">Varredura Noturna</span>
-        </button>
-        <button id="btnExportExcel" class="btn btn-success" title="Exportar planilha Excel de conciliação DCTFWeb">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Exportar Excel
-        </button>
+
+        <div class="action-btn-group">
+          <button id="btnLoadDominio" class="btn btn-dominio" title="Captura as informações de fechamento e totalizadores direto do banco Domínio">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6c0 1.66 3.58 3 8 3s8-1.34 8-3-3.58-3-8-3-8 1.34-8 3z"/><path d="M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3"/><path d="M4 18c0 1.66 3.58 3 8 3s8-1.34 8-3"/><polyline points="16 19 19 22 22 19"/></svg>
+            <span>Capturar Domínio</span>
+          </button>
+          <button id="btnRunBatch" class="btn btn-primary" title="Executar conciliação do lote com a DCTFWeb SERPRO">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <span>Conciliar com DCTFWeb</span>
+          </button>
+          <button id="btnEstimate" class="btn btn-secondary" title="Estimar chamadas e consumo de cota SERPRO">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            <span>Estimar</span>
+          </button>
+          <button id="btnExportExcel" class="btn btn-secondary btn-export-excel" title="Exportar planilha Excel de conciliação DCTFWeb">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span>Exportar Excel</span>
+          </button>
+          <button id="btnRunWorker" class="btn btn-secondary btn-worker-action" title="Executar varredura automática em segundo plano (Caixa Postal, Procurações e CND)">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            <span id="workerStatusText">Varredura Noturna</span>
+          </button>
+        </div>
       </div>
     </header>
 
@@ -292,16 +300,16 @@
             <table class="data-table" id="companiesTable">
               <thead>
                 <tr>
-                  <th width="40"></th>
-                  <th>Código</th>
-                  <th>CNPJ</th>
-                  <th>Razão Social</th>
-                  <th>Fechamentos Domínio</th>
-                  <th>Total Domínio</th>
-                  <th>Total DCTFWeb</th>
-                  <th>Diferença</th>
-                  <th>Situação Geral</th>
-                  <th>Ações</th>
+                  <th style="width: 36px; text-align: center;"></th>
+                  <th style="width: 75px; text-align: center;">Código</th>
+                  <th style="width: 175px;">CNPJ</th>
+                  <th style="min-width: 250px;">Razão Social</th>
+                  <th style="width: 145px;">Fechamentos Domínio</th>
+                  <th class="text-right" style="width: 135px;">Total Domínio</th>
+                  <th class="text-right" style="width: 135px;">Total DCTFWeb</th>
+                  <th class="text-right" style="width: 125px;">Diferença</th>
+                  <th class="text-center" style="width: 140px;">Situação Geral</th>
+                  <th class="text-center" style="width: 125px;">Ações</th>
                 </tr>
               </thead>
               <tbody id="tableBody">
@@ -385,15 +393,15 @@
             <table class="data-table">
               <thead>
                 <tr>
-                  <th>Código</th>
-                  <th>CNPJ</th>
-                  <th>Razão Social</th>
-                  <th>Situação CND</th>
-                  <th>Protocolo SERPRO</th>
-                  <th>Última Consulta</th>
-                  <th>Origem</th>
-                  <th>Diagnóstico</th>
-                  <th>Ações</th>
+                  <th style="width: 75px; text-align: center;">Código</th>
+                  <th style="width: 175px;">CNPJ</th>
+                  <th style="min-width: 250px;">Razão Social</th>
+                  <th class="text-center" style="width: 170px;">Situação CND</th>
+                  <th class="text-center" style="width: 160px;">Protocolo SERPRO</th>
+                  <th class="text-center" style="width: 140px;">Última Consulta</th>
+                  <th class="text-center" style="width: 90px;">Origem</th>
+                  <th style="min-width: 220px;">Diagnóstico</th>
+                  <th class="text-center" style="width: 120px;">Ações</th>
                 </tr>
               </thead>
               <tbody id="tableSitfisBody">
@@ -466,15 +474,15 @@
             <table class="data-table">
               <thead>
                 <tr>
-                  <th>Código</th>
-                  <th>CNPJ</th>
-                  <th>Razão Social</th>
-                  <th>Status de Mensagens</th>
-                  <th>Qtd. Mensagens</th>
-                  <th>Última Notificação</th>
-                  <th>Última Consulta</th>
-                  <th>Origem</th>
-                  <th>Ações</th>
+                  <th style="width: 75px; text-align: center;">Código</th>
+                  <th style="width: 175px;">CNPJ</th>
+                  <th style="min-width: 250px;">Razão Social</th>
+                  <th class="text-center" style="width: 160px;">Status de Mensagens</th>
+                  <th class="text-center" style="width: 120px;">Qtd. Mensagens</th>
+                  <th class="text-center" style="width: 150px;">Última Notificação</th>
+                  <th class="text-center" style="width: 140px;">Última Consulta</th>
+                  <th class="text-center" style="width: 90px;">Origem</th>
+                  <th class="text-center" style="width: 120px;">Ações</th>
                 </tr>
               </thead>
               <tbody id="tableCaixaBody">
@@ -547,15 +555,15 @@
             <table class="data-table">
               <thead>
                 <tr>
-                  <th>Código</th>
-                  <th>CNPJ</th>
-                  <th>Razão Social</th>
-                  <th>Qtd. Guias</th>
-                  <th>Total Arrecadado</th>
-                  <th>Último Pagamento</th>
-                  <th>Última Consulta</th>
-                  <th>Origem</th>
-                  <th>Ações</th>
+                  <th style="width: 75px; text-align: center;">Código</th>
+                  <th style="width: 175px;">CNPJ</th>
+                  <th style="min-width: 250px;">Razão Social</th>
+                  <th class="text-center" style="width: 110px;">Qtd. Guias</th>
+                  <th class="text-right" style="width: 140px;">Total Arrecadado</th>
+                  <th class="text-center" style="width: 140px;">Último Pagamento</th>
+                  <th class="text-center" style="width: 140px;">Última Consulta</th>
+                  <th class="text-center" style="width: 90px;">Origem</th>
+                  <th class="text-center" style="width: 120px;">Ações</th>
                 </tr>
               </thead>
               <tbody id="tablePagBody">
@@ -636,16 +644,16 @@
             <table class="data-table">
               <thead>
                 <tr>
-                  <th>Código</th>
-                  <th>CNPJ</th>
-                  <th>Razão Social</th>
-                  <th>PA</th>
-                  <th>Nº Declaração</th>
-                  <th>Status DAS</th>
-                  <th>Valor DAS (R$)</th>
-                  <th>Data Transmissão</th>
-                  <th>Origem</th>
-                  <th>Ações</th>
+                  <th style="width: 75px; text-align: center;">Código</th>
+                  <th style="width: 175px;">CNPJ</th>
+                  <th style="min-width: 250px;">Razão Social</th>
+                  <th class="text-center" style="width: 90px;">PA</th>
+                  <th class="text-center" style="width: 140px;">Nº Declaração</th>
+                  <th class="text-center" style="width: 130px;">Status DAS</th>
+                  <th class="text-right" style="width: 130px;">Valor DAS (R$)</th>
+                  <th class="text-center" style="width: 140px;">Data Transmissão</th>
+                  <th class="text-center" style="width: 90px;">Origem</th>
+                  <th class="text-center" style="width: 120px;">Ações</th>
                 </tr>
               </thead>
               <tbody id="tableSimplesBody">
@@ -718,15 +726,15 @@
             <table class="data-table">
               <thead>
                 <tr>
-                  <th>Código</th>
-                  <th>CNPJ</th>
-                  <th>Razão Social</th>
-                  <th>Modalidade</th>
-                  <th>Nº do Pedido</th>
-                  <th>Situação</th>
-                  <th>Parcelas a Gerar</th>
-                  <th>Última Consulta</th>
-                  <th>Ações</th>
+                  <th style="width: 75px; text-align: center;">Código</th>
+                  <th style="width: 175px;">CNPJ</th>
+                  <th style="min-width: 250px;">Razão Social</th>
+                  <th class="text-center" style="width: 130px;">Modalidade</th>
+                  <th class="text-center" style="width: 140px;">Nº do Pedido</th>
+                  <th class="text-center" style="width: 130px;">Situação</th>
+                  <th class="text-center" style="width: 130px;">Parcelas a Gerar</th>
+                  <th class="text-center" style="width: 140px;">Última Consulta</th>
+                  <th class="text-center" style="width: 120px;">Ações</th>
                 </tr>
               </thead>
               <tbody id="tableParcBody">
@@ -795,15 +803,15 @@
             <table class="data-table">
               <thead>
                 <tr>
-                  <th>CNPJ / Razão Social</th>
-                  <th>Nº da Negociação / Conta</th>
-                  <th>Modalidade PGFN</th>
-                  <th>Parcela Estimada</th>
-                  <th>Vencimento</th>
-                  <th>Código Receita</th>
-                  <th>Status de Quitação</th>
-                  <th>Última Auditoria</th>
-                  <th>Ações</th>
+                  <th style="min-width: 250px;">CNPJ / Razão Social</th>
+                  <th class="text-center" style="width: 170px;">Nº da Negociação / Conta</th>
+                  <th class="text-center" style="width: 150px;">Modalidade PGFN</th>
+                  <th class="text-right" style="width: 140px;">Parcela Estimada</th>
+                  <th class="text-center" style="width: 120px;">Vencimento</th>
+                  <th class="text-center" style="width: 120px;">Código Receita</th>
+                  <th class="text-center" style="width: 150px;">Status de Quitação</th>
+                  <th class="text-center" style="width: 140px;">Última Auditoria</th>
+                  <th class="text-center" style="width: 120px;">Ações</th>
                 </tr>
               </thead>
               <tbody id="tablePgfnBody">
@@ -829,7 +837,7 @@
             <div class="kpi-value" id="valProcTotal">0</div>
             <div class="kpi-sub">Total de clientes auditados</div>
           </div>
-          <div class="kpi-card" id="cardProcVigentes">
+          <div class="kpi-card card-success" id="cardProcVigentes">
             <div class="kpi-header">
               <span class="kpi-label">Vigentes (> 60 dias)</span>
               <span class="kpi-icon icon-success"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></span>
@@ -837,7 +845,7 @@
             <div class="kpi-value" id="valProcVigentes">0</div>
             <div class="kpi-sub">Procurações regulares</div>
           </div>
-          <div class="kpi-card" id="cardProcAlerta">
+          <div class="kpi-card card-warning" id="cardProcAlerta">
             <div class="kpi-header">
               <span class="kpi-label">Atenção (31 a 60 dias)</span>
               <span class="kpi-icon icon-warning"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></span>
@@ -845,7 +853,7 @@
             <div class="kpi-value" id="valProcAlerta">0</div>
             <div class="kpi-sub">Programar renovação</div>
           </div>
-          <div class="kpi-card" id="cardProcCritica">
+          <div class="kpi-card card-danger" id="cardProcCritica">
             <div class="kpi-header">
               <span class="kpi-label">Críticas / Expiradas (≤ 30d)</span>
               <span class="kpi-icon icon-danger"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></span>
@@ -874,15 +882,15 @@
             <table class="data-table">
               <thead>
                 <tr>
-                  <th>Código</th>
-                  <th>CNPJ</th>
-                  <th>Razão Social</th>
-                  <th>Expiração RFB</th>
-                  <th>Dias Restantes</th>
-                  <th>Status de Vigência</th>
-                  <th>Sistemas Autorizados</th>
-                  <th>Última Consulta</th>
-                  <th>Ações</th>
+                  <th style="width: 75px; text-align: center;">Código</th>
+                  <th style="width: 175px;">CNPJ</th>
+                  <th style="min-width: 250px;">Razão Social</th>
+                  <th class="text-center" style="width: 130px;">Expiração RFB</th>
+                  <th class="text-center" style="width: 120px;">Dias Restantes</th>
+                  <th class="text-center" style="width: 140px;">Status de Vigência</th>
+                  <th class="text-center" style="width: 150px;">Sistemas Autorizados</th>
+                  <th class="text-center" style="width: 140px;">Última Consulta</th>
+                  <th class="text-center" style="width: 120px;">Ações</th>
                 </tr>
               </thead>
               <tbody id="tableProcBody">

@@ -1579,16 +1579,16 @@ function renderTable() {
               : '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>'
           }</span>
         </td>
-        <td class="mono"><strong>${item.empresa.codiEmp}</strong></td>
+        <td class="mono text-center"><strong>${item.empresa.codiEmp}</strong></td>
         <td class="mono">${maskCnpj(item.empresa.cnpj)}</td>
         <td>
           <strong>${escapeHtml(item.empresa.razaoSocial)}</strong>${inactiveBadgeHtml}
         </td>
         <td>${fechamentoBadges}</td>
-        <td class="mono">${formatCurrency(combined.totalDominio ?? item.totalGeralDominio)}</td>
-        <td class="mono">${dctfText}</td>
-        <td class="mono">${diffText}</td>
-        <td>
+        <td class="mono text-right">${formatCurrency(combined.totalDominio ?? item.totalGeralDominio)}</td>
+        <td class="mono text-right">${dctfText}</td>
+        <td class="mono text-right">${diffText}</td>
+        <td class="text-center">
           <span class="status-badge ${combined.statusClass}">
             ${combined.statusLabel}
           </span>
@@ -1607,8 +1607,8 @@ function renderTable() {
               : ""
           }
         </td>
-        <td>
-          <div style="display: flex; gap: 0.35rem; align-items: center;">
+        <td class="text-center">
+          <div style="display: flex; gap: 0.35rem; align-items: center; justify-content: center;">
             <button class="${btnActionClass}" style="padding: 0.35rem 0.7rem; font-size: 0.75rem;"${btnActionTitle} onclick="event.stopPropagation(); reprocessSingle('${item.empresa.codiEmp}', ${combined.isConsulted})">
               ${combined.isConsulted ? "Reconsultar" : "Consultar"}
             </button>
@@ -2072,13 +2072,17 @@ function renderSitfisTable() {
 
     html += `
       <tr class="${!isAtiva ? "row-inactive" : ""}">
-        <td class="mono"><strong>${item.empresa.codiEmp}</strong></td>
+        <td class="mono text-center"><strong>${item.empresa.codiEmp}</strong></td>
         <td class="mono">${maskCnpj(item.empresa.cnpj)}</td>
         <td><strong>${item.empresa.razaoSocial}</strong></td>
-        <td>${badgeHtml}</td>
-        <td class="mono" style="font-size: 0.8rem; color: #94A3B8;">${sit?.protocolo || "-"}</td>
-        <td style="font-size: 0.8rem;">${formatDateTime(sit?.data_consulta)}</td>
-        <td>
+        <td class="text-center">${badgeHtml}</td>
+        <td class="mono text-center" style="font-size: 0.8rem; color: #94A3B8;">${
+          sit?.protocolo
+            ? `<span title="${escapeHtml(sit.protocolo)}">${sit.protocolo.length > 18 ? sit.protocolo.slice(0, 16) + "..." : sit.protocolo}</span>`
+            : "-"
+        }</td>
+        <td class="text-center" style="font-size: 0.8rem;">${formatDateTime(sit?.data_consulta)}</td>
+        <td class="text-center">
           ${
             sit?.data_consulta
               ? '<span class="badge-cache">Cache</span>'
@@ -2086,7 +2090,7 @@ function renderSitfisTable() {
           }
         </td>
         <td style="font-size: 0.8rem; color: #CBD5E1;">${diagText}</td>
-        <td>${acoesHtml}</td>
+        <td class="text-center">${acoesHtml}</td>
       </tr>
     `;
   }
@@ -2270,23 +2274,23 @@ function renderCaixaPostalTable() {
 
     html += `
       <tr class="${!isAtiva ? "row-inactive" : ""}">
-        <td class="mono"><strong>${item.empresa.codiEmp}</strong></td>
+        <td class="mono text-center"><strong>${item.empresa.codiEmp}</strong></td>
         <td class="mono">${maskCnpj(item.empresa.cnpj)}</td>
         <td><strong>${item.empresa.razaoSocial}</strong></td>
-        <td>${statusHtml}</td>
-        <td class="mono">${cx ? cx.qtd_mensagens || 0 : "-"}</td>
-        <td style="font-size: 0.8rem; color: #CBD5E1; max-width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${ultNotif}">
+        <td class="text-center">${statusHtml}</td>
+        <td class="mono text-center">${cx ? cx.qtd_mensagens || 0 : "-"}</td>
+        <td class="text-center" style="font-size: 0.8rem; color: #CBD5E1; max-width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${ultNotif}">
           ${ultNotif}
         </td>
-        <td style="font-size: 0.8rem;">${formatDateTime(cx?.data_consulta)}</td>
-        <td>
+        <td class="text-center" style="font-size: 0.8rem;">${formatDateTime(cx?.data_consulta)}</td>
+        <td class="text-center">
           ${
             cx?.data_consulta
               ? '<span class="badge-cache">Cache</span>'
               : '<span style="color: var(--text-muted);">-</span>'
           }
         </td>
-        <td>${acoesHtml}</td>
+        <td class="text-center">${acoesHtml}</td>
       </tr>
     `;
   }
@@ -2499,21 +2503,21 @@ function renderPagamentosTable() {
 
     html += `
       <tr class="${!isAtiva ? "row-inactive" : ""}">
-        <td class="mono"><strong>${item.empresa.codiEmp}</strong></td>
+        <td class="mono text-center"><strong>${item.empresa.codiEmp}</strong></td>
         <td class="mono">${maskCnpj(item.empresa.cnpj)}</td>
         <td><strong>${item.empresa.razaoSocial}</strong></td>
-        <td class="mono">${pag ? qtd : "-"}</td>
-        <td class="mono"><strong>${formatCurrency(somaTotal)}</strong></td>
-        <td style="font-size: 0.8rem;">${ultData}</td>
-        <td style="font-size: 0.8rem;">${formatDateTime(pag?.data_consulta)}</td>
-        <td>
+        <td class="mono text-center">${pag ? qtd : "-"}</td>
+        <td class="mono text-right"><strong>${formatCurrency(somaTotal)}</strong></td>
+        <td class="text-center" style="font-size: 0.8rem;">${ultData}</td>
+        <td class="text-center" style="font-size: 0.8rem;">${formatDateTime(pag?.data_consulta)}</td>
+        <td class="text-center">
           ${
             pag?.data_consulta
               ? '<span class="badge-cache">Cache</span>'
               : '<span style="color: var(--text-muted);">-</span>'
           }
         </td>
-        <td>${acoesHtml}</td>
+        <td class="text-center">${acoesHtml}</td>
       </tr>
     `;
   }
@@ -2785,22 +2789,22 @@ function renderSimplesTable() {
 
     html += `
       <tr class="${!isAtiva ? "row-inactive" : ""}">
-        <td class="mono"><strong>${item.empresa.codiEmp}</strong></td>
+        <td class="mono text-center"><strong>${item.empresa.codiEmp}</strong></td>
         <td class="mono">${maskCnpj(item.empresa.cnpj)}</td>
         <td><strong>${item.empresa.razaoSocial}</strong></td>
-        <td class="mono">${decl ? formatPa(decl.periodoApuracao) : formatPa(paFormatted)}</td>
-        <td class="mono" style="font-size: 0.8rem; color: #94A3B8;">${decl?.numeroDeclaracao || "-"}</td>
-        <td>${statusBadge}</td>
-        <td>${valorHtml}</td>
-        <td style="font-size: 0.8rem;">${decl?.dataHoraTransmissao ? formatDateTime(decl.dataHoraTransmissao) : "-"}</td>
-        <td>
+        <td class="mono text-center">${decl ? formatPa(decl.periodoApuracao) : formatPa(paFormatted)}</td>
+        <td class="mono text-center" style="font-size: 0.8rem; color: #94A3B8;">${decl?.numeroDeclaracao || "-"}</td>
+        <td class="text-center">${statusBadge}</td>
+        <td class="mono text-right">${valorHtml}</td>
+        <td class="text-center" style="font-size: 0.8rem;">${decl?.dataHoraTransmissao ? formatDateTime(decl.dataHoraTransmissao) : "-"}</td>
+        <td class="text-center">
           ${
             sn?.data_consulta
               ? '<span class="badge-cache">Cache</span>'
               : '<span style="color: var(--text-muted);">-</span>'
           }
         </td>
-        <td>${acoesHtml}</td>
+        <td class="text-center">${acoesHtml}</td>
       </tr>
     `;
   }
@@ -3238,15 +3242,15 @@ function renderParcelamentosTable() {
 
     html += `
       <tr class="${!isAtiva ? "row-inactive" : ""}">
-        <td class="mono"><strong>${item.empresa.codiEmp}</strong></td>
+        <td class="mono text-center"><strong>${item.empresa.codiEmp}</strong></td>
         <td class="mono">${maskCnpj(item.empresa.cnpj)}</td>
         <td><strong>${item.empresa.razaoSocial}</strong></td>
-        <td><strong>${prc?.modalidade || "PARCSN"}</strong></td>
-        <td class="mono" style="font-size: 0.8rem; color: #94A3B8;">${pedido?.numero || "-"}</td>
-        <td>${statusBadge}</td>
-        <td class="mono"><strong>${qtdParcelas} parcela(s)</strong></td>
-        <td style="font-size: 0.8rem;">${formatDateTime(prc?.data_consulta)}</td>
-        <td>${acoesHtml}</td>
+        <td class="text-center"><strong>${prc?.modalidade || "PARCSN"}</strong></td>
+        <td class="mono text-center" style="font-size: 0.8rem; color: #94A3B8;">${pedido?.numero || "-"}</td>
+        <td class="text-center">${statusBadge}</td>
+        <td class="mono text-center"><strong>${qtdParcelas} parcela(s)</strong></td>
+        <td class="text-center" style="font-size: 0.8rem;">${formatDateTime(prc?.data_consulta)}</td>
+        <td class="text-center">${acoesHtml}</td>
       </tr>
     `;
   }
@@ -3752,16 +3756,16 @@ function renderProcuracoesTable() {
       : "";
 
     html += `
-      <tr>
-        <td class="mono font-bold">${item.empresa.codiEmp}</td>
+      <tr class="${!isAtiva ? "row-inactive" : ""}">
+        <td class="mono text-center font-bold">${item.empresa.codiEmp}</td>
         <td class="mono">${maskCnpj(item.empresa.cnpj)}</td>
         <td>
           <strong>${item.empresa.razaoSocial}</strong>${inactiveBadgeHtml}
         </td>
-        <td class="mono">${expText}</td>
-        <td class="mono"><strong>${diasText}</strong></td>
-        <td><span class="${badgeClass}">${badgeText}</span></td>
-        <td>
+        <td class="mono text-center">${expText}</td>
+        <td class="mono text-center"><strong>${diasText}</strong></td>
+        <td class="text-center"><span class="${badgeClass}">${badgeText}</span></td>
+        <td class="text-center">
           ${
             proc && totalSistemas > 0
               ? `<button class="btn btn-secondary" style="padding: 0.25rem 0.6rem; font-size: 0.75rem;" onclick="abrirModalSistemas('${cnpj}')">
@@ -3770,11 +3774,11 @@ function renderProcuracoesTable() {
               : '<span class="text-muted">-</span>'
           }
         </td>
-        <td class="mono" style="font-size: 0.8rem; color: #94A3B8;">
+        <td class="mono text-center" style="font-size: 0.8rem; color: #94A3B8;">
           ${proc ? formatDateTime(proc.data_consulta || proc.dataConsulta) : "-"}
         </td>
-        <td>
-          <div style="display: flex; gap: 0.35rem; align-items: center;">
+        <td class="text-center">
+          <div style="display: flex; gap: 0.35rem; align-items: center; justify-content: center;">
             <button class="btn btn-primary" style="padding: 0.35rem 0.65rem; font-size: 0.75rem;" onclick="consultarProcuracao('${cnpj}', true)">
               ${proc ? "Atualizar" : "Consultar"}
             </button>
