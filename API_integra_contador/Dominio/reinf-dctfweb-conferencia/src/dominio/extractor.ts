@@ -196,15 +196,16 @@ export class DominioReinfExtractor {
 
     if (!isAceito) {
       pendencias.push(
-        `${serie}: Último fechamento (${fechamentoEvento}) não foi aceito. Situação: ${latestClosing.SITUACAO_LOTE}. ${latestClosing.MENSAGEM_ERRO || ""}`,
+        `${serie}: Último fechamento (${fechamentoEvento}) não foi aceito. Situação: ${latestClosing.SITUACAO_LOTE}.${latestClosing.MENSAGEM_ERRO ? ` Motivo: ${latestClosing.MENSAGEM_ERRO}` : ""}`,
       );
-    }
-    if (isExcluido) {
+    } else if (isExcluido) {
+      // Excluído apenas faz sentido verificar quando o lote foi aceito
       pendencias.push(`${serie}: Último fechamento (${fechamentoEvento}) consta como excluído.`);
-    }
-    if (!hasRecibo) {
+    } else if (!hasRecibo) {
+      // "Sem recibo" só é relevante quando o fechamento foi aceito e não foi excluído
       pendencias.push(`${serie}: Fechamento (${fechamentoEvento}) aceito porém sem número de recibo registrado.`);
     }
+
     if (reaberto) {
       pendencias.push(
         `${serie}: Período reaberto posteriormente (${reaberturaEvento}) em ${reopeningsAfter[0].DATA_HORA_ENVIO} sem novo fechamento aceito.`,

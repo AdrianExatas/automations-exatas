@@ -534,13 +534,75 @@ function setupEventListeners() {
     });
   }
 
-  dom.searchInput.addEventListener("input", (e) => {
-    state.searchQuery = e.target.value.toLowerCase().trim();
-    if (globalSearch && globalSearch.value !== e.target.value) {
-      globalSearch.value = e.target.value;
+  // BUG-05 FIX: dom.searchInput pode ser null (elemento removido do HTML) — usa guard
+  if (dom.searchInput) {
+    dom.searchInput.addEventListener("input", (e) => {
+      state.searchQuery = e.target.value.toLowerCase().trim();
+      if (globalSearch && globalSearch.value !== e.target.value) {
+        globalSearch.value = e.target.value;
+      }
+      renderTable();
+    });
+  }
+
+  // BUG-01 FIX: popular dropdown de sugestões na busca global
+  const globalSearchResults = document.getElementById("globalSearchResults");
+  if (globalSearch && globalSearchResults) {
+    function renderGlobalSearchDropdown(q) {
+      if (!q || q.length < 2) {
+        globalSearchResults.hidden = true;
+        globalSearch.setAttribute("aria-expanded", "false");
+        return;
+      }
+      const matches = state.dominioOverview
+        .filter((item) => {
+          const nome = (item.empresa.razaoSocial || "").toLowerCase();
+          const cnpj = (item.empresa.cnpj || "").replace(/\D/g, "");
+          const cod = String(item.empresa.codiEmp || "");
+          return nome.includes(q) || cnpj.includes(q) || cod.includes(q);
+        })
+        .slice(0, 8);
+
+      if (matches.length === 0) {
+        globalSearchResults.innerHTML = `<div style="padding: 0.75rem 1rem; font-size: 0.82rem; color: #94A3B8;">Nenhuma empresa encontrada para "${q}"</div>`;
+      } else {
+        globalSearchResults.innerHTML = matches.map((item) => {
+          const combined = getCompanyCombinedState(item);
+          const statusDot = combined.status === "CONFORME"
+            ? `<span style="width:7px;height:7px;border-radius:50%;background:#22C55E;display:inline-block;flex-shrink:0;"></span>`
+            : combined.status === "DIVERGENTE"
+              ? `<span style="width:7px;height:7px;border-radius:50%;background:#EF4444;display:inline-block;flex-shrink:0;"></span>`
+              : combined.status === "PENDENTE"
+                ? `<span style="width:7px;height:7px;border-radius:50%;background:#F59E0B;display:inline-block;flex-shrink:0;"></span>`
+                : `<span style="width:7px;height:7px;border-radius:50%;background:#64748B;display:inline-block;flex-shrink:0;"></span>`;
+          return `<div role="option" tabindex="0" style="display:flex;align-items:center;gap:0.65rem;padding:0.6rem 1rem;cursor:pointer;transition:background 0.1s;" class="global-search-result-item" data-codi="${item.empresa.codiEmp}"
+            onmouseover="this.style.background='rgba(99,102,241,0.08)'" onmouseout="this.style.background=''" 
+            onclick="globalSearch.value='';globalSearchResults.hidden=true;switchTab('dctfweb');setTimeout(()=>{ const el=document.getElementById('row-${item.empresa.codiEmp}'); if(el){el.scrollIntoView({behavior:'smooth',block:'center'});el.classList.add('row-highlight');setTimeout(()=>el.classList.remove('row-highlight'),1500);} },200)">
+            ${statusDot}
+            <div style="min-width:0">
+              <div style="font-size:0.82rem;font-weight:600;color:#F1F5F9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${item.empresa.razaoSocial}</div>
+              <div style="font-size:0.73rem;color:#64748B;font-family:monospace">${item.empresa.cnpj}</div>
+            </div>
+          </div>`;
+        }).join("");
+      }
+      globalSearchResults.hidden = false;
+      globalSearch.setAttribute("aria-expanded", "true");
     }
-    renderTable();
-  });
+
+    // Augmentar o handler de input existente com o dropdown
+    globalSearch.addEventListener("input", (e) => {
+      renderGlobalSearchDropdown(e.target.value.toLowerCase().trim());
+    });
+
+    // Fechar dropdown ao clicar fora
+    document.addEventListener("click", (e) => {
+      if (!globalSearch.contains(e.target) && !globalSearchResults.contains(e.target)) {
+        globalSearchResults.hidden = true;
+        globalSearch.setAttribute("aria-expanded", "false");
+      }
+    });
+  }
 
   if (dom.chkShowInactive) {
     dom.chkShowInactive.addEventListener("change", () => {
@@ -1180,6 +1242,15 @@ function updateKpis() {
   if (dom.countInativas) {
     dom.countInativas.textContent = totalInativas;
   }
+
+  // BUG-02 FIX: atualiza o contador de cobertura da conciliação
+  const finCoverageEl = document.getElementById("finCoverage");
+  if (finCoverageEl) {
+    const conciliadas = conformes + divergentes + pendentes + semDctf;
+    finCoverageEl.textContent = comMov > 0
+      ? `${conciliadas} de ${comMov} empresas conciliadas`
+      : `0 empresas com recibo Reinf`;
+  }
 }
 
 function getFilteredList() {
@@ -1269,7 +1340,7 @@ function renderTable() {
     const btnActionTitle = !isAtiva ? ' title="Empresa com situação Inativa no Domínio"' : "";
 
     html += `
-      <tr class="${rowClasses}" onclick="toggleRow('${item.empresa.codiEmp}')">
+      <tr id="row-${item.empresa.codiEmp}" class="${rowClasses}" onclick="toggleRow('${item.empresa.codiEmp}')">
         <td style="text-align: center;">
           <span style="font-size: 0.8rem; opacity: 0.7;">${isExpanded ? "▼" : "▶"}</span>
         </td>
@@ -1374,7 +1445,15 @@ function renderDetailSubTable(item, combined) {
         </div>
         <div>
           <span style="color: #94A3B8;">Recibo DCTFWeb:</span>
-          <strong style="color: #60A5FA; margin-left: 0.35rem;">${combined.reciboDctfweb || "Não informado"}</strong>
+          ${
+            combined.reciboDctfweb
+              ? `<strong style="color: #60A5FA; margin-left: 0.35rem; font-family: monospace; font-size: 0.8rem;">${combined.reciboDctfweb}</strong>`
+              : combined.status === "PENDENTE"
+                ? `<span style="color: #F59E0B; margin-left: 0.35rem; font-size: 0.78rem;">Consulta bloqueada (pendência no Domínio)</span>`
+                : combined.status === "SEM_DCTFWEB"
+                  ? `<span style="color: #94A3B8; margin-left: 0.35rem; font-size: 0.78rem;">Não encontrado no SERPRO</span>`
+                  : `<span style="color: #94A3B8; margin-left: 0.35rem; font-size: 0.78rem;">Não consultado</span>`
+          }
         </div>
       </div>
       <div style="display: flex; align-items: center; gap: 0.6rem;">
@@ -1389,7 +1468,22 @@ function renderDetailSubTable(item, combined) {
   if (!combined.detalhes || combined.detalhes.length === 0) {
     let msg = "Nenhum totalizador com valor apurado para comparação.";
     if (combined.pendencias?.length > 0) {
-      msg = `<strong>Pendências no Domínio:</strong><br>${combined.pendencias.join("<br>")}`;
+      const pendItems = combined.pendencias
+        .map((p) => {
+          const isRejeicao = p.toLowerCase().includes("não foi aceito") || p.toLowerCase().includes("rejeitado");
+          const isReaberto = p.toLowerCase().includes("reaberto");
+          const isExcluido = p.toLowerCase().includes("excluído");
+          const badgeClass = isRejeicao ? "badge-danger" : isReaberto ? "badge-warning" : isExcluido ? "badge-warning" : "badge-warning";
+          const icon = isRejeicao
+            ? `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>`
+            : `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`;
+          return `<div style="display: flex; align-items: flex-start; gap: 0.5rem; padding: 0.45rem 0.6rem; background: rgba(239,68,68,0.08); border-left: 3px solid var(--danger); border-radius: 4px; margin-bottom: 0.35rem;">
+            <span style="color: var(--danger); flex-shrink: 0; margin-top: 1px;">${icon}</span>
+            <span style="font-size: 0.8rem; color: #E2E8F0; line-height: 1.4;">${p}</span>
+          </div>`;
+        })
+        .join("");
+      msg = `<div style="margin-bottom: 0.3rem;"><strong style="font-size: 0.8rem; color: #F87171;">Pendências no Domínio — Conformidade Bloqueada:</strong></div>${pendItems}`;
     } else if (combined.status === "SEM_DCTFWEB") {
       msg = "Declaração DCTFWeb não transmitida ou ausente no SERPRO.";
     }

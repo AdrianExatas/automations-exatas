@@ -11,6 +11,7 @@ import {
   executarPreviaPessoal,
   filtrarInstanciasAgostoOpen,
   lerFontePessoal,
+  resolverClientePessoal,
 } from "../src/reatribuicao-pessoal";
 
 function response<T>(config: InternalAxiosRequestConfig, data: T): AxiosResponse<T> {
@@ -46,6 +47,17 @@ test("bloqueia codigo com responsaveis conflitantes e deduplica repeticao identi
   assert.equal(result.validas[0].codigo, "11");
   assert.equal(result.pendencias.length, 1);
   assert.equal(result.pendencias[0].categoria, "responsabilidade_conflitante");
+});
+
+test("distingue empresas com codigo repetido pelo nome sem aceitar empate", () => {
+  const clientes = [
+    { _id: "alvo", code: "554", name: "LINKSE PROVEDOR DE INTERNET LTDA", cnpj: "11111111000111" },
+    { _id: "outro", code: "554", name: "BORDADOS DE TOBIAS LTDA", cnpj: "22222222000122" },
+  ];
+  assert.equal(resolverClientePessoal({ codigo: "554", empresa: "LINKSE PROVEDOR D EINTERNET LTDA" }, clientes)?._id, "alvo");
+  assert.equal(resolverClientePessoal({ codigo: "554", empresa: "BORDADOS DE TOBIAS LTDA (sem movimento)" }, clientes)?._id, "outro");
+  assert.equal(resolverClientePessoal({ codigo: "554", empresa: "Empresa desconhecida" }, clientes), null);
+  assert.equal(resolverClientePessoal({ codigo: "554", empresa: "LINKSE PROVEDOR DE INTERNET LTDA" }, [clientes[0], { ...clientes[0], _id: "duplicado" }]), null);
 });
 
 test("seleciona somente instancias OPEN de agosto de ambos os modelos", () => {

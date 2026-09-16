@@ -37,6 +37,18 @@ BROWSER_MODE=cdp
 
 O `.env`, certificados, HARs, relatórios e sessões de navegador estão fora do versionamento. Nunca armazene cookies ou JWTs no arquivo de ambiente.
 
+### Seleção Automática de Certificado Digital (Recomendado)
+
+Se a máquina possui múltiplos certificados digitais instalados no repositório pessoal do Windows, o Chrome pode exibir uma janela pedindo para selecionar o certificado da empresa. Para configurar a seleção **100% automática e silenciosa** do certificado da Exatas Contabilidade, execute o script abaixo uma única vez no **PowerShell como Administrador**:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\configurar_certificado.ps1
+```
+
+Este script configura a política corporativa oficial do Chrome (`AutoSelectCertificateForUrls`) para selecionar automaticamente o certificado da Exatas nos portais Gov.br, DET e SPE sem intervenção manual.
+
+---
+
 ## Instalação e execução
 
 ```powershell

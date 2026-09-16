@@ -213,14 +213,47 @@ export function deduplicarFontePessoal(fonte: FontePessoal[]): { validas: FonteP
   return { validas, pendencias };
 }
 
-function indiceUnico<T>(items: T[], key: (item: T) => string): Map<string, T | null> {
-  const result = new Map<string, T | null>();
-  for (const item of items) {
-    const k = key(item);
-    if (!k) continue;
-    result.set(k, result.has(k) ? null : item);
+function nomeEmpresaSemObservacao(value: string): string {
+  return normalizarTexto(value.replace(/\s*\([^)]*\)\s*$/u, ""));
+}
+
+function similaridadeNomes(left: string, right: string): number {
+  const a = nomeEmpresaSemObservacao(left);
+  const b = nomeEmpresaSemObservacao(right);
+  if (!a || !b) return 0;
+  const previous = Array.from({ length: b.length + 1 }, (_, index) => index);
+  for (let i = 1; i <= a.length; i++) {
+    let diagonal = previous[0];
+    previous[0] = i;
+    for (let j = 1; j <= b.length; j++) {
+      const above = previous[j];
+      previous[j] = Math.min(previous[j] + 1, previous[j - 1] + 1, diagonal + (a[i - 1] === b[j - 1] ? 0 : 1));
+      diagonal = above;
+    }
   }
-  return result;
+  return 1 - previous[b.length] / Math.max(a.length, b.length);
+}
+
+export function resolverClientePessoal(
+  row: Pick<FontePessoal, "codigo" | "empresa">,
+  clientes: ClienteGestta[]
+): ClienteGestta | null {
+  const porCodigo = clientes.filter((item) => texto(item.code) === row.codigo);
+  if (porCodigo.length === 1) return porCodigo[0];
+  if (porCodigo.length > 1) {
+    const exatos = porCodigo.filter((item) => normalizarTexto(item.name) === normalizarTexto(row.empresa));
+    if (exatos.length === 1) return exatos[0];
+    const semObservacao = porCodigo.filter((item) => nomeEmpresaSemObservacao(item.name) === nomeEmpresaSemObservacao(row.empresa));
+    if (semObservacao.length === 1) return semObservacao[0];
+    const ordenados = porCodigo.map((item) => ({ item, score: similaridadeNomes(item.name, row.empresa) }))
+      .sort((a, b) => b.score - a.score);
+    if (ordenados[0].score >= 0.9 && ordenados[0].score - (ordenados[1]?.score ?? 0) >= 0.15) {
+      return ordenados[0].item;
+    }
+    return null;
+  }
+  const porNome = clientes.filter((item) => normalizarTexto(item.name) === normalizarTexto(row.empresa));
+  return porNome.length === 1 ? porNome[0] : null;
 }
 
 function resolverUsuario(users: UsuarioGestta[], name: string): UsuarioGestta | null {
@@ -381,17 +414,12 @@ export async function executarPreviaPessoal(sourcePath: string, client: AxiosIns
   }
   const { normal: modeloNormal, whatsapp: modeloWhatsapp } = parModelos;
   const clientes = [...ativos, ...inativos];
-  const byCode = indiceUnico(clientes, (item) => texto(item.code));
-  const byName = indiceUnico(clientes, (item) => normalizarTexto(item.name));
   const empresas: PreviaPessoal["empresas"] = [];
   const vinculos: VinculoPlanejado[] = [];
   const instancias: InstanciaPlanejada[] = [];
 
   for (const row of validas) {
-    const byCodeValue = byCode.get(row.codigo);
-    const customer = byCodeValue === undefined
-      ? (byName.get(normalizarTexto(row.empresa)) ?? null)
-      : byCodeValue;
+    const customer = resolverClientePessoal(row, clientes);
     if (!customer) {
       pendencias.push({ codigo: row.codigo, empresa: row.empresa, responsavel: row.responsavel, categoria: "empresa_nao_resolvida", mensagem: "Codigo e razao social nao resolveram uma unica empresa no Gestta." });
       continue;

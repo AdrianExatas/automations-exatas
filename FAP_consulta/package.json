@@ -1,5 +1,5 @@
 {
-  "name": "dte-consulta-spe",
+  "name": "fap-consulta-dataprev",
   "version": "1.0.0",
   "private": true,
   "type": "module",
@@ -7,11 +7,9 @@
   "scripts": {
     "clean": "node -e \"require('node:fs').rmSync('dist', { recursive: true, force: true })\"",
     "start": "bun run build && node --env-file=.env dist/index.js",
-    "report:enhance": "bun run build && node dist/enhance-report.js",
     "build": "bun run clean && bunx tsc -p tsconfig.json",
     "typecheck": "bunx tsc -p tsconfig.test.json",
     "test": "bun test tests",
-    "test:cert": "bun run build && node --env-file=.env dist/validar-autoselecao-certificado.js",
     "test:live": "bun run build && node --env-file=.env dist/live-smoke.js"
   },
   "dependencies": {

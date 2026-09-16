@@ -1,0 +1,27 @@
+# Environment variables
+.env
+*.env.local
+
+# Certificate and secrets
+*.pfx
+*.p12
+*.key
+*.pem
+
+# Dependencies
+node_modules/
+bun.lockb
+package-lock.json
+
+# Build output
+dist/
+
+# Application output
+output/
+*.har
+
+# IDE and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

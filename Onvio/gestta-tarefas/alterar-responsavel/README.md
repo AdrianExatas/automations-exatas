@@ -216,7 +216,7 @@ bun run --cwd Onvio/gestta-tarefas/alterar-responsavel start -- --pessoal-apply 
 bun run --cwd Onvio/gestta-tarefas/alterar-responsavel start -- --pessoal-rollback "C:\\...\\execucao_reatribuicao_pessoal_....json" --confirmar
 ```
 
-Codigos repetidos com responsaveis diferentes, empresas ambiguas e usuarios nao resolvidos ficam na aba **Pendencias** e nao recebem alteracao. O preflight tambem bloqueia a execucao se nao localizar uma unica variante VIA WHATSAPP do modelo informado.
+Codigos repetidos na planilha com responsaveis diferentes, empresas ambiguas e usuarios nao resolvidos ficam na aba **Pendencias** e nao recebem alteracao. Quando o mesmo codigo pertence a mais de um cliente no Gestta, o fluxo usa a razao social para distinguir o cliente; so aceita uma correspondencia unica e muito proxima. O preflight tambem bloqueia a execucao se nao localizar uma unica variante VIA WHATSAPP do modelo informado.
 
 ## Transferencia de tarefas pendentes do Pessoal
 
