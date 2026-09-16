@@ -76,28 +76,35 @@ export class SicalcService {
       cota: params.cota ? String(params.cota) : undefined,
       valorImposto: typeof params.valorImposto === "number" ? params.valorImposto.toFixed(2) : String(params.valorImposto),
       dataConsolidacao,
-      observacao: params.observacao || "DARF emitido via Exatas Contabilidade - Integra Contador",
+      observacao: (params.observacao || "DARF - Exatas Contabilidade").slice(0, 50),
     };
 
-    const resp = await this.client.callEmitir<{
-      consolidado?: SicalcConsolidadoInfo;
-      darf?: string;
-      numeroDocumento?: string;
-    }>(cleanCnpj, "SICALC", "CONSOLIDARGERARDARF51", payload, {
+    const resp = await this.client.callEmitir<
+      typeof payload,
+      {
+        consolidado?: SicalcConsolidadoInfo;
+        darf?: string;
+        numeroDocumento?: string;
+      }
+    >({
+      contribuinteCnpj: cleanCnpj,
+      idSistema: "SICALC",
+      idServico: "CONSOLIDARGERARDARF51",
       versaoSistema: "2.9",
+      dados: payload,
     });
 
-    const dados = resp.dados || {};
+    const dados = resp.dadosParsed || {};
     const cons = dados.consolidado || {};
 
     return {
       pdfBase64: dados.darf,
       numeroDocumento: dados.numeroDocumento,
       consolidado: cons,
-      valorTotal: typeof cons.valorTotalConsolidado === "number" ? cons.valorTotalConsolidado : undefined,
-      valorPrincipal: typeof cons.valorPrincipalMoedaCorrente === "number" ? cons.valorPrincipalMoedaCorrente : undefined,
-      valorMulta: typeof cons.valorMultaMora === "number" ? cons.valorMultaMora : undefined,
-      valorJuros: typeof cons.valorJuros === "number" ? cons.valorJuros : undefined,
+      valorTotal: cons.valorTotalConsolidado ? Number(cons.valorTotalConsolidado) : undefined,
+      valorPrincipal: cons.valorPrincipalMoedaCorrente ? Number(cons.valorPrincipalMoedaCorrente) : undefined,
+      valorMulta: cons.valorMultaMora ? Number(cons.valorMultaMora) : undefined,
+      valorJuros: cons.valorJuros ? Number(cons.valorJuros) : undefined,
       dataValidade: cons.dataValidadeCalculo,
     };
   }

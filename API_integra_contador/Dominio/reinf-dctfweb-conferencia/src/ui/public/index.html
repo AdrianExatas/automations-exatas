@@ -94,7 +94,7 @@
 
       <div class="global-search-wrap" role="search">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <input type="search" id="globalCompanySearch" placeholder="Buscar empresa por CNPJ, nome ou código..." class="global-search-input" autocomplete="off" aria-autocomplete="list" aria-controls="globalSearchResults" aria-expanded="false">
+        <input type="search" id="globalCompanySearch" placeholder="Buscar empresa por CNPJ, nome ou código..." class="global-search-input" autocomplete="off" aria-autocomplete="list" aria-controls="globalSearchResults" aria-expanded="false" aria-label="Buscar empresa por CNPJ, nome ou código">
         <span class="search-shortcut">Ctrl K</span>
         <div id="globalSearchResults" class="global-search-results" role="listbox" aria-label="Empresas encontradas" hidden></div>
       </div>
@@ -241,7 +241,7 @@
             <span class="fin-label">Total EFD-Reinf (Domínio)</span>
             <span class="fin-value" id="finTotalDominio">R$ 0,00</span>
           </div>
-          <div class="fin-divider">×</div>
+          <div class="fin-divider">−</div>
           <div class="fin-item">
             <span class="fin-label">Total DCTFWeb (SERPRO)</span>
             <span class="fin-value" id="finTotalDctfweb">R$ 0,00</span>
@@ -256,8 +256,8 @@
         <!-- Filter and Search Bar -->
         <section class="filter-bar">
           <div class="search-box">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            <input type="text" id="searchInput" placeholder="Filtrar por Razão Social, CNPJ ou Código..." />
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="searchInput" placeholder="Filtrar por Razão Social, CNPJ ou Código..." aria-label="Filtrar por Razão Social, CNPJ ou Código" />
           </div>
 
           <div class="status-filters">
@@ -363,7 +363,7 @@
         <section class="filter-bar">
           <div class="search-box">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            <input type="text" id="searchSitfisInput" placeholder="Buscar por Razão Social, CNPJ ou Código..." />
+            <input type="text" id="searchSitfisInput" placeholder="Buscar por Razão Social, CNPJ ou Código..." aria-label="Buscar por Razão Social, CNPJ ou Código em Situação Fiscal" />
           </div>
           <div class="status-filters">
             <button class="filter-pill active pill-blue" data-sitfis-filter="ALL">Todas (<span id="countSitfisAll">0</span>)</button>
@@ -445,7 +445,7 @@
         <section class="filter-bar">
           <div class="search-box">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            <input type="text" id="searchCaixaInput" placeholder="Buscar por Razão Social, CNPJ ou Código..." />
+            <input type="text" id="searchCaixaInput" placeholder="Buscar por Razão Social, CNPJ ou Código..." aria-label="Buscar por Razão Social, CNPJ ou Código em Caixa Postal" />
           </div>
           <div class="status-filters">
             <button class="filter-pill active pill-blue" data-caixa-filter="ALL">Todas (<span id="countCaixaAll">0</span>)</button>
@@ -526,7 +526,7 @@
         <section class="filter-bar">
           <div class="search-box">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            <input type="text" id="searchPagInput" placeholder="Buscar por Razão Social, CNPJ ou Código..." />
+            <input type="text" id="searchPagInput" placeholder="Buscar por Razão Social, CNPJ ou Código..." aria-label="Buscar por Razão Social, CNPJ ou Código em Pagamentos" />
           </div>
           <div class="status-filters">
             <button class="filter-pill active pill-blue" data-pag-filter="ALL">Todas (<span id="countPagAll">0</span>)</button>
@@ -614,8 +614,8 @@
         <!-- Toolbar Simples Nacional -->
         <section class="filter-bar">
           <div class="search-box">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            <input type="text" id="searchSimplesInput" placeholder="Buscar por Razão Social, CNPJ ou Código..." />
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="searchSimplesInput" placeholder="Buscar por Razão Social, CNPJ ou Código..." aria-label="Buscar por Razão Social, CNPJ ou Código no Simples Nacional" />
           </div>
           <div class="status-filters">
             <button class="filter-pill active pill-blue" data-simples-filter="ALL">Todas (<span id="countSimplesAll">0</span>)</button>
@@ -637,6 +637,7 @@
                   <th>PA</th>
                   <th>Nº Declaração</th>
                   <th>Status DAS</th>
+                  <th>Valor DAS (R$)</th>
                   <th>Data Transmissão</th>
                   <th>Origem</th>
                   <th>Ações</th>
@@ -644,7 +645,7 @@
               </thead>
               <tbody id="tableSimplesBody">
                 <tr>
-                  <td colspan="9" class="empty-state">Carregando dados do Simples Nacional...</td>
+                  <td colspan="10" class="empty-state">Carregando dados do Simples Nacional...</td>
                 </tr>
               </tbody>
             </table>
@@ -695,8 +696,8 @@
         <!-- Toolbar Parcelamentos -->
         <section class="filter-bar">
           <div class="search-box">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            <input type="text" id="searchParcInput" placeholder="Buscar por Razão Social, CNPJ ou Código..." />
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="searchParcInput" placeholder="Buscar por Razão Social, CNPJ ou Código..." aria-label="Buscar por Razão Social, CNPJ ou Código em Parcelamentos" />
           </div>
           <div class="status-filters">
             <button class="filter-pill active pill-blue" data-parc-filter="ALL">Todas (<span id="countParcAll">0</span>)</button>
@@ -852,7 +853,7 @@
         <section class="filters-section">
           <div class="search-box">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-            <input type="text" id="searchProcInput" placeholder="Buscar procuração por Razão Social, CNPJ ou Código..." />
+            <input type="text" id="searchProcInput" placeholder="Buscar procuração por Razão Social, CNPJ ou Código..." aria-label="Buscar procuração por Razão Social, CNPJ ou Código" />
           </div>
           <div class="status-filters">
             <button class="filter-pill active pill-blue" data-proc-filter="ALL">Todas (<span id="countProcAll">0</span>)</button>
@@ -1101,6 +1102,10 @@
       </div>
       <div class="modal-footer">
         <button class="btn btn-secondary" id="btnCloseParcBtn">Fechar</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Modal Detalhes Procuração e Sistemas -->
   <div class="modal-overlay" id="procuracaoModal" role="dialog" aria-modal="true" aria-labelledby="procModalTitle" aria-hidden="true">
     <div class="modal-card" style="max-width: 800px;">
@@ -1209,6 +1214,8 @@
         <button class="btn btn-secondary" id="btnCloseWorkerBtn">Fechar</button>
       </div>
     </div>
+  </div>
+
   <!-- Modal Novo Acordo PGFN -->
   <div class="modal-overlay" id="novoAcordoPgfnModal" role="dialog" aria-modal="true" aria-labelledby="modalPgfnTitle" aria-hidden="true">
     <div class="modal-card" style="max-width: 600px;">

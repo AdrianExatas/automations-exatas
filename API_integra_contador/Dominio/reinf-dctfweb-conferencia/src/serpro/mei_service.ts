@@ -49,14 +49,23 @@ export class MeiService {
   public async emitirCCMEI(cnpj: string): Promise<CcmeiResult> {
     const cleanCnpj = cnpj.replace(/\D/g, "");
 
-    const resp = await this.client.callEmitir<{
-      cnpj?: string;
-      pdf?: string;
-    }>(cleanCnpj, "CCMEI", "EMITIRCCMEI121", "");
+    const resp = await this.client.callEmitir<
+      string,
+      Array<{ cnpj?: string; pdf?: string }> | { cnpj?: string; pdf?: string }
+    >({
+      contribuinteCnpj: cleanCnpj,
+      idSistema: "CCMEI",
+      idServico: "EMITIRCCMEI121",
+      versaoSistema: "1.0",
+      dados: "",
+    });
+
+    const list = Array.isArray(resp.dadosParsed) ? resp.dadosParsed : (resp.dadosParsed ? [resp.dadosParsed] : []);
+    const first = list[0] as any;
 
     return {
       cnpj: cleanCnpj,
-      pdfBase64: resp.dados?.pdf,
+      pdfBase64: first?.pdf || first?.pdfBase64,
     };
   }
 
@@ -78,10 +87,11 @@ export class MeiService {
     };
 
     const resp = await this.client.callEmitir<
+      typeof payload,
       Array<{
         pdf?: string;
         cnpjCompleto?: string;
-        detalhamento?: {
+        detalhamento?: Array<{
           periodoApuracao?: string;
           numeroDocumento?: string;
           dataVencimento?: string;
@@ -101,24 +111,42 @@ export class MeiService {
               total?: number;
             };
           }>;
+        }> | {
+          periodoApuracao?: string;
+          numeroDocumento?: string;
+          dataVencimento?: string;
+          valores?: {
+            principal?: number;
+            multa?: number;
+            juros?: number;
+            total?: number;
+          };
+          composicao?: Array<any>;
         };
       }>
-    >(cleanCnpj, "PGMEI", "GERARDASPDF21", payload);
+    >({
+      contribuinteCnpj: cleanCnpj,
+      idSistema: "PGMEI",
+      idServico: "GERARDASPDF21",
+      versaoSistema: "1.0",
+      dados: payload,
+    });
 
-    const dasList = Array.isArray(resp.dados) ? resp.dados : [];
-    const first = dasList[0];
+    const dasList = Array.isArray(resp.dadosParsed) ? resp.dadosParsed : (resp.dadosParsed ? [resp.dadosParsed] : []);
+    const first = dasList[0] as any;
+    const det = Array.isArray(first?.detalhamento) ? first.detalhamento[0] : (first?.detalhamento || {});
 
     return {
       cnpj: cleanCnpj,
       pdfBase64: first?.pdf,
-      numeroDocumento: first?.detalhamento?.numeroDocumento,
-      periodoApuracao: first?.detalhamento?.periodoApuracao || cleanPA,
-      dataVencimento: first?.detalhamento?.dataVencimento,
-      valorTotal: first?.detalhamento?.valores?.total,
-      valorPrincipal: first?.detalhamento?.valores?.principal,
-      valorMulta: first?.detalhamento?.valores?.multa,
-      valorJuros: first?.detalhamento?.valores?.juros,
-      composicao: first?.detalhamento?.composicao,
+      numeroDocumento: det?.numeroDocumento,
+      periodoApuracao: det?.periodoApuracao || cleanPA,
+      dataVencimento: det?.dataVencimento,
+      valorTotal: det?.valores?.total,
+      valorPrincipal: det?.valores?.principal,
+      valorMulta: det?.valores?.multa,
+      valorJuros: det?.valores?.juros,
+      composicao: det?.composicao,
     };
   }
 
@@ -132,14 +160,16 @@ export class MeiService {
   ): Promise<DebitoMeiItem[]> {
     const cleanCnpj = cnpj.replace(/\D/g, "");
     const ano = (anoCalendario || String(new Date().getFullYear())).replace(/\D/g, "");
+    const payload = { anoCalendario: ano };
 
-    const resp = await this.client.callConsultar<DebitoMeiItem[]>(
-      cleanCnpj,
-      "PGMEI",
-      "DIVIDAATIVA24",
-      { anoCalendario: ano },
-    );
+    const resp = await this.client.callConsultar<typeof payload, DebitoMeiItem[]>({
+      contribuinteCnpj: cleanCnpj,
+      idSistema: "PGMEI",
+      idServico: "DIVIDAATIVA24",
+      versaoSistema: "1.0",
+      dados: payload,
+    });
 
-    return Array.isArray(resp.dados) ? resp.dados : [];
+    return Array.isArray(resp.dadosParsed) ? resp.dadosParsed : [];
   }
 }

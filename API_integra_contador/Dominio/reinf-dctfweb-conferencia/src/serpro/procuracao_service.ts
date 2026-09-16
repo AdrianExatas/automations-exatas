@@ -70,16 +70,21 @@ export class ProcuracaoService {
     };
 
     const resp = await this.client.callConsultar<
+      typeof payload,
       Array<{
         dtexpiracao: string;
         nrsistemas?: number;
         sistemas?: string[];
       }>
-    >(cleanCliente, "PROCURACOES", "OBTERPROCURACAO41", payload, {
-      versaoSistema: "1",
+    >({
+      contribuinteCnpj: cleanCliente,
+      idSistema: "PROCURACOES",
+      idServico: "OBTERPROCURACAO41",
+      versaoSistema: "1.0",
+      dados: payload,
     });
 
-    const rawList = Array.isArray(resp.dados) ? resp.dados : [];
+    const rawList = Array.isArray(resp.dadosParsed) ? resp.dadosParsed : [];
 
     if (rawList.length === 0) {
       return {
@@ -139,7 +144,7 @@ export class ProcuracaoService {
       }
 
       if (Array.isArray(item.sistemas)) {
-        item.sistemas.forEach((s) => allSistemasSet.add(s));
+        item.sistemas.forEach((s: string) => allSistemasSet.add(s));
       }
 
       return {
@@ -180,16 +185,23 @@ export class ProcuracaoService {
       },
     };
 
-    const resp = await this.client.callConsultar<{
-      cnpjs?: EmpresaVinculadaItem[];
-      totalInThePage?: number;
-      totalInTheDatabase?: number;
-      lastCnpj?: string;
-    }>(cleanContratante, "PNRCONTADOR", "CONSVINCULOS261", payload, {
+    const resp = await this.client.callConsultar<
+      typeof payload,
+      {
+        cnpjs?: EmpresaVinculadaItem[];
+        totalInThePage?: number;
+        totalInTheDatabase?: number;
+        lastCnpj?: string;
+      }
+    >({
+      contribuinteCnpj: cleanContratante,
+      idSistema: "PNRCONTADOR",
+      idServico: "CONSVINCULOS261",
       versaoSistema: "1.0",
+      dados: payload,
     });
 
-    const dados = resp.dados || {};
+    const dados = resp.dadosParsed || {};
     return {
       cnpjs: Array.isArray(dados.cnpjs) ? dados.cnpjs : [],
       totalInThePage: typeof dados.totalInThePage === "number" ? dados.totalInThePage : (dados.cnpjs?.length || 0),

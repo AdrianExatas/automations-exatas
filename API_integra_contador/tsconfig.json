@@ -5,7 +5,15 @@
     "moduleResolution": "Bundler",
     "strict": true,
     "noEmit": true,
-    "allowImportingTsExtensions": true
+    "allowImportingTsExtensions": true,
+    "skipLibCheck": true,
+    "types": ["bun", "node"]
   },
-  "include": ["scripts/**/*.ts", "src/**/*.ts", "examples/**/*.ts", "test/**/*.ts"]
+  "include": [
+    "scripts/**/*.ts",
+    "src/**/*.ts",
+    "examples/**/*.ts",
+    "test/**/*.ts",
+    "Dominio/**/*.ts"
+  ]
 }

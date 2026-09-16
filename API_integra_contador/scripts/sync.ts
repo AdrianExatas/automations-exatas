@@ -549,7 +549,12 @@ function serviceSchema(): Record<string, unknown> {
 }
 
 function serviceIndex(services: ServiceRecord[]): string {
-  const families = Map.groupBy(services, (service) => service.family);
+  const families = new Map<string, ServiceRecord[]>();
+  for (const s of services) {
+    const list = families.get(s.family) || [];
+    list.push(s);
+    families.set(s.family, list);
+  }
   const sections = [...families.entries()].sort(([a], [b]) => a.localeCompare(b)).map(([family, items]) => {
     const rows = items.sort((a, b) => a.key.localeCompare(b.key)).map((service) => {
       const location = `services/${service.family}/${service.systemId.toLowerCase()}/${service.serviceId.toLowerCase()}.md`;

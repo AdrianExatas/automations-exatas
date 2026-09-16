@@ -173,7 +173,8 @@ export class SerproClient {
     }
 
     // Erros HTTP (incluindo 504 que NÃO deve ser repetido)
-    if (response.status < 200 || response.status >= 300) {
+    // Nota: 304 (Not Modified / In Process) é status de controle legítimo do SERPRO para polling assíncrono (ex: SITFIS)
+    if ((response.status < 200 || response.status >= 300) && response.status !== 304) {
       const responseId = this.authManager.extractResponseId(response);
       throw new SerproHttpError(response.status, response.body, responseId);
     }

@@ -13,6 +13,9 @@ export interface DeclaracaoPgdasdItem {
   numeroDas?: string;
   dataHoraEmissaoDas?: string;
   dasPago?: boolean;
+  valorTotalDas?: number;
+  dataVencimentoDas?: string;
+  operacoes?: Array<any>;
 }
 
 export interface DefisItem {
@@ -59,30 +62,7 @@ export class SimplesService {
 
     const resp = await this.client.callConsultar<
       Record<string, unknown>,
-      {
-        declaracoesEntregues?: {
-          periodos?: Array<{
-            periodoApuracao: number | string;
-            operacoes?: Array<{
-              tipoOperacao?: string;
-              indiceDeclaracao?: {
-                numeroDeclaracao?: string;
-                dataHoraTransmissao?: number | string;
-                malha?: string | null;
-              };
-              indiceDas?: {
-                numeroDas?: string;
-                dataHoraEmissaoDas?: number | string;
-                dasPago?: boolean;
-              };
-            }>;
-          }>;
-          periodo?: {
-            periodoApuracao: number | string;
-            operacoes?: Array<any>;
-          };
-        };
-      }
+      any
     >({
       contribuinteCnpj: cnpj,
       idSistema: "PGDASD",
@@ -92,37 +72,86 @@ export class SimplesService {
     });
 
     const result: DeclaracaoPgdasdItem[] = [];
-    const de = resp.dadosParsed?.declaracoesEntregues;
-    if (!de) return result;
+    const rawData = resp.dadosParsed?.declaracoesEntregues || resp.dadosParsed;
+    if (!rawData) return result;
 
-    const periodos = de.periodos || (de.periodo ? [de.periodo] : []);
+    const periodos = rawData.periodos || (rawData.periodo ? [rawData.periodo] : []);
     for (const p of periodos) {
       const paStr = String(p.periodoApuracao || "");
-      if (Array.isArray(p.operacoes)) {
-        for (const op of p.operacoes) {
-          result.push({
-            periodoApuracao: paStr,
-            tipoOperacao: String(op.tipoOperacao || "Declaração Original"),
-            numeroDeclaracao: op.indiceDeclaracao?.numeroDeclaracao,
-            dataHoraTransmissao: op.indiceDeclaracao?.dataHoraTransmissao
-              ? String(op.indiceDeclaracao.dataHoraTransmissao)
-              : undefined,
-            malha: op.indiceDeclaracao?.malha || null,
-            numeroDas: op.indiceDas?.numeroDas,
-            dataHoraEmissaoDas: op.indiceDas?.dataHoraEmissaoDas
-              ? String(op.indiceDas.dataHoraEmissaoDas)
-              : undefined,
-            dasPago: op.indiceDas?.dasPago,
-          });
-        }
-      }
+      const ops = Array.isArray(p.operacoes) ? p.operacoes : [];
+      if (ops.length === 0) continue;
+
+      // Localiza a última declaração transmitida (Original ou Retificadora)
+      const declOps = ops.filter(
+        (o: any) => o.indiceDeclaracao && o.indiceDeclaracao.numeroDeclaracao
+      );
+      const latestDeclOp = declOps.length > 0 ? declOps[declOps.length - 1] : null;
+
+      // Localiza a última operação referente ao DAS gerado
+      const dasOps = ops.filter((o: any) => o.indiceDas && o.indiceDas.numeroDas);
+      const latestDasOp = dasOps.length > 0 ? dasOps[dasOps.length - 1] : null;
+
+      const decInd = latestDeclOp?.indiceDeclaracao;
+      const dasInd = latestDasOp?.indiceDas;
+
+      result.push({
+        periodoApuracao: paStr,
+        tipoOperacao: String(latestDeclOp?.tipoOperacao || latestDasOp?.tipoOperacao || "Declaração Original"),
+        numeroDeclaracao: decInd?.numeroDeclaracao,
+        dataHoraTransmissao: decInd?.dataHoraTransmissao
+          ? String(decInd.dataHoraTransmissao)
+          : undefined,
+        malha: decInd?.malha || null,
+        numeroDas: dasInd?.numeroDas,
+        dataHoraEmissaoDas: dasInd?.datahoraEmissaoDas || dasInd?.dataHoraEmissaoDas
+          ? String(dasInd.datahoraEmissaoDas || dasInd.dataHoraEmissaoDas)
+          : undefined,
+        dasPago: typeof dasInd?.dasPago === "boolean" ? dasInd.dasPago : undefined,
+        operacoes: ops,
+      });
     }
 
     return result;
   }
 
   /**
-   * Gera o DAS de apuração mensal do PGDAS-D
+   * Consulta a última declaração transmitida e o recibo de entrega em PDF
+   * Serviço: PGDASD.CONSULTIMADECREC14 (POST /Consultar)
+   */
+  public async consultarUltimaDeclaracaoRecibo(
+    cnpj: string,
+    periodoApuracao: string,
+  ): Promise<{
+    numeroDeclaracao?: string;
+    reciboPdfBase64?: string;
+    declaracaoPdfBase64?: string;
+    nomeArquivoRecibo?: string;
+    nomeArquivoDeclaracao?: string;
+  }> {
+    const paClean = periodoApuracao.replace(/\D/g, "");
+    const resp = await this.client.callConsultar<
+      { periodoApuracao: string },
+      any
+    >({
+      contribuinteCnpj: cnpj,
+      idSistema: "PGDASD",
+      idServico: "CONSULTIMADECREC14",
+      versaoSistema: "1.0",
+      dados: { periodoApuracao: paClean },
+    });
+
+    const d = resp.dadosParsed as any;
+    return {
+      numeroDeclaracao: d?.numeroDeclaracao,
+      reciboPdfBase64: d?.recibo?.pdf,
+      declaracaoPdfBase64: d?.declaracao?.pdf,
+      nomeArquivoRecibo: d?.recibo?.nomeArquivo || `recibo-pgdasd-${paClean}.pdf`,
+      nomeArquivoDeclaracao: d?.declaracao?.nomeArquivo || `declaracao-pgdasd-${paClean}.pdf`,
+    };
+  }
+
+  /**
+   * Gera o DAS de apuração mensal do PGDAS-D com valores detalhados
    * Serviço: PGDASD.GERARDAS12 (POST /Emitir)
    */
   public async gerarDas(
@@ -140,24 +169,7 @@ export class SimplesService {
 
     const resp = await this.client.callEmitir<
       Record<string, unknown>,
-      {
-        pdf?: string;
-        detalhamento?: {
-          numeroDocumento?: string;
-          dataVencimento?: string;
-          valores?: {
-            total?: number;
-            principal?: number;
-            multa?: number;
-            juros?: number;
-          };
-          composicao?: Array<{
-            codigo?: string;
-            denominacao?: string;
-            valores?: { total?: number };
-          }>;
-        };
-      }
+      any
     >({
       contribuinteCnpj: cnpj,
       idSistema: "PGDASD",
@@ -166,20 +178,26 @@ export class SimplesService {
       dados: payload,
     });
 
-    const d = resp.dadosParsed?.detalhamento;
+    const rawParsed = resp.dadosParsed as any;
+    const item = Array.isArray(rawParsed) ? rawParsed[0] : rawParsed;
+    const d = item?.detalhamentoDas || item?.detalhamento;
+    const v = d?.valores;
+
     return {
-      pdfBase64: resp.dadosParsed?.pdf,
+      pdfBase64: item?.pdf || item?.pdfBase64 || rawParsed?.pdf,
       numeroDocumento: d?.numeroDocumento,
-      dataVencimento: d?.dataVencimento,
-      valorTotal: d?.valores?.total ?? 0,
-      valorPrincipal: d?.valores?.principal ?? 0,
-      valorMulta: d?.valores?.multa ?? 0,
-      valorJuros: d?.valores?.juros ?? 0,
-      composicao: d?.composicao?.map((c) => ({
-        codigo: String(c.codigo || ""),
-        denominacao: String(c.denominacao || ""),
-        valor: Number(c.valores?.total ?? 0),
-      })),
+      dataVencimento: d?.dataVencimento ? String(d.dataVencimento) : undefined,
+      valorTotal: Number(v?.total ?? 0),
+      valorPrincipal: Number(v?.principal ?? 0),
+      valorMulta: Number(v?.multa ?? 0),
+      valorJuros: Number(v?.juros ?? 0),
+      composicao: Array.isArray(d?.composicao)
+        ? d.composicao.map((c: any) => ({
+            codigo: String(c.codigo || ""),
+            denominacao: String(c.denominacao || ""),
+            valor: Number(c.valores?.total ?? c.valor ?? 0),
+          }))
+        : undefined,
     };
   }
 
@@ -232,7 +250,7 @@ export class SimplesService {
       idSistema: "DEFIS",
       idServico: "CONSDECLARACAO142",
       versaoSistema: "1.0",
-      dados: {},
+      dados: "",
     });
 
     let list: Array<any> = [];

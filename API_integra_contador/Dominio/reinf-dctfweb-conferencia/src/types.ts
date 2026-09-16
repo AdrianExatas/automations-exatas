@@ -59,6 +59,8 @@ export interface Empresa {
   situacao?: string; // "A" = Ativa, "I" = Inativa
 }
 
+export type DominioCompany = Empresa;
+
 export interface FechamentoReinf {
   serie: ReinfSeries;
   eventoFechamento: "R-2099" | "R-4099";
@@ -151,8 +153,8 @@ export interface ReconciliationResult {
   fechamentosUtilizados: string[];
   pendencias: string[];
   mensagens: string[];
-  dataProcessamento: string;
-  hashResultado: string;
+  dataProcessamento?: string;
+  hashResultado?: string;
   dataUltimaConsulta?: string;
   origemConsulta?: "SERPRO_LIVE" | "CACHE_PERSISTIDO";
 }

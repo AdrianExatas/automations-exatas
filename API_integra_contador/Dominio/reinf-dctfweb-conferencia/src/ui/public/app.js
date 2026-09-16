@@ -271,6 +271,7 @@ const dom = {
 
   // Dossiê Obsidian
   obsidianModal: document.getElementById("obsidianModal"),
+  obsidianModalTitle: document.getElementById("obsidianModalTitle"),
   btnCloseObsidianModal: document.getElementById("btnCloseObsidianModal"),
   btnCloseObsidianBtn: document.getElementById("btnCloseObsidianBtn"),
   obsidianPreviewPre: document.getElementById("obsidianPreviewPre"),
@@ -279,6 +280,7 @@ const dom = {
 
   // Kit Mensal
   kitMensalModal: document.getElementById("kitMensalModal"),
+  kitModalTitle: document.getElementById("kitModalTitle"),
   btnCloseKitModal: document.getElementById("btnCloseKitModal"),
   btnCloseKitBtn: document.getElementById("btnCloseKitBtn"),
   kitModalBody: document.getElementById("kitModalBody"),
@@ -286,8 +288,10 @@ const dom = {
 
 // Formatação monetária e de documentos
 function formatCurrency(val) {
-  const num = Number(val) || 0;
-  return num.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+  if (val === null || val === undefined || val === "" || isNaN(Number(val))) {
+    return "-";
+  }
+  return Number(val).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 }
 
 function maskCnpj(val) {
@@ -302,8 +306,24 @@ function maskCnpj(val) {
 
 function formatDateTime(isoStr) {
   if (!isoStr) return "-";
+  const s = String(isoStr).trim();
+  if (/^\d{14}$/.test(s)) {
+    const y = s.slice(0, 4);
+    const m = s.slice(4, 6);
+    const d = s.slice(6, 8);
+    const h = s.slice(8, 10);
+    const min = s.slice(10, 12);
+    return `${d}/${m}/${y} ${h}:${min}`;
+  }
+  if (/^\d{8}$/.test(s)) {
+    const y = s.slice(0, 4);
+    const m = s.slice(4, 6);
+    const d = s.slice(6, 8);
+    return `${d}/${m}/${y}`;
+  }
   try {
-    const d = new Date(isoStr);
+    const d = new Date(s);
+    if (isNaN(d.getTime())) return s;
     return d.toLocaleString("pt-BR", {
       day: "2-digit",
       month: "2-digit",
@@ -312,7 +332,7 @@ function formatDateTime(isoStr) {
       minute: "2-digit",
     });
   } catch {
-    return isoStr;
+    return s;
   }
 }
 
@@ -324,6 +344,27 @@ function formatPa(paStr) {
   }
   return paStr;
 }
+
+function escapeHtml(str) {
+  if (!str) return "";
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+window.onSelectEmpresaPgfn = function (selectEl) {
+  const codiEmp = selectEl.value;
+  if (!codiEmp) return;
+  const item = state.dominioOverview.find((i) => i.empresa.codiEmp === codiEmp);
+  if (item && dom.pgfnValorParcela && !dom.pgfnValorParcela.value) {
+    if (item.totalGeralDominio > 0) {
+      dom.pgfnValorParcela.value = item.totalGeralDominio.toFixed(2);
+    }
+  }
+};
 
 function downloadBase64Pdf(base64Data, fileName) {
   const byteCharacters = atob(base64Data);
@@ -515,7 +556,12 @@ function setupEventListeners() {
         globalSearch.select();
       }
     } else if (e.key === "Escape") {
-      fecharPerfilEmpresa360();
+      const openModal = document.querySelector(".modal-overlay.active");
+      if (openModal) {
+        openModal.classList.remove("active");
+      } else {
+        fecharPerfilEmpresa360();
+      }
     }
   });
 
@@ -1149,12 +1195,17 @@ function getCompanyCombinedState(item) {
       statusLabel = "ERRO SERPRO";
     }
 
+    const totalDominioVal = rec.totalGeralDominio ?? item.totalGeralDominio ?? 0;
+    const totalDctfwebVal = rec.totalGeralDctfweb ?? rec.totalDctfweb ?? 0;
+    const diferencaVal = rec.diferencaGeral ?? rec.diferenca ?? (totalDominioVal - totalDctfwebVal);
+
     return {
       status: rec.status,
       statusClass,
       statusLabel,
-      totalDctfweb: rec.totalDctfweb,
-      diferenca: rec.diferenca,
+      totalDominio: totalDominioVal,
+      totalDctfweb: totalDctfwebVal,
+      diferenca: diferencaVal,
       detalhes: rec.detalhes,
       pendencias: rec.pendencias,
       reciboDctfweb: rec.reciboDctfweb,
@@ -1168,6 +1219,7 @@ function getCompanyCombinedState(item) {
     status: item.situacaoGeral,
     statusClass: item.temMovimento ? "badge-blue" : "badge-neutral",
     statusLabel: item.temMovimento ? "Com Movimento" : "Sem Movimento",
+    totalDominio: item.totalGeralDominio || 0,
     totalDctfweb: 0,
     diferenca: 0,
     detalhes: [],
@@ -1205,12 +1257,12 @@ function updateKpis() {
       else if (combined.status === "PENDENTE") pendentes++;
       else if (combined.status === "SEM_DCTFWEB") semDctf++;
 
-      totalDominio += item.totalGeralDominio || 0;
+      totalDominio += combined.totalDominio || item.totalGeralDominio || 0;
       totalDctfweb += combined.totalDctfweb || 0;
     }
   }
 
-  const diferenca = totalDctfweb - totalDominio;
+  const diferenca = Math.round((totalDominio - totalDctfweb) * 100) / 100;
 
   dom.valTotalEmpresas.textContent = list.length;
   if (dom.subTotalEmpresas) {
@@ -1322,14 +1374,34 @@ function renderTable() {
       fechamentoBadges = `<span class="badge-reinf-recibo badge-empty">Sem fechamento</span>`;
     }
 
-    const dctfText = combined.isConsulted
-      ? formatCurrency(combined.totalDctfweb)
-      : `<span style="color: var(--text-muted); font-size: 0.8rem;">Pendente</span>`;
+    const isPendente = combined.status === "PENDENTE";
+    const isSemDctf = combined.status === "SEM_DCTFWEB";
+    const isErro = combined.status === "ERRO";
 
-    let diffText = `<span style="color: var(--text-muted);">-</span>`;
-    if (combined.isConsulted) {
+    let dctfText;
+    if (isPendente) {
+      dctfText = `<span style="color: var(--warning); font-size: 0.8rem;" title="Consulta à DCTFWeb não realizada devido a pendência no Domínio">Pendente</span>`;
+    } else if (isSemDctf) {
+      dctfText = `<span style="color: var(--purple-light, #c084fc); font-size: 0.8rem;" title="Nenhuma declaração DCTFWeb encontrada no SERPRO">Ausente</span>`;
+    } else if (isErro) {
+      dctfText = `<span style="color: var(--danger); font-size: 0.8rem;" title="Erro na consulta SERPRO">Erro</span>`;
+    } else if (combined.isConsulted) {
+      dctfText = formatCurrency(combined.totalDctfweb);
+    } else {
+      dctfText = `<span style="color: var(--text-muted); font-size: 0.8rem;">Pendente</span>`;
+    }
+
+    let diffText;
+    if (isPendente) {
+      diffText = `<span style="color: var(--text-muted);">-</span>`;
+    } else if (isSemDctf) {
+      const diffVal = combined.totalDominio ?? item.totalGeralDominio ?? 0;
+      diffText = `<span class="diff-positive">${formatCurrency(diffVal)}</span>`;
+    } else if (combined.isConsulted && !isErro) {
       const isDiff = Math.abs(combined.diferenca) >= 0.01;
       diffText = `<span class="${isDiff ? "diff-positive" : "diff-zero"}">${formatCurrency(combined.diferenca)}</span>`;
+    } else {
+      diffText = `<span style="color: var(--text-muted);">-</span>`;
     }
 
     const rowClasses = `company-row ${isExpanded ? "expanded" : ""} ${!isAtiva ? "row-inactive" : ""}`.trim();
@@ -1342,15 +1414,19 @@ function renderTable() {
     html += `
       <tr id="row-${item.empresa.codiEmp}" class="${rowClasses}" onclick="toggleRow('${item.empresa.codiEmp}')">
         <td style="text-align: center;">
-          <span style="font-size: 0.8rem; opacity: 0.7;">${isExpanded ? "▼" : "▶"}</span>
+          <span style="display: inline-flex; align-items: center; justify-content: center; opacity: 0.75;">${
+            isExpanded
+              ? '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>'
+              : '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>'
+          }</span>
         </td>
         <td class="mono"><strong>${item.empresa.codiEmp}</strong></td>
         <td class="mono">${maskCnpj(item.empresa.cnpj)}</td>
         <td>
-          <strong>${item.empresa.razaoSocial}</strong>${inactiveBadgeHtml}
+          <strong>${escapeHtml(item.empresa.razaoSocial)}</strong>${inactiveBadgeHtml}
         </td>
         <td>${fechamentoBadges}</td>
-        <td class="mono">${formatCurrency(item.totalGeralDominio)}</td>
+        <td class="mono">${formatCurrency(combined.totalDominio ?? item.totalGeralDominio)}</td>
         <td class="mono">${dctfText}</td>
         <td class="mono">${diffText}</td>
         <td>
@@ -1419,7 +1495,8 @@ function renderDetailSubTable(item, combined) {
   }
 
   const darfButtonHtml =
-    combined.isConsulted && combined.status !== "SEM_DCTFWEB"
+    combined.isConsulted &&
+    (combined.status === "CONFORME" || combined.status === "DIVERGENTE" || Boolean(combined.reciboDctfweb))
       ? `
       <button class="btn btn-success" style="padding: 0.35rem 0.75rem; font-size: 0.75rem; display: inline-flex; align-items: center; gap: 0.4rem;" onclick="event.stopPropagation(); emitirDarfDctfweb('${item.empresa.cnpj}', '${state.competencia}')">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
@@ -1458,8 +1535,9 @@ function renderDetailSubTable(item, combined) {
       </div>
       <div style="display: flex; align-items: center; gap: 0.6rem;">
         ${darfButtonHtml}
-        <button class="btn btn-secondary" style="padding: 0.35rem 0.75rem; font-size: 0.75rem;" onclick="event.stopPropagation(); reprocessSingle('${item.empresa.codiEmp}', true)">
-          ↻ Forçar Reconsulta SERPRO
+        <button class="btn btn-secondary" style="padding: 0.35rem 0.75rem; font-size: 0.75rem; display: inline-flex; align-items: center; gap: 0.4rem;" onclick="event.stopPropagation(); reprocessSingle('${item.empresa.codiEmp}', true)">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+          Forçar Reconsulta SERPRO
         </button>
       </div>
     </div>
@@ -1868,6 +1946,10 @@ window.consultarSitfisSingle = async function (cnpj, forceRefresh = false) {
     const protoData = await protoRes.json();
     if (protoData.error) throw new Error(protoData.error);
 
+    const esperaMs = Math.max(protoData.tempoEspera || 3000, 3000);
+    showLoading(`Aguardando compilação do relatório fiscal pela Receita Federal (${Math.round(esperaMs / 1000)}s)...`);
+    await new Promise((r) => setTimeout(r, esperaMs));
+
     const relRes = await fetch("/api/sitfis/relatorio", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -2194,7 +2276,7 @@ function renderPagamentosTable() {
   const filter = state.currentPagFilter;
 
   const filtered = state.dominioOverview.filter((item) => {
-    if (!showInactive && item.empresa.ativo !== false) return false;
+    if (!showInactive && item.empresa.ativo === false) return false;
     const cnpj = String(item.empresa.cnpj || "").replace(/\D/g, "");
     const pag = state.pagamentosMap.get(cnpj);
 
@@ -2480,7 +2562,7 @@ function renderSimplesTable() {
   if (filtered.length === 0) {
     dom.tableSimplesBody.innerHTML = `
       <tr>
-        <td colspan="9" class="empty-state">Nenhuma empresa encontrada com os filtros do Simples Nacional.</td>
+        <td colspan="10" class="empty-state">Nenhuma empresa encontrada com os filtros do Simples Nacional.</td>
       </tr>
     `;
     return;
@@ -2502,7 +2584,14 @@ function renderSimplesTable() {
       </button>
     `;
 
-    if (decl) {
+    if (sn?.data_consulta && (!decl || !decl.numeroDeclaracao)) {
+      statusBadge = '<span class="status-badge badge-neutral" style="border: 1px dashed #64748B; color: #94A3B8;">Sem Declaração</span>';
+      acoesHtml = `
+        <button class="btn btn-secondary" style="padding: 0.35rem 0.65rem; font-size: 0.75rem;" onclick="consultarSimplesSingle('${cnpj}', true)">
+          ↻ Reconsultar
+        </button>
+      `;
+    } else if (decl) {
       if (decl.dasPago) {
         statusBadge = '<span class="status-badge badge-success">DAS Pago</span>';
       } else {
@@ -2511,10 +2600,13 @@ function renderSimplesTable() {
 
       acoesHtml = `
         <div style="display: flex; gap: 0.35rem; flex-wrap: wrap;">
-          <button class="btn btn-success" style="padding: 0.3rem 0.55rem; font-size: 0.72rem;" onclick="emitirDasSimples('${cnpj}', '${decl.periodoApuracao}')">
-            Emitir DAS
+          <button class="btn btn-primary" style="padding: 0.3rem 0.55rem; font-size: 0.72rem;" onclick="baixarDeclaracaoPdf('${cnpj}', '${decl.periodoApuracao}')" title="Baixar Declaração / Recibo PGDAS-D oficial">
+            📄 PGDAS
           </button>
-          <button class="btn btn-primary" style="padding: 0.3rem 0.55rem; font-size: 0.72rem;" onclick="abrirModalSimples('${cnpj}')">
+          <button class="btn btn-success" style="padding: 0.3rem 0.55rem; font-size: 0.72rem;" onclick="emitirDasSimples('${cnpj}', '${decl.periodoApuracao}')" title="Emitir Guia DAS">
+            DAS
+          </button>
+          <button class="btn btn-secondary" style="padding: 0.3rem 0.55rem; font-size: 0.72rem;" onclick="abrirModalSimples('${cnpj}')">
             Detalhes
           </button>
           <button class="btn btn-secondary" style="padding: 0.3rem 0.55rem; font-size: 0.72rem;" onclick="consultarSimplesSingle('${cnpj}', true)">
@@ -2522,6 +2614,14 @@ function renderSimplesTable() {
           </button>
         </div>
       `;
+    }
+
+    const valorDas = decl?.valorTotalDas ?? (sn?.dasGerado?.periodoApuracao === (decl?.periodoApuracao || paFormatted) ? sn?.dasGerado?.valorTotal : sn?.dasGerado?.valorTotal);
+    let valorHtml = '<span style="color: var(--text-muted);">-</span>';
+    if (typeof valorDas === "number" && valorDas > 0) {
+      valorHtml = `<strong class="mono" style="color: #38BDF8;">${formatCurrency(valorDas)}</strong>`;
+    } else if (decl && decl.numeroDeclaracao) {
+      valorHtml = `<button class="btn btn-secondary" style="padding: 0.2rem 0.45rem; font-size: 0.7rem;" onclick="emitirDasSimples('${cnpj}', '${decl.periodoApuracao}')">Calcular</button>`;
     }
 
     html += `
@@ -2532,6 +2632,7 @@ function renderSimplesTable() {
         <td class="mono">${decl ? formatPa(decl.periodoApuracao) : formatPa(paFormatted)}</td>
         <td class="mono" style="font-size: 0.8rem; color: #94A3B8;">${decl?.numeroDeclaracao || "-"}</td>
         <td>${statusBadge}</td>
+        <td>${valorHtml}</td>
         <td style="font-size: 0.8rem;">${decl?.dataHoraTransmissao ? formatDateTime(decl.dataHoraTransmissao) : "-"}</td>
         <td>
           ${
@@ -2566,6 +2667,7 @@ window.consultarSimplesSingle = async function (cnpj, forceRefresh = false) {
       cnpj,
       periodo_apuracao: pa,
       declaracoes: data.declaracoes || [],
+      dasGerado: data.dasGerado || existing.dasGerado || null,
       data_consulta: new Date().toISOString(),
     });
 
@@ -2589,9 +2691,46 @@ window.emitirDasSimples = async function (cnpj, periodoApuracao) {
     const data = await res.json();
     if (data.error) throw new Error(data.error);
     if (!data.pdfBase64) throw new Error("A API não retornou o arquivo PDF do DAS.");
+
+    // Atualiza o valor do DAS gerado no cache local
+    const existing = state.simplesMap.get(cnpj) || {};
+    state.simplesMap.set(cnpj, {
+      ...existing,
+      dasGerado: {
+        ...data,
+        periodoApuracao,
+      },
+    });
+    renderSimplesTable();
+
     downloadBase64Pdf(data.pdfBase64, `das_simples_${cnpj}_${periodoApuracao}.pdf`);
   } catch (err) {
     alert("Erro ao emitir DAS do Simples Nacional: " + err.message);
+  } finally {
+    hideLoading();
+  }
+};
+
+window.baixarDeclaracaoPdf = async function (cnpj, periodoApuracao) {
+  showLoading(`Obtendo cópia oficial da Declaração/Recibo PGDAS-D no SERPRO...`);
+  try {
+    const res = await fetch("/api/simples/declaracao-pdf", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ cnpj, periodoApuracao }),
+    });
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+
+    if (data.declaracaoPdfBase64) {
+      downloadBase64Pdf(data.declaracaoPdfBase64, `declaracao_pgdasd_${cnpj}_${periodoApuracao}.pdf`);
+    } else if (data.reciboPdfBase64) {
+      downloadBase64Pdf(data.reciboPdfBase64, `recibo_pgdasd_${cnpj}_${periodoApuracao}.pdf`);
+    } else {
+      throw new Error("A Receita Federal não retornou o arquivo PDF da declaração.");
+    }
+  } catch (err) {
+    alert("Erro ao baixar declaração PGDAS-D: " + err.message);
   } finally {
     hideLoading();
   }
@@ -2602,8 +2741,90 @@ window.abrirModalSimples = function (cnpj) {
   const emp = state.dominioOverview.find((i) => String(i.empresa.cnpj || "").replace(/\D/g, "") === cnpj);
   dom.simplesModalTitle.textContent = `Simples Nacional — ${emp ? emp.empresa.razaoSocial : maskCnpj(cnpj)}`;
 
+  const das = sn?.dasGerado;
+  let dasCardHtml = "";
+  if (das && das.valorTotal > 0) {
+    let compRows = "";
+    if (Array.isArray(das.composicao)) {
+      for (const c of das.composicao) {
+        compRows += `
+          <tr>
+            <td class="mono">${c.codigo}</td>
+            <td>${c.denominacao}</td>
+            <td class="mono" style="text-align: right; color: #38BDF8;">${formatCurrency(c.valor)}</td>
+          </tr>
+        `;
+      }
+    }
+
+    dasCardHtml = `
+      <div style="background: var(--bg-surface-elevated); padding: 1.2rem; border-radius: var(--radius-md); border: 1px solid var(--border-medium); margin-bottom: 1rem;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem;">
+          <div>
+            <h4 style="color: #38BDF8; font-size: 0.95rem; margin-bottom: 0.25rem;">
+              DAS Apurado Oficial — Período ${das.dataVencimento ? "Vencimento: " + formatDateTime(das.dataVencimento).slice(0, 10) : ""}
+            </h4>
+            <div style="font-size: 0.8rem; color: var(--text-secondary);">
+              Documento: <span class="mono">${das.numeroDocumento || "-"}</span>
+            </div>
+          </div>
+          <div style="text-align: right;">
+            <div style="font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase;">Valor Total</div>
+            <div class="mono" style="font-size: 1.25rem; font-weight: 700; color: #22C55E;">${formatCurrency(das.valorTotal)}</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; background: var(--bg-surface); padding: 0.75rem; border-radius: var(--radius-sm); margin-bottom: 0.75rem;">
+          <div>
+            <div style="font-size: 0.7rem; color: var(--text-secondary);">Principal</div>
+            <div class="mono" style="font-weight: 600;">${formatCurrency(das.valorPrincipal || 0)}</div>
+          </div>
+          <div>
+            <div style="font-size: 0.7rem; color: var(--text-secondary);">Multa</div>
+            <div class="mono" style="font-weight: 600;">${formatCurrency(das.valorMulta || 0)}</div>
+          </div>
+          <div>
+            <div style="font-size: 0.7rem; color: var(--text-secondary);">Juros</div>
+            <div class="mono" style="font-weight: 600;">${formatCurrency(das.valorJuros || 0)}</div>
+          </div>
+        </div>
+
+        ${
+          compRows
+            ? `
+          <div style="margin-top: 0.5rem;">
+            <div style="font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 0.35rem;">Composição por Tributo</div>
+            <table class="sub-table" style="width: 100%;">
+              <thead>
+                <tr>
+                  <th>Código</th>
+                  <th>Tributo</th>
+                  <th style="text-align: right;">Valor</th>
+                </tr>
+              </thead>
+              <tbody>${compRows}</tbody>
+            </table>
+          </div>
+        `
+            : ""
+        }
+
+        <div style="display: flex; gap: 0.5rem; margin-top: 0.75rem;">
+          <button class="btn btn-success" style="font-size: 0.8rem;" onclick="emitirDasSimples('${cnpj}', '${sn.periodo_apuracao || "202608"}')">
+            📥 Baixar Guia DAS (PDF)
+          </button>
+          <button class="btn btn-primary" style="font-size: 0.8rem;" onclick="baixarDeclaracaoPdf('${cnpj}', '${sn.periodo_apuracao || "202608"}')">
+            📄 Baixar Declaração PGDAS-D (PDF)
+          </button>
+        </div>
+      </div>
+    `;
+  }
+
   let contentHtml = `
     <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+      ${dasCardHtml}
+
       <div>
         <h4 style="color: #38BDF8; font-size: 0.9rem; text-transform: uppercase; margin-bottom: 0.5rem;">
           Histórico de Declarações PGDAS-D Transmitidas
@@ -2638,15 +2859,20 @@ window.abrirModalSimples = function (cnpj) {
             }
           </td>
           <td>
-            <button class="btn btn-success" style="padding: 0.25rem 0.5rem; font-size: 0.72rem;" onclick="emitirDasSimples('${cnpj}', '${d.periodoApuracao}')">
-              Gerar DAS
-            </button>
+            <div style="display: flex; gap: 0.25rem;">
+              <button class="btn btn-primary" style="padding: 0.25rem 0.5rem; font-size: 0.72rem;" onclick="baixarDeclaracaoPdf('${cnpj}', '${d.periodoApuracao}')">
+                📄 PGDAS
+              </button>
+              <button class="btn btn-success" style="padding: 0.25rem 0.5rem; font-size: 0.72rem;" onclick="emitirDasSimples('${cnpj}', '${d.periodoApuracao}')">
+                DAS
+              </button>
+            </div>
           </td>
         </tr>
       `;
     }
   } else {
-    contentHtml += `<tr><td colspan="6" class="empty-state">Nenhuma declaração PGDAS-D em cache.</td></tr>`;
+    contentHtml += `<tr><td colspan="6" class="empty-state">Nenhuma declaração PGDAS-D transmitida neste período.</td></tr>`;
   }
 
   contentHtml += `
@@ -3341,13 +3567,14 @@ function renderProcuracoesTable() {
     let totalSistemas = 0;
 
     if (proc) {
-      if (proc.situacao === "EXPIRADA") {
+      const sit = proc.situacao || proc.statusGeral;
+      if (sit === "EXPIRADA") {
         badgeClass = "badge-proc-expirada";
         badgeText = "Expirada";
-      } else if (proc.situacao === "CRITICA") {
+      } else if (sit === "CRITICA") {
         badgeClass = "badge-proc-critica";
         badgeText = "Crítica (≤ 30d)";
-      } else if (proc.situacao === "ALERTA") {
+      } else if (sit === "ALERTA") {
         badgeClass = "badge-proc-alerta";
         badgeText = "Atenção (31-60d)";
       } else {
@@ -3355,9 +3582,10 @@ function renderProcuracoesTable() {
         badgeText = "Vigente";
       }
 
-      diasText = proc.dias_restantes !== null && proc.dias_restantes !== undefined ? `${proc.dias_restantes} dias` : "-";
-      expText = proc.data_expiracao || "-";
-      totalSistemas = proc.total_sistemas || (proc.sistemas ? proc.sistemas.length : 0);
+      const dias = proc.dias_restantes ?? proc.menorDiasRestantes;
+      diasText = dias !== null && dias !== undefined ? `${dias} dias` : "-";
+      expText = proc.data_expiracao || proc.dataExpiracaoMaisProxima || "-";
+      totalSistemas = proc.total_sistemas || proc.totalSistemas || (proc.sistemas ? proc.sistemas.length : 0);
     }
 
     const inactiveBadgeHtml = !isAtiva
@@ -3384,7 +3612,7 @@ function renderProcuracoesTable() {
           }
         </td>
         <td class="mono" style="font-size: 0.8rem; color: #94A3B8;">
-          ${proc ? formatDateTime(proc.data_consulta) : "-"}
+          ${proc ? formatDateTime(proc.data_consulta || proc.dataConsulta) : "-"}
         </td>
         <td>
           <div style="display: flex; gap: 0.35rem; align-items: center;">
@@ -3775,12 +4003,15 @@ async function emitirDarfSicalc() {
 
 let currentObsidianMarkdown = "";
 let currentObsidianFilename = "";
+let obsidianReqSeq = 0;
 
 window.abrirModalObsidian = async function (cnpj) {
+  const reqSeq = ++obsidianReqSeq;
   showLoading("Compilando Dossiê Fiscal da empresa para o Obsidian...");
   try {
     const res = await fetch(`/api/obsidian/dossie/${cnpj}`);
     const data = await res.json();
+    if (reqSeq !== obsidianReqSeq) return; // descarta resposta de requisição anterior obsoleta
     if (data.error) throw new Error(data.error);
 
     currentObsidianMarkdown = data.markdown;
@@ -3795,9 +4026,13 @@ window.abrirModalObsidian = async function (cnpj) {
 
     dom.obsidianModal.classList.add("active");
   } catch (err) {
-    alert("Erro ao gerar Dossiê Obsidian: " + err.message);
+    if (reqSeq === obsidianReqSeq) {
+      alert("Erro ao gerar Dossiê Obsidian: " + err.message);
+    }
   } finally {
-    hideLoading();
+    if (reqSeq === obsidianReqSeq) {
+      hideLoading();
+    }
   }
 };
 
@@ -3825,12 +4060,16 @@ function closeObsidianModal() {
   dom.obsidianModal.classList.remove("active");
 }
 
+let kitReqSeq = 0;
+
 window.abrirModalKitMensal = async function (cnpj) {
+  const reqSeq = ++kitReqSeq;
   const comp = state.competencia || "2026-08";
   showLoading(`Compilando Kit de Guias do mês para a competência ${comp}...`);
   try {
     const res = await fetch(`/api/empresas/${cnpj}/kit-mensal/${comp}`);
     const kit = await res.json();
+    if (reqSeq !== kitReqSeq) return; // descarta resposta de requisição anterior obsoleta
     if (kit.error) throw new Error(kit.error);
 
     dom.kitModalTitle.textContent = `Kit Mensal de Guias — ${kit.razaoSocial} (${comp})`;

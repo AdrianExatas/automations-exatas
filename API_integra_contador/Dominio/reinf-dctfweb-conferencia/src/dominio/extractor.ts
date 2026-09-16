@@ -170,29 +170,73 @@ export class DominioReinfExtractor {
       (a, b) => new Date(b.DATA_HORA_ENVIO).getTime() - new Date(a.DATA_HORA_ENVIO).getTime(),
     );
 
-    // Encontrar último fechamento
+    // Encontrar fechamentos da série
     const closings = sorted.filter((e) => e.EVENTO === fechamentoEvento);
     if (closings.length === 0) {
       return undefined;
     }
 
-    // O mais recente
+    // Fechamentos aceitos e não excluídos com número de recibo registrado
+    const validAcceptedClosings = closings.filter(
+      (e) =>
+        String(e.SITUACAO_LOTE).toUpperCase() === "ACEITO" &&
+        !e.EXCLUIDO &&
+        Boolean(e.RECIBO && String(e.RECIBO).trim()),
+    );
+
+    if (validAcceptedClosings.length > 0) {
+      const activeClosing = validAcceptedClosings[0];
+      const closingTime = new Date(activeClosing.DATA_HORA_ENVIO).getTime();
+
+      // Verificar se houve reabertura aceita posterior a este fechamento aceito
+      const reopeningsAfter = sorted.filter(
+        (e) =>
+          e.EVENTO === reaberturaEvento &&
+          String(e.SITUACAO_LOTE).toUpperCase() === "ACEITO" &&
+          new Date(e.DATA_HORA_ENVIO).getTime() > closingTime,
+      );
+
+      const reaberto = reopeningsAfter.length > 0;
+      if (reaberto) {
+        pendencias.push(
+          `${serie}: Período reaberto posteriormente (${reaberturaEvento}) em ${reopeningsAfter[0].DATA_HORA_ENVIO} sem novo fechamento aceito.`,
+        );
+      }
+
+      // Histórico de erros ou tentativas rejeitadas posteriores (informativo, não bloqueia)
+      const errosTransmissao: string[] = [];
+      const latestAttempt = closings[0];
+      if (
+        !reaberto &&
+        latestAttempt !== activeClosing &&
+        new Date(latestAttempt.DATA_HORA_ENVIO).getTime() > closingTime &&
+        String(latestAttempt.SITUACAO_LOTE).toUpperCase() !== "ACEITO"
+      ) {
+        errosTransmissao.push(
+          `Tentativa posterior em ${latestAttempt.DATA_HORA_ENVIO} rejeitada (${latestAttempt.SITUACAO_LOTE}). Fechamento ativo: Recibo ${activeClosing.RECIBO}.`,
+        );
+      }
+
+      return {
+        serie,
+        eventoFechamento: fechamentoEvento,
+        competencia: activeClosing.COMPETENCIA,
+        recibo: activeClosing.RECIBO || "",
+        dataHoraEnvio: activeClosing.DATA_HORA_ENVIO,
+        aceito: true,
+        excluido: false,
+        reabertoPosteriormente: reaberto,
+        temMovimento: !activeClosing.SEM_MOVIMENTO,
+        errosTransmissao,
+      };
+    }
+
+    // Se NÃO há nenhum fechamento aceito com recibo, avaliar a tentativa mais recente
     const latestClosing = closings[0];
     const isAceito = String(latestClosing.SITUACAO_LOTE).toUpperCase() === "ACEITO";
     const isExcluido = Boolean(latestClosing.EXCLUIDO);
     const hasRecibo = Boolean(latestClosing.RECIBO && String(latestClosing.RECIBO).trim());
     const semMovimento = Boolean(latestClosing.SEM_MOVIMENTO);
-
-    // Verificar se existe reabertura posterior
-    const closingTime = new Date(latestClosing.DATA_HORA_ENVIO).getTime();
-    const reopeningsAfter = sorted.filter(
-      (e) =>
-        e.EVENTO === reaberturaEvento &&
-        String(e.SITUACAO_LOTE).toUpperCase() === "ACEITO" &&
-        new Date(e.DATA_HORA_ENVIO).getTime() > closingTime,
-    );
-
-    const reaberto = reopeningsAfter.length > 0;
 
     if (!isAceito) {
       pendencias.push(
@@ -206,12 +250,6 @@ export class DominioReinfExtractor {
       pendencias.push(`${serie}: Fechamento (${fechamentoEvento}) aceito porém sem número de recibo registrado.`);
     }
 
-    if (reaberto) {
-      pendencias.push(
-        `${serie}: Período reaberto posteriormente (${reaberturaEvento}) em ${reopeningsAfter[0].DATA_HORA_ENVIO} sem novo fechamento aceito.`,
-      );
-    }
-
     return {
       serie,
       eventoFechamento: fechamentoEvento,
@@ -220,7 +258,7 @@ export class DominioReinfExtractor {
       dataHoraEnvio: latestClosing.DATA_HORA_ENVIO,
       aceito: isAceito,
       excluido: isExcluido,
-      reabertoPosteriormente: reaberto,
+      reabertoPosteriormente: false,
       temMovimento: !semMovimento,
       errosTransmissao: latestClosing.MENSAGEM_ERRO ? [latestClosing.MENSAGEM_ERRO] : [],
     };

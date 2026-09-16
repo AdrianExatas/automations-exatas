@@ -94,7 +94,7 @@ export class NightlyWorker {
           // A. Checar Caixa Postal (INNOVAMSG63)
           try {
             const indMsg = await this.caixaPostalService.obterIndicadorNovasMensagens(cleanCnpj);
-            if (indMsg.possuiNovasMensagens) {
+            if (indMsg.temNovas) {
               this.currentProgress.novasMensagensEncontradas++;
               this.storage.saveCaixaPostalResult(cleanCnpj, {
                 indicadorNovas: 1,
@@ -120,21 +120,39 @@ export class NightlyWorker {
 
           // C. Checar Situação Fiscal (SITFIS)
           try {
-            const sitfisCached = this.storage.getSitfisResult(cleanCnpj);
+            let sitfisCached = this.storage.getSitfisResult(cleanCnpj);
             // Se nunca consultado ou mais de 7 dias
             if (!sitfisCached || Date.now() - new Date(sitfisCached.data_consulta).getTime() > 7 * 86400000) {
-              const proto = await this.sitfisService.solicitarRelatorio(cleanCnpj);
-              if (proto.protocolo) {
+              const proto = await this.sitfisService.solicitarProtocolo(cleanCnpj);
+              if (proto.protocoloRelatorio) {
+                const waitTime = Math.min(Math.max((proto.tempoEspera || 2) * 1000, 1000), 3000);
+                await new Promise((r) => setTimeout(r, waitTime));
+                const rel = await this.sitfisService.obterRelatorio(cleanCnpj, proto.protocoloRelatorio);
+                const situacao = rel.situacaoGeral || (rel.status === 200 ? "REGULAR" : "PROCESSANDO");
                 this.storage.saveSitfisResult(cleanCnpj, {
-                  protocolo: proto.protocolo,
-                  situacao: proto.situacaoRelatorio || "REGULAR",
-                  pdfBase64: "",
-                  mensagens: [],
+                  protocolo: proto.protocoloRelatorio,
+                  situacao,
+                  pdfBase64: rel.pdfBase64 || "",
+                  mensagens: rel.mensagens,
                 });
-                if (proto.situacaoRelatorio && proto.situacaoRelatorio.toLowerCase().includes("pend")) {
-                  this.currentProgress.pendenciasEncontradas++;
-                }
+                sitfisCached = {
+                  cnpj: cleanCnpj,
+                  data_consulta: new Date().toISOString(),
+                  protocolo: proto.protocoloRelatorio,
+                  situacao,
+                  pdf_base64: rel.pdfBase64 || null,
+                  mensagens: rel.mensagens,
+                };
               }
+            }
+
+            if (
+              sitfisCached &&
+              (sitfisCached.situacao === "PENDENTE" ||
+                sitfisCached.situacao === "COM_PENDENCIAS" ||
+                sitfisCached.situacao === "IRREGULAR")
+            ) {
+              this.currentProgress.pendenciasEncontradas++;
             }
           } catch (e: any) {
             // Log amigável

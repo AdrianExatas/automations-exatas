@@ -260,7 +260,7 @@ export class SqliteStorage {
         r.reciboReinfR2000 || null,
         r.reciboReinfR4000 || null,
         r.reciboDctfweb || null,
-        r.hashResultado,
+        r.hashResultado || "",
         JSON.stringify(r.mensagens),
         JSON.stringify(r.pendencias),
       );
@@ -416,7 +416,7 @@ export class SqliteStorage {
 
   // --- Módulo Situação Fiscal ---
   public saveSitfisResult(cnpj: string, data: {
-    protocolo?: string;
+    protocolo?: string | null;
     situacao: string;
     pdfBase64?: string;
     mensagens?: any[];

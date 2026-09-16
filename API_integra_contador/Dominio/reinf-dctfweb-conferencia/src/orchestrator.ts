@@ -143,7 +143,7 @@ export class ConferenciaOrchestrator {
           totalR2000: tot2000,
           totalR4000: tot4000,
           totalGeralDominio: totalGeral,
-          temMovimento: hasRecibo, // inclui empresas fechadas com "sem movimento" (R-2099 com total zero)
+          temMovimento: totalGeral > 0,
           statusDominio,
         };
       });
@@ -186,7 +186,7 @@ export class ConferenciaOrchestrator {
       empresasFiltradas = overview.filter((o) => o.temMovimento).map((o) => o.empresa);
     } else if (escopo === "FECHAMENTO") {
       empresasFiltradas = overview
-        .filter((o) => o.temMovimento || Boolean(o.reciboR2000 || o.reciboR4000))
+        .filter((o) => o.temMovimento || Boolean(o.reciboR2000 || o.reciboR4000) || o.statusDominio === "SEM_MOVIMENTO")
         .map((o) => o.empresa);
     } else {
       empresasFiltradas = overview.map((o) => o.empresa);
@@ -291,7 +291,7 @@ export class ConferenciaOrchestrator {
     } else if (escopo === "FECHAMENTO") {
       const overview = await this.getDominioOverview(competencia);
       companiesToProcess = overview
-        .filter((o) => o.temMovimento || Boolean(o.reciboR2000 || o.reciboR4000))
+        .filter((o) => o.temMovimento || Boolean(o.reciboR2000 || o.reciboR4000) || o.statusDominio === "SEM_MOVIMENTO")
         .map((o) => o.empresa);
     } else {
       companiesToProcess = await this.listCompanies();

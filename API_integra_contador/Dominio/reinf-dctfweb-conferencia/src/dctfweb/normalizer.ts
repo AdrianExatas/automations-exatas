@@ -150,6 +150,11 @@ export class DctfwebNormalizer {
 
       let origem = parseOrigem(rawOrigem);
 
+      // Se a origem veio explicitamente no XML e NÃO for 6 ou 7 (ex: eSocial = 1), descarta imediatamente
+      if (rawOrigem !== undefined && rawOrigem !== null && String(rawOrigem).trim() !== "" && origem === null) {
+        continue;
+      }
+
       const codigoReceitaRaw =
         raw.codigoReceita ??
         raw.codReceita ??
@@ -157,7 +162,7 @@ export class DctfwebNormalizer {
         raw.cdReceita ??
         raw.codigo;
 
-      const codigoReceita = normalizeCodigoReceita(codigoReceitaRaw);
+      const codigoReceita = normalizeCodigoReceita(codigoReceitaRaw as string | number | null | undefined);
 
       // Se a origem não veio explícita no XML (como no XML oficial SERPRO DCTFWeb),
       // inferir a partir do código de receita e grupo tributário

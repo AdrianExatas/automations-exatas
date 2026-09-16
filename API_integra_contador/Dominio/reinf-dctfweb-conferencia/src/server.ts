@@ -120,7 +120,12 @@ export function createServer(options?: {
   const obsidianSync = new ObsidianVaultSync(storage);
 
   const exporter = new ExcelExporter();
-  let latestSummary: BatchSummary | null = null;
+  const summariesByComp = new Map<string, BatchSummary>();
+
+  function isValidCnpj(cnpj: string): boolean {
+    const clean = String(cnpj || "").replace(/\D/g, "");
+    return clean.length === 14;
+  }
 
   const publicDir = resolve(import.meta.dir, "ui/public");
 
@@ -230,7 +235,7 @@ export function createServer(options?: {
             escopo,
             forceRefresh: Boolean(body.forceRefresh),
           });
-          latestSummary = summary;
+          summariesByComp.set(comp, summary);
           return Response.json(summary);
         } catch (err: unknown) {
           return Response.json({ error: String(err) }, { status: 500 });
@@ -250,9 +255,10 @@ export function createServer(options?: {
           const comp = body.competencia || "2026-08";
           const res = await orchestrator.reconcileCompany(comp, body.codiEmp, Boolean(body.forceRefresh));
 
-          // Atualizar ou criar latestSummary para permitir exportação Excel imediata
-          if (!latestSummary || latestSummary.competencia !== comp) {
-            latestSummary = {
+          // Atualizar ou criar summary da competência para permitir exportação Excel imediata
+          let compSummary = summariesByComp.get(comp);
+          if (!compSummary) {
+            compSummary = {
               competencia: comp,
               totalEmpresas: 1,
               conformes: res.status === "CONFORME" ? 1 : 0,
@@ -265,22 +271,23 @@ export function createServer(options?: {
               chamadasSerproRealizadas: 1,
               resultados: [res],
             };
+            summariesByComp.set(comp, compSummary);
           } else {
-            const existingIdx = latestSummary.resultados.findIndex(
+            const existingIdx = compSummary.resultados.findIndex(
               (r) => r.empresa.codiEmp === res.empresa.codiEmp,
             );
             if (existingIdx >= 0) {
-              latestSummary.resultados[existingIdx] = res;
+              compSummary.resultados[existingIdx] = res;
             } else {
-              latestSummary.resultados.push(res);
+              compSummary.resultados.push(res);
             }
-            latestSummary.totalEmpresas = latestSummary.resultados.length;
-            latestSummary.conformes = latestSummary.resultados.filter((r) => r.status === "CONFORME").length;
-            latestSummary.divergentes = latestSummary.resultados.filter((r) => r.status === "DIVERGENTE").length;
-            latestSummary.pendentes = latestSummary.resultados.filter((r) => r.status === "PENDENTE").length;
-            latestSummary.semDctfweb = latestSummary.resultados.filter((r) => r.status === "SEM_DCTFWEB").length;
-            latestSummary.erros = latestSummary.resultados.filter((r) => r.status === "ERRO").length;
-            latestSummary.chamadasSerproRealizadas = latestSummary.resultados.length;
+            compSummary.totalEmpresas = compSummary.resultados.length;
+            compSummary.conformes = compSummary.resultados.filter((r) => r.status === "CONFORME").length;
+            compSummary.divergentes = compSummary.resultados.filter((r) => r.status === "DIVERGENTE").length;
+            compSummary.pendentes = compSummary.resultados.filter((r) => r.status === "PENDENTE").length;
+            compSummary.semDctfweb = compSummary.resultados.filter((r) => r.status === "SEM_DCTFWEB").length;
+            compSummary.erros = compSummary.resultados.filter((r) => r.status === "ERRO").length;
+            compSummary.chamadasSerproRealizadas = compSummary.resultados.length;
           }
 
           return Response.json(res);
@@ -319,19 +326,25 @@ export function createServer(options?: {
           const cnpj = String(body.cnpj || "").replace(/\D/g, "");
           if (!cnpj) return Response.json({ error: "CNPJ obrigatório" }, { status: 400 });
 
-          let protocolo = `SITFIS-${cnpj}-${Date.now().toString(36).toUpperCase()}`;
-          let tempoEspera = 0;
+          const cached = storage.getSitfisResult(cnpj);
+          let protocolo = cached?.protocolo || `SITFIS-${cnpj}-${Date.now().toString(36).toUpperCase()}`;
+          let tempoEspera = 3000;
 
           if (!useMock && sitfisService) {
             const protoRes = await sitfisService.solicitarProtocolo(cnpj);
-            protocolo = protoRes.protocoloRelatorio;
-            tempoEspera = protoRes.tempoEspera;
+            if (protoRes.protocoloRelatorio) {
+              protocolo = protoRes.protocoloRelatorio;
+              tempoEspera = protoRes.tempoEspera || 3000;
+            } else if (cached?.protocolo) {
+              protocolo = cached.protocolo;
+              tempoEspera = protoRes.tempoEspera || 3000;
+            }
           }
 
           storage.saveSitfisResult(cnpj, {
             protocolo,
             situacao: "PROCESSANDO",
-            mensagens: [{ codigo: "001", texto: "Protocolo gerado com sucesso" }],
+            mensagens: [{ codigo: "001", texto: "Protocolo de consulta ativo" }],
           });
 
           return Response.json({ protocolo, tempoEspera });
@@ -408,7 +421,10 @@ export function createServer(options?: {
       }
 
       if (url.pathname === "/api/sitfis/download") {
-        const cnpj = url.searchParams.get("cnpj") || "";
+        const cnpj = String(url.searchParams.get("cnpj") || "").replace(/\D/g, "");
+        if (!cnpj || cnpj.length !== 14) {
+          return new Response("CNPJ inválido.", { status: 400 });
+        }
         const item = storage.getSitfisResult(cnpj);
         if (!item || !item.pdf_base64) {
           return new Response("Relatório PDF não localizado no cache.", { status: 404 });
@@ -596,8 +612,8 @@ export function createServer(options?: {
         }
       }
 
-      // Emissão de Guia DARF DCTFWeb
-      if (url.pathname === "/api/guias/darf-dctfweb" && method === "POST") {
+      // Emissão de Guia DARF DCTFWeb (suporta tanto /api/guias/darf-dctfweb quanto /api/dctfweb/gerar-guia)
+      if ((url.pathname === "/api/guias/darf-dctfweb" || url.pathname === "/api/dctfweb/gerar-guia") && method === "POST") {
         try {
           const body = (await req.json()) as { cnpj?: string; competencia?: string };
           const cnpj = String(body.cnpj || "").replace(/\D/g, "");
@@ -632,16 +648,43 @@ export function createServer(options?: {
           if (!body.forceRefresh) {
             const cached = storage.getSimplesResult(cnpj, pa);
             if (cached && cached.declaracoes && cached.declaracoes.length > 0) {
-              return Response.json({ cnpj, periodoApuracao: pa, declaracoes: cached.declaracoes, origem: "CACHE" });
+              return Response.json({
+                cnpj,
+                periodoApuracao: pa,
+                declaracoes: cached.declaracoes,
+                dasGerado: cached.dasGerado,
+                origem: "CACHE",
+              });
             }
           }
 
           let declaracoes: any[] = [];
+          let dasGerado: any = null;
+
           if (!useMock && simplesService) {
             declaracoes = await simplesService.consultarDeclaracoes(cnpj, {
               anoCalendario: body.anoCalendario,
               periodoApuracao: pa,
             });
+
+            // Se não houver declarações para o PA específico, consulta todo o ano-calendário
+            if (declaracoes.length === 0 && !body.anoCalendario) {
+              const ano = pa.slice(0, 4);
+              const declsAno = await simplesService.consultarDeclaracoes(cnpj, { anoCalendario: ano });
+              if (declsAno.length > 0) {
+                declaracoes = declsAno;
+              }
+            }
+
+            // Tenta obter os valores do DAS gerado para enriquecer o retorno imediato
+            const declNoPa = declaracoes.find((d) => d.periodoApuracao === pa);
+            if (declNoPa) {
+              try {
+                dasGerado = await simplesService.gerarDas(cnpj, pa);
+              } catch {
+                // Silencioso se o DAS ainda não estiver liberado para emissão
+              }
+            }
           } else {
             declaracoes = [
               {
@@ -655,10 +698,40 @@ export function createServer(options?: {
                 dasPago: cnpj.endsWith("2") || cnpj.endsWith("8"),
               },
             ];
+            dasGerado = {
+              numeroDocumento: `07.${pa}.998877`,
+              dataVencimento: "20260920",
+              valorTotal: 1850.50,
+              valorPrincipal: 1850.50,
+              valorMulta: 0,
+              valorJuros: 0,
+            };
           }
 
-          storage.saveSimplesResult(cnpj, pa, { declaracoes });
-          return Response.json({ cnpj, periodoApuracao: pa, declaracoes, origem: "LIVE" });
+          storage.saveSimplesResult(cnpj, pa, { declaracoes, dasGerado });
+          return Response.json({ cnpj, periodoApuracao: pa, declaracoes, dasGerado, origem: "LIVE" });
+        } catch (err: unknown) {
+          return Response.json({ error: String(err) }, { status: 500 });
+        }
+      }
+
+      if (url.pathname === "/api/simples/declaracao-pdf" && method === "POST") {
+        try {
+          const body = (await req.json()) as { cnpj?: string; periodoApuracao?: string };
+          const cnpj = String(body.cnpj || "").replace(/\D/g, "");
+          const pa = body.periodoApuracao || "202608";
+          if (!cnpj) return Response.json({ error: "CNPJ obrigatório" }, { status: 400 });
+
+          let result: any = {
+            numeroDeclaracao: `PGDAS-${pa}-${cnpj.slice(0, 4)}`,
+            declaracaoPdfBase64: MINIMAL_MOCK_PDF_BASE64,
+            reciboPdfBase64: MINIMAL_MOCK_PDF_BASE64,
+          };
+          if (!useMock && simplesService) {
+            result = await simplesService.consultarUltimaDeclaracaoRecibo(cnpj, pa);
+          }
+
+          return Response.json({ cnpj, periodoApuracao: pa, ...result });
         } catch (err: unknown) {
           return Response.json({ error: String(err) }, { status: 500 });
         }
@@ -889,6 +962,12 @@ export function createServer(options?: {
           if (!body.cnpj || !body.numero_negociacao || !body.modalidade) {
             return Response.json({ error: "CNPJ, Número da Negociação e Modalidade são obrigatórios" }, { status: 400 });
           }
+          if (body.dia_vencimento !== undefined && body.dia_vencimento !== null) {
+            const diaVenc = Number(body.dia_vencimento);
+            if (isNaN(diaVenc) || diaVenc < 1 || diaVenc > 31) {
+              return Response.json({ error: "O dia de vencimento deve estar entre 1 e 31." }, { status: 400 });
+            }
+          }
           const id = storage.saveParcelamentoPgfn(body);
           const saved = storage.getParcelamentoPgfn(id);
           return Response.json(saved);
@@ -929,8 +1008,11 @@ export function createServer(options?: {
           let pagamentos: any[] = [];
           if (!useMock && pagamentoService) {
             try {
-              const resPag = await pagamentoService.consultarPagamentos(record.cnpj, dataInicio, dataFim);
-              pagamentos = resPag.pagamentos || [];
+              const resPag = await pagamentoService.consultarPagamentos(record.cnpj, {
+                dataInicial: dataInicio,
+                dataFinal: dataFim,
+              });
+              pagamentos = Array.isArray(resPag) ? resPag : [];
             } catch {
               pagamentos = [];
             }
@@ -945,10 +1027,12 @@ export function createServer(options?: {
           }
 
           const codigosPgfn = [record.codigo_receita || "1734", "1734", "4270", "5029", "5035"];
-          const pagPgfn = pagamentos.find((p: any) =>
-            codigosPgfn.includes(String(p.receita)) ||
-            (p.valorTotal && Math.abs(p.valorTotal - (record.valor_parcela || 0)) < 1.0)
-          );
+          const pagPgfn = pagamentos.find((p: any) => {
+            const recCode = String(p.receitaPrincipalCodigo || p.codigoReceita || p.receita || "");
+            const matchReceita = recCode ? codigosPgfn.some((c) => recCode.includes(c) || c.includes(recCode)) : false;
+            const matchValor = p.valorTotal && Math.abs(Number(p.valorTotal) - Number(record.valor_parcela || 0)) < 1.0;
+            return matchReceita || matchValor;
+          });
 
           if (pagPgfn) {
             achouPagamento = true;
@@ -962,11 +1046,31 @@ export function createServer(options?: {
 
             if (!useMock && sitfisService) {
               try {
-                const resSit = await sitfisService.solicitarRelatorioSitFis(record.cnpj);
-                if (resSit.situacao === "IRREGULAR" || resSit.situacao === "COM_PENDENCIAS") {
+                let sitCache = storage.getSitfisResult(record.cnpj);
+                let situacao = sitCache?.situacao;
+
+                if (!situacao || situacao === "PROCESSANDO") {
+                  const resSit = await sitfisService.solicitarProtocolo(record.cnpj);
+                  if (resSit.protocoloRelatorio) {
+                    const waitTime = Math.min(Math.max((resSit.tempoEspera || 2) * 1000, 1000), 5000);
+                    await new Promise((r) => setTimeout(r, waitTime));
+                    const rel = await sitfisService.obterRelatorio(record.cnpj, resSit.protocoloRelatorio);
+                    situacao = rel.situacaoGeral || (rel.status === 200 ? "REGULAR" : "PROCESSANDO");
+                    storage.saveSitfisResult(record.cnpj, {
+                      protocolo: resSit.protocoloRelatorio,
+                      situacao,
+                      pdfBase64: rel.pdfBase64,
+                      mensagens: rel.mensagens,
+                    });
+                  }
+                }
+
+                if (situacao === "PENDENTE" || situacao === "COM_PENDENCIAS") {
                   temPendenciaPgfn = true;
                 }
-              } catch {}
+              } catch (e) {
+                console.error(`Erro ao consultar situação fiscal PGFN para ${record.cnpj}:`, e);
+              }
             } else {
               if (record.cnpj.slice(-1).match(/[08]/)) {
                 temPendenciaPgfn = true;
@@ -1084,6 +1188,12 @@ export function createServer(options?: {
       // --- Worker Noturno / Varredura Automática ---
       if (url.pathname === "/api/worker/run" && method === "POST") {
         try {
+          if (nightlyWorker.getStatus().isRunning) {
+            return Response.json(
+              { error: "Uma varredura em segundo plano já está em execução." },
+              { status: 409 },
+            );
+          }
           const body = (await req.json().catch(() => ({}))) as { limit?: number };
           const limit = typeof body.limit === "number" ? body.limit : undefined;
 
@@ -1127,12 +1237,14 @@ export function createServer(options?: {
           const cnpj = String(body.cnpj || "").replace(/\D/g, "");
           if (!cnpj) return Response.json({ error: "CNPJ obrigatório" }, { status: 400 });
 
-          let pdfBase64 = MINIMAL_MOCK_PDF_BASE64;
           if (!useMock && meiService) {
             const res = await meiService.emitirCCMEI(cnpj);
-            if (res.pdfBase64) pdfBase64 = res.pdfBase64;
+            if (!res.pdfBase64) {
+              return Response.json({ error: "CCMEI não localizado ou empresa não ativa como MEI" }, { status: 404 });
+            }
+            return Response.json({ cnpj, pdfBase64: res.pdfBase64 });
           }
-          return Response.json({ cnpj, pdfBase64 });
+          return Response.json({ cnpj, pdfBase64: MINIMAL_MOCK_PDF_BASE64 });
         } catch (err: unknown) {
           return Response.json({ error: String(err) }, { status: 500 });
         }
@@ -1189,9 +1301,13 @@ export function createServer(options?: {
           const body = (await req.json()) as {
             cnpj?: string;
             codigoReceita?: string | number;
+            codigoReceitaExtensao?: string | number;
+            uf?: string;
+            municipio?: string | number;
             dataPA?: string;
             valorImposto?: number | string;
             vencimento?: string;
+            dataConsolidacao?: string;
             cota?: string | number;
             observacao?: string;
           };
@@ -1204,10 +1320,14 @@ export function createServer(options?: {
           let res: any;
           if (!useMock && sicalcService) {
             res = await sicalcService.consolidarGerarDarf(cnpj, {
+              uf: body.uf || "SP",
+              municipio: body.municipio || "7107",
               codigoReceita: body.codigoReceita,
+              codigoReceitaExtensao: body.codigoReceitaExtensao || "01",
               dataPA: body.dataPA,
               valorImposto: Number(body.valorImposto),
               vencimento: body.vencimento,
+              dataConsolidacao: body.dataConsolidacao,
               cota: body.cota,
               observacao: body.observacao,
             });
@@ -1267,7 +1387,23 @@ export function createServer(options?: {
           const emp = companies.find((c) => c.cnpj.replace(/\D/g, "") === cnpj);
           const cleanPA = competencia.replace("-", "");
 
-          const kit = {
+          const kit: {
+            cnpj: string;
+            razaoSocial: string;
+            competencia: string;
+            guias: Array<{
+              tipo: string;
+              sigla: string;
+              descricao: string;
+              gerarUrl: string;
+              payload: Record<string, any>;
+            }>;
+            situacaoGeral: {
+              procuracao: string;
+              sitfis: string;
+              novasMensagens: boolean;
+            };
+          } = {
             cnpj,
             razaoSocial: emp?.razaoSocial || `Empresa ${cnpj}`,
             competencia,
@@ -1276,7 +1412,7 @@ export function createServer(options?: {
                 tipo: "DARF Previdenciário (DCTFWeb)",
                 sigla: "DARF",
                 descricao: `Guia Unificada DCTFWeb competência ${competencia}`,
-                gerarUrl: `/api/dctfweb/gerar-guia`,
+                gerarUrl: `/api/guias/darf-dctfweb`,
                 payload: { cnpj, competencia, codiEmp: emp?.codiEmp || "1" },
               },
               {
@@ -1330,26 +1466,49 @@ export function createServer(options?: {
         }
       }
 
-      if (url.pathname === "/api/export/latest") {
-        if (!latestSummary) {
+      if (url.pathname === "/api/export/latest" || url.pathname === "/api/export") {
+        const comp = url.searchParams.get("competencia") || Array.from(summariesByComp.keys())[0] || "2026-08";
+        let targetSummary = summariesByComp.get(comp);
+
+        if (!targetSummary) {
+          const persisted = storage.getPersistedResultsByCompetencia(comp);
+          if (persisted.length > 0) {
+            targetSummary = {
+              competencia: comp,
+              totalEmpresas: persisted.length,
+              conformes: persisted.filter((r) => r.status === "CONFORME").length,
+              divergentes: persisted.filter((r) => r.status === "DIVERGENTE").length,
+              pendentes: persisted.filter((r) => r.status === "PENDENTE").length,
+              semDctfweb: persisted.filter((r) => r.status === "SEM_DCTFWEB").length,
+              erros: persisted.filter((r) => r.status === "ERRO").length,
+              tempoExecucaoMs: 0,
+              chamadasSerproEstimadas: persisted.length,
+              chamadasSerproRealizadas: persisted.length,
+              resultados: persisted,
+            };
+          }
+        }
+
+        if (!targetSummary) {
           return new Response("Nenhum lote recente disponível para exportação.", { status: 404 });
         }
         try {
-          const excelBuffer = await exporter.generateReport(latestSummary);
-          return new Response(excelBuffer, {
+          const excelBuffer = await exporter.generateReport(targetSummary);
+          return new Response(new Uint8Array(excelBuffer), {
             headers: {
               "Content-Type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-              "Content-Disposition": `attachment; filename="conferencia_${latestSummary.competencia.replace("-", "_")}.xlsx"`,
+              "Content-Disposition": `attachment; filename="conferencia_${targetSummary.competencia.replace("-", "_")}.xlsx"`,
             },
           });
         } catch (err: unknown) {
-          return Response.json(`Erro ao gerar Excel: ${String(err)}`, { status: 500 });
+          console.error("[ExportExcel] Erro ao gerar planilha:", err);
+          return Response.json({ error: "Erro ao gerar arquivo Excel." }, { status: 500 });
         }
       }
 
-      // Favicon
+      // Favicon vetorial oficial sem emojis
       if (url.pathname === "/favicon.ico") {
-        const svgIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">📊</text></svg>`;
+        const svgIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="20" fill="#2563EB"/><path d="M25 70 L45 42 L62 58 L78 28" fill="none" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="78" cy="28" r="5" fill="#38BDF8"/></svg>`;
         return new Response(svgIcon, {
           headers: { "Content-Type": "image/svg+xml; charset=utf-8" },
         });

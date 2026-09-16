@@ -33,6 +33,13 @@ export class SitfisService {
       dados: "",
     });
 
+    if (resp.status === 304) {
+      return {
+        protocoloRelatorio: "",
+        tempoEspera: 3000,
+      };
+    }
+
     if (!resp.dadosParsed || !resp.dadosParsed.protocoloRelatorio) {
       throw new Error(
         `Falha ao obter protocolo da Situação Fiscal: ${resp.mensagens?.map((m) => m.texto).join(" | ") || "Resposta vazia do SERPRO"}`,
@@ -58,7 +65,7 @@ export class SitfisService {
     let situacaoGeral: RelatorioSitfisResult["situacaoGeral"] = "PROCESSANDO";
     if (resp.status === 200 && resp.dadosParsed?.pdf) {
       situacaoGeral = "REGULAR";
-    } else if (resp.status === 202) {
+    } else if (resp.status === 202 || resp.status === 304) {
       situacaoGeral = "PROCESSANDO";
     } else if (resp.status >= 400) {
       situacaoGeral = "ERRO";

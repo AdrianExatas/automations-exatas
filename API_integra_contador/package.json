@@ -21,5 +21,9 @@
   },
   "trustedDependencies": [
     "odbc"
-  ]
+  ],
+  "devDependencies": {
+    "@types/bun": "^1.4.2",
+    "@types/node": "^22.20.3"
+  }
 }

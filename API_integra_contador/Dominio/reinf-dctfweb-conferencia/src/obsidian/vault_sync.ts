@@ -19,7 +19,7 @@ export interface DossieFiscalData {
   };
   sitfis?: {
     situacao?: string;
-    protocolo?: string;
+    protocolo?: string | null;
     dataConsulta?: string;
   };
   caixaPostal?: {
