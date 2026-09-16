@@ -14,6 +14,10 @@ export interface AppConfig {
   dominioPassword: string;
   sqliteDbPath: string;
   port: number;
+  authEnabled: boolean;
+  authUser: string;
+  authPassword: string;
+  authSecret: string;
 }
 
 export function loadConfig(): AppConfig {
@@ -29,6 +33,10 @@ export function loadConfig(): AppConfig {
     dominioPassword: process.env.DOMINIO_PASSWORD || "",
     sqliteDbPath: process.env.SQLITE_DB_PATH || resolve(rootDir, "conferencia_historico.db"),
     port: parseInt(process.env.PORT || "3000", 10),
+    authEnabled: process.env.AUTH_ENABLED === "true",
+    authUser: process.env.AUTH_USER || "administrator",
+    authPassword: process.env.AUTH_PASSWORD || process.env.SERVER_PASSWORD || "amz@exatas1010",
+    authSecret: process.env.AUTH_SECRET || "exatas-integra-contador-auth-secret-2026",
   };
 }
 
@@ -54,5 +62,7 @@ export function sanitizeConfig(config: AppConfig): Record<string, string | numbe
     dominioPassword: config.dominioPassword ? "****" : "(não configurado)",
     sqliteDbPath: config.sqliteDbPath,
     port: config.port,
+    authEnabled: config.authEnabled ? "ativo" : "desativado",
+    authUser: config.authUser,
   };
 }

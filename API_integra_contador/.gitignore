@@ -9,3 +9,6 @@
 *.pdf
 output/
 *.db
+scratch/
+*.png
+node_modules/

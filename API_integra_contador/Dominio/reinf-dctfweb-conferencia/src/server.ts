@@ -5,6 +5,7 @@
 import { resolve, join } from "node:path";
 import { readFileSync, existsSync } from "node:fs";
 import { networkInterfaces } from "node:os";
+import { createHmac, timingSafeEqual } from "node:crypto";
 
 import { loadConfig, sanitizeConfig } from "./config.ts";
 import { DominioOdbcClient } from "./dominio/client.ts";
@@ -52,15 +53,54 @@ export function getLocalIpAddress(): string {
   return "127.0.0.1";
 }
 
+export function parseCookies(cookieHeader: string | null): Record<string, string> {
+  const list: Record<string, string> = {};
+  if (!cookieHeader) return list;
+  for (const cookie of cookieHeader.split(";")) {
+    const parts = cookie.split("=");
+    const key = parts.shift()?.trim();
+    if (key) {
+      list[key] = decodeURIComponent(parts.join("=").trim());
+    }
+  }
+  return list;
+}
+
+export function createAuthToken(user: string, secret: string, ttlSeconds = 7 * 24 * 3600): string {
+  const expiresAt = Date.now() + ttlSeconds * 1000;
+  const payload = Buffer.from(JSON.stringify({ user, exp: expiresAt })).toString("base64url");
+  const signature = createHmac("sha256", secret).update(payload).digest("base64url");
+  return `${payload}.${signature}`;
+}
+
+export function verifyAuthToken(token: string, secret: string): { user: string; exp: number } | null {
+  try {
+    const [payload, signature] = token.split(".");
+    if (!payload || !signature) return null;
+    const expected = createHmac("sha256", secret).update(payload).digest("base64url");
+    if (signature.length !== expected.length) return null;
+    if (!timingSafeEqual(Buffer.from(signature), Buffer.from(expected))) {
+      return null;
+    }
+    const data = JSON.parse(Buffer.from(payload, "base64url").toString("utf-8"));
+    if (data.exp && Date.now() > data.exp) return null;
+    return data;
+  } catch {
+    return null;
+  }
+}
+
 export function createServer(options?: {
   port?: number;
   useMock?: boolean;
   hostname?: string;
+  authEnabled?: boolean;
 }) {
   const config = loadConfig();
   const port = options?.port || config.port || 3000;
   const hostname = options?.hostname || "0.0.0.0";
   const useMock = options?.useMock ?? (!config.serproConsumerKey || !config.serproCertPfxPath);
+  const authEnabled = options?.authEnabled ?? (config.authEnabled || process.env.NODE_ENV === "production");
 
   const dominioClient = useMock
     ? new DominioMockAdapter()
@@ -135,6 +175,90 @@ export function createServer(options?: {
     async fetch(req) {
       const url = new URL(req.url);
       const method = req.method;
+
+      function getAuthenticatedUser(): string | null {
+        if (!authEnabled) return config.authUser || "administrator";
+        const authHeader = req.headers.get("authorization");
+        let token = "";
+        if (authHeader && authHeader.toLowerCase().startsWith("bearer ")) {
+          token = authHeader.slice(7).trim();
+        } else {
+          const cookies = parseCookies(req.headers.get("cookie"));
+          token = cookies.auth_token || "";
+        }
+        if (!token) return null;
+        const verified = verifyAuthToken(token, config.authSecret);
+        return verified ? verified.user : null;
+      }
+
+      // Endpoints de Autenticação
+      if (url.pathname === "/api/auth/me") {
+        const user = getAuthenticatedUser();
+        return Response.json({
+          authenticated: !!user,
+          user: user || null,
+          authEnabled,
+        });
+      }
+
+      if (url.pathname === "/api/auth/login" && method === "POST") {
+        try {
+          const body = (await req.json()) as { username?: string; password?: string };
+          const cleanUser = (body.username || "").trim().toLowerCase();
+          const expectedUser = (config.authUser || "administrator").trim().toLowerCase();
+          const cleanPass = body.password || "";
+          const expectedPass = config.authPassword || "amz@exatas1010";
+
+          if (cleanUser === expectedUser && cleanPass === expectedPass) {
+            const token = createAuthToken(cleanUser, config.authSecret);
+            const cookieVal = `auth_token=${token}; Path=/; HttpOnly; SameSite=Lax; Max-Age=${7 * 24 * 3600}`;
+            return new Response(
+              JSON.stringify({ ok: true, user: cleanUser }),
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                  "Set-Cookie": cookieVal,
+                },
+              },
+            );
+          } else {
+            return Response.json({ error: "Usuário ou senha incorretos." }, { status: 401 });
+          }
+        } catch (err: unknown) {
+          return Response.json({ error: "Erro ao processar login." }, { status: 400 });
+        }
+      }
+
+      if (url.pathname === "/api/auth/logout" && method === "POST") {
+        return new Response(
+          JSON.stringify({ ok: true }),
+          {
+            headers: {
+              "Content-Type": "application/json",
+              "Set-Cookie": `auth_token=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0`,
+            },
+          },
+        );
+      }
+
+      // Barreira de autenticação para rotas protegidas da API
+      if (authEnabled && url.pathname.startsWith("/api/")) {
+        const isPublic =
+          url.pathname === "/api/status" ||
+          url.pathname === "/api/auth/login" ||
+          url.pathname === "/api/auth/logout" ||
+          url.pathname === "/api/auth/me";
+
+        if (!isPublic) {
+          const currentUser = getAuthenticatedUser();
+          if (!currentUser) {
+            return Response.json(
+              { error: "Acesso não autorizado. Faça login para continuar." },
+              { status: 401 },
+            );
+          }
+        }
+      }
 
       // Rotas da API REST
       if (url.pathname === "/api/status") {

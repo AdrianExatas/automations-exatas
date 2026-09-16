@@ -152,6 +152,10 @@ describe("Auditoria de Segurança e Sigilo de Dados", () => {
       dominioPassword: "senha_banco_externo",
       sqliteDbPath: "test.db",
       port: 3000,
+      authEnabled: true,
+      authUser: "administrator",
+      authPassword: "senha_do_painel_123",
+      authSecret: "meu_segredo_hmac_123",
     };
 
     const sanitized = sanitizeConfig(config);
@@ -159,6 +163,9 @@ describe("Auditoria de Segurança e Sigilo de Dados", () => {
     expect(sanitized.serproCertPassword).toBe("****");
     expect(sanitized.dominioPassword).toBe("****");
     expect(sanitized.serproContratanteCnpj).toBe("11.222.333/0001-44");
+    expect(sanitized.authEnabled).toBe("ativo");
+    expect(sanitized.authUser).toBe("administrator");
+    expect((sanitized as any).authPassword).toBeUndefined();
     expect(maskCnpj("11222333000144")).toBe("11.222.333/0001-44");
   });
 });

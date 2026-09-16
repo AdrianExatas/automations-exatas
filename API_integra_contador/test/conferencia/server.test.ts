@@ -549,4 +549,79 @@ describe("Servidor Web e API REST", () => {
     });
     expect(delRes.status).toBe(200);
   });
+
+  test("Controle de Acesso e Autenticação (Login, Logout e Proteção de Rotas)", async () => {
+    // Cria instância com authEnabled forçado
+    const authApp = createServer({ port: 3098, useMock: true, authEnabled: true });
+    try {
+      // 1. Tentar acessar rota protegida sem credencial -> 401
+      const unauthRes = await fetch("http://localhost:3098/api/companies");
+      expect(unauthRes.status).toBe(401);
+      const unauthJson = (await unauthRes.json()) as any;
+      expect(unauthJson.error).toContain("não autorizado");
+
+      // 2. GET /api/auth/me informa não autenticado
+      const meUnauth = await fetch("http://localhost:3098/api/auth/me");
+      expect(meUnauth.status).toBe(200);
+      const meUnauthJson = (await meUnauth.json()) as any;
+      expect(meUnauthJson.authenticated).toBe(false);
+      expect(meUnauthJson.authEnabled).toBe(true);
+
+      // 3. Login com senha errada -> 401
+      const failLogin = await fetch("http://localhost:3098/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username: "administrator", password: "senha_errada_123" }),
+      });
+      expect(failLogin.status).toBe(401);
+
+      // 4. Login com credenciais corretas -> 200 e Cookie
+      const successLogin = await fetch("http://localhost:3098/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username: "administrator", password: "amz@exatas1010" }),
+      });
+      expect(successLogin.status).toBe(200);
+      const cookieHeader = successLogin.headers.get("set-cookie") || "";
+      expect(cookieHeader).toContain("auth_token=");
+
+      // Extrair token do cookie
+      const cookieToken = cookieHeader.split(";")[0];
+
+      // 5. GET /api/auth/me autenticado
+      const meAuth = await fetch("http://localhost:3098/api/auth/me", {
+        headers: { Cookie: cookieToken },
+      });
+      expect(meAuth.status).toBe(200);
+      const meAuthJson = (await meAuth.json()) as any;
+      expect(meAuthJson.authenticated).toBe(true);
+      expect(meAuthJson.user).toBe("administrator");
+
+      // 6. Rota protegida liberada com o cookie
+      const authRes = await fetch("http://localhost:3098/api/companies", {
+        headers: { Cookie: cookieToken },
+      });
+      expect(authRes.status).toBe(200);
+      const companies = (await authRes.json()) as any[];
+      expect(Array.isArray(companies)).toBe(true);
+      expect(companies.length).toBeGreaterThan(0);
+
+      // 7. Logout revoga a sessão
+      const logoutRes = await fetch("http://localhost:3098/api/auth/logout", {
+        method: "POST",
+        headers: { Cookie: cookieToken },
+      });
+      expect(logoutRes.status).toBe(200);
+      const logoutCookie = logoutRes.headers.get("set-cookie") || "";
+      expect(logoutCookie).toContain("Max-Age=0");
+
+      // 8. Rota pública /api/status sempre acessível sem auth
+      const statRes = await fetch("http://localhost:3098/api/status");
+      expect(statRes.status).toBe(200);
+      const statJson = (await statRes.json()) as any;
+      expect(statJson.status).toBe("ONLINE");
+    } finally {
+      authApp.server.stop();
+    }
+  });
 });

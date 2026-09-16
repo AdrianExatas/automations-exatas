@@ -9,6 +9,21 @@
  * 6. Gestor de Parcelamentos Fiscais (PARCSN / PARCMEI)
  */
 
+// Interceptor global para capturar 401 e exibir modal de login
+const originalFetch = window.fetch;
+window.fetch = async function (...args) {
+  const response = await originalFetch.apply(this, args);
+  if (response.status === 401) {
+    const url = typeof args[0] === "string" ? args[0] : (args[0]?.url || "");
+    if (!url.includes("/api/auth/login") && !url.includes("/api/auth/me")) {
+      if (typeof showLoginOverlay === "function") {
+        showLoginOverlay("Sua sessão expirou. Faça login novamente.");
+      }
+    }
+  }
+  return response;
+};
+
 // Estado global da aplicação
 const state = {
   activeTab: "dctfweb",
@@ -284,6 +299,18 @@ const dom = {
   btnCloseKitModal: document.getElementById("btnCloseKitModal"),
   btnCloseKitBtn: document.getElementById("btnCloseKitBtn"),
   kitModalBody: document.getElementById("kitModalBody"),
+
+  // Autenticação e Controle de Acesso
+  loginOverlay: document.getElementById("loginOverlay"),
+  loginAlert: document.getElementById("loginAlert"),
+  loginAlertMsg: document.getElementById("loginAlertMsg"),
+  loginForm: document.getElementById("loginForm"),
+  loginUsername: document.getElementById("loginUsername"),
+  loginPassword: document.getElementById("loginPassword"),
+  btnLoginSubmit: document.getElementById("btnLoginSubmit"),
+  userSessionBadge: document.getElementById("userSessionBadge"),
+  sessionUserText: document.getElementById("sessionUserText"),
+  btnLogout: document.getElementById("btnLogout"),
 };
 
 // Formatação monetária e de documentos
@@ -413,9 +440,113 @@ function selectHub(hubId) {
 }
 window.selectHub = selectHub;
 
-// Inicialização
-window.addEventListener("DOMContentLoaded", async () => {
-  setupEventListeners();
+let isAppInitialized = false;
+
+async function checkAuthentication() {
+  try {
+    const res = await fetch("/api/auth/me");
+    if (!res.ok) {
+      showLoginOverlay();
+      return false;
+    }
+    const data = await res.json();
+    if (data.authEnabled === false || data.authenticated) {
+      hideLoginOverlay();
+      if (dom.userSessionBadge) dom.userSessionBadge.style.display = "inline-flex";
+      if (dom.sessionUserText) dom.sessionUserText.textContent = data.user || "administrator";
+      return true;
+    } else {
+      showLoginOverlay();
+      return false;
+    }
+  } catch (err) {
+    console.error("[Auth] Erro ao verificar sessão:", err);
+    return false;
+  }
+}
+
+function showLoginOverlay(msg) {
+  if (dom.loginAlert && msg) {
+    if (dom.loginAlertMsg) dom.loginAlertMsg.textContent = msg;
+    dom.loginAlert.style.display = "flex";
+  } else if (dom.loginAlert) {
+    dom.loginAlert.style.display = "none";
+  }
+  if (dom.userSessionBadge) dom.userSessionBadge.style.display = "none";
+  if (dom.loginOverlay) dom.loginOverlay.classList.add("active");
+  if (dom.loginPassword) {
+    dom.loginPassword.value = "";
+    setTimeout(() => dom.loginPassword.focus(), 150);
+  }
+}
+
+function hideLoginOverlay() {
+  if (dom.loginOverlay) dom.loginOverlay.classList.remove("active");
+}
+
+async function handleLogin() {
+  const username = (dom.loginUsername ? dom.loginUsername.value : "").trim();
+  const password = dom.loginPassword ? dom.loginPassword.value : "";
+
+  if (!username || !password) {
+    if (dom.loginAlert) {
+      if (dom.loginAlertMsg) dom.loginAlertMsg.textContent = "Preencha o usuário e a senha.";
+      dom.loginAlert.style.display = "flex";
+    }
+    return;
+  }
+
+  if (dom.btnLoginSubmit) {
+    dom.btnLoginSubmit.disabled = true;
+    dom.btnLoginSubmit.textContent = "Autenticando...";
+  }
+
+  try {
+    const res = await fetch("/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password }),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok || !data.ok) {
+      if (dom.loginAlert) {
+        if (dom.loginAlertMsg) dom.loginAlertMsg.textContent = data.error || "Usuário ou senha incorretos.";
+        dom.loginAlert.style.display = "flex";
+      }
+      return;
+    }
+
+    hideLoginOverlay();
+    if (dom.userSessionBadge) dom.userSessionBadge.style.display = "inline-flex";
+    if (dom.sessionUserText) dom.sessionUserText.textContent = data.user || username;
+
+    if (!isAppInitialized) {
+      await bootApp();
+    }
+  } catch (err) {
+    if (dom.loginAlert) {
+      if (dom.loginAlertMsg) dom.loginAlertMsg.textContent = "Erro de conexão ao autenticar.";
+      dom.loginAlert.style.display = "flex";
+    }
+  } finally {
+    if (dom.btnLoginSubmit) {
+      dom.btnLoginSubmit.disabled = false;
+      dom.btnLoginSubmit.textContent = "Entrar no Painel";
+    }
+  }
+}
+
+async function handleLogout() {
+  try {
+    await fetch("/api/auth/logout", { method: "POST" });
+  } catch {}
+  showLoginOverlay();
+}
+
+async function bootApp() {
+  isAppInitialized = true;
   selectHub("apuracoes");
   await loadStatus();
   await loadCompetencias();
@@ -428,10 +559,38 @@ window.addEventListener("DOMContentLoaded", async () => {
   await loadParcelamentosPgfn();
   await loadProcuracoesData();
   await checkWorkerStatus();
+}
+
+// Inicialização
+window.addEventListener("DOMContentLoaded", async () => {
+  setupEventListeners();
+  const ok = await checkAuthentication();
+  if (ok) {
+    await bootApp();
+  }
 });
 
 // Configuração de Event Listeners
 function setupEventListeners() {
+  // Auth Listeners
+  if (dom.loginForm) {
+    dom.loginForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      await handleLogin();
+    });
+  }
+  if (dom.btnLoginSubmit) {
+    dom.btnLoginSubmit.addEventListener("click", async (e) => {
+      e.preventDefault();
+      await handleLogin();
+    });
+  }
+  if (dom.btnLogout) {
+    dom.btnLogout.addEventListener("click", async () => {
+      await handleLogout();
+    });
+  }
+
   // Hubs Pill Listeners
   document.querySelectorAll(".hub-pill").forEach((pill) => {
     pill.addEventListener("click", () => {
